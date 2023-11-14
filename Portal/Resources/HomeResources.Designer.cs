@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Web.Resources {
+namespace Portal.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Web.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Web.Resources.HomeResources", typeof(HomeResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.HomeResources", typeof(HomeResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
