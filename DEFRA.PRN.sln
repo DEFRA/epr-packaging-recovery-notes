@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waste.API", "Waste.API\Waste.API.csproj", "{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN.Web", "PRN.Web\PRN.Web.csproj", "{6436FEB4-4A10-4562-889E-D61A29E1C735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web", "PRN.Web\Web.csproj", "{6436FEB4-4A10-4562-889E-D61A29E1C735}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
