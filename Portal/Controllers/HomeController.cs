@@ -15,6 +15,7 @@ namespace PRN.Web.Controllers
 
         public IActionResult Index()
         {
+            // return view
             return View();
         }
 
