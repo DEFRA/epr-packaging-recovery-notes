@@ -1,6 +1,43 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-sfdasga
+﻿@* @using Portal.Models;
+@model DuringWhichMonth *@
+
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <h1 class="govuk-fieldset__heading">
+                During which month was the waste recieved on?
+            </h1>
+        </legend>
+        <div id="signIn-hint" class="govuk-hint">
+            Hint text
+        </div>
+        <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="october" name="october" type="radio" value="october" aria-describedby="october">
+                <label class="govuk-label govuk-radios__label" for="october">
+                    October
+                </label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="november" name="november" type="radio" value="november" aria-describedby="november">
+                <label class="govuk-label govuk-radios__label" for="november">
+                    November
+                </label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="december" name="december" type="radio" value="december" aria-describedby="december">
+                <label class="govuk-label govuk-radios__label" for="december">
+                    December
+                </label>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+<button class="govuk-button" data-module="govuk-button">
+    Continue
+</button>
+
+@* <heading asp-for="answer" asp-title="During which month was the waste received?"></heading>
+
+<radios asp-for="answer" asp-title="During which month was the waste received?"></radios> *@
