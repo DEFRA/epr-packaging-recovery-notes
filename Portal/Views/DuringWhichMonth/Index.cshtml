@@ -1,15 +1,29 @@
 ﻿@* @using Portal.Models;
 @model DuringWhichMonth *@
 
+<div class="govuk-phase-banner">
+    <p class="govuk-phase-banner__content">
+        <strong class="govuk-tag govuk-phase-banner__content__tag">
+            Private Beta
+        </strong>
+        <span class="govuk-phase-banner__text">
+            This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+        </span>
+    </p>
+</div>
 <div class="govuk-form-group">
+    <a href="#" class="govuk-back-link">Back</a>
     <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            <span class="govuk-caption-l">
+                Green LTD - 23 Ruby St, London SE15 1LR
+            </span>
             <h1 class="govuk-fieldset__heading">
                 During which month was the waste recieved on?
             </h1>
         </legend>
         <div id="signIn-hint" class="govuk-hint">
-            Hint text
+            Select the month that the waste was received on
         </div>
         <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
@@ -38,6 +52,6 @@
     Continue
 </button>
 
-@* <heading asp-for="answer" asp-title="During which month was the waste received?"></heading>
+@* <heading asp-for="Answer" asp-title="During which month was the waste received?"></heading>
 
 <radios asp-for="answer" asp-title="During which month was the waste received?"></radios> *@

@@ -9,6 +9,6 @@
     }
     public class DuringWhichMonth
     {
-        public WhichMonth answer { get; set; }
+        public WhichMonth Answer { get; set; }
     }
 }
