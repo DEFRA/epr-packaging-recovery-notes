@@ -1,14 +1,7 @@
 ﻿namespace Portal.Models
 {
-    
-    public enum WhichMonth
+    public class DuringWhichMonthRequestViewModel
     {
-        October,
-        November,
-        December
-    }
-    public class DuringWhichMonth
-    {
-        public WhichMonth Answer { get; set; }
+        public Dictionary<string, string> Months { get; set; } = new Dictionary<string, string>();
     }
 }

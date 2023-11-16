@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Portal.Services.Implementations;
 
 namespace Portal.Controllers
 {
@@ -6,7 +7,15 @@ namespace Portal.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var model = new MonthsAvailableService().GetCurrentQuarter();
+
+            return View(model);
         }
+
+        //[HttpPost]
+        //public IActionResult Submit()
+        //{
+            
+        //}
     }
 }

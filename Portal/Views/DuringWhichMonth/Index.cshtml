@@ -1,5 +1,6 @@
-﻿@* @using Portal.Models;
-@model DuringWhichMonth *@
+﻿@using Portal.Models;
+@using Portal.Resources;
+@model Portal.Models.DuringWhichMonthRequestViewModel
 
 <div class="govuk-phase-banner">
     <p class="govuk-phase-banner__content">
@@ -16,40 +17,32 @@
     <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <span class="govuk-caption-l">
-                Green LTD - 23 Ruby St, London SE15 1LR
+                @HomeResources.DuringWhichMonth_Label_Paper
             </span>
             <h1 class="govuk-fieldset__heading">
-                When did you receive the waste?
+                @HomeResources.DuringWhichMonth_Heading
             </h1>
         </legend>
         <div id="signIn-hint" class="govuk-hint">
-            You can only record waste for this month and the months within an open quarterly return period.
+            @HomeResources.DuringWhichMonth_HintText
         </div>
         <div class="govuk-radios" data-module="govuk-radios">
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="october" name="october" type="radio" value="october" aria-describedby="october">
-                <label class="govuk-label govuk-radios__label" for="october">
-                    October
-                </label>
-            </div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="november" name="november" type="radio" value="november" aria-describedby="november">
-                <label class="govuk-label govuk-radios__label" for="november">
-                    November
-                </label>
-            </div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="december" name="december" type="radio" value="december" aria-describedby="december">
-                <label class="govuk-label govuk-radios__label" for="december">
-                    December
-                </label>
-            </div>
+
+            @foreach (var element in Model.Months)
+            {
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="@element.Key" name="monthSelected" type="radio" value="@element.Key" aria-describedby="@element.Key">
+                    <label class="govuk-label govuk-radios__label" for="@element.Key">
+                        @element.Value
+                    </label>
+                </div>
+            }
         </div>
     </fieldset>
 </div>
 
 <button class="govuk-button" data-module="govuk-button">
-    Continue
+    @HomeResources.Site_Continue
 </button>
 
 @* <heading asp-for="Answer" asp-title="During which month was the waste received?"></heading>
