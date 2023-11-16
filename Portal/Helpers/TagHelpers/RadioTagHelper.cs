@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System.Collections;
 
 namespace PRN.Web.Helpers.TagHelpers
 {
@@ -36,7 +37,7 @@ namespace PRN.Web.Helpers.TagHelpers
                     type = underlyingType;
                 }
 
-                if (!type.IsEnum && type != typeof(bool))
+                if (!type.IsEnum && type != typeof(bool) && type.GetInterface(nameof(IEnumerable)) == null)
                 {
                     return;
                 }
@@ -58,13 +59,24 @@ namespace PRN.Web.Helpers.TagHelpers
                     radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, true, AspFor.Model));
                     radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, false, AspFor.Model));
                 }
-                else
+                else if (type.IsEnum)
                 {
                     foreach (var value in Enum.GetValues(type))
                     {
                         if (value.ToString().Equals("unknown", StringComparison.InvariantCultureIgnoreCase))
                             continue;
                         radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, value as Enum, AspFor.Model));
+                    }
+                }
+                else
+                {
+                    // no values in model, can't display any options
+                    if (AspFor.Model == null) 
+                        return;
+
+                    foreach (var value in AspFor.Model as IEnumerable)
+                    {
+                        radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, value, AspFor.Model));
                     }
                 }
 
