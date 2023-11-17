@@ -1,20 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Waste.API.Models;
 
 namespace WasteManagement.API.Models
 {
-    public class BaseEntity
+    public abstract class BaseEntity : IdBaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         public DateTime CreatedDate { get; set; }
 
         public string CreatedBy { get; set; } = string.Empty;
 
-        public DateTime LastModifiedDate { get; set; }
+        public DateTime? LastModifiedDate { get; set; }
 
-        public string LastModifiedBy { get; set; } = string.Empty;
+        public string? LastModifiedBy { get; set; } = null;
     }
 }

@@ -1,19 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WasteManagement.API.Models;
 
 namespace Waste.API.Models
 {
-    public class WasteSubType : BaseEntity
+    public class WasteSubType : IdBaseEntity
     {
         [Required]
         [MaxLength(50)]
-        public string Name { get; set; }
+        public string? Name { get; set; } = null;
 
-        [Required]
-        public decimal Adjustment { get; set; }
+        public double? Adjustment { get; set; } = null;
 
         public int WasteTypeId { get; set; }
 
-        public WasteType WasteType { get; set; }
+        public virtual WasteType WasteType { get; set; }
+
+        public virtual ICollection<WasteJourney> WasteJourneys { get; set; }
     }
 }
