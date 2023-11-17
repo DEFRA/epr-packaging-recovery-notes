@@ -12,38 +12,43 @@
         </span>
     </p>
 </div>
-<div class="govuk-form-group">
-    <a href="#" class="govuk-back-link">Back</a>
-    <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            <span class="govuk-caption-l">
-                @HomeResources.DuringWhichMonth_Label_Paper
-            </span>
-            <h1 class="govuk-fieldset__heading">
-                @HomeResources.DuringWhichMonth_Heading
-            </h1>
-        </legend>
-        <div id="signIn-hint" class="govuk-hint">
-            @HomeResources.DuringWhichMonth_HintText
-        </div>
-        <div class="govuk-radios" data-module="govuk-radios">
+<form method="post">
+    <div class="govuk-form-group">
+        <a href="/" class="govuk-back-link">Back</a>
+        <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <span class="govuk-caption-l">
+                    @HomeResources.DuringWhichMonth_Label_Paper
+                </span>
+                <h1 class="govuk-fieldset__heading">
+                    @HomeResources.DuringWhichMonth_Heading
+                </h1>
+            </legend>
+            <div id="signIn-hint" class="govuk-hint">
+                @HomeResources.DuringWhichMonth_HintText
+            </div>
+            <div class="govuk-radios" data-module="govuk-radios">
+                <p class="govuk-error-message">
+                    <span asp-validation-for="SelectedMonth"></span>
+                </p>
+                @foreach (var element in Model.Months)
+                {
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="@element.Key" name="SelectedMonth" type="radio" value="@element.Key" aria-describedby="@element.Key">
+                        <label class="govuk-label govuk-radios__label" for="@element.Key">
+                            @element.Value
+                        </label>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
 
-            @foreach (var element in Model.Months)
-            {
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="@element.Key" name="monthSelected" type="radio" value="@element.Key" aria-describedby="@element.Key">
-                    <label class="govuk-label govuk-radios__label" for="@element.Key">
-                        @element.Value
-                    </label>
-                </div>
-            }
-        </div>
-    </fieldset>
-</div>
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @HomeResources.Site_Continue
+    </button>
+</form>
 
-<button class="govuk-button" data-module="govuk-button">
-    @HomeResources.Site_Continue
-</button>
 
 @* <heading asp-for="Answer" asp-title="During which month was the waste received?"></heading>
 

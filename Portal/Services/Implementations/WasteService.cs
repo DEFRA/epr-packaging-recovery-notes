@@ -3,7 +3,7 @@ using Portal.Services.Interfaces;
 
 namespace Portal.Services.Implementations
 {
-    public class MonthsAvailableService : IMonthsAvailableService
+    public class WasteService : IWasteService
     {
         public DuringWhichMonthRequestViewModel GetCurrentQuarter()
         {

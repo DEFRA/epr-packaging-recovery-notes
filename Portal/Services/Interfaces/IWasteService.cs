@@ -2,7 +2,7 @@
 
 namespace Portal.Services.Interfaces
 {
-    public interface IMonthsAvailableService
+    public interface IWasteService
     {
         DuringWhichMonthRequestViewModel GetCurrentQuarter();
     }
