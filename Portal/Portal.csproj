@@ -21,4 +21,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Areas\Packaging\" />
+  </ItemGroup>
+
 </Project>
