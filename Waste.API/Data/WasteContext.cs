@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WasteManagement.API.Models;
+using Waste.API.Models;
 
 namespace WasteManagement.API.Data
 {
@@ -9,6 +9,10 @@ namespace WasteManagement.API.Data
         {
         }
 
-        public DbSet<DefaultTable> DefaultTable { get; set; }
+        public DbSet<WasteType> WasteType { get; set; }
+
+        public DbSet<WasteSubType> WasteSubType { get; set; }
+
+        public DbSet<WasteJourney> WasteJourney { get; set; }
     }
 }
