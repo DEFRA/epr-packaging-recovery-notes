@@ -1,11 +1,11 @@
-﻿using Waste.API.Models;
-
-namespace Waste.API.Dtos
+﻿namespace Waste.API.Dtos
 {
     public class WasteTypeDto
     {
+        public int Id { get; set; }
+
         public string Name { get; set; } = string.Empty;
 
-        public IEnumerable<WasteSubTypeDto> Subtypes { get; set; }
+        public IEnumerable<WasteSubTypeDto> SubTypes { get; set; }
     }
 }

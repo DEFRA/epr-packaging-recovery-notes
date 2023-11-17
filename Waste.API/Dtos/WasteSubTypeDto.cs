@@ -1,10 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Waste.API.Models;
-
-namespace Waste.API.Dtos
+﻿namespace Waste.API.Dtos
 {
     public class WasteSubTypeDto
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public decimal Adjustment { get; set; }

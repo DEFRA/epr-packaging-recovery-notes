@@ -9,5 +9,7 @@ namespace Waste.API.Models
         public string Name { get; set; } = string.Empty;
 
         public virtual ICollection<WasteSubType> SubTypes { get; set; }
+
+        public virtual ICollection<WasteJourney> Journeys { get; set; }
     }
 }
