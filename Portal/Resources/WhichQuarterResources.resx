@@ -117,10 +117,70 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HomePage" xml:space="preserve">
-    <value>Home page</value>
+  <data name="DuringWhichMonth_April" xml:space="preserve">
+    <value>April</value>
   </data>
-  <data name="WelcomeTitle" xml:space="preserve">
-    <value>Welcome</value>
+  <data name="DuringWhichMonth_August" xml:space="preserve">
+    <value>August</value>
+  </data>
+  <data name="DuringWhichMonth_December" xml:space="preserve">
+    <value>December</value>
+  </data>
+  <data name="DuringWhichMonth_February" xml:space="preserve">
+    <value>February</value>
+  </data>
+  <data name="DuringWhichMonth_Heading" xml:space="preserve">
+    <value>During which month was the waste received?</value>
+  </data>
+  <data name="DuringWhichMonth_HintText" xml:space="preserve">
+    <value>You can only record waste for this month and the months within an open quarterly return period.</value>
+  </data>
+  <data name="DuringWhichMonth_January" xml:space="preserve">
+    <value>January</value>
+  </data>
+  <data name="DuringWhichMonth_July" xml:space="preserve">
+    <value>July</value>
+  </data>
+  <data name="DuringWhichMonth_June" xml:space="preserve">
+    <value>June</value>
+  </data>
+  <data name="DuringWhichMonth_Label_Aluminium" xml:space="preserve">
+    <value>Aluminium</value>
+  </data>
+  <data name="DuringWhichMonth_Label_Glass" xml:space="preserve">
+    <value>Glass</value>
+  </data>
+  <data name="DuringWhichMonth_Label_Paper" xml:space="preserve">
+    <value>Paper/board</value>
+  </data>
+  <data name="DuringWhichMonth_Label_Plastic" xml:space="preserve">
+    <value>Plastic</value>
+  </data>
+  <data name="DuringWhichMonth_Label_Steel" xml:space="preserve">
+    <value>Steel</value>
+  </data>
+  <data name="DuringWhichMonth_Label_Wood" xml:space="preserve">
+    <value>Wood</value>
+  </data>
+  <data name="DuringWhichMonth_March" xml:space="preserve">
+    <value>March</value>
+  </data>
+  <data name="DuringWhichMonth_May" xml:space="preserve">
+    <value>May</value>
+  </data>
+  <data name="DuringWhichMonth_November" xml:space="preserve">
+    <value>November</value>
+  </data>
+  <data name="DuringWhichMonth_October" xml:space="preserve">
+    <value>October</value>
+  </data>
+  <data name="DuringWhichMonth_PageTitle" xml:space="preserve">
+    <value>During which month was the waste received?</value>
+  </data>
+  <data name="DuringWhichMonth_September" xml:space="preserve">
+    <value>September</value>
+  </data>
+  <data name="Site_Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
 </root>

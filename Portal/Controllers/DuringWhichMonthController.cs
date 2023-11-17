@@ -30,5 +30,3 @@ namespace Portal.Controllers
         }
     }
 }
-
-//ASP.NET Model binding and valdidation

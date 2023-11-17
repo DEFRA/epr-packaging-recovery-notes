@@ -12,20 +12,34 @@
         </span>
     </p>
 </div>
+<a href="/" class="govuk-back-link">Back</a>
 <form method="post">
-    <div class="govuk-form-group">
-        <a href="/" class="govuk-back-link">Back</a>
+    <div class="govuk-error-summary @(ViewContext.ViewData.ModelState.IsValid ? "govuk-visually-hidden" : string.Empty)" data-module="govuk-error-summary">
+        <div role="alert">
+            <h2 class="govuk-error-summary__title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    <li>
+                        <a href="#@Model.Months.First().Key">Select the month the waste was received</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-form-group @(!ViewContext.ViewData.ModelState.IsValid ? "govuk-form-group--error" : string.Empty)">
         <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <span class="govuk-caption-l">
-                    @HomeResources.DuringWhichMonth_Label_Paper
+                    @WhichQuarterResources.DuringWhichMonth_Label_Paper
                 </span>
                 <h1 class="govuk-fieldset__heading">
-                    @HomeResources.DuringWhichMonth_Heading
+                    @WhichQuarterResources.DuringWhichMonth_Heading
                 </h1>
             </legend>
             <div id="signIn-hint" class="govuk-hint">
-                @HomeResources.DuringWhichMonth_HintText
+                @WhichQuarterResources.DuringWhichMonth_HintText
             </div>
             <div class="govuk-radios" data-module="govuk-radios">
                 <p class="govuk-error-message">
@@ -45,7 +59,7 @@
     </div>
 
     <button class="govuk-button" data-module="govuk-button" type="submit">
-        @HomeResources.Site_Continue
+        @WhichQuarterResources.Site_Continue
     </button>
 </form>
 
