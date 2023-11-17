@@ -126,6 +126,9 @@
   <data name="DuringWhichMonth_December" xml:space="preserve">
     <value>December</value>
   </data>
+  <data name="DuringWhichMonth_ErrorMessage" xml:space="preserve">
+    <value>Select the month the waste was received</value>
+  </data>
   <data name="DuringWhichMonth_February" xml:space="preserve">
     <value>February</value>
   </data>

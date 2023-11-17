@@ -88,6 +88,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the month the waste was received.
+        /// </summary>
+        public static string DuringWhichMonth_ErrorMessage {
+            get {
+                return ResourceManager.GetString("DuringWhichMonth_ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to February.
         /// </summary>
         public static string DuringWhichMonth_February {
