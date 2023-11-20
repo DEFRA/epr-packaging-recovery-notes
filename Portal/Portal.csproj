@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\sass\common\" />
+    <Folder Include="Controllers\Areas\Packaging\" />
   </ItemGroup>
 
 </Project>
