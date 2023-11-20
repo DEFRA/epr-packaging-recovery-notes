@@ -14,6 +14,7 @@
 </div>
 <a href="/" class="govuk-back-link">Back</a>
 <form method="post">
+    <input type="hidden" asp-for="JourneyId" />
     <div class="govuk-error-summary @(ViewContext.ViewData.ModelState.IsValid ? "govuk-visually-hidden" : string.Empty)" data-module="govuk-error-summary">
         <div role="alert">
             <h2 class="govuk-error-summary__title">
@@ -22,7 +23,7 @@
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">
                     <li>
-                        <a href="#@Model.Months.First().Key">@WhichQuarterResources.DuringWhichMonth_ErrorMessage</a>
+                        <a href="#@Model.Quarter.First().Key">@WhichQuarterResources.ErrorMessage</a>
                     </li>
                 </ul>
             </div>
@@ -32,20 +33,20 @@
         <fieldset class="govuk-fieldset" aria-describedby="month-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <span class="govuk-caption-l">
-                    @WhichQuarterResources.DuringWhichMonth_Label_Paper
+                    @WhichQuarterResources.Paper
                 </span>
                 <h1 class="govuk-fieldset__heading">
-                    @WhichQuarterResources.DuringWhichMonth_Heading
+                    @WhichQuarterResources.Heading
                 </h1>
             </legend>
             <div id="month-hint" class="govuk-hint">
-                @WhichQuarterResources.DuringWhichMonth_HintText
+                @WhichQuarterResources.HintText
             </div>
             <div class="govuk-radios" data-module="govuk-radios">
                 <p class="govuk-error-message">
                     <span asp-validation-for="SelectedMonth"></span>
                 </p>
-                @foreach (var element in Model.Months)
+                @foreach (var element in Model.Quarter)
                 {
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="@element.Key" name="SelectedMonth" type="radio" value="@element.Key" aria-describedby="@element.Key">

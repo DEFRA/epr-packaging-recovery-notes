@@ -4,6 +4,6 @@ namespace Portal.Services.Interfaces
 {
     public interface IWasteService
     {
-        DuringWhichMonthRequestViewModel GetCurrentQuarter();
+        DuringWhichMonthRequestViewModel GetCurrentQuarter(int journeyId);
     }
 }

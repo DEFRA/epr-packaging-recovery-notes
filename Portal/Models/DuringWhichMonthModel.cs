@@ -1,13 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Portal.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace Portal.Models
 {
     public class DuringWhichMonthRequestViewModel
     {
+        public int JourneyId { get; set; }
 
-        public Dictionary<string, string> Months { get; set; } = new Dictionary<string, string>();
+        public Dictionary<int, string> Quarter { get; set; } = new Dictionary<int, string>();
 
-        [Required(ErrorMessage = "Select the month the waste was received")]
-        public string SelectedMonth { get; set; }
+        [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WhichQuarterResources))]
+        public int? SelectedMonth { get; set; }
     }
 }

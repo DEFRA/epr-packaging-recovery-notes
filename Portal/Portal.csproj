@@ -31,7 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Areas\Packaging\" />
+    <Folder Include="Views\DuringWhichMonth\" />
   </ItemGroup>
 
 </Project>

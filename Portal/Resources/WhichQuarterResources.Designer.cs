@@ -61,200 +61,182 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aluminium.
+        /// </summary>
+        public static string Aluminium {
+            get {
+                return ResourceManager.GetString("Aluminium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to April.
         /// </summary>
-        public static string DuringWhichMonth_April {
+        public static string April {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_April", resourceCulture);
+                return ResourceManager.GetString("April", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to August.
         /// </summary>
-        public static string DuringWhichMonth_August {
+        public static string August {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_August", resourceCulture);
+                return ResourceManager.GetString("August", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to December.
         /// </summary>
-        public static string DuringWhichMonth_December {
+        public static string December {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_December", resourceCulture);
+                return ResourceManager.GetString("December", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Select the month the waste was received.
         /// </summary>
-        public static string DuringWhichMonth_ErrorMessage {
+        public static string ErrorMessage {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_ErrorMessage", resourceCulture);
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to February.
         /// </summary>
-        public static string DuringWhichMonth_February {
+        public static string February {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_February", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to During which month was the waste received?.
-        /// </summary>
-        public static string DuringWhichMonth_Heading {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_Heading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can only record waste for this month and the months within an open quarterly return period..
-        /// </summary>
-        public static string DuringWhichMonth_HintText {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_HintText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to January.
-        /// </summary>
-        public static string DuringWhichMonth_January {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_January", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to July.
-        /// </summary>
-        public static string DuringWhichMonth_July {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_July", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to June.
-        /// </summary>
-        public static string DuringWhichMonth_June {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_June", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Aluminium.
-        /// </summary>
-        public static string DuringWhichMonth_Label_Aluminium {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_Label_Aluminium", resourceCulture);
+                return ResourceManager.GetString("February", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Glass.
         /// </summary>
-        public static string DuringWhichMonth_Label_Glass {
+        public static string Glass {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_Label_Glass", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Paper/board.
-        /// </summary>
-        public static string DuringWhichMonth_Label_Paper {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_Label_Paper", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plastic.
-        /// </summary>
-        public static string DuringWhichMonth_Label_Plastic {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_Label_Plastic", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Steel.
-        /// </summary>
-        public static string DuringWhichMonth_Label_Steel {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_Label_Steel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wood.
-        /// </summary>
-        public static string DuringWhichMonth_Label_Wood {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_Label_Wood", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to March.
-        /// </summary>
-        public static string DuringWhichMonth_March {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_March", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to May.
-        /// </summary>
-        public static string DuringWhichMonth_May {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_May", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to November.
-        /// </summary>
-        public static string DuringWhichMonth_November {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_November", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to October.
-        /// </summary>
-        public static string DuringWhichMonth_October {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth_October", resourceCulture);
+                return ResourceManager.GetString("Glass", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to During which month was the waste received?.
         /// </summary>
-        public static string DuringWhichMonth_PageTitle {
+        public static string Heading {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_PageTitle", resourceCulture);
+                return ResourceManager.GetString("Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only record waste for this month and the months within an open quarterly return period..
+        /// </summary>
+        public static string HintText {
+            get {
+                return ResourceManager.GetString("HintText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to January.
+        /// </summary>
+        public static string January {
+            get {
+                return ResourceManager.GetString("January", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to July.
+        /// </summary>
+        public static string July {
+            get {
+                return ResourceManager.GetString("July", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to June.
+        /// </summary>
+        public static string June {
+            get {
+                return ResourceManager.GetString("June", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to March.
+        /// </summary>
+        public static string March {
+            get {
+                return ResourceManager.GetString("March", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to May.
+        /// </summary>
+        public static string May {
+            get {
+                return ResourceManager.GetString("May", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to November.
+        /// </summary>
+        public static string November {
+            get {
+                return ResourceManager.GetString("November", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to October.
+        /// </summary>
+        public static string October {
+            get {
+                return ResourceManager.GetString("October", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to During which month was the waste received?.
+        /// </summary>
+        public static string PageTitle {
+            get {
+                return ResourceManager.GetString("PageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paper/board.
+        /// </summary>
+        public static string Paper {
+            get {
+                return ResourceManager.GetString("Paper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plastic.
+        /// </summary>
+        public static string Plastic {
+            get {
+                return ResourceManager.GetString("Plastic", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to September.
         /// </summary>
-        public static string DuringWhichMonth_September {
+        public static string September {
             get {
-                return ResourceManager.GetString("DuringWhichMonth_September", resourceCulture);
+                return ResourceManager.GetString("September", resourceCulture);
             }
         }
         
@@ -264,6 +246,24 @@ namespace Portal.Resources {
         public static string Site_Continue {
             get {
                 return ResourceManager.GetString("Site_Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steel.
+        /// </summary>
+        public static string Steel {
+            get {
+                return ResourceManager.GetString("Steel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wood.
+        /// </summary>
+        public static string Wood {
+            get {
+                return ResourceManager.GetString("Wood", resourceCulture);
             }
         }
     }
