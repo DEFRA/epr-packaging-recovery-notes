@@ -1,6 +1,6 @@
 ﻿@using Portal.Resources;
 @{
-    ViewData["Title"] = HomeResources.HomePage;
+    ViewData["Title"] = WasteResource.WastePage;
 }
 
 <div class="text-center">
@@ -11,33 +11,33 @@
     <fieldset class="govuk-fieldset" aria-describedby="waste-hint waste-error">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             <h1 class="govuk-fieldset__heading">
-                What have you done with the waste?
+                @WasteResource.WelcomeTitle
             </h1>
         </legend>
         <div id="waste-hint" class="govuk-hint">
             Hint text.
         </div>
         <p id="waste-error" class="govuk-error-message">
-            <span class="govuk-visually-hidden">Error:</span>Please select a radio button
+            <span class="govuk-visually-hidden">Error:</span>@WasteResource.ErrorMessage
         </p>
         <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste-0" name="whatHaveYouDoneWithWaste" type="radio" value="repoceesedIt">
                 <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
-                    Received it and reproceesed it
+                    @WasteResource.ReproceesedIt
                 </label>
             </div>
             <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste-1" name="whatHaveYouDoneWithWaste" type="radio" value="sentItOn">
                 <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
-                    Received it and sent it on
+                    @WasteResource.SentItOn
                 </label>
             </div>
         </div>
         <p></p>
         <div class="govuk-button-group">
             <button class="govuk-button" data-module="govuk-button">
-                Continue
+                @WasteResource.Continue
             </button>
         </div>
     </fieldset>
