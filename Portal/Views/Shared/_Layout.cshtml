@@ -1,8 +1,7 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
 
 @{
-    var httpContext = HttpContextAccessor?.HttpContext ?? new DefaultHttpContext();
-    var (oppositeCultureValue, oppositeCultureName) = CultureHelper.GetCultureInfo(httpContext);
+    var (oppositeCultureValue, oppositeCultureName) = CultureHelper.GetCultureInfo(httpContextAccessor);
 }
 
 <!DOCTYPE html>
