@@ -1,8 +1,8 @@
-﻿@{
-    var requestCultureInfo = Context.Features.Get<Microsoft.AspNetCore.Localization.IRequestCultureFeature>()?.RequestCulture.Culture;
-    var isEnglish = Constants.CultureConstants.English.Name == requestCultureInfo?.Name;
-    var oppositeCultureValue = isEnglish ? Constants.CultureConstants.Welsh.Name : Constants.CultureConstants.English.Name;
-    var oppositeCultureName = isEnglish ? "Welsh" : "English";
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    var httpContext = HttpContextAccessor?.HttpContext ?? new DefaultHttpContext();
+    var (oppositeCultureValue, oppositeCultureName) = CultureHelper.GetCultureInfo(httpContext);
 }
 
 <!DOCTYPE html>
@@ -54,7 +54,7 @@
                         </span>
                     </a>
                 </div>
-                <div>
+                <div class="govuk-header__navigation--end">
                     <a href="?culture=@oppositeCultureValue" class="govuk-header__language">@oppositeCultureName</a>
                 </div>
             </div>

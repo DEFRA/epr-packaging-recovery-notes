@@ -23,7 +23,7 @@ builder.Services
         opts.SupportedCultures = supportedCultures;
         opts.SupportedUICultures = supportedCultures;
     });
-
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
