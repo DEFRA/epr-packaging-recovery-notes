@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -31,6 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\sass\common\" />
+    <Folder Include="Controllers\Areas\Packaging\" />
     <Folder Include="Views\DuringWhichMonth\" />
   </ItemGroup>
 
