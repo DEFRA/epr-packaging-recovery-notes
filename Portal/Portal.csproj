@@ -21,4 +21,8 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\sass\common\" />
+  </ItemGroup>
+
 </Project>

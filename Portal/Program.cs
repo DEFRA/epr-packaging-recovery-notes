@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Localization;
+using Portal.Middleware;
 using PRN.Web.Constants;
 using PRN.Web.Helpers;
 
@@ -34,6 +35,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCultureMiddleware();
 app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
