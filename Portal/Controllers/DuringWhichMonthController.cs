@@ -17,14 +17,14 @@ namespace Portal.Controllers
         [HttpPost]
         public IActionResult Index(DuringWhichMonthRequestViewModel monthSelected)
         {
-            //Send monthSelected to API to record for journey
-
             if (!ModelState.IsValid)
             {
                 var model = new WasteService().GetCurrentQuarter();
 
                 return View(model);
             }
+
+            //Send monthSelected to API to record for journey
 
             return RedirectToAction("Index", "Home");
         }

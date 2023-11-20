@@ -22,14 +22,14 @@
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">
                     <li>
-                        <a href="#@Model.Months.First().Key">Select the month the waste was received</a>
+                        <a href="#@Model.Months.First().Key">@WhichQuarterResources.DuringWhichMonth_ErrorMessage</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="govuk-form-group @(!ViewContext.ViewData.ModelState.IsValid ? "govuk-form-group--error" : string.Empty)">
-        <fieldset class="govuk-fieldset" aria-describedby="signIn-hint">
+        <fieldset class="govuk-fieldset" aria-describedby="month-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <span class="govuk-caption-l">
                     @WhichQuarterResources.DuringWhichMonth_Label_Paper
@@ -38,7 +38,7 @@
                     @WhichQuarterResources.DuringWhichMonth_Heading
                 </h1>
             </legend>
-            <div id="signIn-hint" class="govuk-hint">
+            <div id="month-hint" class="govuk-hint">
                 @WhichQuarterResources.DuringWhichMonth_HintText
             </div>
             <div class="govuk-radios" data-module="govuk-radios">
@@ -62,8 +62,3 @@
         @WhichQuarterResources.Site_Continue
     </button>
 </form>
-
-
-@* <heading asp-for="Answer" asp-title="During which month was the waste received?"></heading>
-
-<radios asp-for="answer" asp-title="During which month was the waste received?"></radios> *@
