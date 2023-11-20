@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
+
+@{
+    var (oppositeCultureValue, oppositeCultureName) = CultureHelper.GetCultureInfo(httpContextAccessor);
+}
+
+<!DOCTYPE html>
 <html lang="en" class="govuk-template ">
 
     <head>
@@ -46,6 +52,9 @@
                             </span>
                         </span>
                     </a>
+                </div>
+                <div class="govuk-header__navigation--end">
+                    <a href="?culture=@oppositeCultureValue" class="govuk-header__language">@oppositeCultureName</a>
                 </div>
             </div>
         </header>
