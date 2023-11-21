@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\PhaseBannerResources.Designer.cs">
+      <DependentUpon>PhaseBannerResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\WhichQuarterResources.Designer.cs">
       <DependentUpon>WhichQuarterResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -20,6 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\PhaseBannerResources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\WhichQuarterResources.resx">
       <LastGenOutput>WhichQuarterResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
