@@ -1,18 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portal.Models;
-using Portal.Services.Implementations;
+using Portal.Services.Interfaces;
 
 namespace Portal.Controllers
 {
     public class WasteController : Controller
     {
+
+        private readonly IWasteService _wasteService;
+
+        public WasteController(IWasteService wasteService)
+        {
+            _wasteService = wasteService;
+        }
+
         [HttpGet]
         public IActionResult DuringWhichMonth(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            var model = new WasteService().GetCurrentQuarter(id.Value);
+            var model = _wasteService.GetCurrentQuarter(id.Value);
 
             return View(model);
         }
@@ -22,7 +30,7 @@ namespace Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = new WasteService().GetCurrentQuarter(monthSelected.JourneyId);
+                var model = _wasteService.GetCurrentQuarter(monthSelected.JourneyId);
 
                 return View(model);
             }

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Localization;
 using Portal.Middleware;
+using Portal.Services.Implementations;
+using Portal.Services.Interfaces;
 using PRN.Web.Constants;
 using PRN.Web.Helpers;
 
@@ -24,6 +26,8 @@ builder.Services
         opts.SupportedUICultures = supportedCultures;
     });
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddScoped<IWasteService, WasteService>();
 
 var app = builder.Build();
 
