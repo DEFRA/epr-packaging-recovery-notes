@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waste.API", "Waste.API\Wast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csproj", "{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PRN.Common", "PRN.Common\PRN.Common.csproj", "{72CCFC66-58E1-446F-B4FC-654690A95143}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unit-Tests", "Unit-Tests\Unit-Tests.csproj", "{A528ADA3-A726-45D5-8B7D-EBC0C47FD2B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72CCFC66-58E1-446F-B4FC-654690A95143}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72CCFC66-58E1-446F-B4FC-654690A95143}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72CCFC66-58E1-446F-B4FC-654690A95143}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72CCFC66-58E1-446F-B4FC-654690A95143}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A528ADA3-A726-45D5-8B7D-EBC0C47FD2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A528ADA3-A726-45D5-8B7D-EBC0C47FD2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A528ADA3-A726-45D5-8B7D-EBC0C47FD2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A528ADA3-A726-45D5-8B7D-EBC0C47FD2B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

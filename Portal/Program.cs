@@ -1,12 +1,24 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Localization;
+using Portal.Profiles;
 using PRN.Web.Constants;
 using PRN.Web.Helpers;
+using System.Security.Authentication;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDependencies();
+builder.Services.AddDependencies(builder.Configuration);
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new WasteProfiles());
+    mc.AllowNullCollections = true;
+});
+
+var mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var supportedCultures = new[]
 {
@@ -23,6 +35,15 @@ builder.Services
         opts.SupportedUICultures = supportedCultures;
     });
 
+builder.Services
+    .AddHttpClient("HttpClient")
+    .ConfigurePrimaryHttpMessageHandler(() =>
+    {
+        return new HttpClientHandler()
+        {
+            SslProtocols = SslProtocols.Tls12
+        };
+    });
 
 var app = builder.Build();
 
@@ -41,12 +62,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "waste",
-    pattern: "Waste/{action=Index}/{id}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "Waste",
+        pattern: "Waste/{action=Index}/{id}");
+    endpoints.MapDefaultControllerRoute();
+});
 
 app.Run();

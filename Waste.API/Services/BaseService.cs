@@ -1,6 +1,6 @@
 ﻿using WasteManagement.API.Services.Interfaces;
 
-namespace WasteManagement.API.Services.Implementations
+namespace Waste.API.Services
 {
     public class BaseService : IBaseService
     {
