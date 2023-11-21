@@ -28,40 +28,42 @@
 
     <div class="govuk-form-group @(!ViewContext.ViewData.ModelState.IsValid ? "govuk-form-group--error" : string.Empty)">
         <fieldset class="govuk-fieldset" aria-describedby="month-hint">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <span class="govuk-caption-l">
                     Green LTD - 23 Ruby St, London, SE15 1LR
                 </span>
-                <h1 class="govuk-fieldset__heading">
+            <h1 class="govuk-fieldset__heading">
                     @WasteResource.Heading
-                </h1>
-            </legend>
+            </h1>
+        </legend>
             <div id="month-hint" class="govuk-hint">
                 @WasteResource.HintText
-            </div>
+        </div>
             <div class="govuk-radios" data-module="govuk-radios">
                 <p class="govuk-error-message">
                     
-                </p>
-                <div class="govuk-radios__item">
+        </p>
+        <div class="govuk-radios" data-module="govuk-radios">
+            <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste" name="whatHaveYouDoneWithWaste" type="radio" value="repoceesedIt">
-                    <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
+                <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                         @WasteResource.ReproceesedIt
-                    </label>
-                </div>
-                <div class="govuk-radios__item">
+                </label>
+            </div>
+            <div class="govuk-radios__item">
                     <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste" name="whatHaveYouDoneWithWaste" type="radio" value="sentItOn">
-                    <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
+                <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                         @WasteResource.SentItOn
-                    </label>
-                </div>
+                </label>
+            </div>
                 <p></p>
             </div>
         </fieldset>
-    </div>
-    <div class="govuk-button-group">
+        </div>
+        <p></p>
+        <div class="govuk-button-group">
         <button class="govuk-button" data-module="govuk-button" type="submit">
             @WasteResource.Continue
-        </button>
-    </div>
+            </button>
+        </div>
 </form>
