@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using EPRN.Common.Models;
 using Portal.Services.Interfaces;
 using Portal.ViewModels.Waste;
-using PRN.Common.Models;
 
 namespace Portal.Services
 {
@@ -24,6 +24,11 @@ namespace Portal.Services
                 JourneyId = journeyId,
                 WasteTypes = await Get<List<WasteTypeDto>>("Waste/Types")!
             };
+        }
+
+        public Task SaveSelectedWasteType(WasteTypeViewModel wasteTypeViewModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }
