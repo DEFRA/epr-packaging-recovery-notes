@@ -123,16 +123,22 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>Please select a radio button</value>
   </data>
+  <data name="Heading" xml:space="preserve">
+    <value>What have you done with the Waste</value>
+  </data>
+  <data name="HintText" xml:space="preserve">
+    <value>Hint Text</value>
+  </data>
   <data name="ReproceesedIt" xml:space="preserve">
     <value>Received it and reproceesed it</value>
   </data>
   <data name="SentItOn" xml:space="preserve">
     <value>Received it and sent it on</value>
   </data>
-  <data name="WastePage" xml:space="preserve">
-    <value>What have you done with the Waste</value>
+  <data name="ThereIsAProblem" xml:space="preserve">
+    <value>There is a problem</value>
   </data>
-  <data name="WelcomeTitle" xml:space="preserve">
+  <data name="WastePage" xml:space="preserve">
     <value>What have you done with the Waste</value>
   </data>
 </root>

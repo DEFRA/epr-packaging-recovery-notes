@@ -123,16 +123,22 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>Dewiswch fotwm radio</value>
   </data>
+  <data name="Heading" xml:space="preserve">
+    <value>Croeso</value>
+  </data>
+  <data name="HintText" xml:space="preserve">
+    <value>awgrym</value>
+  </data>
   <data name="ReproceesedIt" xml:space="preserve">
     <value>Ei dderbyn a'i brosesu</value>
   </data>
   <data name="SentItOn" xml:space="preserve">
     <value>Ei dderbyn a'i anfon ymlaen</value>
   </data>
+  <data name="ThereIsAProblem" xml:space="preserve">
+    <value>Mae Problem</value>
+  </data>
   <data name="WastePage" xml:space="preserve">
     <value>Tudalen gartref</value>
-  </data>
-  <data name="WelcomeTitle" xml:space="preserve">
-    <value>Croeso</value>
   </data>
 </root>

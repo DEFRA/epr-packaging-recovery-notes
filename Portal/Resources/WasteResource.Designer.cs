@@ -79,6 +79,24 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to What have you done with the Waste.
+        /// </summary>
+        public static string Heading {
+            get {
+                return ResourceManager.GetString("Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hint Text.
+        /// </summary>
+        public static string HintText {
+            get {
+                return ResourceManager.GetString("HintText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Received it and reproceesed it.
         /// </summary>
         public static string ReproceesedIt {
@@ -97,20 +115,20 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What have you done with the Waste.
+        ///   Looks up a localized string similar to There is a problem.
         /// </summary>
-        public static string WastePage {
+        public static string ThereIsAProblem {
             get {
-                return ResourceManager.GetString("WastePage", resourceCulture);
+                return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to What have you done with the Waste.
         /// </summary>
-        public static string WelcomeTitle {
+        public static string WastePage {
             get {
-                return ResourceManager.GetString("WelcomeTitle", resourceCulture);
+                return ResourceManager.GetString("WastePage", resourceCulture);
             }
         }
     }

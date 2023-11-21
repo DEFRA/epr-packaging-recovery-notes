@@ -24,5 +24,17 @@ namespace PRN.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Index(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                //do whatever you want here
+            }
+
+            return View();
+        }
     }
 }
