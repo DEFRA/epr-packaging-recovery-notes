@@ -1,40 +1,58 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PRN.Web.Models;
-using System.Diagnostics;
+using Portal.Services.Interfaces;
+using Portal.ViewModels;
 
-namespace PRN.Web.Controllers
+namespace Portal.Controllers
 {
     public class WasteController : Controller
     {
-        private readonly ILogger<WasteController> _logger;
 
-        public WasteController(ILogger<WasteController> logger)
+        private readonly IWasteService _wasteService;
+
+        public WasteController(IWasteService wasteService)
         {
-            _logger = logger;
+            _wasteService = wasteService;
         }
 
+        [HttpGet]
+        public IActionResult DuringWhichMonth(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("id");
+
+            var model = _wasteService.GetCurrentQuarter(id.Value);
+
+            return View(model);
+        }
+
+        [HttpGet]
         public IActionResult Index()
         {
-            // return view 
             return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel)
+        public IActionResult Index(int id) 
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult DuringWhichMonth(DuringWhichMonthRequestViewModel monthSelected)
         {
             if (!ModelState.IsValid)
             {
-                //do whatever you want here
+                var model = _wasteService.GetCurrentQuarter(monthSelected.JourneyId);
+
+                return View(model);
             }
 
-            return View();
+            //Send monthSelected to API to record for journey
+            //Send the journey no to the API
+            //Send the month number
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
