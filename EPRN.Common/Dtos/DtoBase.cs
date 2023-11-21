@@ -1,4 +1,4 @@
-﻿namespace Waste.API.Dtos
+﻿namespace EPRN.Common.Dtos
 {
     public abstract class DtoBase
     {

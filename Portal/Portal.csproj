@@ -28,7 +28,10 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\sass\common\" />
-    <Folder Include="Controllers\Areas\Packaging\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EPRN.Common\EPRN.Common.csproj" />
   </ItemGroup>
 
 </Project>

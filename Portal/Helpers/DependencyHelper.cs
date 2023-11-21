@@ -1,4 +1,11 @@
-﻿using Portal.Models;
+﻿using AutoMapper;
+using Microsoft.Extensions.Options;
+using Portal.Models;
+using Portal.Profiles;
+using Portal.RESTServices;
+using Portal.RESTServices.Interfaces;
+using Portal.Services;
+using Portal.Services.Interfaces;
 
 namespace PRN.Web.Helpers
 {
@@ -10,7 +17,24 @@ namespace PRN.Web.Helpers
         public static IServiceCollection AddDependencies(this IServiceCollection services, ConfigurationManager configuration)
         {
             services.Configure<ServicesConfiguration>(configuration.GetSection("Services"));
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddHttpContextAccessor();
+            services.AddTransient<IWasteService, WasteService>();
+            services.AddTransient<IHttpWasteService>(s =>
+            {
+                return new HttpWasteService(
+                    s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
+                    s.GetRequiredService<IHttpClientFactory>());
+            });
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new WasteProfiles());
+                mc.AllowNullCollections = true;
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             return services;
         }
