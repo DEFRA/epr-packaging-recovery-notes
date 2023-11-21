@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Portal.Models;
 
 namespace PRN.Web.Helpers
 {
@@ -7,8 +7,9 @@ namespace PRN.Web.Helpers
         /// <summary>
         /// Extension method to add services for DI during startup
         /// </summary>
-        public static IServiceCollection AddDependencies(this IServiceCollection services)
+        public static IServiceCollection AddDependencies(this IServiceCollection services, ConfigurationManager configuration)
         {
+            services.Configure<ServicesConfiguration>(configuration.GetSection("Services"));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             return services;
