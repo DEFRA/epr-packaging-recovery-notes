@@ -1,6 +1,6 @@
-﻿using Portal.Models;
-using Portal.Resources;
+﻿using Portal.Resources;
 using Portal.Services.Interfaces;
+using Portal.ViewModels;
 
 namespace Portal.Services.Implementations
 {

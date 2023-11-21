@@ -1,7 +1,7 @@
 ﻿using Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace Portal.Models
+namespace Portal.ViewModels
 {
     public class DuringWhichMonthRequestViewModel
     {

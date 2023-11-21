@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Localization;
 using Portal.Middleware;
-using Portal.Services.Implementations;
-using Portal.Services.Interfaces;
 using PRN.Web.Constants;
 using PRN.Web.Helpers;
 
@@ -9,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 builder.Services.AddDependencies(builder.Configuration);
 
 var supportedCultures = new[]
@@ -26,8 +25,6 @@ builder.Services
         opts.SupportedUICultures = supportedCultures;
     });
 builder.Services.AddHttpContextAccessor();
-
-builder.Services.AddScoped<IWasteService, WasteService>();
 
 var app = builder.Build();
 
@@ -47,6 +44,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
@@ -54,5 +52,5 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapControllers();
 app.Run();

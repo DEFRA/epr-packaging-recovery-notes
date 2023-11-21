@@ -1,6 +1,7 @@
-﻿@using Portal.Models;
-@using Portal.Resources;
-@model Portal.Models.DuringWhichMonthRequestViewModel
+﻿@using Portal.Resources;
+@using Portal.ViewModels;
+
+@model DuringWhichMonthRequestViewModel
 
 @{
     ViewData["Title"] = @WhichQuarterResources.PageTitle;
@@ -8,13 +9,13 @@
 
 <title>@ViewData["Title"] @WhichQuarterResources.PageTitle</title>
 
-<a href="/" class="govuk-back-link">Back</a>
+<a href="/" class="govuk-back-link">@WhichQuarterResources.Back</a>
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
     <div class="govuk-error-summary @(ViewContext.ViewData.ModelState.IsValid ? "govuk-visually-hidden" : string.Empty)" data-module="govuk-error-summary">
         <div role="alert">
             <h2 class="govuk-error-summary__title">
-                There is a problem
+                @WhichQuarterResources.ThereIsAProblem
             </h2>
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">

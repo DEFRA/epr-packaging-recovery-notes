@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Portal.Models;
 using Portal.Services.Interfaces;
+using Portal.ViewModels;
 
 namespace Portal.Controllers
 {

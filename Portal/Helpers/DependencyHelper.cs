@@ -1,4 +1,6 @@
 ﻿using Portal.Models;
+using Portal.Services.Implementations;
+using Portal.Services.Interfaces;
 
 namespace PRN.Web.Helpers
 {
@@ -11,6 +13,7 @@ namespace PRN.Web.Helpers
         {
             services.Configure<ServicesConfiguration>(configuration.GetSection("Services"));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IWasteService, WasteService>();
 
             return services;
         }

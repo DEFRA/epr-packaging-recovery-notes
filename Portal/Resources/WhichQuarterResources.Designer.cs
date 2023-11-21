@@ -88,6 +88,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to December.
         /// </summary>
         public static string December {
@@ -255,6 +264,15 @@ namespace Portal.Resources {
         public static string Steel {
             get {
                 return ResourceManager.GetString("Steel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is a problem.
+        /// </summary>
+        public static string ThereIsAProblem {
+            get {
+                return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
             }
         }
         

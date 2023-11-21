@@ -1,4 +1,4 @@
-﻿using Portal.Models;
+﻿using Portal.ViewModels;
 
 namespace Portal.Services.Interfaces
 {
