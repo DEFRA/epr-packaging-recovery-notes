@@ -1,8 +1,9 @@
-﻿@using Portal.Resources;
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
+@inject IQueryStringHelper queryStringHelper
 
 @{
     var (oppositeCultureValue, oppositeCultureName) = CultureHelper.GetCultureInfo(httpContextAccessor);
+    var existingQueryStringParameters = queryStringHelper.RemoveCultureQueryString();
 }
 
 <!DOCTYPE html>
@@ -55,7 +56,7 @@
                 </a>
             </div>
             <div class="govuk-header__navigation--end">
-                <a href="?culture=@oppositeCultureValue" class="govuk-header__language">@oppositeCultureName</a>
+                <a href="@Url.Action(null, null, new { culture = oppositeCultureValue })@existingQueryStringParameters" class="govuk-header__language">@oppositeCultureName</a>
             </div>
         </div>
     </header>
