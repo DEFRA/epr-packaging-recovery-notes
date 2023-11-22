@@ -28,6 +28,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\WasteJourneyResources.cy-GB.Designer.cs">
+      <DependentUpon>WasteJourneyResources.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\WhichQuarterResources.Designer.cs">
       <DependentUpon>WhichQuarterResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -49,6 +54,10 @@
     <EmbeddedResource Update="Resources\PhaseBannerResources.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WasteJourneyResources.cy-GB.resx">
+      <LastGenOutput>WasteJourneyResources.cy-GB.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WhichQuarterResources.resx">
