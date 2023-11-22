@@ -19,25 +19,38 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){ 
+        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
         {"card_title", @WasteJourneyResources.HomePage_Account_Title},
         {"card_description", @WasteJourneyResources.HomePage_Account_Description},
-        {"card_links", new List<string> {@WasteJourneyResources.HomePage_Account_Link_CreateUser, @WasteJourneyResources.HomePage_Account_Link_ManageUser, @WasteJourneyResources.HomePage_Account_Link_DetailUser}}})
+        {"card_links", new Dictionary<string, string>() {
+        {@WasteJourneyResources.HomePage_Account_Link_CreateUser, "#"}, 
+        {@WasteJourneyResources.HomePage_Account_Link_ManageUser, "#"}, 
+        {@WasteJourneyResources.HomePage_Account_Link_DetailUser, "#"}
+        }}})
     </div>
-   
+
     <div class="govuk-grid-column-one-half">
         @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_WasteManagement_Title},
-        {"card_description", @WasteJourneyResources.HomePage_WasteManagement_Description},
-        {"card_links", new List<string> {@WasteJourneyResources.HomePage_WasteManagement_Link_RecordWaste, @WasteJourneyResources.HomePage_WasteManagement_Link_ManageAPrn, @WasteJourneyResources.HomePage_WasteManagement_Link_SubmitAReturn, @WasteJourneyResources.HomePage_WasteManagement_Link_ViewEditRecords}}})
+        {"card_title", @WasteJourneyResources.HomePage_Accredidation_Title},
+        {"card_description", @WasteJourneyResources.HomePage_Accredidation_Description},
+        {"card_links", new Dictionary<string, string>() {
+        {@WasteJourneyResources.HomePage_Accredidation_Link_MyAccredidations, "#"},
+        {@WasteJourneyResources.HomePage_Accredidation_Link_ApplyForAccredidation, "#"},
+        {@WasteJourneyResources.HomePage_Accredidation_Link_ViewApplications, "#"}
+        }}})
     </div>
 </div>
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
         @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_Accredidation_Title},
-        {"card_description", @WasteJourneyResources.HomePage_Accredidation_Description},
-        {"card_links", new List<string> {@WasteJourneyResources.HomePage_Accredidation_Link_MyAccredidations, @WasteJourneyResources.HomePage_Accredidation_Link_ApplyForAccredidation, @WasteJourneyResources.HomePage_Accredidation_Link_ViewApplications}}})
+        {"card_title", @WasteJourneyResources.HomePage_WasteManagement_Title},
+        {"card_description", @WasteJourneyResources.HomePage_WasteManagement_Description},
+        {"card_links", new Dictionary<string, string>() {
+        {@WasteJourneyResources.HomePage_WasteManagement_Link_RecordWaste, "#"},
+        {@WasteJourneyResources.HomePage_WasteManagement_Link_ManageAPrn, "#"},
+        {@WasteJourneyResources.HomePage_WasteManagement_Link_SubmitAReturn, "#"},
+        {@WasteJourneyResources.HomePage_WasteManagement_Link_ViewEditRecords, "#"}
+        }}})
     </div>
 </div>

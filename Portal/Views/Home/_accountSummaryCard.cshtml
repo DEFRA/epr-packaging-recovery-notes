@@ -1,10 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
-
-<div class="govuk-summary-card">
+﻿<div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
         <div class="govuk-summary-card__title">
             <p class="govuk-body">
@@ -16,14 +10,21 @@
         </div>
     </div>
     <div class="govuk-summary-card__content">
-        <ul class="govuk-list">
-            @foreach(var link in ViewData["card_links"] as List<string>)
+        @if (ViewData["card_links"] != null)
+        {
+            Dictionary<string, string> links = (Dictionary<string, string>)(ViewData["card_links"]);
+            if (links != null)
             {
-                <li>
-                    <a class="govuk-link" href="#">@link</a>
-                </li>
+                <ul class="govuk-list">
+                    @foreach (var link in links)
+                    {
+                        <li>
+                            <a class="govuk-link" href="@link.Value">@link.Key</a>
+                        </li>
+                    }
+                </ul>
             }
-        </ul>
+        }
     </div>
 </div>
 
