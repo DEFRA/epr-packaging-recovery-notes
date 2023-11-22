@@ -2,11 +2,11 @@
 @using Portal.Resources;
 
 @{
-    ViewData["Title"] = HomeResources.HomePage;
+    ViewData["Title"] = WasteJourneyResources.HomePage_Title;
 }
 
 <div>
-    <a asp-action="Index">@HomeResources.HomeLink</a>
+    <a asp-action="Index">@WasteJourneyResources.HomeLink</a>
 </div>
 <br />
 
@@ -19,94 +19,25 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <div class="govuk-summary-card__title">
-                    <p class="govuk-body">
-                        <a href="#" class="govuk-link govuk-!-font-weight-bold">Account</a>
-                    </p>
-                    <p class="govuk-body-s">
-                        Create new users and manage your account
-                    </p>
-                </div>
-            </div>
-            <div class="govuk-summary-card__content">
-                <ul class="govuk-list">
-                    <li>
-                        <a class="govuk-link" href="#">Create a new user</a>
-                    </li>
-                    <li>
-                        <a class="govuk-link" href="#">Manage a user</a>
-                    </li>
-                    <li>
-                        <a class="govuk-link" href="#">You account details</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        @Html.Partial("_accountSummaryCard", new ViewDataDictionary(ViewData){ 
+        {"card_title", @WasteJourneyResources.HomePage_Account_Title},
+        {"card_description", @WasteJourneyResources.HomePage_Account_Description},
+        {"card_links", new List<string> {@WasteJourneyResources.HomePage_Account_Link_CreateUser, @WasteJourneyResources.HomePage_Account_Link_ManageUser, @WasteJourneyResources.HomePage_Account_Link_DetailUser}}})
     </div>
+   
     <div class="govuk-grid-column-one-half">
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <div class="govuk-summary-card__title">
-                    <p class="govuk-body">
-                        <a href="#" class="govuk-link govuk-!-font-weight-bold">Accredidation</a>
-                    </p>
-                    <p class="govuk-body-s">
-                        Apply for accredidation, check your status and more
-                    </p>
-                </div>
-            </div>
-            <div class="govuk-summary-card__content">
-                <ul class="govuk-list">
-                    <li>
-                        <a class="govuk-link" href="#">My accredidation</a>
-                    </li>
-                    <li>
-                        <a class="govuk-link" href="#">Apply for accredidation</a>
-                    </li>
-                    <li>
-                        <a class="govuk-link" href="#">View all applications</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        @Html.Partial("_accountSummaryCard", new ViewDataDictionary(ViewData){
+        {"card_title", @WasteJourneyResources.HomePage_WasteManagement_Title},
+        {"card_description", @WasteJourneyResources.HomePage_WasteManagement_Description},
+        {"card_links", new List<string> {@WasteJourneyResources.HomePage_WasteManagement_Link_RecordWaste, @WasteJourneyResources.HomePage_WasteManagement_Link_ManageAPrn, @WasteJourneyResources.HomePage_WasteManagement_Link_SubmitAReturn, @WasteJourneyResources.HomePage_WasteManagement_Link_ViewEditRecords}}})
     </div>
 </div>
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-one-half">
-        <div class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <div class="govuk-summary-card__title">
-                    <p class="govuk-body">
-                        <a href="#" class="govuk-link govuk-!-font-weight-bold">Waste Management</a>
-                    </p>
-                    <p class="govuk-body-s">
-                        Record your waste, manage your PRNs and submit your returns
-                    </p>
-                </div>
-            </div>
-            <div class="govuk-summary-card__content">
-                <ul class="govuk-list">
-                    <li>
-                        <a class="govuk-link" href="#">Record waste</a>
-                    </li>
-                    <li>
-                        <a class="govuk-link" href="#">Manage a PRN</a>
-                    </li>
-                    <li>
-                        <a class="govuk-link" href="#">Submit a return</a>
-                    </li>
-                    <li>
-                        <a class="govuk-link" href="#">View and edit records</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+        @Html.Partial("_accountSummaryCard", new ViewDataDictionary(ViewData){
+        {"card_title", @WasteJourneyResources.HomePage_Accredidation_Title},
+        {"card_description", @WasteJourneyResources.HomePage_Accredidation_Description},
+        {"card_links", new List<string> {@WasteJourneyResources.HomePage_Accredidation_Link_MyAccredidations, @WasteJourneyResources.HomePage_Accredidation_Link_ApplyForAccredidation, @WasteJourneyResources.HomePage_Accredidation_Link_ViewApplications}}})
     </div>
 </div>
-
-
-
-
