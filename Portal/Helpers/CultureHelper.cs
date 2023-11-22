@@ -13,9 +13,9 @@ namespace Portal.Helpers
             }
 
             var requestCultureInfo = httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture?.Culture;
-            var isEnglish = Constants.Constants.CultureConstants.English.Name == requestCultureInfo?.Name;
-            var oppositeCultureValue = isEnglish ? Constants.Constants.CultureConstants.Welsh.Name : Constants.Constants.CultureConstants.English.Name;
-            var oppositeCultureName = isEnglish ? "Welsh" : "English";
+            var isEnglish = Constants.CultureConstants.English.Name == requestCultureInfo?.Name;
+            var oppositeCultureValue = isEnglish ? Constants.CultureConstants.Welsh.Name : Constants.CultureConstants.English.Name;
+            var oppositeCultureName = isEnglish ? "Cymraeg" : "English";
 
             return (oppositeCultureValue, oppositeCultureName);
         }

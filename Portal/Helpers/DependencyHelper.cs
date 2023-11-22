@@ -17,6 +17,7 @@ namespace Portal.Helpers
         /// </summary>
         public static IServiceCollection AddDependencies(this IServiceCollection services, ConfigurationManager configuration)
         {
+            // Get the configuration for the services
             services.Configure<ServicesConfiguration>(configuration.GetSection("Services"));
 
             services.AddHttpContextAccessor();
@@ -32,6 +33,7 @@ namespace Portal.Helpers
             services.AddTransient<IWasteService, WasteService>();
             services.AddTransient<IHttpWasteService>(s =>
             {
+                // create a new http service using the configuration for restful services and a http client factory
                 return new HttpWasteService(
                     s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
                     s.GetRequiredService<IHttpClientFactory>());

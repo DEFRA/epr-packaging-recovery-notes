@@ -20,7 +20,7 @@ namespace Portal.Services
             // do basic checks on parameters
             _baseUrl = string.IsNullOrWhiteSpace(baseUrl) ? throw new ArgumentNullException(nameof(baseUrl)) : baseUrl;
 
-            if (httpClientFactory == null) 
+            if (httpClientFactory == null)
                 throw new ArgumentNullException(nameof(httpClientFactory));
 
             _httpClient = httpClientFactory.CreateClient();
@@ -50,7 +50,7 @@ namespace Portal.Services
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
 
-            url = $"{_baseUrl}/{payload}";
+            url = $"{_baseUrl}/{url}/";
 
             return await Send<T>(CreateMessage(url, payload, HttpMethod.Post));
         }
@@ -63,7 +63,7 @@ namespace Portal.Services
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
 
-            url = $"{_baseUrl}/{payload}";
+            url = $"{_baseUrl}/{url}/";
 
             await Send(CreateMessage(url, payload, HttpMethod.Post));
         }
@@ -76,7 +76,7 @@ namespace Portal.Services
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
 
-            url = $"{_baseUrl}/{payload}";
+            url = $"{_baseUrl}/{url}/";
 
             return await Send<T>(CreateMessage(url, payload, HttpMethod.Put));
         }
@@ -89,7 +89,7 @@ namespace Portal.Services
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
 
-            url = $"{_baseUrl}/{payload}";
+            url = $"{_baseUrl}/{url}/";
 
             await Send(CreateMessage(url, payload, HttpMethod.Put));
         }

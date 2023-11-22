@@ -7,7 +7,7 @@ namespace Portal.RESTServices
     public class HttpWasteService : BaseHttpService, IHttpWasteService
     {
         public HttpWasteService(
-            string baseUrl, 
+            string baseUrl,
             IHttpClientFactory httpClientFactory) : base(baseUrl, httpClientFactory)
         {
         }
@@ -15,6 +15,11 @@ namespace Portal.RESTServices
         public async Task<IEnumerable<WasteTypeDto>> GetWasteMaterialTypes()
         {
             return await Get<List<WasteTypeDto>>("WasteTypes");
+        }
+
+        public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
+        {
+            await Post($"Journey/{journeyId}/Month/{selectedMonth}", null);
         }
     }
 }
