@@ -1,4 +1,6 @@
-﻿namespace Portal.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Portal.ViewModels
 {
     public class WasteTypesViewModel
     {
@@ -6,6 +8,7 @@
 
         public Dictionary<int, string> WasteTypes { get; set; }
 
+        [Required]
         public int? SelectedWasteType { get; set; }
     }
 }

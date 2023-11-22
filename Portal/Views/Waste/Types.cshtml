@@ -1,0 +1,11 @@
+﻿@model WasteTypesViewModel
+
+<h1>This is waste types</h1>
+<form method="post">
+    <input type="hidden" asp-for="JourneyId" />
+    <radios asp-for="SelectedWasteType" asp-data-for="WasteTypes" asp-title="This is the title"></radios>
+    <button class="govuk-button" data-module="govuk-button">
+        Save and continue
+    </button>
+    <span asp-validation-for="SelectedWasteType"></span>
+</form>

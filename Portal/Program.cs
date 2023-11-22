@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Localization;
+using Portal.Constants;
+using Portal.Helpers;
 using Portal.Middleware;
-using PRN.Web.Constants;
-using PRN.Web.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 

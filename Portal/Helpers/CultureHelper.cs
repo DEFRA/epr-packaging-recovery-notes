@@ -1,5 +1,5 @@
-﻿using PRN.Web.Constants;
-using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Localization;
+using Portal;
 
 namespace Portal.Helpers
 {
@@ -13,8 +13,8 @@ namespace Portal.Helpers
             }
 
             var requestCultureInfo = httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture?.Culture;
-            var isEnglish = Constants.CultureConstants.English.Name == requestCultureInfo?.Name;
-            var oppositeCultureValue = isEnglish ? Constants.CultureConstants.Welsh.Name : Constants.CultureConstants.English.Name;
+            var isEnglish = Constants.Constants.CultureConstants.English.Name == requestCultureInfo?.Name;
+            var oppositeCultureValue = isEnglish ? Constants.Constants.CultureConstants.Welsh.Name : Constants.Constants.CultureConstants.English.Name;
             var oppositeCultureName = isEnglish ? "Welsh" : "English";
 
             return (oppositeCultureValue, oppositeCultureName);

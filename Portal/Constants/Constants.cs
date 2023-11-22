@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace PRN.Web.Constants
+namespace Portal.Constants
 {
     public class Constants
     {

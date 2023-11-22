@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PRN.Web.Models;
+using Portal.ViewModels;
 using System.Diagnostics;
 
-namespace PRN.Web.Controllers
+namespace Portal.Controllers
 {
     public class HomeController : Controller
     {

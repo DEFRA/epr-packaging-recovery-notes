@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portal.Services.Interfaces;
+using Portal.ViewModels;
 
 namespace Portal.Controllers
 {
@@ -25,10 +26,8 @@ namespace Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Types()
+        public async Task<IActionResult> Types(WasteTypesViewModel wasteTypes)
         {
-
-
             return View();
         }
     }

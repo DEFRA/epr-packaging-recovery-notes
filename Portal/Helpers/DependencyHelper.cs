@@ -6,8 +6,9 @@ using Portal.RESTServices;
 using Portal.RESTServices.Interfaces;
 using Portal.Services;
 using Portal.Services.Interfaces;
+using System.Security.Authentication;
 
-namespace PRN.Web.Helpers
+namespace Portal.Helpers
 {
     public static class DependencyHelper
     {
@@ -19,6 +20,15 @@ namespace PRN.Web.Helpers
             services.Configure<ServicesConfiguration>(configuration.GetSection("Services"));
 
             services.AddHttpContextAccessor();
+            services
+                .AddHttpClient("HttpClient")
+                .ConfigurePrimaryHttpMessageHandler(() =>
+                {
+                    return new HttpClientHandler()
+                    {
+                        SslProtocols = SslProtocols.Tls12
+                    };
+                });
             services.AddTransient<IWasteService, WasteService>();
             services.AddTransient<IHttpWasteService>(s =>
             {
