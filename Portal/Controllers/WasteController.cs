@@ -28,7 +28,15 @@ namespace Portal.Controllers
         [HttpPost]
         public async Task<IActionResult> Types(WasteTypesViewModel wasteTypes)
         {
-            return View();
+            if (wasteTypes == null)
+                return BadRequest();
+
+            if (!ModelState.IsValid)
+            {
+                return await Types(wasteTypes.JourneyId);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
