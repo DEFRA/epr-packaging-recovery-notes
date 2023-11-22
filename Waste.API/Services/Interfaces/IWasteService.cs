@@ -9,5 +9,7 @@ namespace Waste.API.Services.Interfaces
         Task<int> CreateJourney();
 
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
+
+        Task SaveSelectedWasteType(int journeyId, String selectedWasteType);
     }
 }
