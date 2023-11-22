@@ -1,4 +1,5 @@
 ﻿@using Portal.Resources;
+@using Portal.ViewModels;
 
 @model WhatHaveYouDoneWasteModel
 @{
@@ -45,13 +46,13 @@
         </p>
         <div class="govuk-radios" data-module="govuk-radios">
             <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste" name="whatHaveYouDoneWithWaste" type="radio" value="repoceesedIt">
+                    <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste" name="WastedType" type="radio" value="repoceesedIt">
                 <label class="govuk-label govuk-radios__label" for="whereDoYouLive">
                         @WasteResource.ReproceesedIt
                 </label>
             </div>
             <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste" name="whatHaveYouDoneWithWaste" type="radio" value="sentItOn">
+                        <input class="govuk-radios__input" id="whatHaveYouDoneWithWaste" name="WastedType" type="radio" value="sentItOn">
                 <label class="govuk-label govuk-radios__label" for="whereDoYouLive-2">
                         @WasteResource.SentItOn
                 </label>

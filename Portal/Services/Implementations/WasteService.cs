@@ -59,9 +59,24 @@ namespace Portal.Services.Implementations
             return duringWhichMonthRequestViewModel;
         }
 
+        public WhatHaveYouDoneWasteModel GetWasteModel(int journeyId)
+        {
+            var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
+            {
+                JourneyId = journeyId,
+            };
+
+            return whatHaveYouDoneWasteModel;
+        }
+
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
             await _httpWasteService.SaveSelectedMonth(journeyId, selectedMonth);
+        }
+
+        public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
+        {
+            await _httpWasteService.SaveSelectedWasteType(journeyId, selectedWasteType);
         }
     }
 }

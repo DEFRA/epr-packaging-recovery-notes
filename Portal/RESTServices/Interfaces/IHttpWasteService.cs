@@ -7,5 +7,7 @@ namespace Portal.RESTServices.Interfaces
         Task<IEnumerable<WasteTypeDto>> GetWasteMaterialTypes();
 
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
+
+        Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
     }
 }

@@ -1,15 +1,13 @@
 using Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace PRN.Web.Models
+namespace Portal.ViewModels
 {
     public class WhatHaveYouDoneWasteModel
     {
         public int JourneyId { get; set; }
 
-        public Dictionary<int, string> Quarter { get; set; } = new Dictionary<int, string>();
-
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WasteResource))]
-        public int? SelectedMonth { get; set; }
+        public string? SelectedWaste { get; set; }
     }
 }

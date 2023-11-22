@@ -6,6 +6,10 @@ namespace Portal.Services.Interfaces
     {
         DuringWhichMonthRequestViewModel GetCurrentQuarter(int journeyId);
 
+        WhatHaveYouDoneWasteModel GetWasteModel(int journeyId);
+
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
+
+        Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
+using System.Reflection;
 
 namespace Portal.Controllers
 {
@@ -26,15 +27,26 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            return View();
+            if (id == null)
+                id = 1;
+                //throw new ArgumentNullException("id");
+
+            var model = _wasteService.GetWasteModel(id.Value);
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult Index(int id) 
+        public async Task<IActionResult> Index(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste) 
         {
-            return View();
+            if (!ModelState.IsValid)
+            {
+            }
+
+            await _wasteService.SaveSelectedWasteType(whatHaveYouDoneWaste.JourneyId, "Test");
+
+            return RedirectToAction("Index", "Home");
         }
 
 
