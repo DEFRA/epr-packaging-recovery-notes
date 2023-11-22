@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Waste.API.Services;
+using Waste.API.Services.Interfaces;
 using WasteManagement.API.Data;
 using WasteManagement.API.Middleware;
 
@@ -11,6 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<IWasteService, WasteService>();
 
 // add db context options
 builder.Services.AddDbContext<WasteContext>(options =>

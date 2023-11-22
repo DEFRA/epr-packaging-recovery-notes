@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Waste.API.Models;
-
-namespace Waste.API.Dtos
+﻿namespace EPRN.Common.Dtos
 {
     public class WasteSubTypeDto
     {

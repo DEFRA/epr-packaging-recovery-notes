@@ -102,7 +102,7 @@ namespace Portal.Services
                 Method = httpMethod
             };
 
-            if (payload == null)
+            if (payload != null)
             {
                 msg.Content = new StringContent(JsonConvert.SerializeObject(payload));
             }
