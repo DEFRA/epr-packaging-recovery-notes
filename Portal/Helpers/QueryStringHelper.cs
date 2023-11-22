@@ -5,10 +5,21 @@ namespace Portal.Helpers
     public class QueryStringHelper : IQueryStringHelper
     {
         private const string cultureQueryString = "&culture=";
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public string RemoveCultureQueryString(string existingQueryStrings)
+        public QueryStringHelper(IHttpContextAccessor httpContextAccessor)
         {
-            existingQueryStrings = existingQueryStrings.Replace('?', '&');
+            this.httpContextAccessor = httpContextAccessor;
+        }
+
+        public string RemoveCultureQueryString()
+        {
+            if (this.httpContextAccessor == null || this.httpContextAccessor.HttpContext == null)
+            {
+                throw new InvalidOperationException("HttpContext is null. The operation requires a valid HttpContext.");
+            }
+
+            string existingQueryStrings = this.httpContextAccessor.HttpContext.Request.QueryString.ToString().Replace('?', '&');
 
             var startIndex = existingQueryStrings.IndexOf(cultureQueryString);
 

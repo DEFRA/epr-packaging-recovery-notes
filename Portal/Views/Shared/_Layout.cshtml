@@ -3,7 +3,7 @@
 
 @{
     var (oppositeCultureValue, oppositeCultureName) = CultureHelper.GetCultureInfo(httpContextAccessor);
-    var existingQueryStringParameters = queryStringHelper.RemoveCultureQueryString(Context.Request.QueryString.ToString());
+    var existingQueryStringParameters = queryStringHelper.RemoveCultureQueryString();
 }
 
 <!DOCTYPE html>

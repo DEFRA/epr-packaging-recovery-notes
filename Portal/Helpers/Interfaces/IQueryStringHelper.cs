@@ -2,6 +2,6 @@
 {
     public interface IQueryStringHelper
     {
-        string RemoveCultureQueryString(string existingQueryStrings);
+        string RemoveCultureQueryString();
     }
 }
