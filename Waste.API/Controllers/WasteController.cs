@@ -22,5 +22,23 @@ namespace Waste.API.Controllers
         {
             return await _wasteService.WasteTypes();
         }
+
+        [HttpPost]
+        [Route("Journey/{journeyId}/Month/{selectedMonth}")]
+        public async Task<ActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (selectedMonth == null)
+                return BadRequest("Selected month is missing");
+
+            //TODO: This should be removed in the fullness of time
+            var id = await _wasteService.CreateJourney();
+            await _wasteService.SaveSelectedMonth(id, selectedMonth.Value);
+
+            return Ok();
+
+        }
     }
 }
