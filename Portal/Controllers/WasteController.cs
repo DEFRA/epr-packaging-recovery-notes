@@ -42,9 +42,10 @@ namespace Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
+                return View(whatHaveYouDoneWaste);
             }
 
-            await _wasteService.SaveSelectedWasteType(whatHaveYouDoneWaste.JourneyId, "Test");
+            await _wasteService.SaveSelectedWasteType(whatHaveYouDoneWaste.JourneyId, whatHaveYouDoneWaste.SelectedWaste);
 
             return RedirectToAction("Index", "Home");
         }
