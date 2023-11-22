@@ -43,5 +43,17 @@ namespace Portal.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Route("/WasteRecordStatus")]
+        public async Task<IActionResult> GetWasteRecordStatus(int reprocessorId)
+        {
+            var result = await _wasteService.GetWasteRecordStatus(reprocessorId);
+            return View("WasteRecordStatus", result);
+        }
     }
+
+
+
+
 }

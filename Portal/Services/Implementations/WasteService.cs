@@ -59,6 +59,17 @@ namespace Portal.Services.Implementations
             return duringWhichMonthRequestViewModel;
         }
 
+        public async Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int reprocessorId)
+        {
+            var vm = new WasteRecordStatusViewModel();
+            
+            await Task.Run(() => { 
+                vm.WasteRecordStatus = EPRN.Common.Enums.WasteRecordStatuses.Complete;
+                vm.WasteRecordStatusMessage = "No message yet";
+            });
+            return vm;
+        }
+
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
             await _httpWasteService.SaveSelectedMonth(journeyId, selectedMonth);
