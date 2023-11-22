@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Localization;
 using Portal.Helpers;
+using Portal.Helpers.Interfaces;
 using Portal.Middleware;
 using PRN.Web.Constants;
 using PRN.Web.Helpers;

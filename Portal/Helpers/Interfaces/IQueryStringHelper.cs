@@ -1,4 +1,4 @@
-﻿namespace Portal.Helpers
+﻿namespace Portal.Helpers.Interfaces
 {
     public interface IQueryStringHelper
     {
