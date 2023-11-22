@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Waste.API.Dtos;
+using EPRN.Common.Dtos;
 using Waste.API.Models;
 
 namespace WasteManagement.API.Profiles

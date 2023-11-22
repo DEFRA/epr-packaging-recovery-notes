@@ -1,4 +1,5 @@
 ﻿using Portal.Resources;
+using Portal.RESTServices.Interfaces;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
 
@@ -6,6 +7,13 @@ namespace Portal.Services.Implementations
 {
     public class WasteService : IWasteService
     {
+        private readonly IHttpWasteService _httpWasteService;
+
+        public WasteService(IHttpWasteService httpWasteService)
+        {
+            _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
+        }
+
         public DuringWhichMonthRequestViewModel GetCurrentQuarter(int journeyId)
         {
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
@@ -49,6 +57,11 @@ namespace Portal.Services.Implementations
             }
 
             return duringWhichMonthRequestViewModel;
+        }
+
+        public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
+        {
+            await _httpWasteService.SaveSelectedMonth(journeyId, selectedMonth);
         }
     }
 }

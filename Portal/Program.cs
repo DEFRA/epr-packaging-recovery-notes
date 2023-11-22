@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Localization;
+using Portal.Helpers;
+using Portal.Helpers.Interfaces;
 using Portal.Middleware;
 using PRN.Web.Constants;
 using PRN.Web.Helpers;
@@ -16,6 +18,7 @@ var supportedCultures = new[]
     Constants.CultureConstants.Welsh
 };
 
+builder.Services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
 builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 builder.Services
     .Configure<RequestLocalizationOptions>(opts =>

@@ -17,11 +17,11 @@ namespace Waste.API.Models
 
         public bool? BaledWithWire { get; set; }
 
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         public bool? Completed { get; set; }
 
-        public int? WasteSubTypeId { get;set; }
+        public int? WasteSubTypeId { get; set; }
 
         public virtual WasteSubType? WasteSubType { get; set; }
     }

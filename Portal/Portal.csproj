@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\Areas\**" />
+    <Compile Remove="Views\DuringWhichMonth\**" />
+    <Content Remove="Controllers\Areas\**" />
+    <Content Remove="Views\DuringWhichMonth\**" />
+    <EmbeddedResource Remove="Controllers\Areas\**" />
+    <EmbeddedResource Remove="Views\DuringWhichMonth\**" />
+    <None Remove="Controllers\Areas\**" />
+    <None Remove="Views\DuringWhichMonth\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
@@ -56,8 +67,11 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\sass\common\" />
-    <Folder Include="Controllers\Areas\Packaging\" />
-    <Folder Include="Views\DuringWhichMonth\" />
+    <Folder Include="RESTServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EPRN.Common\EPRN.Common.csproj" />
   </ItemGroup>
 
 </Project>

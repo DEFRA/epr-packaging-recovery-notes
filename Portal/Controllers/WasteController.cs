@@ -39,18 +39,20 @@ namespace Portal.Controllers
 
 
         [HttpPost]
-        public IActionResult DuringWhichMonth(DuringWhichMonthRequestViewModel monthSelected)
+        public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
             if (!ModelState.IsValid)
             {
-                var model = _wasteService.GetCurrentQuarter(monthSelected.JourneyId);
+                var model = _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
 
                 return View(model);
             }
 
-            //Send monthSelected to API to record for journey
+            //Send monthSelected to API to record 
             //Send the journey no to the API
             //Send the month number
+
+            await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel.JourneyId, duringWhichMonthRequestViewModel.SelectedMonth.Value);
 
             return RedirectToAction("Index", "Home");
         }
