@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waste.API", "Waste.API\Wast
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csproj", "{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Common", "EPRN.Common\EPRN.Common.csproj", "{1DBE8D65-C3E9-45CD-BAB5-432101D18929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

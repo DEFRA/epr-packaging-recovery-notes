@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Localization;
+using Portal.Middleware;
 using PRN.Web.Constants;
 using PRN.Web.Helpers;
 
@@ -6,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDependencies();
+builder.Services.AddControllers();
+builder.Services.AddDependencies(builder.Configuration);
 
 var supportedCultures = new[]
 {
@@ -22,7 +24,7 @@ builder.Services
         opts.SupportedCultures = supportedCultures;
         opts.SupportedUICultures = supportedCultures;
     });
-
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
@@ -34,6 +36,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCultureMiddleware();
 app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -41,8 +44,13 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+app.MapControllerRoute(
+    name: "areas",
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
+app.MapControllers();
 app.Run();

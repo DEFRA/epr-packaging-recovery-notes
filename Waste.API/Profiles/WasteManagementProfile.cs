@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using WasteManagement.API.Dtos;
-using WasteManagement.API.Models;
+using EPRN.Common.Dtos;
+using Waste.API.Models;
 
 namespace WasteManagement.API.Profiles
 {
@@ -8,7 +8,8 @@ namespace WasteManagement.API.Profiles
     {
         public WasteManagementProfile()
         {
-            CreateMap<DefaultTable, DefaultTableDto>();
+            CreateMap<WasteType, WasteTypeDto>();
+            CreateMap<WasteSubType, WasteSubTypeDto>();
         }
     }
 }
