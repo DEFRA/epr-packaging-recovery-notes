@@ -1,0 +1,30 @@
+﻿<div class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <div class="govuk-summary-card__title">
+            <p class="govuk-body">
+                <a href="#" class="govuk-link govuk-!-font-weight-bold">@ViewData["card_title"]</a>
+            </p>
+            <p class="govuk-body-s">
+                @ViewData["card_description"]
+            </p>
+        </div>
+    </div>
+    <div class="govuk-summary-card__content">
+        @if (ViewData["card_links"] != null)
+        {
+            Dictionary<string, string> links = (Dictionary<string, string>)(ViewData["card_links"]);
+            if (links != null)
+            {
+                <ul class="govuk-list">
+                    @foreach (var link in links)
+                    {
+                        <li>
+                            <a class="govuk-link" href="@link.Value">@link.Key</a>
+                        </li>
+                    }
+                </ul>
+            }
+        }
+    </div>
+</div>
+
