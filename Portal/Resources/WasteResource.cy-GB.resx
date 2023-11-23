@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Continue" xml:space="preserve">
-    <value>Parhau</value>
+    <value>[Welsh] Continue</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
-    <value>Dewiswch fotwm radio</value>
+    <value>[Welsh] Please select a radio button</value>
   </data>
   <data name="Heading" xml:space="preserve">
-    <value>Croeso</value>
+    <value>[Welsh] What have you done with the Waste</value>
   </data>
   <data name="HintText" xml:space="preserve">
-    <value>awgrym</value>
+    <value>[Welsh] Hint Text</value>
   </data>
   <data name="ReproceesedIt" xml:space="preserve">
-    <value>Ei dderbyn a'i brosesu</value>
+    <value>[Welsh] Received it and reproceesed it</value>
   </data>
   <data name="SentItOn" xml:space="preserve">
-    <value>Ei dderbyn a'i anfon ymlaen</value>
+    <value>[Welsh] Received it and sent it on</value>
   </data>
   <data name="ThereIsAProblem" xml:space="preserve">
-    <value>Mae Problem</value>
+    <value>[Welsh] There is a problem</value>
   </data>
   <data name="WastePage" xml:space="preserve">
-    <value>Tudalen gartref</value>
+    <value>[Welsh] What have you done with the Waste</value>
   </data>
 </root>

@@ -28,18 +28,17 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(int? id)
+        public IActionResult WhatHaveYouDoneWaste(int? id)
         {
             if (id == null)
-                id = 1;
-                //throw new ArgumentNullException("id");
+                throw new ArgumentNullException("id");
 
             var model = _wasteService.GetWasteModel(id.Value);
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste) 
+        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste) 
         {
             if (!ModelState.IsValid)
             {
