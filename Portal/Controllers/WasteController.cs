@@ -23,6 +23,11 @@ namespace Portal.Controllers
 
             var model = _wasteService.GetCurrentQuarter(id.Value);
 
+            //var wasteType = _wasteService.GetWasteType(id.Value);
+
+            //if (wasteType == null)
+            //    throw new ArgumentNullException("wasteType");
+
             return View(model);
         }
 
@@ -35,10 +40,6 @@ namespace Portal.Controllers
 
                 return View(model);
             }
-
-            //Send monthSelected to API to record 
-            //Send the journey no to the API
-            //Send the month number
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 

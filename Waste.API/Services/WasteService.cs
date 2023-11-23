@@ -35,7 +35,9 @@ namespace Waste.API.Services
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
-            var journeyRecord = await _wasteContext.WasteJourney.FirstOrDefaultAsync(wj => wj.Id == journeyId);
+            var journeyRecord = await _wasteContext.WasteJourney
+                .FirstOrDefaultAsync(wj => wj.Id == journeyId);
+
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
@@ -60,5 +62,19 @@ namespace Waste.API.Services
             journeyRecord.WasteTypeId = wasteTypeId;
             await _wasteContext.SaveChangesAsync();
         }
+
+        //public async Task<string> GetWasteType(int journeyId)
+        //{
+        //    var wasteTypeName = await _wasteContext
+        //        .WasteJourney
+        //        .Where(wj => wj.Id == journeyId)
+        //        .Select(wj => wj.WasteSubType.Name)
+        //        .FirstOrDefaultAsync();
+
+        //    if (string.IsNullOrWhiteSpace(wasteTypeName))
+        //        throw new ArgumentNullException($"No waste type found for {journeyId}");
+
+        //    return wasteTypeName;
+        //}
     }
 }

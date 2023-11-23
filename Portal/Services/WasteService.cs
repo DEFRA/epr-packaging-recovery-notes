@@ -73,7 +73,7 @@ namespace Portal.Services
                 throw new ArgumentNullException(nameof(duringWhichMonthRequestViewModel.SelectedMonth));
 
             await _httpWasteService.SaveSelectedMonth(
-                duringWhichMonthRequestViewModel.JourneyId, 
+                duringWhichMonthRequestViewModel.JourneyId,
                 duringWhichMonthRequestViewModel.SelectedMonth.Value);
         }
 
@@ -90,15 +90,20 @@ namespace Portal.Services
 
         public async Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel)
         {
-            if (wasteTypesViewModel == null) 
+            if (wasteTypesViewModel == null)
                 throw new ArgumentNullException(nameof(wasteTypesViewModel));
 
             if (wasteTypesViewModel.SelectedWasteTypeId == null)
                 throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
 
             await _httpWasteService.SaveSelectedWasteType(
-                wasteTypesViewModel.JourneyId, 
+                wasteTypesViewModel.JourneyId,
                 wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
+
+        //public async Task<string> GetWasteType(int journeyId)
+        //{
+        //    return await _httpWasteService.GetWasteType(journeyId);
+        //}
     }
 }
