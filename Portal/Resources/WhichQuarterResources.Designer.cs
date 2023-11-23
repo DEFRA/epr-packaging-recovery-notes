@@ -250,15 +250,6 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
-        /// </summary>
-        public static string Site_Continue {
-            get {
-                return ResourceManager.GetString("Site_Continue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Steel.
         /// </summary>
         public static string Steel {

@@ -9,9 +9,10 @@ namespace Portal.Controllers
 
         private readonly IWasteService _wasteService;
 
-        public WasteController(IWasteService wasteService)
+        public WasteController(
+            IWasteService wasteService)
         {
-            _wasteService = wasteService;
+            _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
         }
 
         [HttpGet]
@@ -39,7 +40,34 @@ namespace Portal.Controllers
             //Send the journey no to the API
             //Send the month number
 
-            await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel.JourneyId, duringWhichMonthRequestViewModel.SelectedMonth.Value);
+            await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Types(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _wasteService.GetWasteTypesViewModel(id.Value);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Types(WasteTypesViewModel wasteTypesViewModel)
+        {
+            if (wasteTypesViewModel == null)
+                return BadRequest();
+
+            if (!ModelState.IsValid)
+            {
+                return await Types(wasteTypesViewModel.JourneyId);
+            }
+
+            await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
             return RedirectToAction("Index", "Home");
         }
