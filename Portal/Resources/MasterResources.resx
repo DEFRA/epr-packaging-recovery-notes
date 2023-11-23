@@ -117,76 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Aluminium" xml:space="preserve">
-    <value>[Welsh] Aluminium</value>
+  <data name="ContinueBtn" xml:space="preserve">
+    <value>Continue</value>
   </data>
-  <data name="April" xml:space="preserve">
-    <value>[Welsh] April</value>
-  </data>
-  <data name="August" xml:space="preserve">
-    <value>[Welsh] August</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>[Welsh] back</value>
-  </data>
-  <data name="December" xml:space="preserve">
-    <value>[Welsh] December</value>
-  </data>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>[Welsh] Select the month the waste was received</value>
-  </data>
-  <data name="February" xml:space="preserve">
-    <value>[Welsh] February</value>
-  </data>
-  <data name="Glass" xml:space="preserve">
-    <value>[Welsh] Glass</value>
-  </data>
-  <data name="Heading" xml:space="preserve">
-    <value>[Welsh] During which month was the waste received?</value>
-  </data>
-  <data name="HintText" xml:space="preserve">
-    <value>[Welsh] You can only record waste for this month and the months within an open quarterly return period.</value>
-  </data>
-  <data name="January" xml:space="preserve">
-    <value>[Welsh] January</value>
-  </data>
-  <data name="July" xml:space="preserve">
-    <value>[Welsh] July</value>
-  </data>
-  <data name="June" xml:space="preserve">
-    <value>[Welsh] June</value>
-  </data>
-  <data name="March" xml:space="preserve">
-    <value>[Welsh] March</value>
-  </data>
-  <data name="May" xml:space="preserve">
-    <value>[Welsh] May</value>
-  </data>
-  <data name="November" xml:space="preserve">
-    <value>[Welsh] November</value>
-  </data>
-  <data name="October" xml:space="preserve">
-    <value>[Welsh] October</value>
-  </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>[Welsh] During which month was the waste received?</value>
-  </data>
-  <data name="Paper" xml:space="preserve">
-    <value>[Welsh] Paper/board</value>
-  </data>
-  <data name="Plastic" xml:space="preserve">
-    <value>[Welsh] Plastic</value>
-  </data>
-  <data name="September" xml:space="preserve">
-    <value>[Welsh] September</value>
-  </data>
-  <data name="Steel" xml:space="preserve">
-    <value>[Welsh] Steel</value>
-  </data>
-  <data name="ThereIsAProblem" xml:space="preserve">
-    <value>[Welsh] There is a problem</value>
-  </data>
-  <data name="Wood" xml:space="preserve">
-    <value>[Welsh] Wood</value>
+  <data name="OppositeLanguage" xml:space="preserve">
+    <value>Cymraeg</value>
   </data>
 </root>

@@ -1,16 +1,21 @@
-﻿using Portal.Resources;
+﻿using AutoMapper;
+using Portal.Resources;
 using Portal.RESTServices.Interfaces;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
 
-namespace Portal.Services.Implementations
+namespace Portal.Services
 {
     public class WasteService : IWasteService
     {
+        private readonly IMapper _mapper;
         private readonly IHttpWasteService _httpWasteService;
 
-        public WasteService(IHttpWasteService httpWasteService)
+        public WasteService(
+            IMapper mapper,
+            IHttpWasteService httpWasteService)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
         }
 
@@ -59,6 +64,31 @@ namespace Portal.Services.Implementations
             return duringWhichMonthRequestViewModel;
         }
 
+        public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
+        {
+            if (duringWhichMonthRequestViewModel == null)
+                throw new ArgumentNullException(nameof(duringWhichMonthRequestViewModel));
+
+            if (duringWhichMonthRequestViewModel.SelectedMonth == null)
+                throw new ArgumentNullException(nameof(duringWhichMonthRequestViewModel.SelectedMonth));
+
+            await _httpWasteService.SaveSelectedMonth(
+                duringWhichMonthRequestViewModel.JourneyId, 
+                duringWhichMonthRequestViewModel.SelectedMonth.Value);
+        }
+
+        public async Task<WasteTypesViewModel> GetWasteTypesViewModel(int journeyId)
+        {
+            var wasteMaterialTypes = await _httpWasteService.GetWasteMaterialTypes();
+
+            return new WasteTypesViewModel
+            {
+                JourneyId = journeyId,
+                WasteTypes = wasteMaterialTypes.ToDictionary(t => t.Id, t => t.Name)
+            };
+        }
+
+        public async Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel)
         public WhatHaveYouDoneWasteModel GetWasteModel(int journeyId)
         {
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
@@ -71,7 +101,15 @@ namespace Portal.Services.Implementations
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
-            await _httpWasteService.SaveSelectedMonth(journeyId, selectedMonth);
+            if (wasteTypesViewModel == null) 
+                throw new ArgumentNullException(nameof(wasteTypesViewModel));
+
+            if (wasteTypesViewModel.SelectedWasteTypeId == null)
+                throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
+
+            await _httpWasteService.SaveSelectedWasteType(
+                wasteTypesViewModel.JourneyId, 
+                wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
 
         public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)

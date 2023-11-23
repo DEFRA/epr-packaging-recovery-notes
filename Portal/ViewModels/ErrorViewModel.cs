@@ -1,4 +1,4 @@
-namespace PRN.Web.Models
+namespace Portal.ViewModels
 {
     public class ErrorViewModel
     {

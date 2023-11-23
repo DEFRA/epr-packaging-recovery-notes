@@ -19,7 +19,12 @@ namespace Portal.RESTServices
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
-            await Post($"Journey/{journeyId}/Month/{selectedMonth}", null);
+            await Post($"Journey/{journeyId}/Month/{selectedMonth}");
+        }
+
+        public async Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId)
+        {
+            await Post($"Journey/{journeyId}/Type/{selectedWasteTypeId}");
         }
 
         public async Task SaveSelectedWasteType(int journeyId, string selectedWaste)

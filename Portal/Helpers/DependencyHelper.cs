@@ -1,12 +1,15 @@
-﻿using Microsoft.Extensions.Options;
+﻿using AutoMapper;
+using Microsoft.Extensions.Options;
+using Portal.Helpers.Interfaces;
 using Portal.Models;
-using Portal.RESTServices.Interfaces;
+using Portal.Profiles;
 using Portal.RESTServices;
-using Portal.Services.Implementations;
+using Portal.RESTServices.Interfaces;
+using Portal.Services;
 using Portal.Services.Interfaces;
 using System.Security.Authentication;
 
-namespace PRN.Web.Helpers
+namespace Portal.Helpers
 {
     public static class DependencyHelper
     {
@@ -28,6 +31,8 @@ namespace PRN.Web.Helpers
                         SslProtocols = SslProtocols.Tls12
                     };
                 });
+
+            services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
             services.AddTransient<IHttpWasteService>(s =>
             {
@@ -36,6 +41,15 @@ namespace PRN.Web.Helpers
                     s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
                     s.GetRequiredService<IHttpClientFactory>());
             });
+
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new WasteProfiles());
+                mc.AllowNullCollections = true;
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             return services;
         }
