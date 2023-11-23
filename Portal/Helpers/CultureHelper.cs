@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Localization;
-using Portal;
+using Portal.Constants;
 
 namespace Portal.Helpers
 {
     public static class CultureHelper
     {
-        public static (string oppositeCultureValue, string oppositeCultureName) GetCultureInfo(IHttpContextAccessor httpContextAccessor)
+        public static string GetCultureInfo(IHttpContextAccessor httpContextAccessor)
         {
             if (httpContextAccessor == null || httpContextAccessor.HttpContext == null)
             {
@@ -13,11 +13,10 @@ namespace Portal.Helpers
             }
 
             var requestCultureInfo = httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture?.Culture;
-            var isEnglish = Constants.CultureConstants.English.Name == requestCultureInfo?.Name;
-            var oppositeCultureValue = isEnglish ? Constants.CultureConstants.Welsh.Name : Constants.CultureConstants.English.Name;
-            var oppositeCultureName = isEnglish ? "Cymraeg" : "English";
+            var isEnglish = CultureConstants.English.Name == requestCultureInfo?.Name;
+            var oppositeCultureValue = isEnglish ? CultureConstants.Welsh.Name : CultureConstants.English.Name;
 
-            return (oppositeCultureValue, oppositeCultureName);
+            return oppositeCultureValue;
         }
     }
 }

@@ -21,6 +21,10 @@ namespace Waste.API.Models
 
         public bool? Completed { get; set; }
 
+        public int? WasteTypeId { get; set; }
+
+        public virtual WasteType? WasteType { get; set; }
+
         public int? WasteSubTypeId { get; set; }
 
         public virtual WasteSubType? WasteSubType { get; set; }

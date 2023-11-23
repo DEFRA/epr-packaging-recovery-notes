@@ -12,15 +12,15 @@ builder.Services.AddDependencies(builder.Configuration);
 
 var supportedCultures = new[]
 {
-    Constants.CultureConstants.English,
-    Constants.CultureConstants.Welsh
+    CultureConstants.English,
+    CultureConstants.Welsh
 };
 
 builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 builder.Services
     .Configure<RequestLocalizationOptions>(opts =>
     {
-        opts.DefaultRequestCulture = new RequestCulture(Constants.CultureConstants.English);
+        opts.DefaultRequestCulture = new RequestCulture(CultureConstants.English);
         opts.SupportedCultures = supportedCultures;
         opts.SupportedUICultures = supportedCultures;
     });

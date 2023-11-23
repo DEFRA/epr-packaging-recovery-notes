@@ -23,10 +23,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\MasterResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MasterResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PhaseBannerResources.Designer.cs">
       <DependentUpon>PhaseBannerResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\WasteTypesResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WasteTypesResources.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\WhichQuarterResources.Designer.cs">
       <DependentUpon>WhichQuarterResources.resx</DependentUpon>
@@ -41,10 +51,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\MasterResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MasterResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PhaseBannerResources.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WasteTypesResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WasteTypesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WhichQuarterResources.resx">
       <LastGenOutput>WhichQuarterResources.Designer.cs</LastGenOutput>

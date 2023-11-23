@@ -6,9 +6,9 @@ namespace Portal.ViewModels
     {
         public int JourneyId { get; set; }
 
-        public Dictionary<int, string> WasteTypes { get; set; }
+        public Dictionary<int, string>? WasteTypes { get; set; }
 
         [Required]
-        public int? SelectedWasteType { get; set; }
+        public int? SelectedWasteTypeId { get; set; }
     }
 }

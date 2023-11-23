@@ -29,9 +29,6 @@ namespace Portal.Controllers
         [HttpPost]
         public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
-            if (wasteTypes == null)
-                return BadRequest();
-
             if (!ModelState.IsValid)
             {
                 var model = _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
@@ -43,7 +40,7 @@ namespace Portal.Controllers
             //Send the journey no to the API
             //Send the month number
 
-            await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel.JourneyId, duringWhichMonthRequestViewModel.SelectedMonth.Value);
+            await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
             return RedirectToAction("Index", "Home");
         }
@@ -60,15 +57,17 @@ namespace Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Types(WasteTypesViewModel wasteTypes)
+        public async Task<IActionResult> Types(WasteTypesViewModel wasteTypesViewModel)
         {
-            if (wasteTypes == null)
+            if (wasteTypesViewModel == null)
                 return BadRequest();
 
             if (!ModelState.IsValid)
             {
-                return await Types(wasteTypes.JourneyId);
+                return await Types(wasteTypesViewModel.JourneyId);
             }
+
+            await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
             return RedirectToAction("Index", "Home");
         }

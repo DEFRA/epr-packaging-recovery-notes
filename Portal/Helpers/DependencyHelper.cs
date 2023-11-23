@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Options;
+using Portal.Helpers.Interfaces;
 using Portal.Models;
 using Portal.Profiles;
 using Portal.RESTServices;
@@ -30,6 +31,8 @@ namespace Portal.Helpers
                         SslProtocols = SslProtocols.Tls12
                     };
                 });
+
+            services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
             services.AddTransient<IHttpWasteService>(s =>
             {

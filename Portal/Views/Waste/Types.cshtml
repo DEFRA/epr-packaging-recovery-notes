@@ -1,11 +1,11 @@
 ﻿@model WasteTypesViewModel
 
-<h1>This is waste types</h1>
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
-    <radios asp-for="SelectedWasteType" asp-data-for="WasteTypes" asp-title="This is the title"></radios>
-    <button class="govuk-button" data-module="govuk-button">
-        Save and continue
+    <span>** UNABLE TO POPULATE AT THE MOMENT **</span>
+    <radios asp-for="SelectedWasteTypeId" asp-data-for="WasteTypes" asp-title="@WasteTypesResources.MaterialTypeOptionsTitle"></radios>
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @MasterResources.ContinueBtn
     </button>
-    <span asp-validation-for="SelectedWasteType"></span>
+    <span asp-validation-for="SelectedWasteTypeId"></span>
 </form>

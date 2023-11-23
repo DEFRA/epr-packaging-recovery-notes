@@ -45,7 +45,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http POST returning the speicified object
         /// </summary>
-        protected async Task<T> Post<T>(string url, object payload)
+        protected async Task<T> Post<T>(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -58,7 +58,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http POST without returning any data
         /// </summary>
-        protected async Task Post(string url, object payload)
+        protected async Task Post(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -71,7 +71,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http PUT returning the speicified object
         /// </summary>
-        protected async Task<T> Put<T>(string url, object payload)
+        protected async Task<T> Put<T>(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -84,7 +84,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http PUT without returning any data
         /// </summary>
-        protected async Task Put(string url, object payload)
+        protected async Task Put(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
