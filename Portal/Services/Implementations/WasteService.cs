@@ -59,14 +59,9 @@ namespace Portal.Services.Implementations
             return duringWhichMonthRequestViewModel;
         }
 
-        public async Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int reprocessorId)
+        public async Task<WasteRecordStatusViewModel> GetWasteRecordStatus(string reprocessorId)
         {
-            var vm = new WasteRecordStatusViewModel();
-            
-            await Task.Run(() => { 
-                vm.WasteRecordStatus = EPRN.Common.Enums.WasteRecordStatuses.Complete;
-                vm.WasteRecordStatusMessage = "No message yet";
-            });
+            WasteRecordStatusViewModel? vm = await _httpWasteService.GetWasteRecordStatus(reprocessorId);
             return vm;
         }
 
