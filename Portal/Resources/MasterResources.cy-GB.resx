@@ -123,4 +123,7 @@
   <data name="OppositeLanguage" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="RecordingFor" xml:space="preserve">
+    <value>[Welsh] Recording for:</value>
+  </data>
 </root>

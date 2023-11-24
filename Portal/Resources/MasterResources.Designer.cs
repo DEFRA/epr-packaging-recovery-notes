@@ -77,5 +77,14 @@ namespace Portal.Resources {
                 return ResourceManager.GetString("OppositeLanguage", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording for:.
+        /// </summary>
+        public static string RecordingFor {
+            get {
+                return ResourceManager.GetString("RecordingFor", resourceCulture);
+            }
+        }
     }
 }
