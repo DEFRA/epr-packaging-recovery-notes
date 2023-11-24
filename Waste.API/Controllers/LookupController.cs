@@ -33,15 +33,11 @@ namespace WasteManagement.API.Controllers
 
         private List<WasteType> ReadWasteTypes()
         {
-            List<WasteType> types = new List<WasteType>();
             using (var db = new WasteContext())
             {
-                var query = from b in db.WasteType
-                            orderby b.Name
-                            select b;
-                types = db.WasteType.ToList();
+                var types = db.WasteType.OrderBy(b => b.Name).ToList();
+                return types;
             }
-            return types;
         }
     }
 }
