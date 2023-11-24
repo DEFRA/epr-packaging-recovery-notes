@@ -12,7 +12,7 @@ namespace Portal.Services.Interfaces
 
         Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel);
 
-        WhatHaveYouDoneWasteModel GetWasteModel(int journeyId);
+        Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId);
 
         Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
     }

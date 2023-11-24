@@ -27,12 +27,12 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult WhatHaveYouDoneWaste(int? id)
+        public async Task<IActionResult> WhatHaveYouDoneWaste(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            var model = _wasteService.GetWasteModel(id.Value);
+            var model = await _wasteService.GetWasteModel(id.Value);
             return View(model);
         }
 

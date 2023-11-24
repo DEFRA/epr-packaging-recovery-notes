@@ -9,5 +9,7 @@ namespace Portal.ViewModels
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WasteResource))]
         public string? SelectedWaste { get; set; }
+
+        public string? WasteType { get; set; }
     }
 }
