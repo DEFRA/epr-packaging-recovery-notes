@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
-using System.Reflection;
 
 namespace Portal.Controllers
 {
@@ -17,12 +16,12 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult DuringWhichMonth(int? id)
+        public async Task<IActionResult> DuringWhichMonth(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            var model = _wasteService.GetCurrentQuarter(id.Value);
+            var model = await _wasteService.GetCurrentQuarter(id.Value);
 
             return View(model);
         }
@@ -38,7 +37,7 @@ namespace Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste) 
+        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste)
         {
             if (!ModelState.IsValid)
             {
@@ -56,14 +55,10 @@ namespace Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
+                var model = await _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
 
                 return View(model);
             }
-
-            //Send monthSelected to API to record 
-            //Send the journey no to the API
-            //Send the month number
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 

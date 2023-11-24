@@ -11,5 +11,7 @@ namespace Portal.ViewModels
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WhichQuarterResources))]
         public int? SelectedMonth { get; set; }
+
+        public string? WasteType { get; set; }
     }
 }
