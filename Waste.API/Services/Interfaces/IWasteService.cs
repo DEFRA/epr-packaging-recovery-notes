@@ -12,6 +12,6 @@ namespace Waste.API.Services.Interfaces
 
         Task SaveWasteType(int journeyId, int wasteTypeId);
 
-        //Task<string> GetWasteType(int journeyId);
+        Task<string> GetWasteType(int journeyId);
     }
 }

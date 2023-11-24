@@ -27,9 +27,9 @@ namespace Portal.RESTServices
             await Post($"Journey/{journeyId}/Type/{selectedWasteTypeId}");
         }
 
-        //public async Task<string> GetWasteType(int journeyId)
-        //{
-        //    return await Get<string>($"Journey/{journeyId}/WasteType");
-        //}
+        public async Task<string> GetWasteType(int journeyId)
+        {
+            return await Get<string>($"Journey/{journeyId}/WasteType");
+        }
     }
 }

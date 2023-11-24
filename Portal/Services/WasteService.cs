@@ -19,11 +19,12 @@ namespace Portal.Services
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
         }
 
-        public DuringWhichMonthRequestViewModel GetCurrentQuarter(int journeyId)
+        public async Task<DuringWhichMonthRequestViewModel> GetCurrentQuarter(int journeyId)
         {
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
-                JourneyId = journeyId
+                JourneyId = journeyId,
+                WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             int currentMonth = DateTime.Now.Month;
@@ -101,9 +102,5 @@ namespace Portal.Services
                 wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
 
-        //public async Task<string> GetWasteType(int journeyId)
-        //{
-        //    return await _httpWasteService.GetWasteType(journeyId);
-        //}
     }
 }

@@ -23,15 +23,15 @@ namespace Waste.API.Controllers
             return await _wasteService.WasteTypes();
         }
 
-        //[HttpGet]
-        //[Route("Journey/{journeyId}/WasteType")]
-        //public async Task<ActionResult> WasteType(int? journeyId)
-        //{
-        //    if (journeyId == null)
-        //        return BadRequest("Journey ID is missing");
+        [HttpGet]
+        [Route("Journey/{journeyId}/WasteType")]
+        public async Task<ActionResult> WasteType(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
 
-        //    return Ok(await _wasteService.GetWasteType(journeyId.Value));
-        //}
+            return Ok(await _wasteService.GetWasteType(journeyId.Value));
+        }
 
         [HttpPost]
         [Route("Journey/{journeyId}/Month/{selectedMonth}")]

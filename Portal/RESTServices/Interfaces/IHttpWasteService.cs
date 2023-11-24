@@ -10,6 +10,6 @@ namespace Portal.RESTServices.Interfaces
 
         Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId);
 
-        //Task<string> GetWasteType(int journeyId);
+        Task<string> GetWasteType(int journeyId);
     }
 }

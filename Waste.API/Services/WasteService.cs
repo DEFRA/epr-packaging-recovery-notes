@@ -63,18 +63,18 @@ namespace Waste.API.Services
             await _wasteContext.SaveChangesAsync();
         }
 
-        //public async Task<string> GetWasteType(int journeyId)
-        //{
-        //    var wasteTypeName = await _wasteContext
-        //        .WasteJourney
-        //        .Where(wj => wj.Id == journeyId)
-        //        .Select(wj => wj.WasteSubType.Name)
-        //        .FirstOrDefaultAsync();
+        public async Task<string> GetWasteType(int journeyId)
+        {
+            var wasteType = await _wasteContext
+                .WasteJourney
+                .Where(wj => wj.Id == journeyId && wj.WasteTypeId != null)
+                .Select(wj => wj.WasteType!.Name)
+                .FirstOrDefaultAsync();
 
-        //    if (string.IsNullOrWhiteSpace(wasteTypeName))
-        //        throw new ArgumentNullException($"No waste type found for {journeyId}");
+            if (string.IsNullOrWhiteSpace(wasteType))
+                throw new ArgumentNullException($"No waste type found for {journeyId}");
 
-        //    return wasteTypeName;
-        //}
+            return wasteType;
+        }
     }
 }

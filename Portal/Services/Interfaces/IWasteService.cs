@@ -4,7 +4,7 @@ namespace Portal.Services.Interfaces
 {
     public interface IWasteService
     {
-        DuringWhichMonthRequestViewModel GetCurrentQuarter(int journeyId);
+        Task<DuringWhichMonthRequestViewModel> GetCurrentQuarter(int journeyId);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 
@@ -12,6 +12,5 @@ namespace Portal.Services.Interfaces
 
         Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel);
 
-        //Task<string> GetWasteType(int journeyId);
     }
 }

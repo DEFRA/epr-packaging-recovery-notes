@@ -16,17 +16,12 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult DuringWhichMonth(int? id)
+        public async Task<IActionResult> DuringWhichMonth(int? id)
         {
             if (id == null)
                 throw new ArgumentNullException("id");
 
-            var model = _wasteService.GetCurrentQuarter(id.Value);
-
-            //var wasteType = _wasteService.GetWasteType(id.Value);
-
-            //if (wasteType == null)
-            //    throw new ArgumentNullException("wasteType");
+            var model = await _wasteService.GetCurrentQuarter(id.Value);
 
             return View(model);
         }
@@ -36,7 +31,7 @@ namespace Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
+                var model = await _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
 
                 return View(model);
             }
