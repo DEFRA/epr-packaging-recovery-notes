@@ -5,6 +5,10 @@ namespace WasteManagement.API.Data
 {
     public class WasteContext : DbContext
     {
+        public WasteContext()
+        {
+        }
+
         public WasteContext(DbContextOptions options) : base(options)
         {
         }

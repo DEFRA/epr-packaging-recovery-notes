@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
+using System.Reflection;
 
 namespace Portal.Controllers
 {
@@ -25,6 +26,30 @@ namespace Portal.Controllers
 
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult WhatHaveYouDoneWaste(int? id)
+        {
+            if (id == null)
+                throw new ArgumentNullException("id");
+
+            var model = _wasteService.GetWasteModel(id.Value);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste) 
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(whatHaveYouDoneWaste);
+            }
+
+            await _wasteService.SaveSelectedWasteType(whatHaveYouDoneWaste.JourneyId, whatHaveYouDoneWaste.SelectedWaste);
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)

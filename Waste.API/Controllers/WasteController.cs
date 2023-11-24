@@ -56,5 +56,22 @@ namespace Waste.API.Controllers
 
             return Ok();
         }
+        
+        [HttpPost]
+        [Route("Journey/{journeyId}/WasteType/{selectedWasteType}")]
+        public async Task<ActionResult> SaveWasteType(int? journeyId, string? selectedWasteType)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey Id is missing");
+
+            if (selectedWasteType == null)
+                return BadRequest("Selected waste is missing");
+
+            //ToDo: This should be removed in the fullness of time.
+            var id = await _wasteService.CreateJourney();
+            await _wasteService.SaveSelectedWasteType(id, selectedWasteType);
+
+            return Ok(id);
+        }
     }
 }

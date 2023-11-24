@@ -60,5 +60,15 @@ namespace Waste.API.Services
             journeyRecord.WasteTypeId = wasteTypeId;
             await _wasteContext.SaveChangesAsync();
         }
+
+        public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
+        {
+            var journeyRecord = await _wasteContext.WasteJourney.FirstOrDefaultAsync(w => w.Id == journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+            
+            journeyRecord.Note = selectedWasteType;
+            await _wasteContext.SaveChangesAsync();
+        }
     }
 }

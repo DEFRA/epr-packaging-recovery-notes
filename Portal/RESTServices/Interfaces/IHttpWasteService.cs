@@ -9,5 +9,7 @@ namespace Portal.RESTServices.Interfaces
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
 
         Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId);
+
+        Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
     }
 }
