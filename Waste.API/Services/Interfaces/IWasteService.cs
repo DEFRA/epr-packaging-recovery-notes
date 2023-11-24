@@ -1,6 +1,4 @@
-﻿using EPRN.Common.Dtos;
-
-namespace Waste.API.Services.Interfaces
+﻿namespace Waste.API.Services.Interfaces
 {
     public interface IWasteService
     {
@@ -11,6 +9,8 @@ namespace Waste.API.Services.Interfaces
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
 
         Task SaveWasteType(int journeyId, int wasteTypeId);
+
+        Task SaveSelectedWasteType(int journeyId, String selectedWasteType);
 
         Task<string> GetWasteType(int journeyId);
     }

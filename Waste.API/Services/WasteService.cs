@@ -1,11 +1,4 @@
-﻿using AutoMapper;
-using EPRN.Common.Dtos;
-using Microsoft.EntityFrameworkCore;
-using Waste.API.Models;
-using Waste.API.Services.Interfaces;
-using WasteManagement.API.Data;
-
-namespace Waste.API.Services
+﻿namespace Waste.API.Services
 {
     public class WasteService : IWasteService
     {
@@ -60,6 +53,16 @@ namespace Waste.API.Services
                 throw new ArgumentNullException(nameof(journeyRecord));
 
             journeyRecord.WasteTypeId = wasteTypeId;
+            await _wasteContext.SaveChangesAsync();
+        }
+
+        public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
+        {
+            var journeyRecord = await _wasteContext.WasteJourney.FirstOrDefaultAsync(w => w.Id == journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            journeyRecord.Note = selectedWasteType;
             await _wasteContext.SaveChangesAsync();
         }
 

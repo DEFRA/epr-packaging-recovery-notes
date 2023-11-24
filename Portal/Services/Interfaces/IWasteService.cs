@@ -1,6 +1,4 @@
-﻿using Portal.ViewModels;
-
-namespace Portal.Services.Interfaces
+﻿namespace Portal.Services.Interfaces
 {
     public interface IWasteService
     {
@@ -12,5 +10,8 @@ namespace Portal.Services.Interfaces
 
         Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel);
 
+        WhatHaveYouDoneWasteModel GetWasteModel(int journeyId);
+
+        Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
     }
 }

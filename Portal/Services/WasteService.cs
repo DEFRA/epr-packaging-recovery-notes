@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using Portal.Resources;
-using Portal.RESTServices.Interfaces;
-using Portal.Services.Interfaces;
-using Portal.ViewModels;
-
-namespace Portal.Services
+﻿namespace Portal.Services
 {
     public class WasteService : IWasteService
     {
@@ -102,5 +96,32 @@ namespace Portal.Services
                 wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
 
+        public WhatHaveYouDoneWasteModel GetWasteModel(int journeyId)
+        {
+            var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
+            {
+                JourneyId = journeyId,
+            };
+
+            return whatHaveYouDoneWasteModel;
+        }
+
+        public async Task SaveSelectedMonth(WasteTypesViewModel wasteTypesViewModel)
+        {
+            if (wasteTypesViewModel == null)
+                throw new ArgumentNullException(nameof(wasteTypesViewModel));
+
+            if (wasteTypesViewModel.SelectedWasteTypeId == null)
+                throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
+
+            await _httpWasteService.SaveSelectedWasteType(
+                wasteTypesViewModel.JourneyId,
+                wasteTypesViewModel.SelectedWasteTypeId.Value);
+        }
+
+        public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
+        {
+            await _httpWasteService.SaveSelectedWasteType(journeyId, selectedWasteType);
+        }
     }
 }

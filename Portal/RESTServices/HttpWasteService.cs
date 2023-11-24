@@ -1,8 +1,4 @@
-﻿using EPRN.Common.Dtos;
-using Portal.RESTServices.Interfaces;
-using Portal.Services;
-
-namespace Portal.RESTServices
+﻿namespace Portal.RESTServices
 {
     public class HttpWasteService : BaseHttpService, IHttpWasteService
     {
@@ -25,6 +21,11 @@ namespace Portal.RESTServices
         public async Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId)
         {
             await Post($"Journey/{journeyId}/Type/{selectedWasteTypeId}");
+        }
+
+        public async Task SaveSelectedWasteType(int journeyId, string selectedWaste)
+        {
+            await Post($"Journey/{journeyId}/WasteType/{selectedWaste}", null);
         }
 
         public async Task<string> GetWasteType(int journeyId)
