@@ -1,4 +1,6 @@
-﻿namespace Portal.Services.Interfaces
+﻿using Portal.ViewModels;
+
+namespace Portal.Services.Interfaces
 {
     public interface IWasteService
     {

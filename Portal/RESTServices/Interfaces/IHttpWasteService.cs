@@ -1,4 +1,6 @@
-﻿namespace Portal.RESTServices.Interfaces
+﻿using EPRN.Common.Dtos;
+
+namespace Portal.RESTServices.Interfaces
 {
     public interface IHttpWasteService
     {

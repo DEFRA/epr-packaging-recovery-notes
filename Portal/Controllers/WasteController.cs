@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
-using System.Reflection;
 
 namespace Portal.Controllers
 {
@@ -38,7 +37,7 @@ namespace Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste) 
+        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste)
         {
             if (!ModelState.IsValid)
             {

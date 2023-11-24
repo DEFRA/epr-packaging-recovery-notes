@@ -1,4 +1,8 @@
-﻿namespace Portal.RESTServices
+﻿using EPRN.Common.Dtos;
+using Portal.RESTServices.Interfaces;
+using Portal.Services;
+
+namespace Portal.RESTServices
 {
     public class HttpWasteService : BaseHttpService, IHttpWasteService
     {

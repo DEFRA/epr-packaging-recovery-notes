@@ -1,4 +1,10 @@
-﻿namespace Portal.Services
+﻿using AutoMapper;
+using Portal.Resources;
+using Portal.RESTServices.Interfaces;
+using Portal.Services.Interfaces;
+using Portal.ViewModels;
+
+namespace Portal.Services
 {
     public class WasteService : IWasteService
     {

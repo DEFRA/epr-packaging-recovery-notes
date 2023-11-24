@@ -1,4 +1,6 @@
-﻿namespace Waste.API.Services.Interfaces
+﻿using EPRN.Common.Dtos;
+
+namespace Waste.API.Services.Interfaces
 {
     public interface IWasteService
     {

@@ -1,4 +1,11 @@
-﻿namespace Waste.API.Services
+﻿using AutoMapper;
+using EPRN.Common.Dtos;
+using Microsoft.EntityFrameworkCore;
+using Waste.API.Models;
+using Waste.API.Services.Interfaces;
+using WasteManagement.API.Data;
+
+namespace Waste.API.Services
 {
     public class WasteService : IWasteService
     {
