@@ -22,14 +22,14 @@ namespace Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MasterResources {
+    public class WasteResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MasterResources() {
+        internal WasteResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.MasterResources", typeof(MasterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.WasteResource", typeof(WasteResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,47 +61,83 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to back.
-        /// </summary>
-        public static string Back {
-            get {
-                return ResourceManager.GetString("Back", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
-        public static string ContinueBtn {
+        public static string Continue {
             get {
-                return ResourceManager.GetString("ContinueBtn", resourceCulture);
+                return ResourceManager.GetString("Continue", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cymraeg.
+        ///   Looks up a localized string similar to Please select a radio button.
         /// </summary>
-        public static string OppositeLanguage {
+        public static string ErrorMessage {
             get {
-                return ResourceManager.GetString("OppositeLanguage", resourceCulture);
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What have you done with the Waste.
+        /// </summary>
+        public static string Heading {
+            get {
+                return ResourceManager.GetString("Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hint Text.
+        /// </summary>
+        public static string HintText {
+            get {
+                return ResourceManager.GetString("HintText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording for: .
+        /// </summary>
+        public static string RecordingFor {
+            get {
+                return ResourceManager.GetString("RecordingFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received it and reproceesed it.
+        /// </summary>
+        public static string ReproceesedIt {
+            get {
+                return ResourceManager.GetString("ReproceesedIt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Received it and sent it on.
+        /// </summary>
+        public static string SentItOn {
+            get {
+                return ResourceManager.GetString("SentItOn", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to There is a problem.
         /// </summary>
-        public static string SummaryError
-        {
+        public static string ThereIsAProblem {
             get {
-                return ResourceManager.GetString("SummaryError", resourceCulture);
+                return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
             }
         }
-
-        ///   Looks up a localized string similar to Recording for:.
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What have you done with the Waste.
         /// </summary>
-        public static string RecordingFor {
+        public static string WastePage {
             get {
-                return ResourceManager.GetString("RecordingFor", resourceCulture);
+                return ResourceManager.GetString("WastePage", resourceCulture);
             }
         }
     }

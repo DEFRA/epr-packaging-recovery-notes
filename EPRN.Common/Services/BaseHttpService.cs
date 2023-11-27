@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Portal.Services
 {
@@ -123,7 +124,7 @@ namespace Portal.Services
                 if (string.IsNullOrWhiteSpace(content))
                     return default!;
 
-                return JsonConvert.DeserializeObject<T>(content)!;
+                return ReturnValue<T>(content);
             }
             else
             {
@@ -142,6 +143,27 @@ namespace Portal.Services
                 // for now we don't know how we're going to handle errors specifically,
                 // so we'll just throw an error with the error code
                 throw new Exception($"Error occurred calling API with error code: {response.StatusCode}. Message: {response.ReasonPhrase}");
+            }
+        }
+
+        private T ReturnValue<T>(string value)
+        {
+            if (IsValidJson(value))
+                return JsonConvert.DeserializeObject<T>(value)!;
+            else
+                return (T)Convert.ChangeType(value, typeof(T));
+        }
+
+        private bool IsValidJson(string stringValue)
+        {
+            try
+            {
+                var val = JToken.Parse(stringValue);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

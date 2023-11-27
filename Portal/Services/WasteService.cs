@@ -19,11 +19,12 @@ namespace Portal.Services
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
         }
 
-        public DuringWhichMonthRequestViewModel GetCurrentQuarter(int journeyId)
+        public async Task<DuringWhichMonthRequestViewModel> GetCurrentQuarter(int journeyId)
         {
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
-                JourneyId = journeyId
+                JourneyId = journeyId,
+                WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             int currentMonth = DateTime.Now.Month;
@@ -73,7 +74,7 @@ namespace Portal.Services
                 throw new ArgumentNullException(nameof(duringWhichMonthRequestViewModel.SelectedMonth));
 
             await _httpWasteService.SaveSelectedMonth(
-                duringWhichMonthRequestViewModel.JourneyId, 
+                duringWhichMonthRequestViewModel.JourneyId,
                 duringWhichMonthRequestViewModel.SelectedMonth.Value);
         }
 
@@ -90,15 +91,44 @@ namespace Portal.Services
 
         public async Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel)
         {
-            if (wasteTypesViewModel == null) 
+            if (wasteTypesViewModel == null)
                 throw new ArgumentNullException(nameof(wasteTypesViewModel));
 
             if (wasteTypesViewModel.SelectedWasteTypeId == null)
                 throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
 
             await _httpWasteService.SaveSelectedWasteType(
-                wasteTypesViewModel.JourneyId, 
+                wasteTypesViewModel.JourneyId,
                 wasteTypesViewModel.SelectedWasteTypeId.Value);
+        }
+
+        public async Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId)
+        {
+            var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
+            {
+                JourneyId = journeyId,
+                WasteType = await _httpWasteService.GetWasteType(journeyId)
+            };
+
+            return whatHaveYouDoneWasteModel;
+        }
+
+        public async Task SaveSelectedMonth(WasteTypesViewModel wasteTypesViewModel)
+        {
+            if (wasteTypesViewModel == null)
+                throw new ArgumentNullException(nameof(wasteTypesViewModel));
+
+            if (wasteTypesViewModel.SelectedWasteTypeId == null)
+                throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
+
+            await _httpWasteService.SaveSelectedWasteType(
+                wasteTypesViewModel.JourneyId,
+                wasteTypesViewModel.SelectedWasteTypeId.Value);
+        }
+
+        public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
+        {
+            await _httpWasteService.SaveSelectedWasteType(journeyId, selectedWasteType);
         }
     }
 }

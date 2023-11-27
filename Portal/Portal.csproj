@@ -33,6 +33,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\WasteResource.cy-GB.Designer.cs">
+      <DependentUpon>WasteResource.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\WasteTypesResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -53,10 +58,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\WasteJourneyResources.Designer.cs">
+    <Compile Update="Resources\WasteResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WasteJourneyResources.resx</DependentUpon>
+      <DependentUpon>WasteResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -68,6 +73,10 @@
     <EmbeddedResource Update="Resources\PhaseBannerResources.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WasteResource.cy-GB.resx">
+      <LastGenOutput>WasteResource.cy-GB.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteTypesResources.resx">
@@ -86,9 +95,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WasteJourneyResources.resx">
+    <EmbeddedResource Update="Resources\WasteResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WasteJourneyResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>WasteResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -15,29 +15,49 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult DuringWhichMonth(int? id)
+        public async Task<IActionResult> DuringWhichMonth(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var model = _wasteService.GetCurrentQuarter(id.Value);
+            var model = await _wasteService.GetCurrentQuarter(id.Value);
 
             return View(model);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> WhatHaveYouDoneWaste(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetWasteModel(id.Value);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(whatHaveYouDoneWaste);
+            }
+
+            await _wasteService.SaveSelectedWasteType(whatHaveYouDoneWaste.JourneyId, whatHaveYouDoneWaste.SelectedWaste);
+
+            return RedirectToAction("Index", "Home");
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
             if (!ModelState.IsValid)
             {
-                var model = _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
+                var model = await _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
 
                 return View(model);
             }
-
-            //Send monthSelected to API to record 
-            //Send the journey no to the API
-            //Send the month number
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
