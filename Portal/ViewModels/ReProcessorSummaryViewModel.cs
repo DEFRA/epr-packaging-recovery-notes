@@ -1,4 +1,4 @@
-﻿namespace Portal.Models
+﻿namespace Portal.ViewModels
 {
     public class ReProcessorSummaryViewModel
     {

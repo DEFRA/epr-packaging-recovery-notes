@@ -18,8 +18,14 @@ namespace Portal.Helpers
         /// </summary>
         public static IServiceCollection AddDependencies(this IServiceCollection services, ConfigurationManager configuration)
         {
+            services.AddRazorPages()
+                .AddViewOptions(o =>
+                {
+                    o.HtmlHelperOptions.ClientValidationEnabled = configuration.GetValue<bool>("ClientValidationEnabled");
+                });
+
             // Get the configuration for the services
-            services.Configure<ServicesConfiguration>(configuration.GetSection("Services"));
+            services.Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.Name));
 
             services.AddHttpContextAccessor();
             services

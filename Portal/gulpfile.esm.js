@@ -44,3 +44,27 @@ gulp.task("assets", function () {
     return gulp.src('node_modules/govuk-frontend/govuk/assets/**/*')
         .pipe(gulp.dest(`wwwroot/assets`));
 });
+
+
+
+
+gulp.task("watch-scripts", function () {
+    console.warn(`\n*\n* Use \`rollup -c --watch\` for better error messages and faster incremental builds.\n*\n`);
+
+    return rollup.watch(rollupConfig.default)
+        .on("event",
+            event => {
+                switch (event.code) {
+                    case "ERROR":
+                    case "FATAL":
+                        console.error(event);
+                        break;
+                    default:
+                        var args = [event.code];
+                        if (event.duration) {
+                            args.push(event.duration + "ms");
+                        }
+                        console.log.apply(console, args);
+                }
+            });
+});
