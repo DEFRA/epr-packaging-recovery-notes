@@ -30,7 +30,7 @@ namespace Portal.Controllers
         public async Task<IActionResult> WhatHaveYouDoneWaste(int? id)
         {
             if (id == null)
-                throw new ArgumentNullException("id");
+                return NotFound();
 
             var model = await _wasteService.GetWasteModel(id.Value);
             return View(model);
