@@ -120,4 +120,7 @@
   <data name="MaterialTypeOptionsTitle" xml:space="preserve">
     <value>[Welsh]What is the material type?</value>
   </data>
+  <data name="MissingWasteTypeSelectionMessage" xml:space="preserve">
+    <value>[Welsh]A material type requires to be selected</value>
+  </data>
 </root>

@@ -68,5 +68,14 @@ namespace Portal.Resources {
                 return ResourceManager.GetString("MaterialTypeOptionsTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A material type requires to be selected.
+        /// </summary>
+        public static string MissingWasteTypeSelectionMessage {
+            get {
+                return ResourceManager.GetString("MissingWasteTypeSelectionMessage", resourceCulture);
+            }
+        }
     }
 }

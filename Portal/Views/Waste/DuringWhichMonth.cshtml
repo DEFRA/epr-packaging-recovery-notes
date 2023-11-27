@@ -10,21 +10,8 @@
 <a href="/" class="govuk-back-link">@MasterResources.Back</a>
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
-    <div class="govuk-error-summary @(ViewContext.ViewData.ModelState.IsValid ? "govuk-visually-hidden" : string.Empty)" data-module="govuk-error-summary">
-        <div role="alert">
-            <h2 class="govuk-error-summary__title">
-                @WhichQuarterResources.ThereIsAProblem
-            </h2>
-            <div class="govuk-error-summary__body">
-                <ul class="govuk-list govuk-error-summary__list">
-                    <li>
-                        <a href="#@Model.Quarter.First().Key">@WhichQuarterResources.ErrorMessage</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="govuk-form-group @(!ViewContext.ViewData.ModelState.IsValid ? "govuk-form-group--error" : string.Empty)">
+    <partial name="_ValidationSummary" />
+    <div id="SelectedMonth" class="govuk-form-group @(!ViewContext.ViewData.ModelState.IsValid ? "govuk-form-group--error" : string.Empty)">
         <fieldset class="govuk-fieldset" aria-describedby="month-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <span class="govuk-caption-l">
