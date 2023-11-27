@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PRN.Web.Models;
+using Portal.ViewModels;
 using System.Diagnostics;
 
 namespace Portal.Controllers

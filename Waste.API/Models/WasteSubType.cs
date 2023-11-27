@@ -12,8 +12,8 @@ namespace Waste.API.Models
 
         public int WasteTypeId { get; set; }
 
-        public virtual WasteType WasteType { get; set; }
+        public virtual WasteType? WasteType { get; set; }
 
-        public virtual ICollection<WasteJourney> WasteJourneys { get; set; }
+        public virtual ICollection<WasteJourney>? WasteJourneys { get; set; }
     }
 }

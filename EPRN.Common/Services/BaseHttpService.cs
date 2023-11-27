@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Portal.Services
 {
@@ -45,7 +46,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http POST returning the speicified object
         /// </summary>
-        protected async Task<T> Post<T>(string url, object payload)
+        protected async Task<T> Post<T>(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -58,7 +59,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http POST without returning any data
         /// </summary>
-        protected async Task Post(string url, object payload)
+        protected async Task Post(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -71,7 +72,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http PUT returning the speicified object
         /// </summary>
-        protected async Task<T> Put<T>(string url, object payload)
+        protected async Task<T> Put<T>(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -84,7 +85,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http PUT without returning any data
         /// </summary>
-        protected async Task Put(string url, object payload)
+        protected async Task Put(string url, object? payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -123,7 +124,7 @@ namespace Portal.Services
                 if (string.IsNullOrWhiteSpace(content))
                     return default!;
 
-                return JsonConvert.DeserializeObject<T>(content)!;
+                return ReturnValue<T>(content);
             }
             else
             {
@@ -142,6 +143,27 @@ namespace Portal.Services
                 // for now we don't know how we're going to handle errors specifically,
                 // so we'll just throw an error with the error code
                 throw new Exception($"Error occurred calling API with error code: {response.StatusCode}. Message: {response.ReasonPhrase}");
+            }
+        }
+
+        private T ReturnValue<T>(string value)
+        {
+            if (IsValidJson(value))
+                return JsonConvert.DeserializeObject<T>(value)!;
+            else
+                return (T)Convert.ChangeType(value, typeof(T));
+        }
+
+        private bool IsValidJson(string stringValue)
+        {
+            try
+            {
+                var val = JToken.Parse(stringValue);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

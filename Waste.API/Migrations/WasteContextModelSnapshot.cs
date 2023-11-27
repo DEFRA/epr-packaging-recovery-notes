@@ -67,9 +67,14 @@ namespace Waste.API.Migrations
                     b.Property<int?>("WasteSubTypeId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("WasteTypeId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("WasteSubTypeId");
+
+                    b.HasIndex("WasteTypeId");
 
                     b.ToTable("WasteJourney");
                 });
@@ -124,7 +129,13 @@ namespace Waste.API.Migrations
                         .WithMany("WasteJourneys")
                         .HasForeignKey("WasteSubTypeId");
 
+                    b.HasOne("Waste.API.Models.WasteType", "WasteType")
+                        .WithMany("Jounreys")
+                        .HasForeignKey("WasteTypeId");
+
                     b.Navigation("WasteSubType");
+
+                    b.Navigation("WasteType");
                 });
 
             modelBuilder.Entity("Waste.API.Models.WasteSubType", b =>
@@ -145,6 +156,8 @@ namespace Waste.API.Migrations
 
             modelBuilder.Entity("Waste.API.Models.WasteType", b =>
                 {
+                    b.Navigation("Jounreys");
+
                     b.Navigation("SubTypes");
                 });
 #pragma warning restore 612, 618

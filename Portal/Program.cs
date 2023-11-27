@@ -1,9 +1,7 @@
 using Microsoft.AspNetCore.Localization;
+using Portal.Constants;
 using Portal.Helpers;
-using Portal.Helpers.Interfaces;
 using Portal.Middleware;
-using PRN.Web.Constants;
-using PRN.Web.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,20 +12,18 @@ builder.Services.AddDependencies(builder.Configuration);
 
 var supportedCultures = new[]
 {
-    Constants.CultureConstants.English,
-    Constants.CultureConstants.Welsh
+    CultureConstants.English,
+    CultureConstants.Welsh
 };
 
-builder.Services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
 builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 builder.Services
     .Configure<RequestLocalizationOptions>(opts =>
     {
-        opts.DefaultRequestCulture = new RequestCulture(Constants.CultureConstants.English);
+        opts.DefaultRequestCulture = new RequestCulture(CultureConstants.English);
         opts.SupportedCultures = supportedCultures;
         opts.SupportedUICultures = supportedCultures;
     });
-builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

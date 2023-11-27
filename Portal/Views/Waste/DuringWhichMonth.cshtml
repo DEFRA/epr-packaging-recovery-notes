@@ -7,9 +7,7 @@
     ViewData["Title"] = @WhichQuarterResources.PageTitle;
 }
 
-<title>@ViewData["Title"] @WhichQuarterResources.PageTitle</title>
-
-<a href="/" class="govuk-back-link">@WhichQuarterResources.Back</a>
+<a href="/" class="govuk-back-link">@MasterResources.Back</a>
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
     <div class="govuk-error-summary @(ViewContext.ViewData.ModelState.IsValid ? "govuk-visually-hidden" : string.Empty)" data-module="govuk-error-summary">
@@ -30,7 +28,7 @@
         <fieldset class="govuk-fieldset" aria-describedby="month-hint">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <span class="govuk-caption-l">
-                    @WhichQuarterResources.Paper
+                    @MasterResources.RecordingFor @Model.WasteType
                 </span>
                 <h1 class="govuk-fieldset__heading">
                     @WhichQuarterResources.Heading
@@ -57,6 +55,6 @@
     </div>
 
     <button class="govuk-button" data-module="govuk-button" type="submit">
-        @WhichQuarterResources.Site_Continue
+        @MasterResources.ContinueBtn
     </button>
 </form>

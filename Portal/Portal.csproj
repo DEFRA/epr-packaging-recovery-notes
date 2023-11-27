@@ -23,10 +23,25 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\MasterResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MasterResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PhaseBannerResources.Designer.cs">
       <DependentUpon>PhaseBannerResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\WasteResource.cy-GB.Designer.cs">
+      <DependentUpon>WasteResource.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\WasteTypesResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WasteTypesResources.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\WasteJourneyResources.cy-GB.Designer.cs">
       <DependentUpon>WasteJourneyResources.cy-GB.resx</DependentUpon>
@@ -43,18 +58,30 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\WasteJourneyResources.Designer.cs">
+    <Compile Update="Resources\WasteResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WasteJourneyResources.resx</DependentUpon>
+      <DependentUpon>WasteResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\MasterResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MasterResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PhaseBannerResources.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WasteResource.cy-GB.resx">
+      <LastGenOutput>WasteResource.cy-GB.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WasteTypesResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WasteTypesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteJourneyResources.cy-GB.resx">
       <LastGenOutput>WasteJourneyResources.cy-GB.Designer.cs</LastGenOutput>
@@ -68,14 +95,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WasteJourneyResources.resx">
+    <EmbeddedResource Update="Resources\WasteResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WasteJourneyResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>WasteResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
 
   <ItemGroup>

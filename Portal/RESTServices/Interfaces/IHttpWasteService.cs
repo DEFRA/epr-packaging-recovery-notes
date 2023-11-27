@@ -8,5 +8,11 @@ namespace Portal.RESTServices.Interfaces
         Task<IEnumerable<WasteTypeDto>> GetWasteMaterialTypes();
         Task<WasteRecordStatusViewModel?> GetWasteRecordStatus(string reprocessorId);
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
+
+        Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId);
+
+        Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
+
+        Task<string> GetWasteType(int journeyId);
     }
 }
