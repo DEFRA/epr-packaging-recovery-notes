@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using AutoMapper.Configuration;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
 using System.Collections;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Eventing.Reader;
+using System.Reflection;
 
 namespace Portal.Helpers.TagHelpers
 {
@@ -22,6 +26,8 @@ namespace Portal.Helpers.TagHelpers
         public ViewContext? ViewContext { get; set; }
 
         private readonly IHtmlGenerator _generator;
+
+        public override int Order => 1;
 
         public RadioTagHelper(
             IHtmlGenerator generator) : base()
@@ -60,31 +66,54 @@ namespace Portal.Helpers.TagHelpers
             radioOptionContainer.AddCssClass("govuk-radios");
             radioOptionContainer.Attributes.Add("data-module", "govuk-radios");
 
-            if (type == typeof(bool))
-            {
-                radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, true, AspFor.Model));
-                radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, false, AspFor.Model));
-            }
-            else if (type.IsEnum)
-            {
-                foreach (var value in Enum.GetValues(type))
-                {
-                    if (value.ToString().Equals("unknown", StringComparison.InvariantCultureIgnoreCase))
-                        continue;
-                    radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, value as Enum, AspFor.Model));
-                }
-            }
-            else if (type == typeof(IEnumerable)) { }
-            {
-                // no values in model, can't display any options
-                if (AspDataFor.Model == null) 
-                    return;
+            // see if we have a required attribute for the property we're saving into
+            var requiredAttribute = AspFor
+                .Metadata?
+                .ContainerType?
+                .GetProperty(AspFor.Name)?
+                .GetCustomAttributes(typeof(RequiredAttribute), false)
+                .FirstOrDefault() as RequiredAttribute;
 
-                foreach (var value in AspDataFor.Model as IEnumerable)
-                {
-                    radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, value, AspFor.Model));
-                }
+            // if there is a required attribute, add the validation html
+            if (requiredAttribute != null)
+            {
+                var errorContainer = new TagBuilder("p");
+                errorContainer.AddCssClass("govuk-error-message");
+                errorContainer.InnerHtml.AppendHtml(
+                    $"<span class=\"field-validation-error\" data-valmsg-for=\"{AspFor.Name}\" data-valmsg-replace=\"true\"></span>");
+
+                radioOptionContainer.InnerHtml.AppendHtml(errorContainer);
             }
+
+            var children = await output.GetChildContentAsync();
+            string content = children.GetContent();
+            container.InnerHtml.AppendHtml(content);
+
+            //if (type == typeof(bool))
+            //{
+            //    radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, true, AspFor.Model));
+            //    radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, false, AspFor.Model));
+            //}
+            //else if (type.IsEnum)
+            //{
+            //    foreach (var value in Enum.GetValues(type))
+            //    {
+            //        if (value.ToString().Equals("unknown", StringComparison.InvariantCultureIgnoreCase))
+            //            continue;
+            //        radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, value as Enum, AspFor.Model));
+            //    }
+            //}
+            //else if (type == typeof(IEnumerable)) { }
+            //{
+            //    // no values in model, can't display any options
+            //    if (AspDataFor.Model == null) 
+            //        return;
+
+            //    foreach (var value in AspDataFor.Model as IEnumerable)
+            //    {
+            //        radioOptionContainer.InnerHtml.AppendHtml(AddRadioOption(AspFor.Name, value, AspFor.Model));
+            //    }
+            //}
 
             container.InnerHtml.AppendHtml(radioOptionContainer);
             output.Content.AppendHtml(container);
@@ -111,7 +140,8 @@ namespace Portal.Helpers.TagHelpers
         {
             var builder = new TagBuilder("div");
 
-            var id = $"{name.Replace(".", "-")}-{value}";
+            //var id = $"{name.Replace(".", "-")}-{value}";
+            var id = Guid.NewGuid().ToString();
 
             builder.TagRenderMode = TagRenderMode.Normal;
 
@@ -163,7 +193,7 @@ namespace Portal.Helpers.TagHelpers
 
             var childContent = new TagBuilder("label");
             childContent.AddCssClass("govuk-label govuk-radios__label");
-            childContent.Attributes.Add("for", name);
+            childContent.Attributes.Add("for", id);
             childContent.InnerHtml.AppendHtml(text);
 
             builder.InnerHtml.AppendHtml(childContent);

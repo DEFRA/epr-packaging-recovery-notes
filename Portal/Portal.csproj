@@ -97,6 +97,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\js\pages\" />
     <Folder Include="ClientApp\sass\common\" />
     <Folder Include="RESTServices\" />
   </ItemGroup>
