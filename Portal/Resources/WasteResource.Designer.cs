@@ -97,6 +97,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Recording for: .
+        /// </summary>
+        public static string RecordingFor {
+            get {
+                return ResourceManager.GetString("RecordingFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Received it and reproceesed it.
         /// </summary>
         public static string ReproceesedIt {

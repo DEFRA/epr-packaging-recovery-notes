@@ -102,11 +102,12 @@ namespace Portal.Services
                 wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
 
-        public WhatHaveYouDoneWasteModel GetWasteModel(int journeyId)
+        public async Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId)
         {
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
             {
                 JourneyId = journeyId,
+                WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             return whatHaveYouDoneWasteModel;

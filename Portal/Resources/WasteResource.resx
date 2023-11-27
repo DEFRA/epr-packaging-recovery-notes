@@ -129,6 +129,9 @@
   <data name="HintText" xml:space="preserve">
     <value>Hint Text</value>
   </data>
+  <data name="RecordingFor" xml:space="preserve">
+    <value>Recording for: </value>
+  </data>
   <data name="ReproceesedIt" xml:space="preserve">
     <value>Received it and reproceesed it</value>
   </data>
