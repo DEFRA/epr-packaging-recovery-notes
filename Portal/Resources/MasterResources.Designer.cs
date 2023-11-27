@@ -61,6 +61,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to back.
+        /// </summary>
+        public static string Back {
+            get {
+                return ResourceManager.GetString("Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string ContinueBtn {
@@ -75,6 +84,15 @@ namespace Portal.Resources {
         public static string OppositeLanguage {
             get {
                 return ResourceManager.GetString("OppositeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording for:.
+        /// </summary>
+        public static string RecordingFor {
+            get {
+                return ResourceManager.GetString("RecordingFor", resourceCulture);
             }
         }
     }
