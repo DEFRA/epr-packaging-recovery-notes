@@ -8,8 +8,7 @@ namespace Portal.Controllers
     {
         private readonly IWasteService _wasteService;
 
-        public WasteController(
-            IWasteService wasteService)
+        public WasteController(IWasteService wasteService)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
         }
