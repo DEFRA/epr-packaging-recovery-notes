@@ -13,10 +13,10 @@ namespace WasteManagement.API.Data
         {
         }
 
-        public DbSet<WasteType> WasteType { get; set; }
+        public virtual DbSet<WasteType> WasteType { get; set; }
 
-        public DbSet<WasteSubType> WasteSubType { get; set; }
+        public virtual DbSet<WasteSubType> WasteSubType { get; set; }
 
-        public DbSet<WasteJourney> WasteJourney { get; set; }
+        public virtual DbSet<WasteJourney> WasteJourney { get; set; }
     }
 }
