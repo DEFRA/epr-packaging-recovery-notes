@@ -107,5 +107,50 @@ namespace EPRN.UnitTests.Portal.Controllers
             // check view name
             Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
         }
+
+        [TestMethod]
+        public async Task WhatHaveYouDoneWaste_ReturnCurrentView_WhenModelIsInvalid()
+        {
+            var whatHaveYouDoneWithWasteViewModel = new WhatHaveYouDoneWasteModel();
+            _mockWasteService.Setup(s => s.GetWasteModel(It.IsAny<int>())).ReturnsAsync(new WhatHaveYouDoneWasteModel());
+
+            // Act
+            var result = await _wasteController.WhatHaveYouDoneWaste(It.IsAny<int>());
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WhatHaveYouDoneWasteModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName);
+        }
+
+        [TestMethod]
+        public async Task WhatHaveYouDoneWaste_Saves_WithValidData()
+        {
+            // Arrange
+            var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
+            {
+                JourneyId = 1,
+                SelectedWaste = "sentiton"
+            };
+
+            // Act
+            var result = await _wasteController.WhatHaveYouDoneWaste(0, whatHaveYouDoneWasteModel);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+
+            var redirectToActionResult = result as RedirectToActionResult;
+            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+        }
     }
 }

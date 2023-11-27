@@ -102,5 +102,22 @@ namespace EPRN.UnitTests.Portal.Services
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveSelectedWasteType(wasteTypesViewModel));
             Assert.AreEqual("Value cannot be null. (Parameter 'SelectedWasteTypeId')", exception.Message);
         }
+
+        [TestMethod]
+        public async Task SaveSelectedWasteTypeForPage_Succeeds_WithValidModel()
+        {
+            // Arrange
+            int journeyId = 1;
+            string selectedWasteType = "receviedIt";
+
+            // Act
+            await _wasteService.SaveSelectedWasteType(journeyId, selectedWasteType);
+
+            // Assert
+            _mockHttpWasteService.Verify(s => s.SaveSelectedWasteType(
+                It.Is<int>(p => p == 1),
+                It.Is<string>(p => p == "receviedIt"))
+            );
+        }
     }
 }
