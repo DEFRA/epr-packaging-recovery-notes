@@ -1,14 +1,10 @@
-﻿/////////////////////////////////////////
+/////////////////////////////////////////
 //
 // Code taken from https://gist.github.com/beccasaurus/957732
 //
 ////////////////////////////////////////
 export default (function ($) {
-
     $.fn.addTriggersToJqueryValidate = function () {
-
-        // Loop thru the elements that we jQuery validate is attached to
-        // and return the loop, so jQuery function chaining will work.
         return this.each(function () {
             var form = $(this);
 
@@ -46,12 +42,9 @@ export default (function ($) {
                 return result;
             };
         });
-    };
-
-    /* Below here are helper methods for calling .bind() for you */
+    }
 
     $.fn.extend({
-
         // Wouldn't it be nice if, when the full form's validation runs, it triggers the 
         // element* validation events?  Well, that's what this does!
         //
@@ -61,7 +54,7 @@ export default (function ($) {
         //
         triggerElementValidationsOnFormValidation: function () {
             return this.each(function () {
-                $(this).bind('formValidation', function (e, form, result) {
+                $(this).on('formValidation', function (e, form, result) {
                     $(form).find('*[data-val=true]').each(function (i, field) {
                         if ($(field).hasClass('input-validation-error')) {
                             $(field).trigger('elementValidationError', field);
@@ -77,54 +70,52 @@ export default (function ($) {
 
         formValidation: function (fn) {
             return this.each(function () {
-                $(this).bind('formValidation', function (e, element, result) { fn(element, result); });
+                $(this).on('formValidation', function (e, element, result) { fn(element, result); });
             });
         },
 
         formValidationSuccess: function (fn) {
             return this.each(function () {
-                $(this).bind('formValidationSuccess', function (e, element) { fn(element); });
+                $(this).on('formValidationSuccess', function (e, element) { fn(element); });
             });
         },
 
         formValidationError: function (fn) {
             return this.each(function () {
-                $(this).bind('formValidationError', function (e, element) { fn(element); });
+                $(this).on('formValidationError', function (e, element) { fn(element); });
             });
         },
 
         formValidAndInvalid: function (valid, invalid) {
             return this.each(function () {
-                $(this).bind('formValidationSuccess', function (e, element) { valid(element); });
-                $(this).bind('formValidationError', function (e, element) { invalid(element); });
+                $(this).on('formValidationSuccess', function (e, element) { valid(element); });
+                $(this).on('formValidationError', function (e, element) { invalid(element); });
             });
         },
 
         elementValidation: function (fn) {
             return this.each(function () {
-                $(this).bind('elementValidation', function (e, element, result) { fn(element, result); });
+                $(this).on('elementValidation', function (e, element, result) { fn(element, result); });
             });
         },
 
         elementValidationSuccess: function (fn) {
             return this.each(function () {
-                $(this).bind('elementValidationSuccess', function (e, element) { fn(element); });
+                $(this).on('elementValidationSuccess', function (e, element) { fn(element); });
             });
         },
 
         elementValidationError: function (fn) {
             return this.each(function () {
-                $(this).bind('elementValidationError', function (e, element) { fn(element); });
+                $(this).on('elementValidationError', function (e, element) { fn(element); });
             });
         },
 
         elementValidAndInvalid: function (valid, invalid) {
             return this.each(function () {
-                $(this).bind('elementValidationSuccess', function (e, element) { valid(element); });
-                $(this).bind('elementValidationError', function (e, element) { invalid(element); });
+                $(this).on('elementValidationSuccess', function (e, element) { valid(element); });
+                $(this).on('elementValidationError', function (e, element) { invalid(element); });
             });
         }
-
     });
-
 })(jQuery);

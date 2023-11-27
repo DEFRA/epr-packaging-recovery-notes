@@ -21,11 +21,11 @@ namespace Portal.Helpers
             services.AddRazorPages()
                 .AddViewOptions(o =>
                 {
-                    o.HtmlHelperOptions.ClientValidationEnabled = false;
+                    o.HtmlHelperOptions.ClientValidationEnabled = configuration.GetValue<bool>("ClientValidationEnabled");
                 });
 
             // Get the configuration for the services
-            services.Configure<ServicesConfiguration>(configuration.GetSection("Services"));
+            services.Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.Name));
 
             services.AddHttpContextAccessor();
             services

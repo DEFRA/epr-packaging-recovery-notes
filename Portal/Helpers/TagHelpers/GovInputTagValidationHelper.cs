@@ -4,7 +4,15 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Portal.Helpers.TagHelpers
 {
-    // class name govuk-form-group
+    /// <summary>
+    /// If the form fails validation:
+    /// 
+    /// This class goes through each of the specified tags specified below 
+    /// checks to see if they are a govuk-form-group class, and if so
+    /// adds the govuk-form-group--error class to the div for appropriate validation
+    /// failure cases
+    /// </summary>
+    [HtmlTargetElement("div")]
     [HtmlTargetElement("radios")]
     public class GovInputTagValidationHelper : TagHelper
     {
@@ -16,21 +24,16 @@ namespace Portal.Helpers.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            int i = 0;
-            //if (!context.AllAttributes.Any(a => a.Name != "class" && a.Value.ToString() != "govuk-form-group"))
-            //    return;
-            if (context.AllAttributes.Any(a => a.Value.ToString() == "govuk-form-group"))
-                i = 0;
-
+            // can exit if valid as we don't need to do anything more
             if (ViewContext.ViewData.ModelState.IsValid)
                 return;
 
-            var id = context.AllAttributes.FirstOrDefault(a => a.Name.Equals("id", StringComparison.OrdinalIgnoreCase))?.Value.ToString();
+            var outputClass = output.Attributes.FirstOrDefault(a => a.Name == "class");
 
-            if (string.IsNullOrWhiteSpace(id))
+            if (outputClass == null || !outputClass.Value.ToString().Contains("govuk-form-group", StringComparison.OrdinalIgnoreCase))
                 return;
-            sdfgd
-            // add class govuk-form-group--error to matching div id
+
+            output.Attributes.SetAttribute("class", $"{outputClass.Value} govuk-form-group--error");
         }
     }
 }

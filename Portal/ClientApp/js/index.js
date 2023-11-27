@@ -10,12 +10,15 @@ import { initAll } from 'govuk-frontend';
 // @ts-ignore
 window.$ = window.jQuery = jQuery;
 
-import b from "./common/file";
+// looks like it's unused, but it is. This is so we can hook into jquery validation
+// functions and add further validation routines in
+import jqueryvalidatehooks from "./common/jquery-validate-hooks";
+
 // add imports to further files here
 
 $(document).ready(function () {
     initAll();
-
+    
     $('form').addTriggersToJqueryValidate();
 
     $('form').formValidation(function (element, result) {
@@ -33,8 +36,9 @@ $(document).ready(function () {
 
                 // get first input element with the name described above
                 var inputField = $(`[name=${nameAttribute}]`)[0];
+                var text = element.text();
 
-                $('.govuk-error-summary .govuk-list govuk-error-summary__list').append(`<li><a href="${inputField.id}">${text}</a></li>`)
+                $('.govuk-error-summary .govuk-list.govuk-error-summary__list').append(`<li><a href="#${inputField.id}" data-id="${inputField.id}">${text}</a></li>`)
             });
         }
     });
@@ -42,7 +46,13 @@ $(document).ready(function () {
     $('form input').elementValidationSuccess(function (element) {
         
         $(element).closest('.govuk-form-group').removeClass('govuk-form-group--error');
-        $('.govuk-error-summary').addClass('govuk-visually-hidden');
+
+        // find the associated error in the summary and remove
+        $(`.govuk-error-summary .govuk-list.govuk-error-summary__list [data-id=${element.id}]`).remove();
+
+        // if there are no more errors in the summary, hide it
+        if ($('.govuk-error-summary .govuk-list.govuk-error-summary__list li').is(':empty'))
+            $('.govuk-error-summary').addClass('govuk-visually-hidden');
     });
 });
 
