@@ -11,35 +11,29 @@
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
     <partial name="_ValidationSummary" />
-    <div id="SelectedMonth" class="govuk-form-group @(!ViewContext.ViewData.ModelState.IsValid ? "govuk-form-group--error" : string.Empty)">
-        <fieldset class="govuk-fieldset" aria-describedby="month-hint">
-            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                <span class="govuk-caption-l">
-                    @MasterResources.RecordingFor @Model.WasteType
-                </span>
-                <h1 class="govuk-fieldset__heading">
-                    @WhichQuarterResources.Heading
-                </h1>
-            </legend>
-            <div id="month-hint" class="govuk-hint">
-                @WhichQuarterResources.HintText
+
+    <span class="govuk-caption-l">
+        @MasterResources.RecordingFor @Model.WasteType
+    </span>
+    <radios asp-for="SelectedMonth" asp-data-for="Quarter" asp-title="@WhichQuarterResources.Heading">
+        <div class="govuk-hint">
+            @WhichQuarterResources.HintText
+        </div>
+
+        <p class="govuk-error-message">
+            <span asp-validation-for="SelectedMonth"></span>
+        </p>
+        @foreach (var element in Model.Quarter)
+        {
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" type="radio" asp-for="SelectedMonth" value="@element.Key" aria-describedby="@element.Key">
+                <label class="govuk-label govuk-radios__label" for="@element.Key">
+                    @element.Value
+                </label>
             </div>
-            <div class="govuk-radios" data-module="govuk-radios">
-                <p class="govuk-error-message">
-                    <span asp-validation-for="SelectedMonth"></span>
-                </p>
-                @foreach (var element in Model.Quarter)
-                {
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="@element.Key" name="SelectedMonth" type="radio" value="@element.Key" aria-describedby="@element.Key">
-                        <label class="govuk-label govuk-radios__label" for="@element.Key">
-                            @element.Value
-                        </label>
-                    </div>
-                }
-            </div>
-        </fieldset>
-    </div>
+        }
+    </radios>
+
 
     <button class="govuk-button" data-module="govuk-button" type="submit">
         @MasterResources.ContinueBtn
