@@ -91,5 +91,16 @@ namespace Portal.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Route("/Status")]
+        public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
+        {
+            var result = await _wasteService.GetWasteRecordStatus(journeyId);
+            if (result.WasteRecordStatus == EPRN.Common.Enums.WasteRecordStatuses.Complete)
+                return View("WasteRecordCompleteStatus", result);
+
+            return View("WasteRecordStatus", result);
+        }
     }
 }
