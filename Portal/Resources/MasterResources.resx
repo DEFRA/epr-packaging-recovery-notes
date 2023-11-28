@@ -129,4 +129,7 @@
   <data name="RecordingFor" xml:space="preserve">
     <value>Recording for:</value>
   </data>
+  <data name="SummaryError" xml:space="preserve">
+    <value>There is a problem</value>
+  </data>
 </root>

@@ -2,6 +2,8 @@
 {
     public class ServicesConfiguration
     {
+        public static string Name => "Services";
+
         public Service Waste { get; set; }
     }
 

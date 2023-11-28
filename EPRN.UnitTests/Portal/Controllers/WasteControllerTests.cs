@@ -1,14 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
-using NuGet.Frameworks;
 using Portal.Controllers;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPRN.UnitTests.Portal.Controllers
 {
@@ -49,12 +43,46 @@ namespace EPRN.UnitTests.Portal.Controllers
         }
 
         [TestMethod]
+        public async Task DuringWhichMonth_Return_Correctly()
+        {
+            // Arrange
+            _mockWasteService.Setup(s => s.GetCurrentQuarter(It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+
+            // Act
+            var result = await _wasteController.DuringWhichMonth(2);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(DuringWhichMonthRequestViewModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
         public async Task Types_ThrowsNotFoundException_WhenNoIdSupplied()
         {
             // Arrange
 
             // Act
             var result = await _wasteController.Types((int?)null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task DuringWhichMonth_ThrowsNotFoundException_WhenNoIdSupplied()
+        {
+            // Act
+            var result = await _wasteController.DuringWhichMonth((int?)null);
 
             // Assert
             Assert.IsNotNull(result);
@@ -73,6 +101,28 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             // Act
             var result = await _wasteController.Types(wasteTypesViewModel);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+
+            var redirectToActionResult = result as RedirectToActionResult;
+            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+        }
+
+        [TestMethod]
+        public async Task DuringWhichMonth_Saves_WithValidData()
+        {
+            // Arrange
+            var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
+            {
+                JourneyId = 1,
+                SelectedMonth = 11
+            };
+
+            // Act
+            var result = await _wasteController.DuringWhichMonth(duringWhichMonthRequestViewModel);
 
             // Assert
             Assert.IsNotNull(result);
@@ -106,6 +156,120 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             // check view name
             Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task DuringWhichMonth_ReturnsCurrentView_WhenModelIsInvalid()
+        {
+            // Arrange
+            var wasteTypesViewModel = new WasteTypesViewModel();
+            _mockWasteService.Setup(s => s.GetWasteTypesViewModel(It.IsAny<int>())).ReturnsAsync(new WasteTypesViewModel());
+            _wasteController.ModelState.AddModelError("Error", "Error");
+            // Arrange
+            var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel();
+            _mockWasteService.Setup(s => s.GetCurrentQuarter(It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+            _wasteController.ModelState.AddModelError("Error", "Error");
+
+            // Act
+            var result = await _wasteController.DuringWhichMonth(duringWhichMonthRequestViewModel);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(DuringWhichMonthRequestViewModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task WhatHaveYouDoneWaste_ReturnCurrentView_WhenModelIsInvalid()
+        {
+            var whatHaveYouDoneWithWasteViewModel = new WhatHaveYouDoneWasteModel();
+            _mockWasteService.Setup(s => s.GetWasteModel(It.IsAny<int>())).ReturnsAsync(new WhatHaveYouDoneWasteModel());
+
+            // Act
+            var result = await _wasteController.WhatHaveYouDoneWaste(It.IsAny<int>());
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WhatHaveYouDoneWasteModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName);
+        }
+
+        [TestMethod]
+        public async Task WhatHaveYouDoneWaste_Return_Correctly()
+        {
+            // Arrange
+            var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
+            {
+                JourneyId = 1,
+                SelectedWaste = "sentiton"
+            };
+
+            _mockWasteService.Setup(s => s.GetWasteModel(1)).ReturnsAsync(whatHaveYouDoneWasteModel);
+
+            // Act
+            var result = await _wasteController.WhatHaveYouDoneWaste(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WhatHaveYouDoneWasteModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task WhatHaveYouDoneWaste_Saves_WithValidData()
+        {
+            // Arrange
+            var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
+            {
+                JourneyId = 1,
+                SelectedWaste = "sentiton"
+            };
+
+            // Act
+            var result = await _wasteController.WhatHaveYouDoneWaste(0, whatHaveYouDoneWasteModel);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+
+            var redirectToActionResult = result as RedirectToActionResult;
+            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+        }
+
+        [TestMethod]
+        public async Task WhatHaveYouDoneWaste_ThrowsNotFoundException_WhenNoIdSupplied()
+        {
+            // Act
+            var result = await _wasteController.WhatHaveYouDoneWaste((int?)null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
     }
 }
