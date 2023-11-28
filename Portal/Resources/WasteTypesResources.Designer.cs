@@ -61,6 +61,33 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Aluminium.
+        /// </summary>
+        public static string aluminium {
+            get {
+                return ResourceManager.GetString("aluminium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glass Other.
+        /// </summary>
+        public static string glass_other {
+            get {
+                return ResourceManager.GetString("glass-other", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Glass Remelt.
+        /// </summary>
+        public static string glass_remelt {
+            get {
+                return ResourceManager.GetString("glass-remelt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What is the material type?.
         /// </summary>
         public static string MaterialTypeOptionsTitle {
@@ -75,6 +102,60 @@ namespace Portal.Resources {
         public static string MissingWasteTypeSelectionMessage {
             get {
                 return ResourceManager.GetString("MissingWasteTypeSelectionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paper / Board.
+        /// </summary>
+        public static string paper_board {
+            get {
+                return ResourceManager.GetString("paper/board", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Paper Composting.
+        /// </summary>
+        public static string paper_composting {
+            get {
+                return ResourceManager.GetString("paper-composting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plastic.
+        /// </summary>
+        public static string plastic {
+            get {
+                return ResourceManager.GetString("plastic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Steel.
+        /// </summary>
+        public static string steel {
+            get {
+                return ResourceManager.GetString("steel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wood.
+        /// </summary>
+        public static string wood {
+            get {
+                return ResourceManager.GetString("wood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wood Composting.
+        /// </summary>
+        public static string wood_composting {
+            get {
+                return ResourceManager.GetString("wood-composting", resourceCulture);
             }
         }
     }

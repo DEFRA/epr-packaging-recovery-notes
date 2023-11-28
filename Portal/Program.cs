@@ -16,7 +16,10 @@ var supportedCultures = new[]
     CultureConstants.Welsh
 };
 
-builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+builder.Services.AddLocalization(opts => 
+{ 
+    opts.ResourcesPath = "Resources"; 
+});
 builder.Services
     .Configure<RequestLocalizationOptions>(opts =>
     {

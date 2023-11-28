@@ -1,11 +1,13 @@
-﻿@model WasteTypesViewModel
+﻿@using Microsoft.Extensions.Localization;
+@model WasteTypesViewModel
+@inject LocalizationHelper<WasteTypesResources> localizationHelper
 
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
     <partial name="_ValidationSummary" />
     
     <span>** UNABLE TO POPULATE AT THE MOMENT **</span>
-    <radios id="SelectedWasteTypeId" asp-for="SelectedWasteTypeId" asp-data-for="WasteTypes" asp-title="@WasteTypesResources.MaterialTypeOptionsTitle">
+    <radios id="SelectedWasteTypeId" asp-for="SelectedWasteTypeId" asp-title="@WasteTypesResources.MaterialTypeOptionsTitle">
         <p class="govuk-error-message">
             <span asp-validation-for="SelectedWasteTypeId"></span>
         </p>
@@ -14,7 +16,7 @@
             <div class="govuk-radios__item">
                 <input class="govuk-radios__input" type="radio" asp-for="SelectedWasteTypeId" value="@wasteType.Key">
                 <label class="govuk-label govuk-radios__label" for="@wasteType.Key">
-                    @wasteType.Value
+                    @localizationHelper.GetString(wasteType.Value)
                 </label>
             </div>
         }
