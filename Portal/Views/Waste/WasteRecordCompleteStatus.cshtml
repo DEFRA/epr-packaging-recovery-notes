@@ -1,0 +1,31 @@
+﻿@using Portal.Resources;
+@model WasteRecordStatusViewModel
+
+@{
+    ViewData["Title"] = @WasteRecordCompleteResources.HomePage_Title;
+}
+
+<div>
+    <a asp-controller="Home" asp-action="Index">@WasteRecordCompleteResources.BackLink</a>
+</div>
+<br />
+
+<div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+        @WasteRecordCompleteResources.MessageTitle
+    </h1>
+    <div class="govuk-panel__body">
+        @WasteRecordCompleteResources.ReferenceNumber<br><strong>@Model.WasteRecordReferenceNumber</strong>
+    </div>
+</div>
+
+<div class="text-center">
+    <span class="govuk-body govuk-!-font-weight-bold">@WasteRecordCompleteResources.WhatToDoNext</span><br /><br />
+    <span class="govuk-caption-m">@WasteRecordCompleteResources.AccountIsActive <a asp-action="Index">@WasteRecordCompleteResources.AccountLink</a></span><br />
+    <span class="govuk-caption-m">@WasteRecordCompleteResources.WasteBalance @Model.WasteBalance @WasteRecordCompleteResources.WasteBalance2</span><br />
+</div>
+<br />
+
+<button class="govuk-button" data-module="govuk-button">
+    @WasteRecordCompleteResources.ContinueButton
+</button>

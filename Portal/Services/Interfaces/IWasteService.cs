@@ -16,6 +16,6 @@ namespace Portal.Services.Interfaces
 
         Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
 
-        Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int reprocessorId);
+        Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId);
     }
 }

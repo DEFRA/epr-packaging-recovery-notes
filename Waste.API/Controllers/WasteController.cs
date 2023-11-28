@@ -83,5 +83,21 @@ namespace Waste.API.Controllers
 
             return Ok(id);
         }
+
+        [HttpGet]
+        [Route("Journey/{journeyId}/WasteRecordStatus")]
+        public async Task<IActionResult> GetWasteRecordStatus(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            var result = await _wasteService.GetWasteRecordStatus(journeyId.Value);
+
+            if (result == null)
+                return BadRequest($"No journey found with id: {journeyId}");
+            
+            return Ok(result);
+        }
+
     }
 }

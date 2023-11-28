@@ -1,7 +1,6 @@
 ﻿using EPRN.Common.Dtos;
 using Portal.RESTServices.Interfaces;
 using Portal.Services;
-using Portal.ViewModels;
 
 namespace Portal.RESTServices
 {
@@ -18,10 +17,9 @@ namespace Portal.RESTServices
             return await Get<List<WasteTypeDto>>("WasteTypes");
         }
 
-        public async Task<WasteRecordStatusViewModel?> GetWasteRecordStatus(string reprocessorId)
+        public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
-            var uri = $"";
-            return await Get<WasteRecordStatusDto>(uri);
+            return await Get<WasteRecordStatusDto>($"Journey/{journeyId}/WasteRecordStatus");
         }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)

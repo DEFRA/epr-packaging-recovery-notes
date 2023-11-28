@@ -1,8 +1,8 @@
 ﻿using EPRN.Common.Enums;
 
-namespace Portal.ViewModels
+namespace EPRN.Common.Dtos
 {
-    public class WasteRecordStatusViewModel
+    public class WasteRecordStatusDto
     {
         public int JourneyId { get; set; }
         public WasteRecordStatuses WasteRecordStatus { get; set; }

@@ -94,10 +94,13 @@ namespace Portal.Controllers
 
         [HttpGet]
         [Route("/WasteRecordStatus")]
-        public async Task<IActionResult> GetWasteRecordStatus(int reprocessorId)
+        public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
         {
-            var result = await _wasteService.GetWasteRecordStatus(reprocessorId);
-            return View("WasteRecordStatus", result);
+            var result = await _wasteService.GetWasteRecordStatus(journeyId);
+            if (result.WasteRecordStatus == EPRN.Common.Enums.WasteRecordStatuses.Complete)
+                return View("WasteRecordCompleteStatus", result);
+
+            return View("WasteRecordStatus");
         }
     }
 }
