@@ -13,9 +13,14 @@ export default {
     plugins: [
         commonjs(),
         inject({
+            include: [
+//                'jquery.validation.hooks.js',
+//                ...['jquery.validation.hooks'].map(x => path.resolve(__dirname, x, "**/*.js"))
+            ],
             modules: {
                 '$': 'jquery',
                 'jQuery': 'jquery',
+                'define': path.resolve('./ClientApp/js', "undefined.js")
             }
         }),
         resolve(),

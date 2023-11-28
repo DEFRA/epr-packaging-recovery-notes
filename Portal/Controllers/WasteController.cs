@@ -6,11 +6,9 @@ namespace Portal.Controllers
 {
     public class WasteController : Controller
     {
-
         private readonly IWasteService _wasteService;
 
-        public WasteController(
-            IWasteService wasteService)
+        public WasteController(IWasteService wasteService)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
         }
@@ -19,7 +17,7 @@ namespace Portal.Controllers
         public async Task<IActionResult> DuringWhichMonth(int? id)
         {
             if (id == null)
-                throw new ArgumentNullException("id");
+                return NotFound();
 
             var model = await _wasteService.GetCurrentQuarter(id.Value);
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Portal.Resources;
+using System.ComponentModel.DataAnnotations;
 
 namespace Portal.ViewModels
 {
@@ -8,7 +9,7 @@ namespace Portal.ViewModels
 
         public Dictionary<int, string>? WasteTypes { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "MissingWasteTypeSelectionMessage", ErrorMessageResourceType = typeof(WasteTypesResources))]
         public int? SelectedWasteTypeId { get; set; }
     }
 }
