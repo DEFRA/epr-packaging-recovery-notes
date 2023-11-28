@@ -30,6 +30,9 @@ namespace EPRN.UnitTests.API.Controllers
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockWasteService.Verify(s => s.GetWasteType(
+                 It.Is<int>(p => p == journeyId))
+             );
         }
 
         [TestMethod]
@@ -43,6 +46,9 @@ namespace EPRN.UnitTests.API.Controllers
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            _mockWasteService.Verify(s => s.GetWasteType(
+                 It.Is<int>(p => p == null)), Times.Never
+             );
         }
 
         [TestMethod]
@@ -51,7 +57,7 @@ namespace EPRN.UnitTests.API.Controllers
             //Arrange
             var journeyId = 5;
             var monthSelected = 7;
-            _mockWasteService!.Setup(ws => ws.CreateJourney());
+            _mockWasteService!.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
 
             //Act
             var result = await _wasteController!.SaveJourneyMonth(journeyId, monthSelected);
@@ -59,6 +65,10 @@ namespace EPRN.UnitTests.API.Controllers
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkResult));
+            _mockWasteService.Verify(s => s.SaveSelectedMonth(
+                 It.Is<int>(p => p == journeyId),
+                 It.Is<int>(p => p == monthSelected)), Times.Once
+             );
         }
 
         [TestMethod]
@@ -75,6 +85,10 @@ namespace EPRN.UnitTests.API.Controllers
             Assert.AreEqual(monthSelected, 7);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            _mockWasteService.Verify(s => s.SaveSelectedMonth(
+                 It.Is<int>(p => p == null),
+                 It.Is<int>(p => p == monthSelected)), Times.Never
+             );
         }
 
         [TestMethod]
@@ -91,6 +105,10 @@ namespace EPRN.UnitTests.API.Controllers
             Assert.AreEqual(journeyId, 5);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            _mockWasteService.Verify(s => s.SaveSelectedMonth(
+                 It.Is<int>(p => p == journeyId),
+                 It.Is<int>(p => p == null)), Times.Never
+             );
         }
     }
 }
