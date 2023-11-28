@@ -19,7 +19,7 @@ namespace Portal.RESTServices
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
-            return await Get<WasteRecordStatusDto>($"Journey/{journeyId}/WasteRecordStatus");
+            return await Get<WasteRecordStatusDto>($"Journey/{journeyId}/status");
         }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)

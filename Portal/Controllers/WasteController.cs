@@ -102,7 +102,7 @@ namespace Portal.Controllers
             if (result.WasteRecordStatus == EPRN.Common.Enums.WasteRecordStatuses.Complete)
                 return View("WasteRecordCompleteStatus", result);
 
-            return View("WasteRecordStatus");
+            return View("WasteRecordStatus", result);
         }
     }
 }

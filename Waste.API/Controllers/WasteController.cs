@@ -85,7 +85,7 @@ namespace Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("Journey/{journeyId}/WasteRecordStatus")]
+        [Route("Journey/{journeyId}/status")]
         public async Task<IActionResult> GetWasteRecordStatus(int? journeyId)
         {
             if (journeyId == null)
