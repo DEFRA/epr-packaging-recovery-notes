@@ -19,7 +19,7 @@ namespace Portal.Helpers.TagHelpers
         public ModelExpression? AspFor { get; set; }
 
         // need this if it's not an enum property we're mapping out
-        public ModelExpression? AspDataFor { get; set; }
+//        public ModelExpression? AspDataFor { get; set; }
 
         [HtmlAttributeNotBound]
         [ViewContext]
@@ -42,17 +42,17 @@ namespace Portal.Helpers.TagHelpers
 
             var dataProperty = AspFor;
 
-            if (AspDataFor != null)
-                dataProperty = AspDataFor;
+//            if (AspDataFor != null)
+//                dataProperty = AspDataFor;
 
-            var type = dataProperty.Metadata.ModelType;
-            var underlyingType = Nullable.GetUnderlyingType(type);
+//            var type = dataProperty.Metadata.ModelType;
+//            var underlyingType = Nullable.GetUnderlyingType(type);
 
-            if (underlyingType != null)
-                type = underlyingType;
+//            if (underlyingType != null)
+//                type = underlyingType;
 
-            if (!type.IsEnum && type != typeof(bool) && type.GetInterface(nameof(IEnumerable)) == null)
-                return;
+//            if (!type.IsEnum && type != typeof(bool) && type.GetInterface(nameof(IEnumerable)) == null)
+//                return;
 
             output.TagName = "div";
             output.Attributes.Add("class", "govuk-form-group");

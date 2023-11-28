@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using Portal.Helpers.Interfaces;
 using Portal.Models;
@@ -7,6 +8,7 @@ using Portal.RESTServices;
 using Portal.RESTServices.Interfaces;
 using Portal.Services;
 using Portal.Services.Interfaces;
+using System.Globalization;
 using System.Security.Authentication;
 
 namespace Portal.Helpers
@@ -18,6 +20,19 @@ namespace Portal.Helpers
         /// </summary>
         public static IServiceCollection AddDependencies(this IServiceCollection services, ConfigurationManager configuration)
         {
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new List<CultureInfo>
+                                            {
+                                                Constants.CultureConstants.English,
+                                                Constants.CultureConstants.Welsh
+                                            };
+
+                options.DefaultRequestCulture = new RequestCulture("en-GB");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
+
             services.AddRazorPages()
                 .AddViewOptions(o =>
                 {
@@ -38,6 +53,7 @@ namespace Portal.Helpers
                     };
                 });
 
+            services.AddTransient(typeof(LocalizationHelper<>));
             services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
             services.AddTransient<IHttpWasteService>(s =>

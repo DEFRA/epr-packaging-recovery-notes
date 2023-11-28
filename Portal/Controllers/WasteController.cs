@@ -4,6 +4,7 @@ using Portal.ViewModels;
 
 namespace Portal.Controllers
 {
+    
     public class WasteController : Controller
     {
         private readonly IWasteService _wasteService;
@@ -13,16 +14,7 @@ namespace Portal.Controllers
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> DuringWhichMonth(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var model = await _wasteService.GetCurrentQuarter(id.Value);
-
-            return View(model);
-        }
+        
 
         [HttpGet]
         public async Task<IActionResult> WhatHaveYouDoneWaste(int? id)
@@ -47,8 +39,20 @@ namespace Portal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        [Route("Waste/Month/{id}")]
+        public async Task<IActionResult> DuringWhichMonth(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetCurrentQuarter(id.Value);
+
+            return View(model);
+        }
 
         [HttpPost]
+        [Route("Waste/Month/{id}")]
         public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
             if (!ModelState.IsValid)
