@@ -126,15 +126,15 @@ namespace Portal.Services
                 wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
 
-        public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
+        public async Task SaveWhatHaveYouDoneWaste(int journeyId, string whatHaveYouDoneWaste)
         {
             if (journeyId == null)
                 throw new ArgumentNullException(nameof(journeyId));
 
-            if (selectedWasteType == null)
-                throw new ArgumentNullException(nameof(selectedWasteType));
+            if (whatHaveYouDoneWaste == null)
+                throw new ArgumentNullException(nameof(whatHaveYouDoneWaste));
 
-            await _httpWasteService.SaveSelectedWasteType(journeyId, selectedWasteType);
+            await _httpWasteService.SaveWhatHaveYouDoneWaste(journeyId, whatHaveYouDoneWaste);
         }
     }
 }

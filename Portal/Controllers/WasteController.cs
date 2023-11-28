@@ -34,7 +34,7 @@ namespace Portal.Controllers
                 return View(whatHaveYouDoneWaste);
             }
 
-            await _wasteService.SaveSelectedWasteType(whatHaveYouDoneWaste.JourneyId, whatHaveYouDoneWaste.SelectedWaste);
+            await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste.JourneyId, whatHaveYouDoneWaste.SelectedWaste);
 
             return RedirectToAction("Index", "Home");
         }

@@ -12,7 +12,7 @@ namespace Waste.API.Services.Interfaces
 
         Task SaveWasteType(int journeyId, int wasteTypeId);
 
-        Task SaveSelectedWasteType(int journeyId, String selectedWasteType);
+        Task SaveWhatHaveYouDoneWaste(int journeyId, String whatHaveYouDoneWaste);
 
         Task<string> GetWasteType(int journeyId);
     }

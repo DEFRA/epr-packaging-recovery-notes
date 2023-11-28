@@ -27,9 +27,9 @@ namespace Portal.RESTServices
             await Post($"Journey/{journeyId}/Type/{selectedWasteTypeId}");
         }
 
-        public async Task SaveSelectedWasteType(int journeyId, string selectedWaste)
+        public async Task SaveWhatHaveYouDoneWaste(int journeyId, string whatHaveYouDoneWaste)
         {
-            await Post($"Journey/{journeyId}/WasteType/{selectedWaste}", null);
+            await Post($"Journey/{journeyId}/WasteType/{whatHaveYouDoneWaste}", null);
         }
 
         public async Task<string> GetWasteType(int journeyId)
