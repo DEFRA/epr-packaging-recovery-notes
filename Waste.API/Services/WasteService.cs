@@ -28,14 +28,14 @@ namespace Waste.API.Services
                 CreatedBy = "DEVELOPER"
             };
 
-            _wasteContext.WasteJourney.Add(journeyRecord);
+            _wasteContext.WasteJourneys.Add(journeyRecord);
             await _wasteContext.SaveChangesAsync();
             return journeyRecord.Id;
         }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
-            var journeyRecord = await _wasteContext.WasteJourney
+            var journeyRecord = await _wasteContext.WasteJourneys
                 .FirstOrDefaultAsync(wj => wj.Id == journeyId);
 
             if (journeyRecord == null)
@@ -47,7 +47,7 @@ namespace Waste.API.Services
 
         public async Task<IEnumerable<WasteTypeDto>> WasteTypes()
         {
-            return await _wasteContext.WasteType
+            return await _wasteContext.WasteTypes
                 .OrderBy(wt => wt.Name)
                 .Select(wt => _mapper.Map<WasteTypeDto>(wt))
                 .ToListAsync();
@@ -55,7 +55,7 @@ namespace Waste.API.Services
 
         public async Task SaveWasteType(int journeyId, int wasteTypeId)
         {
-            var journeyRecord = await _wasteContext.WasteJourney.FirstOrDefaultAsync(wj => wj.Id == journeyId);
+            var journeyRecord = await _wasteContext.WasteJourneys.FirstOrDefaultAsync(wj => wj.Id == journeyId);
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
@@ -65,7 +65,7 @@ namespace Waste.API.Services
 
         public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
         {
-            var journeyRecord = await _wasteContext.WasteJourney.FirstOrDefaultAsync(w => w.Id == journeyId);
+            var journeyRecord = await _wasteContext.WasteJourneys.FirstOrDefaultAsync(w => w.Id == journeyId);
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
@@ -76,7 +76,7 @@ namespace Waste.API.Services
         public async Task<string> GetWasteType(int journeyId)
         {
             var wasteType = await _wasteContext
-                .WasteJourney
+                .WasteJourneys
                 .Where(wj => wj.Id == journeyId && wj.WasteTypeId != null)
                 .Select(wj => wj.WasteType!.Name)
                 .FirstOrDefaultAsync();
