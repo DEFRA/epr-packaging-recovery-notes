@@ -141,14 +141,7 @@ namespace Portal.Services
         public async Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId)
         {
             var result = await _httpWasteService.GetWasteRecordStatus(journeyId);
-            return new WasteRecordStatusViewModel
-            {
-                JourneyId = result.JourneyId,
-                WasteBalance = result.WasteBalance,
-                WasteRecordReferenceNumber = result.WasteRecordReferenceNumber,
-                WasteRecordStatus = result.WasteRecordStatus
-            };
-
+            return _mapper.Map<WasteRecordStatusViewModel>(result);
         }
     }
 }

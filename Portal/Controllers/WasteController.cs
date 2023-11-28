@@ -95,7 +95,7 @@ namespace Portal.Controllers
         }
 
         [HttpGet]
-        [Route("/WasteRecordStatus")]
+        [Route("/Status")]
         public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
         {
             var result = await _wasteService.GetWasteRecordStatus(journeyId);
