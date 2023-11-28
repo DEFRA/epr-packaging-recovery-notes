@@ -189,5 +189,19 @@ namespace EPRN.UnitTests.Portal.Services
                 It.Is<string>(p => p == "receviedIt"))
             );
         }
+
+        [TestMethod]
+        public async Task SaveSelectedWaste_ThrowsException_WhenSelectedWasteIsNull()
+        {
+            // Arrange
+            int journeyId = 1;
+            string selectedWasteType = null;
+
+            // Act
+
+            // Assert
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveSelectedWasteType(journeyId, selectedWasteType));
+            Assert.AreEqual("Value cannot be null. (Parameter 'selectedWasteType')", exception.Message);
+        }
     }
 }

@@ -128,6 +128,12 @@ namespace Portal.Services
 
         public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
         {
+            if (journeyId == null)
+                throw new ArgumentNullException(nameof(journeyId));
+
+            if (selectedWasteType == null)
+                throw new ArgumentNullException(nameof(selectedWasteType));
+
             await _httpWasteService.SaveSelectedWasteType(journeyId, selectedWasteType);
         }
     }
