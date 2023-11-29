@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enum;
 
 namespace Portal.RESTServices.Interfaces
 {
