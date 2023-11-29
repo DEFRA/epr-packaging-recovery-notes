@@ -98,5 +98,35 @@ namespace Waste.API.Services
         {
             return await _wasteRepository.GetById<WasteJourney>(id);
         }
+
+        public async Task<WasteRecordStatusDto?> GetWasteRecordStatus(int journeyId)
+        {
+            var journey = await _wasteContext.WasteJourney.FirstOrDefaultAsync(x => x.Id == journeyId);
+
+            if (journey == null)
+                return null;
+
+            var dto = new WasteRecordStatusDto
+            {
+                JourneyId = journey.Id,
+                WasteBalance = GetWasteBalance(journey),
+                WasteRecordReferenceNumber = string.IsNullOrWhiteSpace(journey.ReferenceNumber) ? string.Empty : journey.ReferenceNumber,
+                WasteRecordStatus = EPRN.Common.Enums.WasteRecordStatuses.Incomplete
+            };
+
+            if (journey.Completed.HasValue)
+                dto.WasteRecordStatus = journey.Completed.Value ? EPRN.Common.Enums.WasteRecordStatuses.Complete : EPRN.Common.Enums.WasteRecordStatuses.Incomplete;
+
+            return dto;
+        }
+
+        private double GetWasteBalance(WasteJourney journey)
+        {
+            if (journey == null)
+                return 0;
+
+            return journey.Quantity.HasValue ? journey.Quantity.Value : 0;
+        }
+
     }
 }

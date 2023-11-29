@@ -66,7 +66,7 @@ namespace Portal.Helpers
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
-                mc.AddProfile(new WasteProfiles());
+                mc.AddProfile(new WasteManagementProfile());
                 mc.AllowNullCollections = true;
             });
 
