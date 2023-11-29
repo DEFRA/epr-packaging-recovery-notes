@@ -24,14 +24,14 @@ namespace Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> WhatHaveYouDoneWaste(int id, WhatHaveYouDoneWasteModel whatHaveYouDoneWaste)
+        public async Task<IActionResult> WhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWaste)
         {
             if (!ModelState.IsValid)
             {
                 return View(whatHaveYouDoneWaste);
             }
 
-            await _wasteService.SaveSelectedWasteType(whatHaveYouDoneWaste.JourneyId, whatHaveYouDoneWaste.SelectedWaste);
+            await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
             return RedirectToAction("Index", "Home");
         }

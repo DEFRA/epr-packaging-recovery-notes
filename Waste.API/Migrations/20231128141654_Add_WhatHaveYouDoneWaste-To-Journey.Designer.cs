@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteManagement.API.Data;
 
@@ -11,9 +12,11 @@ using WasteManagement.API.Data;
 namespace Waste.API.Migrations
 {
     [DbContext(typeof(WasteContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20231128141654_Add_WhatHaveYouDoneWaste-To-Journey")]
+    partial class Add_WhatHaveYouDoneWasteToJourney
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,9 +49,6 @@ namespace Waste.API.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DoneWaste")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -64,9 +64,6 @@ namespace Waste.API.Migrations
                     b.Property<double?>("Quantity")
                         .HasColumnType("float");
 
-                    b.Property<string>("ReferenceNumber")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double?>("Total")
                         .HasColumnType("float");
 
@@ -75,6 +72,9 @@ namespace Waste.API.Migrations
 
                     b.Property<int?>("WasteTypeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("WhatHaveYouDoneWaste")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

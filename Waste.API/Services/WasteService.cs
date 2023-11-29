@@ -67,14 +67,14 @@ namespace Waste.API.Services
             await _wasteRepository.Update(journeyRecord);
         }
 
-        public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
+        public async Task SaveWhatHaveYouDoneWaste(int journeyId, string whatHaveYouDoneWaste)
         {
             var journeyRecord = await GetJourney(journeyId);
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            journeyRecord.Note = selectedWasteType;
-            await _wasteRepository.Update(journeyRecord);
+            journeyRecord.DoneWaste = whatHaveYouDoneWaste;
+            await _wasteContext.SaveChangesAsync();
         }
 
         public async Task<string> GetWasteType(int journeyId)

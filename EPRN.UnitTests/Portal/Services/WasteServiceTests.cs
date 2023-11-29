@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
+using EPRN.Common.Enum;
 using Moq;
 using Portal.RESTServices.Interfaces;
 using Portal.Services;
@@ -176,34 +177,37 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task SaveSelectedWasteTypeForPage_Succeeds_WithValidModel()
+        public async Task SaveWhatHaveYouDoneWaste_Succeeds_WithValidModel()
         {
             // Arrange
-            int journeyId = 1;
-            string selectedWasteType = "receviedIt";
+            WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel();
+            whatHaveYouDoneWasteModel.JourneyId = 1;
+            whatHaveYouDoneWasteModel.WhatHaveYouDone = DoneWaste.ReprocessedIt;
+
 
             // Act
-            await _wasteService.SaveSelectedWasteType(journeyId, selectedWasteType);
+            await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWasteModel);
 
             // Assert
-            _mockHttpWasteService.Verify(s => s.SaveSelectedWasteType(
+            _mockHttpWasteService.Verify(s => s.SaveWhatHaveYouDoneWaste(
                 It.Is<int>(p => p == 1),
-                It.Is<string>(p => p == "receviedIt"))
-            );
+                It.Is<DoneWaste>(p => p == DoneWaste.ReprocessedIt)
+            ));
         }
 
         [TestMethod]
-        public async Task SaveSelectedWaste_ThrowsException_WhenSelectedWasteIsNull()
+        public async Task SaveWhatHaveYouDoneWaste_ThrowsException_WhenWasteIsNull()
         {
             // Arrange
-            int journeyId = 1;
-            string selectedWasteType = null;
-
+            WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel();
+            whatHaveYouDoneWasteModel.JourneyId = 1;
+            whatHaveYouDoneWasteModel.WhatHaveYouDone = null;
+            
             // Act
 
             // Assert
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveSelectedWasteType(journeyId, selectedWasteType));
-            Assert.AreEqual("Value cannot be null. (Parameter 'selectedWasteType')", exception.Message);
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWasteModel));
+            Assert.AreEqual("Value cannot be null. (Parameter 'WhatHaveYouDone')", exception.Message);
         }
 
 
