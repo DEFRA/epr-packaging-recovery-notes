@@ -94,14 +94,9 @@ namespace Waste.API.Services
             return wasteType.Name;
         }
 
-        private async Task<WasteJourney> GetJourney(int id)
-        {
-            return await _wasteRepository.GetById<WasteJourney>(id);
-        }
-
         public async Task<WasteRecordStatusDto?> GetWasteRecordStatus(int journeyId)
         {
-            var journey = await _wasteContext.WasteJourney.FirstOrDefaultAsync(x => x.Id == journeyId);
+            var journey = await GetJourney(journeyId);
 
             if (journey == null)
                 return null;
@@ -128,5 +123,9 @@ namespace Waste.API.Services
             return journey.Quantity.HasValue ? journey.Quantity.Value : 0;
         }
 
+        private async Task<WasteJourney> GetJourney(int id)
+        {
+            return await _wasteRepository.GetById<WasteJourney>(id);
+        }
     }
 }

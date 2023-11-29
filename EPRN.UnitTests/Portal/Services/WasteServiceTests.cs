@@ -212,15 +212,15 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 1;
+            var dto = new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete };
 
-            _mockHttpWasteService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete});
+            _mockHttpWasteService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(dto);
 
             // Act
             var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
 
             // Assert
-            Assert.IsNotNull(viewModel);
-            Assert.IsTrue(viewModel.WasteRecordStatus == Common.Enums.WasteRecordStatuses.Complete);
+            _mockMapper.Verify(m => m.Map<WasteRecordStatusViewModel>(It.Is<WasteRecordStatusDto>(p => p == dto)), Times.Once);
         }
 
         [TestMethod]
