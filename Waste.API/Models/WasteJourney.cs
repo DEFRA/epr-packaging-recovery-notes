@@ -29,6 +29,8 @@ namespace Waste.API.Models
 
         public virtual WasteSubType? WasteSubType { get; set; }
 
+        public string? ReferenceNumber { get; set; }
+
         public string? DoneWaste { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Portal.ViewModels;
 
 namespace Portal.Controllers
 {
-    
+
     public class WasteController : Controller
     {
         private readonly IWasteService _wasteService;
@@ -13,8 +13,6 @@ namespace Portal.Controllers
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
         }
-
-        
 
         [HttpGet]
         public async Task<IActionResult> WhatHaveYouDoneWaste(int? id)
@@ -92,6 +90,17 @@ namespace Portal.Controllers
             await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Route("/Status")]
+        public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
+        {
+            var result = await _wasteService.GetWasteRecordStatus(journeyId);
+            if (result.WasteRecordStatus == EPRN.Common.Enums.WasteRecordStatuses.Complete)
+                return View("WasteRecordCompleteStatus", result);
+
+            return View("WasteRecordStatus", result);
         }
     }
 }

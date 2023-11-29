@@ -114,7 +114,7 @@ namespace Portal.Services
         private async Task<T> Send<T>(HttpRequestMessage requestMessage)
         {
             var response = await _httpClient.SendAsync(requestMessage);
-
+            
             if (response.IsSuccessStatusCode)
             {
                 var responseStream = await response.Content.ReadAsStreamAsync();

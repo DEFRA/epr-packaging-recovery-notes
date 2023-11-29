@@ -207,5 +207,36 @@ namespace EPRN.UnitTests.Portal.Services
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWasteModel));
             Assert.AreEqual("Value cannot be null. (Parameter 'WhatHaveYouDone')", exception.Message);
         }
+
+
+        [TestMethod]
+        public async Task GetWasteRecordStatus_ReturnsDto_WhenValidJourneyId()
+        {
+            // Arrange
+            int journeyId = 1;
+
+            _mockHttpWasteService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete});
+
+            // Act
+            var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+            Assert.IsTrue(viewModel.WasteRecordStatus == Common.Enums.WasteRecordStatuses.Complete);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public async Task GetWasteRecordStatus_ThrowsException_WhenInvalidJourneyId()
+        {
+            // Arrange
+            int journeyId = -1;
+
+            _mockHttpWasteService.Setup(s => s.GetWasteRecordStatus(journeyId)).Throws(new Exception());
+            
+            // Act
+            var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
+
+        }
     }
 }

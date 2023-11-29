@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using Portal.Resources;
 using Portal.RESTServices.Interfaces;
 using Portal.Services.Interfaces;
@@ -136,6 +137,12 @@ namespace Portal.Services
                 throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel.WhatHaveYouDone));
 
             await _httpWasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWasteViewModel.JourneyId, whatHaveYouDoneWasteViewModel.WhatHaveYouDone.Value);
+        }
+
+        public async Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId)
+        {
+            var result = await _httpWasteService.GetWasteRecordStatus(journeyId);
+            return _mapper.Map<WasteRecordStatusViewModel>(result);
         }
     }
 }

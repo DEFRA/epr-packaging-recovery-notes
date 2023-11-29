@@ -272,5 +272,54 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
+
+        [TestMethod]
+        public async Task GetWasteRecordStatus_Return_RecordCompleteView_ValidId()
+        {
+            // Arrange
+            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete});
+
+            // Act
+            var result = await _wasteController.GetWasteRecordStatus(2);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
+
+            // check view name
+            Assert.IsNotNull(viewResult.ViewName); 
+            Assert.AreEqual("WasteRecordCompleteStatus", viewResult.ViewName);
+
+        }
+
+        [TestMethod]
+        public async Task GetWasteRecordStatus_Return_RecordNotCompleteView_InValidId()
+        {
+            // Arrange
+            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Incomplete });
+
+            // Act
+            var result = await _wasteController.GetWasteRecordStatus(2);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
+
+            // check view name
+            Assert.IsNotNull(viewResult.ViewName); 
+            Assert.AreEqual("WasteRecordStatus", viewResult.ViewName);
+        }
     }
 }
