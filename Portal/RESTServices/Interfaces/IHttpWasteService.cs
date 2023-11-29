@@ -1,5 +1,5 @@
 ﻿using EPRN.Common.Dtos;
-using Portal.ViewModels;
+using EPRN.Common.Enum;
 
 namespace Portal.RESTServices.Interfaces
 {
@@ -11,7 +11,7 @@ namespace Portal.RESTServices.Interfaces
 
         Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId);
 
-        Task SaveSelectedWasteType(int journeyId, string selectedWasteType);
+        Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste);
 
         Task<string> GetWasteType(int journeyId);
     }

@@ -33,11 +33,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\WasteRecordCompleteResources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>WasteRecordCompleteResources.resx</DependentUpon>
-    </Compile>
     <Compile Update="Resources\WasteResource.cy-GB.Designer.cs">
       <DependentUpon>WasteResource.cy-GB.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -63,10 +58,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>HomeResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\WasteResource.Designer.cs">
+    <Compile Update="Resources\WhatHaveYouDoneWithWasteResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WasteResource.resx</DependentUpon>
+      <DependentUpon>WhatHaveYouDoneWithWasteResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -87,8 +82,8 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WasteRecordCompleteResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WasteResource.cy-GB.resx">
-      <LastGenOutput>WasteResource.cy-GB.Designer.cs</LastGenOutput>
+    <EmbeddedResource Update="Resources\WhatHaveYouDoneWithWasteResource.cy-GB.resx">
+      <LastGenOutput>WhatHaveYouDoneWithWasteResource.cy-GB.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteTypesResources.resx">
@@ -107,9 +102,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WasteResource.resx">
+    <EmbeddedResource Update="Resources\WhatHaveYouDoneWithWasteResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WasteResource.Designer.cs</LastGenOutput>
+      <LastGenOutput>WhatHaveYouDoneWithWasteResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enum;
 using Portal.RESTServices.Interfaces;
 using Portal.Services;
 
@@ -32,9 +33,9 @@ namespace Portal.RESTServices
             await Post($"Journey/{journeyId}/Type/{selectedWasteTypeId}");
         }
 
-        public async Task SaveSelectedWasteType(int journeyId, string selectedWaste)
+        public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            await Post($"Journey/{journeyId}/WasteType/{selectedWaste}", null);
+            await Post($"Journey/{journeyId}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}", null);
         }
 
         public async Task<string> GetWasteType(int journeyId)

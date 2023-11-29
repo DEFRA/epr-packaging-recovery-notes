@@ -68,18 +68,18 @@ namespace Waste.API.Controllers
         }
         
         [HttpPost]
-        [Route("Journey/{journeyId}/WasteType/{selectedWasteType}")]
-        public async Task<ActionResult> SaveWasteType(int? journeyId, string? selectedWasteType)
+        [Route("Journey/{journeyId}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}")]
+        public async Task<ActionResult> SaveWhatHaveYouDoneWaste(int? journeyId, string? whatHaveYouDoneWaste)
         {
             if (journeyId == null)
                 return BadRequest("Journey Id is missing");
 
-            if (selectedWasteType == null)
-                return BadRequest("Selected waste is missing");
+            if (whatHaveYouDoneWaste == null)
+                return BadRequest("What Have You Done Waste is missing");
 
             //ToDo: This should be removed in the fullness of time.
             var id = await _wasteService.CreateJourney();
-            await _wasteService.SaveSelectedWasteType(id, selectedWasteType);
+            await _wasteService.SaveWhatHaveYouDoneWaste(id, whatHaveYouDoneWaste);
 
             return Ok(id);
         }
