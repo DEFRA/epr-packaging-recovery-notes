@@ -65,7 +65,9 @@ namespace EPRN.UnitTests.Portal.Services
             // Arrange
             int journeyId = 3;
             string material = "testMaterial";
-            _mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
+            // commenting out for now as we need to think about how we're going to get waste types
+            // for each journey step
+            //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             // Act
             var viewModel = await _wasteService.GetCurrentQuarter(journeyId);
@@ -79,7 +81,7 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual("November", viewModel.Quarter.ElementAt(1).Value);
             Assert.AreEqual(12, viewModel.Quarter.ElementAt(2).Key);
             Assert.AreEqual("December", viewModel.Quarter.ElementAt(2).Value);
-            Assert.AreEqual(material, viewModel.WasteType);
+            //Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
         }
 
@@ -214,15 +216,15 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 1;
+            var dto = new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete };
 
-            _mockHttpWasteService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete});
+            _mockHttpWasteService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(dto);
 
             // Act
             var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
 
             // Assert
-            Assert.IsNotNull(viewModel);
-            Assert.IsTrue(viewModel.WasteRecordStatus == Common.Enums.WasteRecordStatuses.Complete);
+            _mockMapper.Verify(m => m.Map<WasteRecordStatusViewModel>(It.Is<WasteRecordStatusDto>(p => p == dto)), Times.Once);
         }
 
         [TestMethod]

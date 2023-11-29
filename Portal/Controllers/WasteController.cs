@@ -4,7 +4,6 @@ using Portal.ViewModels;
 
 namespace Portal.Controllers
 {
-
     public class WasteController : Controller
     {
         private readonly IWasteService _wasteService;
