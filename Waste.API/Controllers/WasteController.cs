@@ -68,7 +68,7 @@ namespace Waste.API.Controllers
         }
         
         [HttpPost]
-        [Route("Journey/{journeyId}/WasteType/{whatHaveYouDoneWaste}")]
+        [Route("Journey/{journeyId}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}")]
         public async Task<ActionResult> SaveWhatHaveYouDoneWaste(int? journeyId, string? whatHaveYouDoneWaste)
         {
             if (journeyId == null)

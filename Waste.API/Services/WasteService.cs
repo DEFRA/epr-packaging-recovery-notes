@@ -69,7 +69,7 @@ namespace Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            journeyRecord.WhatHaveYouDoneWaste = whatHaveYouDoneWaste;
+            journeyRecord.DoneWaste = whatHaveYouDoneWaste;
             await _wasteContext.SaveChangesAsync();
         }
 

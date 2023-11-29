@@ -14,6 +14,6 @@ namespace Portal.Services.Interfaces
 
         Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId);
 
-        Task SaveWhatHaveYouDoneWaste(int journeyId, string whatHaveYouDoneWaste);
+        Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
     }
 }
