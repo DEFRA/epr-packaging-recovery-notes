@@ -1,23 +1,22 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
-using Microsoft.EntityFrameworkCore;
 using Waste.API.Models;
+using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
-using WasteManagement.API.Data;
 
 namespace Waste.API.Services
 {
     public class WasteService : IWasteService
     {
         public readonly IMapper _mapper;
-        public readonly WasteContext _wasteContext;
+        public readonly IRepository _wasteRepository;
 
         public WasteService(
             IMapper mapper,
-            WasteContext wasteContext)
+            IRepository wasteRepository)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _wasteContext = wasteContext ?? throw new ArgumentNullException(nameof(wasteContext));
+            _wasteRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_wasteRepository));
         }
 
         public async Task<int> CreateJourney()
@@ -28,63 +27,76 @@ namespace Waste.API.Services
                 CreatedBy = "DEVELOPER"
             };
 
-            _wasteContext.WasteJourneys.Add(journeyRecord);
-            await _wasteContext.SaveChangesAsync();
+            await _wasteRepository.Add(journeyRecord);
+
             return journeyRecord.Id;
         }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
-            var journeyRecord = await _wasteContext.WasteJourneys
-                .FirstOrDefaultAsync(wj => wj.Id == journeyId);
+            var journeyRecord = await _wasteRepository.GetById<WasteJourney>(journeyId);
 
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
             journeyRecord.Month = selectedMonth;
-            await _wasteContext.SaveChangesAsync();
+            await _wasteRepository.Update(journeyRecord);
         }
 
         public async Task<IEnumerable<WasteTypeDto>> WasteTypes()
         {
-            return await _wasteContext.WasteTypes
+            await Task.CompletedTask;
+            // we want the entire table contents (at the
+            // moment - there may be more requirements in the future)
+            // so no where clause
+            var dbWasteTypes = _wasteRepository
+                .List<WasteType>()
                 .OrderBy(wt => wt.Name)
-                .Select(wt => _mapper.Map<WasteTypeDto>(wt))
-                .ToListAsync();
+                .ToList();
+
+            return _mapper.Map<List<WasteTypeDto>>(dbWasteTypes);
         }
 
         public async Task SaveWasteType(int journeyId, int wasteTypeId)
         {
-            var journeyRecord = await _wasteContext.WasteJourneys.FirstOrDefaultAsync(wj => wj.Id == journeyId);
+            var journeyRecord = await GetJourney(journeyId);
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
             journeyRecord.WasteTypeId = wasteTypeId;
-            await _wasteContext.SaveChangesAsync();
+            await _wasteRepository.Update(journeyRecord);
         }
 
         public async Task SaveSelectedWasteType(int journeyId, string selectedWasteType)
         {
-            var journeyRecord = await _wasteContext.WasteJourneys.FirstOrDefaultAsync(w => w.Id == journeyId);
+            var journeyRecord = await GetJourney(journeyId);
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
             journeyRecord.Note = selectedWasteType;
-            await _wasteContext.SaveChangesAsync();
+            await _wasteRepository.Update(journeyRecord);
         }
 
         public async Task<string> GetWasteType(int journeyId)
         {
-            var wasteType = await _wasteContext
-                .WasteJourneys
-                .Where(wj => wj.Id == journeyId && wj.WasteTypeId != null)
-                .Select(wj => wj.WasteType!.Name)
-                .FirstOrDefaultAsync();
+            await Task.CompletedTask;
+            var wasteTypes = _wasteRepository
+                .List<WasteType>(wt => wt.Journeys.Any(j => j.Id == journeyId));
 
-            if (string.IsNullOrWhiteSpace(wasteType))
-                throw new ArgumentNullException($"No waste type found for {journeyId}");
+            if (wasteTypes == null)
+                throw new ArgumentNullException(nameof(wasteTypes));
 
-            return wasteType;
+            var wasteType = wasteTypes.FirstOrDefault();
+            
+            if (wasteType == null)
+                throw new ArgumentNullException(nameof(wasteType));
+
+            return wasteType.Name;
+        }
+
+        private async Task<WasteJourney> GetJourney(int id)
+        {
+            return await _wasteRepository.GetById<WasteJourney>(id);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace EPRN.UnitTests.Portal.Services
             // Arrange
             int journeyId = 3;
             string material = "testMaterial";
-            _mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
+            //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             // Act
             var viewModel = await _wasteService.GetCurrentQuarter(journeyId);
@@ -78,7 +78,7 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual("November", viewModel.Quarter.ElementAt(1).Value);
             Assert.AreEqual(12, viewModel.Quarter.ElementAt(2).Key);
             Assert.AreEqual("December", viewModel.Quarter.ElementAt(2).Value);
-            Assert.AreEqual(material, viewModel.WasteType);
+            //Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
         }
 

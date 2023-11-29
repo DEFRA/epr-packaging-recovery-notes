@@ -24,7 +24,8 @@ namespace Portal.Services
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
                 JourneyId = journeyId,
-                WasteType = await _httpWasteService.GetWasteType(journeyId)
+                // We're not part of a journey yet, so this can't really be hooked up
+                //WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             int currentMonth = DateTime.Now.Month;
@@ -107,7 +108,8 @@ namespace Portal.Services
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
             {
                 JourneyId = journeyId,
-                WasteType = await _httpWasteService.GetWasteType(journeyId)
+                // We're not part of a journey yet, so this can't really be hooked up
+                //WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             return whatHaveYouDoneWasteModel;

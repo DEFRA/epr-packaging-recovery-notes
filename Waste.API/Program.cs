@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Waste.API.Repositories;
+using Waste.API.Repositories.Interfaces;
 using Waste.API.Services;
 using Waste.API.Services.Interfaces;
 using WasteManagement.API.Data;
@@ -15,6 +17,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IWasteService, WasteService>();
+builder.Services.AddTransient<IRepository, Repository>();
 
 // add db context options
 builder.Services.AddDbContext<WasteContext>(options =>

@@ -4,7 +4,6 @@ using Portal.ViewModels;
 
 namespace Portal.Controllers
 {
-    
     public class WasteController : Controller
     {
         private readonly IWasteService _wasteService;
@@ -13,8 +12,6 @@ namespace Portal.Controllers
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
         }
-
-        
 
         [HttpGet]
         public async Task<IActionResult> WhatHaveYouDoneWaste(int? id)

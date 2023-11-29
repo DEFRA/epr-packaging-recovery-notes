@@ -1,18 +1,11 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.UnitTests.Helpers;
-using Microsoft.EntityFrameworkCore;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 using Waste.API.Models;
+using Waste.API.Repositories.Interfaces;
 using Waste.API.Services;
 using Waste.API.Services.Interfaces;
-using WasteManagement.API.Data;
 
 namespace EPRN.UnitTests.API.Services
 {
@@ -21,16 +14,16 @@ namespace EPRN.UnitTests.API.Services
     {
         private IWasteService _wasteService;
         private Mock<IMapper> _mockMapper;
-        private Mock<WasteContext> _mockContext;
+        private Mock<IRepository> _mockRepository;
 
         [TestInitialize]
         public void Init()
         {
             _mockMapper = new Mock<IMapper>();
-            _mockContext = new Mock<WasteContext>();
+            _mockRepository = new Mock<IRepository>();
             _wasteService = new WasteService(
                 _mockMapper.Object,
-                _mockContext.Object);
+                _mockRepository.Object);
         }
 
         [TestMethod]
@@ -39,22 +32,55 @@ namespace EPRN.UnitTests.API.Services
             // Arrange
             var data = new List<WasteType>
             {
-            }.AsAsyncQueryable();
+                new WasteType
+                {
+                    Id = 9,
+                    Name = "Zoo"
+                },
+                new WasteType
+                {
+                    Id = 3,
+                    Name = "Alphabetty Spaghetti"
+                },
+                new WasteType
+                {
+                    Id = 6,
+                    Name = "Middle of the road"
+                }
+            };
+
+            _mockRepository.Setup(c => c.List<WasteType>()).Returns(data);
 
             // Act
+            var wasteTypes = await _wasteService.WasteTypes();
 
             // Assert
+            _mockRepository.Verify(r => r.List<WasteType>(), Times.Once()); // test we called the expected function on the repo
+            _mockMapper.Verify(m => 
+                m.Map<List<WasteTypeDto>>(
+                    It.Is<List<WasteType>>(p =>
+                        TestHelper.CompareOrderedList(p, data, wt => wt.Name))), 
+                    Times.Once()); // test that we called Map with the expected ordered list
+        }
 
+        [TestMethod]
+        public async Task SaveWasteType_Succeeds_With_ValidIds()
+        {
+            // arrange
+            int journeyId = 5;
+            int wasteTypeId = 45;
 
-            var mockSet = new Mock<DbSet<WasteType>>();
-            mockSet.As<IQueryable<WasteType>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<WasteType>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<WasteType>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<WasteType>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+            var wasteJourney = new WasteJourney
+            {
+            };
 
-            _mockContext.Setup(c => c.WasteTypes).Returns(mockSet.Object);
+            _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
-            var wasteTypes = await _wasteService.WasteTypes();
+            // act
+            await _wasteService.SaveWasteType(journeyId, wasteTypeId);
+
+            // assert
+            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.WasteTypeId == wasteTypeId)), Times.Once);
         }
     }
 }
