@@ -126,9 +126,6 @@
   <data name="Heading" xml:space="preserve">
     <value>[Welsh] What have you done with the Waste</value>
   </data>
-  <data name="HintText" xml:space="preserve">
-    <value>[Welsh] Hint Text</value>
-  </data>
   <data name="RecordingFor" xml:space="preserve">
     <value>[Welsh] Recording for:</value>
   </data>

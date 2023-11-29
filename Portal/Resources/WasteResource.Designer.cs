@@ -88,15 +88,6 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hint Text.
-        /// </summary>
-        public static string HintText {
-            get {
-                return ResourceManager.GetString("HintText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Recording for: .
         /// </summary>
         public static string RecordingFor {
