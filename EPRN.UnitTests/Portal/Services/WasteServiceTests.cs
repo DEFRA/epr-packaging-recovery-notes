@@ -64,6 +64,8 @@ namespace EPRN.UnitTests.Portal.Services
             // Arrange
             int journeyId = 3;
             string material = "testMaterial";
+            // commenting out for now as we need to think about how we're going to get waste types
+            // for each journey step
             //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             // Act
