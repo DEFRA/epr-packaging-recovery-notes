@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EPRN.Common\EPRN.Common.csproj" />
     <ProjectReference Include="..\Portal\Portal.csproj" />
     <ProjectReference Include="..\Waste.API\Waste.API.csproj" />
   </ItemGroup>

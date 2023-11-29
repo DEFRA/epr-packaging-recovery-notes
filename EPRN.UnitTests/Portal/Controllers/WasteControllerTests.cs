@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EPRN.Common.Enum;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Portal.Controllers;
 using Portal.Services.Interfaces;
@@ -217,7 +218,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
             {
                 JourneyId = 1,
-                SelectedWaste = "sentiton"
+                WhatHaveYouDone = Common.Enum.DoneWaste.ReprocessedIt
             };
 
             _mockWasteService.Setup(s => s.GetWasteModel(1)).ReturnsAsync(whatHaveYouDoneWasteModel);
@@ -246,11 +247,11 @@ namespace EPRN.UnitTests.Portal.Controllers
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
             {
                 JourneyId = 1,
-                SelectedWaste = "sentiton"
+                WhatHaveYouDone = DoneWaste.SentItOn
             };
 
             // Act
-            var result = await _wasteController.WhatHaveYouDoneWaste(0, whatHaveYouDoneWasteModel);
+            var result = await _wasteController.WhatHaveYouDoneWaste(whatHaveYouDoneWasteModel);
 
             // Assert
             Assert.IsNotNull(result);

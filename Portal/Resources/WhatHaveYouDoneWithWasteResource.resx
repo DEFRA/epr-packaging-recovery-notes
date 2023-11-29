@@ -118,30 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Continue" xml:space="preserve">
-    <value>[Welsh] Continue</value>
+    <value>Continue</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
-    <value>[Welsh] Please select a radio button</value>
+    <value>Select what you have done with the waste</value>
   </data>
   <data name="Heading" xml:space="preserve">
-    <value>[Welsh] What have you done with the Waste</value>
+    <value>What have you done with the waste</value>
   </data>
   <data name="HintText" xml:space="preserve">
-    <value>[Welsh] Hint Text</value>
+    <value>Hint Text</value>
+  </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>What have you done with the waste</value>
   </data>
   <data name="RecordingFor" xml:space="preserve">
-    <value>[Welsh] Recording for:</value>
+    <value>Recording for: </value>
   </data>
   <data name="ReproceesedIt" xml:space="preserve">
-    <value>[Welsh] Received it and reproceesed it</value>
+    <value>Received it and reproceesed it</value>
   </data>
   <data name="SentItOn" xml:space="preserve">
-    <value>[Welsh] Received it and sent it on</value>
+    <value>Received it and sent it on</value>
   </data>
   <data name="ThereIsAProblem" xml:space="preserve">
-    <value>[Welsh] There is a problem</value>
-  </data>
-  <data name="WastePage" xml:space="preserve">
-    <value>[Welsh] What have you done with the Waste</value>
+    <value>There is a problem</value>
   </data>
 </root>
