@@ -108,7 +108,7 @@ namespace Portal.Services
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
             {
                 JourneyId = journeyId,
-                WasteType = await _httpWasteService.GetWasteType(journeyId),
+                WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             return whatHaveYouDoneWasteModel;
