@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EPRN.Common.Enum;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Waste.API.Controllers;
 using Waste.API.Services.Interfaces;
@@ -110,5 +111,44 @@ namespace EPRN.UnitTests.API.Controllers
                  It.Is<int>(p => p == null)), Times.Never
              );
         }
+
+        [TestMethod]
+        public async Task TestSaveWhatHaveYouDoneWaste_ReturnsOk_WhenValid()
+        {
+            //Arrange
+            var journeyId = 5;
+            _mockWasteService!.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
+
+            //Act
+            var result = await _wasteController!.SaveWhatHaveYouDoneWaste(journeyId, DoneWaste.ReprocessedIt.ToString());
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockWasteService.Verify(s => s.SaveWhatHaveYouDoneWaste(
+                 It.Is<int>(p => p == journeyId),
+                 It.Is<string>(p => p == DoneWaste.ReprocessedIt.ToString())), Times.Once
+             );
+        }
+
+        [TestMethod]
+        public async Task TestSaveWhatHaveYouDoneWaste_ReturnsBadRequest_WhenNoJourneyId()
+        {
+            //Arrange
+            _mockWasteService!.Setup(ws => ws.CreateJourney());
+
+            //Act
+            var result = await _wasteController!.SaveWhatHaveYouDoneWaste(null, DoneWaste.ReprocessedIt.ToString());
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            _mockWasteService.Verify(s => s.SaveWhatHaveYouDoneWaste(
+                 It.Is<int>(p => p == null),
+                 It.Is<string>(p => p == DoneWaste.ReprocessedIt.ToString())), Times.Never
+             );
+        }
+
+
     }
 }

@@ -194,12 +194,12 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task SaveWhatHaveYouDoneWaste_ThrowsException_WhenSelectedWasteIsNull()
+        public async Task SaveWhatHaveYouDoneWaste_ThrowsException_WhenWasteIsNull()
         {
             // Arrange
             WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel();
             whatHaveYouDoneWasteModel.JourneyId = 1;
-            whatHaveYouDoneWasteModel.WhatHaveYouDone = DoneWaste.ReprocessedIt;
+            whatHaveYouDoneWasteModel.WhatHaveYouDone = null;
             
             // Act
 
