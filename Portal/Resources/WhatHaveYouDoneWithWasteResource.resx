@@ -121,13 +121,16 @@
     <value>Continue</value>
   </data>
   <data name="ErrorMessage" xml:space="preserve">
-    <value>Please select a radio button</value>
+    <value>Select what you have done with the waste</value>
   </data>
   <data name="Heading" xml:space="preserve">
-    <value>What have you done with the Waste</value>
+    <value>What have you done with the waste</value>
   </data>
   <data name="HintText" xml:space="preserve">
     <value>Hint Text</value>
+  </data>
+  <data name="PageTitle" xml:space="preserve">
+    <value>What have you done with the waste</value>
   </data>
   <data name="RecordingFor" xml:space="preserve">
     <value>Recording for: </value>
@@ -140,8 +143,5 @@
   </data>
   <data name="ThereIsAProblem" xml:space="preserve">
     <value>There is a problem</value>
-  </data>
-  <data name="WastePage" xml:space="preserve">
-    <value>What have you done with the Waste</value>
   </data>
 </root>

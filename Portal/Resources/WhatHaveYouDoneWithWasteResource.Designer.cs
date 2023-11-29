@@ -70,7 +70,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select a radio button.
+        ///   Looks up a localized string similar to Select what you have done with the waste.
         /// </summary>
         public static string ErrorMessage {
             get {
@@ -79,7 +79,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What have you done with the Waste.
+        ///   Looks up a localized string similar to What have you done with the waste.
         /// </summary>
         public static string Heading {
             get {
@@ -93,6 +93,15 @@ namespace Portal.Resources {
         public static string HintText {
             get {
                 return ResourceManager.GetString("HintText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What have you done with the waste.
+        /// </summary>
+        public static string PageTitle {
+            get {
+                return ResourceManager.GetString("PageTitle", resourceCulture);
             }
         }
         
@@ -129,15 +138,6 @@ namespace Portal.Resources {
         public static string ThereIsAProblem {
             get {
                 return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to What have you done with the Waste.
-        /// </summary>
-        public static string WastePage {
-            get {
-                return ResourceManager.GetString("WastePage", resourceCulture);
             }
         }
     }

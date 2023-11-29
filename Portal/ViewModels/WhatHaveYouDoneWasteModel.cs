@@ -12,6 +12,5 @@ namespace Portal.ViewModels
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WhatHaveYouDoneWithWasteResource))]
         public DoneWaste? WhatHaveYouDone { get; set; }
-        
     }
 }
