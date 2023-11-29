@@ -8,7 +8,7 @@ namespace Portal.Profiles
     {
         public WasteManagementProfile()
         {
-            CreateMap<WasteRecordStatusViewModel, WasteRecordStatusDto>();
+            CreateMap<WasteRecordStatusViewModel, WasteRecordStatusDto>().ReverseMap();
         }
     }
 }

@@ -2,6 +2,7 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enum;
 using Moq;
+using Portal.Profiles;
 using Portal.RESTServices.Interfaces;
 using Portal.Services;
 using Portal.Services.Interfaces;
@@ -13,6 +14,7 @@ namespace EPRN.UnitTests.Portal.Services
     public class WasteServiceTests
     {
         private IWasteService? _wasteService = null;
+        private IMapper? _mapper = null;
         private Mock<IMapper>? _mockMapper = null;
         private Mock<IHttpWasteService>? _mockHttpWasteService = null;
 
@@ -21,10 +23,18 @@ namespace EPRN.UnitTests.Portal.Services
         {
             _mockMapper = new Mock<IMapper>();
             _mockHttpWasteService = new Mock<IHttpWasteService>();
-
+            _mapper = GetMapper();
             _wasteService = new WasteService(
-                _mockMapper.Object,
+                _mapper,
                 _mockHttpWasteService.Object);
+        }
+
+        private IMapper GetMapper()
+        {
+            var profile = new WasteManagementProfile();
+            var config = new MapperConfiguration(c => c.AddProfile(profile));
+            var mapper = new Mapper(config);
+            return mapper;
         }
 
         [TestMethod]
@@ -224,7 +234,7 @@ namespace EPRN.UnitTests.Portal.Services
             var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
 
             // Assert
-            _mockMapper.Verify(m => m.Map<WasteRecordStatusViewModel>(It.Is<WasteRecordStatusDto>(p => p == dto)), Times.Once);
+            Assert.IsTrue(viewModel.GetType() == typeof(WasteRecordStatusViewModel));
         }
 
         [TestMethod]
