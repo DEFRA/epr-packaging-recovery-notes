@@ -35,7 +35,7 @@ namespace Portal.RESTServices
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            await Post($"Journey/{journeyId}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}", null);
+            await Post($"Journey/{journeyId}/Done/{whatHaveYouDoneWaste}");
         }
 
         public async Task<string> GetWasteType(int journeyId)

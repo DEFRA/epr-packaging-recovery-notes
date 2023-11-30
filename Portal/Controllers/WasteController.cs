@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EPRN.Common.Enums;
+using Microsoft.AspNetCore.Mvc;
 using Portal.Services.Interfaces;
 using Portal.ViewModels;
 
@@ -96,16 +97,22 @@ namespace Portal.Controllers
         public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
         {
             var result = await _wasteService.GetWasteRecordStatus(journeyId);
-            if (result.WasteRecordStatus == EPRN.Common.Enums.WasteRecordStatuses.Complete)
+
+            if (result.WasteRecordStatus == WasteRecordStatuses.Complete)
                 return View("WasteRecordCompleteStatus", result);
 
             return View("WasteRecordStatus", result);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Tonnes(int? journeyId)
+        public async Task<IActionResult> Tonnes(int? id)
         {
-            return View();
+            if (id == null)
+                return NotFound();
+
+            var exportTonnageViewModel = await _wasteService.GetExportTonnageViewModel(id.Value);
+
+            return View(exportTonnageViewModel);
         }
 
         [HttpPost]

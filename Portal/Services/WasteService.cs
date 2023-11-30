@@ -146,5 +146,15 @@ namespace Portal.Services
             var result = await _httpWasteService.GetWasteRecordStatus(journeyId);
             return _mapper.Map<WasteRecordStatusViewModel>(result);
         }
+
+        public async Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId)
+        {
+            await Task.CompletedTask;
+
+            return new ExportTonnageViewModel
+            {
+                JourneyId = journeyId
+            };
+        }
     }
 }

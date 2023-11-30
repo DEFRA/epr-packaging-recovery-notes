@@ -22,14 +22,14 @@ namespace Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MasterResources {
+    public class ExportTonnageResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MasterResources() {
+        internal ExportTonnageResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.MasterResources", typeof(MasterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.ExportTonnageResources", typeof(ExportTonnageResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,38 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to back.
+        ///   Looks up a localized string similar to A valid tonnage value must be entered.
         /// </summary>
-        public static string Back {
+        public static string MissingTonnageError {
             get {
-                return ResourceManager.GetString("Back", resourceCulture);
+                return ResourceManager.GetString("MissingTonnageError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to How many tonnes did you export?.
         /// </summary>
-        public static string ContinueBtn {
+        public static string PageTitle {
             get {
-                return ResourceManager.GetString("ContinueBtn", resourceCulture);
+                return ResourceManager.GetString("PageTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid numerical value.
+        ///   Looks up a localized string similar to tonnes.
         /// </summary>
-        public static string MustBeANumber {
+        public static string TonnesInputName {
             get {
-                return ResourceManager.GetString("MustBeANumber", resourceCulture);
+                return ResourceManager.GetString("TonnesInputName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cymraeg.
+        ///   Looks up a localized string similar to Tonnage must be greater than zero, and less than 1000000.
         /// </summary>
-        public static string OppositeLanguage {
+        public static string TonnesNotInRange {
             get {
-                return ResourceManager.GetString("OppositeLanguage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recording for:.
-        /// </summary>
-        public static string RecordingFor {
-            get {
-                return ResourceManager.GetString("RecordingFor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is a problem.
-        /// </summary>
-        public static string SummaryError {
-            get {
-                return ResourceManager.GetString("SummaryError", resourceCulture);
+                return ResourceManager.GetString("TonnesNotInRange", resourceCulture);
             }
         }
     }
