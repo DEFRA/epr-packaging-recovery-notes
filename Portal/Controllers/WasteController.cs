@@ -101,5 +101,27 @@ namespace Portal.Controllers
 
             return View("WasteRecordStatus", result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> BaledWithWire(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetBaledWithWireModel(id.Value);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWire)
+        {
+            if (baledWithWire.BaledWithWireScreen == "Yes")
+                baledWithWire.BaledWithWire = EPRN.Common.Enum.YesNo.Yes;
+            else
+                baledWithWire.BaledWithWire = EPRN.Common.Enum.YesNo.No;
+
+            await _wasteService.SaveBaledWithWire(baledWithWire);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

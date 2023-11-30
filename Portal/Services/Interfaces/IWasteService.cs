@@ -14,9 +14,11 @@ namespace Portal.Services.Interfaces
 
         Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId);
 
-        
-
         Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId);
         Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
+
+        Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId);
+
+        Task SaveBaledWithWire(BaledWithWireModel baledWireModel);
     }
 }

@@ -42,5 +42,10 @@ namespace Portal.RESTServices
         {
             return await Get<string>($"Journey/{journeyId}/WasteType");
         }
+
+        public async Task SaveBaledWithWire(int journeyId, YesNo bailedWithWire)
+        {
+            await Post($"Journey/{journeyId}/BaledWithWire/{bailedWithWire}");
+        }
     }
 }

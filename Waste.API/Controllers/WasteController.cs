@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Waste.API.Services.Interfaces;
 
@@ -97,6 +98,23 @@ namespace Waste.API.Controllers
                 return BadRequest($"No journey found with id: {journeyId}");
             
             return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("Journey/{journeyId}/BaledWithWire/{baledWithWire}")]
+        public async Task<ActionResult> SaveBaledWithWire(int? journeyId, YesNo? baledWithWire)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey Id is missing");
+
+            if (baledWithWire == null)
+                return BadRequest("Baled with wire is missing");
+
+            //ToDo: This should be removed in the fullness of time.
+            var id = await _wasteService.CreateJourney();
+            await _wasteService.SaveBaledWithWire(id, baledWithWire.Value);
+
+            return Ok(id);
         }
 
     }

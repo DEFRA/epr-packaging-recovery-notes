@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
+using EPRN.Common.Enum;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
@@ -126,6 +127,16 @@ namespace Waste.API.Services
         private async Task<WasteJourney> GetJourney(int id)
         {
             return await _wasteRepository.GetById<WasteJourney>(id);
+        }
+
+        public async Task SaveBaledWithWire(int journeyId, YesNo baledWithWire)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            journeyRecord.BaledWithWire = Convert.ToBoolean(baledWithWire);
+            await _wasteRepository.Update(journeyRecord);
         }
     }
 }
