@@ -16,10 +16,6 @@
         @MasterResources.RecordingFor @Model.WasteType
     </span>
     <radios asp-for="WhatHaveYouDone" asp-title="@WhatHaveYouDoneWithWasteResource.Heading">
-        <div class="govuk-hint">
-            @WhatHaveYouDoneWithWasteResource.HintText
-        </div>
-
         <p class="govuk-error-message">
             <span asp-validation-for="WhatHaveYouDone"></span>
         </p>
