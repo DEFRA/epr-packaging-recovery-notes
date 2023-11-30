@@ -16,6 +16,9 @@
         @MasterResources.RecordingFor @Model.WasteType
     </span>
     <radios asp-for="BaledWithWireScreen" asp-title="@BaledWithWireResource.Heading">
+        <div class="govuk-hint">
+            @BaledWithWireResource.HintText
+        </div>
         <p class="govuk-error-message">
             <span asp-validation-for="BaledWithWireScreen"></span>
         </p>

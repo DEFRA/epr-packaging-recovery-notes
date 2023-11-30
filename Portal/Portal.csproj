@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\BaledWithWireResource.cy-GB.Designer.cs">
+      <DependentUpon>BaledWithWireResource.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\BaledWithWireResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -71,6 +76,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\BaledWithWireResource.cy-GB.resx">
+      <LastGenOutput>BaledWithWireResource.cy-GB.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\BaledWithWireResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BaledWithWireResource.Designer.cs</LastGenOutput>
