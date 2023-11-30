@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using EPRN.Common.Dtos;
 using Portal.Resources;
 using Portal.RESTServices.Interfaces;
 using Portal.Services.Interfaces;
