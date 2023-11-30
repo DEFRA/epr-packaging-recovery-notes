@@ -101,5 +101,23 @@ namespace Portal.Controllers
 
             return View("WasteRecordStatus", result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Tonnes(int? journeyId)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Tonnes()
+        {
+            return RedirectToAction("Baled", "Baled", new { id = -1 });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Baled(int? journeyId)
+        {
+            return NotFound();
+        }
     }
 }

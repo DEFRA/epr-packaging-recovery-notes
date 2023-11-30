@@ -1,4 +1,5 @@
-﻿using WasteManagement.API.Models;
+﻿using EPRN.Common.Enum;
+using WasteManagement.API.Models;
 
 namespace Waste.API.Models
 {
@@ -31,6 +32,6 @@ namespace Waste.API.Models
 
         public string? ReferenceNumber { get; set; }
 
-        public string? DoneWaste { get; set; }
+        public DoneWaste? DoneWaste { get; set; }
     }
 }

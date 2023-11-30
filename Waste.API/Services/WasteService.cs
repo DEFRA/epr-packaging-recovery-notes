@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
+using EPRN.Common.Enum;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
@@ -67,7 +68,7 @@ namespace Waste.API.Services
             await _wasteRepository.Update(journeyRecord);
         }
 
-        public async Task SaveWhatHaveYouDoneWaste(int journeyId, string whatHaveYouDoneWaste)
+        public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
             var journeyRecord = await GetJourney(journeyId);
             if (journeyRecord == null)

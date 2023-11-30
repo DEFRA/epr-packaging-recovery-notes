@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enum;
 
 namespace Waste.API.Services.Interfaces
 {
@@ -12,7 +13,7 @@ namespace Waste.API.Services.Interfaces
 
         Task SaveWasteType(int journeyId, int wasteTypeId);
 
-        Task SaveWhatHaveYouDoneWaste(int journeyId, String whatHaveYouDoneWaste);
+        Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste);
 
         Task<string> GetWasteType(int journeyId);
 

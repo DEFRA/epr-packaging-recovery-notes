@@ -120,14 +120,14 @@ namespace EPRN.UnitTests.API.Controllers
             _mockWasteService!.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
 
             //Act
-            var result = await _wasteController!.SaveWhatHaveYouDoneWaste(journeyId, DoneWaste.ReprocessedIt.ToString());
+            var result = await _wasteController!.SaveWhatHaveYouDoneWaste(journeyId, DoneWaste.ReprocessedIt);
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             _mockWasteService.Verify(s => s.SaveWhatHaveYouDoneWaste(
                  It.Is<int>(p => p == journeyId),
-                 It.Is<string>(p => p == DoneWaste.ReprocessedIt.ToString())), Times.Once
+                 It.Is<DoneWaste>(p => p == DoneWaste.ReprocessedIt)), Times.Once
              );
         }
 
@@ -138,14 +138,14 @@ namespace EPRN.UnitTests.API.Controllers
             _mockWasteService!.Setup(ws => ws.CreateJourney());
 
             //Act
-            var result = await _wasteController!.SaveWhatHaveYouDoneWaste(null, DoneWaste.ReprocessedIt.ToString());
+            var result = await _wasteController!.SaveWhatHaveYouDoneWaste(null, DoneWaste.ReprocessedIt);
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
             _mockWasteService.Verify(s => s.SaveWhatHaveYouDoneWaste(
                  It.Is<int>(p => p == null),
-                 It.Is<string>(p => p == DoneWaste.ReprocessedIt.ToString())), Times.Never
+                 It.Is<DoneWaste>(p => p == DoneWaste.ReprocessedIt)), Times.Never
              );
         }
 
