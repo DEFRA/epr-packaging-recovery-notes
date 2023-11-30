@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Portal.Helpers.Interfaces;
 using Portal.Resources;
 using Portal.RESTServices.Interfaces;
 using Portal.Services.Interfaces;
@@ -10,16 +11,19 @@ namespace Portal.Services
     {
         private readonly IMapper _mapper;
         private readonly IHttpWasteService _httpWasteService;
+        private readonly ILocalizationHelper<WhichQuarterResources> _localizationHelper;
 
         public WasteService(
             IMapper mapper,
-            IHttpWasteService httpWasteService)
+            IHttpWasteService httpWasteService,
+            ILocalizationHelper<WhichQuarterResources> localizationHelper)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
+            _localizationHelper = localizationHelper ?? throw new ArgumentNullException(nameof(localizationHelper));
         }
 
-        public async Task<DuringWhichMonthRequestViewModel> GetCurrentQuarter(int journeyId)
+        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
@@ -28,40 +32,10 @@ namespace Portal.Services
                 //WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
-            int currentMonth = DateTime.Now.Month;
-
-            switch (currentMonth)
-            {
-                case 1:
-                case 2:
-                case 3:
-                    duringWhichMonthRequestViewModel.Quarter.Add(1, @WhichQuarterResources.January);
-                    duringWhichMonthRequestViewModel.Quarter.Add(2, @WhichQuarterResources.February);
-                    duringWhichMonthRequestViewModel.Quarter.Add(3, @WhichQuarterResources.March);
-                    break;
-
-                case 4:
-                case 5:
-                case 6:
-                    duringWhichMonthRequestViewModel.Quarter.Add(4, @WhichQuarterResources.April);
-                    duringWhichMonthRequestViewModel.Quarter.Add(5, @WhichQuarterResources.May);
-                    duringWhichMonthRequestViewModel.Quarter.Add(6, @WhichQuarterResources.June);
-                    break;
-                case 7:
-                case 8:
-                case 9:
-                    duringWhichMonthRequestViewModel.Quarter.Add(7, @WhichQuarterResources.July);
-                    duringWhichMonthRequestViewModel.Quarter.Add(8, @WhichQuarterResources.August);
-                    duringWhichMonthRequestViewModel.Quarter.Add(9, @WhichQuarterResources.September);
-                    break;
-                case 10:
-                case 11:
-                case 12:
-                    duringWhichMonthRequestViewModel.Quarter.Add(10, @WhichQuarterResources.October);
-                    duringWhichMonthRequestViewModel.Quarter.Add(11, @WhichQuarterResources.November);
-                    duringWhichMonthRequestViewModel.Quarter.Add(12, @WhichQuarterResources.December);
-                    break;
-            }
+            int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
+            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
+            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
+            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
 
             return duringWhichMonthRequestViewModel;
         }
