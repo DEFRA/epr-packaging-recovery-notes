@@ -110,7 +110,7 @@ namespace EPRN.UnitTests.Portal.Services
 
             foreach (var item in expectedQuarter)
             {
-                _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")));
+                _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")), Times.Once());
             }
         }
 
