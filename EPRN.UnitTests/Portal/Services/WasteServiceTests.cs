@@ -65,11 +65,29 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task GetCurrentQuarter_ReturnsValidModel()
+        public async Task GetQuarterForCurrentMonth_ReturnsValidModel()
         {
             // Arrange
             int journeyId = 3;
             int currentMonth = 5;
+            var expectedQuarter = new Dictionary<int, string>
+            {
+                { 4, "April" },
+                { 5, "May" },
+                { 6, "June" }
+            };
+
+            DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
+            {
+                JourneyId = journeyId,
+                Quarter = expectedQuarter
+            };
+
+            foreach (var item in expectedQuarter)
+            {
+                _mockLocalizationHelper.Setup(lh => lh.GetString($"Month{item.Key}")).Returns(item.Value);
+            }
+
             string material = "testMaterial";
             // commenting out for now as we need to think about how we're going to get waste types
             // for each journey step
@@ -89,6 +107,11 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual("June", viewModel.Quarter.ElementAt(2).Value);
             //Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
+
+            foreach (var item in expectedQuarter)
+            {
+                _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")));
+            }
         }
 
         [TestMethod]
