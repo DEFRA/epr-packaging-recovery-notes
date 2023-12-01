@@ -4,6 +4,15 @@ using EPRN.Common.Enum;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Waste.API.Repositories;
+using Waste.API.Repositories.Interfaces;
+using Waste.API.Services;
+using Waste.API.Services.Interfaces;
+using WasteManagement.API.Data;
+using WasteManagement.API.Middleware;
+using Microsoft.Extensions.Configuration;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Waste.API.Services
 {
@@ -135,8 +144,15 @@ namespace Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
+            journeyRecord.DeductionAmount = this.ReturnDeductionAmountFromDB();
             journeyRecord.BaledWithWire = Convert.ToBoolean(baledWithWire);
             await _wasteRepository.Update(journeyRecord);
+        }
+
+        private float ReturnDeductionAmountFromDB()
+        {
+            var builder = WebApplication.CreateBuilder().Build();
+            return (builder.Configuration.GetValue<float>("AppSettings:DeductionAmount"));
         }
     }
 }
