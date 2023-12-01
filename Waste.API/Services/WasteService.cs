@@ -144,15 +144,19 @@ namespace Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            journeyRecord.DeductionAmount = this.ReturnDeductionAmountFromDB();
             journeyRecord.BaledWithWire = Convert.ToBoolean(baledWithWire);
+            if (journeyRecord.BaledWithWire == true)
+                journeyRecord.DeductionAmount = this.ReturnDeductionAmountFromDB();
+
             await _wasteRepository.Update(journeyRecord);
         }
 
         private float ReturnDeductionAmountFromDB()
         {
+            float dedictionAmount = 0;
             var builder = WebApplication.CreateBuilder().Build();
-            return (builder.Configuration.GetValue<float>("AppSettings:DeductionAmount"));
+            float.TryParse(builder.Configuration.GetValue<float>("AppSettings:DeductionAmount").ToString(), out dedictionAmount);
+            return dedictionAmount;
         }
     }
 }
