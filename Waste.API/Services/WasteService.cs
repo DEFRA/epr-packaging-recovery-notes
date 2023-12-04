@@ -122,7 +122,7 @@ namespace Waste.API.Services
             var journeyRecord = await GetJourney(journeyId);
 
             if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
+                throw new NullReferenceException(nameof(journeyRecord));
 
             journeyRecord.Tonnes = tonnage;
             await _wasteRepository.Update(journeyRecord);
