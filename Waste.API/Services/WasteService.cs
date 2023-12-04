@@ -81,19 +81,14 @@ namespace Waste.API.Services
 
         public async Task<string> GetWasteType(int journeyId)
         {
-            await Task.CompletedTask;
-            var wasteTypes = _wasteRepository
-                .List<WasteType>(wt => wt.Journeys.Any(j => j.Id == journeyId));
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
 
-            if (wasteTypes == null)
-                throw new ArgumentNullException(nameof(wasteTypes));
+            if (journeyRecord.WasteTypeId == null)
+                throw new ArgumentNullException(nameof(journeyRecord.WasteTypeId));
 
-            var wasteType = wasteTypes.FirstOrDefault();
-            
-            if (wasteType == null)
-                throw new ArgumentNullException(nameof(wasteType));
-
-            return wasteType.Name;
+            return journeyRecord.WasteType.Name;
         }
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)

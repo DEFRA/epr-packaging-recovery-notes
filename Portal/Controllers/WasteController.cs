@@ -44,7 +44,9 @@ namespace EPRN.Portal.Controllers
             if (id == null)
                 return NotFound();
 
-            var model = await _wasteService.GetCurrentQuarter(id.Value);
+            int currentMonth = DateTime.Now.Month;
+
+            var model = await _wasteService.GetQuarterForCurrentMonth(id.Value, currentMonth);
 
             return View(model);
         }
@@ -55,7 +57,9 @@ namespace EPRN.Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = await _wasteService.GetCurrentQuarter(duringWhichMonthRequestViewModel.JourneyId);
+                int currentMonth = DateTime.Now.Month;
+
+                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId, currentMonth);
 
                 return View(model);
             }

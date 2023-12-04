@@ -15,16 +15,19 @@ namespace EPRN.UnitTests.Portal.Services
         private IWasteService _wasteService = null;
         private Mock<IMapper> _mockMapper = null;
         private Mock<IHttpWasteService> _mockHttpWasteService = null;
+        private Mock<ILocalizationHelper<WhichQuarterResources>> _mockLocalizationHelper = null;
 
         [TestInitialize]
         public void Init()
         {
             _mockMapper = new Mock<IMapper>();
             _mockHttpWasteService = new Mock<IHttpWasteService>();
+            _mockLocalizationHelper = new Mock<ILocalizationHelper<WhichQuarterResources>>();
 
             _wasteService = new WasteService(
                 _mockMapper.Object,
-                _mockHttpWasteService.Object);
+                _mockHttpWasteService.Object,
+                _mockLocalizationHelper.Object);
         }
 
         [TestMethod]
@@ -60,29 +63,53 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task GetCurrentQuarter_ReturnsValidModel()
+        public async Task GetQuarterForCurrentMonth_ReturnsValidModel()
         {
             // Arrange
             int journeyId = 3;
-            //string material = "testMaterial";
+            int currentMonth = 5;
+            var expectedQuarter = new Dictionary<int, string>
+            {
+                { 4, "April" },
+                { 5, "May" },
+                { 6, "June" }
+            };
+
+            DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
+            {
+                JourneyId = journeyId,
+                Quarter = expectedQuarter
+            };
+
+            foreach (var item in expectedQuarter)
+            {
+                _mockLocalizationHelper.Setup(lh => lh.GetString($"Month{item.Key}")).Returns(item.Value);
+            }
+
+            string material = "testMaterial";
             // commenting out for now as we need to think about how we're going to get waste types
             // for each journey step
             //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             // Act
-            var viewModel = await _wasteService.GetCurrentQuarter(journeyId);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
 
             // Assert
             Assert.IsNotNull(viewModel);
             Assert.IsTrue(viewModel.Quarter.Count() == 3);
-            Assert.AreEqual(10, viewModel.Quarter.ElementAt(0).Key);
-            Assert.AreEqual("October", viewModel.Quarter.ElementAt(0).Value);
-            Assert.AreEqual(11, viewModel.Quarter.ElementAt(1).Key);
-            Assert.AreEqual("November", viewModel.Quarter.ElementAt(1).Value);
-            Assert.AreEqual(12, viewModel.Quarter.ElementAt(2).Key);
-            Assert.AreEqual("December", viewModel.Quarter.ElementAt(2).Value);
+            Assert.AreEqual(4, viewModel.Quarter.ElementAt(0).Key);
+            Assert.AreEqual("April", viewModel.Quarter.ElementAt(0).Value);
+            Assert.AreEqual(5, viewModel.Quarter.ElementAt(1).Key);
+            Assert.AreEqual("May", viewModel.Quarter.ElementAt(1).Value);
+            Assert.AreEqual(6, viewModel.Quarter.ElementAt(2).Key);
+            Assert.AreEqual("June", viewModel.Quarter.ElementAt(2).Value);
             //Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
+
+            foreach (var item in expectedQuarter)
+            {
+                _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")), Times.Once());
+            }
         }
 
         [TestMethod]
@@ -202,7 +229,7 @@ namespace EPRN.UnitTests.Portal.Services
             WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel();
             whatHaveYouDoneWasteModel.JourneyId = 1;
             whatHaveYouDoneWasteModel.WhatHaveYouDone = null;
-            
+
             // Act
 
             // Assert
@@ -224,7 +251,10 @@ namespace EPRN.UnitTests.Portal.Services
             var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
 
             // Assert
-            _mockMapper.Verify(m => m.Map<WasteRecordStatusViewModel>(It.Is<WasteRecordStatusDto>(p => p == dto)), Times.Once);
+            _mockMapper.Verify(m => m.Map<WasteRecordStatusViewModel>(It.Is<WasteRecordStatusDto>(p => p == dto)), Times.Exactly(1));
+            _mockHttpWasteService.Verify(x => x.GetWasteRecordStatus(
+                It.Is<int>(i => i == 1)
+                ));
         }
 
         [TestMethod]
@@ -235,7 +265,7 @@ namespace EPRN.UnitTests.Portal.Services
             int journeyId = -1;
 
             _mockHttpWasteService.Setup(s => s.GetWasteRecordStatus(journeyId)).Throws(new Exception());
-            
+
             // Act
             var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
         }

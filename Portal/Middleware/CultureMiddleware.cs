@@ -19,7 +19,7 @@ namespace EPRN.Portal.Middleware
             if (cultureName != null)
             {
                 var culture = new RequestCulture(cultureName);
-                context.Response.Cookies.Append(_cookieName, 
+                context.Response.Cookies.Append(_cookieName,
                     CookieRequestCultureProvider.MakeCookieValue(culture),
                     new CookieOptions
                     {

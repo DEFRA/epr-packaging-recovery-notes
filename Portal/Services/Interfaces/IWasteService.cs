@@ -4,7 +4,7 @@ namespace EPRN.Portal.Services.Interfaces
 {
     public interface IWasteService
     {
-        Task<DuringWhichMonthRequestViewModel> GetCurrentQuarter(int journeyId);
+        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 

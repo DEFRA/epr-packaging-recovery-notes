@@ -47,7 +47,9 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task DuringWhichMonth_Return_Correctly()
         {
             // Arrange
-            _mockWasteService.Setup(s => s.GetCurrentQuarter(It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+            int currentMonth = DateTime.Now.Month;
+
+            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(It.IsAny<int>(), It.Is<int>(p => p == currentMonth))).ReturnsAsync(new DuringWhichMonthRequestViewModel());
 
             // Act
             var result = await _wasteController.DuringWhichMonth(2);
@@ -168,7 +170,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             _wasteController.ModelState.AddModelError("Error", "Error");
             // Arrange
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel();
-            _mockWasteService.Setup(s => s.GetCurrentQuarter(It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
             _wasteController.ModelState.AddModelError("Error", "Error");
 
             // Act
@@ -277,7 +279,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task GetWasteRecordStatus_Return_RecordCompleteView_ValidId()
         {
             // Arrange
-            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete});
+            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete });
 
             // Act
             var result = await _wasteController.GetWasteRecordStatus(2);
@@ -293,7 +295,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
 
             // check view name
-            Assert.IsNotNull(viewResult.ViewName); 
+            Assert.IsNotNull(viewResult.ViewName);
             Assert.AreEqual("WasteRecordCompleteStatus", viewResult.ViewName);
 
         }
@@ -318,7 +320,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
 
             // check view name
-            Assert.IsNotNull(viewResult.ViewName); 
+            Assert.IsNotNull(viewResult.ViewName);
             Assert.AreEqual("WasteRecordStatus", viewResult.ViewName);
         }
 
