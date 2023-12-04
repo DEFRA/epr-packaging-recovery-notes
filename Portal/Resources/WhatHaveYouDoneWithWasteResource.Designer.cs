@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Portal.Resources {
+namespace EPRN.Portal.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.WhatHaveYouDoneWithWasteResource", typeof(WhatHaveYouDoneWithWasteResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.WhatHaveYouDoneWithWasteResource", typeof(WhatHaveYouDoneWithWasteResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

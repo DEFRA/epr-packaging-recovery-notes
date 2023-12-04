@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Portal.Helpers.Interfaces;
-using Portal.Resources;
-using Portal.RESTServices.Interfaces;
-using Portal.Services.Interfaces;
-using Portal.ViewModels;
+using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
 
-namespace Portal.Services
+namespace EPRN.Portal.Services
 {
     public class WasteService : IWasteService
     {
@@ -29,7 +29,7 @@ namespace Portal.Services
             {
                 JourneyId = journeyId,
                 // We're not part of a journey yet, so this can't really be hooked up
-                //WasteType = await _httpWasteService.GetWasteType(journeyId)
+                WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
@@ -79,6 +79,8 @@ namespace Portal.Services
 
         public async Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId)
         {
+            await Task.CompletedTask;
+
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
             {
                 JourneyId = journeyId,
@@ -88,7 +90,6 @@ namespace Portal.Services
 
             return whatHaveYouDoneWasteModel;
         }
-
 
         public async Task SaveSelectedMonth(WasteTypesViewModel wasteTypesViewModel)
         {
@@ -105,8 +106,8 @@ namespace Portal.Services
 
         public async Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteViewModel)
         {
-            if (whatHaveYouDoneWasteViewModel.JourneyId == null)
-                throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel.JourneyId));
+            if (whatHaveYouDoneWasteViewModel == null)
+                throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel));
 
             if (whatHaveYouDoneWasteViewModel.WhatHaveYouDone == null)
                 throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel.WhatHaveYouDone));
@@ -118,6 +119,27 @@ namespace Portal.Services
         {
             var result = await _httpWasteService.GetWasteRecordStatus(journeyId);
             return _mapper.Map<WasteRecordStatusViewModel>(result);
+        }
+
+        public ExportTonnageViewModel GetExportTonnageViewModel(int journeyId)
+        {
+            return new ExportTonnageViewModel
+            {
+                JourneyId = journeyId
+            };
+        }
+
+        public async Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel)
+        {
+            if (exportTonnageViewModel == null)
+                throw new ArgumentNullException(nameof(exportTonnageViewModel));
+
+            if (exportTonnageViewModel.ExportTonnes == null)
+                throw new ArgumentNullException(nameof(exportTonnageViewModel.ExportTonnes));
+
+            await _httpWasteService.SaveTonnage(
+                exportTonnageViewModel.JourneyId, 
+                exportTonnageViewModel.ExportTonnes.Value);
         }
     }
 }

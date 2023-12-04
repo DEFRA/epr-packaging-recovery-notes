@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Moq;
-using Portal.Helpers;
+using EPRN.Portal.Helpers;
 
 namespace EPRN.UnitTests.Portal.Helpers
 {
     [TestClass]
     public class QueryStringHelperTests
     {
-        private Mock<IHttpContextAccessor>? httpContextAccessor;
-        private DefaultHttpContext? httpContext;
+        private Mock<IHttpContextAccessor> httpContextAccessor;
+        private DefaultHttpContext httpContext;
 
         [TestInitialize]
         public void Init()

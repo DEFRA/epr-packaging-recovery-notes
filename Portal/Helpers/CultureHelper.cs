@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Localization;
-using Portal.Constants;
+﻿using EPRN.Portal.Constants;
+using Microsoft.AspNetCore.Localization;
 
-namespace Portal.Helpers
+namespace EPRN.Portal.Helpers
 {
     public static class CultureHelper
     {

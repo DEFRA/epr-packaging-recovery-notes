@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
@@ -45,6 +46,7 @@ namespace Waste.API.Services
 
         public async Task<IEnumerable<WasteTypeDto>> WasteTypes()
         {
+            _wasteRepository.LazyLoading = false;
             await Task.CompletedTask;
             // we want the entire table contents (at the
             // moment - there may be more requirements in the future)
@@ -67,7 +69,7 @@ namespace Waste.API.Services
             await _wasteRepository.Update(journeyRecord);
         }
 
-        public async Task SaveWhatHaveYouDoneWaste(int journeyId, string whatHaveYouDoneWaste)
+        public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
             var journeyRecord = await GetJourney(journeyId);
             if (journeyRecord == null)
@@ -89,7 +91,7 @@ namespace Waste.API.Services
             return journeyRecord.WasteType.Name;
         }
 
-        public async Task<WasteRecordStatusDto?> GetWasteRecordStatus(int journeyId)
+        public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
             var journey = await GetJourney(journeyId);
 
@@ -108,6 +110,17 @@ namespace Waste.API.Services
                 dto.WasteRecordStatus = journey.Completed.Value ? EPRN.Common.Enums.WasteRecordStatuses.Complete : EPRN.Common.Enums.WasteRecordStatuses.Incomplete;
 
             return dto;
+        }
+
+        public async Task SaveTonnage(int journeyId, double tonnage)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+
+            if (journeyRecord == null)
+                throw new NullReferenceException(nameof(journeyRecord));
+
+            journeyRecord.Tonnes = tonnage;
+            await _wasteRepository.Update(journeyRecord);
         }
 
         private double GetWasteBalance(WasteJourney journey)

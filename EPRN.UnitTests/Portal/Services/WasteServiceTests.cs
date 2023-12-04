@@ -1,23 +1,23 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
-using EPRN.Common.Enum;
+using EPRN.Common.Enums;
 using Moq;
-using Portal.Helpers.Interfaces;
-using Portal.Resources;
-using Portal.RESTServices.Interfaces;
-using Portal.Services;
-using Portal.Services.Interfaces;
-using Portal.ViewModels;
+using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services;
+using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
+using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Resources;
 
 namespace EPRN.UnitTests.Portal.Services
 {
     [TestClass]
     public class WasteServiceTests
     {
-        private IWasteService? _wasteService = null;
-        private Mock<IMapper>? _mockMapper = null;
-        private Mock<IHttpWasteService>? _mockHttpWasteService = null;
-        private Mock<ILocalizationHelper<WhichQuarterResources>>? _mockLocalizationHelper = null;
+        private IWasteService _wasteService = null;
+        private Mock<IMapper> _mockMapper = null;
+        private Mock<IHttpWasteService> _mockHttpWasteService = null;
+        private Mock<ILocalizationHelper<WhichQuarterResources>> _mockLocalizationHelper = null;
 
         [TestInitialize]
         public void Init()
@@ -270,7 +270,58 @@ namespace EPRN.UnitTests.Portal.Services
 
             // Act
             var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
+        }
 
+        [TestMethod]
+        public async Task SaveTonnage_WithValidModel_RequestsSavingOfData()
+        {
+            // arrange
+            var exportTonnageViewModel = new ExportTonnageViewModel
+            {
+                JourneyId = 7,
+                ExportTonnes = 56
+            };
+
+            // act
+            await _wasteService.SaveTonnage(exportTonnageViewModel);
+
+            // assert
+            _mockHttpWasteService.Verify(s =>
+                s.SaveTonnage(
+                    It.Is<int>(p => p == exportTonnageViewModel.JourneyId),
+                    It.Is<double>(p => p == exportTonnageViewModel.ExportTonnes.Value)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task SaveTonnage_NullParameter_ThrowsNullReferenceException()
+        {
+            // arrange
+            
+            // act
+            await _wasteService.SaveTonnage((ExportTonnageViewModel)null);
+
+            // assert
+            _mockHttpWasteService.Verify(s => s.SaveTonnage(
+                It.IsAny<int>(),
+                It.IsAny<double>()), Times.Never);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task SaveTonnage_NullTonnage_ThrowsNullReferenceException()
+        {
+            // arrange
+            var exportTonnageViewModel = new ExportTonnageViewModel();
+
+            // act
+            await _wasteService.SaveTonnage(exportTonnageViewModel);
+
+            // assert
+            _mockHttpWasteService.Verify(s => s.SaveTonnage(
+                It.IsAny<int>(),
+                It.IsAny<double>()), Times.Never);
         }
     }
 }

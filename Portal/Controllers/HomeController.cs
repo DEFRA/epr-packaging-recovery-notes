@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Portal.ViewModels;
-using System.Diagnostics;
-using Portal.Models;
+﻿using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Portal.Controllers
+namespace EPRN.Portal.Controllers
 {
     public class HomeController : BaseController<HomeController>
     {

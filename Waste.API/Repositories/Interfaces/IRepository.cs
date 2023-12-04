@@ -16,5 +16,7 @@ namespace Waste.API.Repositories.Interfaces
         Task Delete<T>(T entity) where T : IdBaseEntity;
 
         Task Update<T>(T entity) where T : IdBaseEntity;
+
+        bool LazyLoading { set; }
     }
 }

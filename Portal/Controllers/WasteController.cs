@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Portal.Services.Interfaces;
-using Portal.ViewModels;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Portal.Controllers
+namespace EPRN.Portal.Controllers
 {
     public class WasteController : Controller
     {
@@ -100,10 +101,35 @@ namespace Portal.Controllers
         public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
         {
             var result = await _wasteService.GetWasteRecordStatus(journeyId);
-            if (result.WasteRecordStatus == EPRN.Common.Enums.WasteRecordStatuses.Complete)
+
+            if (result.WasteRecordStatus == WasteRecordStatuses.Complete)
                 return View("WasteRecordCompleteStatus", result);
 
             return View("WasteRecordStatus", result);
+        }
+
+        [HttpGet]
+        public IActionResult Tonnes(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var exportTonnageViewModel = _wasteService.GetExportTonnageViewModel(id.Value);
+
+            return View(exportTonnageViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Tonnes(ExportTonnageViewModel exportTonnageViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(exportTonnageViewModel);
+            }
+
+            await _wasteService.SaveTonnage(exportTonnageViewModel);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

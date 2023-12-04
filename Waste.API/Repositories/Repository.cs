@@ -59,5 +59,13 @@ namespace Waste.API.Repositories
             _wasteContext.Entry(entity).State = EntityState.Modified;
             await _wasteContext.SaveChangesAsync();
         }
+
+        public bool LazyLoading
+        {
+            set
+            {
+                _wasteContext.ChangeTracker.LazyLoadingEnabled = value;
+            }
+        }
     }
 }

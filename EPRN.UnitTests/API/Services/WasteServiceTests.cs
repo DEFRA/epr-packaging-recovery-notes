@@ -175,5 +175,38 @@ namespace EPRN.UnitTests.API.Services
             _mockRepository.Verify(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId)), Times.Never());
 
         }
+
+        [TestMethod]
+        public async Task SaveTonnage_WithValidParameters_Succeeds()
+        {
+            // arrange
+            var journeyId = 5;
+            var tonnage = 56.3;
+            _mockRepository.Setup(r => r.GetById<WasteJourney>(journeyId)).ReturnsAsync(new WasteJourney
+            {
+                Id = journeyId,
+            });
+
+            // act
+            await _wasteService.SaveTonnage(journeyId, tonnage);
+
+            // assert
+            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(p => p.Id == journeyId && p.Tonnes == tonnage)), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public async Task SaveTonnage_WithInvalidJourneyId_ThrowsArgumentNullException()
+        {
+            // arrange
+            var journeyId = 5;
+            var tonnage = 56.3;
+
+            // act
+            await _wasteService.SaveTonnage(journeyId, tonnage);
+
+            // assert
+            _mockRepository.Verify(r => r.Update(It.IsAny<WasteJourney>()), Times.Never);
+        }
     }
 }

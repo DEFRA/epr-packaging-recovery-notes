@@ -1,4 +1,4 @@
-﻿namespace Portal.ViewModels
+﻿namespace EPRN.Portal.ViewModels
 {
     public class ReProcessorSummaryViewModel
     {

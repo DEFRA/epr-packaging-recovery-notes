@@ -1,4 +1,5 @@
-﻿using WasteManagement.API.Models;
+﻿using EPRN.Common.Enums;
+using WasteManagement.API.Models;
 
 namespace Waste.API.Models
 {
@@ -13,24 +14,32 @@ namespace Waste.API.Models
 
         public int? Month { get; set; }
 
+        /// <summary>
+        /// Raw tonnage entered by user
+        /// </summary>
+        public double? Tonnes { get; set; }
+
+        /// <summary>
+        /// Total amount including any adjustments
+        /// </summary>
         public double? Total { get; set; }
 
         public bool? BaledWithWire { get; set; }
 
-        public string? Note { get; set; }
+        public string Note { get; set; }
 
         public bool? Completed { get; set; }
 
         public int? WasteTypeId { get; set; }
 
-        public virtual WasteType? WasteType { get; set; }
+        public virtual WasteType WasteType { get; set; }
 
         public int? WasteSubTypeId { get; set; }
 
-        public virtual WasteSubType? WasteSubType { get; set; }
+        public virtual WasteSubType WasteSubType { get; set; }
 
-        public string? ReferenceNumber { get; set; }
+        public string ReferenceNumber { get; set; }
 
-        public string? DoneWaste { get; set; }
+        public DoneWaste? DoneWaste { get; set; }
     }
 }

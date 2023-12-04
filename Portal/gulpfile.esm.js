@@ -45,8 +45,9 @@ gulp.task("assets", function () {
         .pipe(gulp.dest(`wwwroot/assets`));
 });
 
-
-
+gulp.task("watch-sass", function () {
+    return gulp.watch('ClientApp/sass/**/*.scss', ["sass"]);
+});
 
 gulp.task("watch-scripts", function () {
     console.warn(`\n*\n* Use \`rollup -c --watch\` for better error messages and faster incremental builds.\n*\n`);

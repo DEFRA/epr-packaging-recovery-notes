@@ -1,6 +1,6 @@
-﻿using Portal.ViewModels;
+﻿using EPRN.Portal.ViewModels;
 
-namespace Portal.Services.Interfaces
+namespace EPRN.Portal.Services.Interfaces
 {
     public interface IWasteService
     {
@@ -15,6 +15,11 @@ namespace Portal.Services.Interfaces
         Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId);
 
         Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId);
+
         Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
+
+        ExportTonnageViewModel GetExportTonnageViewModel(int journeyId);
+
+        Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel);
     }
 }

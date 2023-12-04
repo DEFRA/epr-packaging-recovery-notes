@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Localization;
-using Portal.Helpers.Interfaces;
+﻿using EPRN.Portal.Helpers.Interfaces;
+using Microsoft.Extensions.Localization;
 using System.Reflection;
 
-namespace Portal.Helpers
+namespace EPRN.Portal.Helpers
 {
     public class LocalizationHelper<T> : ILocalizationHelper<T>
     {

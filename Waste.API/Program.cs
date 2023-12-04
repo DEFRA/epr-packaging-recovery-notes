@@ -21,7 +21,9 @@ builder.Services.AddTransient<IRepository, Repository>();
 
 // add db context options
 builder.Services.AddDbContext<WasteContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
+    options
+        .UseLazyLoadingProxies()
+        .UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
 );
 
 var app = builder.Build();

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteManagement.API.Data;
 
@@ -11,16 +12,15 @@ using WasteManagement.API.Data;
 namespace Waste.API.Migrations
 {
     [DbContext(typeof(WasteContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20231130102748_Change-WhatHaveYouDone-field-type")]
+    partial class ChangeWhatHaveYouDonefieldtype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.13")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -69,9 +69,6 @@ namespace Waste.API.Migrations
 
                     b.Property<string>("ReferenceNumber")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double?>("Tonnes")
-                        .HasColumnType("float");
 
                     b.Property<double?>("Total")
                         .HasColumnType("float");
