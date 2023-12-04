@@ -253,7 +253,10 @@ namespace EPRN.UnitTests.Portal.Services
             var viewModel = await _wasteService.GetWasteRecordStatus(journeyId);
 
             // Assert
-            _mockMapper.Verify(m => m.Map<WasteRecordStatusViewModel>(It.Is<WasteRecordStatusDto>(p => p == dto)), Times.Once);
+            _mockMapper.Verify(m => m.Map<WasteRecordStatusViewModel>(It.Is<WasteRecordStatusDto>(p => p == dto)), Times.Exactly(1));
+            _mockHttpWasteService.Verify(x => x.GetWasteRecordStatus(
+                It.Is<int>(i => i == 1)
+                ));
         }
 
         [TestMethod]
