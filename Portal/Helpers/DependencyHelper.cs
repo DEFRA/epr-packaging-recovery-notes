@@ -53,7 +53,7 @@ namespace Portal.Helpers
                     };
                 });
 
-            services.AddTransient(typeof(LocalizationHelper<>));
+            services.AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>));
             services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
             services.AddTransient<IHttpWasteService>(s =>
