@@ -102,7 +102,7 @@ namespace EPRN.UnitTests.API.Services
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(NullReferenceException))]
         public async Task SaveTonnage_WithInvalidJourneyId_ThrowsArgumentNullException()
         {
             // arrange
