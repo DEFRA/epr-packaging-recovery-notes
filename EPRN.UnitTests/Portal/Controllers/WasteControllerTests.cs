@@ -1,4 +1,4 @@
-﻿using EPRN.Common.Enum;
+﻿using EPRN.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Portal.Controllers;
@@ -218,7 +218,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
             {
                 JourneyId = 1,
-                WhatHaveYouDone = Common.Enum.DoneWaste.ReprocessedIt
+                WhatHaveYouDone = DoneWaste.ReprocessedIt
             };
 
             _mockWasteService.Setup(s => s.GetWasteModel(1)).ReturnsAsync(whatHaveYouDoneWasteModel);

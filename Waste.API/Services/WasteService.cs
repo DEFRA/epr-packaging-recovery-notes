@@ -46,6 +46,7 @@ namespace Waste.API.Services
 
         public async Task<IEnumerable<WasteTypeDto>> WasteTypes()
         {
+            _wasteRepository.LazyLoading = false;
             await Task.CompletedTask;
             // we want the entire table contents (at the
             // moment - there may be more requirements in the future)
@@ -126,7 +127,14 @@ namespace Waste.API.Services
 
         private async Task<WasteJourney> GetJourney(int id)
         {
-            return await _wasteRepository.GetById<WasteJourney>(id);
+            try
+            {
+                return await _wasteRepository.GetById<WasteJourney>(id);
+            }
+            catch(Exception e)
+            {
+                return null;
+            }
         }
     }
 }

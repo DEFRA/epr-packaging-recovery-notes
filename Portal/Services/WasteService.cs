@@ -26,7 +26,7 @@ namespace Portal.Services
             {
                 JourneyId = journeyId,
                 // We're not part of a journey yet, so this can't really be hooked up
-                //WasteType = await _httpWasteService.GetWasteType(journeyId)
+                WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             int currentMonth = DateTime.Now.Month;

@@ -1,4 +1,4 @@
-﻿using EPRN.Common.Enum;
+﻿using EPRN.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Waste.API.Controllers;
