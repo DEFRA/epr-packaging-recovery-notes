@@ -8,17 +8,18 @@
   },
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@rollup/stream": "^3.0.1",
-    "govuk-frontend": "^4.7.0",
-    "gulp": "3.9.1",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-concat": "^2.6.1",
-    "vinyl-buffer": "^1.0.1",
-    "vinyl-source-stream": "^2.0.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-inject": "^3.0.2"
-  },
+    "dependencies": {
+        "@rollup/stream": "^3.0.1",
+        "govuk-frontend": "^4.7.0",
+        "gulp": "3.9.1",
+        "gulp-clean-css": "^4.3.0",
+        "gulp-concat": "^2.6.1",
+        "vinyl-buffer": "^1.0.1",
+        "vinyl-source-stream": "^2.0.0",
+        "rollup-plugin-terser": "^7.0.2",
+        "rollup-plugin-inject": "^3.0.2",
+        "inputmask": "5.0.7"
+    },
   "devDependencies": {
     "@babel/core": "^7.10.4",
     "@microsoft/applicationinsights-web": "2.5.2",

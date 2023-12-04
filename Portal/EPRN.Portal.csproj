@@ -6,12 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\js\pages\**" />
     <Compile Remove="Controllers\Areas\**" />
     <Compile Remove="Views\DuringWhichMonth\**" />
+    <Content Remove="ClientApp\js\pages\**" />
     <Content Remove="Controllers\Areas\**" />
     <Content Remove="Views\DuringWhichMonth\**" />
+    <EmbeddedResource Remove="ClientApp\js\pages\**" />
     <EmbeddedResource Remove="Controllers\Areas\**" />
     <EmbeddedResource Remove="Views\DuringWhichMonth\**" />
+    <None Remove="ClientApp\js\pages\**" />
     <None Remove="Controllers\Areas\**" />
     <None Remove="Views\DuringWhichMonth\**" />
   </ItemGroup>
@@ -37,6 +41,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\WasteJourneyResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WasteJourneyResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\WasteRecordCompleteResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>WasteRecordCompleteResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\WasteResource.cy-GB.Designer.cs">
       <DependentUpon>WasteResource.cy-GB.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -46,11 +60,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>WasteTypesResources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\WasteJourneyResources.cy-GB.Designer.cs">
-      <DependentUpon>WasteJourneyResources.cy-GB.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
     </Compile>
     <Compile Update="Resources\WhichQuarterResources.Designer.cs">
       <DependentUpon>WhichQuarterResources.resx</DependentUpon>
@@ -83,24 +92,26 @@
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WasteRecordCompleteResources.cy-GB.resx">
+    <EmbeddedResource Update="Resources\WasteJourneyResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>WasteJourneyResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\WasteRecordCompleteResources.cy-GB.resx">
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteRecordCompleteResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WasteRecordCompleteResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WhatHaveYouDoneWithWasteResource.cy-GB.resx">
-      <LastGenOutput>WhatHaveYouDoneWithWasteResource.cy-GB.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteTypesResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WasteTypesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteJourneyResources.cy-GB.resx">
-      <LastGenOutput>WasteJourneyResources.cy-GB.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WhichQuarterResources.resx">
       <LastGenOutput>WhichQuarterResources.Designer.cs</LastGenOutput>
@@ -121,7 +132,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\js\pages\" />
     <Folder Include="ClientApp\sass\common\" />
     <Folder Include="RESTServices\" />
   </ItemGroup>

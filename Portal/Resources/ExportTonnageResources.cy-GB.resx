@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="HowMuchTonnageQuestion" xml:space="preserve">
+    <value>[Welsh]How many tonnes did you export?</value>
+  </data>
   <data name="MissingTonnageError" xml:space="preserve">
     <value>[Welsh]A valid tonnage value must be entered</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>[Welsh]How many tonnes did you export?</value>
+    <value>[Welsh]Record waste</value>
   </data>
-  <data name="TonnesInputName" xml:space="preserve">
-    <value>[Welsh]tonnes</value>
+  <data name="TonnesLabel" xml:space="preserve">
+    <value>[Welsh]Tonnes</value>
   </data>
   <data name="TonnesNotInRange" xml:space="preserve">
-    <value>[Welsh]Tonnage must be greater than zero, and less than 1000000</value>
+    <value>[Welsh]Tonnage must be greater than zero, and less than 1,000,000</value>
   </data>
 </root>

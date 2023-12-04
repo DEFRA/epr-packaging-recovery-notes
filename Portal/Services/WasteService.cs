@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using EPRN.Common.Dtos;
-using Portal.Resources;
-using Portal.RESTServices.Interfaces;
-using Portal.Services.Interfaces;
-using Portal.ViewModels;
+using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
 
-namespace Portal.Services
+namespace EPRN.Portal.Services
 {
     public class WasteService : IWasteService
     {
@@ -36,31 +35,31 @@ namespace Portal.Services
                 case 1:
                 case 2:
                 case 3:
-                    duringWhichMonthRequestViewModel.Quarter.Add(1, @WhichQuarterResources.January);
-                    duringWhichMonthRequestViewModel.Quarter.Add(2, @WhichQuarterResources.February);
-                    duringWhichMonthRequestViewModel.Quarter.Add(3, @WhichQuarterResources.March);
+                    duringWhichMonthRequestViewModel.Quarter.Add(1, WhichQuarterResources.January);
+                    duringWhichMonthRequestViewModel.Quarter.Add(2, WhichQuarterResources.February);
+                    duringWhichMonthRequestViewModel.Quarter.Add(3, WhichQuarterResources.March);
                     break;
 
                 case 4:
                 case 5:
                 case 6:
-                    duringWhichMonthRequestViewModel.Quarter.Add(4, @WhichQuarterResources.April);
-                    duringWhichMonthRequestViewModel.Quarter.Add(5, @WhichQuarterResources.May);
-                    duringWhichMonthRequestViewModel.Quarter.Add(6, @WhichQuarterResources.June);
+                    duringWhichMonthRequestViewModel.Quarter.Add(4, WhichQuarterResources.April);
+                    duringWhichMonthRequestViewModel.Quarter.Add(5, WhichQuarterResources.May);
+                    duringWhichMonthRequestViewModel.Quarter.Add(6, WhichQuarterResources.June);
                     break;
                 case 7:
                 case 8:
                 case 9:
-                    duringWhichMonthRequestViewModel.Quarter.Add(7, @WhichQuarterResources.July);
-                    duringWhichMonthRequestViewModel.Quarter.Add(8, @WhichQuarterResources.August);
-                    duringWhichMonthRequestViewModel.Quarter.Add(9, @WhichQuarterResources.September);
+                    duringWhichMonthRequestViewModel.Quarter.Add(7, WhichQuarterResources.July);
+                    duringWhichMonthRequestViewModel.Quarter.Add(8, WhichQuarterResources.August);
+                    duringWhichMonthRequestViewModel.Quarter.Add(9, WhichQuarterResources.September);
                     break;
                 case 10:
                 case 11:
                 case 12:
-                    duringWhichMonthRequestViewModel.Quarter.Add(10, @WhichQuarterResources.October);
-                    duringWhichMonthRequestViewModel.Quarter.Add(11, @WhichQuarterResources.November);
-                    duringWhichMonthRequestViewModel.Quarter.Add(12, @WhichQuarterResources.December);
+                    duringWhichMonthRequestViewModel.Quarter.Add(10, WhichQuarterResources.October);
+                    duringWhichMonthRequestViewModel.Quarter.Add(11, WhichQuarterResources.November);
+                    duringWhichMonthRequestViewModel.Quarter.Add(12, WhichQuarterResources.December);
                     break;
             }
 
@@ -106,6 +105,8 @@ namespace Portal.Services
 
         public async Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId)
         {
+            await Task.CompletedTask;
+
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
             {
                 JourneyId = journeyId,
@@ -115,7 +116,6 @@ namespace Portal.Services
 
             return whatHaveYouDoneWasteModel;
         }
-
 
         public async Task SaveSelectedMonth(WasteTypesViewModel wasteTypesViewModel)
         {
@@ -132,8 +132,8 @@ namespace Portal.Services
 
         public async Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteViewModel)
         {
-            if (whatHaveYouDoneWasteViewModel.JourneyId == null)
-                throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel.JourneyId));
+            if (whatHaveYouDoneWasteViewModel == null)
+                throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel));
 
             if (whatHaveYouDoneWasteViewModel.WhatHaveYouDone == null)
                 throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel.WhatHaveYouDone));
@@ -147,14 +147,25 @@ namespace Portal.Services
             return _mapper.Map<WasteRecordStatusViewModel>(result);
         }
 
-        public async Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId)
+        public ExportTonnageViewModel GetExportTonnageViewModel(int journeyId)
         {
-            await Task.CompletedTask;
-
             return new ExportTonnageViewModel
             {
                 JourneyId = journeyId
             };
+        }
+
+        public async Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel)
+        {
+            if (exportTonnageViewModel == null)
+                throw new ArgumentNullException(nameof(exportTonnageViewModel));
+
+            if (exportTonnageViewModel.ExportTonnes == null)
+                throw new ArgumentNullException(nameof(exportTonnageViewModel.ExportTonnes));
+
+            await _httpWasteService.SaveTonnage(
+                exportTonnageViewModel.JourneyId, 
+                exportTonnageViewModel.ExportTonnes.Value);
         }
     }
 }

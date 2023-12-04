@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Portal.Services
+namespace EPRN.Portal.Services
 {
     /// <summary>
     /// http client base class for making http calls to web API RESTful services
@@ -46,7 +46,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http POST returning the speicified object
         /// </summary>
-        protected async Task<T> Post<T>(string url, object? payload = null)
+        protected async Task<T> Post<T>(string url, object payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -59,7 +59,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http POST without returning any data
         /// </summary>
-        protected async Task Post(string url, object? payload = null)
+        protected async Task Post(string url, object payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -72,7 +72,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http PUT returning the speicified object
         /// </summary>
-        protected async Task<T> Put<T>(string url, object? payload = null)
+        protected async Task<T> Put<T>(string url, object payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -85,7 +85,7 @@ namespace Portal.Services
         /// <summary>
         /// Performs an Http PUT without returning any data
         /// </summary>
-        protected async Task Put(string url, object? payload = null)
+        protected async Task Put(string url, object payload = null)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
@@ -95,7 +95,10 @@ namespace Portal.Services
             await Send(CreateMessage(url, payload, HttpMethod.Put));
         }
 
-        private HttpRequestMessage CreateMessage(string url, object? payload, HttpMethod httpMethod)
+        private HttpRequestMessage CreateMessage(
+            string url, 
+            object payload, 
+            HttpMethod httpMethod)
         {
             var msg = new HttpRequestMessage
             {

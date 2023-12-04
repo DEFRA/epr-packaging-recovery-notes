@@ -1,5 +1,5 @@
 ﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enum;
+using EPRN.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Waste.API.Services.Interfaces;
 
@@ -100,5 +100,23 @@ namespace Waste.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("Journey/{journeyId}/Tonnage/{wasteTonnage}")]
+        public async Task<IActionResult> SetJourneyTonnage(
+            int? journeyId,
+            double? wasteTonnage)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (wasteTonnage == null)
+                return BadRequest("Journey Tonnage value is missing");
+
+            await _wasteService.SaveTonnage(
+                journeyId.Value,
+                wasteTonnage.Value);
+
+            return Ok();
+        }
     }
 }

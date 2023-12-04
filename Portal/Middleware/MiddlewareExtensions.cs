@@ -1,4 +1,4 @@
-﻿namespace Portal.Middleware
+﻿namespace EPRN.Portal.Middleware
 {
     public static class MiddlewareExtensions
     {

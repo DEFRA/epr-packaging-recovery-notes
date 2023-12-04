@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Portal.Resources {
+namespace EPRN.Portal.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.ExportTonnageResources", typeof(ExportTonnageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.ExportTonnageResources", typeof(ExportTonnageResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,6 +61,15 @@ namespace Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How many tonnes did you export?.
+        /// </summary>
+        public static string HowMuchTonnageQuestion {
+            get {
+                return ResourceManager.GetString("HowMuchTonnageQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A valid tonnage value must be entered.
         /// </summary>
         public static string MissingTonnageError {
@@ -70,7 +79,7 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many tonnes did you export?.
+        ///   Looks up a localized string similar to Record waste.
         /// </summary>
         public static string PageTitle {
             get {
@@ -79,16 +88,16 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tonnes.
+        ///   Looks up a localized string similar to Tonnes.
         /// </summary>
-        public static string TonnesInputName {
+        public static string TonnesLabel {
             get {
-                return ResourceManager.GetString("TonnesInputName", resourceCulture);
+                return ResourceManager.GetString("TonnesLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tonnage must be greater than zero, and less than 1000000.
+        ///   Looks up a localized string similar to Tonnage must be greater than zero, and less than 1,000,000.
         /// </summary>
         public static string TonnesNotInRange {
             get {

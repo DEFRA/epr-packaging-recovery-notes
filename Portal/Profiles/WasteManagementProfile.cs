@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
-using Portal.ViewModels;
+using EPRN.Portal.ViewModels;
 
-namespace Portal.Profiles
+namespace EPRN.Portal.Profiles
 {
     public class WasteManagementProfile : Profile
     {

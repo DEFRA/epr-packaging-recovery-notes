@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
-using EPRN.Common.Enum;
+using EPRN.Common.Enums;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
@@ -96,7 +96,7 @@ namespace Waste.API.Services
             return wasteType.Name;
         }
 
-        public async Task<WasteRecordStatusDto?> GetWasteRecordStatus(int journeyId)
+        public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
             var journey = await GetJourney(journeyId);
 
@@ -117,6 +117,17 @@ namespace Waste.API.Services
             return dto;
         }
 
+        public async Task SaveTonnage(int journeyId, double tonnage)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            journeyRecord.Tonnes = tonnage;
+            await _wasteRepository.Update(journeyRecord);
+        }
+
         private double GetWasteBalance(WasteJourney journey)
         {
             if (journey == null)
@@ -127,14 +138,7 @@ namespace Waste.API.Services
 
         private async Task<WasteJourney> GetJourney(int id)
         {
-            try
-            {
-                return await _wasteRepository.GetById<WasteJourney>(id);
-            }
-            catch(Exception e)
-            {
-                return null;
-            }
+            return await _wasteRepository.GetById<WasteJourney>(id);
         }
     }
 }

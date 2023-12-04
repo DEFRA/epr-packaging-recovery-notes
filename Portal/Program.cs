@@ -1,9 +1,7 @@
+using EPRN.Portal.Constants;
+using EPRN.Portal.Helpers;
+using EPRN.Portal.Middleware;
 using Microsoft.AspNetCore.Localization;
-using Portal.Constants;
-using Portal.Helpers;
-using Portal.Middleware;
-using Portal.Models;
-using Portal.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,11 +27,6 @@ builder.Services
         opts.SupportedCultures = supportedCultures;
         opts.SupportedUICultures = supportedCultures;
     });
-
-builder.Services.AddMvc(options =>
-{
-    options.ModelBindingMessageProvider.SetValueMustBeANumberAccessor((fieldName) => MasterResources.MustBeANumber);
-});
 
 var app = builder.Build();
 

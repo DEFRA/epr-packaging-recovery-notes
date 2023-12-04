@@ -1,7 +1,7 @@
-﻿using Portal.Resources;
+﻿using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace Portal.ViewModels
+namespace EPRN.Portal.ViewModels
 {
     public class ExportTonnageViewModel
     {
@@ -9,6 +9,6 @@ namespace Portal.ViewModels
 
         [Required(ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "MissingTonnageError")]
         [Range(0, 1000000, ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "TonnesNotInRange")]
-        public int? ExportTonnes { get; set; }
+        public double? ExportTonnes { get; set; }
     }
 }

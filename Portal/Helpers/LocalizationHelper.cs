@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Localization;
 using System.Reflection;
 
-namespace Portal.Helpers
+namespace EPRN.Portal.Helpers
 {
     public class LocalizationHelper<T>
     {

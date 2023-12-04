@@ -1,4 +1,4 @@
-﻿namespace Portal.Helpers.Interfaces
+﻿namespace EPRN.Portal.Helpers.Interfaces
 {
     public interface IQueryStringHelper
     {

@@ -1,14 +1,9 @@
-﻿using AutoMapper.Configuration;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.Eventing.Reader;
-using System.Reflection;
 
-namespace Portal.Helpers.TagHelpers
+namespace EPRN.Portal.Helpers.TagHelpers
 {
     [HtmlTargetElement("radios", TagStructure = TagStructure.NormalOrSelfClosing)]
     public class RadioTagHelper : TagHelper
@@ -16,11 +11,11 @@ namespace Portal.Helpers.TagHelpers
         [HtmlAttributeName("asp-title")]
         public string Title { get; set; }
 
-        public ModelExpression? AspFor { get; set; }
+        public ModelExpression AspFor { get; set; }
 
         [HtmlAttributeNotBound]
         [ViewContext]
-        public ViewContext? ViewContext { get; set; }
+        public ViewContext ViewContext { get; set; }
 
         private readonly IHtmlGenerator _generator;
 

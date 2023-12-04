@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Moq;
-using Portal.Constants;
-using Portal.Helpers;
+using EPRN.Portal.Constants;
+using EPRN.Portal.Helpers;
 
 namespace EPRN.UnitTests.Portal.Helpers
 {
     [TestClass]
     public class CultureHelperTests
     {
-        private Mock<IHttpContextAccessor>? httpContextAccessor;
-        private DefaultHttpContext? httpContext;
+        private Mock<IHttpContextAccessor> httpContextAccessor;
+        private DefaultHttpContext httpContext;
 
         [TestInitialize]
         public void Init()

@@ -2,6 +2,10 @@
 @model WasteTypesViewModel
 @inject LocalizationHelper<WasteTypesResources> localizationHelper
 
+@{
+    ViewData["Title"] = @WhichQuarterResources.PageTitle;
+}
+
 <a href="/" class="govuk-back-link">@MasterResources.Back</a>
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />

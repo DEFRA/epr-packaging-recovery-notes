@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Portal.ViewModels;
+﻿using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace Portal.Controllers
+namespace EPRN.Portal.Controllers
 {
     public class BaseController<T> : Controller
     {

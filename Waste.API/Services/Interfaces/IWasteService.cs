@@ -1,5 +1,5 @@
 ﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enum;
+using EPRN.Common.Enums;
 
 namespace Waste.API.Services.Interfaces
 {
@@ -17,6 +17,8 @@ namespace Waste.API.Services.Interfaces
 
         Task<string> GetWasteType(int journeyId);
 
-        Task<WasteRecordStatusDto?> GetWasteRecordStatus(int journeyId);
+        Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
+
+        Task SaveTonnage(int journeyId, double tonnage);
     }
 }

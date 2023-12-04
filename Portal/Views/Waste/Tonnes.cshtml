@@ -1,21 +1,34 @@
-﻿<a href="/" class="govuk-back-link">@MasterResources.Back</a>
-@model ExportTonnageViewModel
+﻿@model ExportTonnageViewModel
 
+@{
+    ViewData["Title"] = @ExportTonnageResources.HowMuchTonnageQuestion;
+}
+
+<a asp-action="Index" asp-controller="Home"  class="govuk-back-link">@MasterResources.Back</a>
 <partial name="_ValidationSummary" />
-<form>
-    <input type="hidden" value="@Model.JourneyId"/>
-    <div class="govuk-form-group">
-        <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--l" for="event-name">
-                @ExportTonnageResources.PageTitle
-            </label>
-        </h1>
-        <p class="govuk-error-message">
-            <span asp-validation-for="ExportTonnes"></span>
-        </p>
-        <input class="govuk-input" type="text" asp-for="ExportTonnes" />
+<form method="post">
+    <input type="hidden" asp-for="@Model.JourneyId"/>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="event-name">
+                            @ExportTonnageResources.HowMuchTonnageQuestion
+                        </label>
+                    </h1>
+                    <p class="govuk-error-message">
+                        <span asp-validation-for="ExportTonnes"></span>
+                    </p>
+                    <label asp-for="ExportTonnes" class="units-container">
+                        <input class="govuk-input 3dp" type="text" asp-for="ExportTonnes" />    
+                        @ExportTonnageResources.TonnesLabel
+                    </label>
+                </div>
+            </fieldset>
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+                @MasterResources.ContinueBtn
+            </button>
+        </div>
     </div>
-    <button class="govuk-button" data-module="govuk-button" type="submit">
-        @MasterResources.ContinueBtn
-    </button>
 </form>

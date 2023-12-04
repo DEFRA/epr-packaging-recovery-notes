@@ -1,4 +1,4 @@
-﻿namespace Portal.Models
+﻿namespace EPRN.Portal.Models
 {
     public class ServicesConfiguration
     {

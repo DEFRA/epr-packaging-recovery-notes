@@ -3,7 +3,6 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
@@ -21,8 +20,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EPRN.Common\EPRN.Common.csproj" />
-    <ProjectReference Include="..\Portal\Portal.csproj" />
-    <ProjectReference Include="..\Waste.API\Waste.API.csproj" />
+    <ProjectReference Include="..\Portal\EPRN.Portal.csproj" />
+    <ProjectReference Include="..\Waste.API\EPRN.Waste.API.csproj" />
   </ItemGroup>
 
 </Project>
