@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
-using Portal.Helpers.Interfaces;
+﻿using EPRN.Portal.Helpers.Interfaces;
+using Microsoft.Extensions.Localization;
 using System.Reflection;
 
 namespace EPRN.Portal.Helpers

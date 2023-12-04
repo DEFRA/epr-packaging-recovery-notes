@@ -6,6 +6,8 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Resources;
 
 namespace EPRN.UnitTests.Portal.Services
 {
