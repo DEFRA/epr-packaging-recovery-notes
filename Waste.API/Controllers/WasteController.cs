@@ -133,7 +133,7 @@ namespace Waste.API.Controllers
 
             if (baledWithWire == null)
                 return BadRequest("Baled with wire is missing");
-
+            
             //ToDo: This should be removed in the fullness of time.
             var id = await _wasteService.CreateJourney();
 

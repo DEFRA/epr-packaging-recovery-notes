@@ -149,7 +149,7 @@ namespace EPRN.Portal.Controllers
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
             return View(model);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWire)
         {
