@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  portal:
+    image: ${DOCKER_REGISTRY-}portal
+    build:
+      context: .
+      dockerfile: Portal/Dockerfile
+
+  waste.api:
+    image: ${DOCKER_REGISTRY-}wasteapi
+    build:
+      context: .
+      dockerfile: Waste.API/Dockerfile
+
