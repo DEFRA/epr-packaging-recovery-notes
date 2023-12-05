@@ -115,10 +115,10 @@ namespace Portal.Controllers
         [HttpPost]
         public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWire)
         {
-            if (baledWithWire.BaledWithWireScreen == "Yes")
-                baledWithWire.BaledWithWire = EPRN.Common.Enum.YesNo.Yes;
+            if (baledWithWire.BaledWithWireScreen == "True")
+                baledWithWire.BaledWithWire = true;
             else
-                baledWithWire.BaledWithWire = EPRN.Common.Enum.YesNo.No;
+                baledWithWire.BaledWithWire = false;
 
             await _wasteService.SaveBaledWithWire(baledWithWire);
             return RedirectToAction("Index", "Home");

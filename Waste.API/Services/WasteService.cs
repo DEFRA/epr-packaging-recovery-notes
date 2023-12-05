@@ -13,20 +13,34 @@ using WasteManagement.API.Data;
 using WasteManagement.API.Middleware;
 using Microsoft.Extensions.Configuration;
 using System.Reflection.Metadata.Ecma335;
+using Waste.API.Configuration;
+using Waste.API.Configuration.Interfaces;
+using Microsoft.Extensions.Options;
+using Waste.API.Migrations;
 
 namespace Waste.API.Services
 {
     public class WasteService : IWasteService
     {
+        private readonly double _deductionAmount;
         public readonly IMapper _mapper;
         public readonly IRepository _wasteRepository;
 
         public WasteService(
             IMapper mapper,
-            IRepository wasteRepository)
+            IRepository wasteRepository,
+            IOptions<AppConfigSettings> configSettings)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _wasteRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_wasteRepository));
+            
+            if (configSettings == null )
+                throw new ArgumentNullException(nameof(configSettings));
+
+            if (configSettings.Value.DeductionAmount == null)
+                throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount));
+
+            _deductionAmount = configSettings.Value.DeductionAmount.Value; 
         }
 
         public async Task<int> CreateJourney()
@@ -138,25 +152,17 @@ namespace Waste.API.Services
             return await _wasteRepository.GetById<WasteJourney>(id);
         }
 
-        public async Task SaveBaledWithWire(int journeyId, YesNo baledWithWire)
+        public async Task SaveBaledWithWire(int journeyId, bool baledWithWire)
         {
             var journeyRecord = await GetJourney(journeyId);
             if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
+                throw new NullReferenceException(nameof(journeyRecord));
 
-            journeyRecord.BaledWithWire = Convert.ToBoolean(baledWithWire);
+            journeyRecord.BaledWithWire = baledWithWire;
             if (journeyRecord.BaledWithWire == true)
-                journeyRecord.DeductionAmount = this.ReturnDeductionAmountFromDB();
+                journeyRecord.DeductionAmount = _deductionAmount;
 
             await _wasteRepository.Update(journeyRecord);
-        }
-
-        private float ReturnDeductionAmountFromDB()
-        {
-            float dedictionAmount = 0;
-            var builder = WebApplication.CreateBuilder().Build();
-            float.TryParse(builder.Configuration.GetValue<float>("AppSettings:DeductionAmount").ToString(), out dedictionAmount);
-            return dedictionAmount;
         }
     }
 }

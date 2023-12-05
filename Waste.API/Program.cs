@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Waste.API.Configuration;
 using Waste.API.Repositories;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services;
@@ -23,6 +25,8 @@ builder.Services.AddTransient<IRepository, Repository>();
 builder.Services.AddDbContext<WasteContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
 );
+
+builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
 
 var app = builder.Build();
 

@@ -1,6 +1,8 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enum;
 using Microsoft.AspNetCore.Mvc;
+using Waste.API.Configuration;
+using Waste.API.Configuration.Interfaces;
 using Waste.API.Services.Interfaces;
 
 namespace Waste.API.Controllers
@@ -10,6 +12,7 @@ namespace Waste.API.Controllers
     public class WasteController : ControllerBase
     {
         public readonly IWasteService _wasteService;
+        private string[] args;
 
         public WasteController(IWasteService wasteService)
         {
@@ -102,7 +105,7 @@ namespace Waste.API.Controllers
 
         [HttpPost]
         [Route("Journey/{journeyId}/BaledWithWire/{baledWithWire}")]
-        public async Task<ActionResult> SaveBaledWithWire(int? journeyId, YesNo? baledWithWire)
+        public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)
         {
             if (journeyId == null)
                 return BadRequest("Journey Id is missing");
@@ -112,6 +115,7 @@ namespace Waste.API.Controllers
 
             //ToDo: This should be removed in the fullness of time.
             var id = await _wasteService.CreateJourney();
+
             await _wasteService.SaveBaledWithWire(id, baledWithWire.Value);
 
             return Ok(id);

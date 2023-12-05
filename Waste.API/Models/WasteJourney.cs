@@ -33,6 +33,6 @@ namespace Waste.API.Models
 
         public string? DoneWaste { get; set; }
 
-        public float? DeductionAmount { get; set; }
+        public double? DeductionAmount { get; set; }
     }
 }

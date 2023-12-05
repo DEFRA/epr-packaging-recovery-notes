@@ -247,7 +247,7 @@ namespace EPRN.UnitTests.Portal.Services
             // Arrange
             BaledWithWireModel baledWithWireModel = new BaledWithWireModel();
             baledWithWireModel.JourneyId = 1;
-            baledWithWireModel.BaledWithWire = YesNo.Yes;
+            baledWithWireModel.BaledWithWire = true;
 
 
             // Act
@@ -256,7 +256,7 @@ namespace EPRN.UnitTests.Portal.Services
             // Assert
             _mockHttpWasteService.Verify(s => s.SaveBaledWithWire(
                 It.Is<int>(p => p == 1),
-                It.Is<YesNo>(p => p == YesNo.Yes)
+                It.Is<bool>(p => p == true)
             ));
         }
 

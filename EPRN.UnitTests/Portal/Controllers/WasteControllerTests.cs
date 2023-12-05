@@ -329,7 +329,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>())).ReturnsAsync(new BaledWithWireModel());
 
             // Act
-            var result = await _wasteController.BaledWithWire(It.IsAny<int>());
+            var result = await _wasteController.BaledWithWire(0);
 
             // Assert
             Assert.IsNotNull(result);
@@ -352,7 +352,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var baledWithWireModel = new BaledWithWireModel
             {
                 JourneyId = 1,
-                BaledWithWire = Common.Enum.YesNo.Yes
+                BaledWithWire = true
             };
 
             _mockWasteService.Setup(s => s.GetBaledWithWireModel(1)).ReturnsAsync(baledWithWireModel);
@@ -381,7 +381,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var baledWithWireModel = new BaledWithWireModel
             {
                 JourneyId = 1,
-                BaledWithWire = YesNo.Yes
+                BaledWithWire = true
             };
 
             // Act

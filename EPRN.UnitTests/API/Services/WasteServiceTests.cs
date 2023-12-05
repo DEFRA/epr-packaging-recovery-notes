@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.UnitTests.Helpers;
+using Microsoft.Extensions.Options;
 using Moq;
+using Waste.API.Configuration;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services;
@@ -15,6 +17,7 @@ namespace EPRN.UnitTests.API.Services
         private IWasteService _wasteService;
         private Mock<IMapper> _mockMapper;
         private Mock<IRepository> _mockRepository;
+        private Mock<IOptions<AppConfigSettings>> _mockConfigSettings;
 
         [TestInitialize]
         public void Init()
@@ -23,7 +26,8 @@ namespace EPRN.UnitTests.API.Services
             _mockRepository = new Mock<IRepository>();
             _wasteService = new WasteService(
                 _mockMapper.Object,
-                _mockRepository.Object);
+                _mockRepository.Object,
+                _mockConfigSettings.Object);
         }
 
         [TestMethod]

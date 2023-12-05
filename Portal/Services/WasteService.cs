@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Portal.Resources;
 using Portal.RESTServices.Interfaces;
 using Portal.Services.Interfaces;
@@ -154,7 +155,7 @@ namespace Portal.Services
             {
                 JourneyId = journeyId,
                 // We're not part of a journey yet, so this can't really be hooked up
-                WasteType = await _httpWasteService.GetWasteType(journeyId)
+                // WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
 
             return baledWithWire;
@@ -162,6 +163,9 @@ namespace Portal.Services
 
         public async Task SaveBaledWithWire(BaledWithWireModel baledWireModel)
         {
+            if (baledWireModel == null)
+                throw new ArgumentNullException(nameof(baledWireModel));
+
             if (baledWireModel.JourneyId == null)
                 throw new ArgumentNullException(nameof(baledWireModel.JourneyId));
 

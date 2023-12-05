@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enum;
+using Waste.API.Configuration.Interfaces;
 
 namespace Waste.API.Services.Interfaces
 {
@@ -19,6 +20,6 @@ namespace Waste.API.Services.Interfaces
 
         Task<WasteRecordStatusDto?> GetWasteRecordStatus(int journeyId);
 
-        Task SaveBaledWithWire(int journeyId, YesNo baledWithWire);
+        Task SaveBaledWithWire(int journeyId, bool baledWithWire);
     }
 }

@@ -24,14 +24,14 @@
         </p>
 
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" type="radio" asp-for="BaledWithWireScreen" value="@YesNo.Yes.ToString()" aria-describedby="@BaledWithWireResource.YesSelection">
+            <input class="govuk-radios__input" type="radio" asp-for="BaledWithWireScreen" value=@true aria-describedby="@BaledWithWireResource.YesSelection">
             <label class="govuk-label govuk-radios__label" for="@BaledWithWireResource.YesSelection">
                 @BaledWithWireResource.YesSelection
             </label>
         </div>
 
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" type="radio" asp-for="BaledWithWireScreen" value="@YesNo.No.ToString()" aria-describedby="@BaledWithWireResource.NoSelection">
+            <input class="govuk-radios__input" type="radio" asp-for="BaledWithWireScreen" value=@false aria-describedby="@BaledWithWireResource.NoSelection">
             <label class="govuk-label govuk-radios__label" for="@BaledWithWireResource.NoSelection">
                 @BaledWithWireResource.NoSelection
             </label>

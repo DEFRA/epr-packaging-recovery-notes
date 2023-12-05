@@ -14,6 +14,6 @@ namespace Portal.RESTServices.Interfaces
         Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste);
 
         Task<string> GetWasteType(int journeyId);
-        Task SaveBaledWithWire(int journeyId, YesNo baledWithWire);
+        Task SaveBaledWithWire(int journeyId, bool baledWithWire);
     }
 }
