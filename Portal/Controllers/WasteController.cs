@@ -2,6 +2,7 @@
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Portal.ViewModels;
 
 namespace EPRN.Portal.Controllers
 {

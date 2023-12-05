@@ -4,6 +4,7 @@ using Moq;
 using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using Portal.ViewModels;
 
 namespace EPRN.UnitTests.Portal.Controllers
 {

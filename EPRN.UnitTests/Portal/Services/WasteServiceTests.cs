@@ -8,6 +8,7 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
+using Portal.ViewModels;
 
 namespace EPRN.UnitTests.Portal.Services
 {

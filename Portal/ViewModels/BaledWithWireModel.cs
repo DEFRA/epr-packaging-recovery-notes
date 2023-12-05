@@ -1,5 +1,5 @@
-using EPRN.Common.Enum;
-using Portal.Resources;
+using EPRN.Common.Enums;
+using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace Portal.ViewModels

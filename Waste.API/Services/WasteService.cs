@@ -98,7 +98,7 @@ namespace Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            journeyRecord.DoneWaste = whatHaveYouDoneWaste;
+            journeyRecord.DoneWaste = whatHaveYouDoneWaste.ToString();
             await _wasteRepository.Update(journeyRecord);
         }
 
