@@ -269,21 +269,6 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual("Value cannot be null. (Parameter 'SelectedMonth')", exception.Message);
         }
 
-        //[TestMethod]
-        //public async Task SaveSelectedMonth_ThrowsException_WhenDonwWasteIsNull()
-        //{
-        //    // Arrange
-        //    var duringWhichMonthRequuestViewModel = new DuringWhichMonthRequestViewModel();
-        //    duringWhichMonthRequuestViewModel.JourneyId = 1;
-        //    duringWhichMonthRequuestViewModel.SelectedMonth = 8;
-
-        //    // Act
-
-        //    // Assert
-        //    var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveSelectedMonth(duringWhichMonthRequuestViewModel));
-        //    Assert.AreEqual("Value cannot be null. (Parameter 'WhatHaveYouDone')", exception.Message);
-        //}
-
         [TestMethod]
         public async Task SaveWhatHaveYouDoneWaste_Succeeds_WithValidModel()
         {

@@ -49,9 +49,6 @@ namespace EPRN.Portal.Services
             if (duringWhichMonthRequestViewModel.SelectedMonth == null)
                 throw new ArgumentNullException(nameof(duringWhichMonthRequestViewModel.SelectedMonth));
 
-            //if (duringWhichMonthRequestViewModel.WhatHaveYouDone == null)
-            //    throw new ArgumentNullException(nameof(duringWhichMonthRequestViewModel.WhatHaveYouDone));
-
             await _httpWasteService.SaveSelectedMonth(
                 duringWhichMonthRequestViewModel.JourneyId,
                 duringWhichMonthRequestViewModel.SelectedMonth.Value,
