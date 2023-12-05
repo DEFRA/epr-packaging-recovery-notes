@@ -123,14 +123,20 @@
   <data name="Back" xml:space="preserve">
     <value>back</value>
   </data>
-  <data name="ErrorMessage" xml:space="preserve">
+  <data name="ErrorMessageReceived" xml:space="preserve">
     <value>Select the month the waste was received</value>
+  </data>
+  <data name="ErrorMessageSent" xml:space="preserve">
+    <value>Select the month the waste was sent on</value>
   </data>
   <data name="Glass" xml:space="preserve">
     <value>Glass</value>
   </data>
-  <data name="Heading" xml:space="preserve">
+  <data name="HeadingReceived" xml:space="preserve">
     <value>During which month was the waste received?</value>
+  </data>
+  <data name="HeadingSent" xml:space="preserve">
+    <value>When did you send it?</value>
   </data>
   <data name="HintText" xml:space="preserve">
     <value>You can only record waste for this month and the months within an open quarterly return period.</value>
@@ -171,8 +177,11 @@
   <data name="Month9" xml:space="preserve">
     <value>September</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
+  <data name="PageTitleReceived" xml:space="preserve">
     <value>During which month was the waste received?</value>
+  </data>
+  <data name="PageTitleSent" xml:space="preserve">
+    <value>When did you send it?</value>
   </data>
   <data name="Paper" xml:space="preserve">
     <value>Paper/board</value>

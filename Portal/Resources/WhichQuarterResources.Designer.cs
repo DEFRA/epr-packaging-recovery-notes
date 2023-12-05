@@ -81,9 +81,18 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Select the month the waste was received.
         /// </summary>
-        public static string ErrorMessage {
+        public static string ErrorMessageReceived {
             get {
-                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+                return ResourceManager.GetString("ErrorMessageReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the month the waste was sent on.
+        /// </summary>
+        public static string ErrorMessageSent {
+            get {
+                return ResourceManager.GetString("ErrorMessageSent", resourceCulture);
             }
         }
         
@@ -99,9 +108,18 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to During which month was the waste received?.
         /// </summary>
-        public static string Heading {
+        public static string HeadingReceived {
             get {
-                return ResourceManager.GetString("Heading", resourceCulture);
+                return ResourceManager.GetString("HeadingReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When did you send it?.
+        /// </summary>
+        public static string HeadingSent {
+            get {
+                return ResourceManager.GetString("HeadingSent", resourceCulture);
             }
         }
         
@@ -225,9 +243,18 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to During which month was the waste received?.
         /// </summary>
-        public static string PageTitle {
+        public static string PageTitleReceived {
             get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
+                return ResourceManager.GetString("PageTitleReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When did you send it?.
+        /// </summary>
+        public static string PageTitleSent {
+            get {
+                return ResourceManager.GetString("PageTitleSent", resourceCulture);
             }
         }
         

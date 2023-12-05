@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using Moq;
+using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
-using EPRN.Portal.Helpers.Interfaces;
-using EPRN.Portal.Resources;
+using Moq;
 
 namespace EPRN.UnitTests.Portal.Services
 {
@@ -65,11 +65,13 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task GetQuarterForCurrentMonth_ReturnsValidModel()
+        public async Task GetQuarterForCurrentMonth_ReturnsValidModel_ReprocessedIt()
         {
             // Arrange
             int journeyId = 3;
             int currentMonth = 5;
+            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
+
             var expectedQuarter = new Dictionary<int, string>
             {
                 { 4, "April" },
@@ -80,7 +82,8 @@ namespace EPRN.UnitTests.Portal.Services
             DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
             {
                 JourneyId = journeyId,
-                Quarter = expectedQuarter
+                Quarter = expectedQuarter,
+                WhatHaveYouDone = whatHaveYouDoneWaste
             };
 
             foreach (var item in expectedQuarter)
@@ -94,17 +97,76 @@ namespace EPRN.UnitTests.Portal.Services
             //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth, whatHaveYouDoneWaste);
 
             // Assert
             Assert.IsNotNull(viewModel);
             Assert.IsTrue(viewModel.Quarter.Count() == 3);
+            Assert.IsNotNull(viewModel.WhatHaveYouDone);
+            Assert.IsInstanceOfType(viewModel.WhatHaveYouDone, typeof(DoneWaste));
+            Assert.IsTrue(viewModel.WhatHaveYouDone == DoneWaste.ReprocessedIt);
             Assert.AreEqual(4, viewModel.Quarter.ElementAt(0).Key);
             Assert.AreEqual("April", viewModel.Quarter.ElementAt(0).Value);
             Assert.AreEqual(5, viewModel.Quarter.ElementAt(1).Key);
             Assert.AreEqual("May", viewModel.Quarter.ElementAt(1).Value);
             Assert.AreEqual(6, viewModel.Quarter.ElementAt(2).Key);
             Assert.AreEqual("June", viewModel.Quarter.ElementAt(2).Value);
+            //Assert.AreEqual(material, viewModel.WasteType);
+            Assert.AreEqual(journeyId, viewModel.JourneyId);
+
+            foreach (var item in expectedQuarter)
+            {
+                _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")), Times.Once());
+            }
+        }
+
+        [TestMethod]
+        public async Task GetQuarterForCurrentMonth_ReturnsValidModel_SentItOn()
+        {
+            // Arrange
+            int journeyId = 3;
+            int currentMonth = 7;
+            var whatHaveYouDoneWaste = DoneWaste.SentItOn;
+
+            var expectedQuarter = new Dictionary<int, string>
+            {
+                { 7, "July" },
+                { 8, "August" },
+                { 9, "September" }
+            };
+
+            DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
+            {
+                JourneyId = journeyId,
+                Quarter = expectedQuarter,
+                WhatHaveYouDone = whatHaveYouDoneWaste
+            };
+
+            foreach (var item in expectedQuarter)
+            {
+                _mockLocalizationHelper.Setup(lh => lh.GetString($"Month{item.Key}")).Returns(item.Value);
+            }
+
+            string material = "testMaterial";
+            // commenting out for now as we need to think about how we're going to get waste types
+            // for each journey step
+            //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
+
+            // Act
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth, whatHaveYouDoneWaste);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+            Assert.IsTrue(viewModel.Quarter.Count() == 3);
+            Assert.IsNotNull(viewModel.WhatHaveYouDone);
+            Assert.IsInstanceOfType(viewModel.WhatHaveYouDone, typeof(DoneWaste));
+            Assert.IsTrue(viewModel.WhatHaveYouDone == DoneWaste.SentItOn);
+            Assert.AreEqual(7, viewModel.Quarter.ElementAt(0).Key);
+            Assert.AreEqual("July", viewModel.Quarter.ElementAt(0).Value);
+            Assert.AreEqual(8, viewModel.Quarter.ElementAt(1).Key);
+            Assert.AreEqual("August", viewModel.Quarter.ElementAt(1).Value);
+            Assert.AreEqual(9, viewModel.Quarter.ElementAt(2).Key);
+            Assert.AreEqual("September", viewModel.Quarter.ElementAt(2).Value);
             //Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
 
@@ -142,6 +204,7 @@ namespace EPRN.UnitTests.Portal.Services
             {
                 JourneyId = 1,
                 SelectedMonth = 10,
+                WhatHaveYouDone = DoneWaste.ReprocessedIt
             };
 
             // Act
@@ -150,7 +213,8 @@ namespace EPRN.UnitTests.Portal.Services
             // Assert
             _mockHttpWasteService.Verify(s => s.SaveSelectedMonth(
                 It.Is<int>(p => p == 1), // check that parameter1 (journeyId) is 1
-                It.Is<int>(p => p == 10)) // check that parameter2 (selected month) is 10
+                It.Is<int>(p => p == 10),
+                It.Is<DoneWaste>(p => p == DoneWaste.ReprocessedIt)) // check that parameter3 (What have you done with the waste) is ReprocessedIt
             );
         }
 
@@ -298,7 +362,7 @@ namespace EPRN.UnitTests.Portal.Services
         public async Task SaveTonnage_NullParameter_ThrowsNullReferenceException()
         {
             // arrange
-            
+
             // act
             await _wasteService.SaveTonnage((ExportTonnageViewModel)null);
 
