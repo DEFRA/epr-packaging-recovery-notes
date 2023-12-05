@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
-namespace Portal.Helpers.TagHelpers
+namespace EPRN.Portal.Helpers.TagHelpers
 {
     /// <summary>
     /// If the form fails validation:
@@ -20,7 +20,7 @@ namespace Portal.Helpers.TagHelpers
 
         [HtmlAttributeNotBound]
         [ViewContext]
-        public ViewContext? ViewContext { get; set; }
+        public ViewContext ViewContext { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

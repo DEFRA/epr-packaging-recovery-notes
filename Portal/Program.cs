@@ -1,7 +1,7 @@
+using EPRN.Portal.Constants;
+using EPRN.Portal.Helpers;
+using EPRN.Portal.Middleware;
 using Microsoft.AspNetCore.Localization;
-using Portal.Constants;
-using Portal.Helpers;
-using Portal.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Localization;
 
-namespace Portal.Middleware
+namespace EPRN.Portal.Middleware
 {
     public class CultureMiddleware
     {
@@ -19,7 +19,7 @@ namespace Portal.Middleware
             if (cultureName != null)
             {
                 var culture = new RequestCulture(cultureName);
-                context.Response.Cookies.Append(_cookieName, 
+                context.Response.Cookies.Append(_cookieName,
                     CookieRequestCultureProvider.MakeCookieValue(culture),
                     new CookieOptions
                     {
@@ -30,7 +30,7 @@ namespace Portal.Middleware
             await _next(context);
         }
 
-        private string? GetCultureFromRequest(HttpRequest request)
+        private string GetCultureFromRequest(HttpRequest request)
         {
             return request.Query["culture"].FirstOrDefault();
         }

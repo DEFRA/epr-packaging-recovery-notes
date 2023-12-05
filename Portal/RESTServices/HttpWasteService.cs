@@ -1,12 +1,13 @@
 ﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enum;
-using Portal.RESTServices.Interfaces;
-using Portal.Services;
+using EPRN.Common.Enums;
+using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services;
 
-namespace Portal.RESTServices
+namespace EPRN.Portal.RESTServices
 {
     public class HttpWasteService : BaseHttpService, IHttpWasteService
     {
+        private const string journeyRoutePart = "Journey";
         public HttpWasteService(
             string baseUrl,
             IHttpClientFactory httpClientFactory) : base(baseUrl, httpClientFactory)
@@ -20,27 +21,32 @@ namespace Portal.RESTServices
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
-            return await Get<WasteRecordStatusDto>($"Journey/{journeyId}/status");
+            return await Get<WasteRecordStatusDto>($"{journeyRoutePart}/{journeyId}/status");
         }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
-            await Post($"Journey/{journeyId}/Month/{selectedMonth}");
+            await Post($"{journeyRoutePart}/{journeyId}/Month/{selectedMonth}");
         }
 
         public async Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId)
         {
-            await Post($"Journey/{journeyId}/Type/{selectedWasteTypeId}");
+            await Post($"{journeyRoutePart}/{journeyId}/Type/{selectedWasteTypeId}");
         }
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            await Post($"Journey/{journeyId}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}", null);
+            await Post($"{journeyRoutePart} /{journeyId}/Done/{whatHaveYouDoneWaste}");
         }
 
         public async Task<string> GetWasteType(int journeyId)
         {
-            return await Get<string>($"Journey/{journeyId}/WasteType");
+            return await Get<string>($"{journeyRoutePart}/{journeyId}/WasteType");
+        }
+
+        public async Task SaveTonnage(int journeyId, double tonnage)
+        {
+            await Post($"{journeyRoutePart}/{journeyId}/Tonnage/{tonnage}");
         }
 
         public async Task SaveBaledWithWire(int journeyId, bool bailedWithWire)

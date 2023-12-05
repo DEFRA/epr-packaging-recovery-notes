@@ -1,17 +1,17 @@
 ﻿using AutoMapper;
+using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Models;
+using EPRN.Portal.Profiles;
+using EPRN.Portal.RESTServices;
+using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services;
+using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
-using Portal.Helpers.Interfaces;
-using Portal.Models;
-using Portal.Profiles;
-using Portal.RESTServices;
-using Portal.RESTServices.Interfaces;
-using Portal.Services;
-using Portal.Services.Interfaces;
 using System.Globalization;
 using System.Security.Authentication;
 
-namespace Portal.Helpers
+namespace EPRN.Portal.Helpers
 {
     public static class DependencyHelper
     {
@@ -53,7 +53,7 @@ namespace Portal.Helpers
                     };
                 });
 
-            services.AddTransient(typeof(LocalizationHelper<>));
+            services.AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>));
             services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
             services.AddTransient<IHttpWasteService>(s =>

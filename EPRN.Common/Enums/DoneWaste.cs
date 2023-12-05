@@ -1,4 +1,4 @@
-﻿namespace EPRN.Common.Enum
+﻿namespace EPRN.Common.Enums
 {
     public enum DoneWaste
     {

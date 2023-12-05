@@ -1,6 +1,11 @@
 ﻿@using Microsoft.Extensions.Localization;
+@using EPRN.Portal.Helpers.Interfaces;
 @model WasteTypesViewModel
-@inject LocalizationHelper<WasteTypesResources> localizationHelper
+@inject ILocalizationHelper<WasteTypesResources> localizationHelper
+
+@{
+    ViewData["Title"] = @WhichQuarterResources.PageTitle;
+}
 
 <a href="/" class="govuk-back-link">@MasterResources.Back</a>
 <form method="post">

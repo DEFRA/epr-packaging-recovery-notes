@@ -10,6 +10,6 @@ namespace WasteManagement.API.Models
 
         public DateTime? LastModifiedDate { get; set; }
 
-        public string? LastModifiedBy { get; set; } = null;
+        public string LastModifiedBy { get; set; } = null;
     }
 }

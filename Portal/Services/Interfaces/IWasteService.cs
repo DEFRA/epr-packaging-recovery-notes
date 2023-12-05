@@ -1,10 +1,10 @@
-﻿using Portal.ViewModels;
+﻿using EPRN.Portal.ViewModels;
 
-namespace Portal.Services.Interfaces
+namespace EPRN.Portal.Services.Interfaces
 {
     public interface IWasteService
     {
-        Task<DuringWhichMonthRequestViewModel> GetCurrentQuarter(int journeyId);
+        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 
@@ -15,10 +15,16 @@ namespace Portal.Services.Interfaces
         Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId);
 
         Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId);
+
+        Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
+        Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId);
         Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
 
         Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId);
 
+        ExportTonnageViewModel GetExportTonnageViewModel(int journeyId);
+
+        Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel);
         Task SaveBaledWithWire(BaledWithWireModel baledWireModel);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enum;
+using EPRN.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Waste.API.Configuration;
 using Waste.API.Configuration.Interfaces;
@@ -72,8 +72,8 @@ namespace Waste.API.Controllers
         }
         
         [HttpPost]
-        [Route("Journey/{journeyId}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}")]
-        public async Task<ActionResult> SaveWhatHaveYouDoneWaste(int? journeyId, string? whatHaveYouDoneWaste)
+        [Route("Journey/{journeyId}/Done/{whatHaveYouDoneWaste}")]
+        public async Task<ActionResult> SaveWhatHaveYouDoneWaste(int? journeyId, DoneWaste? whatHaveYouDoneWaste)
         {
             if (journeyId == null)
                 return BadRequest("Journey Id is missing");
@@ -83,7 +83,7 @@ namespace Waste.API.Controllers
 
             //ToDo: This should be removed in the fullness of time.
             var id = await _wasteService.CreateJourney();
-            await _wasteService.SaveWhatHaveYouDoneWaste(id, whatHaveYouDoneWaste);
+            await _wasteService.SaveWhatHaveYouDoneWaste(id, whatHaveYouDoneWaste.Value);
 
             return Ok(id);
         }
@@ -103,6 +103,24 @@ namespace Waste.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("Journey/{journeyId}/Tonnage/{wasteTonnage}")]
+        public async Task<IActionResult> SetJourneyTonnage(
+            int? journeyId,
+            double? wasteTonnage)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (wasteTonnage == null)
+                return BadRequest("Journey Tonnage value is missing");
+
+            await _wasteService.SaveTonnage(
+                journeyId.Value,
+                wasteTonnage.Value);
+
+            return Ok();
+        }
         [HttpPost]
         [Route("Journey/{journeyId}/BaledWithWire/{baledWithWire}")]
         public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)

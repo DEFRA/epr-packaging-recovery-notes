@@ -1,7 +1,7 @@
-﻿using Portal.Resources;
+﻿using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace Portal.ViewModels
+namespace EPRN.Portal.ViewModels
 {
     public class DuringWhichMonthRequestViewModel
     {
@@ -12,6 +12,6 @@ namespace Portal.ViewModels
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WhichQuarterResources))]
         public int? SelectedMonth { get; set; }
 
-        public string? WasteType { get; set; }
+        public string WasteType { get; set; }
     }
 }

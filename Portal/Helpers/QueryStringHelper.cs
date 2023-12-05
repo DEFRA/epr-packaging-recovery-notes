@@ -1,6 +1,6 @@
-﻿using Portal.Helpers.Interfaces;
+﻿using EPRN.Portal.Helpers.Interfaces;
 
-namespace Portal.Helpers
+namespace EPRN.Portal.Helpers
 {
     public class QueryStringHelper : IQueryStringHelper
     {

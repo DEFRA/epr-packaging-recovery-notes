@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waste.API", "Waste.API\Waste.API.csproj", "{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Waste.API", "Waste.API\EPRN.Waste.API.csproj", "{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Portal", "Portal\Portal.csproj", "{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Portal", "Portal\EPRN.Portal.csproj", "{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Common", "EPRN.Common\EPRN.Common.csproj", "{1DBE8D65-C3E9-45CD-BAB5-432101D18929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPRN.UnitTests", "EPRN.UnitTests\EPRN.UnitTests.csproj", "{7768DA66-5F2D-44F0-8A78-DAE7079D2545}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.UnitTests", "EPRN.UnitTests\EPRN.UnitTests.csproj", "{7768DA66-5F2D-44F0-8A78-DAE7079D2545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

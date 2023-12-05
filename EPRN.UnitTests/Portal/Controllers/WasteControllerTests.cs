@@ -1,9 +1,9 @@
-﻿using EPRN.Common.Enum;
+﻿using EPRN.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Portal.Controllers;
-using Portal.Services.Interfaces;
-using Portal.ViewModels;
+using EPRN.Portal.Controllers;
+using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
 
 namespace EPRN.UnitTests.Portal.Controllers
 {
@@ -47,7 +47,9 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task DuringWhichMonth_Return_Correctly()
         {
             // Arrange
-            _mockWasteService.Setup(s => s.GetCurrentQuarter(It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+            int currentMonth = DateTime.Now.Month;
+
+            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(It.IsAny<int>(), It.Is<int>(p => p == currentMonth))).ReturnsAsync(new DuringWhichMonthRequestViewModel());
 
             // Act
             var result = await _wasteController.DuringWhichMonth(2);
@@ -168,7 +170,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             _wasteController.ModelState.AddModelError("Error", "Error");
             // Arrange
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel();
-            _mockWasteService.Setup(s => s.GetCurrentQuarter(It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
             _wasteController.ModelState.AddModelError("Error", "Error");
 
             // Act
@@ -218,7 +220,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
             {
                 JourneyId = 1,
-                WhatHaveYouDone = Common.Enum.DoneWaste.ReprocessedIt
+                WhatHaveYouDone = DoneWaste.ReprocessedIt
             };
 
             _mockWasteService.Setup(s => s.GetWasteModel(1)).ReturnsAsync(whatHaveYouDoneWasteModel);
@@ -277,7 +279,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task GetWasteRecordStatus_Return_RecordCompleteView_ValidId()
         {
             // Arrange
-            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete});
+            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete });
 
             // Act
             var result = await _wasteController.GetWasteRecordStatus(2);
@@ -293,7 +295,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
 
             // check view name
-            Assert.IsNotNull(viewResult.ViewName); 
+            Assert.IsNotNull(viewResult.ViewName);
             Assert.AreEqual("WasteRecordCompleteStatus", viewResult.ViewName);
 
         }
@@ -318,8 +320,86 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
 
             // check view name
-            Assert.IsNotNull(viewResult.ViewName); 
+            Assert.IsNotNull(viewResult.ViewName);
             Assert.AreEqual("WasteRecordStatus", viewResult.ViewName);
+        }
+
+        [TestMethod]
+        public void Tonnes_WithValidId_ReturnsViewWithModel()
+        {
+            // Arrange
+            var journeyId = 3;
+            var exportTonnageViewModel = new ExportTonnageViewModel();
+
+            _mockWasteService.Setup(s => s.GetExportTonnageViewModel(3)).Returns(exportTonnageViewModel);
+
+            // Act
+            var result = _wasteController.Tonnes(journeyId);
+
+            // Assert
+            Assert.IsNotNull (result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.AreEqual(exportTonnageViewModel, viewResult.ViewData.Model);
+        }
+
+        [TestMethod]
+        public void Tonnes_WithNoId_ReturnsNotFound()
+        {
+            // Arrange
+            
+            // Act
+            var result = _wasteController.Tonnes((int?)null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+
+            _mockWasteService.Verify(s => s.GetExportTonnageViewModel(It.IsAny<int>()), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task SaveTonnes_WithValidData_Saves_Succesfully()
+        {
+            // Arrange
+            var exportTonnageViewModel = new ExportTonnageViewModel
+            {
+                JourneyId = 6,
+                ExportTonnes = 44.5
+            };
+
+            // Act
+            var result = await _wasteController.Tonnes(exportTonnageViewModel);
+
+            // Assert
+            _mockWasteService.Verify(s => s.SaveTonnage(It.Is<ExportTonnageViewModel>(p => p == exportTonnageViewModel)), Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+        }
+
+        [TestMethod]
+        public async Task SaveTonnes_WithInvalidData_ReturnsView()
+        {
+            // Arrange
+            _wasteController.ModelState.AddModelError("Error", "Error");
+            var exportTonnageViewModel = new ExportTonnageViewModel
+            {
+                JourneyId = 6,
+                ExportTonnes = 44.5
+            };
+
+            // Act
+            var result = await _wasteController.Tonnes(exportTonnageViewModel);
+
+            // Assert
+            _mockWasteService.Verify(s => s.SaveTonnage(It.IsAny<ExportTonnageViewModel>()), Times.Never);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.AreEqual(exportTonnageViewModel, viewResult.ViewData.Model);
+            Assert.IsNull(null, viewResult.ViewName); // view is being returned as the same as the action
         }
 
         [TestMethod]

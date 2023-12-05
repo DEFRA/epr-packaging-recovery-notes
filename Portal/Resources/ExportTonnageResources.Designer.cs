@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Portal.Resources {
+namespace EPRN.Portal.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WasteResource___Copy {
+    public class ExportTonnageResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WasteResource___Copy() {
+        internal ExportTonnageResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Portal.Resources.WasteResource - Copy", typeof(WasteResource___Copy).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.ExportTonnageResources", typeof(ExportTonnageResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,74 +61,47 @@ namespace Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to How many tonnes did you export?.
         /// </summary>
-        public static string Continue {
+        public static string HowMuchTonnageQuestion {
             get {
-                return ResourceManager.GetString("Continue", resourceCulture);
+                return ResourceManager.GetString("HowMuchTonnageQuestion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please select a radio button.
+        ///   Looks up a localized string similar to A valid tonnage value must be entered.
         /// </summary>
-        public static string ErrorMessage {
+        public static string MissingTonnageError {
             get {
-                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+                return ResourceManager.GetString("MissingTonnageError", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What have you done with the Waste.
+        ///   Looks up a localized string similar to Record waste.
         /// </summary>
-        public static string Heading {
+        public static string PageTitle {
             get {
-                return ResourceManager.GetString("Heading", resourceCulture);
+                return ResourceManager.GetString("PageTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hint Text.
+        ///   Looks up a localized string similar to Tonnes.
         /// </summary>
-        public static string HintText {
+        public static string TonnesLabel {
             get {
-                return ResourceManager.GetString("HintText", resourceCulture);
+                return ResourceManager.GetString("TonnesLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Received it and reproceesed it.
+        ///   Looks up a localized string similar to Tonnage must be greater than zero, and less than 1,000,000.
         /// </summary>
-        public static string ReproceesedIt {
+        public static string TonnesNotInRange {
             get {
-                return ResourceManager.GetString("ReproceesedIt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Received it and sent it on.
-        /// </summary>
-        public static string SentItOn {
-            get {
-                return ResourceManager.GetString("SentItOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is a problem.
-        /// </summary>
-        public static string ThereIsAProblem {
-            get {
-                return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to What have you done with the Waste.
-        /// </summary>
-        public static string WastePage {
-            get {
-                return ResourceManager.GetString("WastePage", resourceCulture);
+                return ResourceManager.GetString("TonnesNotInRange", resourceCulture);
             }
         }
     }

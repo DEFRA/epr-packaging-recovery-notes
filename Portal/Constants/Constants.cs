@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace Portal.Constants
+namespace EPRN.Portal.Constants
 {
     public static class CultureConstants
     {
