@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
@@ -24,13 +25,13 @@ namespace EPRN.Portal.Services
             _localizationHelper = localizationHelper ?? throw new ArgumentNullException(nameof(localizationHelper));
         }
 
-        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
+        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth, DoneWaste doneWaste)
         {
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
                 JourneyId = journeyId,
-                // We're not part of a journey yet, so this can't really be hooked up
-                WasteType = await _httpWasteService.GetWasteType(journeyId)
+                WasteType = await _httpWasteService.GetWasteType(journeyId),
+                WhatHaveYouDone = doneWaste
             };
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
@@ -51,7 +52,8 @@ namespace EPRN.Portal.Services
 
             await _httpWasteService.SaveSelectedMonth(
                 duringWhichMonthRequestViewModel.JourneyId,
-                duringWhichMonthRequestViewModel.SelectedMonth.Value);
+                duringWhichMonthRequestViewModel.SelectedMonth.Value,
+                duringWhichMonthRequestViewModel.WhatHaveYouDone);
         }
 
         public async Task<WasteTypesViewModel> GetWasteTypesViewModel(int journeyId)
@@ -139,7 +141,7 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(exportTonnageViewModel.ExportTonnes));
 
             await _httpWasteService.SaveTonnage(
-                exportTonnageViewModel.JourneyId, 
+                exportTonnageViewModel.JourneyId,
                 exportTonnageViewModel.ExportTonnes.Value);
         }
 

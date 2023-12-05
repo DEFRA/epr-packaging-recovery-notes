@@ -24,9 +24,9 @@ namespace EPRN.Portal.RESTServices
             return await Get<WasteRecordStatusDto>($"{journeyRoutePart}/{journeyId}/status");
         }
 
-        public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
+        public async Task SaveSelectedMonth(int journeyId, int selectedMonth, DoneWaste whatHaveYouDoneWaste)
         {
-            await Post($"{journeyRoutePart}/{journeyId}/Month/{selectedMonth}");
+            await Post($"Journey/{journeyId}/Month/{selectedMonth}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}");
         }
 
         public async Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId)
@@ -36,7 +36,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            await Post($"{journeyRoutePart} /{journeyId}/Done/{whatHaveYouDoneWaste}");
+            await Post($"{journeyRoutePart}/{journeyId}/Done/{whatHaveYouDoneWaste}");
         }
 
         public async Task<string> GetWasteType(int journeyId)

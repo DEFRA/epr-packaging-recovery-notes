@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WasteManagement.API.Data;
 
@@ -11,9 +12,11 @@ using WasteManagement.API.Data;
 namespace Waste.API.Migrations
 {
     [DbContext(typeof(WasteContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20231205104939_Added-MonthSent-and-MonthReceived")]
+    partial class AddedMonthSentandMonthReceived
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,11 +51,8 @@ namespace Waste.API.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("DeductionAmount")
-                        .HasColumnType("float");
-
-                    b.Property<string>("DoneWaste")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("DoneWaste")
+                        .HasColumnType("int");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");

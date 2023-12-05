@@ -38,8 +38,8 @@ namespace Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("Journey/{journeyId}/Month/{selectedMonth}")]
-        public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
+        [Route("Journey/{journeyId}/Month/{selectedMonth}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}")]
+        public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth, DoneWaste? whatHaveYouDoneWaste)
         {
             if (journeyId == null)
                 return BadRequest("Journey ID is missing");
@@ -47,9 +47,12 @@ namespace Waste.API.Controllers
             if (selectedMonth == null)
                 return BadRequest("Selected month is missing");
 
+            if (whatHaveYouDoneWaste == null)
+                return BadRequest("What was done to the waste value is missing");
+
             //TODO: This should be removed in the fullness of time
             var id = await _wasteService.CreateJourney();
-            await _wasteService.SaveSelectedMonth(id, selectedMonth.Value);
+            await _wasteService.SaveSelectedMonth(id, selectedMonth.Value, whatHaveYouDoneWaste.Value);
 
             return Ok();
         }
@@ -70,7 +73,7 @@ namespace Waste.API.Controllers
 
             return Ok();
         }
-        
+
         [HttpPost]
         [Route("Journey/{journeyId}/Done/{whatHaveYouDoneWaste}")]
         public async Task<ActionResult> SaveWhatHaveYouDoneWaste(int? journeyId, DoneWaste? whatHaveYouDoneWaste)
@@ -99,7 +102,7 @@ namespace Waste.API.Controllers
 
             if (result == null)
                 return BadRequest($"No journey found with id: {journeyId}");
-            
+
             return Ok(result);
         }
 

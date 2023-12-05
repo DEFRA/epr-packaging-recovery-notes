@@ -123,17 +123,26 @@
   <data name="Back" xml:space="preserve">
     <value>[Welsh] back</value>
   </data>
-  <data name="ErrorMessage" xml:space="preserve">
+  <data name="ErrorMessageReceived" xml:space="preserve">
     <value>[Welsh] Select the month the waste was received</value>
+  </data>
+  <data name="ErrorMessageSent" xml:space="preserve">
+    <value>[Welsh] Select the month the waste was sent on</value>
   </data>
   <data name="Glass" xml:space="preserve">
     <value>[Welsh] Glass</value>
   </data>
-  <data name="Heading" xml:space="preserve">
+  <data name="HeadingReceived" xml:space="preserve">
     <value>[Welsh] During which month was the waste received?</value>
+  </data>
+  <data name="HeadingSent" xml:space="preserve">
+    <value>[Welsh] When did you send it?</value>
   </data>
   <data name="HintText" xml:space="preserve">
     <value>[Welsh] You can only record waste for this month and the months within an open quarterly return period.</value>
+  </data>
+  <data name="Month1" xml:space="preserve">
+    <value>[Welsh] January</value>
   </data>
   <data name="Month10" xml:space="preserve">
     <value>[Welsh] October</value>
@@ -168,11 +177,11 @@
   <data name="Month9" xml:space="preserve">
     <value>[Welsh] September</value>
   </data>
-  <data name="Montth1" xml:space="preserve">
-    <value>[Welsh] January</value>
-  </data>
-  <data name="PageTitle" xml:space="preserve">
+  <data name="PageTitleReceived" xml:space="preserve">
     <value>[Welsh] During which month was the waste received?</value>
+  </data>
+  <data name="PageTitleSent" xml:space="preserve">
+    <value>[Welsh] When did you send it?</value>
   </data>
   <data name="Paper" xml:space="preserve">
     <value>[Welsh] Paper/board</value>

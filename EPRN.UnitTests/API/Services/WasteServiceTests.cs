@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.UnitTests.Helpers;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -90,21 +91,41 @@ namespace EPRN.UnitTests.API.Services
         }
 
         [TestMethod]
-        public async Task SaveSelectedMonth_Succeeds_With_ValidIds()
+        public async Task SaveSelectedMonth_Succeeds_With_ValidIds_ReprocessedIt()
         {
             // arrange
             int journeyId = 8;
             int selectedMonth = 11;
+            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
 
             var wasteJourney = new WasteJourney { };
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // act
-            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth);
+            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth, whatHaveYouDoneWaste);
 
             // assert
-            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.Month == selectedMonth)), Times.Once);
+            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthReceived == selectedMonth)), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveSelectedMonth_Succeeds_With_ValidIds_SentItOn()
+        {
+            // arrange
+            int journeyId = 9;
+            int selectedMonth = 1;
+            var whatHaveYouDoneWaste = DoneWaste.SentItOn;
+
+            var wasteJourney = new WasteJourney { };
+
+            _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
+
+            // act
+            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth, whatHaveYouDoneWaste);
+
+            // assert
+            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthSent == selectedMonth)), Times.Once);
         }
 
         [TestMethod]
