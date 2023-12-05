@@ -24,6 +24,8 @@ namespace EPRN.UnitTests.API.Services
         {
             _mockMapper = new Mock<IMapper>();
             _mockRepository = new Mock<IRepository>();
+            _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
+
             _wasteService = new WasteService(
                 _mockMapper.Object,
                 _mockRepository.Object,

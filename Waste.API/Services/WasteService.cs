@@ -37,7 +37,7 @@ namespace Waste.API.Services
             if (configSettings == null )
                 throw new ArgumentNullException(nameof(configSettings));
 
-            if (configSettings.Value.DeductionAmount == null)
+            if (configSettings.Value == null || configSettings.Value.DeductionAmount == null)
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount));
 
             _deductionAmount = configSettings.Value.DeductionAmount.Value; 
