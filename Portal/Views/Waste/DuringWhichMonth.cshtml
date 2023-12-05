@@ -1,10 +1,22 @@
 ﻿@using EPRN.Portal.Resources;
 @using EPRN.Portal.ViewModels;
+@using EPRN.Common.Enums;
 
 @model DuringWhichMonthRequestViewModel
 
 @{
-    ViewData["Title"] = @WhichQuarterResources.PageTitle;
+    string heading;
+    if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
+    {
+        ViewData["Title"] = @WhichQuarterResources.PageTitleReceived;
+        heading = WhichQuarterResources.HeadingReceived;
+    }
+    else
+    {
+        ViewData["Title"] = @WhichQuarterResources.PageTitleSent;
+        heading = WhichQuarterResources.HeadingSent;
+
+    }
 }
 
 <a href="/" class="govuk-back-link">@MasterResources.Back</a>
@@ -15,7 +27,7 @@
     <span class="govuk-caption-l">
         @MasterResources.RecordingFor @Model.WasteType
     </span>
-    <radios asp-for="SelectedMonth" asp-title="@WhichQuarterResources.Heading">
+    <radios asp-for="SelectedMonth" asp-title="@heading">
         <div class="govuk-hint">
             @WhichQuarterResources.HintText
         </div>
@@ -33,7 +45,6 @@
             </div>
         }
     </radios>
-
 
     <button class="govuk-button" data-module="govuk-button" type="submit">
         @MasterResources.ContinueBtn

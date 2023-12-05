@@ -34,32 +34,39 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("DuringWhichMonth", "Waste", new
+            {
+                id = whatHaveYouDoneWaste.JourneyId,
+                whatHaveDoneWaste = whatHaveYouDoneWaste.WhatHaveYouDone
+            });
         }
 
         [HttpGet]
-        [Route("Waste/Month/{id}")]
-        public async Task<IActionResult> DuringWhichMonth(int? id)
+        [Route("Waste/Month/{id}/{whatHaveDoneWaste}")]
+        public async Task<IActionResult> DuringWhichMonth(int? id, DoneWaste whatHaveDoneWaste)
         {
             if (id == null)
                 return NotFound();
 
             int currentMonth = DateTime.Now.Month;
 
-            var model = await _wasteService.GetQuarterForCurrentMonth(id.Value, currentMonth);
+            var model = await _wasteService.GetQuarterForCurrentMonth(id.Value, currentMonth, whatHaveDoneWaste);
 
             return View(model);
         }
 
         [HttpPost]
-        [Route("Waste/Month/{id}")]
+        [Route("Waste/Month/{id}/{whatHaveYouDoneWaste}")]
         public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
             if (!ModelState.IsValid)
             {
                 int currentMonth = DateTime.Now.Month;
 
-                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId, currentMonth);
+                var model = await _wasteService.GetQuarterForCurrentMonth(
+                    duringWhichMonthRequestViewModel.JourneyId,
+                    currentMonth,
+                    duringWhichMonthRequestViewModel.WhatHaveYouDone);
 
                 return View(model);
             }

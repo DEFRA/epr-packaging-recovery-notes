@@ -1,9 +1,9 @@
 ﻿using EPRN.Common.Enums;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
 using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
 
 namespace EPRN.UnitTests.Portal.Controllers
 {
@@ -44,15 +44,52 @@ namespace EPRN.UnitTests.Portal.Controllers
         }
 
         [TestMethod]
-        public async Task DuringWhichMonth_Return_Correctly()
+        public async Task DuringWhichMonth_Return_Correctly_When_Reprocessed_Waste()
         {
             // Arrange
+            int journeyId = 8;
             int currentMonth = DateTime.Now.Month;
+            DoneWaste whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
 
-            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(It.IsAny<int>(), It.Is<int>(p => p == currentMonth))).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(
+                It.Is<int>(id => id == journeyId),
+                It.Is<int>(month => month == currentMonth),
+                It.Is<DoneWaste>(whatHaveYouDone => whatHaveYouDone == whatHaveYouDoneWaste)
+                )).ReturnsAsync(new DuringWhichMonthRequestViewModel());
 
             // Act
-            var result = await _wasteController.DuringWhichMonth(2);
+            var result = await _wasteController.DuringWhichMonth(journeyId, whatHaveYouDoneWaste);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(DuringWhichMonthRequestViewModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task DuringWhichMonth_Return_Correctly_When_Sent_Waste_On()
+        {
+            // Arrange
+            int journeyId = 8;
+            int currentMonth = DateTime.Now.Month;
+            DoneWaste whatHaveYouDoneWaste = DoneWaste.SentItOn;
+
+            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(
+                It.Is<int>(id => id == journeyId),
+                It.Is<int>(month => month == currentMonth),
+                It.Is<DoneWaste>(whatHaveYouDone => whatHaveYouDone == whatHaveYouDoneWaste)
+                )).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+
+            // Act
+            var result = await _wasteController.DuringWhichMonth(journeyId, whatHaveYouDoneWaste);
 
             // Assert
             Assert.IsNotNull(result);
@@ -85,7 +122,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task DuringWhichMonth_ThrowsNotFoundException_WhenNoIdSupplied()
         {
             // Act
-            var result = await _wasteController.DuringWhichMonth((int?)null);
+            var result = await _wasteController.DuringWhichMonth(null, DoneWaste.SentItOn);
 
             // Assert
             Assert.IsNotNull(result);
@@ -168,9 +205,16 @@ namespace EPRN.UnitTests.Portal.Controllers
             var wasteTypesViewModel = new WasteTypesViewModel();
             _mockWasteService.Setup(s => s.GetWasteTypesViewModel(It.IsAny<int>())).ReturnsAsync(new WasteTypesViewModel());
             _wasteController.ModelState.AddModelError("Error", "Error");
+
             // Arrange
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel();
-            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+
+            _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(
+                It.IsAny<int>(),
+                It.IsAny<int>(),
+                It.IsAny<DoneWaste>()))
+                .ReturnsAsync(new DuringWhichMonthRequestViewModel());
+
             _wasteController.ModelState.AddModelError("Error", "Error");
 
             // Act
@@ -260,8 +304,8 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
 
             var redirectToActionResult = result as RedirectToActionResult;
-            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
-            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Waste", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("DuringWhichMonth", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
         }
 
         [TestMethod]
@@ -337,7 +381,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var result = _wasteController.Tonnes(journeyId);
 
             // Assert
-            Assert.IsNotNull (result);
+            Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
 
             var viewResult = result as ViewResult;
@@ -348,7 +392,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public void Tonnes_WithNoId_ReturnsNotFound()
         {
             // Arrange
-            
+
             // Act
             var result = _wasteController.Tonnes((int?)null);
 
