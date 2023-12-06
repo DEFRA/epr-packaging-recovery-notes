@@ -76,27 +76,6 @@ namespace EPRN.UnitTests.API.Controllers
         }
 
         [TestMethod]
-        public async Task SaveJourneyMonth_ReturnsBadRequest_WhenNoJourneyId()
-        {
-            //Arrange
-            var monthSelected = 7;
-
-            _mockWasteService!.Setup(ws => ws.CreateJourney());
-
-            //Act
-            var result = await _wasteController!.SaveJourneyMonth(null, monthSelected);
-
-            //Assert
-            Assert.AreEqual(monthSelected, 7);
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-            _mockWasteService.Verify(s => s.SaveSelectedMonth(
-                 It.IsAny<int>(),
-                 It.Is<int>(p => p == monthSelected)), Times.Never
-             );
-        }
-
-        [TestMethod]
         public async Task SaveJourneyMonth_ReturnsBadRequest_WhenNoMonthSelected()
         {
             //Arrange
