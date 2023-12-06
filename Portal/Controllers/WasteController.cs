@@ -151,14 +151,9 @@ namespace EPRN.Portal.Controllers
         }
         
         [HttpPost]
-        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWire)
+        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
         {
-            if (baledWithWire.BaledWithWireScreen == "True")
-                baledWithWire.BaledWithWire = true;
-            else
-                baledWithWire.BaledWithWire = false;
-
-            await _wasteService.SaveBaledWithWire(baledWithWire);
+            await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Index", "Home");
         }
     }

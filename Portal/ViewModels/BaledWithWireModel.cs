@@ -10,9 +10,7 @@ namespace Portal.ViewModels
 
         public string? WasteType { get; set; }
 
-        public bool? BaledWithWire { get; set; }
-
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(BaledWithWireResource))]
-        public string BaledWithWireScreen { get; set; }
+        public bool? BaledWithWire { get; set; }
     }
 }

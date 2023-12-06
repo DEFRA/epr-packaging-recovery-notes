@@ -27,6 +27,13 @@ namespace EPRN.UnitTests.API.Services
             _mockRepository = new Mock<IRepository>();
             _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
 
+            var config = new AppConfigSettings
+            {
+                DeductionAmount = 100
+            };
+
+            _mockConfigSettings.Setup(m => m.Value).Returns(config);
+
             _wasteService = new WasteService(
                 _mockMapper.Object,
                 _mockRepository.Object,

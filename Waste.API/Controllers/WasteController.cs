@@ -12,8 +12,7 @@ namespace Waste.API.Controllers
     public class WasteController : ControllerBase
     {
         public readonly IWasteService _wasteService;
-        private string[] args;
-
+        
         public WasteController(IWasteService wasteService)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
