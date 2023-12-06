@@ -1,8 +1,6 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using Microsoft.AspNetCore.Mvc;
-using Waste.API.Configuration;
-using Waste.API.Configuration.Interfaces;
 using Waste.API.Services.Interfaces;
 
 namespace Waste.API.Controllers

@@ -26,7 +26,7 @@ namespace Waste.API.Migrations
             migrationBuilder.AlterColumn<float>(
                 name: "DeductionAmount",
                 table: "WasteJourney",
-                type: "real",
+                type: "float",
                 nullable: true,
                 oldClrType: typeof(double),
                 oldType: "float",

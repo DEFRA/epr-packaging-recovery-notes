@@ -13,7 +13,7 @@ namespace Waste.API.Migrations
             migrationBuilder.AddColumn<float>(
                 name: "DeductionAmount",
                 table: "WasteJourney",
-                type: "real",
+                type: "float",
                 nullable: true);
         }
 

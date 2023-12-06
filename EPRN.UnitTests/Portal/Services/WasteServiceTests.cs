@@ -7,10 +7,8 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
-using EPRN.Portal.Helpers.Interfaces;
-using EPRN.Portal.Resources;
-using Portal.ViewModels;
 using Moq;
+using Portal.ViewModels;
 
 namespace EPRN.UnitTests.Portal.Services
 {
@@ -406,8 +404,8 @@ namespace EPRN.UnitTests.Portal.Services
             // Assert
             _mockHttpWasteService.Verify(s => s.SaveBaledWithWire(
                 It.Is<int>(p => p == 1),
-                It.Is<bool>(p => p == true)
-            ));
+                It.Is<bool>(p => p == true)),
+                Times.Once);
         }
 
         [TestMethod]

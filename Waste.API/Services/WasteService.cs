@@ -1,22 +1,11 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using Microsoft.Extensions.Options;
+using Waste.API.Configuration;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Waste.API.Repositories;
-using Waste.API.Repositories.Interfaces;
-using Waste.API.Services;
-using Waste.API.Services.Interfaces;
-using WasteManagement.API.Data;
-using WasteManagement.API.Middleware;
-using Microsoft.Extensions.Configuration;
-using System.Reflection.Metadata.Ecma335;
-using Waste.API.Configuration;
-using Waste.API.Configuration.Interfaces;
-using Microsoft.Extensions.Options;
-using Waste.API.Migrations;
 
 namespace Waste.API.Services
 {

@@ -1,4 +1,3 @@
-using EPRN.Common.Enums;
 using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
@@ -8,7 +7,7 @@ namespace Portal.ViewModels
     {
         public int JourneyId { get; set; }
 
-        public string? WasteType { get; set; }
+        public string WasteType { get; set; }
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(BaledWithWireResource))]
         public bool? BaledWithWire { get; set; }
