@@ -58,43 +58,20 @@ namespace EPRN.UnitTests.API.Controllers
             //Arrange
             var journeyId = 5;
             var monthSelected = 7;
-            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
+            var expectedWhatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
 
-            _mockWasteService!.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
+            _mockWasteService.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
+            _mockWasteService.Setup(ws => ws.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
 
             //Act
-            var result = await _wasteController!.SaveJourneyMonth(journeyId, monthSelected, whatHaveYouDoneWaste);
+            var result = await _wasteController!.SaveJourneyMonth(journeyId, monthSelected);
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkResult));
             _mockWasteService.Verify(s => s.SaveSelectedMonth(
                  It.Is<int>(p => p == journeyId),
-                 It.Is<int>(p => p == monthSelected),
-                 It.Is<DoneWaste>(p => p == whatHaveYouDoneWaste)), Times.Once
-             );
-        }
-
-        [TestMethod]
-        public async Task SaveJourneyMonth_ReturnsBadRequest_WhenNoJourneyId()
-        {
-            //Arrange
-            var monthSelected = 7;
-            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
-
-            _mockWasteService!.Setup(ws => ws.CreateJourney());
-
-            //Act
-            var result = await _wasteController!.SaveJourneyMonth(null, monthSelected, whatHaveYouDoneWaste);
-
-            //Assert
-            Assert.AreEqual(monthSelected, 7);
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-            _mockWasteService.Verify(s => s.SaveSelectedMonth(
-                 It.IsAny<int>(),
-                 It.Is<int>(p => p == monthSelected),
-                 It.Is<DoneWaste>(p => p == whatHaveYouDoneWaste)), Times.Never
+                 It.Is<int>(p => p == monthSelected)), Times.Once
              );
         }
 
@@ -103,12 +80,13 @@ namespace EPRN.UnitTests.API.Controllers
         {
             //Arrange
             var journeyId = 5;
-            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
+            var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
 
             _mockWasteService!.Setup(ws => ws.CreateJourney());
+            _mockWasteService.Setup(ws => ws.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
 
             //Act
-            var result = await _wasteController!.SaveJourneyMonth(journeyId, null, whatHaveYouDoneWaste);
+            var result = await _wasteController!.SaveJourneyMonth(journeyId, null);
 
             //Assert
             Assert.AreEqual(journeyId, 5);
@@ -116,8 +94,7 @@ namespace EPRN.UnitTests.API.Controllers
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
             _mockWasteService.Verify(s => s.SaveSelectedMonth(
                  It.Is<int>(p => p == journeyId),
-                 It.IsAny<int>(),
-                 It.Is<DoneWaste>(p => p == whatHaveYouDoneWaste)), Times.Never
+                 It.IsAny<int>()), Times.Never
              );
         }
 
@@ -211,6 +188,35 @@ namespace EPRN.UnitTests.API.Controllers
                     It.IsAny<double>()),
                 Times.Never);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public async Task GetWhatHaveYouDoneWaste_Returns_OK()
+        {
+            //Arrange
+            var journeyId = 3;
+
+            //Act
+            var result = await _wasteController.GetWhatHaveYouDoneWaste(journeyId);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockWasteService.Verify(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId)));
+        }
+
+        [TestMethod]
+        public async Task GetWhatHaveYouDoneWaste_ReturnsBadRequest_WhenNoIdSupplied()
+        {
+            //Arrange
+
+            //Act
+            var result = await _wasteController.GetWhatHaveYouDoneWaste(null);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            _mockWasteService.Verify(s => s.GetWhatHaveYouDoneWaste(It.IsAny<int>()), Times.Never);
         }
     }
 }

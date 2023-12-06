@@ -90,14 +90,14 @@ namespace EPRN.UnitTests.API.Services
             // arrange
             int journeyId = 8;
             int selectedMonth = 11;
-            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
-
             var wasteJourney = new WasteJourney { };
+
+            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt;
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // act
-            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth, whatHaveYouDoneWaste);
+            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
             _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthReceived == selectedMonth)), Times.Once);
@@ -109,14 +109,14 @@ namespace EPRN.UnitTests.API.Services
             // arrange
             int journeyId = 9;
             int selectedMonth = 1;
-            var whatHaveYouDoneWaste = DoneWaste.SentItOn;
-
             var wasteJourney = new WasteJourney { };
+
+            wasteJourney.DoneWaste = DoneWaste.SentItOn;
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // act
-            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth, whatHaveYouDoneWaste);
+            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
             _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthSent == selectedMonth)), Times.Once);
@@ -228,6 +228,73 @@ namespace EPRN.UnitTests.API.Services
 
             // assert
             _mockRepository.Verify(r => r.Update(It.IsAny<WasteJourney>()), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task GetWhatHaveYouDoneWaste_Succeeeds_With_Valid_Id_ReprocessedIt()
+        {
+            // arrange
+            var journeyId = 8;
+            var expectedWhatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
+            var wasteJourney = new WasteJourney
+            {
+                Id = journeyId,
+                DoneWaste = expectedWhatHaveYouDoneWaste
+            };
+
+            _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
+
+            // act
+            var result = await _wasteService.GetWhatHaveYouDoneWaste(journeyId);
+
+            // assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(DoneWaste));
+            Assert.AreEqual(result, expectedWhatHaveYouDoneWaste);
+            _mockRepository.Verify(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId)), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task GetWhatHaveYouDoneWaste_Succeeeds_With_Valid_Id_SentItOn()
+        {
+            // arrange
+            var journeyId = 8;
+            var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
+            var wasteJourney = new WasteJourney
+            {
+                Id = journeyId,
+                DoneWaste = expectedWhatHaveYouDoneWaste
+            };
+
+            _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
+
+            // act
+            var result = await _wasteService.GetWhatHaveYouDoneWaste(journeyId);
+
+            // assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(DoneWaste));
+            Assert.AreEqual(result, expectedWhatHaveYouDoneWaste);
+            _mockRepository.Verify(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId)), Times.Once());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task TestGetWhatHaveYouyDoneWaste_Fails_With_InValid_JourneyRecord()
+        {
+            // Arrange
+            var journeyId = 8;
+            var wasteJourney = new WasteJourney { };
+
+            _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
+
+            // Act
+            var result = await _wasteService.GetWhatHaveYouDoneWaste(journeyId);
+
+            //Assert
+            Assert.IsNotNull(wasteJourney);
+            _mockRepository.Verify(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId)), Times.Never());
+
         }
     }
 }
