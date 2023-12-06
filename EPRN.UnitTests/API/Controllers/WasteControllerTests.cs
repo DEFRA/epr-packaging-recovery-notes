@@ -212,5 +212,34 @@ namespace EPRN.UnitTests.API.Controllers
                 Times.Never);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
+
+        [TestMethod]
+        public async Task GetWhatHaveYouDoneWaste_Returns_OK()
+        {
+            //Arrange
+            var journeyId = 3;
+
+            //Act
+            var result = await _wasteController.GetWhatHaveYouDoneWaste(journeyId);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockWasteService.Verify(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId)));
+        }
+
+        [TestMethod]
+        public async Task GetWhatHaveYouDoneWaste_ReturnsBadRequest_WhenNoIdSupplied()
+        {
+            //Arrange
+
+            //Act
+            var result = await _wasteController.GetWhatHaveYouDoneWaste(null);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            _mockWasteService.Verify(s => s.GetWhatHaveYouDoneWaste(It.IsAny<int>()), Times.Never);
+        }
     }
 }

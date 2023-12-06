@@ -87,6 +87,18 @@ namespace Waste.API.Services
             await _wasteRepository.Update(journeyRecord);
         }
 
+        public async Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            if (journeyRecord.DoneWaste == null)
+                throw new ArgumentNullException(nameof(journeyRecord.DoneWaste));
+
+            return journeyRecord.DoneWaste.Value;
+        }
+
         public async Task<string> GetWasteType(int journeyId)
         {
             var journeyRecord = await GetJourney(journeyId);

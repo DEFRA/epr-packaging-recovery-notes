@@ -71,6 +71,16 @@ namespace Waste.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("Journey/{journeyId}/WhatHaveYouDoneWaste")]
+        public async Task<ActionResult> GetWhatHaveYouDoneWaste(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            return Ok(await _wasteService.GetWhatHaveYouDoneWaste(journeyId.Value));
+        }
+
         [HttpPost]
         [Route("Journey/{journeyId}/Done/{whatHaveYouDoneWaste}")]
         public async Task<ActionResult> SaveWhatHaveYouDoneWaste(int? journeyId, DoneWaste? whatHaveYouDoneWaste)
