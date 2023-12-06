@@ -90,14 +90,14 @@ namespace EPRN.UnitTests.API.Services
             // arrange
             int journeyId = 8;
             int selectedMonth = 11;
-            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
-
             var wasteJourney = new WasteJourney { };
+
+            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt;
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // act
-            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth, whatHaveYouDoneWaste);
+            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
             _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthReceived == selectedMonth)), Times.Once);
@@ -109,14 +109,14 @@ namespace EPRN.UnitTests.API.Services
             // arrange
             int journeyId = 9;
             int selectedMonth = 1;
-            var whatHaveYouDoneWaste = DoneWaste.SentItOn;
-
             var wasteJourney = new WasteJourney { };
+
+            wasteJourney.DoneWaste = DoneWaste.SentItOn;
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // act
-            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth, whatHaveYouDoneWaste);
+            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
             _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthSent == selectedMonth)), Times.Once);
