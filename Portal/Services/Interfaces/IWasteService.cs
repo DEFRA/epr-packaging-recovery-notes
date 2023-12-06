@@ -1,11 +1,10 @@
-﻿using EPRN.Common.Enums;
-using EPRN.Portal.ViewModels;
+﻿using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.Services.Interfaces
 {
     public interface IWasteService
     {
-        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth, DoneWaste doneWaste);
+        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 
