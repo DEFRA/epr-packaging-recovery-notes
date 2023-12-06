@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Enums;
+using System.ComponentModel.DataAnnotations;
 using WasteManagement.API.Models;
 
 namespace Waste.API.Models
@@ -42,7 +43,8 @@ namespace Waste.API.Models
 
         public string ReferenceNumber { get; set; }
 
-        public string? DoneWaste { get; set; }
+        [StringLength(25)]
+        public string DoneWaste { get; set; }
 
         public double? DeductionAmount { get; set; }
     }

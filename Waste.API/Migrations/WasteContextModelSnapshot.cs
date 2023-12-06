@@ -52,7 +52,8 @@ namespace Waste.API.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("DoneWaste")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");

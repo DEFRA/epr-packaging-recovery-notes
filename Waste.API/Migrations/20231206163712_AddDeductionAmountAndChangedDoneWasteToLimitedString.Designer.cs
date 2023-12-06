@@ -12,8 +12,8 @@ using WasteManagement.API.Data;
 namespace Waste.API.Migrations
 {
     [DbContext(typeof(WasteContext))]
-    [Migration("20231205103831_ChangedDeductionAmountType")]
-    partial class ChangedDeductionAmountType
+    [Migration("20231206163712_AddDeductionAmountAndChangedDoneWasteToLimitedString")]
+    partial class AddDeductionAmountAndChangedDoneWasteToLimitedString
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,9 @@ namespace Waste.API.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.13")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -43,7 +46,6 @@ namespace Waste.API.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("CreatedBy")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedDate")
@@ -53,7 +55,8 @@ namespace Waste.API.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("DoneWaste")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -61,7 +64,10 @@ namespace Waste.API.Migrations
                     b.Property<DateTime?>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("Month")
+                    b.Property<int?>("MonthReceived")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MonthSent")
                         .HasColumnType("int");
 
                     b.Property<string>("Note")
@@ -72,6 +78,9 @@ namespace Waste.API.Migrations
 
                     b.Property<string>("ReferenceNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Tonnes")
+                        .HasColumnType("float");
 
                     b.Property<double?>("Total")
                         .HasColumnType("float");
