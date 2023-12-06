@@ -1,8 +1,6 @@
-﻿using Waste.API.Configuration.Interfaces;
-
-namespace Waste.API.Configuration
+﻿namespace Waste.API.Configuration
 {
-    public class AppConfigSettings : IAppConfigSettings
+    public class AppConfigSettings
     {
         public const string SectionName = "AppSettings";
 
