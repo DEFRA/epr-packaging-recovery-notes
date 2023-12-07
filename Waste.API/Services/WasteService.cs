@@ -52,7 +52,7 @@ namespace Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt)
+            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt.ToString())
             {
                 journeyRecord.MonthReceived = selectedMonth;
             }
@@ -98,7 +98,10 @@ namespace Waste.API.Services
             if (journeyRecord.DoneWaste == null)
                 throw new ArgumentNullException(nameof(journeyRecord.DoneWaste));
 
-            return journeyRecord.DoneWaste.Value;
+            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt.ToString())
+                return DoneWaste.ReprocessedIt;
+            else
+                return DoneWaste.SentItOn;
         }
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)

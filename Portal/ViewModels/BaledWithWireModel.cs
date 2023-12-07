@@ -1,7 +1,7 @@
 using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace Portal.ViewModels
+namespace EPRN.Portal.ViewModels
 {
     public class BaledWithWireModel
     {

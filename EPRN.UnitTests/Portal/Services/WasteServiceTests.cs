@@ -8,7 +8,6 @@ using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Moq;
-using Portal.ViewModels;
 
 namespace EPRN.UnitTests.Portal.Services
 {

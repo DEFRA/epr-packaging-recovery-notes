@@ -2,7 +2,6 @@
 using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
-using Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 

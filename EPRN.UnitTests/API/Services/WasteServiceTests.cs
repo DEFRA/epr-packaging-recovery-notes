@@ -73,7 +73,7 @@ namespace EPRN.UnitTests.API.Services
             _mockMapper.Verify(m =>
                 m.Map<List<WasteTypeDto>>(
                     It.Is<List<WasteType>>(p =>
-                        TestHelper.CompareOrderedList(p, data, wt => wt.Name))),
+                        TestHelper.CompareOrderedList(p, data, wt => wt.Name.ToString()))),
                     Times.Once()); // test that we called Map with the expected ordered list
         }
 
@@ -105,7 +105,7 @@ namespace EPRN.UnitTests.API.Services
             int selectedMonth = 11;
             var wasteJourney = new WasteJourney { };
 
-            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt;
+            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt.ToString();
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
@@ -124,7 +124,7 @@ namespace EPRN.UnitTests.API.Services
             int selectedMonth = 1;
             var wasteJourney = new WasteJourney { };
 
-            wasteJourney.DoneWaste = DoneWaste.SentItOn;
+            wasteJourney.DoneWaste = DoneWaste.SentItOn.ToString();
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
@@ -252,7 +252,7 @@ namespace EPRN.UnitTests.API.Services
             var wasteJourney = new WasteJourney
             {
                 Id = journeyId,
-                DoneWaste = expectedWhatHaveYouDoneWaste
+                DoneWaste = expectedWhatHaveYouDoneWaste.ToString()
             };
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
@@ -276,7 +276,7 @@ namespace EPRN.UnitTests.API.Services
             var wasteJourney = new WasteJourney
             {
                 Id = journeyId,
-                DoneWaste = expectedWhatHaveYouDoneWaste
+                DoneWaste = expectedWhatHaveYouDoneWaste.ToString()
             };
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
