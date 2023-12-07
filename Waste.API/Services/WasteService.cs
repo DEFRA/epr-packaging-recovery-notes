@@ -192,7 +192,6 @@ namespace Waste.API.Services
 
             journeyRecord.SiteId = siteId;
             await _wasteRepository.Update(journeyRecord);
-
         }
     }
 }

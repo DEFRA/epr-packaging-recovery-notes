@@ -309,5 +309,40 @@ namespace EPRN.UnitTests.API.Services
             _mockRepository.Verify(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId)), Times.Never());
 
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public async Task SaveReProcessor_WithInvalidJourneyId_ThrowsArgumentNullException()
+        {
+            // arrange
+            var journeyId = 0;
+            var siteId = 1;
+
+            // act
+            await _wasteService.SaveReprocessorExport(journeyId, siteId);
+
+            // assert
+            _mockRepository.Verify(r => r.Update(It.IsAny<WasteJourney>()), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task SaveReProcessor_WithValidParameters_Succeeds()
+        {
+            // arrange
+            var journeyId = 5;
+            var siteId = 1;
+            _mockRepository.Setup(r => r.GetById<WasteJourney>(journeyId)).ReturnsAsync(new WasteJourney
+            {
+                Id = journeyId,
+            });
+
+            // act
+            await _wasteService.SaveReprocessorExport(journeyId, siteId);
+
+            // assert
+            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(p => p.Id == journeyId && p.SiteId == siteId)), Times.Once);
+        }
+
+
     }
 }
