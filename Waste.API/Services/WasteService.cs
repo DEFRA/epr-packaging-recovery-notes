@@ -183,5 +183,16 @@ namespace Waste.API.Services
 
             await _wasteRepository.Update(journeyRecord);
         }
+
+        public async Task SaveReprocessorExport(int journeyId, int siteId)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new NullReferenceException(nameof(journeyRecord));
+
+            journeyRecord.SiteId = siteId;
+            await _wasteRepository.Update(journeyRecord);
+
+        }
     }
 }

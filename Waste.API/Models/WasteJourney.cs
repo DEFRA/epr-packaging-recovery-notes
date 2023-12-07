@@ -47,5 +47,6 @@ namespace Waste.API.Models
         public string DoneWaste { get; set; }
 
         public double? DeductionAmount { get; set; }
+        public int? SiteId { get; set; }
     }
 }

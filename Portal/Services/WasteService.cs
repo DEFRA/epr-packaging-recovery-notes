@@ -168,8 +168,30 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(baledWireModel.BaledWithWire));
 
             await _httpWasteService.SaveBaledWithWire(baledWireModel.JourneyId, baledWireModel.BaledWithWire.Value);
-
         }
 
+        public async Task<ReProcessorExportViewModel> GetReProcessorExportViewModel(int journeyId)
+        {
+            var reProcessorExport = new ReProcessorExportViewModel()
+            {
+                JourneyId = journeyId,
+            };
+
+            return reProcessorExport;
+        }
+
+        public async Task SaveReprocessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
+        {
+            if (reProcessorExportViewModel == null)
+                throw new ArgumentNullException(nameof(reProcessorExportViewModel));
+
+            if (reProcessorExportViewModel == null)
+                throw new ArgumentNullException(nameof(reProcessorExportViewModel.JourneyId));
+
+            if (reProcessorExportViewModel.SelectedSite == null)
+                throw new ArgumentNullException(nameof(reProcessorExportViewModel.SelectedSite));
+
+            await _httpWasteService.SaveReprocessorExport(reProcessorExportViewModel.JourneyId, reProcessorExportViewModel.SelectedSite.Value);
+        }
     }
 }

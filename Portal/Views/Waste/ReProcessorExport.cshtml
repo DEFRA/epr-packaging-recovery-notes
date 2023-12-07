@@ -1,0 +1,49 @@
+﻿@using EPRN.Common.Enums;
+@using EPRN.Portal.Resources;
+@using EPRN.Portal.ViewModels;
+
+@model ReProcessorExportViewModel
+@{
+    ViewData["Title"] = ReProcessorExportResource.PageTitle;
+}
+
+<a href="/" class="govuk-back-link">@MasterResources.Back</a>
+<form method="post">
+    <input type="hidden" asp-for="JourneyId" />
+    <partial name="_ValidationSummary" />
+
+    <span class="govuk-caption-l">
+        @MasterResources.RecordingFor @Model.WasteType
+    </span>
+    <radios asp-for="SelectedSite" asp-title="@ReProcessorExportResource.Heading">
+        <p class="govuk-error-message">
+            <span asp-validation-for="SelectedSite"></span>
+        </p>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="SelectedSite" value=@true aria-describedby="Clean Earth LLC_24 Louvre St, France. 67899">
+            <label class="govuk-label govuk-radios__label" for="Clean Earth LLC_24 Louvre St, France. 67899">
+                Clean Earth LLC_24 Louvre St, France. 67899
+            </label>
+        </div>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="SelectedSite" value=@false aria-describedby="Recycle Now LTD. 12 Teamo St, Spain. 12345">
+            <label class="govuk-label govuk-radios__label" for="Recycle Now LTD. 12 Teamo St. Spain. 12345">
+                Recycle Now LTD. 12 Teamo St. Spain. 12345
+            </label>
+        </div>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="SelectedSite" value=@false aria-describedby="Recycle Now LTD. 12 Holland St, Holland. 098765">
+            <label class="govuk-label govuk-radios__label" for="Recycle Now LTD. 12 Holland St, Holland. 098765">
+                Recycle Now LTD. 12 Holland St, Holland. 098765
+            </label>
+        </div>
+
+    </radios>
+
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @MasterResources.ContinueBtn
+    </button>
+</form>

@@ -55,6 +55,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\ReProcessorExportResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ReProcessorExportResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\WasteJourneyResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -101,6 +106,10 @@
       <SubType>Designer</SubType>
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ReProcessorExportResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ReProcessorExportResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteJourneyResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
