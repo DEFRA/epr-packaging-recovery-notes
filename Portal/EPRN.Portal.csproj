@@ -120,6 +120,7 @@
     <EmbeddedResource Update="Resources\WhichQuarterResources.resx">
       <LastGenOutput>WhichQuarterResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+      <CustomToolNamespace></CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\HomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

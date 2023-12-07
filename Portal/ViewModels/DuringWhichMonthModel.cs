@@ -1,6 +1,5 @@
 ﻿using EPRN.Common.Enums;
-using EPRN.Portal.Resources;
-using System.ComponentModel.DataAnnotations;
+using EPRN.Portal.CustomValidationAttributes;
 
 namespace EPRN.Portal.ViewModels
 {
@@ -10,7 +9,7 @@ namespace EPRN.Portal.ViewModels
 
         public Dictionary<int, string> Quarter { get; set; } = new Dictionary<int, string>();
 
-        [Required(ErrorMessageResourceName = "ErrorMessageReceived", ErrorMessageResourceType = typeof(WhichQuarterResources))]
+        [RequiredWhichMonth(nameof(WhatHaveYouDone))]
         public int? SelectedMonth { get; set; }
 
         public string WasteType { get; set; }
