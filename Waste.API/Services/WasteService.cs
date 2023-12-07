@@ -22,14 +22,14 @@ namespace Waste.API.Services
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _wasteRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_wasteRepository));
-            
-            if (configSettings == null )
+
+            if (configSettings == null)
                 throw new ArgumentNullException(nameof(configSettings));
 
             if (configSettings.Value == null || configSettings.Value.DeductionAmount == null)
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount));
 
-            _deductionAmount = configSettings.Value.DeductionAmount.Value; 
+            _deductionAmount = configSettings.Value.DeductionAmount.Value;
         }
 
         public async Task<int> CreateJourney()
@@ -52,14 +52,7 @@ namespace Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt.ToString())
-            {
-                journeyRecord.MonthReceived = selectedMonth;
-            }
-            else
-            {
-                journeyRecord.MonthSent = selectedMonth;
-            }
+            journeyRecord.Month = selectedMonth;
 
             await _wasteRepository.Update(journeyRecord);
         }

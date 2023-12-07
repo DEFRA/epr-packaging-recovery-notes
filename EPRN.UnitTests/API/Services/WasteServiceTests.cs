@@ -113,7 +113,7 @@ namespace EPRN.UnitTests.API.Services
             await _wasteService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
-            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthReceived == selectedMonth)), Times.Once);
+            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.Month == selectedMonth)), Times.Once);
         }
 
         [TestMethod]
@@ -132,7 +132,7 @@ namespace EPRN.UnitTests.API.Services
             await _wasteService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
-            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.MonthSent == selectedMonth)), Times.Once);
+            _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(wj => wj == wasteJourney && wj.Month == selectedMonth)), Times.Once);
         }
 
         [TestMethod]
