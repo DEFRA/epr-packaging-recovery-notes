@@ -42,5 +42,7 @@ namespace EPRN.Waste.API.Models
         public string ReferenceNumber { get; set; }
 
         public DoneWaste? DoneWaste { get; set; }
+
+        public double? DeductionAmount { get; set; }
     }
 }

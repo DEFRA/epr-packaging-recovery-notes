@@ -7,9 +7,11 @@ namespace EPRN.Waste.API.Services.Interfaces
     {
         Task<int> CreateJourney();
 
-        Task SaveSelectedMonth(int journeyId, int selectedMonth, DoneWaste whatHaveYouDoneWaste);
+        Task SaveSelectedMonth(int journeyId, int selectedMonth);
 
         Task SaveWasteType(int journeyId, int wasteTypeId);
+
+        Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId);
 
         Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste);
 
@@ -18,5 +20,7 @@ namespace EPRN.Waste.API.Services.Interfaces
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
         Task SaveTonnage(int journeyId, double tonnage);
+        
+        Task SaveBaledWithWire(int journeyId, bool baledWithWire);
     }
 }

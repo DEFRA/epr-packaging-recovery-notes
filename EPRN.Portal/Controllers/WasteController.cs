@@ -2,6 +2,7 @@
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.Controllers
 {
@@ -34,39 +35,32 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
-            return RedirectToAction("DuringWhichMonth", "Waste", new
-            {
-                id = whatHaveYouDoneWaste.JourneyId,
-                whatHaveDoneWaste = whatHaveYouDoneWaste.WhatHaveYouDone
-            });
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
-        [Route("Waste/Month/{id}/{whatHaveDoneWaste}")]
-        public async Task<IActionResult> DuringWhichMonth(int? id, DoneWaste whatHaveDoneWaste)
+        [Route("Waste/Month/{id}")]
+        public async Task<IActionResult> DuringWhichMonth(int? id)
         {
             if (id == null)
                 return NotFound();
 
             int currentMonth = DateTime.Now.Month;
 
-            var model = await _wasteService.GetQuarterForCurrentMonth(id.Value, currentMonth, whatHaveDoneWaste);
+            var model = await _wasteService.GetQuarterForCurrentMonth(id.Value, currentMonth);
 
             return View(model);
         }
 
         [HttpPost]
-        [Route("Waste/Month/{id}/{whatHaveYouDoneWaste}")]
+        [Route("Waste/Month/{id}")]
         public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
             if (!ModelState.IsValid)
             {
                 int currentMonth = DateTime.Now.Month;
 
-                var model = await _wasteService.GetQuarterForCurrentMonth(
-                    duringWhichMonthRequestViewModel.JourneyId,
-                    currentMonth,
-                    duringWhichMonthRequestViewModel.WhatHaveYouDone);
+                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId, currentMonth);
 
                 return View(model);
             }
@@ -136,6 +130,23 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BaledWithWire(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetBaledWithWireModel(id.Value);
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
+        {
+            await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Index", "Home");
         }
     }

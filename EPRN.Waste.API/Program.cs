@@ -27,6 +27,8 @@ builder.Services.AddDbContext<WasteContext>(options =>
         .UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
 );
 
+builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

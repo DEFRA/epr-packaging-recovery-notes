@@ -36,22 +36,17 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("{journeyId}/Month/{selectedMonth}/WhatHaveYouDoneWaste/{whatHaveYouDoneWaste}")]
-        public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth, DoneWaste? whatHaveYouDoneWaste)
+        [Route("{journeyId}/Month/{selectedMonth}")]
+        public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
         {
-            if (journeyId == null)
-                return BadRequest("Journey ID is missing");
-
             if (selectedMonth == null)
                 return BadRequest("Selected month is missing");
 
-            if (whatHaveYouDoneWaste == null)
-                return BadRequest("What was done to the waste value is missing");
+            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth.Value);
 
             await _journeyService.SaveSelectedMonth(
                 journeyId.Value,
-                selectedMonth.Value,
-                whatHaveYouDoneWaste.Value);
+                selectedMonth.Value);
 
             return Ok();
         }
@@ -71,6 +66,16 @@ namespace EPRN.Waste.API.Controllers
                 wasteTypeId.Value);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("Journey/{journeyId}/WhatHaveYouDoneWaste")]
+        public async Task<ActionResult> GetWhatHaveYouDoneWaste(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            return Ok(await _wasteService.GetWhatHaveYouDoneWaste(journeyId.Value));
         }
 
         [HttpPost]
@@ -123,5 +128,23 @@ namespace EPRN.Waste.API.Controllers
 
             return Ok();
         }
+        [HttpPost]
+        [Route("Journey/{journeyId}/BaledWithWire/{baledWithWire}")]
+        public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey Id is missing");
+
+            if (baledWithWire == null)
+                return BadRequest("Baled with wire is missing");
+            
+            //ToDo: This should be removed in the fullness of time.
+            var id = await _wasteService.CreateJourney();
+
+            await _wasteService.SaveBaledWithWire(id, baledWithWire.Value);
+
+            return Ok(id);
+        }
+
     }
 }

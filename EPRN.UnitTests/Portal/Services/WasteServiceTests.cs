@@ -73,7 +73,8 @@ namespace EPRN.UnitTests.Portal.Services
             // Arrange
             int journeyId = 3;
             int currentMonth = 5;
-            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
+            var expectedWhatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
+            string material = "testMaterial";
 
             var expectedQuarter = new Dictionary<int, string>
             {
@@ -85,22 +86,19 @@ namespace EPRN.UnitTests.Portal.Services
             DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
             {
                 JourneyId = journeyId,
-                Quarter = expectedQuarter,
-                WhatHaveYouDone = whatHaveYouDoneWaste
+                Quarter = expectedQuarter
             };
+
+            _mockHttpWasteService.Setup(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
+            _mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             foreach (var item in expectedQuarter)
             {
                 _mockLocalizationHelper.Setup(lh => lh.GetString($"Month{item.Key}")).Returns(item.Value);
             }
 
-            string material = "testMaterial";
-            // commenting out for now as we need to think about how we're going to get waste types
-            // for each journey step
-            //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
-
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth, whatHaveYouDoneWaste);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -114,13 +112,16 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual("May", viewModel.Quarter.ElementAt(1).Value);
             Assert.AreEqual(6, viewModel.Quarter.ElementAt(2).Key);
             Assert.AreEqual("June", viewModel.Quarter.ElementAt(2).Value);
-            //Assert.AreEqual(material, viewModel.WasteType);
+            Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
 
             foreach (var item in expectedQuarter)
             {
                 _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")), Times.Once());
             }
+
+            _mockHttpWasteService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
+            _mockHttpWasteService.Verify(service => service.GetWhatHaveYouDoneWaste(It.Is<int>(id => id == journeyId)), Times.Once());
         }
 
         [TestMethod]
@@ -128,35 +129,33 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            int currentMonth = 7;
-            var whatHaveYouDoneWaste = DoneWaste.SentItOn;
+            int currentMonth = 5;
+            var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
+            string material = "testMaterial";
 
             var expectedQuarter = new Dictionary<int, string>
             {
-                { 7, "July" },
-                { 8, "August" },
-                { 9, "September" }
+                { 4, "April" },
+                { 5, "May" },
+                { 6, "June" }
             };
 
             DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
             {
                 JourneyId = journeyId,
-                Quarter = expectedQuarter,
-                WhatHaveYouDone = whatHaveYouDoneWaste
+                Quarter = expectedQuarter
             };
+
+            _mockHttpWasteService.Setup(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
+            _mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             foreach (var item in expectedQuarter)
             {
                 _mockLocalizationHelper.Setup(lh => lh.GetString($"Month{item.Key}")).Returns(item.Value);
             }
 
-            string material = "testMaterial";
-            // commenting out for now as we need to think about how we're going to get waste types
-            // for each journey step
-            //_mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
-
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth, whatHaveYouDoneWaste);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -164,19 +163,22 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.IsNotNull(viewModel.WhatHaveYouDone);
             Assert.IsInstanceOfType(viewModel.WhatHaveYouDone, typeof(DoneWaste));
             Assert.IsTrue(viewModel.WhatHaveYouDone == DoneWaste.SentItOn);
-            Assert.AreEqual(7, viewModel.Quarter.ElementAt(0).Key);
-            Assert.AreEqual("July", viewModel.Quarter.ElementAt(0).Value);
-            Assert.AreEqual(8, viewModel.Quarter.ElementAt(1).Key);
-            Assert.AreEqual("August", viewModel.Quarter.ElementAt(1).Value);
-            Assert.AreEqual(9, viewModel.Quarter.ElementAt(2).Key);
-            Assert.AreEqual("September", viewModel.Quarter.ElementAt(2).Value);
-            //Assert.AreEqual(material, viewModel.WasteType);
+            Assert.AreEqual(4, viewModel.Quarter.ElementAt(0).Key);
+            Assert.AreEqual("April", viewModel.Quarter.ElementAt(0).Value);
+            Assert.AreEqual(5, viewModel.Quarter.ElementAt(1).Key);
+            Assert.AreEqual("May", viewModel.Quarter.ElementAt(1).Value);
+            Assert.AreEqual(6, viewModel.Quarter.ElementAt(2).Key);
+            Assert.AreEqual("June", viewModel.Quarter.ElementAt(2).Value);
+            Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
 
             foreach (var item in expectedQuarter)
             {
                 _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")), Times.Once());
             }
+
+            _mockHttpWasteService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
+            _mockHttpWasteService.Verify(service => service.GetWhatHaveYouDoneWaste(It.Is<int>(id => id == journeyId)), Times.Once());
         }
 
         [TestMethod]
@@ -206,8 +208,7 @@ namespace EPRN.UnitTests.Portal.Services
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
                 JourneyId = 1,
-                SelectedMonth = 10,
-                WhatHaveYouDone = DoneWaste.ReprocessedIt
+                SelectedMonth = 10
             };
 
             // Act
@@ -216,8 +217,7 @@ namespace EPRN.UnitTests.Portal.Services
             // Assert
             _mockHttpJourneyService.Verify(s => s.SaveSelectedMonth(
                 It.Is<int>(p => p == 1), // check that parameter1 (journeyId) is 1
-                It.Is<int>(p => p == 10),
-                It.Is<DoneWaste>(p => p == DoneWaste.ReprocessedIt)) // check that parameter3 (What have you done with the waste) is ReprocessedIt
+                It.Is<int>(p => p == 10)) // check that parameter3 (What have you done with the waste) is ReprocessedIt
             );
         }
 
@@ -389,6 +389,40 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService.Verify(s => s.SaveTonnage(
                 It.IsAny<int>(),
                 It.IsAny<double>()), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task SaveBaledWithWireModel_Succeeds_WithValidModel()
+        {
+            // Arrange
+            BaledWithWireModel baledWithWireModel = new BaledWithWireModel();
+            baledWithWireModel.JourneyId = 1;
+            baledWithWireModel.BaledWithWire = true;
+
+
+            // Act
+            await _wasteService.SaveBaledWithWire(baledWithWireModel);
+
+            // Assert
+            _mockHttpWasteService.Verify(s => s.SaveBaledWithWire(
+                It.Is<int>(p => p == 1),
+                It.Is<bool>(p => p == true)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveBaledWithWireModel_ThrowsException_WhenWireIsNull()
+        {
+            // Arrange
+            BaledWithWireModel baledWithWireModel = new BaledWithWireModel();
+            baledWithWireModel.JourneyId = 1;
+            baledWithWireModel.BaledWithWire = null;
+
+            // Act
+
+            // Assert
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveBaledWithWire(baledWithWireModel));
+            Assert.AreEqual("Value cannot be null. (Parameter 'BaledWithWire')", exception.Message);
         }
     }
 }

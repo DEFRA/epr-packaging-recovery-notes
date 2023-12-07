@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  eprn.waste.api:
+    image: ${DOCKER_REGISTRY-}eprnwasteapi
+    build:
+      context: .
+      dockerfile: Waste.API/Dockerfile
+
+  eprn.portal:
+    image: ${DOCKER_REGISTRY-}eprnportal
+    build:
+      context: .
+      dockerfile: Portal/Dockerfile
+
