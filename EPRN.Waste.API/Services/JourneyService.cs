@@ -1,0 +1,132 @@
+﻿using AutoMapper;
+using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
+using EPRN.Waste.API.Models;
+using EPRN.Waste.API.Repositories.Interfaces;
+using EPRN.Waste.API.Services.Interfaces;
+
+namespace EPRN.Waste.API.Services
+{
+    public class JourneyService : IJourneyService
+    {
+        public readonly IMapper _mapper;
+        public readonly IRepository _wasteRepository;
+
+        public JourneyService(
+            IMapper mapper,
+            IRepository wasteRepository)
+        {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _wasteRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_wasteRepository));
+        }
+
+        public async Task<int> CreateJourney()
+        {
+            var journeyRecord = new WasteJourney
+            {
+                CreatedDate = DateTime.Now,
+                CreatedBy = "DEVELOPER"
+            };
+
+            await _wasteRepository.Add(journeyRecord);
+
+            return journeyRecord.Id;
+        }
+
+        public async Task SaveSelectedMonth(int journeyId, int selectedMonth, DoneWaste whatHaveYouDoneWaste)
+        {
+            var journeyRecord = await _wasteRepository.GetById<WasteJourney>(journeyId);
+
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            if (whatHaveYouDoneWaste == DoneWaste.ReprocessedIt)
+            {
+                journeyRecord.MonthReceived = selectedMonth;
+            }
+            else
+            {
+                journeyRecord.MonthSent = selectedMonth;
+            }
+
+            await _wasteRepository.Update(journeyRecord);
+        }
+
+        public async Task SaveWasteType(int journeyId, int wasteTypeId)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            journeyRecord.WasteTypeId = wasteTypeId;
+            await _wasteRepository.Update(journeyRecord);
+        }
+
+        public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            journeyRecord.DoneWaste = whatHaveYouDoneWaste;
+            await _wasteRepository.Update(journeyRecord);
+        }
+
+        public async Task<string> GetWasteType(int journeyId)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            if (journeyRecord.WasteTypeId == null)
+                throw new ArgumentNullException(nameof(journeyRecord.WasteTypeId));
+
+            return journeyRecord.WasteType.Name;
+        }
+
+        public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
+        {
+            var journey = await GetJourney(journeyId);
+
+            if (journey == null)
+                return null;
+
+            var dto = new WasteRecordStatusDto
+            {
+                JourneyId = journey.Id,
+                WasteBalance = GetWasteBalance(journey),
+                WasteRecordReferenceNumber = string.IsNullOrWhiteSpace(journey.ReferenceNumber) ? string.Empty : journey.ReferenceNumber,
+                WasteRecordStatus = EPRN.Common.Enums.WasteRecordStatuses.Incomplete
+            };
+
+            if (journey.Completed.HasValue)
+                dto.WasteRecordStatus = journey.Completed.Value ? EPRN.Common.Enums.WasteRecordStatuses.Complete : EPRN.Common.Enums.WasteRecordStatuses.Incomplete;
+
+            return dto;
+        }
+
+        public async Task SaveTonnage(int journeyId, double tonnage)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+
+            if (journeyRecord == null)
+                throw new NullReferenceException(nameof(journeyRecord));
+
+            journeyRecord.Tonnes = tonnage;
+            await _wasteRepository.Update(journeyRecord);
+        }
+
+        private double GetWasteBalance(WasteJourney journey)
+        {
+            if (journey == null)
+                return 0;
+
+            return journey.Quantity.HasValue ? journey.Quantity.Value : 0;
+        }
+
+        private async Task<WasteJourney> GetJourney(int id)
+        {
+            return await _wasteRepository.GetById<WasteJourney>(id);
+        }
+    }
+}

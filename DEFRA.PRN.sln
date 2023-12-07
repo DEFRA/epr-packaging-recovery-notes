@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Waste.API", "Waste.API\EPRN.Waste.API.csproj", "{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Portal", "Portal\EPRN.Portal.csproj", "{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Common", "EPRN.Common\EPRN.Common.csproj", "{1DBE8D65-C3E9-45CD-BAB5-432101D18929}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.UnitTests", "EPRN.UnitTests\EPRN.UnitTests.csproj", "{7768DA66-5F2D-44F0-8A78-DAE7079D2545}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Waste.API", "EPRN.Waste.API\EPRN.Waste.API.csproj", "{E3091AEB-23F3-4731-AF6E-3F31B9EA8358}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Portal", "EPRN.Portal\EPRN.Portal.csproj", "{55B2A96C-DB3C-4523-A517-40475649E3AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +25,14 @@ Global
 		{7768DA66-5F2D-44F0-8A78-DAE7079D2545}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7768DA66-5F2D-44F0-8A78-DAE7079D2545}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7768DA66-5F2D-44F0-8A78-DAE7079D2545}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3091AEB-23F3-4731-AF6E-3F31B9EA8358}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3091AEB-23F3-4731-AF6E-3F31B9EA8358}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3091AEB-23F3-4731-AF6E-3F31B9EA8358}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3091AEB-23F3-4731-AF6E-3F31B9EA8358}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55B2A96C-DB3C-4523-A517-40475649E3AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B2A96C-DB3C-4523-A517-40475649E3AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B2A96C-DB3C-4523-A517-40475649E3AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B2A96C-DB3C-4523-A517-40475649E3AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
