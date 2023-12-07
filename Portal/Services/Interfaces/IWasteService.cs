@@ -24,5 +24,9 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel);
         Task SaveBaledWithWire(BaledWithWireModel baledWireModel);
+
+        Task<ReProcessorExportViewModel> GetReProcessorExportViewModel(int journeyId);
+
+        Task SaveReprocessorExport(ReProcessorExportViewModel reprocessorExportViewModel);
     }
 }

@@ -21,5 +21,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task SaveTonnage(int journeyId, double tonnage);
         Task SaveBaledWithWire(int journeyId, bool baledWithWire);
+
+        Task SaveReprocessorExport(int journeyId, int siteId);
     }
 }
