@@ -5,7 +5,6 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
-using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.Services
 {
@@ -42,7 +41,7 @@ namespace EPRN.Portal.Services
 
             duringWhichMonthRequestViewModel.JourneyId = journeyId;
             duringWhichMonthRequestViewModel.WasteType = await _httpWasteService.GetWasteType(journeyId);
-            duringWhichMonthRequestViewModel.WhatHaveYouDone = await _httpWasteService.GetWhatHaveYouDoneWaste(journeyId);
+            duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
 
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;

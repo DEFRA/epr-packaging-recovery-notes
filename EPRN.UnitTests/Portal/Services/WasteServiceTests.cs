@@ -80,7 +80,7 @@ namespace EPRN.UnitTests.Portal.Services
                 { 6, "June" }
             };
 
-            DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
+            DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
             {
                 JourneyId = journeyId,
                 Quarter = expectedQuarter
@@ -137,7 +137,7 @@ namespace EPRN.UnitTests.Portal.Services
                 { 6, "June" }
             };
 
-            DuringWhichMonthRequestViewModel expectedViewModel = new DuringWhichMonthRequestViewModel
+            DuringWhichMonthSentOnRequestViewModel expectedViewModel = new DuringWhichMonthSentOnRequestViewModel
             {
                 JourneyId = journeyId,
                 Quarter = expectedQuarter
