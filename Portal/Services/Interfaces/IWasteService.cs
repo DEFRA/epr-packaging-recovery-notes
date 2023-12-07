@@ -1,5 +1,4 @@
 ﻿using EPRN.Portal.ViewModels;
-using Portal.ViewModels;
 
 namespace EPRN.Portal.Services.Interfaces
 {
