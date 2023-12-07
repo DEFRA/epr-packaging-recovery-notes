@@ -53,5 +53,10 @@ namespace EPRN.Portal.RESTServices
         {
             await Post($"{journeyRoutePart}/{journeyId}/Tonnage/{tonnage}");
         }
+
+        public async Task SaveBaledWithWire(int journeyId, bool bailedWithWire)
+        {
+            await Post($"Journey/{journeyId}/BaledWithWire/{bailedWithWire}");
+        }
     }
 }

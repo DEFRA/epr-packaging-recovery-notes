@@ -2,6 +2,7 @@
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Portal.ViewModels;
 
 namespace EPRN.Portal.Controllers
 {
@@ -129,6 +130,23 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> BaledWithWire(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetBaledWithWireModel(id.Value);
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
+        {
+            await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Index", "Home");
         }
     }

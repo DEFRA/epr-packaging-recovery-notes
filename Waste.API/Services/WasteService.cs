@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using Microsoft.Extensions.Options;
+using Waste.API.Configuration;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services.Interfaces;
@@ -9,15 +11,25 @@ namespace Waste.API.Services
 {
     public class WasteService : IWasteService
     {
+        private readonly double _deductionAmount;
         public readonly IMapper _mapper;
         public readonly IRepository _wasteRepository;
 
         public WasteService(
             IMapper mapper,
-            IRepository wasteRepository)
+            IRepository wasteRepository,
+            IOptions<AppConfigSettings> configSettings)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _wasteRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_wasteRepository));
+            
+            if (configSettings == null )
+                throw new ArgumentNullException(nameof(configSettings));
+
+            if (configSettings.Value == null || configSettings.Value.DeductionAmount == null)
+                throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount));
+
+            _deductionAmount = configSettings.Value.DeductionAmount.Value; 
         }
 
         public async Task<int> CreateJourney()
@@ -95,7 +107,7 @@ namespace Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            journeyRecord.DoneWaste = whatHaveYouDoneWaste;
+            journeyRecord.DoneWaste = whatHaveYouDoneWaste.ToString();
             await _wasteRepository.Update(journeyRecord);
         }
 
@@ -154,6 +166,19 @@ namespace Waste.API.Services
         private async Task<WasteJourney> GetJourney(int id)
         {
             return await _wasteRepository.GetById<WasteJourney>(id);
+        }
+
+        public async Task SaveBaledWithWire(int journeyId, bool baledWithWire)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new NullReferenceException(nameof(journeyRecord));
+
+            journeyRecord.BaledWithWire = baledWithWire;
+            if (journeyRecord.BaledWithWire == true)
+                journeyRecord.DeductionAmount = _deductionAmount;
+
+            await _wasteRepository.Update(journeyRecord);
         }
     }
 }

@@ -8,6 +8,7 @@ using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Moq;
+using Portal.ViewModels;
 
 namespace EPRN.UnitTests.Portal.Services
 {
@@ -386,6 +387,40 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpWasteService.Verify(s => s.SaveTonnage(
                 It.IsAny<int>(),
                 It.IsAny<double>()), Times.Never);
+        }
+
+        [TestMethod]
+        public async Task SaveBaledWithWireModel_Succeeds_WithValidModel()
+        {
+            // Arrange
+            BaledWithWireModel baledWithWireModel = new BaledWithWireModel();
+            baledWithWireModel.JourneyId = 1;
+            baledWithWireModel.BaledWithWire = true;
+
+
+            // Act
+            await _wasteService.SaveBaledWithWire(baledWithWireModel);
+
+            // Assert
+            _mockHttpWasteService.Verify(s => s.SaveBaledWithWire(
+                It.Is<int>(p => p == 1),
+                It.Is<bool>(p => p == true)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveBaledWithWireModel_ThrowsException_WhenWireIsNull()
+        {
+            // Arrange
+            BaledWithWireModel baledWithWireModel = new BaledWithWireModel();
+            baledWithWireModel.JourneyId = 1;
+            baledWithWireModel.BaledWithWire = null;
+
+            // Act
+
+            // Assert
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveBaledWithWire(baledWithWireModel));
+            Assert.AreEqual("Value cannot be null. (Parameter 'BaledWithWire')", exception.Message);
         }
     }
 }

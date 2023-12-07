@@ -22,5 +22,7 @@ namespace Waste.API.Services.Interfaces
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
         Task SaveTonnage(int journeyId, double tonnage);
+        
+        Task SaveBaledWithWire(int journeyId, bool baledWithWire);
     }
 }

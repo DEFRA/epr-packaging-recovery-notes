@@ -4,6 +4,7 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using Portal.ViewModels;
 
 namespace EPRN.Portal.Services
 {
@@ -141,5 +142,34 @@ namespace EPRN.Portal.Services
                 exportTonnageViewModel.JourneyId,
                 exportTonnageViewModel.ExportTonnes.Value);
         }
+
+
+        public async Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId)
+        {
+            var baledWithWire = new BaledWithWireModel()
+            {
+                JourneyId = journeyId,
+                // We're not part of a journey yet, so this can't really be hooked up
+                // WasteType = await _httpWasteService.GetWasteType(journeyId)
+            };
+
+            return baledWithWire;
+        }
+
+        public async Task SaveBaledWithWire(BaledWithWireModel baledWireModel)
+        {
+            if (baledWireModel == null)
+                throw new ArgumentNullException(nameof(baledWireModel));
+
+            if (baledWireModel.JourneyId == null)
+                throw new ArgumentNullException(nameof(baledWireModel.JourneyId));
+
+            if (baledWireModel.BaledWithWire == null)
+                throw new ArgumentNullException(nameof(baledWireModel.BaledWithWire));
+
+            await _httpWasteService.SaveBaledWithWire(baledWireModel.JourneyId, baledWireModel.BaledWithWire.Value);
+
+        }
+
     }
 }
