@@ -45,14 +45,14 @@ namespace Waste.API.Services
             return journeyRecord.Id;
         }
 
-        public async Task SaveSelectedMonth(int journeyId, int selectedMonth, DoneWaste whatHaveYouDoneWaste)
+        public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
             var journeyRecord = await _wasteRepository.GetById<WasteJourney>(journeyId);
 
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            if (whatHaveYouDoneWaste == DoneWaste.ReprocessedIt)
+            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt)
             {
                 journeyRecord.MonthReceived = selectedMonth;
             }
@@ -87,6 +87,18 @@ namespace Waste.API.Services
 
             journeyRecord.WasteTypeId = wasteTypeId;
             await _wasteRepository.Update(journeyRecord);
+        }
+
+        public async Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            if (journeyRecord.DoneWaste == null)
+                throw new ArgumentNullException(nameof(journeyRecord.DoneWaste));
+
+            return journeyRecord.DoneWaste.Value;
         }
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)

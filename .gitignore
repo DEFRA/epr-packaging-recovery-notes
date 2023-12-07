@@ -24,3 +24,5 @@ appsettings.Test.json
 */.nyc_output/*
 /TestResults/
 /node_modules
+/bin/Debug
+/obj

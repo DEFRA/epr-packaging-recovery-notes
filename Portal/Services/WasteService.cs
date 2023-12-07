@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
@@ -25,13 +24,13 @@ namespace EPRN.Portal.Services
             _localizationHelper = localizationHelper ?? throw new ArgumentNullException(nameof(localizationHelper));
         }
 
-        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth, DoneWaste doneWaste)
+        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
                 JourneyId = journeyId,
                 WasteType = await _httpWasteService.GetWasteType(journeyId),
-                WhatHaveYouDone = doneWaste
+                WhatHaveYouDone = await _httpWasteService.GetWhatHaveYouDoneWaste(journeyId)
             };
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
@@ -52,8 +51,7 @@ namespace EPRN.Portal.Services
 
             await _httpWasteService.SaveSelectedMonth(
                 duringWhichMonthRequestViewModel.JourneyId,
-                duringWhichMonthRequestViewModel.SelectedMonth.Value,
-                duringWhichMonthRequestViewModel.WhatHaveYouDone);
+                duringWhichMonthRequestViewModel.SelectedMonth.Value);
         }
 
         public async Task<WasteTypesViewModel> GetWasteTypesViewModel(int journeyId)
