@@ -1,4 +1,4 @@
-﻿namespace Waste.API.Configuration
+﻿namespace EPRN.Waste.API.Configuration
 {
     public class AppConfigSettings
     {

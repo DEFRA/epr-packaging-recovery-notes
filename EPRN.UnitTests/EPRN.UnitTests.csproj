@@ -23,7 +23,6 @@
     <ProjectReference Include="..\EPRN.Portal\EPRN.Portal.csproj" />
     <ProjectReference Include="..\EPRN.Waste.API\EPRN.Waste.API.csproj" />
     <ProjectReference Include="..\EPRN.Portal\EPRN.Portal.csproj" />
-    <ProjectReference Include="..\EPRN.Waste.API\EPRN.Waste.API.csproj" />
   </ItemGroup>
 
 </Project>

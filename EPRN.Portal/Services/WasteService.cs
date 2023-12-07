@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
-using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.Services
@@ -34,7 +32,7 @@ namespace EPRN.Portal.Services
             {
                 JourneyId = journeyId,
                 WasteType = await _httpJourneyService.GetWasteType(journeyId),
-                WhatHaveYouDone = await _httpWasteService.GetWhatHaveYouDoneWaste(journeyId)
+                WhatHaveYouDone = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId)
             };
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
@@ -165,15 +163,10 @@ namespace EPRN.Portal.Services
             if (baledWireModel == null)
                 throw new ArgumentNullException(nameof(baledWireModel));
 
-            if (baledWireModel.JourneyId == null)
-                throw new ArgumentNullException(nameof(baledWireModel.JourneyId));
-
             if (baledWireModel.BaledWithWire == null)
                 throw new ArgumentNullException(nameof(baledWireModel.BaledWithWire));
 
-            await _httpWasteService.SaveBaledWithWire(baledWireModel.JourneyId, baledWireModel.BaledWithWire.Value);
-
+            await _httpJourneyService.SaveBaledWithWire(baledWireModel.JourneyId, baledWireModel.BaledWithWire.Value);
         }
-
     }
 }

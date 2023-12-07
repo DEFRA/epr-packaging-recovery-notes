@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Models;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace EPRN.Waste.API.Services
 {
@@ -50,7 +52,7 @@ namespace EPRN.Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt.ToString())
+            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt)
             {
                 journeyRecord.MonthReceived = selectedMonth;
             }
@@ -81,7 +83,7 @@ namespace EPRN.Waste.API.Services
             if (journeyRecord.DoneWaste == null)
                 throw new ArgumentNullException(nameof(journeyRecord.DoneWaste));
 
-            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt.ToString())
+            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt)
                 return DoneWaste.ReprocessedIt;
             else
                 return DoneWaste.SentItOn;
@@ -93,7 +95,7 @@ namespace EPRN.Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            journeyRecord.DoneWaste = whatHaveYouDoneWaste.ToString();
+            journeyRecord.DoneWaste = whatHaveYouDoneWaste;
             await _wasteRepository.Update(journeyRecord);
         }
 

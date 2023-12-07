@@ -35,7 +35,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId)
         {
-            return await Get<DoneWaste>($"{journeyRoutePart}/{journeyId}/WhatHaveYouDoneWaste");
+            return await Get<DoneWaste>($"{journeyId}/WhatHaveYouDoneWaste");
         }
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)

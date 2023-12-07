@@ -39,10 +39,11 @@ namespace EPRN.Waste.API.Controllers
         [Route("{journeyId}/Month/{selectedMonth}")]
         public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
         {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
             if (selectedMonth == null)
                 return BadRequest("Selected month is missing");
-
-            await _wasteService.SaveSelectedMonth(journeyId, selectedMonth.Value);
 
             await _journeyService.SaveSelectedMonth(
                 journeyId.Value,
@@ -75,7 +76,7 @@ namespace EPRN.Waste.API.Controllers
             if (journeyId == null)
                 return BadRequest("Journey ID is missing");
 
-            return Ok(await _wasteService.GetWhatHaveYouDoneWaste(journeyId.Value));
+            return Ok(await _journeyService.GetWhatHaveYouDoneWaste(journeyId.Value));
         }
 
         [HttpPost]
@@ -138,12 +139,11 @@ namespace EPRN.Waste.API.Controllers
             if (baledWithWire == null)
                 return BadRequest("Baled with wire is missing");
             
-            //ToDo: This should be removed in the fullness of time.
-            var id = await _wasteService.CreateJourney();
+            await _journeyService.SaveBaledWithWire(
+                journeyId.Value, 
+                baledWithWire.Value);
 
-            await _wasteService.SaveBaledWithWire(id, baledWithWire.Value);
-
-            return Ok(id);
+            return Ok();
         }
 
     }

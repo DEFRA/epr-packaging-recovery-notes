@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using EPRN.Common.Enums;
+using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Models;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services;
 using EPRN.Waste.API.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace EPRN.UnitTests.API.Waste.Services
@@ -36,42 +38,6 @@ namespace EPRN.UnitTests.API.Waste.Services
                 _mockConfigSettings.Object);
         }
 
-        [TestMethod]
-        public async Task WasteTypes_Returned_InOrder()
-        {
-            // Arrange
-            var data = new List<WasteType>
-            {
-                new WasteType
-                {
-                    Id = 9,
-                    Name = "Zoo"
-                },
-                new WasteType
-                {
-                    Id = 3,
-                    Name = "Alphabetty Spaghetti"
-                },
-                new WasteType
-                {
-                    Id = 6,
-                    Name = "Middle of the road"
-                }
-            };
-
-            _mockRepository.Setup(c => c.List<WasteType>()).Returns(data);
-
-            // Act
-            var wasteTypes = await _wasteService.WasteTypes();
-
-            // Assert
-            _mockRepository.Verify(r => r.List<WasteType>(), Times.Once()); // test we called the expected function on the repo
-            _mockMapper.Verify(m =>
-                m.Map<List<WasteTypeDto>>(
-                    It.Is<List<WasteType>>(p =>
-                        TestHelper.CompareOrderedList(p, data, wt => wt.Name.ToString()))),
-                    Times.Once()); // test that we called Map with the expected ordered list
-        }
 
         [TestMethod]
         public async Task SaveWasteType_Succeeds_With_ValidIds()
@@ -101,7 +67,7 @@ namespace EPRN.UnitTests.API.Waste.Services
             int selectedMonth = 11;
             var wasteJourney = new WasteJourney { };
 
-            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt.ToString();
+            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt;
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
@@ -120,7 +86,7 @@ namespace EPRN.UnitTests.API.Waste.Services
             int selectedMonth = 1;
             var wasteJourney = new WasteJourney { };
 
-            wasteJourney.DoneWaste = DoneWaste.SentItOn.ToString();
+            wasteJourney.DoneWaste = DoneWaste.SentItOn;
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
@@ -248,13 +214,13 @@ namespace EPRN.UnitTests.API.Waste.Services
             var wasteJourney = new WasteJourney
             {
                 Id = journeyId,
-                DoneWaste = expectedWhatHaveYouDoneWaste.ToString()
+                DoneWaste = expectedWhatHaveYouDoneWaste
             };
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // act
-            var result = await _wasteService.GetWhatHaveYouDoneWaste(journeyId);
+            var result = await _journeyService.GetWhatHaveYouDoneWaste(journeyId);
 
             // assert
             Assert.IsNotNull(result);
@@ -272,13 +238,13 @@ namespace EPRN.UnitTests.API.Waste.Services
             var wasteJourney = new WasteJourney
             {
                 Id = journeyId,
-                DoneWaste = expectedWhatHaveYouDoneWaste.ToString()
+                DoneWaste = expectedWhatHaveYouDoneWaste
             };
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // act
-            var result = await _wasteService.GetWhatHaveYouDoneWaste(journeyId);
+            var result = await _journeyService.GetWhatHaveYouDoneWaste(journeyId);
 
             // assert
             Assert.IsNotNull(result);
@@ -298,7 +264,7 @@ namespace EPRN.UnitTests.API.Waste.Services
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
             // Act
-            var result = await _wasteService.GetWhatHaveYouDoneWaste(journeyId);
+            var result = await _journeyService.GetWhatHaveYouDoneWaste(journeyId);
 
             //Assert
             Assert.IsNotNull(wasteJourney);

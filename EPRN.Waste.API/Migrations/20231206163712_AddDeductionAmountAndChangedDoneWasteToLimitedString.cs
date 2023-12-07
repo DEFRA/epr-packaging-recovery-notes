@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Waste.API.Migrations
+namespace EPRN.Waste.API.Migrations
 {
     /// <inheritdoc />
     public partial class AddDeductionAmountAndChangedDoneWasteToLimitedString : Migration

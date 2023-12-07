@@ -1,3 +1,4 @@
+using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Data;
 using EPRN.Waste.API.Middleware;
 using EPRN.Waste.API.Repositories;

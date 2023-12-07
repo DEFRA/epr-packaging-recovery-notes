@@ -5,9 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Portal/EPRN.Portal.csproj", "Portal/"]
+COPY ["EPRN.Portal/EPRN.Portal.csproj", "EPRN.Portal/"]
 COPY ["EPRN.Common/EPRN.Common.csproj", "EPRN.Common/"]
-RUN dotnet restore "Portal/EPRN.Portal.csproj"
+RUN dotnet restore "EPRN.Portal/EPRN.Portal.csproj"
 COPY . .
 WORKDIR "/src/Portal"
 RUN dotnet build "EPRN.Portal.csproj" -c Release -o /app/build

@@ -75,12 +75,11 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             //Arrange
             var journeyId = 5;
             var monthSelected = 7;
-            var expectedWhatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
 
             _mockJourneyService!.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
 
             //Act
-            var result = await _journeyController!.SaveJourneyMonth(journeyId, monthSelected, whatHaveYouDoneWaste);
+            var result = await _journeyController!.SaveJourneyMonth(journeyId, monthSelected);
 
             //Assert
             Assert.IsNotNull(result);
@@ -96,12 +95,11 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         {
             //Arrange
             var monthSelected = 7;
-            var whatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
 
             _mockJourneyService!.Setup(ws => ws.CreateJourney());
 
             //Act
-            var result = await _journeyController!.SaveJourneyMonth(null, monthSelected, whatHaveYouDoneWaste);
+            var result = await _journeyController.SaveJourneyMonth(null, monthSelected);
 
             //Assert
             Assert.AreEqual(monthSelected, 7);
@@ -109,8 +107,7 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
             _mockJourneyService.Verify(s => s.SaveSelectedMonth(
                  It.IsAny<int>(),
-                 It.Is<int>(p => p == monthSelected),
-                 It.Is<DoneWaste>(p => p == whatHaveYouDoneWaste)), Times.Never
+                 It.Is<int>(p => p == monthSelected)), Times.Never
              );
         }
 
@@ -121,11 +118,11 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             var journeyId = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
 
-            _mockWasteService!.Setup(ws => ws.CreateJourney());
-            _mockWasteService.Setup(ws => ws.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
+            _mockJourneyService.Setup(ws => ws.CreateJourney());
+            _mockJourneyService.Setup(ws => ws.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
 
             //Act
-            var result = await _wasteController!.SaveJourneyMonth(journeyId, null);
+            var result = await _journeyController.SaveJourneyMonth(journeyId, null);
 
             //Assert
             Assert.AreEqual(journeyId, 5);
@@ -236,12 +233,12 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             var journeyId = 3;
 
             //Act
-            var result = await _wasteController.GetWhatHaveYouDoneWaste(journeyId);
+            var result = await _journeyController.GetWhatHaveYouDoneWaste(journeyId);
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
-            _mockWasteService.Verify(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId)));
+            _mockJourneyService.Verify(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId)));
         }
 
         [TestMethod]
@@ -250,12 +247,12 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             //Arrange
 
             //Act
-            var result = await _wasteController.GetWhatHaveYouDoneWaste(null);
+            var result = await _journeyController.GetWhatHaveYouDoneWaste(null);
 
             //Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-            _mockWasteService.Verify(s => s.GetWhatHaveYouDoneWaste(It.IsAny<int>()), Times.Never);
+            _mockJourneyService.Verify(s => s.GetWhatHaveYouDoneWaste(It.IsAny<int>()), Times.Never);
         }
     }
 }

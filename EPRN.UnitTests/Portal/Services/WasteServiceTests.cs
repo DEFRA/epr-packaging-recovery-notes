@@ -89,8 +89,8 @@ namespace EPRN.UnitTests.Portal.Services
                 Quarter = expectedQuarter
             };
 
-            _mockHttpWasteService.Setup(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
-            _mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
+            _mockHttpJourneyService.Setup(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
+            _mockHttpJourneyService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             foreach (var item in expectedQuarter)
             {
@@ -120,8 +120,8 @@ namespace EPRN.UnitTests.Portal.Services
                 _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")), Times.Once());
             }
 
-            _mockHttpWasteService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
-            _mockHttpWasteService.Verify(service => service.GetWhatHaveYouDoneWaste(It.Is<int>(id => id == journeyId)), Times.Once());
+            _mockHttpJourneyService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
+            _mockHttpJourneyService.Verify(service => service.GetWhatHaveYouDoneWaste(It.Is<int>(id => id == journeyId)), Times.Once());
         }
 
         [TestMethod]
@@ -146,8 +146,8 @@ namespace EPRN.UnitTests.Portal.Services
                 Quarter = expectedQuarter
             };
 
-            _mockHttpWasteService.Setup(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
-            _mockHttpWasteService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
+            _mockHttpJourneyService.Setup(s => s.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
+            _mockHttpJourneyService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(material);
 
             foreach (var item in expectedQuarter)
             {
@@ -177,8 +177,8 @@ namespace EPRN.UnitTests.Portal.Services
                 _mockLocalizationHelper!.Verify(h => h.GetString(It.Is<string>(p => p == $"Month{item.Key}")), Times.Once());
             }
 
-            _mockHttpWasteService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
-            _mockHttpWasteService.Verify(service => service.GetWhatHaveYouDoneWaste(It.Is<int>(id => id == journeyId)), Times.Once());
+            _mockHttpJourneyService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
+            _mockHttpJourneyService.Verify(service => service.GetWhatHaveYouDoneWaste(It.Is<int>(id => id == journeyId)), Times.Once());
         }
 
         [TestMethod]
@@ -404,7 +404,7 @@ namespace EPRN.UnitTests.Portal.Services
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
 
             // Assert
-            _mockHttpWasteService.Verify(s => s.SaveBaledWithWire(
+            _mockHttpJourneyService.Verify(s => s.SaveBaledWithWire(
                 It.Is<int>(p => p == 1),
                 It.Is<bool>(p => p == true)),
                 Times.Once);
