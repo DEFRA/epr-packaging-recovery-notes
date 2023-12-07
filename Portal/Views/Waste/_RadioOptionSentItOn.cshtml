@@ -1,0 +1,11 @@
+﻿@model DuringWhichMonthSentOnRequestViewModel
+
+@foreach (var element in Model.Quarter)
+{
+    <div class="govuk-radios__item">
+        <input class="govuk-radios__input" type="radio" asp-for="SelectedMonth" value="@element.Key" aria-describedby="@element.Key">
+        <label class="govuk-label govuk-radios__label" for="@element.Key">
+            @element.Value
+        </label>
+    </div>
+}
