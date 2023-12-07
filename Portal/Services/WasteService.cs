@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
@@ -25,12 +26,23 @@ namespace EPRN.Portal.Services
 
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
-            var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
+            var whatHaveYouDoneWaste = await _httpWasteService.GetWhatHaveYouDoneWaste(journeyId);
+
+            var duringWhichMonthRequestViewModel = default(DuringWhichMonthRequestViewModel);
+
+            if (whatHaveYouDoneWaste == DoneWaste.ReprocessedIt)
             {
-                JourneyId = journeyId,
-                WasteType = await _httpWasteService.GetWasteType(journeyId),
-                WhatHaveYouDone = await _httpWasteService.GetWhatHaveYouDoneWaste(journeyId)
-            };
+                duringWhichMonthRequestViewModel = new DuringWhichMonthReceivedRequestViewModel();
+            }
+            else
+            {
+                duringWhichMonthRequestViewModel = new DuringWhichMonthSentOnRequestViewModel();
+            }
+
+            duringWhichMonthRequestViewModel.JourneyId = journeyId;
+            duringWhichMonthRequestViewModel.WasteType = await _httpWasteService.GetWasteType(journeyId);
+            duringWhichMonthRequestViewModel.WhatHaveYouDone = await _httpWasteService.GetWhatHaveYouDoneWaste(journeyId);
+
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));

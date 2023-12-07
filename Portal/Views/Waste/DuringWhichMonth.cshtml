@@ -36,14 +36,13 @@
         <p class="govuk-error-message">
             <span asp-validation-for="SelectedMonth"></span>
         </p>
-        @foreach (var element in Model.Quarter)
+        @if(Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
         {
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" type="radio" asp-for="SelectedMonth" value="@element.Key" aria-describedby="@element.Key">
-                <label class="govuk-label govuk-radios__label" for="@element.Key">
-                    @element.Value
-                </label>
-            </div>
+            <partial name="_RadioOptionReprocessedIt" model="Model"/>
+        }
+        else
+        {
+            <partial name="_RadioOptionSentItOn" model="Model" />
         }
     </radios>
 
