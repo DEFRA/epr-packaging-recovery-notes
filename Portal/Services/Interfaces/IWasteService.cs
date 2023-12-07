@@ -17,9 +17,12 @@ namespace EPRN.Portal.Services.Interfaces
         Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId);
 
         Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
+        
+        Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId);
 
         ExportTonnageViewModel GetExportTonnageViewModel(int journeyId);
 
         Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel);
+        Task SaveBaledWithWire(BaledWithWireModel baledWireModel);
     }
 }

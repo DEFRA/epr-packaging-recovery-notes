@@ -10,7 +10,7 @@ namespace Waste.API.Controllers
     public class WasteController : ControllerBase
     {
         public readonly IWasteService _wasteService;
-
+        
         public WasteController(IWasteService wasteService)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
@@ -123,5 +123,23 @@ namespace Waste.API.Controllers
 
             return Ok();
         }
+        [HttpPost]
+        [Route("Journey/{journeyId}/BaledWithWire/{baledWithWire}")]
+        public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey Id is missing");
+
+            if (baledWithWire == null)
+                return BadRequest("Baled with wire is missing");
+            
+            //ToDo: This should be removed in the fullness of time.
+            var id = await _wasteService.CreateJourney();
+
+            await _wasteService.SaveBaledWithWire(id, baledWithWire.Value);
+
+            return Ok(id);
+        }
+
     }
 }

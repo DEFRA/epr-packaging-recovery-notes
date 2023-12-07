@@ -415,5 +415,90 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.AreEqual(exportTonnageViewModel, viewResult.ViewData.Model);
             Assert.IsNull(null, viewResult.ViewName); // view is being returned as the same as the action
         }
+
+        [TestMethod]
+        public async Task BaledWithWire_ReturnCurrentView_WhenModelIsInvalid()
+        {
+            var baledWithWireModel = new BaledWithWireModel();
+            _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>())).ReturnsAsync(new BaledWithWireModel());
+
+            // Act
+            var result = await _wasteController.BaledWithWire(0);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName);
+        }
+
+        [TestMethod]
+        public async Task BaledWithWire_Return_Correctly()
+        {
+            // Arrange
+            var baledWithWireModel = new BaledWithWireModel
+            {
+                JourneyId = 1,
+                BaledWithWire = true
+            };
+
+            _mockWasteService.Setup(s => s.GetBaledWithWireModel(1)).ReturnsAsync(baledWithWireModel);
+
+            // Act
+            var result = await _wasteController.BaledWithWire(1);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task BaledWithWire_Saves_WithValidData()
+        {
+            // Arrange
+            var baledWithWireModel = new BaledWithWireModel
+            {
+                JourneyId = 1,
+                BaledWithWire = true
+            };
+
+            // Act
+            var result = await _wasteController.BaledWithWire(baledWithWireModel);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+
+            var redirectToActionResult = result as RedirectToActionResult;
+            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+        }
+
+        [TestMethod]
+        public async Task BaledWithWire_ThrowsNotFoundException_WhenNoIdSupplied()
+        {
+            // Act
+            var result = await _wasteController.BaledWithWire((int?)null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
     }
 }

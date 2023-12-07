@@ -2,7 +2,9 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.UnitTests.Helpers;
+using Microsoft.Extensions.Options;
 using Moq;
+using Waste.API.Configuration;
 using Waste.API.Models;
 using Waste.API.Repositories.Interfaces;
 using Waste.API.Services;
@@ -16,15 +18,26 @@ namespace EPRN.UnitTests.API.Services
         private IWasteService _wasteService;
         private Mock<IMapper> _mockMapper;
         private Mock<IRepository> _mockRepository;
+        private Mock<IOptions<AppConfigSettings>> _mockConfigSettings;
 
         [TestInitialize]
         public void Init()
         {
             _mockMapper = new Mock<IMapper>();
             _mockRepository = new Mock<IRepository>();
+            _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
+
+            var config = new AppConfigSettings
+            {
+                DeductionAmount = 100
+            };
+
+            _mockConfigSettings.Setup(m => m.Value).Returns(config);
+
             _wasteService = new WasteService(
                 _mockMapper.Object,
-                _mockRepository.Object);
+                _mockRepository.Object,
+                _mockConfigSettings.Object);
         }
 
         [TestMethod]
@@ -60,7 +73,7 @@ namespace EPRN.UnitTests.API.Services
             _mockMapper.Verify(m =>
                 m.Map<List<WasteTypeDto>>(
                     It.Is<List<WasteType>>(p =>
-                        TestHelper.CompareOrderedList(p, data, wt => wt.Name))),
+                        TestHelper.CompareOrderedList(p, data, wt => wt.Name.ToString()))),
                     Times.Once()); // test that we called Map with the expected ordered list
         }
 
@@ -92,7 +105,7 @@ namespace EPRN.UnitTests.API.Services
             int selectedMonth = 11;
             var wasteJourney = new WasteJourney { };
 
-            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt;
+            wasteJourney.DoneWaste = DoneWaste.ReprocessedIt.ToString();
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
@@ -111,7 +124,7 @@ namespace EPRN.UnitTests.API.Services
             int selectedMonth = 1;
             var wasteJourney = new WasteJourney { };
 
-            wasteJourney.DoneWaste = DoneWaste.SentItOn;
+            wasteJourney.DoneWaste = DoneWaste.SentItOn.ToString();
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
 
@@ -239,7 +252,7 @@ namespace EPRN.UnitTests.API.Services
             var wasteJourney = new WasteJourney
             {
                 Id = journeyId,
-                DoneWaste = expectedWhatHaveYouDoneWaste
+                DoneWaste = expectedWhatHaveYouDoneWaste.ToString()
             };
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);
@@ -263,7 +276,7 @@ namespace EPRN.UnitTests.API.Services
             var wasteJourney = new WasteJourney
             {
                 Id = journeyId,
-                DoneWaste = expectedWhatHaveYouDoneWaste
+                DoneWaste = expectedWhatHaveYouDoneWaste.ToString()
             };
 
             _mockRepository.Setup(r => r.GetById<WasteJourney>(It.Is<int>(p => p == journeyId))).ReturnsAsync(wasteJourney);

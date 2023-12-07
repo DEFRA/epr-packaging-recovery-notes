@@ -35,6 +35,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ExportTonnageResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\BaledWithWireResource.cy-GB.Designer.cs">
+      <DependentUpon>BaledWithWireResource.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\BaledWithWireResource.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>BaledWithWireResource.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\MasterResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -83,10 +93,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\ExportTonnageResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ExportTonnageResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\MasterResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MasterResources.Designer.cs</LastGenOutput>
