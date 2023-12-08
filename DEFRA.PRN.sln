@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Waste.API", "Waste.API\EPRN.Waste.API.csproj", "{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Portal", "Portal\EPRN.Portal.csproj", "{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Common", "EPRN.Common\EPRN.Common.csproj", "{1DBE8D65-C3E9-45CD-BAB5-432101D18929}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.UnitTests", "EPRN.UnitTests\EPRN.UnitTests.csproj", "{7768DA66-5F2D-44F0-8A78-DAE7079D2545}"
@@ -18,20 +14,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Waste.API", "EPRN.Waste.API\EPRN.Waste.API.csproj", "{9F823B3C-D383-4AE6-A88D-C1711773442B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Portal", "EPRN.Portal\EPRN.Portal.csproj", "{9863BFAD-7F1B-42A2-B158-BFC04C86C7D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68D42DAF-4E82-4FE0-88F9-53AFFCB8A67C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C08F17FC-6236-4DEA-A80E-D39A015EFE5C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1DBE8D65-C3E9-45CD-BAB5-432101D18929}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -44,6 +36,14 @@ Global
 		{B924F9ED-0641-4405-994E-5A37EC34AAE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B924F9ED-0641-4405-994E-5A37EC34AAE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B924F9ED-0641-4405-994E-5A37EC34AAE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F823B3C-D383-4AE6-A88D-C1711773442B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F823B3C-D383-4AE6-A88D-C1711773442B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F823B3C-D383-4AE6-A88D-C1711773442B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F823B3C-D383-4AE6-A88D-C1711773442B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9863BFAD-7F1B-42A2-B158-BFC04C86C7D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9863BFAD-7F1B-42A2-B158-BFC04C86C7D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9863BFAD-7F1B-42A2-B158-BFC04C86C7D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9863BFAD-7F1B-42A2-B158-BFC04C86C7D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

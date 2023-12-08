@@ -5,11 +5,11 @@ services:
     image: ${DOCKER_REGISTRY-}eprnwasteapi
     build:
       context: .
-      dockerfile: Waste.API/Dockerfile
+      dockerfile: EPRN.Waste.API/Dockerfile
 
   eprn.portal:
     image: ${DOCKER_REGISTRY-}eprnportal
     build:
       context: .
-      dockerfile: Portal/Dockerfile
+      dockerfile: EPRN.Portal/Dockerfile
 
