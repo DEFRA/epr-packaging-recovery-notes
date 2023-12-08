@@ -70,7 +70,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("Journey/{journeyId}/WhatHaveYouDoneWaste")]
+        [Route("{journeyId}/WhatHaveYouDoneWaste")]
         public async Task<ActionResult> GetWhatHaveYouDoneWaste(int? journeyId)
         {
             if (journeyId == null)
@@ -138,9 +138,9 @@ namespace EPRN.Waste.API.Controllers
 
             if (baledWithWire == null)
                 return BadRequest("Baled with wire is missing");
-            
+
             await _journeyService.SaveBaledWithWire(
-                journeyId.Value, 
+                journeyId.Value,
                 baledWithWire.Value);
 
             return Ok();
