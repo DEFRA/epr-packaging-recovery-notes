@@ -129,7 +129,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
-            return RedirectToAction("BaledWithWire", "Waste");
+            return RedirectToAction("BaledWithWire", "Waste", new { id = exportTonnageViewModel.JourneyId });
         }
 
         [HttpGet]
