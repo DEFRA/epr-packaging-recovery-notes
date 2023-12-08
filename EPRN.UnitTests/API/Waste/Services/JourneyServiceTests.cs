@@ -281,7 +281,7 @@ namespace EPRN.UnitTests.API.Waste.Services
             var siteId = 1;
 
             // act
-            await _wasteService.SaveReprocessorExport(journeyId, siteId);
+            await _journeyService.SaveReprocessorExport(journeyId, siteId);
 
             // assert
             _mockRepository.Verify(r => r.Update(It.IsAny<WasteJourney>()), Times.Never);
@@ -299,7 +299,7 @@ namespace EPRN.UnitTests.API.Waste.Services
             });
 
             // act
-            await _wasteService.SaveReprocessorExport(journeyId, siteId);
+            await _journeyService.SaveReprocessorExport(journeyId, siteId);
 
             // assert
             _mockRepository.Verify(r => r.Update(It.Is<WasteJourney>(p => p.Id == journeyId && p.SiteId == siteId)), Times.Once);

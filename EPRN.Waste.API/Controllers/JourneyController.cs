@@ -156,12 +156,9 @@ namespace EPRN.Waste.API.Controllers
             if (siteId == null)
                 return BadRequest("SiteId is missing");
 
-            //ToDo: This should be removed in the fullness of time.
-            var id = await _wasteService.CreateJourney();
+            await _journeyService.SaveReprocessorExport(journeyId.Value, siteId.Value);
 
-            await _wasteService.SaveReprocessorExport(id, siteId.Value);
-
-            return Ok(id);
+            return Ok();
         }
     }
 }

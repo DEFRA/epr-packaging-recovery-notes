@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using WasteManagement.API.Models;
-using EPRN.Common.Enums;
+﻿using EPRN.Common.Enums;
 
 namespace EPRN.Waste.API.Models
 {
