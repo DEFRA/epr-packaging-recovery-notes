@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Waste.API.Migrations
+namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(WasteContext))]
     [Migration("20231207140903_Add SiteId for ReprocessorWaste")]
