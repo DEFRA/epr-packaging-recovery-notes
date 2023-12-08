@@ -107,6 +107,10 @@
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ReProcessorExportResource.cy-GB.resx">
+      <LastGenOutput>ReProcessorExportResource.cy-GB.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ReProcessorExportResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ReProcessorExportResource.Designer.cs</LastGenOutput>
