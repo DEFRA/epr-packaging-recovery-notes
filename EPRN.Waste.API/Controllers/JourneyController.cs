@@ -70,7 +70,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("Journey/{journeyId}/WhatHaveYouDoneWaste")]
+        [Route("{journeyId}/WhatHaveYouDoneWaste")]
         public async Task<ActionResult> GetWhatHaveYouDoneWaste(int? journeyId)
         {
             if (journeyId == null)
@@ -130,7 +130,7 @@ namespace EPRN.Waste.API.Controllers
             return Ok();
         }
         [HttpPost]
-        [Route("Journey/{journeyId}/BaledWithWire/{baledWithWire}")]
+        [Route("{journeyId}/BaledWithWire/{baledWithWire}")]
         public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)
         {
             if (journeyId == null)
@@ -147,7 +147,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("Journey/{journeyId}/ReProcessorExport/{siteId}")]
+        [Route("{journeyId}/ReProcessorExport/{siteId}")]
         public async Task<ActionResult> SaveReProcessorExport(int? journeyId, int? siteId)
         {
             if (journeyId == null)
