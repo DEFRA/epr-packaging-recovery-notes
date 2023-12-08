@@ -22,14 +22,14 @@ namespace EPRN.Waste.API.Services
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _wasteRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_wasteRepository));
-            
-            if (configSettings == null )
+
+            if (configSettings == null)
                 throw new ArgumentNullException(nameof(configSettings));
 
             if (configSettings.Value == null || configSettings.Value.DeductionAmount == null)
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount));
 
-            _deductionAmount = configSettings.Value.DeductionAmount.Value; 
+            _deductionAmount = configSettings.Value.DeductionAmount.Value;
         }
 
         public async Task<int> CreateJourney()
@@ -52,14 +52,7 @@ namespace EPRN.Waste.API.Services
             if (journeyRecord == null)
                 throw new ArgumentNullException(nameof(journeyRecord));
 
-            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt)
-            {
-                journeyRecord.MonthReceived = selectedMonth;
-            }
-            else
-            {
-                journeyRecord.MonthSent = selectedMonth;
-            }
+            journeyRecord.Month = selectedMonth;
 
             await _wasteRepository.Update(journeyRecord);
         }
@@ -166,6 +159,16 @@ namespace EPRN.Waste.API.Services
             if (journeyRecord.BaledWithWire == true)
                 journeyRecord.DeductionAmount = _deductionAmount;
 
+            await _wasteRepository.Update(journeyRecord);
+        }
+
+        public async Task SaveReprocessorExport(int journeyId, int siteId)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new NullReferenceException(nameof(journeyRecord));
+
+            journeyRecord.SiteId = siteId;
             await _wasteRepository.Update(journeyRecord);
         }
     }

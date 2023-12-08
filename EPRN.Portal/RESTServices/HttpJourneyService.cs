@@ -57,5 +57,10 @@ namespace EPRN.Portal.RESTServices
         {
             await Post($"Journey/{journeyId}/BaledWithWire/{bailedWithWire}");
         }
+
+        public async Task SaveReprocessorExport(int journeyId, int siteId)
+        {
+            await Post($"Journey/{journeyId}/ReProcessorExport/{siteId}");
+        }
     }
 }

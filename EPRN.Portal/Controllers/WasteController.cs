@@ -148,5 +148,22 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ReProcessorExport(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetReProcessorExportViewModel(id.Value);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
+        {
+            await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
+            return RedirectToAction("Index", "Home");
+        }
     }
 }

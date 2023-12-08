@@ -146,5 +146,22 @@ namespace EPRN.Waste.API.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("Journey/{journeyId}/ReProcessorExport/{siteId}")]
+        public async Task<ActionResult> SaveReProcessorExport(int? journeyId, int? siteId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey Id is missing");
+
+            if (siteId == null)
+                return BadRequest("SiteId is missing");
+
+            //ToDo: This should be removed in the fullness of time.
+            var id = await _wasteService.CreateJourney();
+
+            await _wasteService.SaveReprocessorExport(id, siteId.Value);
+
+            return Ok(id);
+        }
     }
 }

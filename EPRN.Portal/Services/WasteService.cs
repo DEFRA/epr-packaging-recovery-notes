@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
@@ -28,12 +29,23 @@ namespace EPRN.Portal.Services
 
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
-            var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
+            var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
+
+            var duringWhichMonthRequestViewModel = default(DuringWhichMonthRequestViewModel);
+
+            if (whatHaveYouDoneWaste == DoneWaste.ReprocessedIt)
             {
-                JourneyId = journeyId,
-                WasteType = await _httpJourneyService.GetWasteType(journeyId),
-                WhatHaveYouDone = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId)
-            };
+                duringWhichMonthRequestViewModel = new DuringWhichMonthReceivedRequestViewModel();
+            }
+            else
+            {
+                duringWhichMonthRequestViewModel = new DuringWhichMonthSentOnRequestViewModel();
+            }
+
+            duringWhichMonthRequestViewModel.JourneyId = journeyId;
+            duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
+            duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
+
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
@@ -167,6 +179,30 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(baledWireModel.BaledWithWire));
 
             await _httpJourneyService.SaveBaledWithWire(baledWireModel.JourneyId, baledWireModel.BaledWithWire.Value);
+        }
+
+        public async Task<ReProcessorExportViewModel> GetReProcessorExportViewModel(int journeyId)
+        {
+            var reProcessorExport = new ReProcessorExportViewModel()
+            {
+                JourneyId = journeyId,
+            };
+
+            return reProcessorExport;
+        }
+
+        public async Task SaveReprocessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
+        {
+            if (reProcessorExportViewModel == null)
+                throw new ArgumentNullException(nameof(reProcessorExportViewModel));
+
+            if (reProcessorExportViewModel == null)
+                throw new ArgumentNullException(nameof(reProcessorExportViewModel.JourneyId));
+
+            if (reProcessorExportViewModel.SelectedSite == null)
+                throw new ArgumentNullException(nameof(reProcessorExportViewModel.SelectedSite));
+
+            await _httpJourneyService.SaveReprocessorExport(reProcessorExportViewModel.JourneyId, reProcessorExportViewModel.SelectedSite.Value);
         }
     }
 }

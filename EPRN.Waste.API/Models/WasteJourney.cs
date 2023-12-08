@@ -1,4 +1,6 @@
-﻿using EPRN.Common.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using WasteManagement.API.Models;
+using EPRN.Common.Enums;
 
 namespace EPRN.Waste.API.Models
 {
@@ -11,9 +13,7 @@ namespace EPRN.Waste.API.Models
         // the manual entry is used
         public double? Adjustment { get; set; }
 
-        public int? MonthReceived { get; set; }
-
-        public int? MonthSent { get; set; }
+        public int? Month { get; set; }
 
         /// <summary>
         /// Raw tonnage entered by user
@@ -44,5 +44,6 @@ namespace EPRN.Waste.API.Models
         public DoneWaste? DoneWaste { get; set; }
 
         public double? DeductionAmount { get; set; }
+        public int? SiteId { get; set; }
     }
 }
