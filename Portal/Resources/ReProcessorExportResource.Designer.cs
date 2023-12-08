@@ -86,14 +86,5 @@ namespace EPRN.Portal.Resources {
                 return ResourceManager.GetString("PageTitle", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to test.
-        /// </summary>
-        public static string test {
-            get {
-                return ResourceManager.GetString("test", resourceCulture);
-            }
-        }
     }
 }
