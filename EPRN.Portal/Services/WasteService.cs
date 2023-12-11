@@ -79,6 +79,56 @@ namespace EPRN.Portal.Services
             };
         }
 
+        public async Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId)
+        {
+            var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
+
+            var wasteMaterialSubTypes = await _httpWasteService.GetWasteMaterialSubTypes(wasteTypeId);
+
+            var wasteSubTypeOptions = _mapper.Map<List<WasteSubTypeOptionViewModel>>(wasteMaterialSubTypes);
+
+            return new WasteSubTypesViewModel
+            {
+                JourneyId = journeyId,
+                WasteSubTypeOptions = wasteSubTypeOptions
+            };
+        }
+
+        public async Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel)
+        {
+            if (wasteSubTypesViewModel == null)
+                throw new ArgumentNullException(nameof(wasteSubTypesViewModel));
+
+            if (wasteSubTypesViewModel.SelectedWasteSubTypeId == null)
+                throw new ArgumentNullException(nameof(wasteSubTypesViewModel.SelectedWasteSubTypeId));
+
+            if (wasteSubTypesViewModel.AdjustmentRequired && wasteSubTypesViewModel.CustomPercentage == null)
+                throw new ArgumentNullException(nameof(wasteSubTypesViewModel.CustomPercentage));
+
+            (int wasteSubTypeId, double adjustment) = ProcessSubTypePayload(wasteSubTypesViewModel);
+
+            await _httpJourneyService.SaveSelectedWasteSubType(
+                wasteSubTypesViewModel.JourneyId,
+                wasteSubTypeId, adjustment);
+        }
+
+        private (int wasteSubTypeId, double adjustment) ProcessSubTypePayload(WasteSubTypesViewModel wasteSubTypesViewModel)
+        {
+            int wasteSubTypeId = wasteSubTypesViewModel.SelectedWasteSubTypeId.Value;
+            double adjustment = 0;
+            
+            if (wasteSubTypesViewModel.AdjustmentRequired)
+            {
+                adjustment = wasteSubTypesViewModel.CustomPercentage.Value;
+            }
+            else
+            {
+                adjustment = wasteSubTypesViewModel.WasteSubTypeOptions.FirstOrDefault(subTypeOption => subTypeOption.Id == wasteSubTypeId).Adjustment.Value;
+            }
+
+            return (wasteSubTypeId, adjustment);
+        }
+
         public async Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel)
         {
             if (wasteTypesViewModel == null)

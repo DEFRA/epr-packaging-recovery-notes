@@ -33,5 +33,19 @@ namespace EPRN.Waste.API.Services
 
             return _mapper.Map<List<WasteTypeDto>>(dbWasteTypes);
         }
+
+        public async Task<IEnumerable<WasteSubTypeDto>> WasteSubTypes(int wasteTypeid)
+        {
+            _wasteRepository.LazyLoading = false;
+            await Task.CompletedTask;
+
+            var dbWasteSubTypes = _wasteRepository
+                .List<WasteSubType>()
+                .Where(subType => subType.WasteTypeId == wasteTypeid)
+                .OrderBy(subType => subType.Id)
+                .ToList();
+
+            return _mapper.Map<List<WasteSubTypeDto>>(dbWasteSubTypes);
+        }
     }
 }

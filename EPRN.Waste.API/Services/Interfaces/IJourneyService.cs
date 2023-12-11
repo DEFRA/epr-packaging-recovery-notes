@@ -11,11 +11,15 @@ namespace EPRN.Waste.API.Services.Interfaces
 
         Task SaveWasteType(int journeyId, int wasteTypeId);
 
+        Task SaveWasteSubType(int journeyId, int wasteSubTypeId, double adjustment);
+
         Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId);
 
         Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste);
 
         Task<string> GetWasteType(int journeyId);
+        
+        Task<int> GetWasteTypeId(int journeyId);
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 

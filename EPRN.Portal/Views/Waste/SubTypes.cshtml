@@ -1,0 +1,102 @@
+﻿@using Microsoft.Extensions.Localization;
+@using EPRN.Portal.Helpers.Interfaces
+@model WasteSubTypesViewModel
+@inject ILocalizationHelper<WasteSubTypesResources> localizationHelper
+
+@{
+    ViewData["Title"] = @WasteSubTypesResources.MaterialSubTypeOptionsTitle;
+}
+
+<a asp-controller="waste" asp-action="types" asp-route-id="@Model.JourneyId" class="govuk-back-link">@MasterResources.Back</a>
+<form method="post"> 
+    <input type="hidden" asp-for="JourneyId" />
+    <partial name="_ValidationSummary" />
+
+    <span>** UNABLE TO POPULATE AT THE MOMENT **</span>
+    <radios id="SelectedWasteSubTypeId" asp-for="SelectedWasteSubTypeId" asp-title="@WasteSubTypesResources.MaterialSubTypeOptionsTitle">
+        <p class="govuk-error-message">
+            <span asp-validation-for="SelectedWasteSubTypeId"></span>
+        </p>
+        @foreach(var wasteSubType in Model.WasteSubTypeOptions)
+        {
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" type="radio" asp-for="SelectedWasteSubTypeId" value="@wasteSubType.Id" data-custompercentage="@wasteSubType.AdjustmentPercentageRequired.ToString().ToLower()">
+                <label class="govuk-label govuk-radios__label" for="@wasteSubType.Id">
+                    @localizationHelper.GetString(wasteSubType.Name)
+                </label>
+            </div>
+            if (wasteSubType.AdjustmentPercentageRequired)
+            {
+                <div class="govuk-form-group" id="custom-percentage-div">
+                    <p class="govuk-error-message">
+                        <span asp-validation-for="CustomPercentage"></span>
+                    </p>
+                    <div class="govuk-input__wrapper custom-percentage-input">
+                        <input class="govuk-input govuk-input--width-5" type="text" asp-for="CustomPercentage" />
+                        <div class="govuk-input__suffix" aria-hidden="true">%</div>
+                    </div>
+                </div>
+            }
+        }
+
+        @for (int i = 0; i < Model.WasteSubTypeOptions.Count; i++)
+        {
+            <input type="hidden" name="WasteSubTypeOptions[@i].Id" value="@Model.WasteSubTypeOptions[i].Id" />
+            <input type="hidden" name="WasteSubTypeOptions[@i].Name" value="@Model.WasteSubTypeOptions[i].Name" />
+            <input type="hidden" name="WasteSubTypeOptions[@i].Adjustment" value="@Model.WasteSubTypeOptions[i].Adjustment" />
+            <input type="hidden" name="WasteSubTypeOptions[@i].AdjustmentPercentageRequired" value="@Model.WasteSubTypeOptions[i].AdjustmentPercentageRequired.ToString().ToLower()" />
+        }
+    </radios>
+
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @MasterResources.ContinueBtn
+    </button>
+</form>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            function toggleCustomPercentageVisibility() {
+                var selectedRadio = $('input[type=radio][name="SelectedWasteSubTypeId"]:checked');
+                var customPercentageInput = $('input[type=text][name="CustomPercentage"]');
+                var customPercentageDiv = $('#custom-percentage-div');
+
+                if (selectedRadio.length > 0) {
+                    var showCustomPercentage = selectedRadio.data('custompercentage') === true;
+                    customPercentageDiv.toggle(showCustomPercentage);
+                    var errorSummary = $('.govuk-error-summary');
+                    // Clear the value and validation errors if hidden
+                    if (!showCustomPercentage) {
+                        customPercentageInput.val('');
+                        errorSummary.addClass('govuk-visually-hidden');
+
+                    } else {
+                        if (validationErrorsExist()) {
+                            errorSummary.removeClass('govuk-visually-hidden');
+                        }
+                    }
+                } else {
+                    // If no radio is selected, hide the custom percentage input and clear the value
+                    customPercentageDiv.hide();
+                    customPercentageInput.val('');
+                }
+            }
+
+            function validationErrorsExist() {
+                var errorList = $('.govuk-list.govuk-error-summary__list');
+                var liElements = errorList.find('li');
+
+                return !((liElements.length === 1 && liElements.text().trim() === '') || liElements.length === 0);
+            }
+
+            // Initial visibility setup
+            toggleCustomPercentageVisibility();
+
+            // Event handler for radio button change
+            $('input[type=radio][name="SelectedWasteSubTypeId"]').change(function () {
+                toggleCustomPercentageVisibility();
+            });
+        });
+    </script>
+}
