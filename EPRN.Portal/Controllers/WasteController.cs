@@ -2,6 +2,7 @@
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace EPRN.Portal.Controllers
 {
@@ -80,6 +81,35 @@ namespace EPRN.Portal.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> SubTypes(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _wasteService.GetWasteSubTypesViewModel(id.Value);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SubTypes(WasteSubTypesViewModel wasteSubTypesViewModel)
+        {
+            if (wasteSubTypesViewModel == null)
+                return BadRequest();
+
+            if (!ModelState.IsValid && 
+                wasteSubTypesViewModel.AdjustmentRequired && 
+                ModelState["CustomPercentage"].ValidationState == ModelValidationState.Invalid)
+            {
+                return await SubTypes(wasteSubTypesViewModel.JourneyId);
+            }
+
+            await _wasteService.SaveSelectedWasteSubType(wasteSubTypesViewModel);
+
+            return RedirectToAction("Tonnes", "Waste", new { id = wasteSubTypesViewModel.JourneyId });
+        }
+
         [HttpPost]
         public async Task<IActionResult> Types(WasteTypesViewModel wasteTypesViewModel)
         {
@@ -93,7 +123,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SubTypes", "Waste", new { id = wasteTypesViewModel.JourneyId });
         }
 
         [HttpGet]

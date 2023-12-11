@@ -21,5 +21,12 @@ namespace EPRN.Waste.API.Controllers
         {
             return await _wasteService.WasteTypes();
         }
+
+        [HttpGet]
+        [Route("Types/{wasteTypeid}/SubTypes")]
+        public async Task<IEnumerable<WasteSubTypeDto>> WasteSubTypes(int wasteTypeid)
+        {
+            return await _wasteService.WasteSubTypes(wasteTypeid);
+        }
     }
 }

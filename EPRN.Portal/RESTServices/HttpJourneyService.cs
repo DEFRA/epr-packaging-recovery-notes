@@ -33,6 +33,11 @@ namespace EPRN.Portal.RESTServices
             await Post($"{journeyId}/Type/{selectedWasteTypeId}");
         }
 
+        public async Task SaveSelectedWasteSubType(int journeyId, int selectedWasteSubTypeId, double adjustment)
+        {
+            await Post($"{journeyId}/SubType/{selectedWasteSubTypeId}/Adjustment/{adjustment}");
+        }
+
         public async Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId)
         {
             return await Get<DoneWaste>($"{journeyId}/WhatHaveYouDoneWaste");
@@ -46,6 +51,11 @@ namespace EPRN.Portal.RESTServices
         public async Task<string> GetWasteType(int journeyId)
         {
             return await Get<string>($"{journeyId}/WasteType");
+        }
+
+        public async Task<int> GetWasteTypeId(int journeyId)
+        {
+            return await Get<int>($"{journeyId}/WasteTypeId");
         }
 
         public async Task SaveTonnage(int journeyId, double tonnage)
