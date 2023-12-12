@@ -9,7 +9,7 @@ namespace EPRN.Portal.RESTServices
     {
         public HttpJourneyService(
             IHttpContextAccessor httpContextAccessor,
-            string baseUrl, 
+            string baseUrl,
             IHttpClientFactory httpClientFactory) : base(httpContextAccessor, baseUrl, httpClientFactory)
         {
         }
@@ -77,6 +77,11 @@ namespace EPRN.Portal.RESTServices
         public async Task SaveReprocessorExport(int journeyId, int siteId)
         {
             await Post($"{journeyId}/ReProcessorExport/{siteId}");
+        }
+
+        public async Task SaveNote(int journeyId, string noteContent)
+        {
+            await Post($"{journeyId}/Note/{noteContent}");
         }
     }
 }
