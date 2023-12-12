@@ -69,6 +69,10 @@ namespace EPRN.Portal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        /// <summary>
+        /// This end point creates a new journey and then redirects
+        /// to the Types action with the id of the new record id
+        /// </summary>
         [HttpGet]
         [Route("Waste/Types")]
         public async Task<IActionResult> Types()
