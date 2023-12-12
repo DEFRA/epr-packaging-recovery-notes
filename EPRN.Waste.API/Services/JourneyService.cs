@@ -40,97 +40,49 @@ namespace EPRN.Waste.API.Services
                 CreatedBy = "DEVELOPER"
             };
 
-            await _wasteRepository.Add(journeyRecord);
+            await _wasteRepository.AddJourney(journeyRecord);
 
             return journeyRecord.Id;
         }
 
+        public async Task<bool> JourneyExists(int journeyId)
+        {
+            return await _wasteRepository.Exists(journeyId);
+        }
+
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
-            var journeyRecord = await _wasteRepository.GetById<WasteJourney>(journeyId);
-
-            if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
-
-            journeyRecord.Month = selectedMonth;
-
-            await _wasteRepository.Update(journeyRecord);
+            await _wasteRepository.UpdateJourneyMonth(journeyId, selectedMonth);
         }
 
         public async Task SaveWasteType(int journeyId, int wasteTypeId)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
-
-            journeyRecord.WasteTypeId = wasteTypeId;
-            await _wasteRepository.Update(journeyRecord);
+            await _wasteRepository.UpdateJourneyWasteTypeId(journeyId, wasteTypeId);
         }
 
         public async Task SaveWasteSubType(int journeyId, int wasteSubTypeId, double adjustment)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
-
-            journeyRecord.WasteSubTypeId = wasteSubTypeId;
-            journeyRecord.Adjustment = adjustment;
-            await _wasteRepository.Update(journeyRecord);
+            await _wasteRepository.UpdateJourneySubTypeAndAdjustment(journeyId, wasteSubTypeId, adjustment);
         }
 
-        public async Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId)
+        public async Task<DoneWaste?> GetWhatHaveYouDoneWaste(int journeyId)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
-
-            if (journeyRecord.DoneWaste == null)
-                throw new ArgumentNullException(nameof(journeyRecord.DoneWaste));
-
-            if (journeyRecord.DoneWaste == DoneWaste.ReprocessedIt)
-                return DoneWaste.ReprocessedIt;
-            else
-                return DoneWaste.SentItOn;
+            return await _wasteRepository.GetDoneWaste(journeyId);
         }
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
-
-            journeyRecord.DoneWaste = whatHaveYouDoneWaste;
-            await _wasteRepository.Update(journeyRecord);
+            await _wasteRepository.UpdateJourneyDoneId(journeyId, whatHaveYouDoneWaste);
         }
 
         public async Task<string> GetWasteType(int journeyId)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
-
-            if (journeyRecord.WasteTypeId == null)
-                throw new ArgumentNullException(nameof(journeyRecord.WasteTypeId));
-
-            return journeyRecord.WasteType.Name;
-        }
-
-        public async Task<int> GetWasteTypeId(int journeyId)
-        {
-            var journeyRecord = await GetJourney(journeyId);
-            
-            if (journeyRecord == null)
-                throw new ArgumentNullException(nameof(journeyRecord));
-
-            if (journeyRecord.WasteTypeId == null)
-                throw new ArgumentNullException(nameof(journeyRecord.WasteTypeId));
-
-            return journeyRecord.WasteTypeId.Value;
+            return await _wasteRepository.GetWasteTypeName(journeyId);
         }
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
-            var journey = await GetJourney(journeyId);
+            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
 
             if (journey == null)
                 return null;
@@ -138,62 +90,40 @@ namespace EPRN.Waste.API.Services
             var dto = new WasteRecordStatusDto
             {
                 JourneyId = journey.Id,
-                WasteBalance = GetWasteBalance(journey),
-                WasteRecordReferenceNumber = string.IsNullOrWhiteSpace(journey.ReferenceNumber) ? string.Empty : journey.ReferenceNumber,
-                WasteRecordStatus = EPRN.Common.Enums.WasteRecordStatuses.Incomplete
+                WasteBalance = journey.Quantity ?? 0,
+                WasteRecordReferenceNumber = journey.ReferenceNumber,
+                WasteRecordStatus = WasteRecordStatuses.Incomplete
             };
 
             if (journey.Completed.HasValue)
-                dto.WasteRecordStatus = journey.Completed.Value ? EPRN.Common.Enums.WasteRecordStatuses.Complete : EPRN.Common.Enums.WasteRecordStatuses.Incomplete;
+                dto.WasteRecordStatus = journey.Completed.Value ? WasteRecordStatuses.Complete : WasteRecordStatuses.Incomplete;
 
             return dto;
         }
 
+        public async Task<double?> GetTonnage(int journeyId)
+        {
+            return await _wasteRepository.GetWasteTonnage(journeyId);
+        }
+
         public async Task SaveTonnage(int journeyId, double tonnage)
         {
-            var journeyRecord = await GetJourney(journeyId);
-
-            if (journeyRecord == null)
-                throw new NullReferenceException(nameof(journeyRecord));
-
-            journeyRecord.Tonnes = tonnage;
-            await _wasteRepository.Update(journeyRecord);
-        }
-
-        private double GetWasteBalance(WasteJourney journey)
-        {
-            if (journey == null)
-                return 0;
-
-            return journey.Quantity.HasValue ? journey.Quantity.Value : 0;
-        }
-
-        private async Task<WasteJourney> GetJourney(int id)
-        {
-            return await _wasteRepository.GetById<WasteJourney>(id);
+            await _wasteRepository.UpdateJourneyTonnage(journeyId, tonnage);
         }
 
         public async Task SaveBaledWithWire(int journeyId, bool baledWithWire)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            if (journeyRecord == null)
-                throw new NullReferenceException(nameof(journeyRecord));
-
-            journeyRecord.BaledWithWire = baledWithWire;
-            if (journeyRecord.BaledWithWire == true)
-                journeyRecord.DeductionAmount = _deductionAmount;
-
-            await _wasteRepository.Update(journeyRecord);
+            await _wasteRepository.UpdateJourneyBaledWithWire(journeyId, baledWithWire);
         }
 
         public async Task SaveReprocessorExport(int journeyId, int siteId)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            if (journeyRecord == null)
-                throw new NullReferenceException(nameof(journeyRecord));
+            await _wasteRepository.UpdateJourneySiteId(journeyId, siteId);
+        }
 
-            journeyRecord.SiteId = siteId;
-            await _wasteRepository.Update(journeyRecord);
+        public async Task<int?> GetWasteTypeId(int journeyId)
+        {
+            return await _wasteRepository.GetWasteTypeId(journeyId);
         }
     }
 }

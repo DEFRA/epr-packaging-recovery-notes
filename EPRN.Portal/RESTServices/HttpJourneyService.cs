@@ -8,8 +8,9 @@ namespace EPRN.Portal.RESTServices
     public class HttpJourneyService : BaseHttpService, IHttpJourneyService
     {
         public HttpJourneyService(
+            IHttpContextAccessor httpContextAccessor,
             string baseUrl, 
-            IHttpClientFactory httpClientFactory) : base(baseUrl, httpClientFactory)
+            IHttpClientFactory httpClientFactory) : base(httpContextAccessor, baseUrl, httpClientFactory)
         {
         }
 
@@ -35,7 +36,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task SaveSelectedWasteSubType(int journeyId, int selectedWasteSubTypeId, double adjustment)
         {
-            await Post($"{journeyId}/SubType/{selectedWasteSubTypeId}/Adjustment/{adjustment}");
+            await Post($"{journeyId}/SubTypes/{selectedWasteSubTypeId}/Adjustment/{adjustment}");
         }
 
         public async Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId)
@@ -53,9 +54,14 @@ namespace EPRN.Portal.RESTServices
             return await Get<string>($"{journeyId}/WasteType");
         }
 
-        public async Task<int> GetWasteTypeId(int journeyId)
+        public async Task<int?> GetWasteTypeId(int journeyId)
         {
-            return await Get<int>($"{journeyId}/WasteTypeId");
+            return await Get<int?>($"{journeyId}/Type");
+        }
+
+        public async Task<double?> GetWasteTonnage(int journeyId)
+        {
+            return await Get<double?>($"{journeyId}/Tonnage");
         }
 
         public async Task SaveTonnage(int journeyId, double tonnage)
@@ -65,12 +71,12 @@ namespace EPRN.Portal.RESTServices
 
         public async Task SaveBaledWithWire(int journeyId, bool bailedWithWire)
         {
-            await Post($"Journey/{journeyId}/BaledWithWire/{bailedWithWire}");
+            await Post($"{journeyId}/BaledWithWire/{bailedWithWire}");
         }
 
         public async Task SaveReprocessorExport(int journeyId, int siteId)
         {
-            await Post($"Journey/{journeyId}/ReProcessorExport/{siteId}");
+            await Post($"{journeyId}/ReProcessorExport/{siteId}");
         }
     }
 }

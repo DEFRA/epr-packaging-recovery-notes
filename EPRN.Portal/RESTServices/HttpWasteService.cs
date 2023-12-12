@@ -7,8 +7,9 @@ namespace EPRN.Portal.RESTServices
     public class HttpWasteService : BaseHttpService, IHttpWasteService
     {
         public HttpWasteService(
+            IHttpContextAccessor httpContextAccessor,
             string baseUrl,
-            IHttpClientFactory httpClientFactory) : base(baseUrl, httpClientFactory)
+            IHttpClientFactory httpClientFactory) : base(httpContextAccessor, baseUrl, httpClientFactory)
         {
         }
 

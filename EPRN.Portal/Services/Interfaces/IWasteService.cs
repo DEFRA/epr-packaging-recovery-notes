@@ -1,9 +1,12 @@
 ﻿using EPRN.Portal.ViewModels;
+using System.Reflection;
 
 namespace EPRN.Portal.Services.Interfaces
 {
     public interface IWasteService
     {
+        Task<int> CreateJourney();
+
         Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
@@ -24,7 +27,7 @@ namespace EPRN.Portal.Services.Interfaces
         
         Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId);
 
-        ExportTonnageViewModel GetExportTonnageViewModel(int journeyId);
+        Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId);
 
         Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel);
         Task SaveBaledWithWire(BaledWithWireModel baledWireModel);

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace EPRN.Portal.Services
@@ -11,13 +12,16 @@ namespace EPRN.Portal.Services
     /// </summary>
     public abstract class BaseHttpService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly string _baseUrl;
         private readonly HttpClient _httpClient;
 
         public BaseHttpService(
+            IHttpContextAccessor httpContextAccessor,
             string baseUrl,
             IHttpClientFactory httpClientFactory)
         {
+            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
             // do basic checks on parameters
             _baseUrl = string.IsNullOrWhiteSpace(baseUrl) ? throw new ArgumentNullException(nameof(baseUrl)) : baseUrl;
 
@@ -131,6 +135,7 @@ namespace EPRN.Portal.Services
             }
             else
             {
+                _httpContextAccessor.HttpContext.Response.StatusCode = (int)response.StatusCode;
                 // for now we don't know how we're going to handle errors specifically,
                 // so we'll just throw an error with the error code
                 throw new Exception($"Error occurred calling API with error code: {response.StatusCode}. Message: {response.ReasonPhrase}");
@@ -143,6 +148,7 @@ namespace EPRN.Portal.Services
 
             if (!response.IsSuccessStatusCode)
             {
+                _httpContextAccessor.HttpContext.Response.StatusCode = (int)response.StatusCode;
                 // for now we don't know how we're going to handle errors specifically,
                 // so we'll just throw an error with the error code
                 throw new Exception($"Error occurred calling API with error code: {response.StatusCode}. Message: {response.ReasonPhrase}");
