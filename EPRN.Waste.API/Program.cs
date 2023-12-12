@@ -1,6 +1,8 @@
+using AutoMapper;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Data;
 using EPRN.Waste.API.Middleware;
+using EPRN.Waste.API.Profiles;
 using EPRN.Waste.API.Repositories;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services;
@@ -29,6 +31,15 @@ builder.Services.AddDbContext<WasteContext>(options =>
 );
 
 builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
+
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new WasteManagementProfile());
+    mc.AllowNullCollections = true;
+});
+
+var mapper = mapperConfig.CreateMapper();
+builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 

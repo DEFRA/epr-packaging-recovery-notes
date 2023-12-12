@@ -21,7 +21,14 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task UpdateJourneyMonth(int journeyId, int selectedMonth);
 
+        Task UpdateJourneySubTypeAndAdjustment(
+            int journeyId,
+            int subTypeId,
+            double adjustment);
+
         Task<IList<WasteType>> GetAllWasteTypes();
+
+        Task<IList<WasteSubType>> GetWasteSubTypes(int wasteTypeId);
 
         Task<string> GetWasteTypeName(int journeyId);
 

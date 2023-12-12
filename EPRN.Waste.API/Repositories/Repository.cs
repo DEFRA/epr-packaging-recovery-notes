@@ -82,11 +82,46 @@ namespace EPRN.Waste.API.Repositories
                 );
         }
 
+        public async Task UpdateJourneySubTypeAndAdjustment(
+            int journeyId,
+            int subTypeId,
+            double adjustment)
+        {
+            var journeyRecord = new WasteJourney
+            {
+                Id = journeyId,
+                Adjustment = adjustment,
+                WasteSubTypeId = subTypeId,
+            };
+
+            _wasteContext.Attach(journeyRecord);
+            _wasteContext.Entry(journeyRecord).Property("WasteSubTypeId").IsModified = true;
+            _wasteContext.Entry(journeyRecord).Property("Adjustment").IsModified = true;
+            await _wasteContext.SaveChangesAsync();
+        }
+
         public async Task<IList<WasteType>> GetAllWasteTypes()
         {
             return await _wasteContext
                 .WasteType
                 .ToListAsync();
+        }
+
+        public async Task<IList<WasteSubType>> GetWasteSubTypes(int wasteTypeId)
+        {
+            try
+            {
+                return await _wasteContext
+                    .WasteSubType
+                    .Where(st => st.WasteTypeId == wasteTypeId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                ex.GetType();
+            }
+
+            return null;
         }
 
         public async Task<string> GetWasteTypeName(int journeyId)

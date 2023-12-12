@@ -21,14 +21,12 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<string> GetWasteType(int journeyId);
 
-        Task<int> GetWasteTypeId(int journeyId);
+        Task<int?> GetWasteTypeId(int journeyId);
 
         Task SaveTonnage(int journeyId, double tonnage);
         Task SaveBaledWithWire(int journeyId, bool baledWithWire);
 
         Task SaveReprocessorExport(int journeyId, int siteId);
-
-        Task<int?> GetWasteTypeId(int journeyId);
 
         Task<double?> GetWasteTonnage(int journeyId);
     }

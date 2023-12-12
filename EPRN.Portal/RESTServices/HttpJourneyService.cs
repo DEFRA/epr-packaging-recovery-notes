@@ -36,7 +36,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task SaveSelectedWasteSubType(int journeyId, int selectedWasteSubTypeId, double adjustment)
         {
-            await Post($"{journeyId}/SubType/{selectedWasteSubTypeId}/Adjustment/{adjustment}");
+            await Post($"{journeyId}/SubTypes/{selectedWasteSubTypeId}/Adjustment/{adjustment}");
         }
 
         public async Task<DoneWaste> GetWhatHaveYouDoneWaste(int journeyId)
@@ -71,12 +71,12 @@ namespace EPRN.Portal.RESTServices
 
         public async Task SaveBaledWithWire(int journeyId, bool bailedWithWire)
         {
-            await Post($"Journey/{journeyId}/BaledWithWire/{bailedWithWire}");
+            await Post($"{journeyId}/BaledWithWire/{bailedWithWire}");
         }
 
         public async Task SaveReprocessorExport(int journeyId, int siteId)
         {
-            await Post($"Journey/{journeyId}/ReProcessorExport/{siteId}");
+            await Post($"{journeyId}/ReProcessorExport/{siteId}");
         }
     }
 }

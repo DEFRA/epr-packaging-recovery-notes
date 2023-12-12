@@ -19,7 +19,7 @@ namespace EPRN.Waste.API.Services.Interfaces
 
         Task<string> GetWasteType(int journeyId);
         
-        Task<int> GetWasteTypeId(int journeyId);
+        Task<int?> GetWasteTypeId(int journeyId);
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
@@ -28,8 +28,6 @@ namespace EPRN.Waste.API.Services.Interfaces
         Task SaveBaledWithWire(int journeyId, bool baledWithWire);
 
         Task SaveReprocessorExport(int journeyId, int siteId);
-
-        Task<int?> GetWasteTypeId(int journeyId);
 
         Task<double?> GetTonnage(int journeyId);
 

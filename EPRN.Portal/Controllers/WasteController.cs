@@ -35,7 +35,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Month", new { id = whatHaveYouDoneWaste.JourneyId });
         }
 
         [HttpGet]
@@ -67,7 +67,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
         }
 
         /// <summary>
@@ -121,7 +121,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteSubType(wasteSubTypesViewModel);
 
-            return RedirectToAction("Tonnes", "Waste", new { id = wasteSubTypesViewModel.JourneyId });
+            return RedirectToAction("Tonnes", new { id = wasteSubTypesViewModel.JourneyId });
         }
 
         [HttpPost]
@@ -137,7 +137,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
-            return RedirectToAction("SubTypes", "Waste", new { id = wasteTypesViewModel.JourneyId });
+            return RedirectToAction("WhatHaveYouDoneWaste", new { id = wasteTypesViewModel.JourneyId });
         }
 
         [HttpGet]
@@ -173,7 +173,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
-            return RedirectToAction("BaledWithWire", "Waste", new { id = exportTonnageViewModel.JourneyId });
+            return RedirectToAction("BaledWithWire", new { id = exportTonnageViewModel.JourneyId });
         }
 
         [HttpGet]

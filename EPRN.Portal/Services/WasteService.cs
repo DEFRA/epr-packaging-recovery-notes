@@ -92,7 +92,12 @@ namespace EPRN.Portal.Services
         {
             var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
 
-            var wasteMaterialSubTypes = await _httpWasteService.GetWasteMaterialSubTypes(wasteTypeId);
+            if (wasteTypeId == null) 
+            {
+                throw new ArgumentNullException($"Journey ID {journeyId} returned null Waste Type ID");
+            }
+
+            var wasteMaterialSubTypes = await _httpWasteService.GetWasteMaterialSubTypes(wasteTypeId.Value);
 
             var wasteSubTypeOptions = _mapper.Map<List<WasteSubTypeOptionViewModel>>(wasteMaterialSubTypes);
 

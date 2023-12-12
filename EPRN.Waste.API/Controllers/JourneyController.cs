@@ -32,16 +32,6 @@ namespace EPRN.Waste.API.Controllers
             return Ok(await _journeyService.GetWasteType(journeyId.Value));
         }
 
-        [HttpGet]
-        [Route("{journeyId}/WasteTypeId")]
-        public async Task<IActionResult> WasteTypeId(int? journeyId)
-        {
-            if (journeyId == null)
-                return BadRequest("Journey ID is missing");
-
-            return Ok(await _journeyService.GetWasteTypeId(journeyId.Value));
-        }
-
         [HttpPost]
         [Route("Month/{selectedMonth}")]
         public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
@@ -87,7 +77,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("{journeyId}/SubType/{wasteSubTypeId}/Adjustment/{adjustment}")]
+        [Route("SubTypes/{wasteSubTypeId}/Adjustment/{adjustment}")]
         public async Task<IActionResult> SaveJourneyWasteType(int? journeyId, int? wasteSubTypeId, double? adjustment)
         {
             if (journeyId == null)
