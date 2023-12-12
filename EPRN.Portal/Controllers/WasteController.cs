@@ -70,6 +70,16 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
+        [Route("Waste/Types")]
+        public async Task<IActionResult> Types()
+        {
+            var journeyId = await _wasteService.CreateJourney();
+
+            return RedirectToAction("Types", new { id = journeyId });
+        }
+
+        [HttpGet]
+        [Route("Waste/Types/{id:int}")]
         public async Task<IActionResult> Types(int? id)
         {
             if (id == null)
@@ -109,12 +119,12 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Tonnes(int? id)
+        public async Task<IActionResult> Tonnes(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var exportTonnageViewModel = _wasteService.GetExportTonnageViewModel(id.Value);
+            var exportTonnageViewModel = await _wasteService.GetExportTonnageViewModel(id.Value);
 
             return View(exportTonnageViewModel);
         }

@@ -5,19 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 namespace EPRN.Waste.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    public class JourneyController : Controller
+    [Route("api/[controller]/{journeyId}")]
+    public class JourneyController : BaseController
     {
-        private readonly IJourneyService _journeyService;
-
         public JourneyController(
-            IJourneyService journeyService)
+            IJourneyService journeyService) : base(journeyService)
         {
-            _journeyService = journeyService ?? throw new ArgumentNullException(nameof(journeyService));
         }
 
         [HttpPost]
-        [Route("Create")]
+        [Route("/api/[controller]/Create")]
         public async Task<int> CreateJourney()
         {
             var journeyId = await _journeyService.CreateJourney();
@@ -26,7 +23,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("{journeyId}/WasteType")]
+        [Route("WasteType")]
         public async Task<IActionResult> WasteType(int? journeyId)
         {
             if (journeyId == null)
@@ -36,7 +33,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("{journeyId}/Month/{selectedMonth}")]
+        [Route("Month/{selectedMonth}")]
         public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
         {
             if (journeyId == null)
@@ -52,8 +49,18 @@ namespace EPRN.Waste.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("Type")]
+        public async Task<IActionResult> GetWasteTypeId(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            return Ok(await _journeyService.GetWasteTypeId(journeyId.Value));
+        }
+
         [HttpPost]
-        [Route("{journeyId}/Type/{wasteTypeId}")]
+        [Route("Type/{wasteTypeId}")]
         public async Task<IActionResult> SaveJourneyWasteType(int? journeyId, int? wasteTypeId)
         {
             if (journeyId == null)
@@ -70,7 +77,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("{journeyId}/WhatHaveYouDoneWaste")]
+        [Route("WhatHaveYouDoneWaste")]
         public async Task<ActionResult> GetWhatHaveYouDoneWaste(int? journeyId)
         {
             if (journeyId == null)
@@ -80,7 +87,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("{journeyId}/Done/{whatHaveYouDoneWaste}")]
+        [Route("Done/{whatHaveYouDoneWaste}")]
         public async Task<IActionResult> SaveWhatHaveYouDoneWaste(int? journeyId, DoneWaste? whatHaveYouDoneWaste)
         {
             if (journeyId == null)
@@ -97,7 +104,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("{journeyId}/status")]
+        [Route("status")]
         public async Task<IActionResult> GetWasteRecordStatus(int? journeyId)
         {
             if (journeyId == null)
@@ -111,8 +118,21 @@ namespace EPRN.Waste.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("Tonnage")]
+        public async Task<IActionResult> GetJourneyTonnage(
+            int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            var tonnage = await _journeyService.GetTonnage(journeyId.Value);
+
+            return Ok(tonnage);
+        }
+
         [HttpPost]
-        [Route("{journeyId}/Tonnage/{wasteTonnage}")]
+        [Route("Tonnage/{wasteTonnage}")]
         public async Task<IActionResult> SetJourneyTonnage(
             int? journeyId,
             double? wasteTonnage)
@@ -130,7 +150,7 @@ namespace EPRN.Waste.API.Controllers
             return Ok();
         }
         [HttpPost]
-        [Route("{journeyId}/BaledWithWire/{baledWithWire}")]
+        [Route("BaledWithWire/{baledWithWire}")]
         public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)
         {
             if (journeyId == null)
@@ -147,7 +167,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("{journeyId}/ReProcessorExport/{siteId}")]
+        [Route("ReProcessorExport/{siteId}")]
         public async Task<ActionResult> SaveReProcessorExport(int? journeyId, int? siteId)
         {
             if (journeyId == null)

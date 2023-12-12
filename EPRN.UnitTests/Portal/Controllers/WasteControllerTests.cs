@@ -3,6 +3,7 @@ using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Controllers
@@ -339,16 +340,16 @@ namespace EPRN.UnitTests.Portal.Controllers
         }
 
         [TestMethod]
-        public void Tonnes_WithValidId_ReturnsViewWithModel()
+        public async Task Tonnes_WithValidId_ReturnsViewWithModel()
         {
             // Arrange
             var journeyId = 3;
             var exportTonnageViewModel = new ExportTonnageViewModel();
 
-            _mockWasteService.Setup(s => s.GetExportTonnageViewModel(3)).Returns(exportTonnageViewModel);
+            _mockWasteService.Setup(s => s.GetExportTonnageViewModel(3)).ReturnsAsync(exportTonnageViewModel);
 
             // Act
-            var result = _wasteController.Tonnes(journeyId);
+            var result = await _wasteController.Tonnes(journeyId);
 
             // Assert
             Assert.IsNotNull(result);
@@ -359,12 +360,12 @@ namespace EPRN.UnitTests.Portal.Controllers
         }
 
         [TestMethod]
-        public void Tonnes_WithNoId_ReturnsNotFound()
+        public async Task Tonnes_WithNoId_ReturnsNotFound()
         {
             // Arrange
 
             // Act
-            var result = _wasteController.Tonnes((int?)null);
+            var result = await _wasteController.Tonnes((int?)null);
 
             // Assert
             Assert.IsNotNull(result);

@@ -8,8 +8,9 @@ namespace EPRN.Portal.RESTServices
     public class HttpJourneyService : BaseHttpService, IHttpJourneyService
     {
         public HttpJourneyService(
+            IHttpContextAccessor httpContextAccessor,
             string baseUrl, 
-            IHttpClientFactory httpClientFactory) : base(baseUrl, httpClientFactory)
+            IHttpClientFactory httpClientFactory) : base(httpContextAccessor, baseUrl, httpClientFactory)
         {
         }
 
@@ -46,6 +47,16 @@ namespace EPRN.Portal.RESTServices
         public async Task<string> GetWasteType(int journeyId)
         {
             return await Get<string>($"{journeyId}/WasteType");
+        }
+
+        public async Task<int?> GetWasteTypeId(int journeyId)
+        {
+            return await Get<int?>($"{journeyId}/Type");
+        }
+
+        public async Task<double?> GetWasteTonnage(int journeyId)
+        {
+            return await Get<double?>($"{journeyId}/Tonnage");
         }
 
         public async Task SaveTonnage(int journeyId, double tonnage)

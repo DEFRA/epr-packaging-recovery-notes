@@ -1,8 +1,10 @@
 ﻿@model ReProcessorSummaryViewModel
 @using EPRN.Portal.Resources;
+@using Microsoft.AspNetCore.Mvc.Routing;
 
 @{
     ViewData["Title"] = WasteJourneyResources.HomePage_Title;
+    
 }
 
 <div>
@@ -47,7 +49,9 @@
         {"card_title", @WasteJourneyResources.HomePage_WasteManagement_Title},
         {"card_description", @WasteJourneyResources.HomePage_WasteManagement_Description},
         {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_WasteManagement_Link_RecordWaste, "#"},
+        {
+            @WasteJourneyResources.HomePage_WasteManagement_Link_RecordWaste, Url.ActionLink("Types", "Waste")
+        },
         {@WasteJourneyResources.HomePage_WasteManagement_Link_ManageAPrn, "#"},
         {@WasteJourneyResources.HomePage_WasteManagement_Link_SubmitAReturn, "#"},
         {@WasteJourneyResources.HomePage_WasteManagement_Link_ViewEditRecords, "#"}

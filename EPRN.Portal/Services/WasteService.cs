@@ -27,6 +27,11 @@ namespace EPRN.Portal.Services
             _localizationHelper = localizationHelper ?? throw new ArgumentNullException(nameof(localizationHelper));
         }
 
+        public async Task<int> CreateJourney()
+        {
+            return await _httpJourneyService.CreateJourney();
+        }
+
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
@@ -70,12 +75,16 @@ namespace EPRN.Portal.Services
 
         public async Task<WasteTypesViewModel> GetWasteTypesViewModel(int journeyId)
         {
-            var wasteMaterialTypes = await _httpWasteService.GetWasteMaterialTypes();
+            var wasteTypeIdTask = _httpJourneyService.GetWasteTypeId(journeyId);
+            var wasteMaterialTypesTask = _httpWasteService.GetWasteMaterialTypes();
+
+            await Task.WhenAll(wasteTypeIdTask, wasteMaterialTypesTask);
 
             return new WasteTypesViewModel
             {
                 JourneyId = journeyId,
-                WasteTypes = wasteMaterialTypes.ToDictionary(t => t.Id, t => t.Name)
+                WasteTypes = wasteMaterialTypesTask.Result.ToDictionary(t => t.Id, t => t.Name),
+                SelectedWasteTypeId = wasteTypeIdTask.Result
             };
         }
 
@@ -136,11 +145,12 @@ namespace EPRN.Portal.Services
             return _mapper.Map<WasteRecordStatusViewModel>(result);
         }
 
-        public ExportTonnageViewModel GetExportTonnageViewModel(int journeyId)
+        public async Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId)
         {
             return new ExportTonnageViewModel
             {
-                JourneyId = journeyId
+                JourneyId = journeyId,
+                ExportTonnes = await _httpJourneyService.GetWasteTonnage(journeyId)
             };
         }
 

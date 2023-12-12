@@ -60,6 +60,7 @@ namespace EPRN.Portal.Helpers
             {
                 // create a new http service using the configuration for restful services and a http client factory
                 return new HttpWasteService(
+                    s.GetRequiredService<IHttpContextAccessor>(),
                     s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
                     s.GetRequiredService<IHttpClientFactory>());
             });
@@ -68,6 +69,7 @@ namespace EPRN.Portal.Helpers
             {
                 // create a new http service using the configuration for restful services and a http client factory
                 return new HttpJourneyService(
+                    s.GetRequiredService<IHttpContextAccessor>(),
                     s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Journey.Url,
                     s.GetRequiredService<IHttpClientFactory>());
             });

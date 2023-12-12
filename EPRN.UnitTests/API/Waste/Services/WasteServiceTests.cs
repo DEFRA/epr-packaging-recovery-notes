@@ -27,40 +27,16 @@ namespace EPRN.UnitTests.API.Waste.Services
         }
 
         [TestMethod]
-        public async Task WasteTypes_Returned_InOrder()
+        public async Task WasteTypes_Returned_Succesfully()
         {
             // Arrange
-            var data = new List<WasteType>
-            {
-                new WasteType
-                {
-                    Id = 9,
-                    Name = "Zoo"
-                },
-                new WasteType
-                {
-                    Id = 3,
-                    Name = "Alphabetty Spaghetti"
-                },
-                new WasteType
-                {
-                    Id = 6,
-                    Name = "Middle of the road"
-                }
-            };
-
-            _mockRepository.Setup(c => c.List<WasteType>()).Returns(data);
+            
 
             // Act
             var wasteTypes = await _wasteService.WasteTypes();
 
             // Assert
-            _mockRepository.Verify(r => r.List<WasteType>(), Times.Once()); // test we called the expected function on the repo
-            _mockMapper.Verify(m =>
-                m.Map<List<WasteTypeDto>>(
-                    It.Is<List<WasteType>>(p =>
-                        TestHelper.CompareOrderedList(p, data, wt => wt.Name))),
-                    Times.Once()); // test that we called Map with the expected ordered list
+            _mockRepository.Verify(r => r.GetAllWasteTypes(), Times.Once()); // test we called the expected function on the repo
         }
     }
 }

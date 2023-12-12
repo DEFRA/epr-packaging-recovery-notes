@@ -5,6 +5,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
 {
     public interface IHttpJourneyService
     {
+        Task<int> CreateJourney();
+
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
@@ -21,5 +23,9 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task SaveBaledWithWire(int journeyId, bool baledWithWire);
 
         Task SaveReprocessorExport(int journeyId, int siteId);
+
+        Task<int?> GetWasteTypeId(int journeyId);
+
+        Task<double?> GetWasteTonnage(int journeyId);
     }
 }
