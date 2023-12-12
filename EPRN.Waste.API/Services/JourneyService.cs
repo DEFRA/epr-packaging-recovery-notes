@@ -60,6 +60,17 @@ namespace EPRN.Waste.API.Services
             await _wasteRepository.UpdateJourneyWasteTypeId(journeyId, wasteTypeId);
         }
 
+        public async Task SaveWasteSubType(int journeyId, int wasteSubTypeId, double adjustment)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            journeyRecord.WasteSubTypeId = wasteSubTypeId;
+            journeyRecord.Adjustment = adjustment;
+            await _wasteRepository.Update(journeyRecord);
+        }
+
         public async Task<DoneWaste?> GetWhatHaveYouDoneWaste(int journeyId)
         {
             return await _wasteRepository.GetDoneWaste(journeyId);
@@ -73,6 +84,19 @@ namespace EPRN.Waste.API.Services
         public async Task<string> GetWasteType(int journeyId)
         {
             return await _wasteRepository.GetWasteTypeName(journeyId);
+        }
+
+        public async Task<int> GetWasteTypeId(int journeyId)
+        {
+            var journeyRecord = await GetJourney(journeyId);
+            
+            if (journeyRecord == null)
+                throw new ArgumentNullException(nameof(journeyRecord));
+
+            if (journeyRecord.WasteTypeId == null)
+                throw new ArgumentNullException(nameof(journeyRecord.WasteTypeId));
+
+            return journeyRecord.WasteTypeId.Value;
         }
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)

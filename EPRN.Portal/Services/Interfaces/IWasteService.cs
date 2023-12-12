@@ -13,7 +13,11 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<WasteTypesViewModel> GetWasteTypesViewModel(int journeyId);
 
+        Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId);
+
         Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel);
+
+        Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel);
 
         Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId);
 

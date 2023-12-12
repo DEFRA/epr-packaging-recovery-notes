@@ -1,6 +1,6 @@
-﻿namespace EPRN.Common.Dtos
+﻿namespace EPRN.Portal.ViewModels
 {
-    public class WasteSubTypeDto
+    public class WasteSubTypeOptionViewModel
     {
         public int Id { get; set; }
 
@@ -9,9 +9,5 @@
         public double? Adjustment { get; set; }
 
         public bool AdjustmentPercentageRequired { get; set; }
-
-        public int WasteTypeId { get; set; }
-
-        public WasteTypeDto WasteType { get; set; }
     }
 }

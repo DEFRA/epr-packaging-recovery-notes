@@ -32,6 +32,16 @@ namespace EPRN.Waste.API.Controllers
             return Ok(await _journeyService.GetWasteType(journeyId.Value));
         }
 
+        [HttpGet]
+        [Route("{journeyId}/WasteTypeId")]
+        public async Task<IActionResult> WasteTypeId(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            return Ok(await _journeyService.GetWasteTypeId(journeyId.Value));
+        }
+
         [HttpPost]
         [Route("Month/{selectedMonth}")]
         public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
@@ -72,6 +82,27 @@ namespace EPRN.Waste.API.Controllers
             await _journeyService.SaveWasteType(
                 journeyId.Value,
                 wasteTypeId.Value);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("{journeyId}/SubType/{wasteSubTypeId}/Adjustment/{adjustment}")]
+        public async Task<IActionResult> SaveJourneyWasteType(int? journeyId, int? wasteSubTypeId, double? adjustment)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (wasteSubTypeId == null)
+                return BadRequest("Waste sub type ID is missing");
+
+            if (adjustment == null)
+                return BadRequest("Adjustment is missing");
+
+            await _journeyService.SaveWasteSubType(
+                journeyId.Value,
+                wasteSubTypeId.Value,
+                adjustment.Value);
 
             return Ok();
         }
@@ -158,9 +189,9 @@ namespace EPRN.Waste.API.Controllers
 
             if (baledWithWire == null)
                 return BadRequest("Baled with wire is missing");
-            
+
             await _journeyService.SaveBaledWithWire(
-                journeyId.Value, 
+                journeyId.Value,
                 baledWithWire.Value);
 
             return Ok();
