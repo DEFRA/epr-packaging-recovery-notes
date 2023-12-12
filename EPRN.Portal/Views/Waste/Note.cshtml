@@ -28,7 +28,10 @@
             <div id="with-hint-hint" class="govuk-hint">
                 @NoteResources.HintText
             </div>
-            <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" name="NoteContent" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
+            <p class="govuk-error-message">
+                <span asp-validation-for="NoteContent"></span>
+            </p>
+            <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="NoteContent" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
         </div>
         <div id="with-hint-info" class="govuk-hint govuk-character-count__message">
             @NoteResources.HintTextInfo
