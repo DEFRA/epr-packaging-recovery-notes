@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
 {
-    public class HomeController : BaseController<HomeController>
+    public class HomeController : Controller
     {
-        public HomeController(ILogger<HomeController> logger) : base(logger)
+        public HomeController(ILogger<HomeController> logger)
         {
         }
 
