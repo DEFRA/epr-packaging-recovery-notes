@@ -15,6 +15,7 @@ window.$ = window.jQuery = jQuery;
 import jqueryvalidatehooks from "./common/jquery-validate-hooks";
 
 // add imports to further files here
+import subTypes from "./pages/SubTypes"
 
 $(document).ready(function () {
     initAll();
