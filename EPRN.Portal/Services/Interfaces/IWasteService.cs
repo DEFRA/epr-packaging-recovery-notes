@@ -38,5 +38,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task<NoteViewModel> GetNoteViewModel(int journeyId);
 
         Task SaveNote(NoteViewModel noteViewModel);
+
+        Task<WasteRecordNoteViewModel> GetWasteRecordNoteModel(int journeyId);
     }
 }

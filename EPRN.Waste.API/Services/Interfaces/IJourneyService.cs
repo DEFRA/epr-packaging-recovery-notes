@@ -32,5 +32,7 @@ namespace EPRN.Waste.API.Services.Interfaces
         Task<double?> GetTonnage(int journeyId);
 
         Task<bool> JourneyExists(int journeyId);
+
+        Task<string> GetWasteRecordNote(int journeyId);
     }
 }
