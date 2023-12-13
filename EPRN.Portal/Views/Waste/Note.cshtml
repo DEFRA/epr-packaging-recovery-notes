@@ -1,0 +1,44 @@
+﻿@using EPRN.Portal.Resources;
+@using EPRN.Portal.ViewModels;
+@using EPRN.Common.Enums;
+
+@model NoteViewModel
+
+@{
+    ViewData["Title"] = @NoteResources.PageTitle;
+}
+
+<a href="/" class="govuk-back-link">@MasterResources.Back</a>
+<form method="post">
+    <input type="hidden" asp-for="JourneyId" />
+    <input type="hidden" asp-for="WasteType" />
+    <partial name="_ValidationSummary" />
+
+    <span class="govuk-caption-l">
+        @MasterResources.RecordingFor @Model.WasteType
+    </span>
+    
+    <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+        <div class="govuk-form-group">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="with-hint">
+                    @NoteResources.PageHeading
+                </label>
+            </h1>
+            <div id="with-hint-hint" class="govuk-hint">
+                @NoteResources.HintText
+            </div>
+            <p class="govuk-error-message">
+                <span asp-validation-for="NoteContent"></span>
+            </p>
+            <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="NoteContent" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
+        </div>
+        <div id="with-hint-info" class="govuk-hint govuk-character-count__message">
+            @NoteResources.HintTextInfo
+        </div>
+    </div>
+
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @MasterResources.ContinueBtn
+    </button>
+</form>

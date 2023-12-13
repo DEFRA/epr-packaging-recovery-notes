@@ -7,4 +7,10 @@ namespace EPRN.Portal.Constants
         public static readonly CultureInfo English = new CultureInfo("en-GB");
         public static readonly CultureInfo Welsh = new CultureInfo("cy-GB");
     }
+
+    public enum WasteType
+    {
+        Exporter,
+        Reprocessor
+    }
 }

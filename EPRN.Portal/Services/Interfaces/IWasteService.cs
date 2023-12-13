@@ -1,5 +1,4 @@
 ﻿using EPRN.Portal.ViewModels;
-using System.Reflection;
 
 namespace EPRN.Portal.Services.Interfaces
 {
@@ -24,7 +23,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId);
 
         Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
-        
+
         Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId);
 
         Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId);
@@ -35,5 +34,9 @@ namespace EPRN.Portal.Services.Interfaces
         Task<ReProcessorExportViewModel> GetReProcessorExportViewModel(int journeyId);
 
         Task SaveReprocessorExport(ReProcessorExportViewModel reprocessorExportViewModel);
+
+        Task<NoteViewModel> GetNoteViewModel(int journeyId);
+
+        Task SaveNote(NoteViewModel noteViewModel);
     }
 }

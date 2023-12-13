@@ -3,7 +3,6 @@ using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Controllers
@@ -500,6 +499,109 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task Note_Return_Correctly()
+        {
+            // Arrange
+            var journeyId = 38;
+            var wasteType = "testWasteType";
+
+            NoteViewModel noteViewModel = new NoteViewModel
+            {
+                JourneyId = journeyId,
+                WasteType = wasteType
+            };
+
+            _mockWasteService.Setup(s => s.GetNoteViewModel(It.Is<int>(p => p == journeyId))).ReturnsAsync(noteViewModel);
+
+            // Act
+            var result = await _wasteController.Note(journeyId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(NoteViewModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+
+            // Ensure that the service is called only once
+            _mockWasteService.Verify(s => s.GetNoteViewModel(It.Is<int>(p => p == journeyId)), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task Note_ThrowsNotFoundException_WhenNoIdSupplied()
+        {
+            // Arrange
+
+            // Act
+            var result = await _wasteController.Note((int?)null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task Note_Saves_WithValidData()
+        {
+            // Arrange
+
+            NoteViewModel noteViewModel = new NoteViewModel
+            {
+                JourneyId = 4,
+                WasteType = "testWasteType"
+            };
+
+            // Act
+            var result = await _wasteController.Note(noteViewModel);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+
+            var redirectToActionResult = result as RedirectToActionResult;
+            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+            _mockWasteService.Verify(s => s.SaveNote(It.Is<NoteViewModel>(p => p == noteViewModel)), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task Note_ReturnsCorrectView_WhenModelIsInvalid()
+        {
+            // Arrange
+            var wasteTypesViewModel = new WasteTypesViewModel();
+            _mockWasteService.Setup(s => s.GetWasteTypesViewModel(It.IsAny<int>())).ReturnsAsync(new WasteTypesViewModel());
+            _wasteController.ModelState.AddModelError("Error", "Error");
+
+            // Arrange
+            var noteViewModel = new NoteViewModel();
+
+            _mockWasteService.Setup(s => s.GetNoteViewModel(It.IsAny<int>())).ReturnsAsync(noteViewModel);
+            _wasteController.ModelState.AddModelError("Error", "Error");
+
+            // Act
+            var result = await _wasteController.Note(noteViewModel);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(NoteViewModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
         }
     }
 }

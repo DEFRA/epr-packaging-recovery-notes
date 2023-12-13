@@ -424,5 +424,66 @@ namespace EPRN.UnitTests.Portal.Services
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveBaledWithWire(baledWithWireModel));
             Assert.AreEqual("Value cannot be null. (Parameter 'BaledWithWire')", exception.Message);
         }
+
+        [TestMethod]
+        public async Task GetNote_ReturnsValidModel()
+        {
+            // Arrange
+            int journeyId = 3;
+            string expectedWasteType = "testWasteType";
+
+            NoteViewModel expectedViewModel = new NoteViewModel
+            {
+                JourneyId = journeyId,
+                WasteType = expectedWasteType
+            };
+
+            _mockHttpJourneyService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWasteType);
+
+            // Act
+            var viewModel = await _wasteService.GetNoteViewModel(journeyId);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+            Assert.IsNotNull(viewModel.WasteType);
+            Assert.IsInstanceOfType(viewModel.WasteType, typeof(string));
+            Assert.IsTrue(viewModel.WasteType == expectedWasteType);
+            Assert.AreEqual(journeyId, viewModel.JourneyId);
+
+            _mockHttpJourneyService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task SaveNote_Succeeds_WithValidModel()
+        {
+            // Arrange
+            var noteViewModel = new NoteViewModel
+            {
+                JourneyId = 1,
+                WasteType = "testWasteType",
+                NoteContent = "Some dummy note content"
+            };
+
+            // Act
+            await _wasteService.SaveNote(noteViewModel);
+
+            // Assert
+            _mockHttpJourneyService.Verify(s => s.SaveNote(
+                It.Is<int>(p => p == 1), // check that parameter1 (journeyId) is 1
+                It.Is<string>(p => p == "Some dummy note content")) // check that parameter2 (note content) is some dummy note content
+            );
+        }
+
+        [TestMethod]
+        public async Task SaveNote_ThrowsException_WhenViewModelIsNull()
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveNote(null));
+            Assert.AreEqual("Value cannot be null. (Parameter 'noteViewModel')", exception.Message);
+        }
     }
 }
