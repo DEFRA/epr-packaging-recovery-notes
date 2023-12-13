@@ -28,6 +28,11 @@ builder.Services
         opts.SupportedUICultures = supportedCultures;
     });
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.ConstraintMap.Add("WasteType", typeof(WasteTypeConstraint));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,9 +45,10 @@ else
     app.UseExceptionHandler("/Error/500");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    app.UseStatusCodePagesWithReExecute("/Error/{0}");
 }
 
-app.UseStatusCodePagesWithReExecute("/Error/{0}");
+
 app.UseCultureMiddleware();
 app.UseRequestLocalization();
 app.UseHttpsRedirection();
@@ -50,7 +56,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
-
+app.UseSession();
 
 app.MapControllerRoute(
     name: "areas",
