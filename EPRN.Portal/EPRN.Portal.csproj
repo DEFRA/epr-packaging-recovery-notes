@@ -9,16 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="ClientApp\js\pages\**" />
     <Compile Remove="Controllers\Areas\**" />
     <Compile Remove="Views\DuringWhichMonth\**" />
-    <Content Remove="ClientApp\js\pages\**" />
     <Content Remove="Controllers\Areas\**" />
     <Content Remove="Views\DuringWhichMonth\**" />
-    <EmbeddedResource Remove="ClientApp\js\pages\**" />
     <EmbeddedResource Remove="Controllers\Areas\**" />
     <EmbeddedResource Remove="Views\DuringWhichMonth\**" />
-    <None Remove="ClientApp\js\pages\**" />
     <None Remove="Controllers\Areas\**" />
     <None Remove="Views\DuringWhichMonth\**" />
   </ItemGroup>
