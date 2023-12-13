@@ -112,8 +112,8 @@ namespace EPRN.Portal.Controllers
             if (wasteSubTypesViewModel == null)
                 return BadRequest();
 
-            if (!ModelState.IsValid && 
-                wasteSubTypesViewModel.AdjustmentRequired && 
+            if (!ModelState.IsValid &&
+                wasteSubTypesViewModel.AdjustmentRequired &&
                 ModelState["CustomPercentage"].ValidationState == ModelValidationState.Invalid)
             {
                 return await SubTypes(wasteSubTypesViewModel.JourneyId);
@@ -185,7 +185,7 @@ namespace EPRN.Portal.Controllers
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
             return View(model);
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
         {
@@ -207,6 +207,31 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
         {
             await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        [Route("Waste/Note/{id}")]
+        public async Task<IActionResult> Note(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetNoteViewModel(id.Value);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Note(NoteViewModel noteViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(noteViewModel);
+            }
+
+            await _wasteService.SaveNote(noteViewModel);
+
             return RedirectToAction("Index", "Home");
         }
     }

@@ -92,7 +92,7 @@ namespace EPRN.Portal.Services
         {
             var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
 
-            if (wasteTypeId == null) 
+            if (wasteTypeId == null)
             {
                 throw new ArgumentNullException($"Journey ID {journeyId} returned null Waste Type ID");
             }
@@ -130,7 +130,7 @@ namespace EPRN.Portal.Services
         {
             int wasteSubTypeId = wasteSubTypesViewModel.SelectedWasteSubTypeId.Value;
             double adjustment = 0;
-            
+
             if (wasteSubTypesViewModel.AdjustmentRequired)
             {
                 adjustment = wasteSubTypesViewModel.CustomPercentage.Value;
@@ -268,6 +268,30 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(reProcessorExportViewModel.SelectedSite));
 
             await _httpJourneyService.SaveReprocessorExport(reProcessorExportViewModel.JourneyId, reProcessorExportViewModel.SelectedSite.Value);
+        }
+
+        public async Task<NoteViewModel> GetNoteViewModel(int journeyId)
+        {
+            var noteViewModel = new NoteViewModel
+            {
+                JourneyId = journeyId,
+                WasteType = await _httpJourneyService.GetWasteType(journeyId)
+            };
+
+            return noteViewModel;
+        }
+
+        public async Task SaveNote(NoteViewModel noteViewModel)
+        {
+            if (noteViewModel == null)
+                throw new ArgumentNullException(nameof(noteViewModel));
+
+            if (noteViewModel.NoteContent == null)
+                throw new ArgumentNullException(nameof(noteViewModel.NoteContent));
+
+            await _httpJourneyService.SaveNote(
+                noteViewModel.JourneyId,
+                noteViewModel.NoteContent);
         }
     }
 }
