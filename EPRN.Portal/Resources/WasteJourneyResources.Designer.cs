@@ -70,7 +70,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create new users and manage your account.
+        ///   Looks up a localized string similar to Create and manage users.
         /// </summary>
         public static string HomePage_Account_Description {
             get {
@@ -88,7 +88,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account details.
+        ///   Looks up a localized string similar to View my account details.
         /// </summary>
         public static string HomePage_Account_Link_DetailUser {
             get {
@@ -115,7 +115,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply for accredidation, check your status and more.
+        ///   Looks up a localized string similar to Apply for accreditation, check your status and view all applications.
         /// </summary>
         public static string HomePage_Accredidation_Description {
             get {
@@ -160,11 +160,119 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs..
+        /// </summary>
+        public static string HomePage_ManagePRNEPRN_Caption {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a PRN/PERN.
+        /// </summary>
+        public static string HomePage_ManagePRNEPRN_Link_CreatePRN {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Link_CreatePRN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View and edit draft PRNs/PERNS.
+        /// </summary>
+        public static string HomePage_ManagePRNEPRN_Link_ViewEditDraft {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Link_ViewEditDraft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vuew sent PRNs/PERNS.
+        /// </summary>
+        public static string HomePage_ManagePRNEPRN_Link_ViewSentPRNs {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Link_ViewSentPRNs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage PRN/PERN.
+        /// </summary>
+        public static string HomePage_ManagePRNEPRN_Title {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit quarterly returns.
+        /// </summary>
+        public static string HomePage_Returns_Caption {
+            get {
+                return ResourceManager.GetString("HomePage_Returns_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit a return.
+        /// </summary>
+        public static string HomePage_Returns_Link_SubmitReturn {
+            get {
+                return ResourceManager.GetString("HomePage_Returns_Link_SubmitReturn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Returns.
+        /// </summary>
+        public static string HomePage_Returns_Title {
+            get {
+                return ResourceManager.GetString("HomePage_Returns_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waste - Home.
         /// </summary>
         public static string HomePage_Title {
             get {
                 return ResourceManager.GetString("HomePage_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record waste and view waste records.
+        /// </summary>
+        public static string HomePage_Waste_Caption {
+            get {
+                return ResourceManager.GetString("HomePage_Waste_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record Waste.
+        /// </summary>
+        public static string HomePage_Waste_Link_RecordWaste {
+            get {
+                return ResourceManager.GetString("HomePage_Waste_Link_RecordWaste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View, edit, download or delete waste records.
+        /// </summary>
+        public static string HomePage_Waste_Link_ViewEditDownloadDelete {
+            get {
+                return ResourceManager.GetString("HomePage_Waste_Link_ViewEditDownloadDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waste.
+        /// </summary>
+        public static string HomePage_Waste_Title {
+            get {
+                return ResourceManager.GetString("HomePage_Waste_Title", resourceCulture);
             }
         }
         
