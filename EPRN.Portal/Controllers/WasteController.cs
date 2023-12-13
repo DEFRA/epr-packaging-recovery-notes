@@ -215,7 +215,6 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        [Route("Waste/Note/{id}")]
         public async Task<IActionResult> Note(int? id)
         {
             if (id == null)
