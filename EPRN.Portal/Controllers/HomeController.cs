@@ -11,7 +11,7 @@ namespace EPRN.Portal.Controllers
 
         public IActionResult Index()
         {
-            var reProcessorViewModel = new ReProcessorSummaryViewModel { Name = "Green LTD", ContactName = "John Watson", AccountNumber = "A/c 1234" };
+            var reProcessorViewModel = new ReProcessorSummaryViewModel { Name = "Green LTD", ContactName = "John Watson", AccountNumber = "12 Head office St, Liverpool, L12 345 - 0098678" };
 
             return View(reProcessorViewModel);
         }

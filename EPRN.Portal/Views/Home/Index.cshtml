@@ -4,79 +4,70 @@
 
 @{
     ViewData["Title"] = WasteJourneyResources.HomePage_Title;
-    
+
 }
 
-<div>
-    <a asp-action="Index">@WasteJourneyResources.HomeLink</a>
-</div>
-<br />
-
-<div>
-    <span class="govuk-caption-l">@Model.ContactName</span>
-</div>
-
-<div class="text-center">
-    
-    <span class="govuk-heading-xl">@Model.Name</span>
-    <span class="govuk-body-s">@Model.AccountNumber</span>
-</div>
-<br />
-
+<div class="govuk-body"><a asp-action="Index">@WasteJourneyResources.HomeLink</a></div>
 <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div class="govuk-caption-l">@Model.ContactName</div>
+        <div class="govuk-heading-xl">@Model.Name</div>
+        <div class="govuk-body">@Model.AccountNumber</div>
 
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_Waste_Title},
-        {"card_description", @WasteJourneyResources.HomePage_Waste_Caption},
-        {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_Waste_Link_RecordWaste, Url.ActionLink("Types", "Waste")},
-        {@WasteJourneyResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#"}
-        }}})
-    </div>
+        <div class="flex-container govuk-grid-row">
 
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_ManagePRNEPRN_Title},
-        {"card_description", @WasteJourneyResources.HomePage_ManagePRNEPRN_Caption},
-        {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_ManagePRNEPRN_Link_CreatePRN, "#"},
-        {@WasteJourneyResources.HomePage_ManagePRNEPRN_Link_ViewEditDraft, "#"},
-        {@WasteJourneyResources.HomePage_ManagePRNEPRN_Link_ViewSentPRNs, "#"}
-        }}})
-    </div>
+            <div class="govuk-grid-column-one-half">
+                @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
+                {"card_title", @WasteJourneyResources.HomePage_Waste_Title},
+                {"card_description", @WasteJourneyResources.HomePage_Waste_Caption},
+                {"card_links", new Dictionary<string, string>() {
+                {@WasteJourneyResources.HomePage_Waste_Link_RecordWaste, Url.ActionLink("Types", "Waste")},
+                {@WasteJourneyResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#"}
+                }}})
+            </div>
+
+            <div class="govuk-grid-column-one-half">
+                @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
+                {"card_title", @WasteJourneyResources.HomePage_ManagePRNEPRN_Title},
+                {"card_description", @WasteJourneyResources.HomePage_ManagePRNEPRN_Caption},
+                {"card_links", new Dictionary<string, string>() {
+                {@WasteJourneyResources.HomePage_ManagePRNEPRN_Link_CreatePRN, "#"},
+                {@WasteJourneyResources.HomePage_ManagePRNEPRN_Link_ViewEditDraft, "#"},
+                {@WasteJourneyResources.HomePage_ManagePRNEPRN_Link_ViewSentPRNs, "#"}
+                }}})
+            </div>
 
 
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_Returns_Title},
-        {"card_description", @WasteJourneyResources.HomePage_Returns_Caption},
-        {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_Returns_Link_SubmitReturn, "#"}
-        }}})
-    </div>
+            <div class="govuk-grid-column-one-half">
+                @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
+                {"card_title", @WasteJourneyResources.HomePage_Returns_Title},
+                {"card_description", @WasteJourneyResources.HomePage_Returns_Caption},
+                {"card_links", new Dictionary<string, string>() {
+                {@WasteJourneyResources.HomePage_Returns_Link_SubmitReturn, "#"}
+                }}})
+            </div>
 
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_Accredidation_Title},
-        {"card_description", @WasteJourneyResources.HomePage_Accredidation_Description},
-        {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_Accredidation_Link_ApplyForAccredidation, "#"},
-        {@WasteJourneyResources.HomePage_Accredidation_Link_MyAccredidations, "#"},
-        {@WasteJourneyResources.HomePage_Accredidation_Link_ViewApplications, "#"}
-        }}})
-    </div>
-</div>
+            <div class="govuk-grid-column-one-half">
+                @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
+                {"card_title", @WasteJourneyResources.HomePage_Accredidation_Title},
+                {"card_description", @WasteJourneyResources.HomePage_Accredidation_Description},
+                {"card_links", new Dictionary<string, string>() {
+                {@WasteJourneyResources.HomePage_Accredidation_Link_ApplyForAccredidation, "#"},
+                {@WasteJourneyResources.HomePage_Accredidation_Link_MyAccredidations, "#"},
+                {@WasteJourneyResources.HomePage_Accredidation_Link_ViewApplications, "#"}
+                }}})
+            </div>
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_Account_Title},
-        {"card_description", @WasteJourneyResources.HomePage_Account_Description},
-        {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_Account_Link_CreateUser, "#"},
-        {@WasteJourneyResources.HomePage_Account_Link_ManageUser, "#"},
-        {@WasteJourneyResources.HomePage_Account_Link_DetailUser, "#"}
-        }}})
+            <div class="govuk-grid-column-one-half">
+                @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
+                {"card_title", @WasteJourneyResources.HomePage_Account_Title},
+                {"card_description", @WasteJourneyResources.HomePage_Account_Description},
+                {"card_links", new Dictionary<string, string>() {
+                {@WasteJourneyResources.HomePage_Account_Link_CreateUser, "#"},
+                {@WasteJourneyResources.HomePage_Account_Link_ManageUser, "#"},
+                {@WasteJourneyResources.HomePage_Account_Link_DetailUser, "#"}
+                }}})
+            </div>
+        </div>
     </div>
 </div>
