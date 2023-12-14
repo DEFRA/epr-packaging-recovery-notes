@@ -1,10 +1,10 @@
 ﻿@model HomepageViewModel
 @using EPRN.Portal.Resources;
+@using EPRN.Portal.Services.Interfaces;
 @using Microsoft.AspNetCore.Mvc.Routing;
 
 @{
     ViewData["Title"] = WasteJourneyResources.HomePage_Title;
-
 }
 
 <div class="govuk-body"><a asp-action="Index">@WasteJourneyResources.HomeLink</a></div>
