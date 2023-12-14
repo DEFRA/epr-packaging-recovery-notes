@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Enums;
+using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
@@ -292,6 +293,15 @@ namespace EPRN.Portal.Services
             await _httpJourneyService.SaveNote(
                 noteViewModel.JourneyId,
                 noteViewModel.NoteContent);
+        }
+
+        public HomepageViewModel GetHomepageViewModel(WasteType userRole)
+        {
+
+            var homePageViewModel = new HomepageViewModel { };
+
+            return homePageViewModel;
+
         }
     }
 }
