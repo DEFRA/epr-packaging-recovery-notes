@@ -33,6 +33,6 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task SaveNote(int journeyId, string noteContent);
 
-        Task<WasteRecordNoteViewModel> GetWasteRecordNote(int journeyId);
+        Task<string> GetNote(int journeyId);
     }
 }

@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿#nullable enable
+using EPRN.Common.Enums;
 using EPRN.Waste.API.Data;
 using EPRN.Waste.API.Models;
 using EPRN.Waste.API.Repositories.Interfaces;
@@ -175,6 +176,14 @@ namespace EPRN.Waste.API.Repositories
                 .AnyAsync(wj => wj.Id == journeyId);
 
             return exists;
+        }
+
+        public async Task<string?> GetWasteNote(int journeyId)
+        {
+            return await _wasteContext.WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .Select(wj => wj.Note)
+                .SingleOrDefaultAsync();
         }
 
         public bool LazyLoading

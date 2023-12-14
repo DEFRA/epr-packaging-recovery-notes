@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Dtos;
+﻿#nullable enable
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
@@ -85,9 +86,9 @@ namespace EPRN.Portal.RESTServices
             await Post($"{journeyId}/Note/{noteContent}");
         }
 
-        public Task<WasteRecordNoteViewModel> GetWasteRecordNote(int journeyId)
+        public async Task<string?> GetNote(int journeyId)
         {
-            throw new NotImplementedException();
+            return await Get<string?>($"{journeyId}/Note");
         }
     }
 }

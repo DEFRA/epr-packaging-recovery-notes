@@ -204,7 +204,7 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("{journeyId}/WasteRecordNote")]
+        [Route("Note")]
         public async Task<IActionResult> GetWasteRecordNote(int? journeyId)
         {
             if (journeyId == null)

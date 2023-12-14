@@ -128,10 +128,7 @@ namespace EPRN.Waste.API.Services
         
         public async Task<string> GetWasteRecordNote(int journeyId)
         {
-            var journeyRecord = await GetJourney(journeyId);
-            return journeyRecord == null
-                ? throw new Exception($"No Waste Journey Record Found For Id: {journeyId}")
-                : journeyRecord.Note;
+            return await _wasteRepository.GetWasteNote(journeyId);
         }
     }
 }
