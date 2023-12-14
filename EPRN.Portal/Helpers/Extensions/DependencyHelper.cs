@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
 
-namespace EPRN.Portal.Helpers
+namespace EPRN.Portal.Helpers.Extensions
 {
     public static class DependencyHelper
     {
@@ -56,6 +56,7 @@ namespace EPRN.Portal.Helpers
             services.AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>));
             services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
+            services.AddSingleton<IUserRoleService, UserRoleService>(); // must be available through lifetime of the system
             services.AddTransient<IHttpWasteService>(s =>
             {
                 // create a new http service using the configuration for restful services and a http client factory

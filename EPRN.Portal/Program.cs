@@ -1,6 +1,6 @@
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
-using EPRN.Portal.Middleware;
+using EPRN.Portal.Helpers.Extensions;
 using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -49,7 +49,7 @@ else
 }
 
 
-app.UseCultureMiddleware();
+app.UsePrnMiddleware();
 app.UseRequestLocalization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
