@@ -1,5 +1,4 @@
-﻿using EPRN.Portal.Constants;
-using EPRN.Portal.ViewModels;
+﻿using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.Services.Interfaces
 {
@@ -39,7 +38,5 @@ namespace EPRN.Portal.Services.Interfaces
         Task<NoteViewModel> GetNoteViewModel(int journeyId);
 
         Task SaveNote(NoteViewModel noteViewModel);
-
-        HomepageViewModel GetHomepageViewModel(WasteType userRole);
     }
 }

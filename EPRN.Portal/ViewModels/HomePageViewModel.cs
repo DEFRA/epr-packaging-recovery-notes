@@ -8,6 +8,6 @@
 
         public string AccountNumber { get; set; } = string.Empty;
 
-        public List<CardViewModel> CardViewModels { get; set; }
+        public List<CardViewModel> CardViewModels { get; set; } = new List<CardViewModel>();
     }
 }

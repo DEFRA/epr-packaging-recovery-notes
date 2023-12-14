@@ -160,7 +160,7 @@
     <value>View and edit draft PRNs/PERNS</value>
   </data>
   <data name="HomePage_ManagePRNEPRN_Link_ViewSentPRNs" xml:space="preserve">
-    <value>Vuew sent PRNs/PERNS</value>
+    <value>View sent PRNs/PERNS</value>
   </data>
   <data name="HomePage_ManagePRNEPRN_Title" xml:space="preserve">
     <value>Manage PRN/PERN</value>

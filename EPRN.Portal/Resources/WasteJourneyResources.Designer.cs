@@ -187,7 +187,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vuew sent PRNs/PERNS.
+        ///   Looks up a localized string similar to View sent PRNs/PERNS.
         /// </summary>
         public static string HomePage_ManagePRNEPRN_Link_ViewSentPRNs {
             get {
