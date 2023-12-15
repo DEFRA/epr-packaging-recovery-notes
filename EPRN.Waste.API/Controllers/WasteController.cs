@@ -28,5 +28,6 @@ namespace EPRN.Waste.API.Controllers
         {
             return await _wasteService.WasteSubTypes(wasteTypeid);
         }
+
     }
 }

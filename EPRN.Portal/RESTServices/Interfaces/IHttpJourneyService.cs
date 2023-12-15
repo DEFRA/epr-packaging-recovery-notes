@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.RESTServices.Interfaces
 {
@@ -31,5 +32,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task<double?> GetWasteTonnage(int journeyId);
 
         Task SaveNote(int journeyId, string noteContent);
+
+        Task<string> GetNote(int journeyId);
     }
 }
