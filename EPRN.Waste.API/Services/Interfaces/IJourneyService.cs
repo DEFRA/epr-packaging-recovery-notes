@@ -21,6 +21,8 @@ namespace EPRN.Waste.API.Services.Interfaces
         
         Task<int?> GetWasteTypeId(int journeyId);
 
+        Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId);
+
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
         Task SaveTonnage(int journeyId, double tonnage);

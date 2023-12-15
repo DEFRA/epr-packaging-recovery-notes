@@ -33,11 +33,30 @@ builder.Services.Configure<RouteOptions>(options =>
     options.ConstraintMap.Add("WasteType", typeof(WasteTypeConstraint));
 });
 
+// Check if in development environment
+if (builder.Environment.IsDevelopment())
+{
+    // Add services with Razor Runtime Compilation
+    builder.Services
+        .AddControllersWithViews()
+        .AddRazorRuntimeCompilation();
+}
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    // in development, remove browser caching for our pages
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        OnPrepareResponse = ctx =>
+        {
+            ctx.Context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+            ctx.Context.Response.Headers["Pragma"] = "no-cache";
+            ctx.Context.Response.Headers["Expires"] = "0";
+        }
+    });
     app.UseDeveloperExceptionPage();
 }
 else
@@ -46,13 +65,13 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
     app.UseStatusCodePagesWithReExecute("/Error/{0}");
+    app.UseStaticFiles();
 }
 
 
 app.UsePrnMiddleware();
 app.UseRequestLocalization();
 app.UseHttpsRedirection();
-app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
