@@ -118,57 +118,93 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HomeLink" xml:space="preserve">
-    <value>Home</value>
+    <value>[Welsh] Home</value>
   </data>
   <data name="HomePage_Account_Description" xml:space="preserve">
-    <value>Create new users and manage your account</value>
+    <value>[Welsh] Create and manage users</value>
   </data>
   <data name="HomePage_Account_Link_CreateUser" xml:space="preserve">
-    <value>Create a new user</value>
+    <value>[Welsh] Create a new user</value>
   </data>
   <data name="HomePage_Account_Link_DetailUser" xml:space="preserve">
-    <value>Your account details</value>
+    <value>[Welsh] View my account details</value>
   </data>
   <data name="HomePage_Account_Link_ManageUser" xml:space="preserve">
-    <value>Manage a user</value>
+    <value>[Welsh] Manage a user</value>
   </data>
   <data name="HomePage_Account_Title" xml:space="preserve">
-    <value>Account</value>
+    <value>[Welsh] Account</value>
   </data>
   <data name="HomePage_Accredidation_Description" xml:space="preserve">
-    <value>Apply for accredidation, check your status and more</value>
+    <value>[Welsh] Apply for accreditation, check your status and view all applications</value>
   </data>
   <data name="HomePage_Accredidation_Link_ApplyForAccredidation" xml:space="preserve">
-    <value>Apply for accredidation</value>
+    <value>[Welsh] Apply for accredidation</value>
   </data>
   <data name="HomePage_Accredidation_Link_MyAccredidations" xml:space="preserve">
-    <value>My accredidations</value>
+    <value>[Welsh] My accredidations</value>
   </data>
   <data name="HomePage_Accredidation_Link_ViewApplications" xml:space="preserve">
-    <value>View all applications</value>
+    <value>[Welsh] View all applications</value>
   </data>
   <data name="HomePage_Accredidation_Title" xml:space="preserve">
-    <value>Accredidation</value>
+    <value>[Welsh] Accredidation</value>
+  </data>
+  <data name="HomePage_ManagePRNEPRN_Caption" xml:space="preserve">
+    <value>[Welsh] Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs.</value>
+  </data>
+  <data name="HomePage_ManagePRNEPRN_Link_CreatePRN" xml:space="preserve">
+    <value>[Welsh] Create a PRN/PERN</value>
+  </data>
+  <data name="HomePage_ManagePRNEPRN_Link_ViewEditDraft" xml:space="preserve">
+    <value>[Welsh] View and edit draft PRNs/PERNS</value>
+  </data>
+  <data name="HomePage_ManagePRNEPRN_Link_ViewSentPRNs" xml:space="preserve">
+    <value>[Welsh] View sent PRNs/PERNS</value>
+  </data>
+  <data name="HomePage_ManagePRNEPRN_Title" xml:space="preserve">
+    <value>[Welsh] Manage PRN/PERN</value>
+  </data>
+  <data name="HomePage_Returns_Caption" xml:space="preserve">
+    <value>[Welsh] Submit quarterly returns</value>
+  </data>
+  <data name="HomePage_Returns_Link_SubmitReturn" xml:space="preserve">
+    <value>[Welsh] Submit a return</value>
+  </data>
+  <data name="HomePage_Returns_Title" xml:space="preserve">
+    <value>[Welsh] Returns</value>
   </data>
   <data name="HomePage_Title" xml:space="preserve">
-    <value>Waste - Home</value>
+    <value>[Welsh] Waste - Home</value>
   </data>
   <data name="HomePage_WasteManagement_Description" xml:space="preserve">
-    <value>Record your waste, manage your PRNs and submit your returns</value>
+    <value>[Welsh] Record your waste, manage your PRNs and submit your returns</value>
   </data>
   <data name="HomePage_WasteManagement_Link_ManageAPrn" xml:space="preserve">
-    <value>Manage a PRN</value>
+    <value>[Welsh] Manage a PRN</value>
   </data>
   <data name="HomePage_WasteManagement_Link_RecordWaste" xml:space="preserve">
-    <value>Record waste</value>
+    <value>[Welsh] Record waste</value>
   </data>
   <data name="HomePage_WasteManagement_Link_SubmitAReturn" xml:space="preserve">
-    <value>Submit a return</value>
+    <value>[Welsh] Submit a return</value>
   </data>
   <data name="HomePage_WasteManagement_Link_ViewEditRecords" xml:space="preserve">
-    <value>View and edit records</value>
+    <value>[Welsh] View and edit records</value>
   </data>
   <data name="HomePage_WasteManagement_Title" xml:space="preserve">
-    <value>Waste Management</value>
+    <value>[Welsh] Waste Management</value>
+  </data>
+  <data name="HomePage_Waste_Caption" xml:space="preserve">
+    <value>[Welsh] Record waste and view waste records</value>
+  </data>
+  <data name="HomePage_Waste_Link_RecordWaste" xml:space="preserve">
+    <value>[Welsh] Record Waste</value>
+  </data>
+  <data name="HomePage_Waste_Link_ViewEditDownloadDelete" xml:space="preserve">
+    <value>[Welsh] View, edit, download or delete waste records</value>
+  </data>
+  <data name="HomePage_Waste_Title" xml:space="preserve">
+    <value>[Welsh] Waste</value>
   </data>
 </root>

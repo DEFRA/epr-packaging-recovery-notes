@@ -4,10 +4,10 @@
 @using Microsoft.AspNetCore.Mvc.Routing;
 
 @{
-    ViewData["Title"] = WasteJourneyResources.HomePage_Title;
+    ViewData["Title"] = HomePageResources.HomePage_Title;
 }
 
-<div class="govuk-body"><a asp-action="Index">@WasteJourneyResources.HomeLink</a></div>
+<div class="govuk-body"><a asp-action="Index">@HomePageResources.HomeLink</a></div>
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
         <div class="govuk-caption-l">@Model.ContactName</div>
@@ -15,7 +15,6 @@
         <div class="govuk-body">@Model.AccountNumber</div>
 
         <div class="flex-container govuk-grid-row">
-
             @foreach (CardViewModel cardViewModel in Model.CardViewModels)
             {
                 <div class="govuk-grid-column-one-half">
