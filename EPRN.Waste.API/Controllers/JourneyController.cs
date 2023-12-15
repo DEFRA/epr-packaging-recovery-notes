@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -210,6 +211,21 @@ namespace EPRN.Waste.API.Controllers
             await _journeyService.SaveReprocessorExport(journeyId.Value, siteId.Value);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("Note")]
+        public async Task<IActionResult> GetWasteRecordNote(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            var result = await _journeyService.GetWasteRecordNote(journeyId.Value);
+
+            if (result == null)
+                return BadRequest($"No journey found with id: {journeyId}");
+
+            return Ok(result);
         }
     }
 }

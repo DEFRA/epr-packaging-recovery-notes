@@ -282,7 +282,7 @@ namespace EPRN.Portal.Services
             var noteViewModel = new NoteViewModel
             {
                 JourneyId = journeyId,
-                WasteType = await _httpJourneyService.GetWasteType(journeyId)
+                WasteType = await _httpJourneyService.GetNote(journeyId)
             };
 
             return noteViewModel;

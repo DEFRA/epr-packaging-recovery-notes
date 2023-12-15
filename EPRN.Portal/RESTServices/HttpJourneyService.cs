@@ -1,7 +1,9 @@
-﻿using EPRN.Common.Dtos;
+﻿#nullable enable
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
+using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.RESTServices
 {
@@ -87,6 +89,11 @@ namespace EPRN.Portal.RESTServices
         public async Task SaveNote(int journeyId, string noteContent)
         {
             await Post($"{journeyId}/Note/{noteContent}");
+        }
+
+        public async Task<string?> GetNote(int journeyId)
+        {
+            return await Get<string?>($"{journeyId}/Note");
         }
     }
 }
