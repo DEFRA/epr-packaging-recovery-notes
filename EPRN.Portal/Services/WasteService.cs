@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿
+using AutoMapper;
 using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
