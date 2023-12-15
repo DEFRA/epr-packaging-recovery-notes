@@ -18,10 +18,6 @@ namespace EPRN.Portal.Services
         {
             bool isExporter = _userRoleService.HasRole(UserRole.Exporter);
             bool isReprocessor = _userRoleService.HasRole(UserRole.Reprocessor);
-            bool isExporterAndReprocessor = false;
-
-            if (isExporter && isReprocessor)
-                isExporterAndReprocessor = true;
 
             // TODO: Replace with actual data in the future
             var homePageViewModel = new HomepageViewModel
@@ -31,15 +27,23 @@ namespace EPRN.Portal.Services
                 AccountNumber = "12 Head office St, Liverpool, L12 345 - 0098678"
             };
 
-            if (isExporterAndReprocessor)
-            {
-                homePageViewModel.CardViewModels = GetCardViewModels(isExporterAndReprocessor);
-            }
+            homePageViewModel.CardViewModels = GetCardViewModels(isExporter, isReprocessor);
 
             return homePageViewModel;
         }
 
-        private List<CardViewModel> GetCardViewModels(bool isExporterAndReprocessor)
+        private CardViewModel GetCardViewModel(string title, string description)
+        {
+            var cardViewModel = new CardViewModel
+            {
+                Title = title,
+                Description = description
+            };
+
+            return cardViewModel;
+        }
+
+        private List<CardViewModel> GetCardViewModels(bool isExporter, bool isReprocessor)
         {
             var wasteCardLinks = new Dictionary<string, string>()
             {
@@ -47,11 +51,25 @@ namespace EPRN.Portal.Services
                 { HomePageResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#" }
             };
 
-            var managePRNPERNCardLinks = new Dictionary<string, string>()
+            var managePrnCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_ManagePRNEPRN_Link_CreatePRN, "#" },
-                { HomePageResources.HomePage_ManagePRNEPRN_Link_ViewEditDraft, "#" },
-                { HomePageResources.HomePage_ManagePRNEPRN_Link_ViewSentPRNs, "#" }
+                { HomePageResources.HomePage_ManagePrn_Link_CreatePrn, "#" },
+                { HomePageResources.HomePage_ManagePrn_Link_ViewEditDraftPrn, "#" },
+                { HomePageResources.HomePage_ManagePrn_Link_ViewSentPrns, "#" }
+            };
+
+            var managePernCardLinks = new Dictionary<string, string>()
+            {
+                { HomePageResources.HomePage_ManagePern_Link_CreatePern, "#" },
+                { HomePageResources.HomePage_ManagePern_Link_ViewEditDraftPerns, "#" },
+                { HomePageResources.HomePage_ManagePern_Link_ViewSentPerns, "#" }
+            };
+
+            var managePrnPernCardLinks = new Dictionary<string, string>()
+            {
+                { HomePageResources.HomePage_ManagePrnPern_Link_CreatePrnPern, "#" },
+                { HomePageResources.HomePage_ManagePrnPern_Link_ViewEditDraftPrnsPerns, "#" },
+                { HomePageResources.HomePage_ManagePrnPern_Link_ViewSentPrnPerns, "#" }
             };
 
             var returnsCardLinks = new Dictionary<string, string>()
@@ -73,47 +91,44 @@ namespace EPRN.Portal.Services
                 { HomePageResources.HomePage_Account_Link_DetailUser, "#" }
             };
 
-            var wasteCardViewModel = new CardViewModel
-            {
-                Title = HomePageResources.HomePage_Waste_Title,
-                Description = HomePageResources.HomePage_Waste_Caption,
-                Links = wasteCardLinks
-            };
+            var wasteCardViewModel = GetCardViewModel(HomePageResources.HomePage_Waste_Title, HomePageResources.HomePage_Waste_Description);
 
-            var managePRNPERNCardViewModel = new CardViewModel
-            {
-                Title = HomePageResources.HomePage_ManagePRNEPRN_Title,
-                Description = HomePageResources.HomePage_ManagePRNEPRN_Caption,
-                Links = managePRNPERNCardLinks
-            };
+            wasteCardViewModel.Links = wasteCardLinks;
 
-            var returnsCardViewModel = new CardViewModel
-            {
-                Title = HomePageResources.HomePage_Returns_Title,
-                Description = HomePageResources.HomePage_Returns_Caption,
-                Links = returnsCardLinks
-            };
+            var managePrnCardViewModel = GetCardViewModel(HomePageResources.HomePage_ManagePrn_Title, HomePageResources.HomePage_ManagePrn_Description);
+            managePrnCardViewModel.Links = managePrnCardLinks;
 
-            var accreditationCardViewModel = new CardViewModel
-            {
-                Title = HomePageResources.HomePage_Accredidation_Title,
-                Description = HomePageResources.HomePage_Accredidation_Description,
-                Links = accreditationCardLinks
-            };
+            var managePernCardViewModel = GetCardViewModel(HomePageResources.HomePage_ManagePern_Title, HomePageResources.HomePage_ManagePern_Description);
+            managePernCardViewModel.Links = managePernCardLinks;
 
-            var accountCardViewModel = new CardViewModel
-            {
-                Title = HomePageResources.HomePage_Account_Title,
-                Description = HomePageResources.HomePage_Account_Description,
-                Links = accountCardLinks
-            };
+            var managePrnPernCardViewModel = GetCardViewModel(HomePageResources.HomePage_ManagePrnPern_Title, HomePageResources.HomePage_ManagePrnPern_Description);
+            managePrnPernCardViewModel.Links = managePrnPernCardLinks;
+
+            var returnsCardViewModel = GetCardViewModel(HomePageResources.HomePage_Returns_Title, HomePageResources.HomePage_Returns_Description);
+            returnsCardViewModel.Links = returnsCardLinks;
+
+            var accreditationCardViewModel = GetCardViewModel(HomePageResources.HomePage_Accredidation_Title, HomePageResources.HomePage_Accredidation_Description);
+            accreditationCardViewModel.Links = accreditationCardLinks;
+
+            var accountCardViewModel = GetCardViewModel(HomePageResources.HomePage_Account_Title, HomePageResources.HomePage_Account_Description);
+            accountCardViewModel.Links = accountCardLinks;
 
             var cardViewModels = new List<CardViewModel>();
 
             cardViewModels.Add(wasteCardViewModel);
 
-            if (isExporterAndReprocessor)
-                cardViewModels.Add(managePRNPERNCardViewModel);
+            switch (isExporter, isReprocessor)
+            {
+                case (true, false):
+                    cardViewModels.Add(managePernCardViewModel);
+                    break;
+                case (false, true):
+                    cardViewModels.Add(managePrnCardViewModel);
+                    break;
+                case (true, true):
+                    cardViewModels.Add(managePrnPernCardViewModel);
+                    break;
+            }
 
             cardViewModels.Add(returnsCardViewModel);
             cardViewModels.Add(accreditationCardViewModel);

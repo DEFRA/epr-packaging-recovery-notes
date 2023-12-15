@@ -160,56 +160,146 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs..
+        ///   Looks up a localized string similar to Create PERNs, edit drafts and view sent PERNs.
         /// </summary>
-        public static string HomePage_ManagePRNEPRN_Caption {
+        public static string HomePage_ManagePern_Description {
             get {
-                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Caption", resourceCulture);
+                return ResourceManager.GetString("HomePage_ManagePern_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a PERN.
+        /// </summary>
+        public static string HomePage_ManagePern_Link_CreatePern {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePern_Link_CreatePern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View and edit draft PERNS.
+        /// </summary>
+        public static string HomePage_ManagePern_Link_ViewEditDraftPerns {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePern_Link_ViewEditDraftPerns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View sent PERNS.
+        /// </summary>
+        public static string HomePage_ManagePern_Link_ViewSentPerns {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePern_Link_ViewSentPerns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage PERN.
+        /// </summary>
+        public static string HomePage_ManagePern_Title {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePern_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PRNs, edit drafts and view sent PRNs.
+        /// </summary>
+        public static string HomePage_ManagePrn_Description {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePrn_Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a PRN.
+        /// </summary>
+        public static string HomePage_ManagePrn_Link_CreatePrn {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePrn_Link_CreatePrn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View and edit draft PRNs.
+        /// </summary>
+        public static string HomePage_ManagePrn_Link_ViewEditDraftPrn {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePrn_Link_ViewEditDraftPrn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View sent PRNs.
+        /// </summary>
+        public static string HomePage_ManagePrn_Link_ViewSentPrns {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePrn_Link_ViewSentPrns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage PRN.
+        /// </summary>
+        public static string HomePage_ManagePrn_Title {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePrn_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs.
+        /// </summary>
+        public static string HomePage_ManagePrnPern_Description {
+            get {
+                return ResourceManager.GetString("HomePage_ManagePrnPern_Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Create a PRN/PERN.
         /// </summary>
-        public static string HomePage_ManagePRNEPRN_Link_CreatePRN {
+        public static string HomePage_ManagePrnPern_Link_CreatePrnPern {
             get {
-                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Link_CreatePRN", resourceCulture);
+                return ResourceManager.GetString("HomePage_ManagePrnPern_Link_CreatePrnPern", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to View and edit draft PRNs/PERNS.
         /// </summary>
-        public static string HomePage_ManagePRNEPRN_Link_ViewEditDraft {
+        public static string HomePage_ManagePrnPern_Link_ViewEditDraftPrnsPerns {
             get {
-                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Link_ViewEditDraft", resourceCulture);
+                return ResourceManager.GetString("HomePage_ManagePrnPern_Link_ViewEditDraftPrnsPerns", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to View sent PRNs/PERNS.
         /// </summary>
-        public static string HomePage_ManagePRNEPRN_Link_ViewSentPRNs {
+        public static string HomePage_ManagePrnPern_Link_ViewSentPrnPerns {
             get {
-                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Link_ViewSentPRNs", resourceCulture);
+                return ResourceManager.GetString("HomePage_ManagePrnPern_Link_ViewSentPrnPerns", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Manage PRN/PERN.
         /// </summary>
-        public static string HomePage_ManagePRNEPRN_Title {
+        public static string HomePage_ManagePrnPern_Title {
             get {
-                return ResourceManager.GetString("HomePage_ManagePRNEPRN_Title", resourceCulture);
+                return ResourceManager.GetString("HomePage_ManagePrnPern_Title", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Submit quarterly returns.
         /// </summary>
-        public static string HomePage_Returns_Caption {
+        public static string HomePage_Returns_Description {
             get {
-                return ResourceManager.GetString("HomePage_Returns_Caption", resourceCulture);
+                return ResourceManager.GetString("HomePage_Returns_Description", resourceCulture);
             }
         }
         
@@ -243,9 +333,9 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Record waste and view waste records.
         /// </summary>
-        public static string HomePage_Waste_Caption {
+        public static string HomePage_Waste_Description {
             get {
-                return ResourceManager.GetString("HomePage_Waste_Caption", resourceCulture);
+                return ResourceManager.GetString("HomePage_Waste_Description", resourceCulture);
             }
         }
         

@@ -150,22 +150,52 @@
   <data name="HomePage_Accredidation_Title" xml:space="preserve">
     <value>[Welsh] Accredidation</value>
   </data>
-  <data name="HomePage_ManagePRNEPRN_Caption" xml:space="preserve">
-    <value>[Welsh] Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs.</value>
+  <data name="HomePage_ManagePern_Description" xml:space="preserve">
+    <value>[Welsh] Create PERNs, edit drafts and view sent PERNs</value>
   </data>
-  <data name="HomePage_ManagePRNEPRN_Link_CreatePRN" xml:space="preserve">
+  <data name="HomePage_ManagePern_Link_CreatePern" xml:space="preserve">
+    <value>[Welsh] Create a PERN</value>
+  </data>
+  <data name="HomePage_ManagePern_Link_ViewEditDraftPerns" xml:space="preserve">
+    <value>[Welsh] View and edit draft PERNS</value>
+  </data>
+  <data name="HomePage_ManagePern_Link_ViewSentPerns" xml:space="preserve">
+    <value>[Welsh] View sent PERNS</value>
+  </data>
+  <data name="HomePage_ManagePern_Title" xml:space="preserve">
+    <value>[Welsh] Manage PERN</value>
+  </data>
+  <data name="HomePage_ManagePrnPern_Description" xml:space="preserve">
+    <value>[Welsh] Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs</value>
+  </data>
+  <data name="HomePage_ManagePrnPern_Link_CreatePrnPern" xml:space="preserve">
     <value>[Welsh] Create a PRN/PERN</value>
   </data>
-  <data name="HomePage_ManagePRNEPRN_Link_ViewEditDraft" xml:space="preserve">
+  <data name="HomePage_ManagePrnPern_Link_ViewEditDraftPrnsPerns" xml:space="preserve">
     <value>[Welsh] View and edit draft PRNs/PERNS</value>
   </data>
-  <data name="HomePage_ManagePRNEPRN_Link_ViewSentPRNs" xml:space="preserve">
+  <data name="HomePage_ManagePrnPern_Link_ViewSentPrnPerns" xml:space="preserve">
     <value>[Welsh] View sent PRNs/PERNS</value>
   </data>
-  <data name="HomePage_ManagePRNEPRN_Title" xml:space="preserve">
+  <data name="HomePage_ManagePrnPern_Title" xml:space="preserve">
     <value>[Welsh] Manage PRN/PERN</value>
   </data>
-  <data name="HomePage_Returns_Caption" xml:space="preserve">
+  <data name="HomePage_ManagePrn_Description" xml:space="preserve">
+    <value>[Welsh] Create PRNs, edit drafts and view sent PRNs</value>
+  </data>
+  <data name="HomePage_ManagePrn_Link_CreatePrn" xml:space="preserve">
+    <value>[Welsh] Create a PRN</value>
+  </data>
+  <data name="HomePage_ManagePrn_Link_ViewEditDraftPrn" xml:space="preserve">
+    <value>[Welsh] View and edit draft PRNs</value>
+  </data>
+  <data name="HomePage_ManagePrn_Link_ViewSentPrns" xml:space="preserve">
+    <value>[Welsh] View sent PRNs</value>
+  </data>
+  <data name="HomePage_ManagePrn_Title" xml:space="preserve">
+    <value>[Welsh] Manage PRN</value>
+  </data>
+  <data name="HomePage_Returns_Description" xml:space="preserve">
     <value>[Welsh] Submit quarterly returns</value>
   </data>
   <data name="HomePage_Returns_Link_SubmitReturn" xml:space="preserve">
@@ -195,7 +225,7 @@
   <data name="HomePage_WasteManagement_Title" xml:space="preserve">
     <value>[Welsh] Waste Management</value>
   </data>
-  <data name="HomePage_Waste_Caption" xml:space="preserve">
+  <data name="HomePage_Waste_Description" xml:space="preserve">
     <value>[Welsh] Record waste and view waste records</value>
   </data>
   <data name="HomePage_Waste_Link_RecordWaste" xml:space="preserve">
