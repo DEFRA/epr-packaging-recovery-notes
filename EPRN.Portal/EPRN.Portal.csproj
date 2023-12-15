@@ -66,10 +66,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ReProcessorExportResource.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\WasteJourneyResources.Designer.cs">
+    <Compile Update="Resources\HomePageResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>WasteJourneyResources.resx</DependentUpon>
+      <DependentUpon>HomePageResources.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\WasteRecordCompleteResources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -138,9 +138,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ReProcessorExportResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WasteJourneyResources.resx">
+    <EmbeddedResource Update="Resources\HomePageResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WasteJourneyResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>HomePageResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WasteRecordCompleteResources.cy-GB.resx">
       <Generator></Generator>
@@ -166,7 +166,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>WasteTypesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WasteJourneyResources.cy-GB.resx">
+    <EmbeddedResource Update="Resources\HomePageResources.cy-GB.resx">
       <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\WhichQuarterResources.resx">

@@ -1,10 +1,8 @@
 ﻿<div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
         <div class="govuk-summary-card__title">
-            <p class="govuk-body">
-                <a href="#" class="govuk-link govuk-!-font-weight-bold">@ViewData["card_title"]</a>
-            </p>
-            <p class="govuk-body-s">
+            <div class="govuk-heading-m">@ViewData["card_title"]</div>
+            <p class="govuk-caption-m">
                 @ViewData["card_description"]
             </p>
         </div>
@@ -19,7 +17,7 @@
                     @foreach (var link in links)
                     {
                         <li>
-                            <a class="govuk-link" href="@link.Value">@link.Key</a>
+                            <a class="govuk-link govuk-link--no-visited-state" href="@link.Value">@link.Key</a>
                         </li>
                     }
                 </ul>
