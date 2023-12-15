@@ -17,10 +17,11 @@ namespace EPRN.Portal.Controllers
             _homeService = _homeServiceFactory.CreateHomeService(UserRole);
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var vm = _homeService.GetHomePage();
+            var vm = await _homeService.GetHomePage();
             return View(vm);
         }
+
     }
 }

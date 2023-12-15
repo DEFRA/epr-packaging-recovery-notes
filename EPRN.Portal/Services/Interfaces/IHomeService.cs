@@ -1,8 +1,10 @@
-﻿namespace EPRN.Portal.Services.Interfaces
+﻿using EPRN.Portal.ViewModels;
+
+namespace EPRN.Portal.Services.Interfaces
 {
     public interface IHomeService
     {
-        Task<object> GetHomePage();
+        Task<HomepageViewModel> GetHomePage();
 
     }
 }

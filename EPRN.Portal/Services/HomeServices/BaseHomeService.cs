@@ -1,10 +1,39 @@
 ﻿using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
 
-namespace EPRN.Portal.Services.HomeServices
+namespace EPRN.Portal.Services
 {
     public abstract class BaseHomeService : IHomeService
     {
-        public abstract Task<object> GetHomePage();
+        public virtual async Task<HomepageViewModel> GetHomePage()
+        {
+            // TODO: Replace with actual data in the future
+            var homePageViewModel = new HomepageViewModel
+            {
+                Name = "Green LTD",
+                ContactName = "John Watson",
+                AccountNumber = "12 Head office St, Liverpool, L12 345 - 0098678"
+            };
 
+            homePageViewModel.CardViewModels = GetCardViewModels();
+
+            return homePageViewModel;
+        }
+
+        protected virtual List<CardViewModel> GetCardViewModels()
+        {
+            return new List<CardViewModel>();
+        }
+
+        protected CardViewModel GetCardViewModel(string title, string description)
+        {
+            var cardViewModel = new CardViewModel
+            {
+                Title = title,
+                Description = description
+            };
+
+            return cardViewModel;
+        }
     }
 }
