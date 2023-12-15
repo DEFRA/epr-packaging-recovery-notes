@@ -6,6 +6,7 @@
     <UserSecretsId>bd18afb6-13d6-4747-bb2c-31da6db39f2a</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <RazorLangVersion>7.0</RazorLangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.25" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
@@ -190,6 +192,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\sass\common\" />
+    <Folder Include="ClientApp\sass\pages\" />
   </ItemGroup>
 
   <ItemGroup>

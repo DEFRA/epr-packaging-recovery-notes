@@ -1,11 +1,11 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Waste.API.Models;
 
 namespace EPRN.Waste.API.Repositories.Interfaces
 {
     public interface IRepository
     {
-        bool LazyLoading { set; }
 
         Task AddJourney(WasteJourney journey);
 
@@ -33,6 +33,8 @@ namespace EPRN.Waste.API.Repositories.Interfaces
         Task<string> GetWasteTypeName(int journeyId);
 
         Task<int?> GetWasteTypeId(int journeyId);
+
+        Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId);
 
         Task<DoneWaste?> GetDoneWaste(int journeyId);
 

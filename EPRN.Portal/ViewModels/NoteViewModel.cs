@@ -10,7 +10,7 @@ namespace EPRN.Portal.ViewModels
 
         [Required(ErrorMessageResourceName = "ErrorMessageEmpty", ErrorMessageResourceType = typeof(NoteResources))]
         [StringLength(200, ErrorMessageResourceName = "ErrorMessageTooLong", ErrorMessageResourceType = typeof(NoteResources))]
-        public string? NoteContent { get; set; }
+        public string NoteContent { get; set; }
 
     }
 }
