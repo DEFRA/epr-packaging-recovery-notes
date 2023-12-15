@@ -8,8 +8,8 @@ namespace EPRN.Waste.API.Models
         [MaxLength(30)]
         public string Name { get; set; } = string.Empty;
 
-        public virtual ICollection<WasteJourney> Journeys { get; set; }
+        public ICollection<WasteJourney> Journeys { get; set; }
 
-        public virtual ICollection<WasteSubType> SubTypes { get; set; }
+        public ICollection<WasteSubType> SubTypes { get; set; }
     }
 }

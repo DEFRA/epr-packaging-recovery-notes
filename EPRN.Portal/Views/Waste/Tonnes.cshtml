@@ -20,10 +20,12 @@
                     <p class="govuk-error-message">
                         <span asp-validation-for="ExportTonnes"></span>
                     </p>
-                    <label asp-for="ExportTonnes" class="units-container">
-                        <input class="govuk-input 3dp" type="text" asp-for="ExportTonnes" />    
-                        @ExportTonnageResources.TonnesLabel
-                    </label>
+
+                    <div class="govuk-input__wrapper">
+                        <input class="govuk-input govuk-input--width-10 3dp" type="text" asp-for="ExportTonnes" />
+                        <div class="govuk-input__suffix" aria-hidden="true">@ExportTonnageResources.TonnesLabel</div>
+                    </div>
+
                 </div>
             </fieldset>
             <button class="govuk-button" data-module="govuk-button" type="submit">

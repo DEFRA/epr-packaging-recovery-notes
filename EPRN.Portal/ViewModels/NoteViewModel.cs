@@ -9,7 +9,7 @@ namespace EPRN.Portal.ViewModels
         public string WasteType { get; set; }
 
         [StringLength(200, ErrorMessageResourceName = "ErrorMessageTooLong", ErrorMessageResourceType = typeof(NoteResources))]
-        public string? NoteContent { get; set; }
+        public string NoteContent { get; set; }
 
     }
 }

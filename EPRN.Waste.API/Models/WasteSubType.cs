@@ -14,8 +14,8 @@ namespace EPRN.Waste.API.Models
 
         public bool AdjustmentPercentageRequired { get; set; }
 
-        public virtual WasteType WasteType { get; set; }
+        public WasteType WasteType { get; set; }
 
-        public virtual ICollection<WasteJourney> WasteJourneys { get; set; }
+        public ICollection<WasteJourney> WasteJourneys { get; set; }
     }
 }

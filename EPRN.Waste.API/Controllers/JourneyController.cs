@@ -60,6 +60,16 @@ namespace EPRN.Waste.API.Controllers
             return Ok(await _journeyService.GetWasteTypeId(journeyId.Value));
         }
 
+        [HttpGet]
+        [Route("Subtype")]
+        public async Task<IActionResult> GetWasteSubTypeId(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            return Ok(await _journeyService.GetWasteSubTypeSelection(journeyId.Value));
+        }
+
         [HttpPost]
         [Route("Type/{wasteTypeId}")]
         public async Task<IActionResult> SaveJourneyWasteType(int? journeyId, int? wasteTypeId)
