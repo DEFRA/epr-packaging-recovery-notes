@@ -44,6 +44,6 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<bool> Exists(int journeyId);
 
-        Task<string?> GetWasteNote(int journeyId);
+        Task<string> GetWasteNote(int journeyId);
     }
 }
