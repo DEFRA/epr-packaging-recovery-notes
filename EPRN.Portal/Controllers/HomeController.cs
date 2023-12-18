@@ -1,4 +1,4 @@
-﻿using EPRN.Portal.ViewModels;
+﻿using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
@@ -15,7 +15,5 @@ namespace EPRN.Portal.Controllers
 
             return View(reProcessorViewModel);
         }
-
-
     }
 }

@@ -4,7 +4,7 @@ using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services
 {

@@ -1,7 +1,7 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 

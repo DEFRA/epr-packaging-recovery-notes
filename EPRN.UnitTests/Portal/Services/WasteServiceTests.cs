@@ -6,7 +6,7 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Services

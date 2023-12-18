@@ -1,6 +1,6 @@
 ﻿using EPRN.Common.Enums;
 
-namespace EPRN.Portal.ViewModels
+namespace EPRN.Portal.ViewModels.Waste
 {
     public class WasteRecordStatusViewModel
     {

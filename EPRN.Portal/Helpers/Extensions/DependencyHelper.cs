@@ -56,6 +56,7 @@ namespace EPRN.Portal.Helpers.Extensions
             services.AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>));
             services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
+            services.AddTransient<IPRNService, PRNService>();
             services.AddSingleton<IUserRoleService, UserRoleService>(); // must be available through lifetime of the system
             services.AddTransient<IHttpWasteService>(s =>
             {

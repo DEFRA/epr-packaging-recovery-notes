@@ -1,4 +1,4 @@
-﻿using EPRN.Portal.ViewModels;
+﻿using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 

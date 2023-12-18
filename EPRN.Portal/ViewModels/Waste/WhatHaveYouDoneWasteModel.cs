@@ -2,7 +2,7 @@ using EPRN.Common.Enums;
 using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace EPRN.Portal.ViewModels
+namespace EPRN.Portal.ViewModels.Waste
 {
     public class WhatHaveYouDoneWasteModel
     {

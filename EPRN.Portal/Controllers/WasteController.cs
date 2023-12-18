@@ -2,7 +2,7 @@
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -194,7 +194,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
         {
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Note", new { id = baledWithWireModel.JourneyId, type = _wasteType });
         }
 
         [HttpGet]

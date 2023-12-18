@@ -1,14 +1,14 @@
 ﻿using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
-namespace EPRN.Portal.ViewModels
+namespace EPRN.Portal.ViewModels.PRNS
 {
-    public class ExportTonnageViewModel
+    public class TonnesViewModel
     {
         public int JourneyId { get; set; }
 
-        [Required(ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "MissingTonnageError")]
+        [Required]
         [Range(0, 1000000, ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "TonnesNotInRange")]
-        public double? ExportTonnes { get; set; }
+        public double? Tonnes { get; set; }
     }
 }
