@@ -12,6 +12,8 @@ namespace EPRN.Portal.Controllers
         {
             if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
             _homeService = homeServiceFactory.CreateHomeService();
+            if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
+
         }
 
         public async Task<IActionResult> Index()

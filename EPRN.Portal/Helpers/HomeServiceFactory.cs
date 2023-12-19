@@ -1,39 +1,32 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Services;
+using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 
 namespace EPRN.Portal.Helpers
 {
     public class HomeServiceFactory : IHomeServiceFactory
     {
-        private readonly IHomeService exporterHomeService;
-        private readonly IHomeService reprocessorHomeService;
-        private readonly IHomeService exporterAndReprocessorHomeService;
-        private readonly IWasteService wasteService;
-        private readonly IUserRoleService userRoleService;
+        private readonly IUserRoleService _userRoleService;
+        IEnumerable<IHomeService> _homeServices;
 
-        public HomeServiceFactory(
-            IHomeService exporterHomeService, 
-            IHomeService reprocessorHomeService, 
-            IHomeService exporterAndReprocessorHomeService,
-            IWasteService wasteService, 
-            IUserRoleService userRoleService)
+        public HomeServiceFactory(IEnumerable<IHomeService> homeServices, IUserRoleService userRoleService)
         {
-            this.exporterHomeService = exporterHomeService;
-            this.reprocessorHomeService = reprocessorHomeService;
-            this.exporterAndReprocessorHomeService = exporterAndReprocessorHomeService;
-            this.wasteService = wasteService;
-            this.userRoleService = userRoleService;
+            _homeServices = homeServices;
+            _userRoleService = userRoleService;
         }
 
         public IHomeService CreateHomeService()
         {
-            if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
-                return exporterAndReprocessorHomeService;
+            if (_userRoleService.HasRole(UserRole.Exporter) && _userRoleService.HasRole(UserRole.Reprocessor))
+                return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ExporterAndReprocessorHomeService));
             else
             {
-                if (userRoleService.HasRole(UserRole.Exporter)) return exporterHomeService;
-                if (userRoleService.HasRole(UserRole.Reprocessor)) return reprocessorHomeService;
+                if (_userRoleService.HasRole(UserRole.Exporter)) 
+                    return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ExporterHomeService));
+                if (_userRoleService.HasRole(UserRole.Reprocessor)) 
+                    return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ReprocessorHomeService));
             }
 
             return null;
