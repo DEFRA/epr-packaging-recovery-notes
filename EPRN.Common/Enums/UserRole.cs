@@ -8,7 +8,6 @@
     {
         None,
         Exporter,
-        Reprocessor,
-        ExporterAndReprocessor
+        Reprocessor
     }
 }

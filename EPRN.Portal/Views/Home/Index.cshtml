@@ -18,10 +18,7 @@
             @foreach (CardViewModel cardViewModel in Model.CardViewModels)
             {
                 <div class="govuk-grid-column-one-half">
-                    @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-                {"card_title", cardViewModel.Title},
-                {"card_description", cardViewModel.Description},
-                {"card_links", cardViewModel.Links}})
+                    @await Html.PartialAsync("_accountSummaryCard", cardViewModel)
                 </div>
             }
         </div>

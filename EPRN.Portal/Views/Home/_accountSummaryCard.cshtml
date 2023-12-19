@@ -1,16 +1,18 @@
-﻿<div class="govuk-summary-card">
+﻿@model CardViewModel
+
+<div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
         <div class="govuk-summary-card__title">
-            <div class="govuk-heading-m">@ViewData["card_title"]</div>
+            <div class="govuk-heading-m">@Model.Title</div>
             <p class="govuk-caption-m">
-                @ViewData["card_description"]
+                @Model.Description
             </p>
         </div>
     </div>
     <div class="govuk-summary-card__content">
-        @if (ViewData["card_links"] != null)
+        @if (Model.Links != null)
         {
-            Dictionary<string, string> links = (Dictionary<string, string>)(ViewData["card_links"]);
+            Dictionary<string, string> links = (Dictionary<string, string>)(Model.Links);
             if (links != null)
             {
                 <ul class="govuk-list">

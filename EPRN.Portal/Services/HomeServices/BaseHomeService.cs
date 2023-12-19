@@ -20,10 +20,7 @@ namespace EPRN.Portal.Services
             return homePageViewModel;
         }
 
-        protected virtual List<CardViewModel> GetCardViewModels()
-        {
-            return new List<CardViewModel>();
-        }
+        protected abstract List<CardViewModel> GetCardViewModels();
 
         protected CardViewModel GetCardViewModel(string title, string description)
         {

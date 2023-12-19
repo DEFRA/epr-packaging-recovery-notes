@@ -12,8 +12,12 @@ namespace EPRN.Portal.Helpers
         private readonly IWasteService wasteService;
         private readonly IUserRoleService userRoleService;
 
-        public HomeServiceFactory(IHomeService exporterHomeService, IHomeService reprocessorHomeService, IHomeService exporterAndReprocessorHomeService, 
-            IWasteService wasteService, IUserRoleService userRoleService)
+        public HomeServiceFactory(
+            IHomeService exporterHomeService, 
+            IHomeService reprocessorHomeService, 
+            IHomeService exporterAndReprocessorHomeService,
+            IWasteService wasteService, 
+            IUserRoleService userRoleService)
         {
             this.exporterHomeService = exporterHomeService;
             this.reprocessorHomeService = reprocessorHomeService;
@@ -22,19 +26,18 @@ namespace EPRN.Portal.Helpers
             this.userRoleService = userRoleService;
         }
 
-
-        public IHomeService CreateHomeService(UserRole userRole)
+        public IHomeService CreateHomeService()
         {
-            switch (userRole)
+            if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+                return exporterAndReprocessorHomeService;
+            else
             {
-                case UserRole.Exporter: return exporterHomeService;
-
-                case UserRole.Reprocessor: return reprocessorHomeService;
-
-                case UserRole.ExporterAndReprocessor: return exporterAndReprocessorHomeService;
-
-                default: return null;
+                if (userRoleService.HasRole(UserRole.Exporter)) return exporterHomeService;
+                if (userRoleService.HasRole(UserRole.Reprocessor)) return reprocessorHomeService;
             }
+
+            return null;
         }
+
     }
 }
