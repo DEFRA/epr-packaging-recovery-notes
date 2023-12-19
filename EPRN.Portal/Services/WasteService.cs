@@ -98,14 +98,21 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException($"Journey ID {journeyId} returned null Waste Type ID");
             }
 
-            var wasteMaterialSubTypes = await _httpWasteService.GetWasteMaterialSubTypes(wasteTypeId.Value);
+            var selectedWasteSubTypeTask = _httpJourneyService.GetWasteSubTypeSelection(journeyId);
+            var wasteMaterialSubTypesTask = _httpWasteService.GetWasteMaterialSubTypes(wasteTypeId.Value);
 
-            var wasteSubTypeOptions = _mapper.Map<List<WasteSubTypeOptionViewModel>>(wasteMaterialSubTypes);
+            await Task.WhenAll(
+                selectedWasteSubTypeTask,
+                wasteMaterialSubTypesTask);
+
+            var wasteSubTypeOptions = _mapper.Map<List<WasteSubTypeOptionViewModel>>(wasteMaterialSubTypesTask.Result);
 
             return new WasteSubTypesViewModel
             {
                 JourneyId = journeyId,
-                WasteSubTypeOptions = wasteSubTypeOptions
+                WasteSubTypeOptions = wasteSubTypeOptions,
+                SelectedWasteSubTypeId = selectedWasteSubTypeTask.Result.WasteSubTypeId,
+                CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
             };
         }
 
@@ -276,7 +283,7 @@ namespace EPRN.Portal.Services
             var noteViewModel = new NoteViewModel
             {
                 JourneyId = journeyId,
-                WasteType = await _httpJourneyService.GetWasteType(journeyId)
+                WasteType = await _httpJourneyService.GetNote(journeyId)
             };
 
             return noteViewModel;

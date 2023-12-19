@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Waste.API.Data;
 using EPRN.Waste.API.Models;
 using EPRN.Waste.API.Repositories.Interfaces;
@@ -23,7 +24,6 @@ namespace EPRN.Waste.API.Repositories
 
         public async Task UpdateJourneySiteId(int journeyId, int siteId)
         {
-            
             await _wasteContext
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
@@ -109,19 +109,10 @@ namespace EPRN.Waste.API.Repositories
 
         public async Task<IList<WasteSubType>> GetWasteSubTypes(int wasteTypeId)
         {
-            try
-            {
-                return await _wasteContext
-                    .WasteSubType
-                    .Where(st => st.WasteTypeId == wasteTypeId)
-                    .ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                ex.GetType();
-            }
-
-            return null;
+            return await _wasteContext
+                .WasteSubType
+                .Where(st => st.WasteTypeId == wasteTypeId)
+                .ToListAsync();
         }
 
         public async Task<string> GetWasteTypeName(int journeyId)
@@ -130,7 +121,7 @@ namespace EPRN.Waste.API.Repositories
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
                 .Select(wj => wj.WasteType.Name)
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
         }
 
         public async Task<int?> GetWasteTypeId(int journeyId)
@@ -139,7 +130,23 @@ namespace EPRN.Waste.API.Repositories
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
                 .Select(wj => wj.WasteTypeId)
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
+        {
+            var result = await _wasteContext
+                .WasteJourney
+                .Include(wj => wj.WasteSubType)
+                .Where(wj => wj.Id == journeyId)
+                .Select(wj => new WasteSubTypeSelectionDto
+                {
+                    WasteSubTypeId = wj.WasteSubType.Id,
+                    Adjustment = wj.WasteSubType.AdjustmentPercentageRequired ? wj.Adjustment : null
+                })
+                .SingleOrDefaultAsync();
+
+            return result;
         }
 
         public async Task<DoneWaste?> GetDoneWaste(int journeyId)
@@ -148,7 +155,7 @@ namespace EPRN.Waste.API.Repositories
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
                 .Select(wj => wj.DoneWaste)
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
         }
 
         public async Task<double?> GetWasteTonnage(int journeyId)
@@ -157,7 +164,7 @@ namespace EPRN.Waste.API.Repositories
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
                 .Select(wj => wj.Tonnes)
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
         }
 
         public async Task<WasteJourney> GetWasteJourneyById(int journeyId)
@@ -165,7 +172,7 @@ namespace EPRN.Waste.API.Repositories
             return await _wasteContext
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
-                .FirstOrDefaultAsync();
+                .SingleOrDefaultAsync();
         }
 
         public async Task<bool> Exists(int journeyId)
@@ -177,12 +184,12 @@ namespace EPRN.Waste.API.Repositories
             return exists;
         }
 
-        public bool LazyLoading
+        public async Task<string> GetWasteNote(int journeyId)
         {
-            set
-            {
-                _wasteContext.ChangeTracker.LazyLoadingEnabled = value;
-            }
+            return await _wasteContext.WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .Select(wj => wj.Note)
+                .SingleOrDefaultAsync();
         }
     }
 }

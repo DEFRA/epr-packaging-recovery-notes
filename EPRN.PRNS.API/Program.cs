@@ -1,12 +1,8 @@
 using AutoMapper;
-using EPRN.Waste.API.Configuration;
-using EPRN.Waste.API.Data;
-using EPRN.Waste.API.Middleware;
-using EPRN.Waste.API.Profiles;
-using EPRN.Waste.API.Repositories;
-using EPRN.Waste.API.Repositories.Interfaces;
-using EPRN.Waste.API.Services;
-using EPRN.Waste.API.Services.Interfaces;
+using EPRN.PRNS.API.Configuration;
+using EPRN.PRNS.API.Data;
+using EPRN.PRNS.API.Middleware;
+using EPRN.PRNS.API.Profiles;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,13 +15,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddTransient<IJourneyService, JourneyService>();
-builder.Services.AddTransient<IWasteService, WasteService>();
-builder.Services.AddTransient<IRepository, Repository>();
+
 
 // add db context options
-builder.Services.AddDbContext<WasteContext>(options =>
+builder.Services.AddDbContext<PrnContext>(options =>
     options
+        .UseLazyLoadingProxies()
         .UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
 );
 
@@ -33,7 +28,7 @@ builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(A
 
 var mapperConfig = new MapperConfiguration(mc =>
 {
-    mc.AddProfile(new WasteManagementProfile());
+    mc.AddProfile(new PrnManagementProfile());
     mc.AllowNullCollections = true;
 });
 

@@ -1,7 +1,9 @@
-﻿using EPRN.Common.Dtos;
+﻿#nullable enable
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
+using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.RESTServices
 {
@@ -59,6 +61,11 @@ namespace EPRN.Portal.RESTServices
             return await Get<int?>($"{journeyId}/Type");
         }
 
+        public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
+        {
+            return await Get<WasteSubTypeSelectionDto>($"{journeyId}/Subtype");
+        }
+
         public async Task<double?> GetWasteTonnage(int journeyId)
         {
             return await Get<double?>($"{journeyId}/Tonnage");
@@ -82,6 +89,11 @@ namespace EPRN.Portal.RESTServices
         public async Task SaveNote(int journeyId, string noteContent)
         {
             await Post($"{journeyId}/Note/{noteContent}");
+        }
+
+        public async Task<string?> GetNote(int journeyId)
+        {
+            return await Get<string?>($"{journeyId}/Note");
         }
     }
 }

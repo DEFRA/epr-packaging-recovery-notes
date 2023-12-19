@@ -27,14 +27,13 @@ namespace EPRN.Portal.Helpers
         {
             switch (userRole)
             {
-                case UserRole.Exporter:
-                    return exporterHomeService;
+                case UserRole.Exporter: return exporterHomeService;
 
-                case UserRole.Reprocessor:
-                    return reprocessorHomeService;
+                case UserRole.Reprocessor: return reprocessorHomeService;
 
-                default:
-                    return null;
+                case UserRole.ExporterAndReprocessor: return exporterAndReprocessorHomeService;
+
+                default: return null;
             }
         }
     }

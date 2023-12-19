@@ -25,23 +25,24 @@ namespace EPRN.Waste.API.Models
 
         public bool? BaledWithWire { get; set; }
 
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         public bool? Completed { get; set; }
 
         public int? WasteTypeId { get; set; }
 
-        public virtual WasteType WasteType { get; set; }
+        public WasteType WasteType { get; set; }
 
         public int? WasteSubTypeId { get; set; }
 
-        public virtual WasteSubType WasteSubType { get; set; }
+        public WasteSubType WasteSubType { get; set; }
 
         public string ReferenceNumber { get; set; }
 
         public DoneWaste? DoneWaste { get; set; }
 
         public double? DeductionAmount { get; set; }
+
         public int? SiteId { get; set; }
     }
 }

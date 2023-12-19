@@ -217,11 +217,11 @@ namespace EPRN.Portal.Controllers
         [HttpGet]
         public async Task<IActionResult> Note(int? id)
         {
-            if (id == null)
+            if (!id.HasValue)
                 return NotFound();
-
+            
             var model = await _wasteService.GetNoteViewModel(id.Value);
-
+            
             return View(model);
         }
 
