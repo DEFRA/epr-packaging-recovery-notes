@@ -1,25 +1,25 @@
-﻿<div class="govuk-summary-card">
+﻿@model CardViewModel
+
+<div class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
         <div class="govuk-summary-card__title">
-            <p class="govuk-body">
-                <a href="#" class="govuk-link govuk-!-font-weight-bold">@ViewData["card_title"]</a>
-            </p>
-            <p class="govuk-body-s">
-                @ViewData["card_description"]
+            <div class="govuk-heading-m">@Model.Title</div>
+            <p class="govuk-caption-m">
+                @Model.Description
             </p>
         </div>
     </div>
     <div class="govuk-summary-card__content">
-        @if (ViewData["card_links"] != null)
+        @if (Model.Links != null)
         {
-            Dictionary<string, string> links = (Dictionary<string, string>)(ViewData["card_links"]);
+            Dictionary<string, string> links = (Dictionary<string, string>)(Model.Links);
             if (links != null)
             {
                 <ul class="govuk-list">
                     @foreach (var link in links)
                     {
                         <li>
-                            <a class="govuk-link" href="@link.Value">@link.Key</a>
+                            <a class="govuk-link govuk-link--no-visited-state" href="@link.Value">@link.Key</a>
                         </li>
                     }
                 </ul>
