@@ -30,7 +30,7 @@ builder.Services
 
 builder.Services.Configure<RouteOptions>(options =>
 {
-    options.ConstraintMap.Add("WasteType", typeof(WasteTypeConstraint));
+    options.ConstraintMap.Add("JourneyType", typeof(JourneyTypeConstraint));
 });
 
 // Check if in development environment

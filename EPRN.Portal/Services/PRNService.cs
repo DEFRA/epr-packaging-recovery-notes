@@ -3,7 +3,7 @@ using EPRN.Portal.ViewModels.PRNS;
 
 namespace EPRN.Portal.Services
 {
-    public class PRNService : IPRNService
+    public abstract class PRNService : IPRNService
     {
         public TonnesViewModel GetTonnesViewModel(int id)
         {
@@ -11,6 +11,11 @@ namespace EPRN.Portal.Services
             {
                 JourneyId = id,
             };
+        }
+
+        public Task SaveTonnes(TonnesViewModel tonnesViewModel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

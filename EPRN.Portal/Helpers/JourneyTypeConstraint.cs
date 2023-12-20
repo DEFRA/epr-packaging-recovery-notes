@@ -8,14 +8,14 @@ namespace EPRN.Portal.Helpers
     /// that it matches any of the possible values for a WasteType
     /// (i.e. Exporter or Reprocessor
     /// </summary>
-    public class WasteTypeConstraint : IRouteConstraint
+    public class JourneyTypeConstraint : IRouteConstraint
     {
         public readonly string Pattern;
 
-        public WasteTypeConstraint()
+        public JourneyTypeConstraint()
         {
             // Generate a pattern based on your enumeration values
-            Pattern = string.Join("|", Enum.GetNames(typeof(WasteType)));
+            Pattern = string.Join("|", Enum.GetNames(typeof(JourneyType)));
         }
 
         public bool Match(HttpContext httpContext, IRouter route, string routeKey, RouteValueDictionary values, RouteDirection routeDirection)

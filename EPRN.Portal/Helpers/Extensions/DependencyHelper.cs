@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EPRN.Portal.Attributes;
+using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
 using EPRN.Portal.Profiles;
@@ -56,7 +58,14 @@ namespace EPRN.Portal.Helpers.Extensions
             services.AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>));
             services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
-            services.AddTransient<IPRNService, PRNService>();
+            services.AddTransient<IPRNServiceFactory, PRNServiceFactory>();
+            //services.AddTransient<IPRNService, PRNService>();
+            //services.AddTransient<PRNExporterService>();
+            //services.AddTransient<PRNReprocessorService>();
+            //services.AddTransient<IPRNService>(p => p.GetNamedService<PRNExporterService>(JourneyType.Exporter));
+            //services.AddTransient<IPRNService>(p => p.GetNamedService<PRNReprocessorService>(JourneyType.Reprocessor));
+
+
             services.AddSingleton<IUserRoleService, UserRoleService>(); // must be available through lifetime of the system
             services.AddTransient<IHttpWasteService>(s =>
             {

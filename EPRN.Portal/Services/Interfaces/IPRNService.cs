@@ -4,6 +4,8 @@ namespace EPRN.Portal.Services.Interfaces
 {
     public interface IPRNService
     {
-        public TonnesViewModel GetTonnesViewModel(int id);
+        TonnesViewModel GetTonnesViewModel(int id);
+
+        Task SaveTonnes(TonnesViewModel tonnesViewModel);
     }
 }
