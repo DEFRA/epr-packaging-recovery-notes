@@ -33,12 +33,14 @@ namespace EPRN.Portal.Controllers
             return View(viewModel);
         }
 
-        public IActionResult Tonnes(TonnesViewModel tonnesViewModel)
+        public async Task<IActionResult> Tonnes(TonnesViewModel tonnesViewModel)
         {
             if (!ModelState.IsValid)
             {
                 return View(tonnesViewModel);
             }
+
+            await _prnService.SaveTonnes(tonnesViewModel);
 
             return RedirectToAction("Index", "Home");
         }

@@ -7,6 +7,9 @@ namespace EPRN.PRNS.API.Controllers
     [ApiController]
     public class PRNController : ControllerBase
     {
-        
+        public PRNController(IPrnService prnService)
+        {
+            
+        }
     }
 }

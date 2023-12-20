@@ -1,5 +1,6 @@
 ﻿using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services
 {
