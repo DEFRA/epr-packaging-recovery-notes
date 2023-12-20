@@ -21,13 +21,10 @@ namespace EPRN.Portal.Helpers
         {
             if (_userRoleService.HasRole(UserRole.Exporter) && _userRoleService.HasRole(UserRole.Reprocessor))
                 return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ExporterAndReprocessorHomeService));
-            else
-            {
-                if (_userRoleService.HasRole(UserRole.Exporter)) 
-                    return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ExporterHomeService));
-                if (_userRoleService.HasRole(UserRole.Reprocessor)) 
-                    return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ReprocessorHomeService));
-            }
+            if (_userRoleService.HasRole(UserRole.Exporter))
+                return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ExporterHomeService));
+            if (_userRoleService.HasRole(UserRole.Reprocessor))
+                return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ReprocessorHomeService));
 
             return null;
         }
