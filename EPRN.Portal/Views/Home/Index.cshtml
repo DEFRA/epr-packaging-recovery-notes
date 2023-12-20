@@ -1,60 +1,26 @@
-﻿@model ReProcessorSummaryViewModel
+﻿@model HomepageViewModel
 @using EPRN.Portal.Resources;
 @using EPRN.Portal.Services.Interfaces;
 @using Microsoft.AspNetCore.Mvc.Routing;
 
 @{
-    ViewData["Title"] = WasteJourneyResources.HomePage_Title;
+    ViewData["Title"] = HomePageResources.HomePage_Title;
 }
 
-<div>
-    <a asp-action="Index">@WasteJourneyResources.HomeLink</a>
-</div>
-<br />
-
-<div class="text-center">
-    <span class="govuk-caption-m">@Model.ContactName</span>
-    <span class="govuk-body govuk-!-font-weight-bold">@Model.Name</span>
-    <span class="govuk-caption-m">@Model.AccountNumber</span>
-</div>
-<br />
-
+<div class="govuk-body"><a asp-action="Index">@HomePageResources.HomeLink</a></div>
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_Account_Title},
-        {"card_description", @WasteJourneyResources.HomePage_Account_Description},
-        {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_Account_Link_CreateUser, "#"}, 
-        {@WasteJourneyResources.HomePage_Account_Link_ManageUser, "#"}, 
-        {@WasteJourneyResources.HomePage_Account_Link_DetailUser, "#"}
-        }}})
-    </div>
+    <div class="govuk-grid-column-full">
+        <div class="govuk-caption-l">@Model.ContactName</div>
+        <div class="govuk-heading-xl">@Model.Name</div>
+        <div class="govuk-body">@Model.AccountNumber</div>
 
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_Accredidation_Title},
-        {"card_description", @WasteJourneyResources.HomePage_Accredidation_Description},
-        {"card_links", new Dictionary<string, string>() {
-        {@WasteJourneyResources.HomePage_Accredidation_Link_MyAccredidations, "#"},
-        {@WasteJourneyResources.HomePage_Accredidation_Link_ApplyForAccredidation, "#"},
-        {@WasteJourneyResources.HomePage_Accredidation_Link_ViewApplications, "#"}
-        }}})
-    </div>
-</div>
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-half">
-        @await Html.PartialAsync("_accountSummaryCard", new ViewDataDictionary(ViewData){
-        {"card_title", @WasteJourneyResources.HomePage_WasteManagement_Title},
-        {"card_description", @WasteJourneyResources.HomePage_WasteManagement_Description},
-        {"card_links", new Dictionary<string, string>() {
-        {
-            @WasteJourneyResources.HomePage_WasteManagement_Link_RecordWaste, Url.Action("Types", "Waste", new { type = WasteType.Exporter })
-        },
-        {@WasteJourneyResources.HomePage_WasteManagement_Link_ManageAPrn, "#"},
-        {@WasteJourneyResources.HomePage_WasteManagement_Link_SubmitAReturn, "#"},
-        {@WasteJourneyResources.HomePage_WasteManagement_Link_ViewEditRecords, "#"}
-        }}})
+        <div class="flex-container govuk-grid-row">
+            @foreach (CardViewModel cardViewModel in Model.CardViewModels)
+            {
+                <div class="govuk-grid-column-one-half">
+                    @await Html.PartialAsync("_accountSummaryCard", cardViewModel)
+                </div>
+            }
+        </div>
     </div>
 </div>

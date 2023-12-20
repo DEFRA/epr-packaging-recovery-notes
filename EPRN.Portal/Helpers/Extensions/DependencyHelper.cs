@@ -5,6 +5,7 @@ using EPRN.Portal.Profiles;
 using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
+using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
@@ -56,6 +57,11 @@ namespace EPRN.Portal.Helpers.Extensions
             services.AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>));
             services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
             services.AddTransient<IWasteService, WasteService>();
+            services.AddTransient<IHomeService, ExporterAndReprocessorHomeService>();
+            services.AddTransient<IHomeService, ExporterHomeService>();
+            services.AddTransient<IHomeService, ReprocessorHomeService>();
+            services.AddTransient<IHomeServiceFactory, HomeServiceFactory>();
+
             services.AddSingleton<IUserRoleService, UserRoleService>(); // must be available through lifetime of the system
             services.AddTransient<IHttpWasteService>(s =>
             {

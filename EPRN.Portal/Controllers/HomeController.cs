@@ -1,21 +1,26 @@
-﻿using EPRN.Portal.ViewModels;
+﻿using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController(ILogger<HomeController> logger)
+        private IHomeService _homeService;
+
+        public HomeController(IHomeServiceFactory homeServiceFactory)
         {
+            if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
+            _homeService = homeServiceFactory.CreateHomeService();
+            if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
+
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var reProcessorViewModel = new ReProcessorSummaryViewModel { Name = "Green LTD", ContactName = "John Watson", AccountNumber = "A/c 1234" };
-
-            return View(reProcessorViewModel);
+            var vm = await _homeService.GetHomePage();
+            return View(vm);
         }
-
 
     }
 }
