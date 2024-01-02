@@ -72,7 +72,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         }
 
         [TestMethod]
-        public async Task Types_ThrowsNotFoundException_WhenNoIdSupplied()
+        public async Task Types_CreatesNewJourney_WhenNoIdSupplied()
         {
             // Arrange
 
@@ -81,7 +81,11 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+
+            _mockWasteService.Verify(s => s.CreateJourney(), Times.Once);
+            var redirectToActionResult = result as RedirectToActionResult;
+            Assert.IsNull(redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Types", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
         }
 
         [TestMethod]
@@ -113,8 +117,8 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
 
             var redirectToActionResult = result as RedirectToActionResult;
-            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
-            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+            Assert.IsNull(redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Done", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
         }
 
         [TestMethod]
@@ -135,8 +139,8 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
 
             var redirectToActionResult = result as RedirectToActionResult;
-            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
-            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+            Assert.IsNull(redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("SubTypes", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
         }
 
         [TestMethod]
@@ -274,8 +278,8 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
 
             var redirectToActionResult = result as RedirectToActionResult;
-            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
-            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+            Assert.IsNull(redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Month", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
         }
 
         [TestMethod]
@@ -413,7 +417,7 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             var viewResult = result as ViewResult;
             Assert.AreEqual(exportTonnageViewModel, viewResult.ViewData.Model);
-            Assert.IsNull(null, viewResult.ViewName); // view is being returned as the same as the action
+            Assert.IsNull(viewResult.ViewName); // view is being returned as the same as the action
         }
 
         [TestMethod]
