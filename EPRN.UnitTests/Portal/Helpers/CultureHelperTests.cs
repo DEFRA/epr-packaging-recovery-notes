@@ -28,7 +28,7 @@ namespace EPRN.UnitTests.Portal.Helpers
             httpContext?.Features.Set<IRequestCultureFeature>(new RequestCultureFeature(requestCulture, null));
 
             // Act
-            var result = CultureHelper.GetCultureInfo(httpContextAccessor?.Object!);
+            var result = CultureHelper.GetCultureInfo(httpContextAccessor.Object);
 
             // Assert
             Assert.AreEqual(CultureConstants.Welsh.Name, result);
@@ -39,7 +39,7 @@ namespace EPRN.UnitTests.Portal.Helpers
         public void GetCultureInfo_NullHttpContextAccessor_ThrowsException()
         {
             // Act & Assert
-            CultureHelper.GetCultureInfo(null!);
+            CultureHelper.GetCultureInfo(null);
         }
 
         [TestMethod]
@@ -50,7 +50,7 @@ namespace EPRN.UnitTests.Portal.Helpers
             httpContextAccessor?.Setup(x => x.HttpContext).Returns((HttpContext)null!);
 
             // Act & Assert
-            CultureHelper.GetCultureInfo(httpContextAccessor?.Object!);
+            CultureHelper.GetCultureInfo(httpContextAccessor.Object);
         }
 
         [TestMethod]

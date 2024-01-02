@@ -430,27 +430,15 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            string expectedWasteType = "testWasteType";
-
-            NoteViewModel expectedViewModel = new NoteViewModel
-            {
-                JourneyId = journeyId,
-                WasteType = expectedWasteType
-            };
-
-            _mockHttpJourneyService.Setup(ws => ws.GetWasteType(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWasteType);
 
             // Act
             var viewModel = await _wasteService.GetNoteViewModel(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
-            Assert.IsNotNull(viewModel.WasteType);
-            Assert.IsInstanceOfType(viewModel.WasteType, typeof(string));
-            Assert.IsTrue(viewModel.WasteType == expectedWasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
 
-            _mockHttpJourneyService.Verify(service => service.GetWasteType(It.Is<int>(id => id == journeyId)), Times.Once());
+            _mockHttpJourneyService.Verify(service => service.GetNote(It.Is<int>(id => id == journeyId)), Times.Once());
         }
 
         [TestMethod]
