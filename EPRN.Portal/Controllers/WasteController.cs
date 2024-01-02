@@ -31,7 +31,7 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetWasteModel(id.Value);
-            return View("WhatHaveYouDoneWaste", model);
+            return View(model);
         }
 
         [HttpPost]
@@ -59,7 +59,7 @@ namespace EPRN.Portal.Controllers
 
             var model = await _wasteService.GetQuarterForCurrentMonth(id.Value, currentMonth);
 
-            return View("DuringWhichMonth", model);
+            return View(model);
         }
 
         [HttpPost]
@@ -72,7 +72,7 @@ namespace EPRN.Portal.Controllers
 
                 var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId, currentMonth);
 
-                return View("DuringWhichMonth", model);
+                return View(model);
             }
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
@@ -186,7 +186,7 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
-            return View("BaledWithWire", model);
+            return View(model);
         }
 
         [HttpPost]

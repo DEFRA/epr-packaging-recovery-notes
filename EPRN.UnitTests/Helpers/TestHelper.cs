@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 
 namespace EPRN.UnitTests.Helpers
 {
+    [ExcludeFromCodeCoverage]
     internal static class TestHelper
     {
         public static bool CompareList<T>(List<T> list1, List<T> list2, bool? orderDescending = null)
