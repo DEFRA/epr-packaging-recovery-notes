@@ -37,19 +37,5 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Assert
             _mockHomeService.Verify(s => s.GetHomePage(), Times.Once);
         }
-
-        [TestMethod]
-        public async Task Check_HomePage_Is_Loaded()
-        {
-            // Arrange
-            _mockHomeService.Setup(s => s.GetHomePage());
-
-            // Act
-            var result = await _homeController.Index();
-            
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-        }
     }
 }

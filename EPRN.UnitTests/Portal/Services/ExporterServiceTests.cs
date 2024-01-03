@@ -1,18 +1,19 @@
 ﻿using EPRN.Portal.Resources;
 using EPRN.Portal.Services;
+using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.ViewModels;
 
 namespace EPRN.UnitTests.Portal.Services
 {
     [TestClass]
-    public class ExporterAndReprocessorHomeServiceTests
+    public class ExporterServiceTests
     {
-        private ExporterAndReprocessorHomeService _exporterAndReprocessorHomeService;
+        private ExporterHomeService _exporterHomeService;
 
         [TestInitialize]
         public void Init()
         {
-            _exporterAndReprocessorHomeService = new ExporterAndReprocessorHomeService();
+            _exporterHomeService = new ExporterHomeService();
         }
 
         [TestMethod]
@@ -21,7 +22,7 @@ namespace EPRN.UnitTests.Portal.Services
             // Arrange
 
             // Act
-            var viewModel = await _exporterAndReprocessorHomeService.GetHomePage();
+            var viewModel = await _exporterHomeService.GetHomePage();
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -34,7 +35,7 @@ namespace EPRN.UnitTests.Portal.Services
             // Arrange
 
             // Act
-            var viewModel = await _exporterAndReprocessorHomeService.GetHomePage();
+            var viewModel = await _exporterHomeService.GetHomePage();
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -44,8 +45,8 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.IsTrue(viewModel.CardViewModels[0].Title == HomePageResources.HomePage_Waste_Title);
             Assert.IsTrue(viewModel.CardViewModels[0].Links.Count == 2);
 
-            Assert.AreEqual(viewModel.CardViewModels[1].Title, HomePageResources.HomePage_ManagePrnPern_Title);
-            Assert.AreEqual(viewModel.CardViewModels[1].Description, HomePageResources.HomePage_ManagePrnPern_Description);
+            Assert.AreEqual(viewModel.CardViewModels[1].Title, HomePageResources.HomePage_ManagePern_Title);
+            Assert.AreEqual(viewModel.CardViewModels[1].Description, HomePageResources.HomePage_ManagePern_Description);
             Assert.IsTrue(viewModel.CardViewModels[1].Links.Count() == 3);
         }
     }
