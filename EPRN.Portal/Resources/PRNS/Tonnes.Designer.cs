@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources
-{
+namespace EPRN.Portal.Resources.PRNS {
     using System;
     
     
@@ -23,14 +22,14 @@ namespace EPRN.Portal.Resources
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class BaledWithWireResource___Copy {
+    public class Tonnes {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BaledWithWireResource___Copy() {
+        internal Tonnes() {
         }
         
         /// <summary>
@@ -40,7 +39,7 @@ namespace EPRN.Portal.Resources
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.BaledWithWireResource - Copy", typeof(BaledWithWireResource___Copy).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.Tonnes", typeof(Tonnes).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -58,60 +57,6 @@ namespace EPRN.Portal.Resources
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select yes if the material was baled with wire.
-        /// </summary>
-        public static string ErrorMessage {
-            get {
-                return ResourceManager.GetString("ErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Was it baled with wire?.
-        /// </summary>
-        public static string Heading {
-            get {
-                return ResourceManager.GetString("Heading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to We&apos;ll apply a 0.15% weight deduction for bailing wire..
-        /// </summary>
-        public static string HintText {
-            get {
-                return ResourceManager.GetString("HintText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        public static string NoSelection {
-            get {
-                return ResourceManager.GetString("NoSelection", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bailed with wire.
-        /// </summary>
-        public static string PageTitle {
-            get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        public static string YesSelection {
-            get {
-                return ResourceManager.GetString("YesSelection", resourceCulture);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
-using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Profiles
 {

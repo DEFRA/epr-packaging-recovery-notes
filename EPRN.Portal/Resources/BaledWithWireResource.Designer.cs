@@ -8,8 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources
-{
+namespace EPRN.Portal.Resources {
     using System;
     
     

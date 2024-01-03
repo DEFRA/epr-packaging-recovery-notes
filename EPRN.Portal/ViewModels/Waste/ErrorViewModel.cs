@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace EPRN.Portal.ViewModels
+namespace EPRN.Portal.ViewModels.Waste
 {
     public class ErrorViewModel
     {

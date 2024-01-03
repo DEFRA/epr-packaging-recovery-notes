@@ -2,7 +2,7 @@
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -11,12 +11,13 @@ namespace EPRN.Portal.Controllers
     /// <summary>
     /// The roiute can be navigate here by being either an Exporter or Reprocessor
     /// </summary>
-    [TypeFilter(typeof(WasteTypeFilterAttribute))]
-    [Route("Waste/{type:WasteType}/[action]/{id?}")]
+    [TypeFilter(typeof(JourneyTypeFilterAttribute))]
+    [Route("Waste/{journeyType:JourneyType}/[action]/{id?}")]
     public class WasteController : Controller
     {
         private readonly IWasteService _wasteService;
-        public WasteType? _wasteType { get; set; }
+
+        public JourneyType JourneyType { get; set; }
 
         public WasteController(IWasteService wasteService)
         {
@@ -45,7 +46,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
-            return RedirectToAction("Month", new { id = whatHaveYouDoneWaste.JourneyId, type = _wasteType });
+            return RedirectToAction("Month", new { id = whatHaveYouDoneWaste.JourneyId, type = JourneyType });
         }
 
         [HttpGet]
@@ -77,7 +78,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId, type = _wasteType });
+            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId, type = JourneyType });
         }
 
         [HttpGet]
@@ -87,10 +88,10 @@ namespace EPRN.Portal.Controllers
             {
                 var journeyId = await _wasteService.CreateJourney();
 
-                return RedirectToAction("Types", new { id = journeyId, type = _wasteType });
+                return RedirectToAction("Types", new { id = journeyId, type = JourneyType });
             }
 
-            var type = _wasteType;
+            var type = JourneyType;
 
             var viewModel = await _wasteService.GetWasteTypesViewModel(id.Value);
 
@@ -110,7 +111,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
-            return RedirectToAction("Done", new { id = wasteTypesViewModel.JourneyId, type = _wasteType });
+            return RedirectToAction("Done", new { id = wasteTypesViewModel.JourneyId, type = JourneyType });
         }
 
         [HttpGet]
@@ -139,7 +140,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteSubType(wasteSubTypesViewModel);
 
-            return RedirectToAction("Tonnes", new { id = wasteSubTypesViewModel.JourneyId, type = _wasteType });
+            return RedirectToAction("Tonnes", new { id = wasteSubTypesViewModel.JourneyId, type = JourneyType });
         }
 
         [HttpGet]
@@ -175,7 +176,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
-            return RedirectToAction("Baled", new { id = exportTonnageViewModel.JourneyId, type = _wasteType });
+            return RedirectToAction("Baled", new { id = exportTonnageViewModel.JourneyId, type = JourneyType });
         }
 
         [HttpGet]
@@ -194,7 +195,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
         {
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Note", new { id = baledWithWireModel.JourneyId, type = JourneyType });
         }
 
         [HttpGet]

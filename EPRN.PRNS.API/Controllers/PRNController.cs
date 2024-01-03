@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.PRNS.API.Controllers
@@ -7,6 +7,9 @@ namespace EPRN.PRNS.API.Controllers
     [ApiController]
     public class PRNController : ControllerBase
     {
-        
+        public PRNController(IPrnService prnService)
+        {
+            
+        }
     }
 }

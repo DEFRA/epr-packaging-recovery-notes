@@ -21,6 +21,5 @@ namespace EPRN.Portal.Controllers
             var vm = await _homeService.GetHomePage();
             return View(vm);
         }
-
     }
 }
