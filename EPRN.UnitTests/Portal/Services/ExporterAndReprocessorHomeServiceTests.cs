@@ -48,6 +48,5 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual(viewModel.CardViewModels[1].Description, HomePageResources.HomePage_ManagePrnPern_Description);
             Assert.IsTrue(viewModel.CardViewModels[1].Links.Count() == 3);
         }
-
     }
 }

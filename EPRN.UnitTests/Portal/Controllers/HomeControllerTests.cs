@@ -34,6 +34,5 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Assert
             _mockHomeService.Verify(s => s.GetHomePage(), Times.Once);
         }
-
     }
 }
