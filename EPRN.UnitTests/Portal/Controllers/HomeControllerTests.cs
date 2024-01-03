@@ -1,9 +1,6 @@
 ﻿using EPRN.Portal.Controllers;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels;
-using EPRN.Waste.API.Controllers;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Controllers
