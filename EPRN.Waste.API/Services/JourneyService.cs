@@ -111,9 +111,9 @@ namespace EPRN.Waste.API.Services
             await _wasteRepository.UpdateJourneyTonnage(journeyId, tonnage);
         }
 
-        public async Task SaveBaledWithWire(int journeyId, bool baledWithWire)
+        public async Task SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
         {
-            await _wasteRepository.UpdateJourneyBaledWithWire(journeyId, baledWithWire);
+            await _wasteRepository.UpdateJourneyBaledWithWire(journeyId, baledWithWire, baledWithWireDeductionPercentage);
         }
 
         public async Task SaveReprocessorExport(int journeyId, int siteId)

@@ -11,7 +11,7 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task UpdateJourneySiteId(int journeyId, int siteId);
 
-        Task UpdateJourneyBaledWithWire(int journeyId, bool baledWithWire);
+        Task UpdateJourneyBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage);
 
         Task UpdateJourneyTonnage(int journeyId, double journeyTonnage);
 

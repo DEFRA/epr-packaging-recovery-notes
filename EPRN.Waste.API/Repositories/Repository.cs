@@ -32,13 +32,14 @@ namespace EPRN.Waste.API.Repositories
                 );
         }
 
-        public async Task UpdateJourneyBaledWithWire(int journeyId, bool baledWithWire)
+        public async Task UpdateJourneyBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
         {
             await _wasteContext
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.BaledWithWire, baledWithWire)
+                .ExecuteUpdateAsync(sp => sp
+                    .SetProperty(wj => wj.BaledWithWire, baledWithWire)
+                    .SetProperty(p => p.BaledWithWireDeductionPercentage, baledWithWireDeductionPercentage)
                 );
         }
 

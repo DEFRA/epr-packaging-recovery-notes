@@ -182,18 +182,13 @@ namespace EPRN.Waste.API.Controllers
             return Ok();
         }
         [HttpPost]
-        [Route("BaledWithWire/{baledWithWire}")]
-        public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)
+        [Route("BaledWithWire/{baledWithWire}/{baledWithWireDeductionPercentage}")]
+        public async Task<ActionResult> SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
         {
-            if (journeyId == null)
-                return BadRequest("Journey Id is missing");
-
-            if (baledWithWire == null)
-                return BadRequest("Baled with wire is missing");
-
             await _journeyService.SaveBaledWithWire(
-                journeyId.Value,
-                baledWithWire.Value);
+                journeyId,
+                baledWithWire, 
+                baledWithWireDeductionPercentage);
 
             return Ok();
         }
