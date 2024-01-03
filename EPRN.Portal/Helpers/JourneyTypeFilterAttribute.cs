@@ -22,7 +22,7 @@ namespace EPRN.Portal.Helpers
                     context.ActionArguments["journeyType"] = journeyType;
 
                     // Set it as a private member variable in the controller
-                    var controller = context.Controller as JourneyController;
+                    var controller = context.Controller as WasteController;
                     controller.JourneyType = journeyType;
 
                     // Continue with the action execution

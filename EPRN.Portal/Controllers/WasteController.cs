@@ -13,9 +13,11 @@ namespace EPRN.Portal.Controllers
     /// </summary>
     [TypeFilter(typeof(JourneyTypeFilterAttribute))]
     [Route("Waste/{journeyType:JourneyType}/[action]/{id?}")]
-    public class WasteController : JourneyController
+    public class WasteController : Controller
     {
         private readonly IWasteService _wasteService;
+
+        public JourneyType JourneyType { get; set; }
 
         public WasteController(IWasteService wasteService)
         {
