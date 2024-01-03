@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.PRNS.API.Controllers

@@ -3,7 +3,7 @@ using EPRN.Portal.ViewModels.PRNS;
 
 namespace EPRN.Portal.Services
 {
-    public abstract class PRNService : IPRNService
+    public class PRNService : IPRNService
     {
         public TonnesViewModel GetTonnesViewModel(int id)
         {

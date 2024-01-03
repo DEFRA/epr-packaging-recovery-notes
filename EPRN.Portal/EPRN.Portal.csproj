@@ -199,6 +199,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Exporter\Models\" />
+    <Folder Include="Areas\Exporter\Views\" />
+    <Folder Include="Areas\Reprocessor\Models\" />
+    <Folder Include="Areas\Reprocessor\Views\" />
+    <Folder Include="Attributes\" />
     <Folder Include="ClientApp\sass\common\" />
     <Folder Include="ClientApp\sass\pages\" />
   </ItemGroup>

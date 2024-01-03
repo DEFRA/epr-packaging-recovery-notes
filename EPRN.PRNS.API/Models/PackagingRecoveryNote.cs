@@ -10,6 +10,6 @@
 
         public double? Tonnes { get; set; }
 
-        public string? Note { get; set; }
+        public string Note { get; set; }
     }
 }

@@ -9,6 +9,11 @@ namespace EPRN.PRNS.API.Repositories
     {
         private readonly PrnContext _prnContext;
 
+        public Repository(PrnContext prnContext)
+        {
+            _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
+        }
+
         public Task<PackagingRecoveryNote> GetPrnById(int id)
         {
             throw new NotImplementedException();
