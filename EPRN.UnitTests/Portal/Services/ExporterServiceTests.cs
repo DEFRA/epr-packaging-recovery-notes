@@ -42,7 +42,9 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual(typeof(HomepageViewModel), viewModel.GetType());
 
             Assert.IsTrue(viewModel.CardViewModels.Count() == 5);
+            Assert.IsTrue(viewModel.CardViewModels[0].Title != null);
             Assert.IsTrue(viewModel.CardViewModels[0].Title == HomePageResources.HomePage_Waste_Title);
+            Assert.IsTrue(viewModel.CardViewModels[0].Links != null);
             Assert.IsTrue(viewModel.CardViewModels[0].Links.Count == 2);
 
             Assert.AreEqual(viewModel.CardViewModels[1].Title, HomePageResources.HomePage_ManagePern_Title);
