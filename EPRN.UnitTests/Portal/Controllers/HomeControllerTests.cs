@@ -1,6 +1,9 @@
 ﻿using EPRN.Portal.Controllers;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
+using EPRN.Waste.API.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Controllers
@@ -35,5 +38,18 @@ namespace EPRN.UnitTests.Portal.Controllers
             _mockHomeService.Verify(s => s.GetHomePage(), Times.Once);
         }
 
+        [TestMethod]
+        public async Task Check_HomePage_Is_Loaded()
+        {
+            // Arrange
+            _mockHomeService.Setup(s => s.GetHomePage());
+
+            // Act
+            var result = await _homeController.Index();
+            
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+        }
     }
 }
