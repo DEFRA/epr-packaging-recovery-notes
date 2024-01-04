@@ -8,6 +8,6 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task SaveTonnes(TonnesViewModel tonnesViewModel);
 
-        Task<CreateViewModel> GetCreateViewModel();
+        Task<CreateViewModel> GetCreatePageViewModel();
     }
 }

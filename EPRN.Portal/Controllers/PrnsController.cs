@@ -13,7 +13,7 @@ namespace EPRN.Portal.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            var viewModel = await _PRNService.GetCreateViewModel();
+            var viewModel = await _PRNService.GetCreatePageViewModel();
             return View(viewModel);
         }
     }

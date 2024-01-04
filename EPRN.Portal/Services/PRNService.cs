@@ -18,7 +18,7 @@ namespace EPRN.Portal.Services
             throw new NotImplementedException();
         }
 
-        public async Task<CreateViewModel> GetCreateViewModel()
+        public async Task<CreateViewModel> GetCreatePageViewModel()
         {
             var listOfTables = new List<TableViewModel>();
 
@@ -42,9 +42,18 @@ namespace EPRN.Portal.Services
                 ChooseLink = "#"
             };
 
+            var tableRowViewModelExporter2 = new TableRowViewModel
+            {
+                Material = "Board/paper",
+                Tonnage = 17,
+                NoOfDrafts = 4,
+                ChooseLink = "#"
+            };
+
             listOfRowsReprocessor.Add(tableRowViewModelReprocessor);
 
             listOfRowsExporter.Add(tableRowViewModelExporter);
+            listOfRowsExporter.Add(tableRowViewModelExporter2);
 
             var tableViewModelReprocessor = new TableViewModel
             {
