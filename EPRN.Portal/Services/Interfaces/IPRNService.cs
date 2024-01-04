@@ -7,5 +7,7 @@ namespace EPRN.Portal.Services.Interfaces
         TonnesViewModel GetTonnesViewModel(int id);
 
         Task SaveTonnes(TonnesViewModel tonnesViewModel);
+
+        Task<CreateViewModel> GetCreateViewModel();
     }
 }

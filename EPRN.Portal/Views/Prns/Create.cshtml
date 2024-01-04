@@ -1,0 +1,104 @@
+﻿@using EPRN.Common.Enums;
+@using EPRN.Portal.Services.Interfaces;
+
+@inject IUserRoleService userRoleService;
+
+@model CreateViewModel
+@{
+    ViewData["Title"] = CreatePrnPern.Title;
+}
+
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-breadcrumbs">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item">
+                        <a class="govuk-breadcrumbs__link" href="/">@MasterResources.Home</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item" aria-current="page">@CreatePrnPern.BreadcrumbTitle</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <h1 class="govuk-heading-xl">@CreatePrnPern.Title</h1>
+        <h2 class="govuk-body-m">@CreatePrnPern.DescriptionPartOne <br /> @CreatePrnPern.DescriptionPartTwo</h2>
+
+        <div class="govuk-form-group">
+            <select class="govuk-select" id="sort" name="sort">
+                <option value="filterBy" selected>@CreatePrnPern.FilterBy</option>
+                <option value="exporter">@CreatePrnPern.Exporter</option>
+                <option value="reprocessor">@CreatePrnPern.Reprocessor</option>
+            </select>
+        </div>
+
+        @if (userRoleService.HasRole(UserRole.Reprocessor))
+        {
+            <h1 class="govuk-heading-l">@CreatePrnPern.ReprocessingHeading</h1>
+
+            @foreach (var element in Model.TableViewModels)
+            {
+                <h2 class="govuk-heading-s">@CreatePrnPern.AccreditationsFor @element.SiteAddress</h2>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">@CreatePrnPern.Material</th>
+                            <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.TonnageAvailable</th>
+                            <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.NumberOfDraftPrns</th>
+                            <th scope="col" class="govuk-table__header govuk-table__header--numeric"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        @foreach (var row in element.Rows)
+                        {
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header" style="font-weight: normal">@row.Material</th>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.Tonnage</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.NoOfDrafts</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left"><a href="@row.ChooseLink">@CreatePrnPern.ChooseLink</a> </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+
+        @if (userRoleService.HasRole(UserRole.Exporter))
+        {
+            <h1 class="govuk-heading-l">@CreatePrnPern.ExportingHeading</h1>
+
+            @foreach (var element in Model.TableViewModels)
+            {
+                <h2 class="govuk-heading-s">@CreatePrnPern.AccreditationsFor @element.SiteAddress</h2>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">@CreatePrnPern.Material</th>
+                            <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.TonnageAvailable</th>
+                            <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.NumberOfDraftPrns</th>
+                            <th scope="col" class="govuk-table__header govuk-table__header--numeric"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        @foreach (var row in element.Rows)
+                        {
+                            <tr class="govuk-table__row">
+                                <th scope="row" class="govuk-table__header" style="font-weight: normal">@row.Material</th>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.Tonnage</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.NoOfDrafts</td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left"><a href="@row.ChooseLink">@CreatePrnPern.ChooseLink</a> </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+
+    </div>
+</div>
+
+
