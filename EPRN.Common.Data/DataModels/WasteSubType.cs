@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EPRN.Waste.API.Models
+namespace EPRN.Common.Data.DataModels
 {
     public class WasteSubType : IdBaseEntity
     {

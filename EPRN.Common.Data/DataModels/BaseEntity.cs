@@ -1,4 +1,4 @@
-﻿namespace EPRN.Waste.API.Models
+﻿namespace EPRN.Common.Data.DataModels
 {
     public abstract class BaseEntity : IdBaseEntity
     {

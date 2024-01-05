@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EPRN.Common.Data\EPRN.Common.Data.csproj" />
     <ProjectReference Include="..\EPRN.Common\EPRN.Common.csproj" />
   </ItemGroup>
 

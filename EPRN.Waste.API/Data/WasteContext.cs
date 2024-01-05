@@ -1,4 +1,4 @@
-﻿using EPRN.Waste.API.Models;
+﻿using EPRN.Common.Data.DataModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace EPRN.Waste.API.Data

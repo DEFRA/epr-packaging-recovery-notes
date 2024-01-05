@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EPRN.PRNS.API.Models
+namespace EPRN.Common.Data.DataModels
 {
     public abstract class IdBaseEntity
     {

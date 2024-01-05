@@ -1,7 +1,7 @@
-﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enums;
+﻿using EPRN.Common.Data;
+using EPRN.Common.Data.DataModels;
+using EPRN.Common.Dtos;
 using EPRN.Waste.API.Data;
-using EPRN.Waste.API.Models;
 using EPRN.Waste.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -133,20 +133,13 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
+        public async Task<WasteJourney> GetWasteSubTypeSelection(int journeyId)
         {
-            var result = await _wasteContext
+            return await _wasteContext
                 .WasteJourney
                 .Include(wj => wj.WasteSubType)
                 .Where(wj => wj.Id == journeyId)
-                .Select(wj => new WasteSubTypeSelectionDto
-                {
-                    WasteSubTypeId = wj.WasteSubType.Id,
-                    Adjustment = wj.WasteSubType.AdjustmentPercentageRequired ? wj.Adjustment : null
-                })
                 .SingleOrDefaultAsync();
-
-            return result;
         }
 
         public async Task<DoneWaste?> GetDoneWaste(int journeyId)
