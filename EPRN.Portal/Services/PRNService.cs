@@ -33,9 +33,9 @@ namespace EPRN.Portal.Services
         {
             // TODO: This needs to get the data from a future service
 
-            var tableRowReprocessor = CreateRow("Glass", 100, 2, "#");
+            var tableRowReprocessor = CreateRow("Glass", 0, 2, "#");
 
-            var tableRowExporter = CreateRow("Aluminium", 5, 1, "#");
+            var tableRowExporter = CreateRow("Aluminium", 0.3, 1, "#");
             var tableRowExporter2 = CreateRow("Board/paper", 17, 4, "#");
 
             var listOfRowsReprocessor = new List<TableRowViewModel>
@@ -64,14 +64,15 @@ namespace EPRN.Portal.Services
             };
         }
 
-        private TableRowViewModel CreateRow(string material, int tonnage, int noOfDrafts, string chooseLink)
+        private TableRowViewModel CreateRow(string material, double tonnage, int noOfDrafts, string chooseLink, string balanceWarning = "")
         {
             return new TableRowViewModel
             {
                 Material = material,
                 Tonnage = tonnage,
                 NoOfDrafts = noOfDrafts,
-                ChooseLink = chooseLink
+                ChooseLink = chooseLink,
+                BalanceWarning = balanceWarning
             };
         }
 
