@@ -476,9 +476,10 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task BaledWithWire_Saves_WithValidData()
         {
             // Arrange
+            var journeyId = 3;
             var baledWithWireModel = new BaledWithWireModel
             {
-                JourneyId = 1,
+                JourneyId = journeyId,
                 BaledWithWire = true
             };
 
@@ -490,8 +491,8 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
 
             var redirectToActionResult = result as RedirectToActionResult;
-            Assert.AreEqual("Home", redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
-            Assert.AreEqual("Index", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
+            Assert.AreEqual("Note", redirectToActionResult.ActionName);
+            Assert.AreEqual(journeyId, redirectToActionResult.RouteValues.FirstOrDefault(rv => rv.Key == "id").Value);
         }
 
         [TestMethod]

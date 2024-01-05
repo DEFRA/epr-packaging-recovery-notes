@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services.Interfaces;
-using Microsoft.Extensions.Options;
 
 namespace EPRN.PRNS.API.Services
 {
@@ -13,17 +11,25 @@ namespace EPRN.PRNS.API.Services
 
         public PrnService(
             IMapper mapper,
-            IRepository wasteRepository,
-            IOptions<AppConfigSettings> configSettings)
+            IRepository prnRepository)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-            _prnRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_prnRepository));
-
+            _prnRepository = prnRepository ?? throw new ArgumentNullException(nameof(prnRepository));
         }
 
-        public Task<int> CreatePrnRecord()
+        public async Task<int> CreatePrnRecord()
         {
-            throw new NotImplementedException();
+            return await _prnRepository.CreatePrnRecord();
+        }
+
+        public async Task<double?> GetTonnage(int id)
+        {
+            return await _prnRepository.GetTonnage(id);
+        }
+
+        public async Task SaveTonnage(int id, double tonnage)
+        {
+            await _prnRepository.UpdateTonnage(id, tonnage);
         }
     }
 }

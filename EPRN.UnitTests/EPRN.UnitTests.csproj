@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EPRN.Common\EPRN.Common.csproj" />
     <ProjectReference Include="..\EPRN.Portal\EPRN.Portal.csproj" />
+    <ProjectReference Include="..\EPRN.PRNS.API\EPRN.PRNS.API.csproj" />
     <ProjectReference Include="..\EPRN.Waste.API\EPRN.Waste.API.csproj" />
     <ProjectReference Include="..\EPRN.Portal\EPRN.Portal.csproj" />
   </ItemGroup>

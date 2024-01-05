@@ -1,8 +1,10 @@
 ﻿using EPRN.PRNS.API.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EPRN.PRNS.API.Data
 {
+    [ExcludeFromCodeCoverage]
     public class PrnContext : DbContext
     {
         public PrnContext()

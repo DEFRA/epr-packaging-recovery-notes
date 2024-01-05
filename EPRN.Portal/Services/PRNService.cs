@@ -1,21 +1,32 @@
-﻿using EPRN.Portal.Services.Interfaces;
+﻿using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 
 namespace EPRN.Portal.Services
 {
     public class PRNService : IPRNService
     {
-        public TonnesViewModel GetTonnesViewModel(int id)
+        private IHttpPrnsService _httpPrnsService;
+
+        public PRNService(IHttpPrnsService httpPrnsService)
+        {
+            _httpPrnsService = httpPrnsService ?? throw new ArgumentNullException(nameof(httpPrnsService));
+        }
+
+        public async Task<TonnesViewModel> GetTonnesViewModel(int id)
         {
             return new TonnesViewModel
             {
                 JourneyId = id,
+                Tonnes = await _httpPrnsService.GetPrnTonnage(id)
             };
         }
 
-        public Task SaveTonnes(TonnesViewModel tonnesViewModel)
+        public async Task SaveTonnes(TonnesViewModel tonnesViewModel)
         {
-            throw new NotImplementedException();
+            await _httpPrnsService.SaveTonnage(
+                tonnesViewModel.JourneyId,
+                tonnesViewModel.Tonnes.Value);
         }
 
         public async Task<CreateViewModel> GetCreatePageViewModel()
