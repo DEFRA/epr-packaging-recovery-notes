@@ -31,62 +31,56 @@ namespace EPRN.Portal.Services
 
         public async Task<CreateViewModel> GetCreatePageViewModel()
         {
-            var listOfTables = new List<TableViewModel>();
 
-            var listOfRowsReprocessor = new List<TableRowViewModel>();
+            var tableRowViewModelReprocessor = CreateRow("Glass", 100, 2, "#");
 
-            var listOfRowsExporter = new List<TableRowViewModel>();
+            var tableRowViewModelExporter = CreateRow("Aluminium", 5, 1, "#");
+            var tableRowViewModelExporter2 = CreateRow("Board/paper", 17, 4, "#");
 
-            var tableRowViewModelReprocessor = new TableRowViewModel
+            var listOfRowsReprocessor = new List<TableRowViewModel>
             {
-                Material = "Glass",
-                Tonnage = 100,
-                NoOfDrafts = 2,
-                ChooseLink = "#"
+                tableRowViewModelReprocessor
             };
 
-            var tableRowViewModelExporter = new TableRowViewModel
+            var listOfRowsExporter = new List<TableRowViewModel>
             {
-                Material = "Aluminium",
-                Tonnage = 5,
-                NoOfDrafts = 1,
-                ChooseLink = "#"
+                tableRowViewModelExporter,
+                tableRowViewModelExporter2
             };
 
-            var tableRowViewModelExporter2 = new TableRowViewModel
+            var tableViewModelReprocessor = CreateTable("23 Ruby Street, London, SE15 1LR", listOfRowsReprocessor);
+            var tableViewModelExporter = CreateTable("123 Sesame Street, London, N12 8JJ", listOfRowsExporter);
+
+            var listOfTables = new List<TableViewModel>
             {
-                Material = "Board/paper",
-                Tonnage = 17,
-                NoOfDrafts = 4,
-                ChooseLink = "#"
+                tableViewModelReprocessor,
+                tableViewModelExporter
             };
 
-            listOfRowsReprocessor.Add(tableRowViewModelReprocessor);
-
-            listOfRowsExporter.Add(tableRowViewModelExporter);
-            listOfRowsExporter.Add(tableRowViewModelExporter2);
-
-            var tableViewModelReprocessor = new TableViewModel
+            return new CreateViewModel
             {
-                SiteAddress = "23 Ruby Street, London, SE15 1LR",
-                Rows = listOfRowsReprocessor
+                TableViewModels = listOfTables
             };
-
-            var tableViewModelExporter = new TableViewModel
-            {
-                SiteAddress = "123 Sesame Street, London, N12 8JJ",
-                Rows = listOfRowsExporter
-            };
-
-            listOfTables.Add(tableViewModelReprocessor);
-            listOfTables.Add(tableViewModelExporter);
-
-            var viewModel = new CreateViewModel();
-
-            viewModel.TableViewModels = listOfTables;
-
-            return viewModel;
         }
 
+        private TableRowViewModel CreateRow(string material, int tonnage, int noOfDrafts, string chooseLink)
+        {
+            return new TableRowViewModel
+            {
+                Material = material,
+                Tonnage = tonnage,
+                NoOfDrafts = noOfDrafts,
+                ChooseLink = chooseLink
+            };
+        }
+
+        private TableViewModel CreateTable(string siteAddress, List<TableRowViewModel> rows)
+        {
+            return new TableViewModel
+            {
+                SiteAddress = siteAddress,
+                Rows = rows
+            };
+        }
     }
 }
