@@ -5,7 +5,19 @@
 
 @model CreateViewModel
 @{
-    ViewData["Title"] = CreatePrnPern.Title;
+    if (userRoleService.HasRole(UserRole.Reprocessor))
+    {
+        ViewData["Title"] = CreatePrnPern.TitlePrn;
+    }
+    else if (userRoleService.HasRole(UserRole.Exporter))
+    {
+        ViewData["Title"] = CreatePrnPern.TitlePern;
+    }
+
+    if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+    {
+        ViewData["Title"] = CreatePrnPern.TitlePrnPern;
+    }
 }
 
 <div class="govuk-width-container">
@@ -16,7 +28,7 @@
                     <li class="govuk-breadcrumbs__list-item">
                         <a class="govuk-breadcrumbs__link" href="/">@MasterResources.Home</a>
                     </li>
-                    <li class="govuk-breadcrumbs__list-item" aria-current="page">@CreatePrnPern.BreadcrumbTitle</li>
+                    <li class="govuk-breadcrumbs__list-item" aria-current="page">@CreatePrnPern.TitlePrnPern</li>
                 </ol>
             </div>
         </div>
@@ -25,8 +37,23 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-        <h1 class="govuk-heading-xl">@CreatePrnPern.Title</h1>
-        <h2 class="govuk-body-m">@CreatePrnPern.DescriptionPartOne <br /> @CreatePrnPern.DescriptionPartTwo</h2>
+        @{
+            if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+            {
+                <h1 class="govuk-heading-xl">@CreatePrnPern.TitlePrn</h1>
+            }
+            else if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+            {
+                <h1 class="govuk-heading-xl">@CreatePrnPern.TitlePern</h1>
+            }
+
+            if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+            {
+                <h1 class="govuk-heading-xl">@CreatePrnPern.TitlePrnPern</h1>
+            }
+        }
+       
+        <h2 class="govuk-body-m">@CreatePrnPern.DescriptionPartOnePrnPern <br /> @CreatePrnPern.DescriptionPartTwoPrnPern</h2>
 
         @if (userRoleService.HasRole(UserRole.Reprocessor) && userRoleService.HasRole(UserRole.Exporter))
         {

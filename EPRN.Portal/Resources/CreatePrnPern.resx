@@ -123,16 +123,13 @@
   <data name="Aluminium" xml:space="preserve">
     <value>Aluminium</value>
   </data>
-  <data name="BreadcrumbTitle" xml:space="preserve">
-    <value>Create a PRN/PERN</value>
-  </data>
   <data name="ChooseLink" xml:space="preserve">
     <value>Choose</value>
   </data>
-  <data name="DescriptionPartOne" xml:space="preserve">
+  <data name="DescriptionPartOnePrnPern" xml:space="preserve">
     <value>Choose an accreditation to create your PRN/PERN.</value>
   </data>
-  <data name="DescriptionPartTwo" xml:space="preserve">
+  <data name="DescriptionPartTwoPrnPern" xml:space="preserve">
     <value>Round the balance to the nearest whole tonne to determine the amount available for creating the PRN/PERN.</value>
   </data>
   <data name="Exporter" xml:space="preserve">
@@ -165,7 +162,13 @@
   <data name="Steel" xml:space="preserve">
     <value>Steel</value>
   </data>
-  <data name="Title" xml:space="preserve">
+  <data name="TitlePern" xml:space="preserve">
+    <value>Create a PERN</value>
+  </data>
+  <data name="TitlePrn" xml:space="preserve">
+    <value>Create a PRN</value>
+  </data>
+  <data name="TitlePrnPern" xml:space="preserve">
     <value>Create PRN/PERN</value>
   </data>
   <data name="TonnageAvailable" xml:space="preserve">

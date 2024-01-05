@@ -79,15 +79,6 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a PRN/PERN.
-        /// </summary>
-        public static string BreadcrumbTitle {
-            get {
-                return ResourceManager.GetString("BreadcrumbTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Choose.
         /// </summary>
         public static string ChooseLink {
@@ -99,18 +90,18 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Choose an accreditation to create your PRN/PERN..
         /// </summary>
-        public static string DescriptionPartOne {
+        public static string DescriptionPartOnePrnPern {
             get {
-                return ResourceManager.GetString("DescriptionPartOne", resourceCulture);
+                return ResourceManager.GetString("DescriptionPartOnePrnPern", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Round the balance to the nearest whole tonne to determine the amount available for creating the PRN/PERN..
         /// </summary>
-        public static string DescriptionPartTwo {
+        public static string DescriptionPartTwoPrnPern {
             get {
-                return ResourceManager.GetString("DescriptionPartTwo", resourceCulture);
+                return ResourceManager.GetString("DescriptionPartTwoPrnPern", resourceCulture);
             }
         }
         
@@ -205,11 +196,29 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a PERN.
+        /// </summary>
+        public static string TitlePern {
+            get {
+                return ResourceManager.GetString("TitlePern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a PRN.
+        /// </summary>
+        public static string TitlePrn {
+            get {
+                return ResourceManager.GetString("TitlePrn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create PRN/PERN.
         /// </summary>
-        public static string Title {
+        public static string TitlePrnPern {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("TitlePrnPern", resourceCulture);
             }
         }
         
