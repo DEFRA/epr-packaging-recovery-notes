@@ -1,5 +1,5 @@
-﻿using EPRN.PRNS.API.Data;
-using EPRN.PRNS.API.Models;
+﻿using EPRN.Common.Data.DataModels;
+using EPRN.PRNS.API.Data;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 

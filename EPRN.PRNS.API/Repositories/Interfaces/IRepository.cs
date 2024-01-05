@@ -1,4 +1,4 @@
-﻿using EPRN.PRNS.API.Models;
+﻿using EPRN.Common.Data.DataModels;
 
 namespace EPRN.PRNS.API.Repositories.Interfaces
 {

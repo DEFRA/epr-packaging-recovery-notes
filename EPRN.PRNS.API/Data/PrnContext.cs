@@ -1,6 +1,6 @@
-﻿using EPRN.PRNS.API.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.CodeAnalysis;
+using EPRN.Common.Data.DataModels;
 
 namespace EPRN.PRNS.API.Data
 {
