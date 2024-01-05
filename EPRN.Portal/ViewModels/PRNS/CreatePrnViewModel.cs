@@ -1,6 +1,6 @@
 ﻿namespace EPRN.Portal.ViewModels.PRNS
 {
-    public class CreateViewModel
+    public class CreatePrnViewModel
     {
         public string Title { get; set; }
         public string Description { get; set; }

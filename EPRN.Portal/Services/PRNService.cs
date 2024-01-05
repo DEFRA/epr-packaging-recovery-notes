@@ -29,35 +29,36 @@ namespace EPRN.Portal.Services
                 tonnesViewModel.Tonnes.Value);
         }
 
-        public async Task<CreateViewModel> GetCreatePageViewModel()
+        public async Task<CreatePrnViewModel> CreatePrnViewModel()
         {
+            // TODO: This needs to get the data from a future service
 
-            var tableRowViewModelReprocessor = CreateRow("Glass", 100, 2, "#");
+            var tableRowReprocessor = CreateRow("Glass", 100, 2, "#");
 
-            var tableRowViewModelExporter = CreateRow("Aluminium", 5, 1, "#");
-            var tableRowViewModelExporter2 = CreateRow("Board/paper", 17, 4, "#");
+            var tableRowExporter = CreateRow("Aluminium", 5, 1, "#");
+            var tableRowExporter2 = CreateRow("Board/paper", 17, 4, "#");
 
             var listOfRowsReprocessor = new List<TableRowViewModel>
             {
-                tableRowViewModelReprocessor
+                tableRowReprocessor
             };
 
             var listOfRowsExporter = new List<TableRowViewModel>
             {
-                tableRowViewModelExporter,
-                tableRowViewModelExporter2
+                tableRowExporter,
+                tableRowExporter2
             };
 
-            var tableViewModelReprocessor = CreateTable("23 Ruby Street, London, SE15 1LR", listOfRowsReprocessor);
-            var tableViewModelExporter = CreateTable("123 Sesame Street, London, N12 8JJ", listOfRowsExporter);
+            var tableReprocessor = CreateTable("23 Ruby Street, London, SE15 1LR", listOfRowsReprocessor);
+            var tableExporter = CreateTable("123 Sesame Street, London, N12 8JJ", listOfRowsExporter);
 
             var listOfTables = new List<TableViewModel>
             {
-                tableViewModelReprocessor,
-                tableViewModelExporter
+                tableReprocessor,
+                tableExporter
             };
 
-            return new CreateViewModel
+            return new CreatePrnViewModel
             {
                 TableViewModels = listOfTables
             };
