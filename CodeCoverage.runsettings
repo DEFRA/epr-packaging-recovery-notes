@@ -36,7 +36,8 @@ Included items must then not match any entries in the exclude list to remain inc
 								<ModulePath>.*CPPUnitTestFramework.*</ModulePath>
                                 <ModulePath>.\\moq.dll</ModulePath>
                                 <ModulePath>.*\\EPRN.Portal\ViewModels\\.*</ModulePath>
-							</Exclude>
+                                <ModulePath>.*\\EPRN\.UnitTests\.dll</ModulePath>
+                            </Exclude>
 							<!-- Specifies additional list of directories where binaries static native instrumentation should be searched. -->
 							<IncludeDirectories>
 								<Directory Recursive="true">C:\b59fb11c-1611-4562-9a2b-c35719da65d3</Directory>

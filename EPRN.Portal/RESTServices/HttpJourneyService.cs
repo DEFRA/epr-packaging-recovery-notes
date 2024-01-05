@@ -11,8 +11,9 @@ namespace EPRN.Portal.RESTServices
     {
         public HttpJourneyService(
             IHttpContextAccessor httpContextAccessor,
+            IHttpClientFactory httpClientFactory,
             string baseUrl,
-            IHttpClientFactory httpClientFactory) : base(httpContextAccessor, baseUrl, httpClientFactory)
+            string endPointName) : base(httpContextAccessor, httpClientFactory, baseUrl, endPointName)
         {
         }
 

@@ -10,6 +10,7 @@ using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
@@ -70,16 +71,26 @@ namespace EPRN.Portal.Helpers.Extensions
                     // create a new http service using the configuration for restful services and a http client factory
                     return new HttpWasteService(
                         s.GetRequiredService<IHttpContextAccessor>(),
+                        s.GetRequiredService<IHttpClientFactory>(),
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
-                        s.GetRequiredService<IHttpClientFactory>());
+                        Strings.ApiEndPoints.Waste);
                 })
                 .AddTransient<IHttpJourneyService>(s =>
                 {
                     // create a new http service using the configuration for restful services and a http client factory
                     return new HttpJourneyService(
                         s.GetRequiredService<IHttpContextAccessor>(),
+                        s.GetRequiredService<IHttpClientFactory>(),
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Journey.Url,
-                        s.GetRequiredService<IHttpClientFactory>());
+                        Strings.ApiEndPoints.Journey);
+                })
+                .AddTransient<IHttpPrnsService>(s =>
+                {
+                    return new HttpPrnsService(
+                        s.GetRequiredService<IHttpContextAccessor>(),
+                        s.GetRequiredService<IHttpClientFactory>(),
+                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
+                        Strings.ApiEndPoints.PRN);
                 });
 
             services.Configure<RazorViewEngineOptions>(options =>

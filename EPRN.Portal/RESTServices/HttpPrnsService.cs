@@ -7,9 +7,15 @@ namespace EPRN.Portal.RESTServices
     {
         public HttpPrnsService(
             IHttpContextAccessor httpContextAccessor,
+            IHttpClientFactory httpClientFactory,
             string baseUrl,
-            IHttpClientFactory httpClientFactory) : base(httpContextAccessor, baseUrl, httpClientFactory)
+            string endPointName) : base(httpContextAccessor, httpClientFactory, baseUrl, endPointName)
         {
+        }
+
+        public async Task<double?> GetPrnTonnage(int id)
+        {
+            return await Get<double?>($"{id}/Tonnage");
         }
 
         public async Task SaveTonnage(int id, double tonnage)
