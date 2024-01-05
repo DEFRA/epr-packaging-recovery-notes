@@ -97,7 +97,7 @@
                                     }
                                     else if (row.Tonnage.DisplayWarningForTonnage())
                                     {
-                                        @row.BalanceWarning
+                                        @CreatePrnPern.BalanceWarning
                                     }
                                 </td>
                             </tr>
@@ -130,7 +130,16 @@
                                 <th scope="row" class="govuk-table__header" style="font-weight: normal">@row.Material</th>
                                 <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.Tonnage</td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.NoOfDrafts</td>
-                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left"><a href="@row.ChooseLink">@CreatePrnPern.ChooseLink</a> </td>
+                                <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">
+                                    @if (row.Tonnage.DisplayLinkForTonnage())
+                                    {
+                                        <a href="@row.ChooseLink">@CreatePrnPern.ChooseLink</a>
+                                    }
+                                    else if (row.Tonnage.DisplayWarningForTonnage())
+                                    {
+                                        @CreatePrnPern.BalanceWarning
+                                    }
+                                </td>
                             </tr>
                         }
                     </tbody>

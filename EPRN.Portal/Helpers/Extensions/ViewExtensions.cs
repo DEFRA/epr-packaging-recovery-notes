@@ -8,7 +8,7 @@
         }
         public static bool DisplayWarningForTonnage(this double tonnage)
         {
-            return (tonnage >= 0.01 && tonnage <= 0.5) || (tonnage != 0) ? false : true;
+            return (tonnage >= 0.01 && tonnage <= 0.5) || (tonnage != 0) ? true : false;
         }
     }
 }

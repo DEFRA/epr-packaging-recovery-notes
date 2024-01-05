@@ -64,15 +64,14 @@ namespace EPRN.Portal.Services
             };
         }
 
-        private TableRowViewModel CreateRow(string material, double tonnage, int noOfDrafts, string chooseLink, string balanceWarning = "")
+        private TableRowViewModel CreateRow(string material, double tonnage, int noOfDrafts, string chooseLink)
         {
             return new TableRowViewModel
             {
                 Material = material,
                 Tonnage = tonnage,
                 NoOfDrafts = noOfDrafts,
-                ChooseLink = chooseLink,
-                BalanceWarning = balanceWarning
+                ChooseLink = chooseLink
             };
         }
 

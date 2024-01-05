@@ -79,6 +79,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is not enough balance to create a PRN/PERN. A PRN/PERN must be a whole tonnage.
+        /// </summary>
+        public static string BalanceWarning {
+            get {
+                return ResourceManager.GetString("BalanceWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose.
         /// </summary>
         public static string ChooseLink {
