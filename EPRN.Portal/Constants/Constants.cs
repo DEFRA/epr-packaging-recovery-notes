@@ -13,4 +13,14 @@ namespace EPRN.Portal.Constants
         Exporter,
         Reprocessor
     }
+
+    public static class Strings
+    {
+        public static class ApiEndPoints
+        {
+            public const string Journey = "Journey";
+            public const string Waste = "Waste";
+            public const string PRN = "PRN";
+        }
+    }
 }

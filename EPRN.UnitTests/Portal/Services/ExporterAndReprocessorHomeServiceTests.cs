@@ -1,6 +1,7 @@
 ﻿using EPRN.Portal.Resources;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.UnitTests.Portal.Services
 {

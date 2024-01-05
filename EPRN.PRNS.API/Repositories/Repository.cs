@@ -14,12 +14,26 @@ namespace EPRN.PRNS.API.Repositories
             _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
         }
 
+        public async Task<int> CreatePrnRecord()
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<PackagingRecoveryNote> GetPrnById(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task SaveTonnage(int id, double tonnes)
+        public async Task<double?> GetTonnage(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(wj => wj.Id == id)
+                .Select(wj => wj.Tonnes)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task UpdateTonnage(int id, double tonnes)
         {
             await _prnContext
                 .PRN
