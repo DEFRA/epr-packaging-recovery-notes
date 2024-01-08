@@ -36,5 +36,6 @@ namespace EPRN.Waste.API.Services.Interfaces
         Task<bool> JourneyExists(int journeyId);
 
         Task<string> GetWasteRecordNote(int journeyId);
+        Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId);
     }
 }
