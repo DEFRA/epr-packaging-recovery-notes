@@ -15,7 +15,7 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpGet]
-        [ActionName("Tonnage")]
+        [Route("Tonnage")]
         public async Task<IActionResult> GetTonnage(int? id)
         {
             if (id == null)
