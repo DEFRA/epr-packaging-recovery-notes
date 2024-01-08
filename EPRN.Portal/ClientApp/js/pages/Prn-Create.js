@@ -5,14 +5,14 @@
 
             var dropDownValue = $(this).val();
 
-            $('.prnTables').removeClass('govuk-visually-hidden');
+            $('.prnTables').removeClass('govuk-!-display-none');
 
             switch (dropDownValue) {
                 case 'reprocessor':
-                    $('.exporter').addClass('govuk-visually-hidden');
+                    $('.exporter').addClass('govuk-!-display-none');
                     break;
                 case 'exporter':
-                    $('.reprocessor').addClass('govuk-visually-hidden');
+                    $('.reprocessor').addClass('govuk-!-display-none');
                     break;
             };
 
