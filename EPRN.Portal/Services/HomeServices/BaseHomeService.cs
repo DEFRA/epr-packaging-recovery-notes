@@ -1,15 +1,14 @@
 ﻿using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
-using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services
 {
     public abstract class BaseHomeService : IHomeService
     {
-        public virtual async Task<HomepageViewModel> GetHomePage()
+        public virtual async Task<HomePageViewModel> GetHomePage()
         {
             // TODO: Replace with actual data in the future
-            var homePageViewModel = new HomepageViewModel
+            var homePageViewModel = new HomePageViewModel
             {
                 Name = "Green LTD",
                 ContactName = "John Watson",

@@ -1,6 +1,6 @@
-﻿namespace EPRN.Portal.ViewModels.Waste
+﻿namespace EPRN.Portal.ViewModels
 {
-    public class HomepageViewModel
+    public class HomePageViewModel
     {
         public string Name { get; set; } = string.Empty;
 

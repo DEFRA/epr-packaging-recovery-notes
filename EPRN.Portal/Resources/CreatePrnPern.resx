@@ -117,25 +117,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back" xml:space="preserve">
-    <value>[Welsh] back</value>
+  <data name="AccreditationsFor" xml:space="preserve">
+    <value>Accreditations for:</value>
   </data>
-  <data name="ContinueBtn" xml:space="preserve">
-    <value>[Welsh] Continue</value>
+  <data name="Aluminium" xml:space="preserve">
+    <value>Aluminium</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>[Welsh] Home</value>
+  <data name="BalanceWarning" xml:space="preserve">
+    <value>There is not enough balance to create a PRN/PERN. A PRN/PERN must be a whole tonnage</value>
   </data>
-  <data name="MustBeANumber" xml:space="preserve">
-    <value>[Welsh]Please enter a valid numerical value</value>
+  <data name="ChooseLink" xml:space="preserve">
+    <value>Choose</value>
   </data>
-  <data name="OppositeLanguage" xml:space="preserve">
-    <value>English</value>
+  <data name="DescriptionPartOnePrnPern" xml:space="preserve">
+    <value>Choose an accreditation to create your PRN/PERN.</value>
   </data>
-  <data name="RecordingFor" xml:space="preserve">
-    <value>[Welsh] Recording for:</value>
+  <data name="DescriptionPartTwoPrnPern" xml:space="preserve">
+    <value>Round the balance to the nearest whole tonne to determine the amount available for creating the PRN/PERN.</value>
   </data>
-  <data name="String" xml:space="preserve">
-    <value>[Welsh]There is a problem</value>
+  <data name="Exporter" xml:space="preserve">
+    <value>Exporter</value>
+  </data>
+  <data name="ExportingHeading" xml:space="preserve">
+    <value>Exporting</value>
+  </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Filter By</value>
+  </data>
+  <data name="Glass" xml:space="preserve">
+    <value>Glass</value>
+  </data>
+  <data name="Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="NumberOfDraftPrns" xml:space="preserve">
+    <value>Number of draft PRNs</value>
+  </data>
+  <data name="PaperBoard" xml:space="preserve">
+    <value>Paper/board</value>
+  </data>
+  <data name="ReprocessingHeading" xml:space="preserve">
+    <value>Reprocessing</value>
+  </data>
+  <data name="Reprocessor" xml:space="preserve">
+    <value>Reprocessor</value>
+  </data>
+  <data name="Steel" xml:space="preserve">
+    <value>Steel</value>
+  </data>
+  <data name="TitlePern" xml:space="preserve">
+    <value>Create a PERN</value>
+  </data>
+  <data name="TitlePrn" xml:space="preserve">
+    <value>Create a PRN</value>
+  </data>
+  <data name="TitlePrnPern" xml:space="preserve">
+    <value>Create PRN/PERN</value>
+  </data>
+  <data name="TonnageAvailable" xml:space="preserve">
+    <value>Tonnage available to create PRNs</value>
   </data>
 </root>
