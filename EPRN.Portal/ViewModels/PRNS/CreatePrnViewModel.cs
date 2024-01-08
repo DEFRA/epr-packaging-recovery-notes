@@ -3,7 +3,9 @@
     public class CreatePrnViewModel
     {
         public string Title { get; set; }
+
         public string Description { get; set; }
-        public List<TableViewModel> TableViewModels { get; set; } = new List<TableViewModel>();
+
+        public List<TableViewModel> Tables { get; set; }
     }
 }

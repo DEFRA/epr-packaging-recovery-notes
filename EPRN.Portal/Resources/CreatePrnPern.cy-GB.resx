@@ -118,87 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccreditationsFor" xml:space="preserve">
-    <value>Accreditations for:</value>
+    <value>[Welsh] Accreditations for:</value>
   </data>
   <data name="Aluminium" xml:space="preserve">
-    <value>Aluminium</value>
+    <value>[Welsh] Aluminium</value>
   </data>
   <data name="BalanceWarningPern" xml:space="preserve">
-    <value>There is not enough balance to create a PERN. A PERN must be a whole tonnage</value>
+    <value>[Welsh] There is not enough balance to create a PERN. A PERN must be a whole tonnage</value>
   </data>
   <data name="BalanceWarningPrn" xml:space="preserve">
-    <value>There is not enough balance to create a PRN. A PRN must be a whole tonnage</value>
+    <value>[Welsh] There is not enough balance to create a PRN. A PRN must be a whole tonnage</value>
   </data>
   <data name="BalanceWarningPrnPern" xml:space="preserve">
-    <value>There is not enough balance to create a PRN/PERN. A PRN/PERN must be a whole tonnage</value>
+    <value>[Welsh] There is not enough balance to create a PRN/PERN. A PRN/PERN must be a whole tonnage</value>
   </data>
   <data name="ChooseLink" xml:space="preserve">
-    <value>Choose</value>
+    <value>[Welsh] Choose</value>
   </data>
   <data name="DescriptionPartOnePern" xml:space="preserve">
-    <value>Choose an accreditation to create your PERN.</value>
+    <value>[Welsh] Choose an accreditation to create your PERN.</value>
   </data>
   <data name="DescriptionPartOnePrn" xml:space="preserve">
-    <value>Choose an accreditation to create your PRN.</value>
+    <value>[Welsh] Choose an accreditation to create your PRN.</value>
   </data>
   <data name="DescriptionPartOnePrnPern" xml:space="preserve">
-    <value>Choose an accreditation to create your PRN/PERN.</value>
+    <value>[Welsh] Choose an accreditation to create your PRN/PERN.</value>
   </data>
   <data name="DescriptionPartTwoPern" xml:space="preserve">
-    <value>Round the balance to the nearest whole tonne to determine the amount available for creating the PERN.</value>
+    <value>[Welsh] Round the balance to the nearest whole tonne to determine the amount available for creating the PERN.</value>
   </data>
   <data name="DescriptionPartTwoPrn" xml:space="preserve">
-    <value>Round the balance to the nearest whole tonne to determine the amount available for creating the PRN.</value>
+    <value>[Welsh] Round the balance to the nearest whole tonne to determine the amount available for creating the PRN.</value>
   </data>
   <data name="DescriptionPartTwoPrnPern" xml:space="preserve">
-    <value>Round the balance to the nearest whole tonne to determine the amount available for creating the PRN/PERN.</value>
+    <value>[Welsh] Round the balance to the nearest whole tonne to determine the amount available for creating the PRN/PERN.</value>
   </data>
   <data name="Exporter" xml:space="preserve">
-    <value>Exporter</value>
+    <value>[Welsh] Exporter</value>
   </data>
   <data name="ExportingHeading" xml:space="preserve">
-    <value>Exporting</value>
+    <value>[Welsh] Exporting</value>
   </data>
   <data name="FilterBy" xml:space="preserve">
-    <value>Filter By</value>
+    <value>[Welsh] Filter By</value>
   </data>
   <data name="Glass" xml:space="preserve">
-    <value>Glass</value>
+    <value>[Welsh] Glass</value>
   </data>
   <data name="Material" xml:space="preserve">
-    <value>Material</value>
+    <value>[Welsh] Material</value>
   </data>
   <data name="NumberOfDraftPerns" xml:space="preserve">
-    <value>Number of draft PERNs</value>
+    <value>[Welsh] Number of draft PERNs</value>
   </data>
   <data name="NumberOfDraftPrns" xml:space="preserve">
-    <value>Number of draft PRNs</value>
+    <value>[Welsh] Number of draft PRNs</value>
   </data>
   <data name="PaperBoard" xml:space="preserve">
-    <value>Paper/board</value>
+    <value>[Welsh] Paper/board</value>
   </data>
   <data name="ReprocessingHeading" xml:space="preserve">
-    <value>Reprocessing</value>
+    <value>[Welsh] Reprocessing</value>
   </data>
   <data name="Reprocessor" xml:space="preserve">
-    <value>Reprocessor</value>
+    <value>[Welsh] Reprocessor</value>
   </data>
   <data name="Steel" xml:space="preserve">
-    <value>Steel</value>
+    <value>[Welsh] Steel</value>
   </data>
   <data name="TitlePern" xml:space="preserve">
-    <value>Create a PERN</value>
+    <value>[Welsh] Create a PERN</value>
   </data>
   <data name="TitlePrn" xml:space="preserve">
-    <value>Create a PRN</value>
+    <value>[Welsh] Create a PRN</value>
   </data>
   <data name="TitlePrnPern" xml:space="preserve">
-    <value>Create PRN/PERN</value>
+    <value>[Welsh] Create PRN/PERN</value>
   </data>
   <data name="TonnageAvailablePern" xml:space="preserve">
-    <value>Tonnage available to create PERNs</value>
+    <value>[Welsh] Tonnage available to create PERNs</value>
   </data>
   <data name="TonnageAvailablePrn" xml:space="preserve">
-    <value>Tonnage available to create PRNs</value>
+    <value>[Welsh] Tonnage available to create PRNs</value>
   </data>
 </root>

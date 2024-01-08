@@ -79,11 +79,29 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is not enough balance to create a PERN. A PERN must be a whole tonnage.
+        /// </summary>
+        public static string BalanceWarningPern {
+            get {
+                return ResourceManager.GetString("BalanceWarningPern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is not enough balance to create a PRN. A PRN must be a whole tonnage.
+        /// </summary>
+        public static string BalanceWarningPrn {
+            get {
+                return ResourceManager.GetString("BalanceWarningPrn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is not enough balance to create a PRN/PERN. A PRN/PERN must be a whole tonnage.
         /// </summary>
-        public static string BalanceWarning {
+        public static string BalanceWarningPrnPern {
             get {
-                return ResourceManager.GetString("BalanceWarning", resourceCulture);
+                return ResourceManager.GetString("BalanceWarningPrnPern", resourceCulture);
             }
         }
         
@@ -97,11 +115,47 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose an accreditation to create your PERN..
+        /// </summary>
+        public static string DescriptionPartOnePern {
+            get {
+                return ResourceManager.GetString("DescriptionPartOnePern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose an accreditation to create your PRN..
+        /// </summary>
+        public static string DescriptionPartOnePrn {
+            get {
+                return ResourceManager.GetString("DescriptionPartOnePrn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choose an accreditation to create your PRN/PERN..
         /// </summary>
         public static string DescriptionPartOnePrnPern {
             get {
                 return ResourceManager.GetString("DescriptionPartOnePrnPern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Round the balance to the nearest whole tonne to determine the amount available for creating the PERN..
+        /// </summary>
+        public static string DescriptionPartTwoPern {
+            get {
+                return ResourceManager.GetString("DescriptionPartTwoPern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Round the balance to the nearest whole tonne to determine the amount available for creating the PRN..
+        /// </summary>
+        public static string DescriptionPartTwoPrn {
+            get {
+                return ResourceManager.GetString("DescriptionPartTwoPrn", resourceCulture);
             }
         }
         
@@ -156,6 +210,15 @@ namespace EPRN.Portal.Resources {
         public static string Material {
             get {
                 return ResourceManager.GetString("Material", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number of draft PERNs.
+        /// </summary>
+        public static string NumberOfDraftPerns {
+            get {
+                return ResourceManager.GetString("NumberOfDraftPerns", resourceCulture);
             }
         }
         
@@ -232,11 +295,20 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tonnage available to create PERNs.
+        /// </summary>
+        public static string TonnageAvailablePern {
+            get {
+                return ResourceManager.GetString("TonnageAvailablePern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tonnage available to create PRNs.
         /// </summary>
-        public static string TonnageAvailable {
+        public static string TonnageAvailablePrn {
             get {
-                return ResourceManager.GetString("TonnageAvailable", resourceCulture);
+                return ResourceManager.GetString("TonnageAvailablePrn", resourceCulture);
             }
         }
     }

@@ -15,6 +15,8 @@ namespace EPRN.Portal.Services
 
         public async Task<TonnesViewModel> GetTonnesViewModel(int id)
         {
+            await Task.CompletedTask;
+
             return new TonnesViewModel
             {
                 JourneyId = id,
@@ -33,10 +35,10 @@ namespace EPRN.Portal.Services
         {
             // TODO: This needs to get the data from a future service
 
-            var tableRowReprocessor = CreateRow("Glass", 0, 2, "#");
+            var tableRowReprocessor = CreateRow(1, "Glass", 0, 2);
 
-            var tableRowExporter = CreateRow("Aluminium", 0.3, 1, "#");
-            var tableRowExporter2 = CreateRow("Board/paper", 17, 4, "#");
+            var tableRowExporter = CreateRow(2, "Aluminium", 0.3, 1);
+            var tableRowExporter2 = CreateRow(3, "Board/paper", 17, 4);
 
             var listOfRowsReprocessor = new List<TableRowViewModel>
             {
@@ -60,18 +62,18 @@ namespace EPRN.Portal.Services
 
             return new CreatePrnViewModel
             {
-                TableViewModels = listOfTables
+                Tables = listOfTables
             };
         }
 
-        private TableRowViewModel CreateRow(string material, double tonnage, int noOfDrafts, string chooseLink)
+        private TableRowViewModel CreateRow(int materialId, string material, double tonnage, int noOfDrafts)
         {
             return new TableRowViewModel
             {
-                Material = material,
+                MaterialId = materialId,
+                MaterialName = material,
                 Tonnage = tonnage,
-                NoOfDrafts = noOfDrafts,
-                ChooseLink = chooseLink
+                NoOfDrafts = noOfDrafts
             };
         }
 

@@ -2,10 +2,10 @@
 {
     public class TableRowViewModel
     {
-        public string Material { get; set; }
+        public int MaterialId { get; set; }
+        public string MaterialName { get; set; }
         public double Tonnage { get; set; }
         public int NoOfDrafts { get; set; }
-        public string ChooseLink { get; set; }
 
     }
 }
