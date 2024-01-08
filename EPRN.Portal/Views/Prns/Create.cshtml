@@ -81,7 +81,7 @@
                                     <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">
                                         @if (row.Tonnage.DisplayLinkForTonnage())
                                         {
-                                            <a asp-action="CreatePrn" asp-controller="PRNS" asp-area="reprocessor" asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
+                                            <a asp-action="CreatePrn" asp-controller="PRNS" asp-area="Reprocessor" asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
                                         }
                                         else if (row.Tonnage.DisplayWarningForTonnage())
                                         {
