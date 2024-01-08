@@ -13,6 +13,11 @@ namespace EPRN.Common.Data
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer();
+        }
+
         public virtual DbSet<WasteType> WasteType { get; set; }
 
         public virtual DbSet<WasteSubType> WasteSubType { get; set; }
