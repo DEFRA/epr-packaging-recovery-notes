@@ -15,12 +15,12 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
-        public IActionResult Tonnes(int? id)
+        public async Task<IActionResult> Tonnes(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var viewModel = _prnService.GetTonnesViewModel(id.Value);
+            var viewModel = await _prnService.GetTonnesViewModel(id.Value);
 
             return View(viewModel);
         }
