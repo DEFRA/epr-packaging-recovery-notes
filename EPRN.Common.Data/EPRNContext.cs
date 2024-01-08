@@ -1,15 +1,15 @@
 ﻿using EPRN.Common.Data.DataModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace EPRN.Waste.API.Data
+namespace EPRN.Common.Data
 {
-    public class WasteContext : DbContext
+    public class EPRNContext : DbContext
     {
-        public WasteContext()
+        public EPRNContext()
         {
         }
 
-        public WasteContext(DbContextOptions options) : base(options)
+        public EPRNContext(DbContextOptions options) : base(options)
         {
         }
 
@@ -18,5 +18,7 @@ namespace EPRN.Waste.API.Data
         public virtual DbSet<WasteSubType> WasteSubType { get; set; }
 
         public virtual DbSet<WasteJourney> WasteJourney { get; set; }
+
+        public virtual DbSet<PackagingRecoveryNote> PRN { get; set; }
     }
 }

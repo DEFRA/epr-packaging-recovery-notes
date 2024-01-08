@@ -1,7 +1,5 @@
 ﻿using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
-using EPRN.Common.Dtos;
-using EPRN.Waste.API.Data;
 using EPRN.Waste.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +7,11 @@ namespace EPRN.Waste.API.Repositories
 {
     public class Repository : IRepository
     {
-        private readonly WasteContext _wasteContext;
+        private readonly EPRNContext _wasteContext;
 
-        public Repository(WasteContext wasteContext)
+        public Repository(EPRNContext eprnContext)
         {
-            _wasteContext = wasteContext ?? throw new ArgumentNullException(nameof(wasteContext));
+            _wasteContext = eprnContext ?? throw new ArgumentNullException(nameof(eprnContext));
         }
 
         public async Task AddJourney(WasteJourney wasteJourney)
