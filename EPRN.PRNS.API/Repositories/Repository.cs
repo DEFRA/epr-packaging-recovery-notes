@@ -1,5 +1,5 @@
-﻿using EPRN.Common.Data.DataModels;
-using EPRN.PRNS.API.Data;
+﻿using EPRN.Common.Data;
+using EPRN.Common.Data.DataModels;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,9 +7,9 @@ namespace EPRN.PRNS.API.Repositories
 {
     public class Repository : IRepository
     {
-        private readonly PrnContext _prnContext;
+        private readonly EPRNContext _prnContext;
 
-        public Repository(PrnContext prnContext)
+        public Repository(EPRNContext prnContext)
         {
             _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
         }

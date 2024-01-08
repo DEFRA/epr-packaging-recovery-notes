@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace EPRN.Waste.API.Migrations
+namespace EPRN.Common.Data.Migrations
 {
     /// <inheritdoc />
     public partial class AddAdjustmentPercentageRequiredinWasteSubTypetable : Migration

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EPRN.Common.Data.DataModels
 {
@@ -11,7 +12,8 @@ namespace EPRN.Common.Data.DataModels
         public string Note { get; set; }
 
         public int? WasteTypeId { get; set; }
-
+        
+        [ForeignKey("WasteTypeId")]
         public WasteType WasteType { get; set; }
 
         public int? WasteSubTypeId { get; set; }

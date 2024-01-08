@@ -1,6 +1,6 @@
 using AutoMapper;
+using EPRN.Common.Data;
 using EPRN.Waste.API.Configuration;
-using EPRN.Waste.API.Data;
 using EPRN.Waste.API.Middleware;
 using EPRN.Waste.API.Profiles;
 using EPRN.Waste.API.Repositories;
@@ -24,7 +24,7 @@ builder.Services.AddTransient<IWasteService, WasteService>();
 builder.Services.AddTransient<IRepository, Repository>();
 
 // add db context options
-builder.Services.AddDbContext<WasteContext>(options =>
+builder.Services.AddDbContext<EPRNContext>(options =>
     options
         .UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
 );
