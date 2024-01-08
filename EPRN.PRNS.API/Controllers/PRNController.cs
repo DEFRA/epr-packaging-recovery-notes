@@ -11,7 +11,7 @@ namespace EPRN.PRNS.API.Controllers
 
         public PRNController(IPrnService prnService)
         {
-            _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));    
+            _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 
         [HttpGet]
@@ -29,7 +29,7 @@ namespace EPRN.PRNS.API.Controllers
         [HttpPost]
         [Route("Tonnage/{tonnage}")]
         public async Task<IActionResult> SaveTonnage(
-            int? id, 
+            int? id,
             double? tonnage)
         {
             if (id == null)

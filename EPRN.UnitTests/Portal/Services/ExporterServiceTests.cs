@@ -26,7 +26,7 @@ namespace EPRN.UnitTests.Portal.Services
 
             // Assert
             Assert.IsNotNull(viewModel);
-            Assert.AreEqual(typeof(HomepageViewModel), viewModel.GetType());
+            Assert.AreEqual(typeof(HomePageViewModel), viewModel.GetType());
         }
 
         [TestMethod]
@@ -39,10 +39,10 @@ namespace EPRN.UnitTests.Portal.Services
 
             // Assert
             Assert.IsNotNull(viewModel);
-            Assert.AreEqual(typeof(HomepageViewModel), viewModel.GetType());
+            Assert.AreEqual(typeof(HomePageViewModel), viewModel.GetType());
 
             Assert.IsTrue(viewModel.CardViewModels.Count() == 5);
-            
+
             Assert.AreEqual(viewModel.CardViewModels[1].Title, HomePageResources.HomePage_ManagePern_Title);
             Assert.AreEqual(viewModel.CardViewModels[1].Description, HomePageResources.HomePage_ManagePern_Description);
             Assert.IsTrue(viewModel.CardViewModels[1].Links.Count() == 3);

@@ -37,5 +37,15 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [Route("[area]/[controller]/[action]/{materialId}")]
+        public async Task<IActionResult> CreatePrn(int? materialId)
+        {
+            if (materialId == null)
+                return NotFound();
+
+            return RedirectToAction("Tonnes", "PRNS", new { Id = 1 });
+        }
     }
 }

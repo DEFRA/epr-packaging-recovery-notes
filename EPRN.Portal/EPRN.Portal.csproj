@@ -58,6 +58,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\CreatePrnPern.Designer.cs">
+      <DependentUpon>CreatePrnPern.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\PRNS\Tonnes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -136,6 +141,10 @@
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CreatePrnPern.resx">
+      <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\Tonnes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Tonnes.Designer.cs</LastGenOutput>
@@ -199,7 +208,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\sass\common\" />
     <Folder Include="ClientApp\sass\pages\" />
   </ItemGroup>
 

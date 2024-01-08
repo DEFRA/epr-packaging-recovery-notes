@@ -1,0 +1,143 @@
+﻿@using EPRN.Common.Enums;
+@using EPRN.Portal.Services.Interfaces;
+@using EPRN.Portal.Helpers.Extensions;
+
+@inject IUserRoleService userRoleService;
+
+@model CreatePrnViewModel
+@{
+    if (userRoleService.HasRole(UserRole.Reprocessor))
+    {
+        ViewData["Title"] = CreatePrnPern.TitlePrn;
+    }
+    else if (userRoleService.HasRole(UserRole.Exporter))
+    {
+        ViewData["Title"] = CreatePrnPern.TitlePern;
+    }
+
+    if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+    {
+        ViewData["Title"] = CreatePrnPern.TitlePrnPern;
+    }
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        @{
+            if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+            {
+                <h1 class="govuk-heading-xl">@CreatePrnPern.TitlePrn</h1>
+                <h2 class="govuk-body-m">@CreatePrnPern.DescriptionPartOnePrn <br /> @CreatePrnPern.DescriptionPartTwoPrn</h2>
+            }
+
+            if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+            {
+                <h1 class="govuk-heading-xl">@CreatePrnPern.TitlePern</h1>
+                <h2 class="govuk-body-m">@CreatePrnPern.DescriptionPartOnePern <br /> @CreatePrnPern.DescriptionPartTwoPern</h2>
+            }
+
+            if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+            {
+                <h1 class="govuk-heading-xl">@CreatePrnPern.TitlePrnPern</h1>
+                <h2 class="govuk-body-m">@CreatePrnPern.DescriptionPartOnePrnPern <br /> @CreatePrnPern.DescriptionPartTwoPrnPern</h2>
+            }
+        }
+       
+        @if (userRoleService.HasRole(UserRole.Reprocessor) && userRoleService.HasRole(UserRole.Exporter))
+        {
+            <div class="govuk-form-group">
+                <select class="govuk-select display-right" id="sort" name="sort">
+                    <option value="all" selected>@CreatePrnPern.FilterBy</option>
+                    <option value="exporter">@CreatePrnPern.Exporter</option>
+                    <option value="reprocessor">@CreatePrnPern.Reprocessor</option>
+                </select>
+            </div>
+        }
+        
+        @if (userRoleService.HasRole(UserRole.Reprocessor))
+        {
+            <div class="reprocessor prnTables">
+                <h1 class="govuk-heading-l">@CreatePrnPern.ReprocessingHeading</h1>
+
+                @foreach (var element in Model.Tables)
+                {
+                    <h2 class="govuk-heading-s">@CreatePrnPern.AccreditationsFor @element.SiteAddress</h2>
+                    <table class="govuk-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">@CreatePrnPern.Material</th>
+                                <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.TonnageAvailablePrn</th>
+                                <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.NumberOfDraftPrns</th>
+                                <th scope="col" class="govuk-table__header govuk-table__header--numeric"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            @foreach (var row in element.Rows)
+                            {
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header" style="font-weight: normal">@row.MaterialName</th>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.Tonnage</td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.NoOfDrafts</td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">
+                                        @if (row.Tonnage.DisplayLinkForTonnage())
+                                        {
+                                            <a asp-action="CreatePrn" asp-controller="PRNS" asp-area="reprocessor" asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
+                                        }
+                                        else if (row.Tonnage.DisplayWarningForTonnage())
+                                        {
+                                            @CreatePrnPern.BalanceWarningPrn
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        }
+
+        @if (userRoleService.HasRole(UserRole.Exporter))
+        {
+            <div class="exporter prnTables">
+                <h1 class="govuk-heading-l">@CreatePrnPern.ExportingHeading</h1>
+
+                @foreach (var element in Model.Tables)
+                {
+                    <h2 class="govuk-heading-s">@CreatePrnPern.AccreditationsFor @element.SiteAddress</h2>
+                    <table class="govuk-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">@CreatePrnPern.Material</th>
+                                <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.TonnageAvailablePern</th>
+                                <th scope="col" class="govuk-table__header govuk-table__header--numeric" style="text-align: left">@CreatePrnPern.NumberOfDraftPerns</th>
+                                <th scope="col" class="govuk-table__header govuk-table__header--numeric"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            @foreach (var row in element.Rows)
+                            {
+                                <tr class="govuk-table__row">
+                                    <th scope="row" class="govuk-table__header" style="font-weight: normal">@row.MaterialName</th>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.Tonnage</td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.NoOfDrafts</td>
+                                    <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">
+                                        @if (row.Tonnage.DisplayLinkForTonnage())
+                                        {
+                                            <a asp-action="CreatePrn" asp-controller="PRNS" asp-area="exporter" asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
+                                        }
+                                        else if (row.Tonnage.DisplayWarningForTonnage())
+                                        {
+                                            @CreatePrnPern.BalanceWarningPern
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+
