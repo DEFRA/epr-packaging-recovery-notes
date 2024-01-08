@@ -1,6 +1,5 @@
 using AutoMapper;
 using EPRN.PRNS.API.Configuration;
-using EPRN.PRNS.API.Data;
 using EPRN.PRNS.API.Middleware;
 using EPRN.PRNS.API.Profiles;
 using Microsoft.EntityFrameworkCore;
@@ -16,13 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
 // add db context options
-builder.Services.AddDbContext<PrnContext>(options =>
-    options
-        .UseLazyLoadingProxies()
-        .UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
-);
+
 
 builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
 
