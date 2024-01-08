@@ -208,7 +208,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\sass\common\" />
     <Folder Include="ClientApp\sass\pages\" />
   </ItemGroup>
 
