@@ -13,7 +13,6 @@ namespace EPRN.Common.Data.DataModels
 
         public int? WasteTypeId { get; set; }
         
-        [ForeignKey("WasteTypeId")]
         public WasteType WasteType { get; set; }
 
         public int? WasteSubTypeId { get; set; }

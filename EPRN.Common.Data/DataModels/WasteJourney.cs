@@ -23,7 +23,7 @@
 
         public bool? BaledWithWire { get; set; }
 
-        public string Note { get; set; }
+        public string? Note { get; set; }
 
         public bool? Completed { get; set; }
 
@@ -35,7 +35,7 @@
 
         public WasteSubType WasteSubType { get; set; }
 
-        public string ReferenceNumber { get; set; }
+        public string? ReferenceNumber { get; set; }
 
         public DoneWaste? DoneWaste { get; set; }
 
