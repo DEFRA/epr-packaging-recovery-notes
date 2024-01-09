@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using EPRN.Common.Data.DataModels;
 using EPRN.Common.Dtos;
-using EPRN.Waste.API.Models;
+using EPRN.Common.Enums;
 
 namespace EPRN.Waste.API.Profiles
 {
@@ -10,6 +11,8 @@ namespace EPRN.Waste.API.Profiles
         {
             CreateMap<WasteType, WasteTypeDto>();
             CreateMap<WasteSubType, WasteSubTypeDto>();
+            CreateMap<Common.Data.DoneWaste, DoneWaste>();
+            CreateMap<DoneWaste, Common.Data.DoneWaste>();
         }
     }
 }

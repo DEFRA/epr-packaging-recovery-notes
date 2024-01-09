@@ -1,11 +1,15 @@
-﻿using EPRN.PRNS.API.Models;
+﻿using EPRN.Common.Data.DataModels;
 
 namespace EPRN.PRNS.API.Repositories.Interfaces
 {
     public interface IRepository
     {
-        bool LazyLoading { set; }
+        Task<int> CreatePrnRecord();
 
         Task<PackagingRecoveryNote> GetPrnById(int id);
+
+        Task<double?> GetTonnage(int id);
+
+        Task UpdateTonnage(int id, double tonnes);
     }
 }

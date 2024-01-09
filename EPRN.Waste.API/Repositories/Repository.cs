@@ -1,7 +1,5 @@
-﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enums;
-using EPRN.Waste.API.Data;
-using EPRN.Waste.API.Models;
+﻿using EPRN.Common.Data;
+using EPRN.Common.Data.DataModels;
 using EPRN.Waste.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,11 +7,11 @@ namespace EPRN.Waste.API.Repositories
 {
     public class Repository : IRepository
     {
-        private readonly WasteContext _wasteContext;
+        private readonly EPRNContext _wasteContext;
 
-        public Repository(WasteContext wasteContext)
+        public Repository(EPRNContext eprnContext)
         {
-            _wasteContext = wasteContext ?? throw new ArgumentNullException(nameof(wasteContext));
+            _wasteContext = eprnContext ?? throw new ArgumentNullException(nameof(eprnContext));
         }
 
         public async Task AddJourney(WasteJourney wasteJourney)
@@ -134,20 +132,13 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
+        public async Task<WasteJourney> GetWasteSubTypeSelection(int journeyId)
         {
-            var result = await _wasteContext
+            return await _wasteContext
                 .WasteJourney
                 .Include(wj => wj.WasteSubType)
                 .Where(wj => wj.Id == journeyId)
-                .Select(wj => new WasteSubTypeSelectionDto
-                {
-                    WasteSubTypeId = wj.WasteSubType.Id,
-                    Adjustment = wj.WasteSubType.AdjustmentPercentageRequired ? wj.Adjustment : null
-                })
                 .SingleOrDefaultAsync();
-
-            return result;
         }
 
         public async Task<DoneWaste?> GetDoneWaste(int journeyId)

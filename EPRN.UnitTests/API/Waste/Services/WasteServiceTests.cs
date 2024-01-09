@@ -1,7 +1,4 @@
 ﻿using AutoMapper;
-using EPRN.Common.Dtos;
-using EPRN.UnitTests.Helpers;
-using EPRN.Waste.API.Models;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services;
 using EPRN.Waste.API.Services.Interfaces;

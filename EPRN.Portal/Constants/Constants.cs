@@ -8,9 +8,19 @@ namespace EPRN.Portal.Constants
         public static readonly CultureInfo Welsh = new CultureInfo("cy-GB");
     }
 
-    public enum WasteType
+    public enum JourneyType
     {
         Exporter,
         Reprocessor
+    }
+
+    public static class Strings
+    {
+        public static class ApiEndPoints
+        {
+            public const string Journey = "Journey";
+            public const string Waste = "Waste";
+            public const string PRN = "PRN";
+        }
     }
 }

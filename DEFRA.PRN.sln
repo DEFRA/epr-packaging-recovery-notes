@@ -20,6 +20,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Portal", "EPRN.Portal\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.PRNS.API", "EPRN.PRNS.API\EPRN.PRNS.API.csproj", "{65D46CFB-89A7-4F51-A24D-02898022A4FD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Common.Data", "EPRN.Common.Data\EPRN.Common.Data.csproj", "{1CF7477E-E72A-4E0F-9696-A465E249081C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{65D46CFB-89A7-4F51-A24D-02898022A4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65D46CFB-89A7-4F51-A24D-02898022A4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65D46CFB-89A7-4F51-A24D-02898022A4FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CF7477E-E72A-4E0F-9696-A465E249081C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CF7477E-E72A-4E0F-9696-A465E249081C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CF7477E-E72A-4E0F-9696-A465E249081C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CF7477E-E72A-4E0F-9696-A465E249081C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -123,6 +123,9 @@
   <data name="ContinueBtn" xml:space="preserve">
     <value>[Welsh] Continue</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>[Welsh] Home</value>
+  </data>
   <data name="MustBeANumber" xml:space="preserve">
     <value>[Welsh]Please enter a valid numerical value</value>
   </data>

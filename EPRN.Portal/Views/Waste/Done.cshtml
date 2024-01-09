@@ -1,0 +1,40 @@
+﻿@using EPRN.Common.Enums;
+
+@model WhatHaveYouDoneWasteModel
+@{
+    ViewData["Title"] = WhatHaveYouDoneWithWasteResource.PageTitle;
+}
+
+<a href="/" class="govuk-back-link">@MasterResources.Back</a>
+<form method="post">
+    <input type="hidden" asp-for="JourneyId" />
+    <partial name="_ValidationSummary" />
+
+    <span class="govuk-caption-l">
+        @MasterResources.RecordingFor @Model.WasteType
+    </span>
+    <radios asp-for="WhatHaveYouDone" asp-title="@WhatHaveYouDoneWithWasteResource.Heading">
+        <p class="govuk-error-message">
+            <span asp-validation-for="WhatHaveYouDone"></span>
+        </p>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="WhatHaveYouDone" value="@DoneWaste.ReprocessedIt" aria-describedby="@WhatHaveYouDoneWithWasteResource.ReproceesedIt">
+            <label class="govuk-label govuk-radios__label" for="@WhatHaveYouDoneWithWasteResource.ReproceesedIt">
+                @WhatHaveYouDoneWithWasteResource.ReproceesedIt
+            </label>
+        </div>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="WhatHaveYouDone" value="@DoneWaste.SentItOn" aria-describedby="@WhatHaveYouDoneWithWasteResource.SentItOn">
+            <label class="govuk-label govuk-radios__label" for="@WhatHaveYouDoneWithWasteResource.SentItOn">
+                @WhatHaveYouDoneWithWasteResource.SentItOn
+            </label>
+        </div>
+
+    </radios>
+
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @MasterResources.ContinueBtn
+    </button>
+</form>

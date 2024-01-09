@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
+using EPRN.Common.Data.DataModels;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Waste.API.Configuration;
-using EPRN.Waste.API.Models;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
+
 
 namespace EPRN.Waste.API.Services
 {
@@ -67,12 +68,15 @@ namespace EPRN.Waste.API.Services
 
         public async Task<DoneWaste?> GetWhatHaveYouDoneWaste(int journeyId)
         {
-            return await _wasteRepository.GetDoneWaste(journeyId);
+            var doneWaste = await _wasteRepository.GetDoneWaste(journeyId);
+
+            return _mapper.Map<DoneWaste>(doneWaste);
         }
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            await _wasteRepository.UpdateJourneyDoneId(journeyId, whatHaveYouDoneWaste);
+            var doneWaste = _mapper.Map<Common.Data.DoneWaste>(whatHaveYouDoneWaste);
+            await _wasteRepository.UpdateJourneyDoneId(journeyId, doneWaste);
         }
 
         public async Task<string> GetWasteType(int journeyId)
@@ -142,9 +146,27 @@ namespace EPRN.Waste.API.Services
 
         public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
         {
-            return await _wasteRepository.GetWasteSubTypeSelection(journeyId);
+            var journey = await _wasteRepository.GetWasteSubTypeSelection(journeyId);
+            if (journey == null)
+            {
+                throw new Exception(nameof(journey));
+            }
+            
+            var wasteSubType = journey.WasteSubType;
+            if (wasteSubType == null)
+            {
+                throw new Exception(nameof(wasteSubType));
+            }
+            
+            var wasteSubTypeSelection = new WasteSubTypeSelectionDto
+            {
+                WasteSubTypeId = wasteSubType.Id,
+                Adjustment = wasteSubType.AdjustmentPercentageRequired ? journey.Adjustment : null
+            };
+            
+            return wasteSubTypeSelection;
         }
-        
+
         public async Task<string> GetWasteRecordNote(int journeyId)
         {
             return await _wasteRepository.GetWasteNote(journeyId);

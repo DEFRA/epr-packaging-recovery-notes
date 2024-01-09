@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
 using EPRN.Portal.Profiles;
@@ -8,6 +9,8 @@ using EPRN.Portal.Services;
 using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
@@ -24,10 +27,10 @@ namespace EPRN.Portal.Helpers.Extensions
             services.Configure<RequestLocalizationOptions>(options =>
             {
                 var supportedCultures = new List<CultureInfo>
-                                            {
-                                                Constants.CultureConstants.English,
-                                                Constants.CultureConstants.Welsh
-                                            };
+                {
+                    CultureConstants.English,
+                    CultureConstants.Welsh
+                };
 
                 options.DefaultRequestCulture = new RequestCulture("en-GB");
                 options.SupportedCultures = supportedCultures;
@@ -53,32 +56,49 @@ namespace EPRN.Portal.Helpers.Extensions
                         SslProtocols = SslProtocols.Tls12
                     };
                 });
+            services
+                .AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>))
+                .AddSingleton<IQueryStringHelper, QueryStringHelper>()
+                .AddTransient<IWasteService, WasteService>()
+                .AddTransient<IHomeService, ExporterAndReprocessorHomeService>()
+                .AddTransient<IHomeService, ExporterHomeService>()
+                .AddTransient<IHomeService, ReprocessorHomeService>()
+                .AddTransient<IHomeServiceFactory, HomeServiceFactory>()
+                .AddTransient<IPRNService, PRNService>()
+                .AddSingleton<IUserRoleService, UserRoleService>() // must be available through lifetime of the system
+                .AddTransient<IHttpWasteService>(s =>
+                {
+                    // create a new http service using the configuration for restful services and a http client factory
+                    return new HttpWasteService(
+                        s.GetRequiredService<IHttpContextAccessor>(),
+                        s.GetRequiredService<IHttpClientFactory>(),
+                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
+                        Strings.ApiEndPoints.Waste);
+                })
+                .AddTransient<IHttpJourneyService>(s =>
+                {
+                    // create a new http service using the configuration for restful services and a http client factory
+                    return new HttpJourneyService(
+                        s.GetRequiredService<IHttpContextAccessor>(),
+                        s.GetRequiredService<IHttpClientFactory>(),
+                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Journey.Url,
+                        Strings.ApiEndPoints.Journey);
+                })
+                .AddTransient<IHttpPrnsService>(s =>
+                {
+                    return new HttpPrnsService(
+                        s.GetRequiredService<IHttpContextAccessor>(),
+                        s.GetRequiredService<IHttpClientFactory>(),
+                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
+                        Strings.ApiEndPoints.PRN);
+                });
 
-            services.AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>));
-            services.AddSingleton<IQueryStringHelper, QueryStringHelper>();
-            services.AddTransient<IWasteService, WasteService>();
-            services.AddTransient<IHomeService, ExporterAndReprocessorHomeService>();
-            services.AddTransient<IHomeService, ExporterHomeService>();
-            services.AddTransient<IHomeService, ReprocessorHomeService>();
-            services.AddTransient<IHomeServiceFactory, HomeServiceFactory>();
-
-            services.AddSingleton<IUserRoleService, UserRoleService>(); // must be available through lifetime of the system
-            services.AddTransient<IHttpWasteService>(s =>
+            services.Configure<RazorViewEngineOptions>(options =>
             {
-                // create a new http service using the configuration for restful services and a http client factory
-                return new HttpWasteService(
-                    s.GetRequiredService<IHttpContextAccessor>(),
-                    s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
-                    s.GetRequiredService<IHttpClientFactory>());
-            });
-
-            services.AddTransient<IHttpJourneyService>(s =>
-            {
-                // create a new http service using the configuration for restful services and a http client factory
-                return new HttpJourneyService(
-                    s.GetRequiredService<IHttpContextAccessor>(),
-                    s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Journey.Url,
-                    s.GetRequiredService<IHttpClientFactory>());
+                options.AreaViewLocationFormats.Clear();
+                options.AreaViewLocationFormats.Add("/Views/Areas/{2}/{1}/{0}.cshtml");
+                options.AreaViewLocationFormats.Add("/Views/Areas/{2}/Shared/{0}.cshtml");
+                options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
             });
 
             var mapperConfig = new MapperConfiguration(mc =>

@@ -43,11 +43,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>ExportTonnageResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\BaledWithWireResource.cy-GB.Designer.cs">
-      <DependentUpon>BaledWithWireResource.cy-GB.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Update="Resources\BaledWithWireResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -62,6 +57,16 @@
       <DependentUpon>PhaseBannerResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\CreatePrnPern.Designer.cs">
+      <DependentUpon>CreatePrnPern.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\PRNS\Tonnes.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Tonnes.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\ReProcessorExportResource.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -111,6 +116,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\BaledWithWireResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BaledWithWireResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\NoteResources.resx">
       <LastGenOutput>NoteResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -131,6 +140,14 @@
       <SubType>Designer</SubType>
       <LastGenOutput>PhaseBannerResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CreatePrnPern.resx">
+      <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\Tonnes.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tonnes.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ReProcessorExportResource.cy-GB.resx">
       <LastGenOutput>ReProcessorExportResource.cy-GB.Designer.cs</LastGenOutput>
@@ -191,7 +208,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\sass\common\" />
     <Folder Include="ClientApp\sass\pages\" />
   </ItemGroup>
 

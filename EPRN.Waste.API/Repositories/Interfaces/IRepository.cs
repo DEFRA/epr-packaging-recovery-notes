@@ -1,6 +1,6 @@
-﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enums;
-using EPRN.Waste.API.Models;
+﻿using EPRN.Common.Data;
+using EPRN.Common.Data.DataModels;
+
 
 namespace EPRN.Waste.API.Repositories.Interfaces
 {
@@ -34,7 +34,7 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<int?> GetWasteTypeId(int journeyId);
 
-        Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId);
+        Task<WasteJourney> GetWasteSubTypeSelection(int journeyId);
 
         Task<DoneWaste?> GetDoneWaste(int journeyId);
 

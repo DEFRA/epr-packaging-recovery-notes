@@ -26,7 +26,8 @@ namespace EPRN.Portal.Helpers
             if (_userRoleService.HasRole(UserRole.Reprocessor))
                 return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ReprocessorHomeService));
 
-            return null;
+            // default to exporter so that we do not throw an exception during start up
+            return _homeServices.SingleOrDefault(x => x.GetType() == typeof(ExporterHomeService));
         }
 
     }

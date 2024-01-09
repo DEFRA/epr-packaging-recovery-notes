@@ -18,8 +18,9 @@ namespace EPRN.Portal.Services
 
         public BaseHttpService(
             IHttpContextAccessor httpContextAccessor,
+            IHttpClientFactory httpClientFactory,
             string baseUrl,
-            IHttpClientFactory httpClientFactory)
+            string endPointName)
         {
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
             // do basic checks on parameters
@@ -28,10 +29,15 @@ namespace EPRN.Portal.Services
             if (httpClientFactory == null)
                 throw new ArgumentNullException(nameof(httpClientFactory));
 
+            if (string.IsNullOrWhiteSpace(endPointName))
+                throw new ArgumentNullException(nameof(endPointName));
+
             _httpClient = httpClientFactory.CreateClient();
 
             if (_baseUrl.EndsWith("/"))
                 _baseUrl = _baseUrl.TrimEnd('/');
+
+            _baseUrl = $"{_baseUrl}/{endPointName}";
         }
 
         /// <summary>

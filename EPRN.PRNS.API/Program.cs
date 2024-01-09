@@ -1,8 +1,12 @@
 using AutoMapper;
+using EPRN.Common.Data;
 using EPRN.PRNS.API.Configuration;
-using EPRN.PRNS.API.Data;
 using EPRN.PRNS.API.Middleware;
 using EPRN.PRNS.API.Profiles;
+using EPRN.PRNS.API.Repositories;
+using EPRN.PRNS.API.Repositories.Interfaces;
+using EPRN.PRNS.API.Services;
+using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,12 +19,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddTransient<IPrnService, PrnService>();
+builder.Services.AddTransient<IRepository, Repository>();
+// add db context options
 
 // add db context options
-builder.Services.AddDbContext<PrnContext>(options =>
+builder.Services.AddDbContext<EPRNContext>(options =>
     options
-        .UseLazyLoadingProxies()
         .UseSqlServer(builder.Configuration.GetConnectionString("WasteConnectionString"))
 );
 

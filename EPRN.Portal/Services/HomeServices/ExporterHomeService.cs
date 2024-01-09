@@ -56,13 +56,14 @@ namespace EPRN.Portal.Services.HomeServices
             var accountCardViewModel = GetCardViewModel(HomePageResources.HomePage_Account_Title, HomePageResources.HomePage_Account_Description);
             accountCardViewModel.Links = accountCardLinks;
 
-            var cardViewModels = new List<CardViewModel>();
-
-            cardViewModels.Add(wasteCardViewModel);
-            cardViewModels.Add(managePernCardViewModel);
-            cardViewModels.Add(returnsCardViewModel);
-            cardViewModels.Add(accreditationCardViewModel);
-            cardViewModels.Add(accountCardViewModel);
+            var cardViewModels = new List<CardViewModel>
+            {
+                wasteCardViewModel,
+                managePernCardViewModel,
+                returnsCardViewModel,
+                accreditationCardViewModel,
+                accountCardViewModel
+            };
 
             return cardViewModels;
         }
