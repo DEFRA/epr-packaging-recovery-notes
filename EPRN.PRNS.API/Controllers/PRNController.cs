@@ -14,6 +14,15 @@ namespace EPRN.PRNS.API.Controllers
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 
+        [HttpPost]
+        [Route("/api/[controller]/Create/{materialId}/Material")]
+        public async Task<IActionResult> CreatePrnRecord(int materialId)
+        {
+            var id = await _prnService.CreatePrnRecord(materialId);
+
+            return Ok(id);
+        }
+
         [HttpGet]
         [Route("Tonnage")]
         public async Task<IActionResult> GetTonnage(int? id)

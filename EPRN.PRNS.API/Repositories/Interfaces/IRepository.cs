@@ -4,7 +4,7 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
 {
     public interface IRepository
     {
-        Task<int> CreatePrnRecord();
+        Task<int> CreatePrnRecord(PackagingRecoveryNote prnRecord);
 
         Task<PackagingRecoveryNote> GetPrnById(int id);
 

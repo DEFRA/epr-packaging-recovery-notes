@@ -14,9 +14,12 @@ namespace EPRN.PRNS.API.Repositories
             _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
         }
 
-        public async Task<int> CreatePrnRecord()
+        public async Task<int> CreatePrnRecord(PackagingRecoveryNote prnRecord)
         {
-            throw new NotImplementedException();
+            _prnContext.Add(prnRecord);
+            await _prnContext.SaveChangesAsync();
+
+            return prnRecord.Id;
         }
 
         public Task<PackagingRecoveryNote> GetPrnById(int id)

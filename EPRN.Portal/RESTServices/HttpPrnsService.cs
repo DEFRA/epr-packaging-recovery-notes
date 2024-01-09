@@ -13,6 +13,11 @@ namespace EPRN.Portal.RESTServices
         {
         }
 
+        public async Task<int> CreatePrnRecord(int materialId)
+        {
+            return await Post<int>($"Create/{materialId}/Material");
+        }
+
         public async Task<double?> GetPrnTonnage(int id)
         {
             return await Get<double?>($"{id}/Tonnage");

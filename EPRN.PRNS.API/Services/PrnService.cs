@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Data.DataModels;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services.Interfaces;
 
@@ -17,9 +18,13 @@ namespace EPRN.PRNS.API.Services
             _prnRepository = prnRepository ?? throw new ArgumentNullException(nameof(prnRepository));
         }
 
-        public async Task<int> CreatePrnRecord()
+        public async Task<int> CreatePrnRecord(int materialId)
         {
-            return await _prnRepository.CreatePrnRecord();
+            var prnRecord = new PackagingRecoveryNote
+            {
+                WasteTypeId = materialId
+            };
+            return await _prnRepository.CreatePrnRecord(prnRecord);
         }
 
         public async Task<double?> GetTonnage(int id)

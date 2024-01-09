@@ -66,6 +66,12 @@ namespace EPRN.Portal.Services
             };
         }
 
+
+        public async Task<int> CreatePrnRecord(int materialId)
+        {
+            return await _httpPrnsService.CreatePrnRecord(materialId);
+        }
+
         private TableRowViewModel CreateRow(int materialId, string material, double tonnage, int noOfDrafts)
         {
             return new TableRowViewModel

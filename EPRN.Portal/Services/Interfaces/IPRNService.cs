@@ -9,5 +9,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveTonnes(TonnesViewModel tonnesViewModel);
 
         Task<CreatePrnViewModel> CreatePrnViewModel();
+
+        Task<int> CreatePrnRecord(int materialId);
     }
 }

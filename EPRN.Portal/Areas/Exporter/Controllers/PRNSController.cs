@@ -35,7 +35,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Create", "PRNS", new { area = string.Empty });
         }
 
         [HttpGet]
@@ -45,7 +45,9 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (materialId == null)
                 return NotFound();
 
-            return RedirectToAction("Tonnes", "PRNS", new { Id = 1 });
+            var prnId = await _prnService.CreatePrnRecord(materialId.Value);
+
+            return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
         }
     }
 }
