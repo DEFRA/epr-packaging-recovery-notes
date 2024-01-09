@@ -222,9 +222,6 @@ namespace EPRN.Waste.API.Controllers
 
             var result = await _journeyService.GetWasteRecordNote(journeyId.Value);
 
-            if (result == null)
-                return BadRequest($"No journey found with id: {journeyId}");
-
             return Ok(result);
         }
     }

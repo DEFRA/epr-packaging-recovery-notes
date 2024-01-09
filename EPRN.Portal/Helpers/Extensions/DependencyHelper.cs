@@ -81,7 +81,7 @@ namespace EPRN.Portal.Helpers.Extensions
                     return new HttpJourneyService(
                         s.GetRequiredService<IHttpContextAccessor>(),
                         s.GetRequiredService<IHttpClientFactory>(),
-                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Journey.Url,
+                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
                         Strings.ApiEndPoints.Journey);
                 })
                 .AddTransient<IHttpPrnsService>(s =>
