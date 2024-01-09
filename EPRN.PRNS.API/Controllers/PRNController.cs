@@ -30,7 +30,7 @@ namespace EPRN.PRNS.API.Controllers
         [Route("Tonnage/{tonnage}")]
         public async Task<IActionResult> SaveTonnage(
             int? id,
-            double? tonnage)
+            int? tonnage)
         {
             if (id == null)
                 return BadRequest("Missing ID");

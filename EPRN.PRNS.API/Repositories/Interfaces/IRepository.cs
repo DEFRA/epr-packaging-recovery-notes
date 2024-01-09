@@ -8,8 +8,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
 
         Task<PackagingRecoveryNote> GetPrnById(int id);
 
-        Task<double?> GetTonnage(int id);
+        Task<int?> GetTonnage(int id);
 
-        Task UpdateTonnage(int id, double tonnes);
+        Task UpdateTonnage(int id, int tonnes);
     }
 }

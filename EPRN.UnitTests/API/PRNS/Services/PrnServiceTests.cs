@@ -76,7 +76,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
         {
             // Arrange
             var id = 4;
-            var tonnage = 6.43;
+            var tonnage = 6;
 
             // Act
             await _prnService.SaveTonnage(id, tonnage);
@@ -85,7 +85,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             _mockRepository.Verify(s => 
                 s.UpdateTonnage(
                     It.Is<int>(p => p == id),
-                    It.Is<double>(p => p == tonnage)), 
+                    It.Is<int>(p => p == tonnage)), 
                 Times.Once());
         }
     }

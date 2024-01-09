@@ -24,7 +24,7 @@ namespace EPRN.PRNS.API.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<double?> GetTonnage(int id)
+        public async Task<int?> GetTonnage(int id)
         {
             return await _prnContext
                 .PRN
@@ -33,7 +33,7 @@ namespace EPRN.PRNS.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task UpdateTonnage(int id, double tonnes)
+        public async Task UpdateTonnage(int id, int tonnes)
         {
             await _prnContext
                 .PRN

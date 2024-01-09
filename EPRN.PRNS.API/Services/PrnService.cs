@@ -22,12 +22,12 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.CreatePrnRecord();
         }
 
-        public async Task<double?> GetTonnage(int id)
+        public async Task<int?> GetTonnage(int id)
         {
             return await _prnRepository.GetTonnage(id);
         }
 
-        public async Task SaveTonnage(int id, double tonnage)
+        public async Task SaveTonnage(int id, int tonnage)
         {
             await _prnRepository.UpdateTonnage(id, tonnage);
         }

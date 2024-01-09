@@ -4,8 +4,8 @@
     {
         Task<int> CreatePrnRecord();
 
-        Task<double?> GetTonnage(int id);
+        Task<int?> GetTonnage(int id);
 
-        Task SaveTonnage(int id, double tonnage);
+        Task SaveTonnage(int id, int tonnage);
     }
 }

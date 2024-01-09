@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EPRN.Common.Data.DataModels
 {
@@ -19,7 +18,7 @@ namespace EPRN.Common.Data.DataModels
 
         public string SentTo { get; set; }
 
-        public double? Tonnes { get; set; }
+        public int? Tonnes { get; set; }
 
         public int? SiteId { get; set; }
     }

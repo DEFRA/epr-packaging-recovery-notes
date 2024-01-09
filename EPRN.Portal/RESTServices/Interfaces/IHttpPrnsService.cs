@@ -2,8 +2,8 @@
 {
     public interface IHttpPrnsService
     {
-        Task<double?> GetPrnTonnage(int id);
+        Task<int?> GetPrnTonnage(int id);
 
-        Task SaveTonnage(int id, double tonnage);
+        Task SaveTonnage(int id, int tonnage);
     }
 }

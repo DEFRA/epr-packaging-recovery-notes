@@ -13,12 +13,12 @@ namespace EPRN.Portal.RESTServices
         {
         }
 
-        public async Task<double?> GetPrnTonnage(int id)
+        public async Task<int?> GetPrnTonnage(int id)
         {
-            return await Get<double?>($"{id}/Tonnage");
+            return await Get<int?>($"{id}/Tonnage");
         }
 
-        public async Task SaveTonnage(int id, double tonnage)
+        public async Task SaveTonnage(int id, int tonnage)
         {
             await Post($"{id}/Tonnage/{tonnage}");
         }

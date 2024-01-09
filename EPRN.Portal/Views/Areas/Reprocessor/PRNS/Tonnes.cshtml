@@ -3,26 +3,41 @@
 @{
     ViewData["Title"] = @ExportTonnageResources.HowMuchTonnageQuestion;
 }
-<h1>PRN</h1>
 <a asp-action="Index" asp-controller="Home" class="govuk-back-link">@MasterResources.Back</a>
 <partial name="_ValidationSummary" />
 <form method="post">
     <input type="hidden" asp-for="@Model.JourneyId" />
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-half">
+        <div class="govuk-grid-column-full">
             <fieldset class="govuk-fieldset">
                 <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper">
-                        <label class="govuk-label govuk-label--l" for="event-name">
-                            @ExportTonnageResources.HowMuchTonnageQuestion
-                        </label>
-                    </h1>
                     <p class="govuk-error-message">
                         <span asp-validation-for="Tonnes"></span>
                     </p>
+                    <label>@PRNSTonnesResources.PRNCreateLabel</label>
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="event-name">
+                            @PRNSTonnesResources.PRNTitle
+                        </label>
+                    </h1>
+                    <br />
+                    <label>@PRNSTonnesResources.WasteBalance</label>
+                    <br />
+                    <br />
+                    <label>
+                        @PRNSTonnesResources.PRNRoundingLabel
+                    </label>
+                    <br />
+                    <br />
+                    <h2 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--m" for="event-name">
+                            @PRNSTonnesResources.PRNHowManyTonnesLabel
+                        </label>
+                    </h2>
+                    <br />
 
                     <div class="govuk-input__wrapper">
-                        <input class="govuk-input govuk-input--width-10 3dp" type="text" asp-for="Tonnes" />
+                        <input class="govuk-input govuk-input--width-10" type="text" asp-for="Tonnes" />
                         <div class="govuk-input__suffix" aria-hidden="true">@ExportTonnageResources.TonnesLabel</div>
                     </div>
 

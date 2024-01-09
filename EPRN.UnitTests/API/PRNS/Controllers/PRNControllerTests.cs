@@ -67,14 +67,14 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         {
             // Arrange
             var id = 7;
-            var tonnage = 4.67;
+            var tonnage = 4;
 
             // Act
             var result = await _prnController.SaveTonnage(id, tonnage);
 
             // Assert
             Assert.IsNotNull(result);
-            _prnService.Verify(s => s.SaveTonnage(It.Is<int>(p => p == id), It.Is<double>(p => p == tonnage)), Times.Once());
+            _prnService.Verify(s => s.SaveTonnage(It.Is<int>(p => p == id), It.Is<int>(p => p == tonnage)), Times.Once());
         }
 
         [TestMethod]
