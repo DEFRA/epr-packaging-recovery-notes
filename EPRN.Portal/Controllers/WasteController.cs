@@ -204,6 +204,11 @@ namespace EPRN.Portal.Controllers
         [ActionName("Baled")]
         public async Task<IActionResult> BaledWithWire(BaledWithWireViewModel baledWithWireModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("BaledWithWire", baledWithWireModel);
+            }
+
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Index", "Home");
         }

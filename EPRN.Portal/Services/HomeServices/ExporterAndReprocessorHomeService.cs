@@ -70,7 +70,7 @@ namespace EPRN.Portal.Services
 
         public override double? GetBaledWithWireDeductionPercentage()
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

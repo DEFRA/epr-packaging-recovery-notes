@@ -4,6 +4,7 @@ using EPRN.Waste.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(WasteContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20240109111838_Updated-BaledWaste-Properties")]
+    partial class UpdatedBaledWasteProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

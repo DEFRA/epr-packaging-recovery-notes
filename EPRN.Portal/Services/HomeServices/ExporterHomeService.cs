@@ -69,7 +69,7 @@ namespace EPRN.Portal.Services.HomeServices
 
         public override double? GetBaledWithWireDeductionPercentage()
         {
-            return .15;
+            return .25;
         }
     }
 }

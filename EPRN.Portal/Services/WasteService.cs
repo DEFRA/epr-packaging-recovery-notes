@@ -254,7 +254,7 @@ namespace EPRN.Portal.Services
             await _httpJourneyService.SaveBaledWithWire(
                 baledWireModel.JourneyId, 
                 baledWireModel.BaledWithWire.Value, 
-                baledWireModel.BaledWithWireDeductionPercentage.Value);
+                baledWireModel.BaledWithWire.Value == true ? baledWireModel.BaledWithWireDeductionPercentage.Value : 0);
         }
 
         public async Task<ReProcessorExportViewModel> GetReProcessorExportViewModel(int journeyId)
