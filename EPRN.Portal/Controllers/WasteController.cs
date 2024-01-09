@@ -1,6 +1,7 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -18,9 +19,16 @@ namespace EPRN.Portal.Controllers
         private readonly IWasteService _wasteService;
         public WasteType? _wasteType { get; set; }
 
-        public WasteController(IWasteService wasteService)
+        private IHomeService _homeService;
+
+        public WasteController(IWasteService wasteService, IHomeServiceFactory homeServiceFactory)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
+
+            if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
+            _homeService = homeServiceFactory.CreateHomeService();
+            if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
+
         }
 
         [HttpGet]
@@ -186,12 +194,15 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
+            if(model.BaledWithWireDeductionPercentage == null)
+                model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
+
             return View("BaledWithWire", model);
         }
 
         [HttpPost]
         [ActionName("Baled")]
-        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
+        public async Task<IActionResult> BaledWithWire(BaledWithWireViewModel baledWithWireModel)
         {
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Index", "Home");

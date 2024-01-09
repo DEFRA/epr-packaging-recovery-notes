@@ -76,9 +76,14 @@ namespace EPRN.Portal.RESTServices
             await Post($"{journeyId}/Tonnage/{tonnage}");
         }
 
-        public async Task SaveBaledWithWire(int journeyId, bool bailedWithWire)
+        public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
         {
-            await Post($"{journeyId}/BaledWithWire/{bailedWithWire}");
+            return await Get<GetBaledWithWireDto>($"{journeyId}/BaledWithWire");
+        }
+
+        public async Task SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
+        {
+            await Post($"{journeyId}/BaledWithWire/{baledWithWire}/{baledWithWireDeductionPercentage}");
         }
 
         public async Task SaveReprocessorExport(int journeyId, int siteId)
@@ -95,5 +100,6 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<string?>($"{journeyId}/Note");
         }
+
     }
 }

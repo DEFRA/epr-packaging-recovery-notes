@@ -231,19 +231,15 @@ namespace EPRN.Portal.Services
         }
 
 
-        public async Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId)
+        public async Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId)
         {
-            var baledWithWire = new BaledWithWireModel()
-            {
-                JourneyId = journeyId,
-                // We're not part of a journey yet, so this can't really be hooked up
-                // WasteType = await _httpWasteService.GetWasteType(journeyId)
-            };
+            var dto = await _httpJourneyService.GetBaledWithWire(journeyId);
+            var vm = _mapper.Map<BaledWithWireViewModel>(dto);
 
-            return baledWithWire;
+            return vm;
         }
 
-        public async Task SaveBaledWithWire(BaledWithWireModel baledWireModel)
+        public async Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel)
         {
             if (baledWireModel == null)
                 throw new ArgumentNullException(nameof(baledWireModel));
@@ -251,7 +247,14 @@ namespace EPRN.Portal.Services
             if (baledWireModel.BaledWithWire == null)
                 throw new ArgumentNullException(nameof(baledWireModel.BaledWithWire));
 
-            await _httpJourneyService.SaveBaledWithWire(baledWireModel.JourneyId, baledWireModel.BaledWithWire.Value);
+            if (baledWireModel.BaledWithWireDeductionPercentage == null)
+                throw new ArgumentNullException(nameof(baledWireModel.BaledWithWireDeductionPercentage));
+
+
+            await _httpJourneyService.SaveBaledWithWire(
+                baledWireModel.JourneyId, 
+                baledWireModel.BaledWithWire.Value, 
+                baledWireModel.BaledWithWireDeductionPercentage.Value);
         }
 
         public async Task<ReProcessorExportViewModel> GetReProcessorExportViewModel(int journeyId)

@@ -68,5 +68,9 @@ namespace EPRN.Portal.Services.HomeServices
             return cardViewModels;
         }
 
+        public override double? GetBaledWithWireDeductionPercentage()
+        {
+            return .15;
+        }
     }
 }

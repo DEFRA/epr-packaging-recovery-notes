@@ -5,6 +5,6 @@ namespace EPRN.Portal.Services.Interfaces
     public interface IHomeService
     {
         Task<HomepageViewModel> GetHomePage();
-
+        double? GetBaledWithWireDeductionPercentage();
     }
 }

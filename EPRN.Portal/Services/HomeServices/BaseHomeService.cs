@@ -32,5 +32,8 @@ namespace EPRN.Portal.Services
 
             return cardViewModel;
         }
+
+        public abstract double? GetBaledWithWireDeductionPercentage();
+
     }
 }

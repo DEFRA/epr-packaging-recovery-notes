@@ -24,12 +24,13 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteModel);
 
-        Task<BaledWithWireModel> GetBaledWithWireModel(int journeyId);
-
         Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId);
 
         Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel);
-        Task SaveBaledWithWire(BaledWithWireModel baledWireModel);
+
+        Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId);
+
+        Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel);
 
         Task<ReProcessorExportViewModel> GetReProcessorExportViewModel(int journeyId);
 
