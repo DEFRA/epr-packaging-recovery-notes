@@ -17,7 +17,7 @@ namespace EPRN.Portal.Controllers
         private IHomeService _homeService;
 
         public WasteController(
-            IWasteService wasteService, 
+            IWasteService wasteService,
             IHomeServiceFactory homeServiceFactory)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
@@ -192,7 +192,7 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
-            if(model.BaledWithWireDeductionPercentage == null)
+            if (model.BaledWithWireDeductionPercentage == null)
                 model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
             return View(model);
@@ -233,9 +233,9 @@ namespace EPRN.Portal.Controllers
         {
             if (!id.HasValue)
                 return NotFound();
-            
+
             var model = await _wasteService.GetNoteViewModel(id.Value);
-            
+
             return View(model);
         }
 
@@ -250,6 +250,16 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveNote(noteViewModel);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CheckYourAnswers(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+
+            return View();
         }
     }
 }
