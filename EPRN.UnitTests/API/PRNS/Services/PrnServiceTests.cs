@@ -85,7 +85,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             _mockRepository.Verify(s => 
                 s.UpdateTonnage(
                     It.Is<int>(p => p == id),
-                    It.Is<int>(p => p == tonnage)), 
+                    It.Is<double>(p => p == tonnage)), 
                 Times.Once());
         }
     }

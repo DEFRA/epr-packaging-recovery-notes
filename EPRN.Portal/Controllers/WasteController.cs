@@ -195,7 +195,7 @@ namespace EPRN.Portal.Controllers
             if(model.BaledWithWireDeductionPercentage == null)
                 model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
-            return View("BaledWithWire", model);
+            return View(model);
         }
 
         [HttpPost]
