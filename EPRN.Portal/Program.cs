@@ -1,3 +1,4 @@
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
 using EPRN.Portal.Helpers.Extensions;
@@ -27,6 +28,9 @@ builder.Services
         opts.SupportedCultures = supportedCultures;
         opts.SupportedUICultures = supportedCultures;
     });
+
+builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
+
 
 // Check if in development environment
 if (builder.Environment.IsDevelopment())
