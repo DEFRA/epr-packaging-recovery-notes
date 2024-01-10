@@ -1,6 +1,7 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,17 @@ namespace EPRN.Portal.Controllers
     public class WasteController : Controller
     {
         private readonly IWasteService _wasteService;
-
         public JourneyType JourneyType { get; set; }
+        private IHomeService _homeService;
 
-        public WasteController(IWasteService wasteService)
+        public WasteController(IWasteService wasteService, IHomeServiceFactory homeServiceFactory)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
+
+            if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
+            _homeService = homeServiceFactory.CreateHomeService();
+            if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
+
         }
 
         [HttpGet]
@@ -187,13 +193,21 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
-            return View(model);
+            if(model.BaledWithWireDeductionPercentage == null)
+                model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
+
+            return View("BaledWithWire", model);
         }
 
         [HttpPost]
         [ActionName("Baled")]
-        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
+        public async Task<IActionResult> BaledWithWire(BaledWithWireViewModel baledWithWireModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("BaledWithWire", baledWithWireModel);
+            }
+
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Note", new { id = baledWithWireModel.JourneyId, type = JourneyType });
         }

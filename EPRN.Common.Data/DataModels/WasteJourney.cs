@@ -39,7 +39,7 @@
 
         public DoneWaste? DoneWaste { get; set; }
 
-        public double? DeductionAmount { get; set; }
+        public double? BaledWithWireDeductionPercentage { get; set; }
 
         public int? SiteId { get; set; }
     }

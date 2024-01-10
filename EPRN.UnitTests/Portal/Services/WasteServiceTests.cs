@@ -392,40 +392,6 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task SaveBaledWithWireModel_Succeeds_WithValidModel()
-        {
-            // Arrange
-            BaledWithWireModel baledWithWireModel = new BaledWithWireModel();
-            baledWithWireModel.JourneyId = 1;
-            baledWithWireModel.BaledWithWire = true;
-
-
-            // Act
-            await _wasteService.SaveBaledWithWire(baledWithWireModel);
-
-            // Assert
-            _mockHttpJourneyService.Verify(s => s.SaveBaledWithWire(
-                It.Is<int>(p => p == 1),
-                It.Is<bool>(p => p == true)),
-                Times.Once);
-        }
-
-        [TestMethod]
-        public async Task SaveBaledWithWireModel_ThrowsException_WhenWireIsNull()
-        {
-            // Arrange
-            BaledWithWireModel baledWithWireModel = new BaledWithWireModel();
-            baledWithWireModel.JourneyId = 1;
-            baledWithWireModel.BaledWithWire = null;
-
-            // Act
-
-            // Assert
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveBaledWithWire(baledWithWireModel));
-            Assert.AreEqual("Value cannot be null. (Parameter 'BaledWithWire')", exception.Message);
-        }
-
-        [TestMethod]
         public async Task GetNote_ReturnsValidModel()
         {
             // Arrange
@@ -473,5 +439,61 @@ namespace EPRN.UnitTests.Portal.Services
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveNote(null));
             Assert.AreEqual("Value cannot be null. (Parameter 'noteViewModel')", exception.Message);
         }
+
+        #region Baled with wire
+
+        [TestMethod]
+        public async Task GetBaledWithWireModel_Succeeds_WithValidModel()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            // Act
+            await _wasteService.GetBaledWithWireModel(journeyId);
+
+            // Assert
+            _mockHttpJourneyService.Verify(s => s.GetBaledWithWire(
+                It.Is<int>(p => p == 1)),
+                Times.Once);
+        }
+
+
+        [TestMethod]
+        public async Task SaveBaledWithWireModel_Succeeds_WithValidModel()
+        {
+            // Arrange
+            BaledWithWireViewModel baledWithWireModel = new BaledWithWireViewModel();
+            baledWithWireModel.JourneyId = 1;
+            baledWithWireModel.BaledWithWire = true;
+
+
+            // Act
+            await _wasteService.SaveBaledWithWire(baledWithWireModel);
+
+            // Assert
+            _mockHttpJourneyService.Verify(s => s.SaveBaledWithWire(
+                It.Is<int>(p => p == 1),
+                It.Is<bool>(p => p == true),
+                It.Is<double>(p => p == 2)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveBaledWithWireModel_ThrowsException_WhenWireIsNull()
+        {
+            // Arrange
+            BaledWithWireViewModel baledWithWireModel = new BaledWithWireViewModel();
+            baledWithWireModel.JourneyId = 1;
+            baledWithWireModel.BaledWithWire = null;
+
+            // Act
+
+            // Assert
+            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveBaledWithWire(baledWithWireModel));
+            Assert.AreEqual("Value cannot be null. (Parameter 'BaledWithWire')", exception.Message);
+        }
+
+        #endregion
+
     }
 }
