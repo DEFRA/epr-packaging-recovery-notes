@@ -28,9 +28,9 @@ namespace EPRN.PRNS.API.Controllers
                 if (context.ActionDescriptor.Parameters.Any(p => p.Name == idParameter) &&
                     context.ActionArguments.ContainsKey(idParameter))
                 {
-                    int journeyId = Convert.ToInt32(context.ActionArguments[idParameter]);
+                    int id = Convert.ToInt32(context.ActionArguments[idParameter]);
 
-                    if (!await _prnService.PrnRecordExists(journeyId))
+                    if (!await _prnService.PrnRecordExists(id))
                     {
                         context.Result = NotFound();
                         return;
