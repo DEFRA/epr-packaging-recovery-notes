@@ -482,7 +482,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             // Arrange
             var journeyId = 3;
-            var baledWithWireModel = new BaledWithWireModel
+            var baledWithWireModel = new BaledWithWireViewModel
             {
                 JourneyId = journeyId,
                 BaledWithWire = true
