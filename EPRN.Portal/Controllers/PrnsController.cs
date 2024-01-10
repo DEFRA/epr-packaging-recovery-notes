@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
 {
-    public class PrnsController : Controller
+    public class PrnsController : BaseController
     {
         private readonly IPRNService _PRNService;
 

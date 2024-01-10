@@ -28,11 +28,6 @@ builder.Services
         opts.SupportedUICultures = supportedCultures;
     });
 
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.ConstraintMap.Add("JourneyType", typeof(JourneyTypeConstraint));
-});
-
 // Check if in development environment
 if (builder.Environment.IsDevelopment())
 {

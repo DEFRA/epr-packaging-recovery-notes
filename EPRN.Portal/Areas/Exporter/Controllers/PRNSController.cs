@@ -1,11 +1,12 @@
-﻿using EPRN.Portal.Services.Interfaces;
+﻿using EPRN.Portal.Controllers;
+using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Areas.Exporter.Controllers
 {
     [Area("Exporter")]
-    public class PRNSController : Controller
+    public class PRNSController : BaseController
     {
         private IPRNService _prnService;
 

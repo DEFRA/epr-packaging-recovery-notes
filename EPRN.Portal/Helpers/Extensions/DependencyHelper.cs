@@ -8,6 +8,7 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,6 +67,7 @@ namespace EPRN.Portal.Helpers.Extensions
                 .AddTransient<IHomeServiceFactory, HomeServiceFactory>()
                 .AddTransient<IPRNService, PRNService>()
                 .AddSingleton<IUserRoleService, UserRoleService>() // must be available through lifetime of the system
+                .AddSingleton<BackButtonViewModel>()
                 .AddTransient<IHttpWasteService>(s =>
                 {
                     // create a new http service using the configuration for restful services and a http client factory
@@ -93,6 +95,8 @@ namespace EPRN.Portal.Helpers.Extensions
                         Strings.ApiEndPoints.PRN);
                 });
 
+            // move where area views live so they exist in the same parent location as
+            // as other views
             services.Configure<RazorViewEngineOptions>(options =>
             {
                 options.AreaViewLocationFormats.Clear();
