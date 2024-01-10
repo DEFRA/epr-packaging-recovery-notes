@@ -1,5 +1,4 @@
 ﻿using EPRN.Common.Enums;
-using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
@@ -196,7 +195,7 @@ namespace EPRN.Portal.Controllers
             if(model.BaledWithWireDeductionPercentage == null)
                 model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
-            return View("BaledWithWire", model);
+            return View(model);
         }
 
         [HttpPost]

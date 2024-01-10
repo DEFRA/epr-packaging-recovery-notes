@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
@@ -45,7 +46,9 @@ namespace EPRN.Portal.Helpers.Extensions
                 });
 
             // Get the configuration for the services
-            services.Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.Name));
+            services
+                .Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.SectionName))
+                .Configure<AppConfigSettings>(configuration.GetSection(AppConfigSettings.SectionName));
 
             services.AddHttpContextAccessor();
             services

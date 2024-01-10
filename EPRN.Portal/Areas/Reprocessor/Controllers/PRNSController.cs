@@ -36,7 +36,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Create", "Prns", new { area = string.Empty });
         }
 
         [HttpGet]
