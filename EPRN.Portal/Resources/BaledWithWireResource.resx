@@ -124,7 +124,7 @@
     <value>Was it baled with wire?</value>
   </data>
   <data name="HintText" xml:space="preserve">
-    <value>We'll apply a 0.15% weight deduction for bailing wire.</value>
+    <value>We'll apply a &lt;&lt;percentage&gt;&gt;% weight deduction for bailing wire.</value>
   </data>
   <data name="NoSelection" xml:space="preserve">
     <value>No</value>

@@ -1,5 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
 @inject IQueryStringHelper queryStringHelper
+@inject BackButtonViewModel backButtonViewModel;
 
 @{
     var oppositeCultureValue = CultureHelper.GetCultureInfo(httpContextAccessor);
@@ -71,6 +72,10 @@
                 </span>
             </p>
         </div>
+        @if (backButtonViewModel.ShouldDisplay)
+        {
+            <a href="@backButtonViewModel.PreviousUrl" class="govuk-back-link">@MasterResources.Back</a>
+        }
         <main class="govuk-main-wrapper " id="main-content" role="main">
             @RenderBody()
         </main>

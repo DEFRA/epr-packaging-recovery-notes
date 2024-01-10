@@ -1,12 +1,17 @@
-﻿using EPRN.Portal.Resources;
+﻿using EPRN.Portal.Configuration;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services.HomeServices
 {
     public class ReprocessorHomeService : BaseHomeService, IHomeService
     {
-       
+        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings) : base(configSettings)
+        {        
+        }
+
         protected override List<CardViewModel> GetCardViewModels()
         {
             var wasteCardLinks = new Dictionary<string, string>()
@@ -69,5 +74,9 @@ namespace EPRN.Portal.Services.HomeServices
             return cardViewModels;
         }
 
+        public override double? GetBaledWithWireDeductionPercentage()
+        {
+            return ConfigSettings.Value.DeductionAmount_Reprocessor;
+        }
     }
 }

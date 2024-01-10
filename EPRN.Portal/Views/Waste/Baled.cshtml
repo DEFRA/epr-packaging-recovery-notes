@@ -1,13 +1,13 @@
 ﻿@using EPRN.Common.Enums;
 
-@model BaledWithWireModel
+@model BaledWithWireViewModel
 @{
     ViewData["Title"] = BaledWithWireResource.PageTitle;
 }
 
-<a href="/" class="govuk-back-link">@MasterResources.Back</a>
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
+    <input type="hidden" asp-for="BaledWithWireDeductionPercentage" />
     <partial name="_ValidationSummary" />
 
     <span class="govuk-caption-l">
@@ -15,7 +15,7 @@
     </span>
     <radios asp-for="BaledWithWire" asp-title="@BaledWithWireResource.Heading">
         <div class="govuk-hint">
-            @BaledWithWireResource.HintText
+            @BaledWithWireResource.HintText.Replace("<<percentage>>", Model.BaledWithWireDeductionPercentage.ToString())
         </div>
         <p class="govuk-error-message">
             <span asp-validation-for="BaledWithWire"></span>
