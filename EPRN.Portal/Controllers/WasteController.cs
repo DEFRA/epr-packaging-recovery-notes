@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Constants;
+using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,11 @@ namespace EPRN.Portal.Controllers
     public class WasteController : BaseController
     {
         private readonly IWasteService _wasteService;
+        private IHomeService _homeService;
 
-        public WasteController(IWasteService wasteService, IHomeServiceFactory homeServiceFactory)
+        public WasteController(
+            IWasteService wasteService, 
+            IHomeServiceFactory homeServiceFactory)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
 
