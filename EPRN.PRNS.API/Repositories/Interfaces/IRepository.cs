@@ -6,10 +6,12 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
     {
         Task<int> CreatePrnRecord();
 
+        Task<bool> PrnExists(int id);
+
         Task<PackagingRecoveryNote> GetPrnById(int id);
 
-        Task<int?> GetTonnage(int id);
+        Task<double?> GetTonnage(int id);
 
-        Task UpdateTonnage(int id, int tonnes);
+        Task UpdateTonnage(int id, double tonnes);
     }
 }

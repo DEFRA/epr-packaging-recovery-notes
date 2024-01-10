@@ -36,7 +36,8 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("Index", "Home");
+            // TODO - add in redirect for next page when available
+            return RedirectToAction("Create", "Prns");
         }
 
         [HttpGet]

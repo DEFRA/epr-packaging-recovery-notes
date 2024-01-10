@@ -2,10 +2,12 @@
 {
     public interface IPrnService
     {
+        Task<bool> PrnRecordExists(int id);
+
         Task<int> CreatePrnRecord();
 
-        Task<int?> GetTonnage(int id);
+        Task<double?> GetTonnage(int id);
 
-        Task SaveTonnage(int id, int tonnage);
+        Task SaveTonnage(int id, double tonnage);
     }
 }

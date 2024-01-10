@@ -9,6 +9,6 @@ namespace EPRN.Portal.ViewModels.PRNS
 
         [Required]
         [Range(0, 1000000, ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "TonnesNotInRange")]
-        public int? Tonnes { get; set; }
+        public double? Tonnes { get; set; }
     }
 }
