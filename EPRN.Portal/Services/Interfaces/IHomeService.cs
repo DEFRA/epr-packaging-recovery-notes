@@ -1,4 +1,5 @@
 ﻿using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services.Interfaces
 {
@@ -6,5 +7,6 @@ namespace EPRN.Portal.Services.Interfaces
     {
         Task<HomePageViewModel> GetHomePage();
         double? GetBaledWithWireDeductionPercentage();
+        Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId);
     }
 }

@@ -196,7 +196,7 @@ namespace EPRN.Portal.Controllers
             if(model.BaledWithWireDeductionPercentage == null)
                 model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
-            return View("BaledWithWire", model);
+            return View("Baled", model);
         }
 
         [HttpPost]
@@ -205,7 +205,7 @@ namespace EPRN.Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("BaledWithWire", baledWithWireModel);
+                return View("Baled", baledWithWireModel);
             }
 
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
