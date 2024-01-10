@@ -1,11 +1,12 @@
-﻿using EPRN.Portal.Services.Interfaces;
+﻿using EPRN.Portal.Controllers;
+using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
     [Area("Reprocessor")]
-    public class PRNSController : Controller
+    public class PRNSController : BaseController
     {
         private IPRNService _prnService;
 
@@ -35,7 +36,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Create", "Prns", new { area = string.Empty });
         }
 
         [HttpGet]

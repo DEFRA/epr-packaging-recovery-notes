@@ -15,6 +15,11 @@ namespace EPRN.UnitTests.Portal.Services
         [TestInitialize]
         public void Init()
         {
+            _configSettings = Options.Create<AppConfigSettings>(new AppConfigSettings());
+            _configSettings.Value.DeductionAmount_Exporter = 0.0;
+            _configSettings.Value.DeductionAmount_Reprocessor = 0.0;
+            _configSettings.Value.DeductionAmount_ExporterAndReprocessor = 0.0;
+
             _exporterAndReprocessorHomeService = new ExporterAndReprocessorHomeService(_configSettings);
         }
 

@@ -6,6 +6,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
     {
         Task<int> CreatePrnRecord();
 
+        Task<bool> PrnExists(int id);
+
         Task<PackagingRecoveryNote> GetPrnById(int id);
 
         Task<double?> GetTonnage(int id);
