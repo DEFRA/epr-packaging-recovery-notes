@@ -15,9 +15,14 @@ namespace EPRN.Portal.Controllers
     {
         private readonly IWasteService _wasteService;
 
-        public WasteController(IWasteService wasteService)
+        public WasteController(IWasteService wasteService, IHomeServiceFactory homeServiceFactory)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
+
+            if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
+            _homeService = homeServiceFactory.CreateHomeService();
+            if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
+
         }
 
         [HttpGet]
@@ -184,13 +189,21 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
-            return View(model);
+            if(model.BaledWithWireDeductionPercentage == null)
+                model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
+
+            return View("BaledWithWire", model);
         }
 
         [HttpPost]
         [ActionName("Baled")]
-        public async Task<IActionResult> BaledWithWire(BaledWithWireModel baledWithWireModel)
+        public async Task<IActionResult> BaledWithWire(BaledWithWireViewModel baledWithWireModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("BaledWithWire", baledWithWireModel);
+            }
+
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction("Note", new { id = baledWithWireModel.JourneyId });
         }

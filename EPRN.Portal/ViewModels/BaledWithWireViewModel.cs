@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Portal.ViewModels.Waste
 {
-    public class BaledWithWireModel
+    public class BaledWithWireViewModel
     {
         public int JourneyId { get; set; }
 
@@ -11,5 +11,7 @@ namespace EPRN.Portal.ViewModels.Waste
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(BaledWithWireResource))]
         public bool? BaledWithWire { get; set; }
+
+        public double? BaledWithWireDeductionPercentage { get; set; }
     }
 }

@@ -1,7 +1,8 @@
-﻿using EPRN.Portal.Resources;
+﻿using EPRN.Portal.Configuration;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels;
-using EPRN.Portal.ViewModels.Waste;
+using Microsoft.Extensions.Options;
 
 namespace EPRN.UnitTests.Portal.Services
 {
@@ -9,11 +10,12 @@ namespace EPRN.UnitTests.Portal.Services
     public class ExporterAndReprocessorHomeServiceTests
     {
         private ExporterAndReprocessorHomeService _exporterAndReprocessorHomeService;
+        private IOptions<AppConfigSettings> _configSettings;
 
         [TestInitialize]
         public void Init()
         {
-            _exporterAndReprocessorHomeService = new ExporterAndReprocessorHomeService();
+            _exporterAndReprocessorHomeService = new ExporterAndReprocessorHomeService(_configSettings);
         }
 
         [TestMethod]
