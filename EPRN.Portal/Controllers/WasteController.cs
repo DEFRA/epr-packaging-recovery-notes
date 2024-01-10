@@ -258,8 +258,66 @@ namespace EPRN.Portal.Controllers
             if (!id.HasValue)
                 return NotFound();
 
+            var monthRow = new CheckAnswerViewModel
+            {
+                Question = "During which month was the material supplied in?",
+                Answer = "July",
+                ChangeLink = "#"
+            };
 
-            return View();
+            var materialTypeRow = new CheckAnswerViewModel
+            {
+                Question = "During which month was the material supplied in?",
+                Answer = "July",
+                ChangeLink = "#"
+            };
+
+            var materialSubTypeRow = new CheckAnswerViewModel
+            {
+                Question = "During which month was the material supplied in?",
+                Answer = "July",
+                ChangeLink = "#"
+            };
+
+            var tonnesReceivedRow = new CheckAnswerViewModel
+            {
+                Question = "During which month was the material supplied in?",
+                Answer = "July",
+                ChangeLink = "#"
+            };
+
+            var baledWithWireRow = new CheckAnswerViewModel
+            {
+                Question = "During which month was the material supplied in?",
+                Answer = "July",
+                ChangeLink = "#"
+            };
+
+            var totalTonnesRow = new CheckAnswerViewModel
+            {
+                Question = "During which month was the material supplied in?",
+                Answer = "July",
+                ChangeLink = "#"
+            };
+            var noteRow = new CheckAnswerViewModel
+            {
+                Question = "During which month was the material supplied in?",
+                Answer = "July",
+                ChangeLink = "#"
+            };
+
+            var listOfRows = new List<CheckAnswerViewModel>
+            {
+                monthRow, materialTypeRow, materialSubTypeRow, tonnesReceivedRow, baledWithWireRow, totalTonnesRow, noteRow
+            };
+
+            var viewModel = new CheckAnswersViewModel
+            {
+                JourneyId = 105,
+                Answers = listOfRows
+            };
+
+            return View(viewModel);
         }
     }
 }

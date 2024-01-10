@@ -1,11 +1,10 @@
 ﻿@using EPRN.Common.Enums;
 
-@model DuringWhichMonthRequestViewModel
+@model CheckAnswersViewModel
 
 @{
     ViewData["Title"] = "Check your answers";
 }
-
 
 <div class="govuk-width-container">
     <div class="govuk-grid-row">
@@ -13,52 +12,56 @@
             <span class="govuk-caption-l">
                 @MasterResources.RecordingFor
             </span>
-            <h1 class="govuk-heading-l">Check your answers</h1>
-            <h2 class="govuk-heading-m">Waste Received details</h2>
-            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        During which month was the material supplied in?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        July
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> month</span></a>
-                    </dd>
-                </div>
-            </dl>
-            <h2 class="govuk-heading-m">Waste type and waste details</h2>
-            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        What is the material type?
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        Paper/board
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> waste type</span></a>
-                    </dd>
-                </div>
-            </dl>
-            <h2 class="govuk-heading-m">Additional information</h2>
-            <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Note
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        This is the note
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> note</span></a>
-                    </dd>
-                </div>
-            </dl>
             <form method="post">
                 <input type="hidden" name="answers-checked" value="true">
                 <input type="hidden" asp-for="JourneyId" />
+                <h1 class="govuk-heading-l">Check your answers</h1>
+                <h2 class="govuk-heading-m">Waste Received details</h2>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            During which month was the material supplied in?
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            July
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> month</span></a>
+                        </dd>
+                    </div>
+                </dl>
+                <h2 class="govuk-heading-m">Waste type and waste details</h2>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    @foreach (var answer in Model.Answers)
+                    {
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                @answer.Question
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @answer.Answer
+                            </dd>
+                            <dd class="govuk-summary-list__actions">
+                                <a class="govuk-link" href="@answer.ChangeLink">Change<span class="govuk-visually-hidden"> waste type</span></a>
+                            </dd>
+                        </div>
+                    }
+                </dl>
+                <h2 class="govuk-heading-m">Additional information</h2>
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Note
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            This is the note
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> note</span></a>
+                        </dd>
+                    </div>
+                </dl>
+
                 <button type="submit" class="govuk-button" data-module="govuk-button">
                     Confirm and continue
                 </button>
