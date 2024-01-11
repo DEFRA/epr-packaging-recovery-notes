@@ -117,25 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back" xml:space="preserve">
-    <value>[Welsh] Back</value>
+  <data name="PERNCreateLabel" xml:space="preserve">
+    <value>[Welsh]Create a PERN for:</value>
   </data>
-  <data name="ContinueBtn" xml:space="preserve">
-    <value>[Welsh] Continue</value>
+  <data name="PERNHowManyTonnesLabel" xml:space="preserve">
+    <value>[Welsh]How many tonnes is this PERN for?</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>[Welsh] Home</value>
+  <data name="PERNRoundingLabel" xml:space="preserve">
+    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PERN</value>
   </data>
-  <data name="MustBeANumber" xml:space="preserve">
-    <value>[Welsh]Please enter a valid numerical value</value>
+  <data name="PERNTitle" xml:space="preserve">
+    <value>[Welsh]Tonnage for this PERN</value>
   </data>
-  <data name="OppositeLanguage" xml:space="preserve">
-    <value>English</value>
+  <data name="PRNCreateLabel" xml:space="preserve">
+    <value>[Welsh]Create a PRN for:</value>
   </data>
-  <data name="RecordingFor" xml:space="preserve">
-    <value>[Welsh] Recording for:</value>
+  <data name="PRNHowManyTonnesLabel" xml:space="preserve">
+    <value>[Welsh]How many tonnes is this PRN for?</value>
   </data>
-  <data name="String" xml:space="preserve">
-    <value>[Welsh]There is a problem</value>
+  <data name="PRNRoundingLabel" xml:space="preserve">
+    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PRN</value>
+  </data>
+  <data name="PRNTitle" xml:space="preserve">
+    <value>[Welsh]Tonnage for this PRN</value>
+  </data>
+  <data name="WasteBalance" xml:space="preserve">
+    <value>[Welsh]Your waste balanace is:</value>
   </data>
 </root>

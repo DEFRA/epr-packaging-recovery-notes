@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources {
+namespace EPRN.Portal.Resources.PRNS {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MasterResources {
+    public class PRNSTonnesResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MasterResources() {
+        internal PRNSTonnesResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.MasterResources", typeof(MasterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.PRNSTonnesResources", typeof(PRNSTonnesResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,65 +61,83 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
+        ///   Looks up a localized string similar to Create a PERN for:.
         /// </summary>
-        public static string Back {
+        public static string PERNCreateLabel {
             get {
-                return ResourceManager.GetString("Back", resourceCulture);
+                return ResourceManager.GetString("PERNCreateLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to How many tonnes is this PERN for?.
         /// </summary>
-        public static string ContinueBtn {
+        public static string PERNHowManyTonnesLabel {
             get {
-                return ResourceManager.GetString("ContinueBtn", resourceCulture);
+                return ResourceManager.GetString("PERNHowManyTonnesLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PERN.
         /// </summary>
-        public static string Home {
+        public static string PERNRoundingLabel {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
+                return ResourceManager.GetString("PERNRoundingLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid numerical value.
+        ///   Looks up a localized string similar to Tonnage for this PERN.
         /// </summary>
-        public static string MustBeANumber {
+        public static string PERNTitle {
             get {
-                return ResourceManager.GetString("MustBeANumber", resourceCulture);
+                return ResourceManager.GetString("PERNTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cymraeg.
+        ///   Looks up a localized string similar to Create a PRN for:.
         /// </summary>
-        public static string OppositeLanguage {
+        public static string PRNCreateLabel {
             get {
-                return ResourceManager.GetString("OppositeLanguage", resourceCulture);
+                return ResourceManager.GetString("PRNCreateLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recording for:.
+        ///   Looks up a localized string similar to How many tonnes is this PRN for?.
         /// </summary>
-        public static string RecordingFor {
+        public static string PRNHowManyTonnesLabel {
             get {
-                return ResourceManager.GetString("RecordingFor", resourceCulture);
+                return ResourceManager.GetString("PRNHowManyTonnesLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is a problem.
+        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PRN.
         /// </summary>
-        public static string SummaryError {
+        public static string PRNRoundingLabel {
             get {
-                return ResourceManager.GetString("SummaryError", resourceCulture);
+                return ResourceManager.GetString("PRNRoundingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tonnage for this PRN.
+        /// </summary>
+        public static string PRNTitle {
+            get {
+                return ResourceManager.GetString("PRNTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your waste balanace is:.
+        /// </summary>
+        public static string WasteBalance {
+            get {
+                return ResourceManager.GetString("WasteBalance", resourceCulture);
             }
         }
     }

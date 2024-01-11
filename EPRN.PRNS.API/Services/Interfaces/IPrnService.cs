@@ -2,6 +2,8 @@
 {
     public interface IPrnService
     {
+        Task<bool> PrnRecordExists(int id);
+
         Task<int> CreatePrnRecord();
 
         Task<double?> GetTonnage(int id);
