@@ -263,7 +263,7 @@ namespace EPRN.Portal.Controllers
             {
                 Question = @CYAResources.DuringWhichMonth,
                 Answer = "July",
-                ChangeLink = "#"
+                ChangeLink = Url.Action("Month", "Waste", new { id })
             };
 
             var materialTypeRow = new CheckAnswerViewModel
