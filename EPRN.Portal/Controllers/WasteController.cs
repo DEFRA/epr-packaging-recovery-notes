@@ -319,6 +319,33 @@ namespace EPRN.Portal.Controllers
                 ChangeLink = "#"
             };
 
+            //var wasteRecievedDetailsRows = new List<CheckAnswerViewModel>
+            //{
+            //    monthRow
+            //};
+
+            //var wasteTypeAndWeightDetatilsRow = new List<CheckAnswerViewModel>
+            //{
+            //    materialTypeRow,
+            //    materialSubTypeRow,
+            //    tonnesReceivedRow,
+            //    baledWithWireRow,
+            //    totalTonnesRow
+            //};
+
+            //var additionalInfoRows = new List<CheckAnswerViewModel>
+            //{
+            //    noteRow
+            //};
+
+            //var viewModel = new CheckAnswersViewModel
+            //{
+            //    JourneyId = 105,
+            //    WasteReceivedAnswers = wasteRecievedDetailsRows,
+            //    WasteTypeAndWeightAnswers = wasteTypeAndWeightDetatilsRow,
+            //    AdditionalInfoAnswers = additionalInfoRows
+            //};
+
             var wasteRecievedDetailsRows = new List<CheckAnswerViewModel>
             {
                 monthRow
@@ -338,13 +365,11 @@ namespace EPRN.Portal.Controllers
                 noteRow
             };
 
-            var viewModel = new CheckAnswersViewModel
-            {
-                JourneyId = 105,
-                WasteReceivedAnswers = wasteRecievedDetailsRows,
-                WasteTypeAndWeightAnswers = wasteTypeAndWeightDetatilsRow,
-                AdditionalInfoAnswers = additionalInfoRows
-            };
+            var viewModel = new CheckAnswersViewModel { JourneyId = 105 };
+            viewModel.Sections.Add("Section 1", wasteRecievedDetailsRows);
+            viewModel.Sections.Add("Section 2", wasteTypeAndWeightDetatilsRow);
+            viewModel.Sections.Add("Section 3", additionalInfoRows);
+
 
             return View(viewModel);
         }

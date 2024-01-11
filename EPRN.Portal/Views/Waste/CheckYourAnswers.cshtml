@@ -16,57 +16,27 @@
                 <input type="hidden" name="answers-checked" value="true">
                 <input type="hidden" asp-for="JourneyId" />
                 <h1 class="govuk-heading-l">@CYAResources.Title</h1>
-                <h2 class="govuk-heading-m">@CYAResources.WasteReceivedDetails</h2>
-                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                    @foreach (var answer in Model.WasteReceivedAnswers)
-                    {
-                        <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-                                @answer.Question
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-                                @answer.Answer
-                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                                <a class="govuk-link" href="@answer.ChangeLink">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> waste type</span></a>
-                            </dd>
-                        </div>
-                    }
-                </dl>
-                <h2 class="govuk-heading-m">@CYAResources.WasteTypeAndWeight</h2>
-                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                    @foreach (var answer in Model.WasteTypeAndWeightAnswers)
-                    {
-                        <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-                                @answer.Question
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-                                @answer.Answer
-                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                                <a class="govuk-link" href="@answer.ChangeLink">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> waste type</span></a>
-                            </dd>
-                        </div>
-                    }
-                </dl>
-                <h2 class="govuk-heading-m">@CYAResources.AdditionalInformation</h2>
-                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
-                    @foreach (var answer in Model.AdditionalInfoAnswers)
-                    {
-                        <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-                                @answer.Question
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-                                @answer.Answer
-                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                                <a class="govuk-link" href="@answer.ChangeLink">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> waste type</span></a>
-                            </dd>
-                        </div>
-                    }
-                </dl>
+                
+                @foreach (var mySection in Model.Sections)
+                {
+                    <h2 class="govuk-heading-m">@mySection.Key</h2>
+                    <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                        @foreach (var answer in mySection.Value)
+                        {
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    @answer.Question
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @answer.Answer
+                                </dd>
+                                <dd class="govuk-summary-list__actions">
+                                    <a class="govuk-link" href="@answer.ChangeLink">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> waste type</span></a>
+                                </dd>
+                            </div>
+                        }
+                    </dl>
+                }
 
                 <button type="submit" class="govuk-button" data-module="govuk-button">
                     @CYAResources.ConfirmAndContinueBtn

@@ -1,6 +1,7 @@
 ﻿using EPRN.Portal.Configuration;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
@@ -56,5 +57,8 @@ namespace EPRN.Portal.Services
 
         public abstract double? GetBaledWithWireDeductionPercentage();
 
+        public virtual async Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId){
+            return null;
+        }
     }
 }
