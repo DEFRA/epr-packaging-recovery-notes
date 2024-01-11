@@ -28,6 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\CYAResources.Designer.cs">
+      <DependentUpon>CYAResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\NoteResources.Designer.cs">
       <DependentUpon>NoteResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -119,6 +124,10 @@
     <EmbeddedResource Update="Resources\BaledWithWireResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BaledWithWireResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\CYAResources.resx">
+      <LastGenOutput>CYAResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\NoteResources.resx">
       <LastGenOutput>NoteResources.Designer.cs</LastGenOutput>

@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ namespace EPRN.Portal.Controllers
         private IHomeService _homeService;
 
         public WasteController(
-            IWasteService wasteService, 
+            IWasteService wasteService,
             IHomeServiceFactory homeServiceFactory)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
@@ -82,7 +83,17 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            bool fromCheckYourAnswers = TempData["FromCheckYourAnswers"] as bool? ?? false;
+
+            if (fromCheckYourAnswers)
+            {
+                TempData.Remove("FromCheckYourAnswers");
+                return RedirectToAction("CheckYourAnswers", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            }
+            else
+            {
+                return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            }
         }
 
         [HttpGet]
@@ -192,7 +203,7 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
-            if(model.BaledWithWireDeductionPercentage == null)
+            if (model.BaledWithWireDeductionPercentage == null)
                 model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
             return View(model);
@@ -233,9 +244,9 @@ namespace EPRN.Portal.Controllers
         {
             if (!id.HasValue)
                 return NotFound();
-            
+
             var model = await _wasteService.GetNoteViewModel(id.Value);
-            
+
             return View(model);
         }
 
@@ -250,6 +261,92 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveNote(noteViewModel);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CheckYourAnswers(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            TempData["FromCheckYourAnswers"] = true;
+
+            var monthRow = new CheckAnswerViewModel
+            {
+                Question = @CYAResources.DuringWhichMonth,
+                Answer = "July",
+                ChangeLink = Url.Action("Month", "Waste", new { id })
+            };
+
+            var materialTypeRow = new CheckAnswerViewModel
+            {
+                Question = @CYAResources.MaterialType,
+                Answer = "Paper/Board",
+                ChangeLink = "#"
+            };
+
+            var materialSubTypeRow = new CheckAnswerViewModel
+            {
+                Question = @CYAResources.SubType,
+                Answer = "Sorted mixed paper/board",
+                ChangeLink = "#"
+            };
+
+            var tonnesReceivedRow = new CheckAnswerViewModel
+            {
+                Question = CYAResources.TonnesReceivedPartOne + "paper/board " + CYAResources.TonnesReceivedPartTwo,
+                Answer = "5.6",
+                ChangeLink = "#"
+            };
+
+            var baledWithWireRow = new CheckAnswerViewModel
+            {
+                Question = @CYAResources.BaledPartOne + "paper/board " + CYAResources.BaledPartTwo,
+                Answer = "No",
+                ChangeLink = "#"
+            };
+
+            var totalTonnesRow = new CheckAnswerViewModel
+            {
+                Question = CYAResources.Total,
+                Answer = "5.31 " + CYAResources.Tonnes,
+                ChangeLink = "#"
+            };
+            var noteRow = new CheckAnswerViewModel
+            {
+                Question = CYAResources.Note,
+                Answer = "This is the note",
+                ChangeLink = "#"
+            };
+
+            var wasteRecievedDetailsRows = new List<CheckAnswerViewModel>
+            {
+                monthRow
+            };
+
+            var wasteTypeAndWeightDetatilsRow = new List<CheckAnswerViewModel>
+            {
+                materialTypeRow,
+                materialSubTypeRow,
+                tonnesReceivedRow,
+                baledWithWireRow,
+                totalTonnesRow
+            };
+
+            var additionalInfoRows = new List<CheckAnswerViewModel>
+            {
+                noteRow
+            };
+
+            var viewModel = new CheckAnswersViewModel
+            {
+                JourneyId = 105,
+                WasteReceivedAnswers = wasteRecievedDetailsRows,
+                WasteTypeAndWeightAnswers = wasteTypeAndWeightDetatilsRow,
+                AdditionalInfoAnswers = additionalInfoRows
+            };
+
+            return View(viewModel);
         }
     }
 }
