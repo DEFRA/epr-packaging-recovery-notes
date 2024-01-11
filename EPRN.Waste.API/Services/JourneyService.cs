@@ -95,6 +95,7 @@ namespace EPRN.Waste.API.Services
             {
                 JourneyId = journey.Id,
                 WasteBalance = journey.Quantity ?? 0,
+                //TODO: Remove the hardcoded value
                 WasteRecordReferenceNumber = journey.ReferenceNumber ?? "WR00012",
                 WasteRecordStatus = WasteRecordStatuses.Incomplete
             };

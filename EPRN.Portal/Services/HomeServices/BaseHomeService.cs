@@ -11,9 +11,6 @@ namespace EPRN.Portal.Services
 
         public BaseHomeService(IOptions<AppConfigSettings> configSettings)
         {
-            if (configSettings == null)
-                return;
-
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
 
