@@ -20,17 +20,17 @@
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            During which month was the material supplied in?
+                            @CYAResources.DuringWhichMonth
                         </dt>
                         <dd class="govuk-summary-list__value">
                             July
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> month</span></a>
+                            <a class="govuk-link" href="#">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> month</span></a>
                         </dd>
                     </div>
                 </dl>
-                <h2 class="govuk-heading-m">Waste type and waste details</h2>
+                <h2 class="govuk-heading-m">@CYAResources.WasteTypeAndWeight</h2>
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                     @foreach (var answer in Model.Answers)
                     {
@@ -42,28 +42,28 @@
                                 @answer.Answer
                             </dd>
                             <dd class="govuk-summary-list__actions">
-                                <a class="govuk-link" href="@answer.ChangeLink">Change<span class="govuk-visually-hidden"> waste type</span></a>
+                                <a class="govuk-link" href="@answer.ChangeLink">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> waste type</span></a>
                             </dd>
                         </div>
                     }
                 </dl>
-                <h2 class="govuk-heading-m">Additional information</h2>
+                <h2 class="govuk-heading-m">@CYAResources.AdditionalInformation</h2>
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Note
+                            @CYAResources.Note
                         </dt>
                         <dd class="govuk-summary-list__value">
                             This is the note
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> note</span></a>
+                            <a class="govuk-link" href="#">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> note</span></a>
                         </dd>
                     </div>
                 </dl>
 
                 <button type="submit" class="govuk-button" data-module="govuk-button">
-                    Confirm and continue
+                    @CYAResources.ConfirmAndContinueBtn
                 </button>
             </form>
         </div>

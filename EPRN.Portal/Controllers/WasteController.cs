@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
@@ -260,49 +261,49 @@ namespace EPRN.Portal.Controllers
 
             var monthRow = new CheckAnswerViewModel
             {
-                Question = "During which month was the material supplied in?",
+                Question = @CYAResources.DuringWhichMonth,
                 Answer = "July",
                 ChangeLink = "#"
             };
 
             var materialTypeRow = new CheckAnswerViewModel
             {
-                Question = "During which month was the material supplied in?",
-                Answer = "July",
+                Question = @CYAResources.MaterialType,
+                Answer = "Paper/Board",
                 ChangeLink = "#"
             };
 
             var materialSubTypeRow = new CheckAnswerViewModel
             {
-                Question = "During which month was the material supplied in?",
-                Answer = "July",
+                Question = @CYAResources.SubType,
+                Answer = "Sorted mixed paper/board",
                 ChangeLink = "#"
             };
 
             var tonnesReceivedRow = new CheckAnswerViewModel
             {
-                Question = "During which month was the material supplied in?",
-                Answer = "July",
+                Question = CYAResources.TonnesReceivedPartOne + "paper/board " + CYAResources.TonnesReceivedPartTwo,
+                Answer = "5.6",
                 ChangeLink = "#"
             };
 
             var baledWithWireRow = new CheckAnswerViewModel
             {
-                Question = "During which month was the material supplied in?",
-                Answer = "July",
+                Question = @CYAResources.BaledPartOne + "paper/board " + CYAResources.BaledPartTwo,
+                Answer = "No",
                 ChangeLink = "#"
             };
 
             var totalTonnesRow = new CheckAnswerViewModel
             {
-                Question = "During which month was the material supplied in?",
-                Answer = "July",
+                Question = CYAResources.Total,
+                Answer = "5.31" + CYAResources.Tonnes,
                 ChangeLink = "#"
             };
             var noteRow = new CheckAnswerViewModel
             {
-                Question = "During which month was the material supplied in?",
-                Answer = "July",
+                Question = CYAResources.Note,
+                Answer = "This is the note",
                 ChangeLink = "#"
             };
 
