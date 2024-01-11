@@ -1,0 +1,21 @@
+﻿@model ConfirmationViewModel
+
+<div>
+    <label>@ConfirmationResources.PERNSentToLabel</label><br />
+    <label>@Model.CompanyNameSentTo</label>
+    <br />
+    <br />
+    <label>@ConfirmationResources.PERNNumberLabel</label>
+    <br />
+    <label>@Model.PRNReferenceNumber</label>
+</div>
+<a href="/">@ConfirmationResources.DownloadPERNButton</a>
+<div>
+    <h2>@ConfirmationResources.WhatHappensNextLabel</h2>
+    <br />
+    <label>@ConfirmationResources.SendEmailLabel</label>
+</div>
+<div>
+    <button>@ConfirmationResources.ViewSentPERNsButton</button>
+    <button>@ConfirmationResources.CreateAnotherPERNButton</button>
+</div>

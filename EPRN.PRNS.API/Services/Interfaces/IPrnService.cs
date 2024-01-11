@@ -1,4 +1,6 @@
-﻿namespace EPRN.PRNS.API.Services.Interfaces
+﻿using EPRN.Common.Dtos;
+
+namespace EPRN.PRNS.API.Services.Interfaces
 {
     public interface IPrnService
     {
@@ -7,5 +9,7 @@
         Task<double?> GetTonnage(int id);
 
         Task SaveTonnage(int id, double tonnage);
+
+        Task<ConfirmationDto> GetConfirmation(int id);
     }
 }

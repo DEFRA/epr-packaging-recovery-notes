@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,8 +29,8 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .Where(wj => wj.Id == id)
-                .Select(wj => wj.Tonnes)
+                .Where(prn => prn.Id == id)
+                .Select(prn => prn.Tonnes)
                 .SingleOrDefaultAsync();
         }
 
@@ -41,6 +42,20 @@ namespace EPRN.PRNS.API.Repositories
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(prn => prn.Tonnes, tonnes)
                 );
+        }
+
+        public async Task<ConfirmationDto> GetConfirmation(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new ConfirmationDto
+                {
+                    Id = prn.Id,
+                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ? Guid.NewGuid().ToString().Replace("-", string.Empty) : prn.Reference,
+                    PrnComplete = prn.CompletedDate.HasValue && prn.CompletedDate < DateTime.UtcNow,
+                })
+                .SingleOrDefaultAsync();
         }
     }
 }

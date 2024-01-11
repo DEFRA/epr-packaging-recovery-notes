@@ -42,5 +42,17 @@ namespace EPRN.PRNS.API.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("Confirmation")]
+        public async Task<IActionResult> GetConfirmation(int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            var confirmationDto = await _prnService.GetConfirmation(id.Value);
+
+            return Ok(confirmationDto);
+        }
     }
 }

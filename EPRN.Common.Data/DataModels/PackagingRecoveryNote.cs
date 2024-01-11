@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace EPRN.Common.Data.DataModels
+﻿namespace EPRN.Common.Data.DataModels
 {
     public class PackagingRecoveryNote : BaseEntity
     {
-
-        [Required]
         public string Reference{ get; set; }     
       
         public string Note { get; set; }
@@ -22,5 +17,7 @@ namespace EPRN.Common.Data.DataModels
         public double? Tonnes { get; set; }
 
         public int? SiteId { get; set; }
+
+        public DateTime? CompletedDate { get; set; }
     }
 }

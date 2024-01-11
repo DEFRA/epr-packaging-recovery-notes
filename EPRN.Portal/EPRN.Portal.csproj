@@ -63,6 +63,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\PRNS\ConfirmationResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ConfirmationResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PRNS\Tonnes.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -144,6 +149,10 @@
     <EmbeddedResource Update="Resources\CreatePrnPern.resx">
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\ConfirmationResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ConfirmationResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\Tonnes.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
