@@ -46,8 +46,9 @@ namespace EPRN.Portal.Helpers.Extensions
                 });
 
             // Get the configuration for the services
-            services.Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.SectionName));
-            services.Configure<AppConfigSettings>(configuration.GetSection(AppConfigSettings.SectionName));
+            services
+                .Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.SectionName))
+                .Configure<AppConfigSettings>(configuration.GetSection(AppConfigSettings.SectionName));
 
             services.AddHttpContextAccessor();
             services

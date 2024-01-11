@@ -67,7 +67,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         {
             // Arrange
             var id = 7;
-            var tonnage = 4.67;
+            var tonnage = 4.5;
 
             // Act
             var result = await _prnController.SaveTonnage(id, tonnage);

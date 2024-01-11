@@ -23,220 +23,220 @@ namespace EPRN.Common.Data.Migrations
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.PackagingRecoveryNote", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("CreatedBy")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("CreatedDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("LastModifiedBy")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("LastModifiedDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<string>("Note")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Note")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Reference")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Reference")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SentTo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("SentTo")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SiteId")
-                        .HasColumnType("int");
+                b.Property<int?>("SiteId")
+                    .HasColumnType("int");
 
-                    b.Property<double?>("Tonnes")
-                        .HasColumnType("float");
+                b.Property<double?>("Tonnes")
+                    .HasColumnType("float");
 
-                    b.Property<int?>("WasteSubTypeId")
-                        .HasColumnType("int");
+                b.Property<int?>("WasteSubTypeId")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("WasteTypeId")
-                        .HasColumnType("int");
+                b.Property<int?>("WasteTypeId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("WasteTypeId");
+                b.HasIndex("WasteTypeId");
 
-                    b.ToTable("PRN");
-                });
+                b.ToTable("PRN");
+            });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteJourney", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("Adjustment")
-                        .HasColumnType("float");
+                b.Property<double?>("Adjustment")
+                    .HasColumnType("float");
 
-                    b.Property<bool?>("BaledWithWire")
-                        .HasColumnType("bit");
+                b.Property<bool?>("BaledWithWire")
+                    .HasColumnType("bit");
 
-                    b.Property<double?>("BaledWithWireDeductionPercentage")
-                        .HasColumnType("float");
+                b.Property<double?>("BaledWithWireDeductionPercentage")
+                    .HasColumnType("float");
 
-                    b.Property<bool?>("Completed")
-                        .HasColumnType("bit");
+                b.Property<bool?>("Completed")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("CreatedBy")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("CreatedDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<int?>("DoneWaste")
-                        .HasColumnType("int");
+                b.Property<int?>("DoneWaste")
+                    .HasColumnType("int");
 
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("LastModifiedBy")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime?>("LastModifiedDate")
+                    .HasColumnType("datetime2");
 
-                    b.Property<int?>("Month")
-                        .HasColumnType("int");
+                b.Property<int?>("Month")
+                    .HasColumnType("int");
 
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Note")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Quantity")
-                        .HasColumnType("float");
+                b.Property<double?>("Quantity")
+                    .HasColumnType("float");
 
-                    b.Property<string>("ReferenceNumber")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("ReferenceNumber")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SiteId")
-                        .HasColumnType("int");
+                b.Property<int?>("SiteId")
+                    .HasColumnType("int");
 
-                    b.Property<double?>("Tonnes")
-                        .HasColumnType("float");
+                b.Property<double?>("Tonnes")
+                    .HasColumnType("float");
 
-                    b.Property<double?>("Total")
-                        .HasColumnType("float");
+                b.Property<double?>("Total")
+                    .HasColumnType("float");
 
-                    b.Property<int?>("WasteSubTypeId")
-                        .HasColumnType("int");
+                b.Property<int?>("WasteSubTypeId")
+                    .HasColumnType("int");
 
-                    b.Property<int?>("WasteTypeId")
-                        .HasColumnType("int");
+                b.Property<int?>("WasteTypeId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("WasteSubTypeId");
+                b.HasIndex("WasteSubTypeId");
 
-                    b.HasIndex("WasteTypeId");
+                b.HasIndex("WasteTypeId");
 
-                    b.ToTable("WasteJourney");
-                });
+                b.ToTable("WasteJourney");
+            });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteSubType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<double?>("Adjustment")
-                        .HasColumnType("float");
+                b.Property<double?>("Adjustment")
+                    .HasColumnType("float");
 
-                    b.Property<bool>("AdjustmentPercentageRequired")
-                        .HasColumnType("bit");
+                b.Property<bool>("AdjustmentPercentageRequired")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("WasteTypeId")
-                        .HasColumnType("int");
+                b.Property<int>("WasteTypeId")
+                    .HasColumnType("int");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("WasteTypeId");
+                b.HasIndex("WasteTypeId");
 
-                    b.ToTable("WasteSubType");
-                });
+                b.ToTable("WasteSubType");
+            });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("WasteType");
-                });
+                b.ToTable("WasteType");
+            });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.PackagingRecoveryNote", b =>
-                {
-                    b.HasOne("EPRN.Common.Data.DataModels.WasteType", "WasteType")
-                        .WithMany()
-                        .HasForeignKey("WasteTypeId");
+            {
+                b.HasOne("EPRN.Common.Data.DataModels.WasteType", "WasteType")
+                    .WithMany()
+                    .HasForeignKey("WasteTypeId");
 
-                    b.Navigation("WasteType");
-                });
+                b.Navigation("WasteType");
+            });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteJourney", b =>
-                {
-                    b.HasOne("EPRN.Common.Data.DataModels.WasteSubType", "WasteSubType")
-                        .WithMany("WasteJourneys")
-                        .HasForeignKey("WasteSubTypeId");
+            {
+                b.HasOne("EPRN.Common.Data.DataModels.WasteSubType", "WasteSubType")
+                    .WithMany("WasteJourneys")
+                    .HasForeignKey("WasteSubTypeId");
 
-                    b.HasOne("EPRN.Common.Data.DataModels.WasteType", "WasteType")
-                        .WithMany("Journeys")
-                        .HasForeignKey("WasteTypeId");
+                b.HasOne("EPRN.Common.Data.DataModels.WasteType", "WasteType")
+                    .WithMany("Journeys")
+                    .HasForeignKey("WasteTypeId");
 
-                    b.Navigation("WasteSubType");
+                b.Navigation("WasteSubType");
 
-                    b.Navigation("WasteType");
-                });
-
-            modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteSubType", b =>
-                {
-                    b.HasOne("EPRN.Common.Data.DataModels.WasteType", "WasteType")
-                        .WithMany("SubTypes")
-                        .HasForeignKey("WasteTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WasteType");
-                });
+                b.Navigation("WasteType");
+            });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteSubType", b =>
-                {
-                    b.Navigation("WasteJourneys");
-                });
+            {
+                b.HasOne("EPRN.Common.Data.DataModels.WasteType", "WasteType")
+                    .WithMany("SubTypes")
+                    .HasForeignKey("WasteTypeId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("WasteType");
+            });
+
+            modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteSubType", b =>
+            {
+                b.Navigation("WasteJourneys");
+            });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteType", b =>
-                {
-                    b.Navigation("Journeys");
+            {
+                b.Navigation("Journeys");
 
-                    b.Navigation("SubTypes");
-                });
+                b.Navigation("SubTypes");
+            });
 #pragma warning restore 612, 618
         }
     }
