@@ -79,7 +79,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Goto your account homepage.
+        ///   Looks up a localized string similar to Go to your account homepage.
         /// </summary>
         public static string GoToAccountHomePage {
             get {
