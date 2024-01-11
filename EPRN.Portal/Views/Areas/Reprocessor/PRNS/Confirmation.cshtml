@@ -1,2 +1,31 @@
 ﻿@model ConfirmationViewModel
 
+@{
+    ViewData["Title"] = @ConfirmationResources.PRNPageTitle;
+}
+<div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+        @ConfirmationResources.PRNSentToLabel<br />
+        @Model.CompanyNameSentTo
+    </h1>
+    <div class="govuk-panel__body">
+        <label>@ConfirmationResources.PRNNumberLabel</label>
+        <br />
+        <strong>@Model.PRNReferenceNumber</strong>
+    </div>
+</div>
+
+<a href="/">@ConfirmationResources.DownloadPRNButton</a>
+<br />
+<div>
+    <h2>@ConfirmationResources.WhatHappensNextLabel</h2>
+    <p class="govuk-!-margin-bottom-4">@ConfirmationResources.SendEmailLabel</p>
+</div>
+<div>
+    <button type="submit" class="govuk-button govuk-!-margin-right-4" data-module="govuk-button">
+        @ConfirmationResources.ViewSentPRNsButton
+    </button>
+    <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        @ConfirmationResources.CreateAnotherPRNButton
+    </button>
+</div>

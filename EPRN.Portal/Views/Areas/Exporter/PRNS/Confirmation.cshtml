@@ -1,21 +1,31 @@
 ﻿@model ConfirmationViewModel
 
-<div>
-    <label>@ConfirmationResources.PERNSentToLabel</label><br />
-    <label>@Model.CompanyNameSentTo</label>
-    <br />
-    <br />
-    <label>@ConfirmationResources.PERNNumberLabel</label>
-    <br />
-    <label>@Model.PRNReferenceNumber</label>
+@{
+    ViewData["Title"] = @ConfirmationResources.PERNPageTitle;
+}
+<div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+        @ConfirmationResources.PERNSentToLabel<br />
+        @Model.CompanyNameSentTo
+    </h1>
+    <div class="govuk-panel__body">
+        <label>@ConfirmationResources.PERNNumberLabel</label>
+        <br />
+        <strong>@Model.PRNReferenceNumber</strong>
+    </div>
 </div>
+
 <a href="/">@ConfirmationResources.DownloadPERNButton</a>
+<br />
 <div>
     <h2>@ConfirmationResources.WhatHappensNextLabel</h2>
-    <br />
-    <label>@ConfirmationResources.SendEmailLabel</label>
+    <p class="govuk-!-margin-bottom-4">@ConfirmationResources.SendEmailLabel</p>
 </div>
 <div>
-    <button>@ConfirmationResources.ViewSentPERNsButton</button>
-    <button>@ConfirmationResources.CreateAnotherPERNButton</button>
+    <button type="submit" class="govuk-button govuk-!-margin-right-4" data-module="govuk-button">
+        @ConfirmationResources.ViewSentPERNsButton
+    </button>
+    <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        @ConfirmationResources.CreateAnotherPERNButton
+    </button>
 </div>

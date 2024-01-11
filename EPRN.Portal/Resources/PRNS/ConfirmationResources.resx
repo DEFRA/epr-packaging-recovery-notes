@@ -132,11 +132,17 @@
   <data name="PERNNumberLabel" xml:space="preserve">
     <value>PERN number</value>
   </data>
+  <data name="PERNPageTitle" xml:space="preserve">
+    <value>PERN Confirmation</value>
+  </data>
   <data name="PERNSentToLabel" xml:space="preserve">
     <value>PERN sent to:</value>
   </data>
   <data name="PRNNumberLabel" xml:space="preserve">
     <value>PRN number</value>
+  </data>
+  <data name="PRNPageTitle" xml:space="preserve">
+    <value>PRN Confirmation</value>
   </data>
   <data name="PRNSentToLabel" xml:space="preserve">
     <value>PRN sent to:</value>
@@ -145,7 +151,7 @@
     <value>We'll send you an email as soon as the producer or compliance scheme accepts or rejects this PRN</value>
   </data>
   <data name="ViewSentPERNsButton" xml:space="preserve">
-    <value>View sent PERNS</value>
+    <value>View sent PERNs</value>
   </data>
   <data name="ViewSentPRNsButton" xml:space="preserve">
     <value>View sent PRNs</value>

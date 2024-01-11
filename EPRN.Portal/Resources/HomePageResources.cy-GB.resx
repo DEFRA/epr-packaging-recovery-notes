@@ -118,123 +118,123 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HomeLink" xml:space="preserve">
-    <value>[Welsh] Home</value>
+    <value>[Welsh]Home</value>
   </data>
   <data name="HomePage_Account_Description" xml:space="preserve">
-    <value>[Welsh] Create and manage users</value>
+    <value>[Welsh]Create and manage users</value>
   </data>
   <data name="HomePage_Account_Link_CreateUser" xml:space="preserve">
-    <value>[Welsh] Create a new user</value>
+    <value>[Welsh]Create a new user</value>
   </data>
   <data name="HomePage_Account_Link_DetailUser" xml:space="preserve">
-    <value>[Welsh] View my account details</value>
+    <value>[Welsh]View my account details</value>
   </data>
   <data name="HomePage_Account_Link_ManageUser" xml:space="preserve">
-    <value>[Welsh] Manage a user</value>
+    <value>[Welsh]Manage a user</value>
   </data>
   <data name="HomePage_Account_Title" xml:space="preserve">
-    <value>[Welsh] Account</value>
+    <value>[Welsh]Account</value>
   </data>
   <data name="HomePage_Accredidation_Description" xml:space="preserve">
-    <value>[Welsh] Apply for accreditation, check your status and view all applications</value>
+    <value>[Welsh]Apply for accreditation, check your status and view all applications</value>
   </data>
   <data name="HomePage_Accredidation_Link_ApplyForAccredidation" xml:space="preserve">
-    <value>[Welsh] Apply for accredidation</value>
+    <value>[Welsh]Apply for accredidation</value>
   </data>
   <data name="HomePage_Accredidation_Link_MyAccredidations" xml:space="preserve">
-    <value>[Welsh] My accredidations</value>
+    <value>[Welsh]My accredidations</value>
   </data>
   <data name="HomePage_Accredidation_Link_ViewApplications" xml:space="preserve">
-    <value>[Welsh] View all applications</value>
+    <value>[Welsh]View all applications</value>
   </data>
   <data name="HomePage_Accredidation_Title" xml:space="preserve">
-    <value>[Welsh] Accredidation</value>
+    <value>[Welsh]Accredidation</value>
   </data>
   <data name="HomePage_ManagePern_Description" xml:space="preserve">
-    <value>[Welsh] Create PERNs, edit drafts and view sent PERNs</value>
+    <value>[Welsh]Create PERNs, edit drafts and view sent PERNs</value>
   </data>
   <data name="HomePage_ManagePern_Link_CreatePern" xml:space="preserve">
-    <value>[Welsh] Create a PERN</value>
+    <value>[Welsh]Create a PERN</value>
   </data>
   <data name="HomePage_ManagePern_Link_ViewEditDraftPerns" xml:space="preserve">
-    <value>[Welsh] View and edit draft PERNS</value>
+    <value>[Welsh]View and edit draft PERNS</value>
   </data>
   <data name="HomePage_ManagePern_Link_ViewSentPerns" xml:space="preserve">
-    <value>[Welsh] View sent PERNS</value>
+    <value>[Welsh]View sent PERNS</value>
   </data>
   <data name="HomePage_ManagePern_Title" xml:space="preserve">
-    <value>[Welsh] Manage PERN</value>
+    <value>[Welsh]Manage PERN</value>
   </data>
   <data name="HomePage_ManagePrnPern_Description" xml:space="preserve">
-    <value>[Welsh] Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs</value>
+    <value>[Welsh]Create PRNs/PERNs, edit drafts and view sent PRNs/PERNs</value>
   </data>
   <data name="HomePage_ManagePrnPern_Link_CreatePrnPern" xml:space="preserve">
-    <value>[Welsh] Create a PRN/PERN</value>
+    <value>[Welsh]Create a PRN/PERN</value>
   </data>
   <data name="HomePage_ManagePrnPern_Link_ViewEditDraftPrnsPerns" xml:space="preserve">
-    <value>[Welsh] View and edit draft PRNs/PERNS</value>
+    <value>[Welsh]View and edit draft PRNs/PERNS</value>
   </data>
   <data name="HomePage_ManagePrnPern_Link_ViewSentPrnPerns" xml:space="preserve">
-    <value>[Welsh] View sent PRNs/PERNS</value>
+    <value>[Welsh]View sent PRNs/PERNS</value>
   </data>
   <data name="HomePage_ManagePrnPern_Title" xml:space="preserve">
-    <value>[Welsh] Manage PRN/PERN</value>
+    <value>[Welsh]Manage PRN/PERN</value>
   </data>
   <data name="HomePage_ManagePrn_Description" xml:space="preserve">
-    <value>[Welsh] Create PRNs, edit drafts and view sent PRNs</value>
+    <value>[Welsh]Create PRNs, edit drafts and view sent PRNs</value>
   </data>
   <data name="HomePage_ManagePrn_Link_CreatePrn" xml:space="preserve">
-    <value>[Welsh] Create a PRN</value>
+    <value>[Welsh]Create a PRN</value>
   </data>
   <data name="HomePage_ManagePrn_Link_ViewEditDraftPrn" xml:space="preserve">
-    <value>[Welsh] View and edit draft PRNs</value>
+    <value>[Welsh]View and edit draft PRNs</value>
   </data>
   <data name="HomePage_ManagePrn_Link_ViewSentPrns" xml:space="preserve">
-    <value>[Welsh] View sent PRNs</value>
+    <value>[Welsh]View sent PRNs</value>
   </data>
   <data name="HomePage_ManagePrn_Title" xml:space="preserve">
-    <value>[Welsh] Manage PRN</value>
+    <value>[Welsh]Manage PRN</value>
   </data>
   <data name="HomePage_Returns_Description" xml:space="preserve">
-    <value>[Welsh] Submit quarterly returns</value>
+    <value>[Welsh]Submit quarterly returns</value>
   </data>
   <data name="HomePage_Returns_Link_SubmitReturn" xml:space="preserve">
-    <value>[Welsh] Submit a return</value>
+    <value>[Welsh]Submit a return</value>
   </data>
   <data name="HomePage_Returns_Title" xml:space="preserve">
-    <value>[Welsh] Returns</value>
+    <value>[Welsh]Returns</value>
   </data>
   <data name="HomePage_Title" xml:space="preserve">
-    <value>[Welsh] Waste - Home</value>
+    <value>[Welsh]Waste - Home</value>
   </data>
   <data name="HomePage_WasteManagement_Description" xml:space="preserve">
-    <value>[Welsh] Record your waste, manage your PRNs and submit your returns</value>
+    <value>[Welsh]Record your waste, manage your PRNs and submit your returns</value>
   </data>
   <data name="HomePage_WasteManagement_Link_ManageAPrn" xml:space="preserve">
-    <value>[Welsh] Manage a PRN</value>
+    <value>[Welsh]Manage a PRN</value>
   </data>
   <data name="HomePage_WasteManagement_Link_RecordWaste" xml:space="preserve">
-    <value>[Welsh] Record waste</value>
+    <value>[Welsh]Record waste</value>
   </data>
   <data name="HomePage_WasteManagement_Link_SubmitAReturn" xml:space="preserve">
-    <value>[Welsh] Submit a return</value>
+    <value>[Welsh]Submit a return</value>
   </data>
   <data name="HomePage_WasteManagement_Link_ViewEditRecords" xml:space="preserve">
-    <value>[Welsh] View and edit records</value>
+    <value>[Welsh]View and edit records</value>
   </data>
   <data name="HomePage_WasteManagement_Title" xml:space="preserve">
-    <value>[Welsh] Waste Management</value>
+    <value>[Welsh]Waste Management</value>
   </data>
   <data name="HomePage_Waste_Description" xml:space="preserve">
-    <value>[Welsh] Record waste and view waste records</value>
+    <value>[Welsh]Record waste and view waste records</value>
   </data>
   <data name="HomePage_Waste_Link_RecordWaste" xml:space="preserve">
-    <value>[Welsh] Record Waste</value>
+    <value>[Welsh]Record Waste</value>
   </data>
   <data name="HomePage_Waste_Link_ViewEditDownloadDelete" xml:space="preserve">
-    <value>[Welsh] View, edit, download or delete waste records</value>
+    <value>[Welsh]View, edit, download or delete waste records</value>
   </data>
   <data name="HomePage_Waste_Title" xml:space="preserve">
-    <value>[Welsh] Waste</value>
+    <value>[Welsh]Waste</value>
   </data>
 </root>

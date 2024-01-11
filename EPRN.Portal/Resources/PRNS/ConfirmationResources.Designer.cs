@@ -106,6 +106,15 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PERN Confirmation.
+        /// </summary>
+        public static string PERNPageTitle {
+            get {
+                return ResourceManager.GetString("PERNPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PERN sent to:.
         /// </summary>
         public static string PERNSentToLabel {
@@ -120,6 +129,15 @@ namespace EPRN.Portal.Resources.PRNS {
         public static string PRNNumberLabel {
             get {
                 return ResourceManager.GetString("PRNNumberLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PRN Confirmation.
+        /// </summary>
+        public static string PRNPageTitle {
+            get {
+                return ResourceManager.GetString("PRNPageTitle", resourceCulture);
             }
         }
         
@@ -142,7 +160,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View sent PERNS.
+        ///   Looks up a localized string similar to View sent PERNs.
         /// </summary>
         public static string ViewSentPERNsButton {
             get {

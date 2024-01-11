@@ -59,7 +59,9 @@ namespace EPRN.PRNS.API.Repositories
                 .Select(prn => new ConfirmationDto
                 {
                     Id = prn.Id,
-                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ? Guid.NewGuid().ToString().Replace("-", string.Empty) : prn.Reference,
+                    // Reference number will be generated in a seperate story, and
+                    // at the point that the completed date is set
+                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ? $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}" : prn.Reference,
                     PrnComplete = prn.CompletedDate.HasValue && prn.CompletedDate < DateTime.UtcNow,
                 })
                 .SingleOrDefaultAsync();
