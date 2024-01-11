@@ -83,7 +83,17 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            bool fromCheckYourAnswers = TempData["FromCheckYourAnswers"] as bool? ?? false;
+
+            if (fromCheckYourAnswers)
+            {
+                TempData.Remove("FromCheckYourAnswers");
+                return RedirectToAction("CheckYourAnswers", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            }
+            else
+            {
+                return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            }
         }
 
         [HttpGet]
@@ -258,6 +268,8 @@ namespace EPRN.Portal.Controllers
         {
             if (!id.HasValue)
                 return NotFound();
+
+            TempData["FromCheckYourAnswers"] = true;
 
             var monthRow = new CheckAnswerViewModel
             {
