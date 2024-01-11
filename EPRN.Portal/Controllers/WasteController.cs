@@ -297,7 +297,7 @@ namespace EPRN.Portal.Controllers
             var totalTonnesRow = new CheckAnswerViewModel
             {
                 Question = CYAResources.Total,
-                Answer = "5.31" + CYAResources.Tonnes,
+                Answer = "5.31 " + CYAResources.Tonnes,
                 ChangeLink = "#"
             };
             var noteRow = new CheckAnswerViewModel
@@ -307,15 +307,31 @@ namespace EPRN.Portal.Controllers
                 ChangeLink = "#"
             };
 
-            var listOfRows = new List<CheckAnswerViewModel>
+            var wasteRecievedDetailsRows = new List<CheckAnswerViewModel>
             {
-                monthRow, materialTypeRow, materialSubTypeRow, tonnesReceivedRow, baledWithWireRow, totalTonnesRow, noteRow
+                monthRow
+            };
+
+            var wasteTypeAndWeightDetatilsRow = new List<CheckAnswerViewModel>
+            {
+                materialTypeRow,
+                materialSubTypeRow,
+                tonnesReceivedRow,
+                baledWithWireRow,
+                totalTonnesRow
+            };
+
+            var additionalInfoRows = new List<CheckAnswerViewModel>
+            {
+                noteRow
             };
 
             var viewModel = new CheckAnswersViewModel
             {
                 JourneyId = 105,
-                Answers = listOfRows
+                WasteReceivedAnswers = wasteRecievedDetailsRows,
+                WasteTypeAndWeightAnswers = wasteTypeAndWeightDetatilsRow,
+                AdditionalInfoAnswers = additionalInfoRows
             };
 
             return View(viewModel);
