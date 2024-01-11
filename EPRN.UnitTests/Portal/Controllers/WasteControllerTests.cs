@@ -445,7 +445,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireViewModel));
 
             // check view name
-            Assert.AreEqual("BaledWithWire", viewResult.ViewName);
+            Assert.IsNull(viewResult.ViewName);
         }
 
         [TestMethod]
@@ -474,7 +474,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireViewModel));
 
             // check view name
-            Assert.AreEqual("BaledWithWire", viewResult.ViewName);
+            Assert.IsNull(viewResult.ViewName);
         }
 
         [TestMethod]
