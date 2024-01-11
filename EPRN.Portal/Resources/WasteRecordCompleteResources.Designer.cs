@@ -61,24 +61,6 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your account is now active.
-        /// </summary>
-        public static string AccountIsActive {
-            get {
-                return ResourceManager.GetString("AccountIsActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to go to my account.
-        /// </summary>
-        public static string AccountLink {
-            get {
-                return ResourceManager.GetString("AccountLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         public static string BackLink {
@@ -93,6 +75,15 @@ namespace EPRN.Portal.Resources {
         public static string ContinueButton {
             get {
                 return ResourceManager.GetString("ContinueButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to your account homepage.
+        /// </summary>
+        public static string GoToAccountHomePage {
+            get {
+                return ResourceManager.GetString("GoToAccountHomePage", resourceCulture);
             }
         }
         
@@ -115,6 +106,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Record more waste.
+        /// </summary>
+        public static string RecordMoreWaste {
+            get {
+                return ResourceManager.GetString("RecordMoreWaste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your reference number.
         /// </summary>
         public static string ReferenceNumber {
@@ -124,7 +124,16 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your new waste balance is.
+        ///   Looks up a localized string similar to View, edit, download or delete waste records.
+        /// </summary>
+        public static string ViewEditDownloadOrDeleteWasteRecords {
+            get {
+                return ResourceManager.GetString("ViewEditDownloadOrDeleteWasteRecords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have successfully recorded.
         /// </summary>
         public static string WasteBalance {
             get {
@@ -133,20 +142,11 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tonnes.
+        ///   Looks up a localized string similar to tonnes of waste recevied.
         /// </summary>
         public static string WasteBalance2 {
             get {
                 return ResourceManager.GetString("WasteBalance2", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to What to do next.
-        /// </summary>
-        public static string WhatToDoNext {
-            get {
-                return ResourceManager.GetString("WhatToDoNext", resourceCulture);
             }
         }
     }
