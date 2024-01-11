@@ -11,17 +11,20 @@ namespace EPRN.Portal.Services
 
         public BaseHomeService(IOptions<AppConfigSettings> configSettings)
         {
+            if (configSettings == null)
+                return;
+
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
 
-            //if (configSettings.Value.DeductionAmount_Exporter == null)
-            //    throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_Exporter));
+            if (configSettings.Value.DeductionAmount_Exporter == null)
+                throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_Exporter));
 
-            //if (configSettings.Value.DeductionAmount_Reprocessor == null)
-            //    throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_Reprocessor));
+            if (configSettings.Value.DeductionAmount_Reprocessor == null)
+                throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_Reprocessor));
 
-            //if (configSettings.Value.DeductionAmount_ExporterAndReprocessor == null)
-            //    throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_ExporterAndReprocessor));
+            if (configSettings.Value.DeductionAmount_ExporterAndReprocessor == null)
+                throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_ExporterAndReprocessor));
 
             ConfigSettings = configSettings;
         }

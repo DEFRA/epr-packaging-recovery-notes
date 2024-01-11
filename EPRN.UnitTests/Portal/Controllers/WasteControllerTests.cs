@@ -445,7 +445,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireViewModel));
 
             // check view name
-            Assert.IsNull(viewResult.ViewName);
+            Assert.AreEqual("BaledWithWire", viewResult.ViewName);
         }
 
         [TestMethod]
@@ -474,7 +474,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireViewModel));
 
             // check view name
-            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+            Assert.AreEqual("BaledWithWire", viewResult.ViewName);
         }
 
         [TestMethod]
