@@ -156,8 +156,6 @@ namespace EPRN.Portal.Controllers
 
             var result = await _wasteService.GetWasteRecordStatus(id.Value);
 
-            result.WasteRecordReferenceNumber = "WR00012";
-
             if (result.WasteRecordStatus == WasteRecordStatuses.Complete)
                 return View("WasteRecordCompleteStatus", result);
 
