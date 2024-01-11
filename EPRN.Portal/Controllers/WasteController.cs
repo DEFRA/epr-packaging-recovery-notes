@@ -204,7 +204,7 @@ namespace EPRN.Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("BaledWithWire", baledWithWireModel);
+                return View("Baled", baledWithWireModel);
             }
 
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
