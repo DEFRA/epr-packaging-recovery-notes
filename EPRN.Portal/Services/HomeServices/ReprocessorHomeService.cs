@@ -1,14 +1,20 @@
-﻿using EPRN.Portal.Configuration;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.Extensions.Options;
+using NuGet.Packaging;
 
 namespace EPRN.Portal.Services.HomeServices
 {
     public class ReprocessorHomeService : BaseHomeService, IHomeService
     {
-        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings) : base(configSettings)
+        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService)
+            : base(configSettings, httpJourneyService)
         {        
         }
 
@@ -77,6 +83,48 @@ namespace EPRN.Portal.Services.HomeServices
         public override double? GetBaledWithWireDeductionPercentage()
         {
             return ConfigSettings.Value.DeductionAmount_Reprocessor;
+        }
+
+        public override async Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId)
+        {
+            var journey = await _httpJourneyService.GetJourneyAnswers(journeyId);
+            if (journey == null) 
+                throw new NullReferenceException(nameof(journey));
+
+            var viewModel = new CheckAnswersViewModel { JourneyId = journeyId };
+            var sections = journey.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ? GetAnswerSections(journey) : GetAnswerSectionsForResent(journey);
+
+            viewModel.Sections.AddRange(sections);
+            return viewModel;
+        }
+
+        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSections(JourneyAnswersDto journey)
+        {
+            var rows = new List<CheckAnswerViewModel>();
+
+            rows.Add(new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = $"" });
+            rows.Add(new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = $"" });
+            rows.Add(new CheckAnswerViewModel { Question = CYAResources.Tonnage, Answer = journey.Tonnes.ToString(), ChangeLink = $"" });
+            rows.Add(new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = $"" });
+            rows.Add(new CheckAnswerViewModel { Question = CYAResources.MonthWasteExported, Answer = journey.Month, ChangeLink = $"" });
+            rows.Add(new CheckAnswerViewModel { Question = CYAResources.Note, Answer = journey.Note, ChangeLink = $"" });
+
+
+            var section = new Dictionary<string, List<CheckAnswerViewModel>>();
+            section.Add(CYAResources.ReprocessorResentPageHeader, rows);
+
+            return section;
+
+        }
+
+        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForResent(JourneyAnswersDto journey)
+        {
+            var rows = new List<CheckAnswerViewModel>();
+
+            var section = new Dictionary<string, List<CheckAnswerViewModel>>();
+            section.Add("Not given", rows);
+
+            return section;
         }
     }
 }

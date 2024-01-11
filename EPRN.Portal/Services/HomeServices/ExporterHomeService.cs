@@ -1,14 +1,17 @@
 ﻿using EPRN.Portal.Configuration;
 using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services.HomeServices
 {
     public class ExporterHomeService : BaseHomeService, IHomeService
     {
-        public ExporterHomeService(IOptions<AppConfigSettings> configSettings) : base(configSettings)
+        public ExporterHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService)
+            : base(configSettings, httpJourneyService)
         {       
         }
 
@@ -77,6 +80,11 @@ namespace EPRN.Portal.Services.HomeServices
         public override double? GetBaledWithWireDeductionPercentage()
         {
             return ConfigSettings.Value.DeductionAmount_Exporter;
+        }
+
+        public override Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

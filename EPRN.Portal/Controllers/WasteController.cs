@@ -271,6 +271,11 @@ namespace EPRN.Portal.Controllers
 
             TempData["FromCheckYourAnswers"] = true;
 
+            var vm = await _homeService.GetCheckAnswers(id.Value);
+
+            return View(vm);
+
+
             var monthRow = new CheckAnswerViewModel
             {
                 Question = @CYAResources.DuringWhichMonth,
@@ -369,7 +374,6 @@ namespace EPRN.Portal.Controllers
             viewModel.Sections.Add("Section 1", wasteRecievedDetailsRows);
             viewModel.Sections.Add("Section 2", wasteTypeAndWeightDetatilsRow);
             viewModel.Sections.Add("Section 3", additionalInfoRows);
-
 
             return View(viewModel);
         }

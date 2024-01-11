@@ -1,12 +1,13 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.RESTServices.Interfaces
 {
     public interface IHttpJourneyService
     {
         Task<int> CreateJourney();
+
+        Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 

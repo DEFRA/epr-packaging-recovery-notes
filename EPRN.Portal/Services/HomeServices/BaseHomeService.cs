@@ -1,4 +1,5 @@
 ﻿using EPRN.Portal.Configuration;
+using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
@@ -9,8 +10,9 @@ namespace EPRN.Portal.Services
     public abstract class BaseHomeService : IHomeService
     {
         protected IOptions<AppConfigSettings> ConfigSettings;
+        protected IHttpJourneyService _httpJourneyService;
 
-        public BaseHomeService(IOptions<AppConfigSettings> configSettings)
+        public BaseHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService)
         {
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
@@ -25,6 +27,9 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_ExporterAndReprocessor));
 
             ConfigSettings = configSettings;
+
+            _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(_httpJourneyService));
+
         }
 
         public virtual async Task<HomePageViewModel> GetHomePage()
@@ -57,8 +62,5 @@ namespace EPRN.Portal.Services
 
         public abstract double? GetBaledWithWireDeductionPercentage();
 
-        public virtual async Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId){
-            return null;
-        }
-    }
+        public abstract Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId);    }
 }

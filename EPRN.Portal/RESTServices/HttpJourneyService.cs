@@ -3,7 +3,6 @@ using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
-using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.RESTServices
 {
@@ -20,6 +19,11 @@ namespace EPRN.Portal.RESTServices
         public async Task<int> CreateJourney()
         {
             return await Post<int>("Create");
+        }
+
+        public Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)

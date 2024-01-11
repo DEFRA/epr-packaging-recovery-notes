@@ -88,6 +88,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Baled with wire.
+        /// </summary>
+        public static string BaledWithWire {
+            get {
+                return ResourceManager.GetString("BaledWithWire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string ChangeLinkText {
@@ -124,11 +133,29 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to When the waste was exported.
+        /// </summary>
+        public static string MonthWasteExported {
+            get {
+                return ResourceManager.GetString("MonthWasteExported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Note.
         /// </summary>
         public static string Note {
             get {
                 return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check your answers before creating this waste record.
+        /// </summary>
+        public static string ReprocessorResentPageHeader {
+            get {
+                return ResourceManager.GetString("ReprocessorResentPageHeader", resourceCulture);
             }
         }
         
@@ -147,6 +174,24 @@ namespace EPRN.Portal.Resources {
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tonnage.
+        /// </summary>
+        public static string Tonnage {
+            get {
+                return ResourceManager.GetString("Tonnage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tonnage adjusted for deductions.
+        /// </summary>
+        public static string TonnageAdjusted {
+            get {
+                return ResourceManager.GetString("TonnageAdjusted", resourceCulture);
             }
         }
         
@@ -183,6 +228,15 @@ namespace EPRN.Portal.Resources {
         public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type of waste.
+        /// </summary>
+        public static string TypeOfWaste {
+            get {
+                return ResourceManager.GetString("TypeOfWaste", resourceCulture);
             }
         }
         
