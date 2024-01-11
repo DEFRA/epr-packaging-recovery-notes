@@ -3,7 +3,7 @@
 @model CheckAnswersViewModel
 
 @{
-    ViewData["Title"] = "Check your answers";
+    ViewData["Title"] = @CYAResources.Title;
 }
 
 <div class="govuk-width-container">
@@ -15,8 +15,8 @@
             <form method="post">
                 <input type="hidden" name="answers-checked" value="true">
                 <input type="hidden" asp-for="JourneyId" />
-                <h1 class="govuk-heading-l">Check your answers</h1>
-                <h2 class="govuk-heading-m">Waste Received details</h2>
+                <h1 class="govuk-heading-l">@CYAResources.Title</h1>
+                <h2 class="govuk-heading-m">@CYAResources.WasteReceivedDetails</h2>
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                     @foreach (var answer in Model.WasteReceivedAnswers)
                     {
