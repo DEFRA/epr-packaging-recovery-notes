@@ -149,10 +149,12 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        [Route("/Status")]
-        public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
+        public async Task<IActionResult> GetWasteRecordStatus(int? id)
         {
-            var result = await _wasteService.GetWasteRecordStatus(journeyId);
+            if (id == null)
+                return NotFound();
+
+            var result = await _wasteService.GetWasteRecordStatus(id.Value);
 
             if (result.WasteRecordStatus == WasteRecordStatuses.Complete)
                 return View("WasteRecordCompleteStatus", result);
@@ -229,6 +231,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
+        [ActionName("Note")]
         public async Task<IActionResult> Note(int? id)
         {
             if (!id.HasValue)
@@ -240,6 +243,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
+        [ActionName("Note")]
         public async Task<IActionResult> Note(NoteViewModel noteViewModel)
         {
             if (!ModelState.IsValid)

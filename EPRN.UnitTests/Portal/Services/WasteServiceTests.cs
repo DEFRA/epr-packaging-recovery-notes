@@ -465,7 +465,7 @@ namespace EPRN.UnitTests.Portal.Services
             BaledWithWireViewModel baledWithWireModel = new BaledWithWireViewModel();
             baledWithWireModel.JourneyId = 1;
             baledWithWireModel.BaledWithWire = true;
-            baledWithWireModel.BaledWithWireDeductionPercentage = 0;
+            baledWithWireModel.BaledWithWireDeductionPercentage = 2;
 
             // Act
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
