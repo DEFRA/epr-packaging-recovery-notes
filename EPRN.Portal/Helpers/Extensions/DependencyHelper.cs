@@ -111,6 +111,7 @@ namespace EPRN.Portal.Helpers.Extensions
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new WasteManagementProfile());
+                mc.AddProfile(new PRNProfile());
                 mc.AllowNullCollections = true;
             });
 

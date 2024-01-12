@@ -118,15 +118,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BannerLinkText" xml:space="preserve">
-    <value>[Welsh] feedback</value>
+    <value>[Welsh]feedback</value>
   </data>
   <data name="BannerText_P1" xml:space="preserve">
-    <value>[Welsh] This is a new service – your </value>
+    <value>[Welsh]This is a new service – your </value>
   </data>
   <data name="BannerText_P2" xml:space="preserve">
-    <value>[Welsh] will help us to improve it.</value>
+    <value>[Welsh]will help us to improve it.</value>
   </data>
   <data name="Tag" xml:space="preserve">
-    <value>[Welsh] Private Beta</value>
+    <value>[Welsh]Private Beta</value>
   </data>
 </root>

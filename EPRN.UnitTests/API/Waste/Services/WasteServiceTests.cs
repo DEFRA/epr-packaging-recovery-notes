@@ -16,10 +16,8 @@ namespace EPRN.UnitTests.API.Waste.Services
         [TestInitialize]
         public void Init()
         {
-            _mockMapper = new Mock<IMapper>();
             _mockRepository = new Mock<IRepository>();
             _wasteService = new WasteService(
-                _mockMapper.Object,
                 _mockRepository.Object);
         }
 

@@ -48,5 +48,16 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             return RedirectToAction("Tonnes", "PRNS", new { Id = 1 });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Confirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var confirmation = await _prnService.GetConfirmation(id.Value);
+
+            return View(confirmation);
+        }
     }
 }

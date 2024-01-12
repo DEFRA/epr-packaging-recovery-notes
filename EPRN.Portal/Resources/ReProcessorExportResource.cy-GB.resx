@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ErrorMessage" xml:space="preserve">
-    <value>[Welsh] Select the reprocessor you exported to</value>
+    <value>[Welsh]Select the reprocessor you exported to</value>
   </data>
   <data name="Heading" xml:space="preserve">
-    <value>[Welsh] Which reprocessor did you export to?</value>
+    <value>[Welsh]Which reprocessor did you export to?</value>
   </data>
   <data name="PageTitle" xml:space="preserve">
-    <value>[Welsh] Which reprocessor did you export to?</value>
+    <value>[Welsh]Which reprocessor did you export to?</value>
   </data>
 </root>
