@@ -28,9 +28,9 @@
         <button type="submit" class="govuk-button govuk-!-margin-right-4" data-module="govuk-button">
             @ConfirmationResources.ViewSentPRNsButton
         </button>
-        <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-            @ConfirmationResources.CreateAnotherPRNButton
-        </button>
+        <a asp-action="Create" asp-controller="Prns" asp-area="@string.Empty" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            @ConfirmationResources.CreateAnotherPERNButton
+        </a>
     </div>
 }
 else
