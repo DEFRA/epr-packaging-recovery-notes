@@ -63,10 +63,10 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\PRNS\Tonnes.Designer.cs">
+    <Compile Update="Resources\PRNS\PRNSTonnesResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Tonnes.resx</DependentUpon>
+      <DependentUpon>PRNSTonnesResources.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\ReProcessorExportResource.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -145,9 +145,9 @@
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\PRNS\Tonnes.resx">
+    <EmbeddedResource Update="Resources\PRNS\PRNSTonnesResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Tonnes.Designer.cs</LastGenOutput>
+      <LastGenOutput>PRNSTonnesResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ReProcessorExportResource.cy-GB.resx">
       <LastGenOutput>ReProcessorExportResource.cy-GB.Designer.cs</LastGenOutput>

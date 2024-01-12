@@ -181,22 +181,6 @@ namespace EPRN.Waste.API.Controllers
 
             return Ok();
         }
-        [HttpPost]
-        [Route("BaledWithWire/{baledWithWire}")]
-        public async Task<ActionResult> SaveBaledWithWire(int? journeyId, bool? baledWithWire)
-        {
-            if (journeyId == null)
-                return BadRequest("Journey Id is missing");
-
-            if (baledWithWire == null)
-                return BadRequest("Baled with wire is missing");
-
-            await _journeyService.SaveBaledWithWire(
-                journeyId.Value,
-                baledWithWire.Value);
-
-            return Ok();
-        }
 
         [HttpPost]
         [Route("ReProcessorExport/{siteId}")]
@@ -222,10 +206,31 @@ namespace EPRN.Waste.API.Controllers
 
             var result = await _journeyService.GetWasteRecordNote(journeyId.Value);
 
-            if (result == null)
-                return BadRequest($"No journey found with id: {journeyId}");
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("BaledWithWire")]
+        public async Task<ActionResult> GetBaledWithWire(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            GetBaledWithWireDto result = await _journeyService.GetBaledWithWire(journeyId.Value);
 
             return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("BaledWithWire/{baledWithWire}/{baledWithWireDeductionPercentage}")]
+        public async Task<ActionResult> SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
+        {
+            await _journeyService.SaveBaledWithWire(
+                journeyId,
+                baledWithWire,
+                baledWithWireDeductionPercentage);
+
+            return Ok();
         }
     }
 }

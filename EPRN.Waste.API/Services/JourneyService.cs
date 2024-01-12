@@ -95,7 +95,8 @@ namespace EPRN.Waste.API.Services
             {
                 JourneyId = journey.Id,
                 WasteBalance = journey.Quantity ?? 0,
-                WasteRecordReferenceNumber = journey.ReferenceNumber,
+                //TODO: Remove the hardcoded value
+                WasteRecordReferenceNumber = journey.ReferenceNumber ?? "WR00012",
                 WasteRecordStatus = WasteRecordStatuses.Incomplete
             };
 
@@ -115,9 +116,23 @@ namespace EPRN.Waste.API.Services
             await _wasteRepository.UpdateJourneyTonnage(journeyId, tonnage);
         }
 
-        public async Task SaveBaledWithWire(int journeyId, bool baledWithWire)
+        public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
         {
-            await _wasteRepository.UpdateJourneyBaledWithWire(journeyId, baledWithWire);
+            var dto = new GetBaledWithWireDto { JourneyId = journeyId };
+            
+            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
+            if (journey != null)
+            {
+                dto.BaledWithWire = journey.BaledWithWire;
+                dto.BaledWithWireDeductionPercentage = journey.BaledWithWireDeductionPercentage;
+            }
+
+            return dto;
+        }
+
+        public async Task SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
+        {
+            await _wasteRepository.UpdateJourneyBaledWithWire(journeyId, baledWithWire, baledWithWireDeductionPercentage);
         }
 
         public async Task SaveReprocessorExport(int journeyId, int siteId)
@@ -157,5 +172,7 @@ namespace EPRN.Waste.API.Services
         {
             return await _wasteRepository.GetWasteNote(journeyId);
         }
+
+
     }
 }

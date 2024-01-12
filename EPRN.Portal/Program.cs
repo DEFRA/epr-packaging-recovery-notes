@@ -1,3 +1,4 @@
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
 using EPRN.Portal.Helpers.Extensions;
@@ -28,10 +29,8 @@ builder.Services
         opts.SupportedUICultures = supportedCultures;
     });
 
-builder.Services.Configure<RouteOptions>(options =>
-{
-    options.ConstraintMap.Add("JourneyType", typeof(JourneyTypeConstraint));
-});
+builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
+
 
 // Check if in development environment
 if (builder.Environment.IsDevelopment())

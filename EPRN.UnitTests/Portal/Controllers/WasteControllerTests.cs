@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
+using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,16 @@ namespace EPRN.UnitTests.Portal.Controllers
     {
         private WasteController _wasteController;
         private Mock<IWasteService> _mockWasteService;
+        private Mock<IHomeServiceFactory> _homeServiceFactory;
 
         [TestInitialize]
         public void Init()
         {
             _mockWasteService = new Mock<IWasteService>();
-            _wasteController = new WasteController(_mockWasteService.Object);
+            _homeServiceFactory = new Mock<IHomeServiceFactory>();
+            var exporterHomeService = new Mock<IHomeService>();
+            _homeServiceFactory.Setup(x => x.CreateHomeService()).Returns(exporterHomeService.Object);
+            _wasteController = new WasteController(_mockWasteService.Object, _homeServiceFactory.Object);
         }
 
         [TestMethod]
@@ -423,8 +428,8 @@ namespace EPRN.UnitTests.Portal.Controllers
         [TestMethod]
         public async Task BaledWithWire_ReturnCurrentView_WhenModelIsInvalid()
         {
-            var baledWithWireModel = new BaledWithWireModel();
-            _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>())).ReturnsAsync(new BaledWithWireModel());
+            var baledWithWireModel = new BaledWithWireViewModel();
+            _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>())).ReturnsAsync(new BaledWithWireViewModel());
 
             // Act
             var result = await _wasteController.BaledWithWire(0);
@@ -437,7 +442,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNotNull(viewResult.ViewData.Model);
 
             // check model is expected type
-            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireModel));
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireViewModel));
 
             // check view name
             Assert.IsNull(viewResult.ViewName);
@@ -447,7 +452,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task BaledWithWire_Return_Correctly()
         {
             // Arrange
-            var baledWithWireModel = new BaledWithWireModel
+            var baledWithWireModel = new BaledWithWireViewModel
             {
                 JourneyId = 1,
                 BaledWithWire = true
@@ -466,10 +471,10 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNotNull(viewResult.ViewData.Model);
 
             // check model is expected type
-            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireModel));
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(BaledWithWireViewModel));
 
             // check view name
-            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+            Assert.IsNull(viewResult.ViewName);
         }
 
         [TestMethod]
@@ -477,7 +482,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             // Arrange
             var journeyId = 3;
-            var baledWithWireModel = new BaledWithWireModel
+            var baledWithWireModel = new BaledWithWireViewModel
             {
                 JourneyId = journeyId,
                 BaledWithWire = true

@@ -2,11 +2,9 @@
 {
     public class ServicesConfiguration
     {
-        public static string Name => "Services";
+        public static string SectionName => "Services";
 
         public Service Waste { get; set; }
-
-        public Service Journey { get; set; }
 
         public Service PRN { get; set; }
     }

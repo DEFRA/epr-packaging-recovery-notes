@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources {
+namespace EPRN.Portal.Resources.PRNS {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WasteRecordCompleteResources {
+    public class PRNSTonnesResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WasteRecordCompleteResources() {
+        internal PRNSTonnesResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.WasteRecordCompleteResources", typeof(WasteRecordCompleteResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.PRNSTonnesResources", typeof(PRNSTonnesResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,92 +61,83 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
+        ///   Looks up a localized string similar to Create a PERN for:.
         /// </summary>
-        public static string BackLink {
+        public static string PERNCreateLabel {
             get {
-                return ResourceManager.GetString("BackLink", resourceCulture);
+                return ResourceManager.GetString("PERNCreateLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to How many tonnes is this PERN for?.
         /// </summary>
-        public static string ContinueButton {
+        public static string PERNHowManyTonnesLabel {
             get {
-                return ResourceManager.GetString("ContinueButton", resourceCulture);
+                return ResourceManager.GetString("PERNHowManyTonnesLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to your account homepage.
+        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PERN.
         /// </summary>
-        public static string GoToAccountHomePage {
+        public static string PERNRoundingLabel {
             get {
-                return ResourceManager.GetString("GoToAccountHomePage", resourceCulture);
+                return ResourceManager.GetString("PERNRoundingLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waste Record Complete.
+        ///   Looks up a localized string similar to Tonnage for this PERN.
         /// </summary>
-        public static string HomePage_Title {
+        public static string PERNTitle {
             get {
-                return ResourceManager.GetString("HomePage_Title", resourceCulture);
+                return ResourceManager.GetString("PERNTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Waste record complete.
+        ///   Looks up a localized string similar to Create a PRN for:.
         /// </summary>
-        public static string MessageTitle {
+        public static string PRNCreateLabel {
             get {
-                return ResourceManager.GetString("MessageTitle", resourceCulture);
+                return ResourceManager.GetString("PRNCreateLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Record more waste.
+        ///   Looks up a localized string similar to How many tonnes is this PRN for?.
         /// </summary>
-        public static string RecordMoreWaste {
+        public static string PRNHowManyTonnesLabel {
             get {
-                return ResourceManager.GetString("RecordMoreWaste", resourceCulture);
+                return ResourceManager.GetString("PRNHowManyTonnesLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your reference number.
+        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PRN.
         /// </summary>
-        public static string ReferenceNumber {
+        public static string PRNRoundingLabel {
             get {
-                return ResourceManager.GetString("ReferenceNumber", resourceCulture);
+                return ResourceManager.GetString("PRNRoundingLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View, edit, download or delete waste records.
+        ///   Looks up a localized string similar to Tonnage for this PRN.
         /// </summary>
-        public static string ViewEditDownloadOrDeleteWasteRecords {
+        public static string PRNTitle {
             get {
-                return ResourceManager.GetString("ViewEditDownloadOrDeleteWasteRecords", resourceCulture);
+                return ResourceManager.GetString("PRNTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have successfully recorded.
+        ///   Looks up a localized string similar to Your waste balanace is:.
         /// </summary>
         public static string WasteBalance {
             get {
                 return ResourceManager.GetString("WasteBalance", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to tonnes of waste recevied.
-        /// </summary>
-        public static string WasteBalance2 {
-            get {
-                return ResourceManager.GetString("WasteBalance2", resourceCulture);
             }
         }
     }

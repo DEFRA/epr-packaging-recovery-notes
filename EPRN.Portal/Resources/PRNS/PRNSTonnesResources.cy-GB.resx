@@ -117,22 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>Select yes if the material was baled with wire</value>
+  <data name="PERNCreateLabel" xml:space="preserve">
+    <value>[Welsh]Create a PERN for:</value>
   </data>
-  <data name="Heading" xml:space="preserve">
-    <value>Was it baled with wire?</value>
+  <data name="PERNHowManyTonnesLabel" xml:space="preserve">
+    <value>[Welsh]How many tonnes is this PERN for?</value>
   </data>
-  <data name="HintText" xml:space="preserve">
-    <value>We'll apply a &lt;&lt;percentage&gt;&gt;% weight deduction for bailing wire.</value>
+  <data name="PERNRoundingLabel" xml:space="preserve">
+    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PERN</value>
   </data>
-  <data name="NoSelection" xml:space="preserve">
-    <value>No</value>
+  <data name="PERNTitle" xml:space="preserve">
+    <value>[Welsh]Tonnage for this PERN</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Bailed with wire</value>
+  <data name="PRNCreateLabel" xml:space="preserve">
+    <value>[Welsh]Create a PRN for:</value>
   </data>
-  <data name="YesSelection" xml:space="preserve">
-    <value>Yes</value>
+  <data name="PRNHowManyTonnesLabel" xml:space="preserve">
+    <value>[Welsh]How many tonnes is this PRN for?</value>
+  </data>
+  <data name="PRNRoundingLabel" xml:space="preserve">
+    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PRN</value>
+  </data>
+  <data name="PRNTitle" xml:space="preserve">
+    <value>[Welsh]Tonnage for this PRN</value>
+  </data>
+  <data name="WasteBalance" xml:space="preserve">
+    <value>[Welsh]Your waste balanace is:</value>
   </data>
 </root>

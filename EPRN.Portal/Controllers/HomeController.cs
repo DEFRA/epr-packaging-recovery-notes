@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private IHomeService _homeService;
 

@@ -8,7 +8,6 @@
     ViewData["Title"] = @WasteSubTypesResources.MaterialSubTypeOptionsTitle;
 }
 
-<a asp-controller="waste" asp-action="types" asp-route-id="@Model.JourneyId" class="govuk-back-link">@MasterResources.Back</a>
 <form method="post"> 
     <input type="hidden" asp-for="JourneyId" />
     <partial name="_ValidationSummary" />

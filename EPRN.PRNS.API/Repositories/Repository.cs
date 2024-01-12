@@ -27,6 +27,13 @@ namespace EPRN.PRNS.API.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<bool> PrnExists(int id)
+        {
+            return await _prnContext
+                .PRN
+                .AnyAsync(p => p.Id == id);
+        }
+
         public async Task<double?> GetTonnage(int id)
         {
             return await _prnContext
