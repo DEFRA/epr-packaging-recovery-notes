@@ -302,7 +302,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task GetWasteRecordStatus_Return_RecordCompleteView_ValidId()
         {
             // Arrange
-            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete });
+            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = WasteRecordStatuses.Complete });
 
             // Act
             var result = await _wasteController.GetWasteRecordStatus(2);
@@ -327,7 +327,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task GetWasteRecordStatus_Return_RecordNotCompleteView_InValidId()
         {
             // Arrange
-            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Incomplete });
+            _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = WasteRecordStatuses.Incomplete });
 
             // Act
             var result = await _wasteController.GetWasteRecordStatus(2);

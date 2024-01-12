@@ -312,7 +312,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 1;
-            var dto = new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete };
+            var dto = new WasteRecordStatusDto { WasteRecordStatus = WasteRecordStatuses.Complete };
 
             _mockHttpJourneyService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(dto);
 
