@@ -86,24 +86,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
-            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
-
-            if (journey == null)
-                return null;
-
-            var dto = new WasteRecordStatusDto
-            {
-                JourneyId = journey.Id,
-                WasteBalance = journey.Quantity ?? 0,
-                //TODO: Remove the hardcoded value
-                WasteRecordReferenceNumber = journey.ReferenceNumber ?? "WR00012",
-                WasteRecordStatus = WasteRecordStatuses.Incomplete
-            };
-
-            if (journey.Completed.HasValue)
-                dto.WasteRecordStatus = journey.Completed.Value ? WasteRecordStatuses.Complete : WasteRecordStatuses.Incomplete;
-
-            return dto;
+            return await _wasteRepository.GetWasteRecordStatus(journeyId);
         }
 
         public async Task<double?> GetTonnage(int journeyId)
@@ -116,18 +99,9 @@ namespace EPRN.Waste.API.Services
             await _wasteRepository.UpdateJourneyTonnage(journeyId, tonnage);
         }
 
-        public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
+        public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
         {
-            var dto = new GetBaledWithWireDto { JourneyId = journeyId };
-            
-            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
-            if (journey != null)
-            {
-                dto.BaledWithWire = journey.BaledWithWire;
-                dto.BaledWithWireDeductionPercentage = journey.BaledWithWireDeductionPercentage;
-            }
-
-            return dto;
+            return await _wasteRepository.GetBaledWithWire(journeyId);
         }
 
         public async Task SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
@@ -147,25 +121,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
         {
-            var journey = await _wasteRepository.GetWasteSubTypeSelection(journeyId);
-            if (journey == null)
-            {
-                throw new Exception(nameof(journey));
-            }
-            
-            var wasteSubType = journey.WasteSubType;
-            if (wasteSubType == null)
-            {
-                throw new Exception(nameof(wasteSubType));
-            }
-            
-            var wasteSubTypeSelection = new WasteSubTypeSelectionDto
-            {
-                WasteSubTypeId = wasteSubType.Id,
-                Adjustment = wasteSubType.AdjustmentPercentageRequired ? journey.Adjustment : null
-            };
-            
-            return wasteSubTypeSelection;
+            return await _wasteRepository.GetWasteSubTypeSelection(journeyId);
         }
 
         public async Task<string> GetWasteRecordNote(int journeyId)

@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Back" xml:space="preserve">
-    <value>[Welsh] Back</value>
+    <value>[Welsh]Back</value>
   </data>
   <data name="ContinueBtn" xml:space="preserve">
-    <value>[Welsh] Continue</value>
+    <value>[Welsh]Continue</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>[Welsh] Home</value>
+    <value>[Welsh]Home</value>
   </data>
   <data name="MustBeANumber" xml:space="preserve">
     <value>[Welsh]Please enter a valid numerical value</value>
@@ -133,7 +133,7 @@
     <value>English</value>
   </data>
   <data name="RecordingFor" xml:space="preserve">
-    <value>[Welsh] Recording for:</value>
+    <value>[Welsh]Recording for:</value>
   </data>
   <data name="String" xml:space="preserve">
     <value>[Welsh]There is a problem</value>

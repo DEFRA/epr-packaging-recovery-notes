@@ -17,5 +17,7 @@
         public double? Tonnes { get; set; }
 
         public int? SiteId { get; set; }
+
+        public DateTime? CompletedDate { get; set; }
     }
 }

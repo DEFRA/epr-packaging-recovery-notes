@@ -10,6 +10,8 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<CreatePrnViewModel> CreatePrnViewModel();
 
+        Task<ConfirmationViewModel> GetConfirmation(int id);
+
         Task<int> CreatePrnRecord(int materialId);
     }
 }
