@@ -3,29 +3,45 @@
 @{
     ViewData["Title"] = @ConfirmationResources.PERNPageTitle;
 }
-<div class="govuk-panel govuk-panel--confirmation">
-    <h1 class="govuk-panel__title">
-        @ConfirmationResources.PERNSentToLabel<br />
-        @Model.CompanyNameSentTo
-    </h1>
-    <div class="govuk-panel__body">
-        <label>@ConfirmationResources.PERNNumberLabel</label>
-        <br />
-        <strong>@Model.PRNReferenceNumber</strong>
+@if (Model.PrnComplete)
+{
+    <div class="govuk-panel govuk-panel--confirmation">
+        <h1 class="govuk-panel__title">
+            @ConfirmationResources.PERNSentToLabel<br />
+            @Model.CompanyNameSentTo
+        </h1>
+        <div class="govuk-panel__body">
+            <label>@ConfirmationResources.PERNNumberLabel</label>
+            <br />
+            <strong>@Model.PRNReferenceNumber</strong>
+        </div>
     </div>
-</div>
 
-<a href="/">@ConfirmationResources.DownloadPERNButton</a>
-<br />
-<div>
-    <h2>@ConfirmationResources.WhatHappensNextLabel</h2>
-    <p class="govuk-!-margin-bottom-4">@ConfirmationResources.SendEmailLabel</p>
-</div>
-<div>
-    <button type="submit" class="govuk-button govuk-!-margin-right-4" data-module="govuk-button">
-        @ConfirmationResources.ViewSentPERNsButton
-    </button>
-    <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">
-        @ConfirmationResources.CreateAnotherPERNButton
-    </button>
-</div>
+    <a href="/">@ConfirmationResources.DownloadPERNButton</a>
+    <br />
+    <div>
+        <h2>@ConfirmationResources.WhatHappensNextLabel</h2>
+        <p class="govuk-!-margin-bottom-4">@ConfirmationResources.SendEmailLabel</p>
+    </div>
+    <div>
+        <button type="submit" class="govuk-button govuk-!-margin-right-4" data-module="govuk-button">
+            @ConfirmationResources.ViewSentPERNsButton
+        </button>
+        <a asp-action="Create" asp-controller="Prns" asp-area="@string.Empty" class="govuk-button govuk-button--secondary" data-module="govuk-button">
+            @ConfirmationResources.CreateAnotherPERNButton
+        </a>
+    </div>
+}
+else
+{
+    <div class="govuk-error-summary" data-module="govuk-error-summary">
+        <div role="alert">
+            <h2 class="govuk-error-summary__title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <p>@ConfirmationResources.PERNErrorMessage</p>
+            </div>
+        </div>
+    </div>
+}

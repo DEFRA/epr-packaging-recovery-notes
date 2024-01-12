@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Dtos;
 
 
 namespace EPRN.Waste.API.Repositories.Interfaces
@@ -26,19 +27,21 @@ namespace EPRN.Waste.API.Repositories.Interfaces
             int subTypeId,
             double adjustment);
 
-        Task<IList<WasteType>> GetAllWasteTypes();
+        Task<IList<WasteTypeDto>> GetAllWasteTypes();
 
-        Task<IList<WasteSubType>> GetWasteSubTypes(int wasteTypeId);
+        Task<IList<WasteSubTypeDto>> GetWasteSubTypes(int wasteTypeId);
 
         Task<string> GetWasteTypeName(int journeyId);
 
         Task<int?> GetWasteTypeId(int journeyId);
 
-        Task<WasteJourney> GetWasteSubTypeSelection(int journeyId);
+        Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId);
 
         Task<DoneWaste?> GetDoneWaste(int journeyId);
 
-        Task<WasteJourney> GetWasteJourneyById(int jounreyId);
+        Task<WasteRecordStatusDto> GetWasteRecordStatus(int jounreyId);
+
+        Task<BaledWithWireDto> GetBaledWithWire(int journeyId);
 
         Task<double?> GetWasteTonnage(int journeyId);
 

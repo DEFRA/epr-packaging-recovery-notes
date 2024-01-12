@@ -97,6 +97,15 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must complete all questions before creating PERN.
+        /// </summary>
+        public static string PERNErrorMessage {
+            get {
+                return ResourceManager.GetString("PERNErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PERN number.
         /// </summary>
         public static string PERNNumberLabel {
@@ -120,6 +129,15 @@ namespace EPRN.Portal.Resources.PRNS {
         public static string PERNSentToLabel {
             get {
                 return ResourceManager.GetString("PERNSentToLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must complete all questions before creating PRN.
+        /// </summary>
+        public static string PRNErrorMessage {
+            get {
+                return ResourceManager.GetString("PRNErrorMessage", resourceCulture);
             }
         }
         

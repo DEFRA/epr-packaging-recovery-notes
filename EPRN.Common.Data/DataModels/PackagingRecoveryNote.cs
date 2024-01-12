@@ -2,7 +2,7 @@
 {
     public class PackagingRecoveryNote : BaseEntity
     {
-        public string Reference{ get; set; }     
+        public string Reference { get; set; }     
       
         public string Note { get; set; }
 

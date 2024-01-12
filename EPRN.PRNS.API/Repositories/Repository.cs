@@ -1,5 +1,5 @@
-﻿using EPRN.Common.Data;
-using EPRN.Common.Data.DataModels;
+﻿using AutoMapper;
+using EPRN.Common.Data;
 using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -8,19 +8,18 @@ namespace EPRN.PRNS.API.Repositories
 {
     public class Repository : IRepository
     {
+        private readonly IMapper _mapper;
         private readonly EPRNContext _prnContext;
 
-        public Repository(EPRNContext prnContext)
+        public Repository(
+            IMapper mapper,
+            EPRNContext prnContext)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
         }
 
         public async Task<int> CreatePrnRecord()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PackagingRecoveryNote> GetPrnById(int id)
         {
             throw new NotImplementedException();
         }
@@ -56,14 +55,7 @@ namespace EPRN.PRNS.API.Repositories
             return await _prnContext
                 .PRN
                 .Where(prn => prn.Id == id)
-                .Select(prn => new ConfirmationDto
-                {
-                    Id = prn.Id,
-                    // Reference number will be generated in a seperate story, and
-                    // at the point that the completed date is set
-                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ? $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}" : prn.Reference,
-                    PrnComplete = prn.CompletedDate.HasValue && prn.CompletedDate < DateTime.UtcNow,
-                })
+                .Select(prn => _mapper.Map<ConfirmationDto>(prn))
                 .SingleOrDefaultAsync();
         }
     }

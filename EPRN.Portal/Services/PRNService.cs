@@ -40,6 +40,12 @@ namespace EPRN.Portal.Services
         {
             var confirmationDto = await _httpPrnsService.GetConfirmation(id);
 
+            if (confirmationDto == null)
+                throw new NullReferenceException(nameof(confirmationDto));
+
+            if (string.IsNullOrWhiteSpace(confirmationDto.CompanyNameSentTo))
+                confirmationDto.CompanyNameSentTo = "<UNKNOWN>";
+
             return _mapper.Map<ConfirmationViewModel>(confirmationDto);
         }
 
