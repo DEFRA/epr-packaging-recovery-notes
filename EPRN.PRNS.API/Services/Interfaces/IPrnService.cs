@@ -4,7 +4,7 @@
     {
         Task<bool> PrnRecordExists(int id);
 
-        Task<int> CreatePrnRecord();
+        Task<int> CreatePrnRecord(int materialId);
 
         Task<double?> GetTonnage(int id);
 
