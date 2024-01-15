@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Enums;
 using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services;
@@ -50,12 +51,13 @@ namespace EPRN.UnitTests.API.PRNS.Services
         {
             // Arrange
             var materialId = 3;
+            var category = Category.Exporter;
 
             // Act
-            await _prnService.CreatePrnRecord(materialId);
+            await _prnService.CreatePrnRecord(materialId, category);
 
             // Assert
-            _mockRepository.Verify(s => s.CreatePrnRecord(It.Is<PackagingRecoveryNote>(p => p.WasteTypeId == materialId)), Times.Once());
+            _mockRepository.Verify(s => s.CreatePrnRecord(It.Is<int>(p => p == materialId), It.Is<Category>(p => p == category)), Times.Once);
         }
 
         [TestMethod]

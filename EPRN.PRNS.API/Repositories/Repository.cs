@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data;
+using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -19,19 +21,29 @@ namespace EPRN.PRNS.API.Repositories
             _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
         }
 
-        public async Task<int> CreatePrnRecord(PackagingRecoveryNote prnRecord)
+        public async Task<int> CreatePrnRecord(
+            int materialType,
+            Common.Enums.Category category)
         {
-            _prnContext.Add(prnRecord);
+            var prn = new PackagingRecoveryNote
+            {
+                WasteTypeId = materialType,
+                Category = _mapper.Map<Category>(category)
+            };
+            
+            _prnContext.Add(prn);
             await _prnContext.SaveChangesAsync();
 
-            return prnRecord.Id;
+            return prn.Id;
         }
 
-        public async Task<bool> PrnExists(int id)
+        public async Task<bool> PrnExists(
+            int id,
+            Common.Enums.Category category)
         {
             return await _prnContext
                 .PRN
-                .AnyAsync(p => p.Id == id);
+                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
         }
 
         public async Task<double?> GetTonnage(int id)

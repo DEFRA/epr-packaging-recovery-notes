@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Controllers;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,14 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
     {
         private IPRNService _prnService;
 
-        public PRNSController(IPRNService prnService)
+        private Category Category => Category.Exporter;
+
+        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
         {
-            _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
+            if (prnServiceFactory == null)
+                throw new ArgumentNullException(nameof(prnServiceFactory));
+
+            _prnService = prnServiceFactory.Invoke(Category);
         }
 
         [HttpGet]

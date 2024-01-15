@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Areas.Exporter.Controllers;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Areas.Exporter.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -11,12 +12,14 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
     {
         private PRNSController _prnController;
         private Mock<IPRNService> _mockPrnService;
+        private Func<Category, IPRNService> _mockPrnServiceFactory;
 
         [TestInitialize]
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
-            _prnController = new PRNSController(_mockPrnService.Object);
+            _mockPrnServiceFactory = new Func<Category, IPRNService>((category) => _mockPrnService.Object);
+            _prnController = new PRNSController(_mockPrnServiceFactory);
         }
 
         [TestMethod]
@@ -50,7 +53,10 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var result = await _prnController.Tonnes(id);
 
             // assert
-            _mockPrnService.Verify(s => s.GetTonnesViewModel(It.Is<int>(p => p == id)), Times.Once);
+            _mockPrnService.Verify(s => 
+                s.GetTonnesViewModel(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
 
@@ -137,7 +143,10 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var result = await _prnController.Confirmation(id);
 
             // assert
-            _mockPrnService.Verify(s => s.GetConfirmation(It.Is<int>(p => p == id)), Times.Once);
+            _mockPrnService.Verify(s => 
+                s.GetConfirmation(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
 

@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Services.Interfaces;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
@@ -7,9 +8,9 @@ namespace EPRN.Portal.Controllers
     {
         private readonly IPRNService _PRNService;
 
-        public PrnsController(IPRNService PRNService)
+        public PrnsController(Func<Category, IPRNService> prnServiceFactory)
         {
-            _PRNService = PRNService;
+            _PRNService = prnServiceFactory.Invoke(Category.Exporter);
         }
         public async Task<IActionResult> Create()
         {

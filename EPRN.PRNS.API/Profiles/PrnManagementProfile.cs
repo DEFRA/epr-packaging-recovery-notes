@@ -9,6 +9,7 @@ namespace EPRN.PRNS.API.Profiles
         public PrnManagementProfile()
         {
             // Create Maps
+            CreateMap<Common.Enums.Category, Common.Data.Enums.Category>();
             CreateMap<PackagingRecoveryNote, ConfirmationDto>()            
                 .ForMember(d => d.PRNReferenceNumber, o => o.MapFrom(s =>
                     // we have no prn reference number functionality, so for now just make something up

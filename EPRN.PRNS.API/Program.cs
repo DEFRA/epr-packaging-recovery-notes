@@ -31,6 +31,7 @@ builder.Services.AddDbContext<EPRNContext>(options =>
 
 builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
 
+
 var mapperConfig = new MapperConfiguration(mc =>
 {
     mc.AddProfile(new PrnManagementProfile());
