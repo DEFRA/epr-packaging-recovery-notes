@@ -4,14 +4,18 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
 {
     public class ExporterAndReprocessorHomeService : BaseHomeService, IHomeService
     {
-        public ExporterAndReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService) 
-            : base(configSettings, httpJourneyService)
+        public ExporterAndReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService, 
+            IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor) 
+            : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
         {
         }
 

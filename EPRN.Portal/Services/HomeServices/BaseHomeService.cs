@@ -3,6 +3,9 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
@@ -11,8 +14,10 @@ namespace EPRN.Portal.Services
     {
         protected IOptions<AppConfigSettings> ConfigSettings;
         protected IHttpJourneyService _httpJourneyService;
+        protected IUrlHelper UrlHelper;
 
-        public BaseHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService)
+        public BaseHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService,
+            IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
         {
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
@@ -27,6 +32,7 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_ExporterAndReprocessor));
 
             ConfigSettings = configSettings;
+            UrlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 
             _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(_httpJourneyService));
 

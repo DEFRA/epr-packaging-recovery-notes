@@ -11,7 +11,10 @@ using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
@@ -71,6 +74,7 @@ namespace EPRN.Portal.Helpers.Extensions
                 .AddTransient<IPRNService, PRNService>()
                 .AddSingleton<IUserRoleService, UserRoleService>() // must be available through lifetime of the system
                 .AddSingleton<BackButtonViewModel>()
+                .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
                 .AddTransient<IHttpWasteService>(s =>
                 {
                     // create a new http service using the configuration for restful services and a http client factory
@@ -97,6 +101,12 @@ namespace EPRN.Portal.Helpers.Extensions
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
                         Strings.ApiEndPoints.PRN);
                 });
+
+            services.AddScoped<IUrlHelper>(x => {
+                var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = x.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+            });
 
             // move where area views live so they exist in the same parent location as
             // as other views

@@ -21,9 +21,9 @@ namespace EPRN.Portal.RESTServices
             return await Post<int>("Create");
         }
 
-        public Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
+        public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
         {
-            throw new NotImplementedException();
+            return new JourneyAnswersDto();           
         }
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)

@@ -6,15 +6,20 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using NuGet.Packaging;
+using System.Security.Policy;
 
 namespace EPRN.Portal.Services.HomeServices
 {
     public class ReprocessorHomeService : BaseHomeService, IHomeService
     {
-        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService)
-            : base(configSettings, httpJourneyService)
+        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService, 
+            IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
+            : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
         {        
         }
 
@@ -87,12 +92,13 @@ namespace EPRN.Portal.Services.HomeServices
 
         public override async Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId)
         {
-            var journey = await _httpJourneyService.GetJourneyAnswers(journeyId);
-            if (journey == null) 
-                throw new NullReferenceException(nameof(journey));
+            var journeyDto = await _httpJourneyService.GetJourneyAnswers(journeyId);
+            if (journeyDto == null) 
+                throw new NullReferenceException(nameof(journeyDto));
 
             var viewModel = new CheckAnswersViewModel { JourneyId = journeyId };
-            var sections = journey.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ? GetAnswerSections(journey) : GetAnswerSectionsForResent(journey);
+            var sections = journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ? 
+                GetAnswerSections(journeyDto) : GetAnswerSectionsForSentOn(journeyDto);
 
             viewModel.Sections.AddRange(sections);
             return viewModel;
@@ -100,9 +106,22 @@ namespace EPRN.Portal.Services.HomeServices
 
         private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSections(JourneyAnswersDto journey)
         {
+            // to be implemented by Shehzad
             var rows = new List<CheckAnswerViewModel>();
 
-            rows.Add(new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = $"" });
+            var section = new Dictionary<string, List<CheckAnswerViewModel>>();
+            section.Add("Waste received details", rows);
+
+            return section;
+        }
+
+        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForSentOn(JourneyAnswersDto journey)
+        {
+            var rows = new List<CheckAnswerViewModel>();
+            var tempId = 1;
+            var tempUrl = UrlHelper.Action("Month", "Waste", new { id = tempId });
+
+            rows.Add(new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = tempUrl });
             rows.Add(new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = $"" });
             rows.Add(new CheckAnswerViewModel { Question = CYAResources.Tonnage, Answer = journey.Tonnes.ToString(), ChangeLink = $"" });
             rows.Add(new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = $"" });
@@ -112,17 +131,6 @@ namespace EPRN.Portal.Services.HomeServices
 
             var section = new Dictionary<string, List<CheckAnswerViewModel>>();
             section.Add(CYAResources.ReprocessorResentPageHeader, rows);
-
-            return section;
-
-        }
-
-        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForResent(JourneyAnswersDto journey)
-        {
-            var rows = new List<CheckAnswerViewModel>();
-
-            var section = new Dictionary<string, List<CheckAnswerViewModel>>();
-            section.Add("Not given", rows);
 
             return section;
         }
