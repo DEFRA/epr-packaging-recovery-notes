@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
@@ -15,7 +16,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
-using EPRN.Portal.Configuration;
 
 namespace EPRN.Portal.Helpers.Extensions
 {
@@ -46,8 +46,10 @@ namespace EPRN.Portal.Helpers.Extensions
                 });
 
             // Get the configuration for the services
-            services.Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.Name));
-            services.Configure<AppConfigSettings>(configuration.GetSection(AppConfigSettings.SectionName));
+            services
+                .Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.SectionName))
+                .Configure<AppConfigSettings>(configuration.GetSection(AppConfigSettings.SectionName));
+
             services.AddHttpContextAccessor();
             services
                 .AddHttpClient("HttpClient")
@@ -109,6 +111,7 @@ namespace EPRN.Portal.Helpers.Extensions
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new WasteManagementProfile());
+                mc.AddProfile(new PRNProfile());
                 mc.AllowNullCollections = true;
             });
 

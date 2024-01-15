@@ -5,13 +5,10 @@ namespace EPRN.PRNS.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]/{id}")]
-    public class PRNController : ControllerBase
+    public class PRNController : BaseController
     {
-        private IPrnService _prnService;
-
-        public PRNController(IPrnService prnService)
+        public PRNController(IPrnService prnService) : base(prnService)
         {
-            _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 
         [HttpGet]
@@ -41,6 +38,18 @@ namespace EPRN.PRNS.API.Controllers
             await _prnService.SaveTonnage(id.Value, tonnage.Value);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("Confirmation")]
+        public async Task<IActionResult> GetConfirmation(int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            var confirmationDto = await _prnService.GetConfirmation(id.Value);
+
+            return Ok(confirmationDto);
         }
     }
 }

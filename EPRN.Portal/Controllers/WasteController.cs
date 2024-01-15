@@ -1,5 +1,4 @@
 ﻿using EPRN.Common.Enums;
-using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
@@ -150,10 +149,12 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        [Route("/Status")]
-        public async Task<IActionResult> GetWasteRecordStatus(int journeyId)
+        public async Task<IActionResult> GetWasteRecordStatus(int? id)
         {
-            var result = await _wasteService.GetWasteRecordStatus(journeyId);
+            if (id == null)
+                return NotFound();
+
+            var result = await _wasteService.GetWasteRecordStatus(id.Value);
 
             if (result.WasteRecordStatus == WasteRecordStatuses.Complete)
                 return View("WasteRecordCompleteStatus", result);
@@ -196,7 +197,7 @@ namespace EPRN.Portal.Controllers
             if(model.BaledWithWireDeductionPercentage == null)
                 model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
-            return View("BaledWithWire", model);
+            return View(model);
         }
 
         [HttpPost]
@@ -230,6 +231,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
+        [ActionName("Note")]
         public async Task<IActionResult> Note(int? id)
         {
             if (!id.HasValue)
@@ -241,6 +243,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
+        [ActionName("Note")]
         public async Task<IActionResult> Note(NoteViewModel noteViewModel)
         {
             if (!ModelState.IsValid)

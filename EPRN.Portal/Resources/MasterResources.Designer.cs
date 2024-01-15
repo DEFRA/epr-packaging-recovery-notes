@@ -61,7 +61,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to back.
+        ///   Looks up a localized string similar to Back.
         /// </summary>
         public static string Back {
             get {

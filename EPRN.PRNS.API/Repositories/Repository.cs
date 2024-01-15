@@ -1,5 +1,6 @@
-﻿using EPRN.Common.Data;
-using EPRN.Common.Data.DataModels;
+﻿using AutoMapper;
+using EPRN.Common.Data;
+using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +8,14 @@ namespace EPRN.PRNS.API.Repositories
 {
     public class Repository : IRepository
     {
+        private readonly IMapper _mapper;
         private readonly EPRNContext _prnContext;
 
-        public Repository(EPRNContext prnContext)
+        public Repository(
+            IMapper mapper,
+            EPRNContext prnContext)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
         }
 
@@ -19,17 +24,19 @@ namespace EPRN.PRNS.API.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<PackagingRecoveryNote> GetPrnById(int id)
+        public async Task<bool> PrnExists(int id)
         {
-            throw new NotImplementedException();
+            return await _prnContext
+                .PRN
+                .AnyAsync(p => p.Id == id);
         }
 
         public async Task<double?> GetTonnage(int id)
         {
             return await _prnContext
                 .PRN
-                .Where(wj => wj.Id == id)
-                .Select(wj => wj.Tonnes)
+                .Where(prn => prn.Id == id)
+                .Select(prn => prn.Tonnes)
                 .SingleOrDefaultAsync();
         }
 
@@ -41,6 +48,15 @@ namespace EPRN.PRNS.API.Repositories
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(prn => prn.Tonnes, tonnes)
                 );
+        }
+
+        public async Task<ConfirmationDto> GetConfirmation(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => _mapper.Map<ConfirmationDto>(prn))
+                .SingleOrDefaultAsync();
         }
     }
 }

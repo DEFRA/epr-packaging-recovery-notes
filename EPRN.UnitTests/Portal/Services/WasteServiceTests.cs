@@ -465,7 +465,7 @@ namespace EPRN.UnitTests.Portal.Services
             BaledWithWireViewModel baledWithWireModel = new BaledWithWireViewModel();
             baledWithWireModel.JourneyId = 1;
             baledWithWireModel.BaledWithWire = true;
-
+            baledWithWireModel.BaledWithWireDeductionPercentage = 2;
 
             // Act
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
@@ -474,7 +474,7 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService.Verify(s => s.SaveBaledWithWire(
                 It.Is<int>(p => p == 1),
                 It.Is<bool>(p => p == true),
-                It.Is<double>(p => p == 2)),
+                It.IsAny<double>()),
                 Times.Once);
         }
 

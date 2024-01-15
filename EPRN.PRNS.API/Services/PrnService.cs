@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services.Interfaces;
 
@@ -27,9 +28,19 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetTonnage(id);
         }
 
+        public async Task<bool> PrnRecordExists(int id)
+        {
+            return await _prnRepository.PrnExists(id);
+        }
+
         public async Task SaveTonnage(int id, double tonnage)
         {
             await _prnRepository.UpdateTonnage(id, tonnage);
+        }
+
+        public async Task<ConfirmationDto> GetConfirmation(int id)
+        {
+            return await _prnRepository.GetConfirmation(id);
         }
     }
 }
