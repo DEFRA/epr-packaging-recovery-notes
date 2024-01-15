@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
+using EPRN.Portal.Configuration;
 
 namespace EPRN.Portal.Helpers.Extensions
 {
@@ -46,7 +47,7 @@ namespace EPRN.Portal.Helpers.Extensions
 
             // Get the configuration for the services
             services.Configure<ServicesConfiguration>(configuration.GetSection(ServicesConfiguration.Name));
-
+            services.Configure<AppConfigSettings>(configuration.GetSection(AppConfigSettings.SectionName));
             services.AddHttpContextAccessor();
             services
                 .AddHttpClient("HttpClient")
