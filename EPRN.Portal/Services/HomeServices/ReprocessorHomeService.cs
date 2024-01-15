@@ -98,41 +98,46 @@ namespace EPRN.Portal.Services.HomeServices
 
             var viewModel = new CheckAnswersViewModel { JourneyId = journeyId };
             var sections = journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ? 
-                GetAnswerSections(journeyDto) : GetAnswerSectionsForSentOn(journeyDto);
+                GetAnswerSections(journeyDto, journeyId) : GetAnswerSectionsForSentOn(journeyDto, journeyId);
 
             viewModel.Sections.AddRange(sections);
             return viewModel;
         }
 
-        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSections(JourneyAnswersDto journey)
+        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSections(JourneyAnswersDto journey, int journeyId)
         {
             // to be implemented by Shehzad
-            var rows = new List<CheckAnswerViewModel>();
+            var rows = new List<CheckAnswerViewModel>
+            {
+            };
 
-            var section = new Dictionary<string, List<CheckAnswerViewModel>>();
-            section.Add("Waste received details", rows);
+            var section = new Dictionary<string, List<CheckAnswerViewModel>>
+            {
+                { "Waste received details", rows }
+            };
 
             return section;
         }
 
-        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForSentOn(JourneyAnswersDto journey)
+        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForSentOn(JourneyAnswersDto journey, int journeyId)
         {
-            var rows = new List<CheckAnswerViewModel>();
-            var tempId = 1;
-            var tempUrl = UrlHelper.Action("Month", "Waste", new { id = tempId });
+            var rows = new List<CheckAnswerViewModel>
+            {
+                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = UrlHelper.Action("Types", "Waste", new { id = journeyId }) },
+                new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = UrlHelper.Action("Baled", "Waste", new { id = journeyId }) },
+                new CheckAnswerViewModel { Question = CYAResources.Tonnage, Answer = journey.Tonnes.ToString(), ChangeLink = UrlHelper.Action("Tonnes", "Waste", new { id = journeyId }) },
+                new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = string.Empty },
+                new CheckAnswerViewModel { Question = CYAResources.MonthWasteExported, Answer = journey.Month, ChangeLink = UrlHelper.Action("Month", "Waste", new { id = journeyId }) },
+                new CheckAnswerViewModel { Question = CYAResources.Note, Answer = journey.Note, ChangeLink = UrlHelper.Action("Note", "Waste", new { id = journeyId }) }
+            };
 
-            rows.Add(new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = tempUrl });
-            rows.Add(new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = $"" });
-            rows.Add(new CheckAnswerViewModel { Question = CYAResources.Tonnage, Answer = journey.Tonnes.ToString(), ChangeLink = $"" });
-            rows.Add(new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = $"" });
-            rows.Add(new CheckAnswerViewModel { Question = CYAResources.MonthWasteExported, Answer = journey.Month, ChangeLink = $"" });
-            rows.Add(new CheckAnswerViewModel { Question = CYAResources.Note, Answer = journey.Note, ChangeLink = $"" });
-
-
-            var section = new Dictionary<string, List<CheckAnswerViewModel>>();
-            section.Add(CYAResources.ReprocessorResentPageHeader, rows);
+            var section = new Dictionary<string, List<CheckAnswerViewModel>>
+            {
+                { CYAResources.ReprocessorResentPageHeader, rows }
+            };
 
             return section;
         }
+
     }
 }
