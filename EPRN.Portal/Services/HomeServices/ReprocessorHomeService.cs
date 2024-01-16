@@ -133,8 +133,8 @@ namespace EPRN.Portal.Services.HomeServices
                 new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = UrlHelper.Action("Baled", "Waste", new { id = journeyId, RedirectToAnswersPage = "true" }) },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = journey.Tonnes.ToString(), ChangeLink = UrlHelper.Action("Tonnes", "Waste", new { id = journeyId, RedirectToAnswersPage = "true" }) },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = string.Empty },
-                new CheckAnswerViewModel { Question = CYAResources.MonthWasteExported, Answer = journey.Month, ChangeLink = UrlHelper.Action("Month", "Waste", new { id = journeyId, RedirectToAnswersPage = "true" }) },
-                new CheckAnswerViewModel { Question = CYAResources.Note, Answer = journey.Note, ChangeLink = UrlHelper.Action("Note", "Waste", new { id = journeyId, RedirectToAnswersPage = "true" }) }
+                new CheckAnswerViewModel { Question = CYAResources.MonthWasteExported, Answer = journey.Month, ChangeLink = GenerateUrl(journeyId, "Month") },
+                new CheckAnswerViewModel { Question = CYAResources.Note, Answer = journey.Note, ChangeLink = GenerateUrl(journeyId, "Note") }
             };
 
             section.Add(CYAResources.ReprocessorResentPageHeader, rows);
