@@ -12,14 +12,12 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
     {
         private PRNSController _prnController;
         private Mock<IPRNService> _mockPrnService;
-        private Func<Category, IPRNService> _mockPrnServiceFactory;
 
         [TestInitialize]
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
-            _mockPrnServiceFactory = new Func<Category, IPRNService>((category) => _mockPrnService.Object);
-            _prnController = new PRNSController(_mockPrnServiceFactory);
+            _prnController = new PRNSController(_mockPrnService.Object);
         }
 
         [TestMethod]
@@ -111,7 +109,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var redirectResult = result as RedirectToActionResult;
             Assert.IsNotNull(redirectResult);
             Assert.AreEqual("Create", redirectResult.ActionName);
-            Assert.AreEqual("Prns", redirectResult.ControllerName);
+            Assert.AreEqual("PRNS", redirectResult.ControllerName);
             var routeValues = redirectResult.RouteValues.FirstOrDefault();
 
             Assert.IsNotNull(routeValues);

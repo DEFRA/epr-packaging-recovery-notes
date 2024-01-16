@@ -13,12 +13,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
         private Category Category => Category.Reprocessor;
 
-        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
+        public PRNSController(IPRNService prnService)
         {
-            if (prnServiceFactory == null)
-                throw new ArgumentNullException(nameof(prnServiceFactory));
-
-            _prnService = prnServiceFactory.Invoke(Category);
+            _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 
         [HttpGet]
@@ -52,7 +49,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (materialId == null)
                 return NotFound();
 
-            var prnId = await _prnService.CreatePrnRecord(materialId.Value);
+            var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
 
             return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
         }

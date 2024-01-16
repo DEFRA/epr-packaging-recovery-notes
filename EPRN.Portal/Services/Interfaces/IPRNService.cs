@@ -13,6 +13,6 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<ConfirmationViewModel> GetConfirmation(int id);
 
-        Task<int> CreatePrnRecord(int materialId);
+        Task<int> CreatePrnRecord(int materialId, Category category);
     }
 }

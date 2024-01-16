@@ -38,12 +38,11 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task<bool> PrnExists(
-            int id,
-            Common.Enums.Category category)
+            int id)
         {
             return await _prnContext
                 .PRN
-                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
+                .AnyAsync(p => p.Id == id);
         }
 
         public async Task<double?> GetTonnage(int id)

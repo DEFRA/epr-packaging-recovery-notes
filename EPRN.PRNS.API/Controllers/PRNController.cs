@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace EPRN.PRNS.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/{id}/Category/{category}")]
+    [Route("api/[controller]/{id}")]
     public class PRNController : Controller
     {
         private const string idParameter = "id";
@@ -77,24 +77,12 @@ namespace EPRN.PRNS.API.Controllers
         /// </summary>
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var param = context.ActionDescriptor.Parameters;
-            Category? category = null;
-
-            if (context.RouteData.Values.TryGetValue("category", out var categoryValue))
-            {
-                if (Enum.TryParse<Category>(categoryValue.ToString(), ignoreCase: true, out var parsedCategory))
-                {
-                    category = parsedCategory;
-                }
-            }
-
             if (context.ActionDescriptor.Parameters.Any(p => p.Name == idParameter) &&
-                context.ActionArguments.ContainsKey(idParameter) &&
-                category != null)
+                context.ActionArguments.ContainsKey(idParameter))
             {
                 int id = Convert.ToInt32(context.ActionArguments[idParameter]);
 
-                if (!await _prnService.PrnRecordExists(id, category.Value))
+                if (!await _prnService.PrnRecordExists(id))
                 {
                     context.Result = NotFound();
                     return;

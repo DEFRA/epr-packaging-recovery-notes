@@ -87,26 +87,15 @@ namespace EPRN.Portal.Helpers.Extensions
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
                         Strings.ApiEndPoints.Journey)
                 )
-                .AddTransient(s =>
-                    new Func<Category, IHttpPrnsService>((category) =>
-                    {
-                        return new HttpPrnsService(
-                            s.GetRequiredService<IHttpContextAccessor>(),
-                            s.GetRequiredService<IHttpClientFactory>(),
-                            category,
-                            s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
-                            Strings.ApiEndPoints.PRN);
-                    })
+
+                .AddTransient<IHttpPrnsService>(s =>
+                    new HttpPrnsService(
+                        s.GetRequiredService<IHttpContextAccessor>(),
+                        s.GetRequiredService<IHttpClientFactory>(),
+                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
+                        Strings.ApiEndPoints.PRN)
                 )
-                .AddTransient(s =>
-                    new Func<Category, IPRNService>((category) =>
-                    {
-                        var httpPrnFactory = s.GetRequiredService<Func<Category, IHttpPrnsService>>();
-                        return new PRNService(
-                            s.GetRequiredService<IMapper>(),
-                            httpPrnFactory.Invoke(category));
-                    })
-                );
+                .AddTransient<IPRNService, PRNService>();
 
             // move where area views live so they exist in the same parent location as
             // as other views

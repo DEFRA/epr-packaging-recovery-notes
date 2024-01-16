@@ -10,8 +10,7 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
             Category category);
 
         Task<bool> PrnExists(
-            int id, 
-            Category category);
+            int id);
 
         Task<double?> GetTonnage(int id);
 

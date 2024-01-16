@@ -6,8 +6,7 @@ namespace EPRN.PRNS.API.Services.Interfaces
     public interface IPrnService
     {
         Task<bool> PrnRecordExists(
-            int id,
-            Category category);
+            int id);
 
         Task<int> CreatePrnRecord(
             int materialId,

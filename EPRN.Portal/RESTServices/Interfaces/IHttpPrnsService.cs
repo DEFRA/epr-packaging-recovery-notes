@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 
 namespace EPRN.Portal.RESTServices.Interfaces
 {
@@ -15,6 +16,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
             int id);
 
         Task<int> CreatePrnRecord(
-            int materialId);
+            int materialId,
+            Category category);
     }
 }

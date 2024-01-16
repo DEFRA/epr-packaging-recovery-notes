@@ -9,7 +9,6 @@ namespace EPRN.Portal.Services
     public class PRNService : IPRNService
     {
         private IMapper _mapper;
-        private Category _category;
         private IHttpPrnsService _httpPrnsService;
 
         public PRNService(
@@ -89,9 +88,10 @@ namespace EPRN.Portal.Services
 
 
         public async Task<int> CreatePrnRecord(
-            int materialId)
+            int materialId,
+            Category category)
         {
-            return await _httpPrnsService.CreatePrnRecord(materialId);
+            return await _httpPrnsService.CreatePrnRecord(materialId, category);
         }
 
         private TableRowViewModel CreateRow(int materialId, string material, double tonnage, int noOfDrafts)

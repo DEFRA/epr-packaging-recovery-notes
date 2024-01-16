@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Enums;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.PRNS;
@@ -88,6 +89,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // arrange
             var id = 3;
+            _mockHttpPrnsService.Setup(s => s.GetConfirmation(id)).ReturnsAsync(new Common.Dtos.ConfirmationDto());
 
             // act
             await _prnService.GetConfirmation(id);

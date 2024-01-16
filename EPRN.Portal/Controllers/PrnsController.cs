@@ -1,20 +1,19 @@
-﻿using EPRN.Common.Enums;
-using EPRN.Portal.Services.Interfaces;
+﻿using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
 {
     public class PrnsController : BaseController
     {
-        private readonly IPRNService _PRNService;
+        private readonly IPRNService _prnService;
 
-        public PrnsController(Func<Category, IPRNService> prnServiceFactory)
+        public PrnsController(IPRNService prnService)
         {
-            _PRNService = prnServiceFactory.Invoke(Category.Exporter);
+            _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
         public async Task<IActionResult> Create()
         {
-            var viewModel = await _PRNService.CreatePrnViewModel();
+            var viewModel = await _prnService.CreatePrnViewModel();
             return View(viewModel);
         }
     }
