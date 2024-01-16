@@ -16,7 +16,7 @@
                 <input type="hidden" name="answers-checked" value="true">
                 <input type="hidden" asp-for="JourneyId" />
                 <h1 class="govuk-heading-l">@CYAResources.Title</h1>
-                
+
                 @foreach (var mySection in Model.Sections)
                 {
                     <h2 class="govuk-heading-m">@mySection.Key</h2>
@@ -31,7 +31,10 @@
                                     @answer.Answer
                                 </dd>
                                 <dd class="govuk-summary-list__actions">
-                                    <a class="govuk-link" href="@answer.ChangeLink">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> waste type</span></a>
+                                    @if (answer.ChangeLink.Length > 0)
+                                    {
+                                        <a class="govuk-link" href="@answer.ChangeLink">@CYAResources.ChangeLinkText<span class="govuk-visually-hidden"> waste type</span></a>
+                                    }
                                 </dd>
                             </div>
                         }

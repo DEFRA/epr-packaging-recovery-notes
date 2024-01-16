@@ -11,16 +11,15 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using NuGet.Packaging;
-using System.Security.Policy;
 
 namespace EPRN.Portal.Services.HomeServices
 {
     public class ReprocessorHomeService : BaseHomeService, IHomeService
     {
-        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService, 
+        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService,
             IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
             : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
-        {        
+        {
         }
 
         protected override List<CardViewModel> GetCardViewModels()
@@ -93,11 +92,11 @@ namespace EPRN.Portal.Services.HomeServices
         public override async Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId)
         {
             var journeyDto = await _httpJourneyService.GetJourneyAnswers(journeyId);
-            if (journeyDto == null) 
+            if (journeyDto == null)
                 throw new NullReferenceException(nameof(journeyDto));
 
             var viewModel = new CheckAnswersViewModel { JourneyId = journeyId };
-            var sections = journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ? 
+            var sections = journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ?
                 GetAnswerSections(journeyDto, journeyId) : GetAnswerSectionsForSentOn(journeyDto, journeyId);
 
             viewModel.Sections.AddRange(sections);
@@ -144,7 +143,7 @@ namespace EPRN.Portal.Services.HomeServices
 
         private string GenerateUrl(int journeyId, string actionName)
         {
-            var url = UrlHelper.Action(actionName, "Waste", new { id = journeyId, RedirectToAnswersPage = "true" });
+            var url = UrlHelper.Action(actionName, "Waste", new { id = journeyId, Rtap = "true" });
 
             return url;
         }
