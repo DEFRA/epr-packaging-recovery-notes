@@ -61,7 +61,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many tonnes did you export?.
+        ///   Looks up a localized string similar to How many tonnes did you send?.
         /// </summary>
         public static string HowMuchTonnageQuestion {
             get {
@@ -70,7 +70,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A valid tonnage value must be entered.
+        ///   Looks up a localized string similar to Enter the total tonnes of material sent.
         /// </summary>
         public static string MissingTonnageError {
             get {
