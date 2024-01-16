@@ -117,70 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdditionalInformation" xml:space="preserve">
-    <value>Additional information</value>
-  </data>
-  <data name="BaledPartOne" xml:space="preserve">
-    <value>Was the </value>
-  </data>
-  <data name="BaledPartTwo" xml:space="preserve">
-    <value>baled with wire</value>
-  </data>
   <data name="BaledWithWire" xml:space="preserve">
     <value>Baled with wire</value>
   </data>
   <data name="ChangeLinkText" xml:space="preserve">
     <value>Change</value>
   </data>
-  <data name="ConfirmAndContinueBtn" xml:space="preserve">
-    <value>Confirm and continue</value>
-  </data>
-  <data name="DuringWhichMonth" xml:space="preserve">
-    <value>During which month was the material supplied on?</value>
+  <data name="CreateBtn" xml:space="preserve">
+    <value>Create waste record</value>
   </data>
   <data name="MaterialType" xml:space="preserve">
     <value>What is the material type?</value>
+  </data>
+  <data name="MonthReceived" xml:space="preserve">
+    <value>Month the waste was received</value>
   </data>
   <data name="MonthWasteExported" xml:space="preserve">
     <value>When the waste was exported</value>
   </data>
   <data name="Note" xml:space="preserve">
-    <value>Note</value>
+    <value>Note (optional)</value>
   </data>
   <data name="ReprocessorResentPageHeader" xml:space="preserve">
     <value>Check your answers before creating this waste record</value>
   </data>
-  <data name="SubType" xml:space="preserve">
-    <value>What is the material sub type?</value>
-  </data>
   <data name="Title" xml:space="preserve">
-    <value>Check your answers</value>
-  </data>
-  <data name="Tonnage" xml:space="preserve">
-    <value>Tonnage</value>
+    <value>Check your answers before creating this waste record</value>
   </data>
   <data name="TonnageAdjusted" xml:space="preserve">
     <value>Tonnage adjusted for deductions</value>
   </data>
-  <data name="Tonnes" xml:space="preserve">
-    <value>tonnes</value>
-  </data>
-  <data name="TonnesReceivedPartOne" xml:space="preserve">
-    <value>Enter the total tonnes of </value>
-  </data>
-  <data name="TonnesReceivedPartTwo" xml:space="preserve">
-    <value>received</value>
+  <data name="TonnageOfWaste" xml:space="preserve">
+    <value>Tonnage of waste</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Total</value>
   </data>
   <data name="TypeOfWaste" xml:space="preserve">
     <value>Type of waste</value>
-  </data>
-  <data name="WasteReceivedDetails" xml:space="preserve">
-    <value>Waste received details</value>
-  </data>
-  <data name="WasteTypeAndWeight" xml:space="preserve">
-    <value>Waste type and weight details</value>
   </data>
 </root>
