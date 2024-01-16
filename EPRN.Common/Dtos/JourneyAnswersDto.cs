@@ -19,5 +19,8 @@
         public string WhatDoneWithWaste { get; set; }
 
         public bool? Completed { get; set; }
+
+        // properties added by Shehzad
+
     }
 }

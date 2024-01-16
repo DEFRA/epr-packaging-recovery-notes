@@ -4,7 +4,10 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Controller;
 
 namespace EPRN.Portal.Controllers
 {
@@ -14,6 +17,8 @@ namespace EPRN.Portal.Controllers
     [Route("[controller]/[action]/{id?}")]
     public class WasteController : BaseController
     {
+        private const string RedirectToAnswersPage = "redirectToAnswersPage";
+
         private readonly IWasteService _wasteService;
         private IHomeService _homeService;
 
@@ -260,6 +265,8 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveNote(noteViewModel);
 
+            // if qs contains certain value then redirect to answers page
+            // else continue
             return RedirectToAction("Index", "Home");
         }
 
@@ -269,11 +276,61 @@ namespace EPRN.Portal.Controllers
             if (!id.HasValue)
                 return NotFound();
 
-            TempData["FromCheckYourAnswers"] = true;
-
             var vm = await _homeService.GetCheckAnswers(id.Value);
 
             return View(vm);
         }
+
+        //public override void OnActionExecuting(ActionExecutingContext context)
+        //{
+        //    var controllerContext = ((Controller)context.Controller).ControllerContext;
+
+        //    if (controllerContext == null || controllerContext.ActionDescriptor == null)
+        //        base.OnActionExecuting(context);
+           
+        //    if (controllerContext.ActionDescriptor.ActionName != "CheckYourAnswers")
+        //    {
+        //        var redirectToAnswersPage = context.HttpContext.Request.Query[RedirectToAnswersPage];
+        //        if (!string.IsNullOrEmpty(redirectToAnswersPage) && redirectToAnswersPage.ToString() == "true")
+        //            TempData.Add(RedirectToAnswersPage, true);
+        //    }
+
+        //    base.OnActionExecuting(context);
+        //}
+
+        //public override void OnActionExecuted(ActionExecutedContext context)
+        //{
+        //    var controller = (Controller)context.Controller;
+
+        //    if (controller == null || controller.TempData == null)
+        //        base.OnActionExecuted(context);
+
+        //    if (controller.TempData["RedirectToAnswersPage"] != null && controller.TempData["RedirectToAnswersPage"].ToString() == "true")
+        //    {
+        //        context.HttpContext.Response.Redirect(Url.Action("CheckYourAnswers", "Waste", new { id = 1 }));
+        //        controller.TempData.Remove("RedirectToAnswersPage");
+        //    }
+        //    base.OnActionExecuted(context);
+        //}
+
+        //public override void OnActionExecuted(ActionExecutedContext context)
+        //{
+        //    base.OnActionExecuted(context);
+
+
+        //    var controller = (Controller)context.Controller;
+
+        //    if (controller == null || controller.TempData == null)
+        //        base.OnActionExecuted(context);
+
+        //    if (controller.TempData[PreviousUrlKey] != null && controller.TempData[PreviousUrlKey].ToString().Contains("CheckYourAnswers"))
+        //    {
+        //        context.HttpContext.Response.Redirect(Url.Action("CheckYourAnswers", "Waste", new { id = 1 }));
+        //    }
+        //}
+
+        private const string PreviousUrlKey = "PreviousUrl";
+
+
     }
 }
