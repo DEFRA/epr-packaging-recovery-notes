@@ -108,24 +108,17 @@ namespace EPRN.Portal.Services.HomeServices
         {
             var section = new Dictionary<string, List<CheckAnswerViewModel>>();
 
-            // Section1: to be implemented by Shehzad
             var rows = new List<CheckAnswerViewModel>
             {
+                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = GenerateUrl(journeyId, "Types") },
+                new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = GenerateUrl(journeyId, "Baled") },
+                new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = journey.Tonnes.ToString(), ChangeLink = GenerateUrl(journeyId, "Tonnes") },
+                new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = string.Empty },
+                new CheckAnswerViewModel { Question = CYAResources.MonthReceived, Answer = journey.Month, ChangeLink = GenerateUrl(journeyId, "Month") },
+                new CheckAnswerViewModel { Question = CYAResources.Note, Answer = journey.Note, ChangeLink = GenerateUrl(journeyId, "Note") }
             };
-            section.Add("to be added by Shehzad 1", rows);
 
-            // Section2: to be implemented by Shehzad
-            rows = new List<CheckAnswerViewModel>
-            {
-            };
-            section.Add("to be added by Shehzad 2", rows);
-
-            // Section3: to be implemented by Shehzad
-            rows = new List<CheckAnswerViewModel>
-            {
-            };
-            section.Add("to be added by Shehzad 3", rows);
-
+            section.Add(CYAResources.Title, rows);
 
             return section;
         }
@@ -137,8 +130,8 @@ namespace EPRN.Portal.Services.HomeServices
             var rows = new List<CheckAnswerViewModel>
             {
                 new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = GenerateUrl(journeyId, "Types") },
-                new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = GenerateUrl(journeyId, "Baled") },
-                new CheckAnswerViewModel { Question = CYAResources.Tonnage, Answer = journey.Tonnes.ToString(), ChangeLink = GenerateUrl(journeyId, "Tonnes") },
+                new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = UrlHelper.Action("Baled", "Waste", new { id = journeyId, RedirectToAnswersPage = "true" }) },
+                new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = journey.Tonnes.ToString(), ChangeLink = UrlHelper.Action("Tonnes", "Waste", new { id = journeyId, RedirectToAnswersPage = "true" }) },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = string.Empty },
                 new CheckAnswerViewModel { Question = CYAResources.MonthWasteExported, Answer = journey.Month, ChangeLink = GenerateUrl(journeyId, "Month") },
                 new CheckAnswerViewModel { Question = CYAResources.Note, Answer = journey.Note, ChangeLink = GenerateUrl(journeyId, "Note") }

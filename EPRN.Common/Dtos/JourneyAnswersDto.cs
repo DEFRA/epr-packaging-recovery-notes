@@ -20,7 +20,5 @@
 
         public bool? Completed { get; set; }
 
-        // properties added by Shehzad
-
     }
 }

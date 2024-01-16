@@ -61,33 +61,6 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Additional information.
-        /// </summary>
-        public static string AdditionalInformation {
-            get {
-                return ResourceManager.GetString("AdditionalInformation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Was the .
-        /// </summary>
-        public static string BaledPartOne {
-            get {
-                return ResourceManager.GetString("BaledPartOne", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to baled with wire.
-        /// </summary>
-        public static string BaledPartTwo {
-            get {
-                return ResourceManager.GetString("BaledPartTwo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Baled with wire.
         /// </summary>
         public static string BaledWithWire {
@@ -106,20 +79,11 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm and continue.
+        ///   Looks up a localized string similar to Create waste record.
         /// </summary>
-        public static string ConfirmAndContinueBtn {
+        public static string CreateBtn {
             get {
-                return ResourceManager.GetString("ConfirmAndContinueBtn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to During which month was the material supplied on?.
-        /// </summary>
-        public static string DuringWhichMonth {
-            get {
-                return ResourceManager.GetString("DuringWhichMonth", resourceCulture);
+                return ResourceManager.GetString("CreateBtn", resourceCulture);
             }
         }
         
@@ -133,6 +97,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Month the waste was received.
+        /// </summary>
+        public static string MonthReceived {
+            get {
+                return ResourceManager.GetString("MonthReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to When the waste was exported.
         /// </summary>
         public static string MonthWasteExported {
@@ -142,7 +115,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Note.
+        ///   Looks up a localized string similar to Note (optional).
         /// </summary>
         public static string Note {
             get {
@@ -160,29 +133,11 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What is the material sub type?.
-        /// </summary>
-        public static string SubType {
-            get {
-                return ResourceManager.GetString("SubType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check your answers.
+        ///   Looks up a localized string similar to Check your answers before creating this waste record.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tonnage.
-        /// </summary>
-        public static string Tonnage {
-            get {
-                return ResourceManager.GetString("Tonnage", resourceCulture);
             }
         }
         
@@ -196,29 +151,11 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tonnes.
+        ///   Looks up a localized string similar to Tonnage of waste.
         /// </summary>
-        public static string Tonnes {
+        public static string TonnageOfWaste {
             get {
-                return ResourceManager.GetString("Tonnes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter the total tonnes of .
-        /// </summary>
-        public static string TonnesReceivedPartOne {
-            get {
-                return ResourceManager.GetString("TonnesReceivedPartOne", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to received.
-        /// </summary>
-        public static string TonnesReceivedPartTwo {
-            get {
-                return ResourceManager.GetString("TonnesReceivedPartTwo", resourceCulture);
+                return ResourceManager.GetString("TonnageOfWaste", resourceCulture);
             }
         }
         
@@ -237,24 +174,6 @@ namespace EPRN.Portal.Resources {
         public static string TypeOfWaste {
             get {
                 return ResourceManager.GetString("TypeOfWaste", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waste received details.
-        /// </summary>
-        public static string WasteReceivedDetails {
-            get {
-                return ResourceManager.GetString("WasteReceivedDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Waste type and weight details.
-        /// </summary>
-        public static string WasteTypeAndWeight {
-            get {
-                return ResourceManager.GetString("WasteTypeAndWeight", resourceCulture);
             }
         }
     }
