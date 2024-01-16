@@ -6,7 +6,7 @@ using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
-
+using System.Globalization;
 
 namespace EPRN.Waste.API.Services
 {
@@ -172,6 +172,32 @@ namespace EPRN.Waste.API.Services
             return await _wasteRepository.GetWasteNote(journeyId);
         }
 
+        public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
+        {
+            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
+            if (journey == null)
+                throw new Exception(nameof(journey));
 
+            var journeyAnswersDto = new JourneyAnswersDto();
+
+            journeyAnswersDto.WhatDoneWithWaste = journey.DoneWaste == null ? string.Empty : journey.DoneWaste.Value.ToString();
+            journeyAnswersDto.BaledWithWire = journey.BaledWithWire == null ? "No" : (journey.BaledWithWire.Value == true ? "Yes" : "No");
+            journeyAnswersDto.Month = journey.Month == null ? string.Empty : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value);
+            journeyAnswersDto.WasteType = journey.WasteType.Name.ToString();
+            journeyAnswersDto.Tonnes = journey.Tonnes;
+            journeyAnswersDto.TonnageAdjusted = GetTonnageAdjusted(journey);
+            journeyAnswersDto.Note = journey.Note;
+            journeyAnswersDto.WasteSubType = journey.WasteSubType.Name.ToString();
+            journeyAnswersDto.Completed = journey.Completed;
+
+            return journeyAnswersDto;
+        }
+
+        // am not sure if this is the correct calculation, therefore will leave this (simple) method in place until testing
+        private double GetTonnageAdjusted(WasteJourney journey)
+        {
+            var adjustedTonnage = journey.Total;
+            return adjustedTonnage.Value;
+        }
     }
 }

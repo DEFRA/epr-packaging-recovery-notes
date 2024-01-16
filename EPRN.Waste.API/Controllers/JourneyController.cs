@@ -232,5 +232,16 @@ namespace EPRN.Waste.API.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("JourneyAnswers")]
+        public async Task<IActionResult> GetJourneyAnswers(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            JourneyAnswersDto dto = await _journeyService.GetJourneyAnswers(journeyId.Value);
+            return Ok(dto);
+        }
     }
 }
