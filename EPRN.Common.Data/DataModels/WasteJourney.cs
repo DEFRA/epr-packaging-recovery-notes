@@ -1,4 +1,6 @@
-﻿namespace EPRN.Common.Data.DataModels
+﻿using EPRN.Common.Data.Enums;
+
+namespace EPRN.Common.Data.DataModels
 {
     public class WasteJourney : BaseEntity
     {

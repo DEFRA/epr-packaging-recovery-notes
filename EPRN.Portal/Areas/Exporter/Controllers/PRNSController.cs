@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Controllers;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
     public class PRNSController : BaseController
     {
         private IPRNService _prnService;
+
+        private Category Category => Category.Exporter;
 
         public PRNSController(IPRNService prnService)
         {
@@ -36,8 +39,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            // TODO - add in redirect for next page when available
-            return RedirectToAction("Create", "Prns", new { area = string.Empty });
+            return RedirectToAction("Create", "PRNS", new { area = string.Empty });
         }
 
         [HttpGet]
@@ -47,7 +49,9 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (materialId == null)
                 return NotFound();
 
-            return RedirectToAction("Tonnes", "PRNS", new { Id = 1 });
+            var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
+
+            return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
         }
 
         [HttpGet]

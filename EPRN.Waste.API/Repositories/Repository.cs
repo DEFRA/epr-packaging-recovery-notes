@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 using EPRN.Waste.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;

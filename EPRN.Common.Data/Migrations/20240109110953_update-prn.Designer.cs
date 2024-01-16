@@ -4,6 +4,7 @@ using EPRN.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPRN.Common.Data.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20240109110953_update-prn")]
+    partial class updateprn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,12 +32,6 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CompletedDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -90,9 +87,6 @@ namespace EPRN.Common.Data.Migrations
                     b.Property<bool?>("BaledWithWire")
                         .HasColumnType("bit");
 
-                    b.Property<double?>("BaledWithWireDeductionPercentage")
-                        .HasColumnType("float");
-
                     b.Property<bool?>("Completed")
                         .HasColumnType("bit");
 
@@ -101,6 +95,9 @@ namespace EPRN.Common.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<double?>("DeductionAmount")
+                        .HasColumnType("float");
 
                     b.Property<int?>("DoneWaste")
                         .HasColumnType("int");
