@@ -1,6 +1,7 @@
 ﻿
 using AutoMapper;
 using EPRN.Common.Enums;
+using EPRN.Common.Services;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
@@ -52,11 +53,15 @@ namespace EPRN.Portal.Services
             duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
             duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
 
+            // Apply date logic for correct quarters
+            duringWhichMonthRequestViewModel.Quarter =
+                QuarterMonthDisplay.GetQuarterMonthsToDisplay(DateTime.Today, true);
 
-            int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
+
+            //int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
+            //duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
+            //duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
+            //duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
 
             return duringWhichMonthRequestViewModel;
         }

@@ -1,4 +1,6 @@
-﻿namespace EPRN.Common.Services
+﻿using System.Globalization;
+
+namespace EPRN.Common.Services
 {
     public class QuarterMonthDisplay
     {
@@ -6,23 +8,30 @@
         private static readonly int[] QuarterStartMonths = { 1, 4, 7, 10 };
         private static readonly int[] ReturnDeadlineDays = { 21, 21, 21, 28 };
 
-        public static List<int> GetQuarterMonths(DateTime currentDate, bool hasSubmittedPreviousQuarterReturn)
+        public static Dictionary<int, string> GetQuarterMonthsToDisplay(DateTime currentDate, bool hasSubmittedPreviousQuarterReturn)
         {
             var monthsToDisplay = new List<int>();
+            var quarterToReturn = new Dictionary<int, string>();
             var currentQuarter = GetCurrentQuarter(currentDate);
             var currentMonthInQuarter = GetCurrentMonthInQuarter(currentDate);
             var isWithinCurrentQuarter = IsWithinCurrentQuarter(currentDate, currentQuarter, currentMonthInQuarter);
             var isWithinReturnDeadline = IsWithinReturnDeadline(currentDate, currentQuarter);
-
             if (isWithinCurrentQuarter)
                 AddCurrentQuarterMonths(monthsToDisplay, currentQuarter, currentMonthInQuarter);
             else if (isWithinReturnDeadline)
                 HandleReturnDeadline(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn);
             else
                 HandleLateReturn(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn);
-           
-            return monthsToDisplay;
+            
+            // Map month numbers to their names
+            foreach (var month in monthsToDisplay)
+            {
+                quarterToReturn[month] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+            }
+            
+            return quarterToReturn;
         }
+
 
         private static int GetCurrentQuarter(DateTime currentDate)
         {
