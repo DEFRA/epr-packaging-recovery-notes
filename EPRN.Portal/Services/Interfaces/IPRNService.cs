@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.ViewModels.PRNS;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.ViewModels.PRNS;
 
 namespace EPRN.Portal.Services.Interfaces
 {
@@ -9,5 +10,9 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveTonnes(TonnesViewModel tonnesViewModel);
 
         Task<CreatePrnViewModel> CreatePrnViewModel();
+
+        Task<ConfirmationViewModel> GetConfirmation(int id);
+
+        Task<int> CreatePrnRecord(int materialId, Category category);
     }
 }

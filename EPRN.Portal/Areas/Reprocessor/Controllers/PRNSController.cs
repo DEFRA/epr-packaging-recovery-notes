@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Controllers;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
     public class PRNSController : BaseController
     {
         private IPRNService _prnService;
+
+        private Category Category => Category.Reprocessor;
 
         public PRNSController(IPRNService prnService)
         {
@@ -36,7 +39,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("Create", "Prns", new { area = string.Empty });
+            return RedirectToAction("Create", "PRNS", new { area = string.Empty });
         }
 
         [HttpGet]
@@ -46,7 +49,20 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (materialId == null)
                 return NotFound();
 
-            return RedirectToAction("Tonnes", "PRNS", new { Id = 1 });
+            var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
+
+            return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Confirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var confirmation = await _prnService.GetConfirmation(id.Value);
+
+            return View(confirmation);
         }
     }
 }

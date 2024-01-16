@@ -1,4 +1,6 @@
-﻿using EPRN.Portal.RESTServices.Interfaces;
+﻿using AutoMapper;
+using EPRN.Common.Enums;
+using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 
@@ -6,17 +8,20 @@ namespace EPRN.Portal.Services
 {
     public class PRNService : IPRNService
     {
+        private IMapper _mapper;
         private IHttpPrnsService _httpPrnsService;
 
-        public PRNService(IHttpPrnsService httpPrnsService)
+        public PRNService(
+            IMapper mapper,
+            IHttpPrnsService httpPrnsService)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpPrnsService = httpPrnsService ?? throw new ArgumentNullException(nameof(httpPrnsService));
         }
 
-        public async Task<TonnesViewModel> GetTonnesViewModel(int id)
+        public async Task<TonnesViewModel> GetTonnesViewModel(
+            int id)
         {
-            await Task.CompletedTask;
-
             return new TonnesViewModel
             {
                 JourneyId = id,
@@ -24,11 +29,26 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task SaveTonnes(TonnesViewModel tonnesViewModel)
+        public async Task SaveTonnes(
+            TonnesViewModel tonnesViewModel)
         {
             await _httpPrnsService.SaveTonnage(
                 tonnesViewModel.JourneyId,
                 tonnesViewModel.Tonnes.Value);
+        }
+
+        public async Task<ConfirmationViewModel> GetConfirmation(
+            int id)
+        {
+            var confirmationDto = await _httpPrnsService.GetConfirmation(id);
+
+            if (confirmationDto == null)
+                throw new NullReferenceException(nameof(confirmationDto));
+
+            if (string.IsNullOrWhiteSpace(confirmationDto.CompanyNameSentTo))
+                confirmationDto.CompanyNameSentTo = "<UNKNOWN>";
+
+            return _mapper.Map<ConfirmationViewModel>(confirmationDto);
         }
 
         public async Task<CreatePrnViewModel> CreatePrnViewModel()
@@ -64,6 +84,14 @@ namespace EPRN.Portal.Services
             {
                 Tables = listOfTables
             };
+        }
+
+
+        public async Task<int> CreatePrnRecord(
+            int materialId,
+            Category category)
+        {
+            return await _httpPrnsService.CreatePrnRecord(materialId, category);
         }
 
         private TableRowViewModel CreateRow(int materialId, string material, double tonnage, int noOfDrafts)

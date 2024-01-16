@@ -1,5 +1,8 @@
-﻿using EPRN.Common.Data;
+﻿using AutoMapper;
+using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
+using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,24 +10,35 @@ namespace EPRN.PRNS.API.Repositories
 {
     public class Repository : IRepository
     {
+        private readonly IMapper _mapper;
         private readonly EPRNContext _prnContext;
 
-        public Repository(EPRNContext prnContext)
+        public Repository(
+            IMapper mapper,
+            EPRNContext prnContext)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _prnContext = prnContext ?? throw new ArgumentNullException(nameof(prnContext));
         }
 
-        public async Task<int> CreatePrnRecord()
+        public async Task<int> CreatePrnRecord(
+            int materialType,
+            Common.Enums.Category category)
         {
-            throw new NotImplementedException();
+            var prn = new PackagingRecoveryNote
+            {
+                WasteTypeId = materialType,
+                Category = _mapper.Map<Category>(category)
+            };
+            
+            _prnContext.Add(prn);
+            await _prnContext.SaveChangesAsync();
+
+            return prn.Id;
         }
 
-        public Task<PackagingRecoveryNote> GetPrnById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> PrnExists(int id)
+        public async Task<bool> PrnExists(
+            int id)
         {
             return await _prnContext
                 .PRN
@@ -35,8 +49,8 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .Where(wj => wj.Id == id)
-                .Select(wj => wj.Tonnes)
+                .Where(prn => prn.Id == id)
+                .Select(prn => prn.Tonnes)
                 .SingleOrDefaultAsync();
         }
 
@@ -48,6 +62,15 @@ namespace EPRN.PRNS.API.Repositories
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(prn => prn.Tonnes, tonnes)
                 );
+        }
+
+        public async Task<ConfirmationDto> GetConfirmation(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => _mapper.Map<ConfirmationDto>(prn))
+                .SingleOrDefaultAsync();
         }
     }
 }

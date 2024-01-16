@@ -1,4 +1,4 @@
-﻿namespace EPRN.Common.Data
+﻿namespace EPRN.Common.Data.Enums
 {
     public enum DoneWaste
     {
