@@ -1,13 +1,9 @@
 ﻿using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Interfaces;
-using EPRN.Portal.Resources;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Controller;
 
 namespace EPRN.Portal.Controllers
 {
@@ -56,7 +52,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
-            return RedirectToAction("Month", new { id = whatHaveYouDoneWaste.JourneyId });
+            return RedirectToPage("Month", whatHaveYouDoneWaste.JourneyId);
         }
 
         [HttpGet]
@@ -88,17 +84,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            bool fromCheckYourAnswers = TempData["FromCheckYourAnswers"] as bool? ?? false;
-
-            if (fromCheckYourAnswers)
-            {
-                TempData.Remove("FromCheckYourAnswers");
-                return RedirectToAction("CheckYourAnswers", new { id = duringWhichMonthRequestViewModel.JourneyId });
-            }
-            else
-            {
-                return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
-            }
+            return RedirectToPage("SubTypes", duringWhichMonthRequestViewModel.JourneyId);
         }
 
         [HttpGet]
@@ -132,7 +118,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
-            return RedirectToAction("Done", new { id = wasteTypesViewModel.JourneyId });
+            return RedirectToPage("Done", wasteTypesViewModel.JourneyId);
         }
 
         [HttpGet]
@@ -161,7 +147,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteSubType(wasteSubTypesViewModel);
 
-            return RedirectToAction("Tonnes", new { id = wasteSubTypesViewModel.JourneyId });
+            return RedirectToPage("Tonnes", wasteSubTypesViewModel.JourneyId);
         }
 
         [HttpGet]
@@ -197,7 +183,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
-            return RedirectToAction("Baled", new { id = exportTonnageViewModel.JourneyId });
+            return RedirectToPage("Baled", exportTonnageViewModel.JourneyId);
         }
 
         [HttpGet]
@@ -224,7 +210,8 @@ namespace EPRN.Portal.Controllers
             }
 
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
-            return RedirectToAction("Note", new { id = baledWithWireModel.JourneyId });
+
+            return RedirectToPage("Note", baledWithWireModel.JourneyId);
         }
 
         [HttpGet]
@@ -281,13 +268,27 @@ namespace EPRN.Portal.Controllers
             return View(vm);
         }
 
+        public IActionResult RedirectToPage(string actionName, int journeyId)
+        {
+            bool fromCheckYourAnswers = HttpContext.Request.Query["rtap"] == "y" ? true : false;
+
+            if (fromCheckYourAnswers)
+            {
+                return RedirectToAction("CheckYourAnswers", new { id = journeyId });
+            }
+            else
+            {
+                return RedirectToAction(actionName, new { id = journeyId });
+            }
+        }
+
         //public override void OnActionExecuting(ActionExecutingContext context)
         //{
         //    var controllerContext = ((Controller)context.Controller).ControllerContext;
 
         //    if (controllerContext == null || controllerContext.ActionDescriptor == null)
         //        base.OnActionExecuting(context);
-           
+
         //    if (controllerContext.ActionDescriptor.ActionName != "CheckYourAnswers")
         //    {
         //        var redirectToAnswersPage = context.HttpContext.Request.Query[RedirectToAnswersPage];
