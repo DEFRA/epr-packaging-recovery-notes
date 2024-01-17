@@ -95,7 +95,7 @@ namespace EPRN.Portal.Services.HomeServices
             if (journeyDto == null)
                 throw new NullReferenceException(nameof(journeyDto));
 
-            var viewModel = new CheckAnswersViewModel { JourneyId = journeyId };
+            var viewModel = new CheckAnswersViewModel { JourneyId = journeyId, Completed = journeyDto.Completed };
             var sections = journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ?
                 GetAnswerSections(journeyDto, journeyId) : GetAnswerSectionsForSentOn(journeyDto, journeyId);
 

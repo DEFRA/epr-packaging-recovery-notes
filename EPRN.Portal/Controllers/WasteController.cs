@@ -264,7 +264,7 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var vm = await _homeService.GetCheckAnswers(id.Value);
-
+            
             return View(vm);
         }
 
@@ -281,57 +281,5 @@ namespace EPRN.Portal.Controllers
                 return RedirectToAction(actionName, new { id = journeyId });
             }
         }
-
-        //public override void OnActionExecuting(ActionExecutingContext context)
-        //{
-        //    var controllerContext = ((Controller)context.Controller).ControllerContext;
-
-        //    if (controllerContext == null || controllerContext.ActionDescriptor == null)
-        //        base.OnActionExecuting(context);
-
-        //    if (controllerContext.ActionDescriptor.ActionName != "CheckYourAnswers")
-        //    {
-        //        var redirectToAnswersPage = context.HttpContext.Request.Query[RedirectToAnswersPage];
-        //        if (!string.IsNullOrEmpty(redirectToAnswersPage) && redirectToAnswersPage.ToString() == "true")
-        //            TempData.Add(RedirectToAnswersPage, true);
-        //    }
-
-        //    base.OnActionExecuting(context);
-        //}
-
-        //public override void OnActionExecuted(ActionExecutedContext context)
-        //{
-        //    var controller = (Controller)context.Controller;
-
-        //    if (controller == null || controller.TempData == null)
-        //        base.OnActionExecuted(context);
-
-        //    if (controller.TempData["RedirectToAnswersPage"] != null && controller.TempData["RedirectToAnswersPage"].ToString() == "true")
-        //    {
-        //        context.HttpContext.Response.Redirect(Url.Action("CheckYourAnswers", "Waste", new { id = 1 }));
-        //        controller.TempData.Remove("RedirectToAnswersPage");
-        //    }
-        //    base.OnActionExecuted(context);
-        //}
-
-        //public override void OnActionExecuted(ActionExecutedContext context)
-        //{
-        //    base.OnActionExecuted(context);
-
-
-        //    var controller = (Controller)context.Controller;
-
-        //    if (controller == null || controller.TempData == null)
-        //        base.OnActionExecuted(context);
-
-        //    if (controller.TempData[PreviousUrlKey] != null && controller.TempData[PreviousUrlKey].ToString().Contains("CheckYourAnswers"))
-        //    {
-        //        context.HttpContext.Response.Redirect(Url.Action("CheckYourAnswers", "Waste", new { id = 1 }));
-        //    }
-        //}
-
-        private const string PreviousUrlKey = "PreviousUrl";
-
-
     }
 }

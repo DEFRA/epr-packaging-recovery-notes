@@ -174,7 +174,6 @@ namespace EPRN.Waste.API.Services
 
         public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
         {
-            //var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
             var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
             if (journey == null)
                 throw new Exception(nameof(journey));
@@ -182,23 +181,16 @@ namespace EPRN.Waste.API.Services
             var journeyAnswersDto = new JourneyAnswersDto();
 
             journeyAnswersDto.WhatDoneWithWaste = journey.DoneWaste == null ? string.Empty : journey.DoneWaste.Value.ToString();
-            journeyAnswersDto.BaledWithWire = journey.BaledWithWire == null ? "No" : (journey.BaledWithWire.Value == true ? "Yes" : "No");
+            journeyAnswersDto.BaledWithWire = journey.BaledWithWire == null ? string.Empty : (journey.BaledWithWire.Value == true ? "Yes" : "No");
             journeyAnswersDto.Month = journey.Month == null ? string.Empty : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value);
-            journeyAnswersDto.WasteType = journey.WasteType.Name.ToString();
-            journeyAnswersDto.Tonnes = journey.Tonnes;
-            journeyAnswersDto.TonnageAdjusted = GetTonnageAdjusted(journey);
+            journeyAnswersDto.WasteType = journey.WasteType == null ? string.Empty : journey.WasteType.Name.ToString();
+            journeyAnswersDto.Tonnes = journey.Tonnes == null ? string.Empty : journey.Tonnes.Value.ToString();
+            journeyAnswersDto.TonnageAdjusted = journey.Total == null ? string.Empty : journey.Total.Value.ToString();
             journeyAnswersDto.Note = journey.Note;
-            journeyAnswersDto.WasteSubType = journey.WasteSubType.Name.ToString();
-            journeyAnswersDto.Completed = journey.Completed;
+            journeyAnswersDto.WasteSubType = journey.WasteSubType == null ? string.Empty : journey.WasteSubType.Name.ToString();
+            journeyAnswersDto.Completed = journey.Completed == null ? false : journey.Completed.Value;
 
             return journeyAnswersDto;
-        }
-
-        // am not sure if this is the correct calculation, therefore will leave this (simple) method in place until testing
-        private double GetTonnageAdjusted(WasteJourney journey)
-        {
-            var adjustedTonnage = journey.Total;
-            return adjustedTonnage.Value;
         }
     }
 }
