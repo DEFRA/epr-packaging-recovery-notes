@@ -133,12 +133,15 @@
     <value>Glass</value>
   </data>
   <data name="HeadingReceived" xml:space="preserve">
-    <value>During which month was the waste received?</value>
+    <value>When was it exported?</value>
   </data>
   <data name="HeadingSent" xml:space="preserve">
     <value>When did you send it?</value>
   </data>
-  <data name="HintText" xml:space="preserve">
+  <data name="HintTextReceived" xml:space="preserve">
+    <value>You can only record waste for the current month and for those months within an open quarterly return period.</value>
+  </data>
+  <data name="HintTextSent" xml:space="preserve">
     <value>You can only record waste for this month and the months within an open quarterly return period.</value>
   </data>
   <data name="Month1" xml:space="preserve">
@@ -178,7 +181,7 @@
     <value>September</value>
   </data>
   <data name="PageTitleReceived" xml:space="preserve">
-    <value>During which month was the waste received?</value>
+    <value>When was it exported?</value>
   </data>
   <data name="PageTitleSent" xml:space="preserve">
     <value>When did you send it?</value>

@@ -106,6 +106,16 @@ namespace EPRN.Waste.API.Repositories
             await _wasteContext.SaveChangesAsync();
         }
 
+        public async Task UpdateJourneyCategory(int journeyId, Category category)
+        {
+            await _wasteContext
+                .WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .ExecuteUpdateAsync(sp =>
+                    sp.SetProperty(wj => wj.Category, category)
+                );
+        }
+
         public async Task<IList<WasteTypeDto>> GetAllWasteTypes()
         {
             return await _wasteContext
@@ -204,6 +214,15 @@ namespace EPRN.Waste.API.Repositories
             return await _wasteContext.WasteJourney
                 .Where(wj => wj.Id == journeyId)
                 .Select(wj => wj.Note)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<Category?> GetCategory(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .Select(wj => wj.Category)
                 .SingleOrDefaultAsync();
         }
     }
