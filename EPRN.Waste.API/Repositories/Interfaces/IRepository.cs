@@ -40,6 +40,8 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<WasteJourney> GetWasteJourneyById(int jounreyId);
 
+        Task<WasteJourney> GetWasteJourneyById_FullModel(int journeyId);
+
         Task<double?> GetWasteTonnage(int journeyId);
 
         Task<bool> Exists(int journeyId);

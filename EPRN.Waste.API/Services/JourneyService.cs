@@ -174,7 +174,8 @@ namespace EPRN.Waste.API.Services
 
         public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
         {
-            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
+            //var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
+            var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
             if (journey == null)
                 throw new Exception(nameof(journey));
 

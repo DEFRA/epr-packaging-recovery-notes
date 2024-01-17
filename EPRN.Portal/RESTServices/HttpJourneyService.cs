@@ -23,7 +23,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
         {
-            return new JourneyAnswersDto();           
+            return await Get<JourneyAnswersDto>($"{journeyId}/JourneyAnswers");
         }
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)

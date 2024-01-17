@@ -167,6 +167,16 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
+        public async Task<WasteJourney> GetWasteJourneyById_FullModel(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Include(x => x.WasteType)
+                .Include(x => x.WasteSubType)
+                .Where(wj => wj.Id == journeyId)
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<bool> Exists(int journeyId)
         {
             var exists = await _wasteContext
