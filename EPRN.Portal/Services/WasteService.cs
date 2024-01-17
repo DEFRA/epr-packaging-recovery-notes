@@ -1,12 +1,13 @@
 ﻿
 using AutoMapper;
 using EPRN.Common.Enums;
-using EPRN.Common.Services;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
 {
@@ -21,7 +22,8 @@ namespace EPRN.Portal.Services
             IMapper mapper,
             IHttpWasteService httpWasteService,
             IHttpJourneyService httpJourneyService,
-            ILocalizationHelper<WhichQuarterResources> localizationHelper)
+            ILocalizationHelper<WhichQuarterResources> localizationHelper,
+            IOptions<AppConfigSettings> configSettings)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
@@ -53,15 +55,9 @@ namespace EPRN.Portal.Services
             duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
             duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
 
-            // Apply date logic for correct quarters
-            duringWhichMonthRequestViewModel.Quarter =
-                QuarterMonthDisplay.GetQuarterMonthsToDisplay(DateTime.Today, true);
-
-
-            //int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
-            //duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
-            //duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
-            //duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
+            // Apply date logic for correct quarter and months 
+            //duringWhichMonthRequestViewModel.Quarter =
+            //    QuarterlyDatesService.GetQuarterMonthsToDisplay(DateTime.Today, true);
 
             return duringWhichMonthRequestViewModel;
         }

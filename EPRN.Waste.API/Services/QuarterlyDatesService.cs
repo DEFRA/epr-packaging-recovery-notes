@@ -1,18 +1,39 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
+using EPRN.Waste.API.Configuration;
+using EPRN.Waste.API.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
-namespace EPRN.Common.Services
+namespace EPRN.Waste.API.Services
 {
-    public class QuarterMonthDisplay
+    public class QuarterlyDatesService : IQuarterlyDatesService
     {
-        // Constants for the start months of each quarter and return deadlines
-        private static readonly int[] QuarterStartMonths = { 1, 4, 7, 10 };
-        private static readonly int[] ReturnDeadlineDays = { 21, 21, 21, 28 };
+        private readonly List<int> _quarterStartMonths; // Changed to List<int>
+        private readonly List<int> _returnDeadlineDays; // Changed to List<int>
+        private readonly IOptions<AppConfigSettings> _configSettings;
+        public QuarterlyDatesService(IOptions<AppConfigSettings> configSettings)
+        {
+            _configSettings = configSettings ??
+                              throw new ArgumentNullException(nameof(configSettings));
+            _quarterStartMonths = configSettings.Value.QuarterStartMonths?.ToList() ??
+                                  throw new ArgumentNullException(nameof(configSettings.Value.QuarterStartMonths));
+            _returnDeadlineDays = configSettings.Value.ReturnDeadlineDays?.ToList() ??
+                                  throw new ArgumentNullException(nameof(configSettings.Value.ReturnDeadlineDays));
+        }
 
-        public static Dictionary<int, string> GetQuarterMonthsToDisplay(DateTime currentDate, bool hasSubmittedPreviousQuarterReturn)
+        public async Task<Dictionary<int, string>> GetQuarterMonthsToDisplay(DateTime currentDate, bool hasSubmittedPreviousQuarterReturn)
         {
             var monthsToDisplay = new List<int>();
             var quarterToReturn = new Dictionary<int, string>();
-            var currentQuarter = GetCurrentQuarter(currentDate);
+            
+            // Overrides
+            if (_configSettings.Value.CurrentDateOverride.HasValue)
+                currentDate = _configSettings.Value.CurrentDateOverride.Value;
+            
+            if (_configSettings.Value.HasSubmittedReturnOverride.HasValue)
+                hasSubmittedPreviousQuarterReturn = _configSettings.Value.HasSubmittedReturnOverride.Value;        
+
+            var currentQuarter =  GetCurrentQuarter(currentDate);
             var currentMonthInQuarter = GetCurrentMonthInQuarter(currentDate);
             var isWithinCurrentQuarter = IsWithinCurrentQuarter(currentDate, currentQuarter, currentMonthInQuarter);
             var isWithinReturnDeadline = IsWithinReturnDeadline(currentDate, currentQuarter);
@@ -24,14 +45,11 @@ namespace EPRN.Common.Services
                 HandleLateReturn(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn);
             
             // Map month numbers to their names
-            foreach (var month in monthsToDisplay)
-            {
+            foreach (var month in monthsToDisplay) 
                 quarterToReturn[month] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
-            }
             
             return quarterToReturn;
         }
-
 
         private static int GetCurrentQuarter(DateTime currentDate)
         {
@@ -50,12 +68,11 @@ namespace EPRN.Common.Services
         /// <param name="currentQuarter">The current quarter (0-based).</param>
         /// <param name="currentMonthInQuarter">The current month within the quarter (1-based).</param>
         /// <returns>True if the current date is within the current quarter; otherwise, false.</returns>
-        private static bool IsWithinCurrentQuarter(DateTime currentDate, int currentQuarter, int currentMonthInQuarter)
+        private bool IsWithinCurrentQuarter(DateTime currentDate, int currentQuarter, int currentMonthInQuarter)
         {
-            var quarterStartDate = new DateTime(currentDate.Year, QuarterStartMonths[currentQuarter], 1);
+            var quarterStartDate = new DateTime(currentDate.Year, _quarterStartMonths[currentQuarter], 1);
             return currentDate <= quarterStartDate.AddMonths(currentMonthInQuarter);
         }
-
 
         /// <summary>
         /// Adds the months of the current quarter to the provided list.
@@ -69,16 +86,15 @@ namespace EPRN.Common.Services
                 monthsToDisplay.Add((currentQuarter * 3) + i);
         }
 
-
         /// <summary>
         /// Determines whether the current date is within the return deadline of the current quarter.
         /// </summary>
         /// <param name="currentDate">The current date.</param>
         /// <param name="currentQuarter">The current quarter.</param>
         /// <returns>True if the current date is within the return deadline; otherwise, false.</returns>
-        private static bool IsWithinReturnDeadline(DateTime currentDate, int currentQuarter)
+        private bool IsWithinReturnDeadline(DateTime currentDate, int currentQuarter)
         {
-            DateTime returnDeadline = new(currentDate.Year, QuarterStartMonths[currentQuarter], ReturnDeadlineDays[currentQuarter]);
+            DateTime returnDeadline = new(currentDate.Year, _quarterStartMonths[currentQuarter], _returnDeadlineDays[currentQuarter]);
             
             return currentDate <= returnDeadline;
         }
@@ -92,6 +108,7 @@ namespace EPRN.Common.Services
             {
                 // If the previous quarter return has not been submitted, add all the months of the previous quarter to the display
                 AddPreviousQuarterMonths(monthsToDisplay, currentQuarter);
+                
                 // Display a warning message indicating that the return date is approaching
                 Console.WriteLine("Warning: Return date is approaching");
             }

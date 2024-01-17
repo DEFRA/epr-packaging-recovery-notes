@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Services
@@ -20,6 +22,7 @@ namespace EPRN.UnitTests.Portal.Services
         private Mock<IHttpJourneyService> _mockHttpJourneyService = null;
         private Mock<ILocalizationHelper<WhichQuarterResources>> _mockLocalizationHelper = null;
 
+        private Mock<IOptions<AppConfigSettings>> _mockConfigSettings = null;
         [TestInitialize]
         public void Init()
         {
@@ -27,13 +30,15 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpWasteService = new Mock<IHttpWasteService>();
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
             _mockLocalizationHelper = new Mock<ILocalizationHelper<WhichQuarterResources>>();
-
+            _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
             _wasteService = new WasteService(
                 _mockMapper.Object,
                 _mockHttpWasteService.Object,
                 _mockHttpJourneyService.Object,
-                _mockLocalizationHelper.Object);
+                _mockLocalizationHelper.Object,
+                _mockConfigSettings.Object);
         }
+
 
         [TestMethod]
         public async Task GetWasteTypesViewModel_ReturnsValidModel_MappedCorrectly()
