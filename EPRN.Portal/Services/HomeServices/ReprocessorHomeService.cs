@@ -143,7 +143,7 @@ namespace EPRN.Portal.Services.HomeServices
 
         private string GenerateUrl(int journeyId, string actionName)
         {
-            var url = UrlHelper.Action(actionName, "Waste", new { id = journeyId, Rtap = "true" });
+            var url = UrlHelper.Action(actionName, "Waste", new { id = journeyId, rtap = "y" });
 
             return url;
         }

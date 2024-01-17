@@ -270,7 +270,7 @@ namespace EPRN.Portal.Controllers
 
         public IActionResult RedirectToPage(string actionName, int journeyId)
         {
-            bool fromCheckYourAnswers = HttpContext.Request.Query["Rtap"] == "y" ? true : false;
+            bool fromCheckYourAnswers = HttpContext.Request.Query["rtap"] == "y" ? true : false;
 
             if (fromCheckYourAnswers)
             {
