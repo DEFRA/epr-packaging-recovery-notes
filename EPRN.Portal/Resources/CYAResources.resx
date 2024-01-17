@@ -141,6 +141,12 @@
   <data name="ReprocessorResentPageHeader" xml:space="preserve">
     <value>Check your answers before creating this waste record</value>
   </data>
+  <data name="ReprocessorWhereWasteSentAddress" xml:space="preserve">
+    <value>Address of the reprocessor where the waste was sent</value>
+  </data>
+  <data name="ReprocessorWhereWasteSentName" xml:space="preserve">
+    <value>Name of the reprocessor where the waste was sent</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Check your answers before creating this waste record</value>
   </data>

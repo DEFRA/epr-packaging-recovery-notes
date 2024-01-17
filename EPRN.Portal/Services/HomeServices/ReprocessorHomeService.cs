@@ -97,13 +97,14 @@ namespace EPRN.Portal.Services.HomeServices
 
             var viewModel = new CheckAnswersViewModel { JourneyId = journeyId, Completed = journeyDto.Completed };
             var sections = journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ?
-                GetAnswerSections(journeyDto, journeyId) : GetAnswerSectionsForSentOn(journeyDto, journeyId);
+                GetAnswerSectionsForWasteReceivedAndReprocessed(journeyDto, journeyId) :
+                GetAnswerSectionsForWasteSentOn(journeyDto, journeyId);
 
             viewModel.Sections.AddRange(sections);
             return viewModel;
         }
 
-        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSections(JourneyAnswersDto journey, int journeyId)
+        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForWasteReceivedAndReprocessed(JourneyAnswersDto journey, int journeyId)
         {
             var section = new Dictionary<string, List<CheckAnswerViewModel>>();
 
@@ -122,12 +123,15 @@ namespace EPRN.Portal.Services.HomeServices
             return section;
         }
 
-        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForSentOn(JourneyAnswersDto journey, int journeyId)
+        private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForWasteSentOn(JourneyAnswersDto journey, int journeyId)
         {
             var section = new Dictionary<string, List<CheckAnswerViewModel>>();
 
             var rows = new List<CheckAnswerViewModel>
             {
+                new CheckAnswerViewModel { Question = CYAResources.ReprocessorWhereWasteSentName, Answer = string.Empty, ChangeLink = string.Empty },
+                new CheckAnswerViewModel { Question = CYAResources.ReprocessorWhereWasteSentAddress, Answer = string.Empty, ChangeLink = string.Empty },
+
                 new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = GenerateUrl(journeyId, "Types") },
                 new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = GenerateUrl(journeyId, "Baled") },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = journey.Tonnes.ToString(), ChangeLink = GenerateUrl(journeyId, "Tonnes") },

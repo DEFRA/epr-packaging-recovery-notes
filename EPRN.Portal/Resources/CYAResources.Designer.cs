@@ -133,6 +133,24 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address of the reprocessor where the waste was sent.
+        /// </summary>
+        public static string ReprocessorWhereWasteSentAddress {
+            get {
+                return ResourceManager.GetString("ReprocessorWhereWasteSentAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the reprocessor where the waste was sent.
+        /// </summary>
+        public static string ReprocessorWhereWasteSentName {
+            get {
+                return ResourceManager.GetString("ReprocessorWhereWasteSentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check your answers before creating this waste record.
         /// </summary>
         public static string Title {
