@@ -101,7 +101,25 @@ namespace EPRN.Portal.Services.HomeServices
                 GetAnswerSectionsForWasteSentOn(journeyDto, journeyId);
 
             viewModel.Sections.AddRange(sections);
+            viewModel.Completed = AreRequiredAnswersProvided(sections[CYAResources.Title]);
             return viewModel;
+        }
+
+        private bool AreRequiredAnswersProvided(List<CheckAnswerViewModel> rows)
+        {
+            bool isValid = true;
+
+            foreach (var item in rows)
+            {
+
+                if ((item.Answer == null || item.Answer.Length == 0) && item.Question != CYAResources.Note)
+                {
+                    isValid = false;
+                    break;
+                }
+            }
+
+            return isValid;
         }
 
         private Dictionary<string, List<CheckAnswerViewModel>> GetAnswerSectionsForWasteReceivedAndReprocessed(JourneyAnswersDto journey, int journeyId)

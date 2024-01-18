@@ -264,8 +264,21 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var vm = await _homeService.GetCheckAnswers(id.Value);
-            
+
             return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckYourAnswers(CheckAnswersViewModel checkAnswersViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = await _homeService.GetCheckAnswers(checkAnswersViewModel.JourneyId);
+
+                return View(viewModel);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult RedirectToPage(string actionName, int journeyId)

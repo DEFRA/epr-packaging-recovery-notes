@@ -126,6 +126,9 @@
   <data name="CreateBtn" xml:space="preserve">
     <value>Create waste record</value>
   </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>You must complete all questions before creating your waste record</value>
+  </data>
   <data name="MaterialType" xml:space="preserve">
     <value>What is the material type?</value>
   </data>

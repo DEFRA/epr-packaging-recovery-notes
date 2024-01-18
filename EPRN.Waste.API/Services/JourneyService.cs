@@ -118,7 +118,7 @@ namespace EPRN.Waste.API.Services
         public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
         {
             var dto = new GetBaledWithWireDto { JourneyId = journeyId };
-            
+
             var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
             if (journey != null)
             {
@@ -151,19 +151,19 @@ namespace EPRN.Waste.API.Services
             {
                 throw new Exception(nameof(journey));
             }
-            
+
             var wasteSubType = journey.WasteSubType;
             if (wasteSubType == null)
             {
                 throw new Exception(nameof(wasteSubType));
             }
-            
+
             var wasteSubTypeSelection = new WasteSubTypeSelectionDto
             {
                 WasteSubTypeId = wasteSubType.Id,
-                Adjustment = wasteSubType.AdjustmentPercentageRequired ? journey.Adjustment : null
+                Adjustment = journey.Adjustment
             };
-            
+
             return wasteSubTypeSelection;
         }
 
@@ -185,7 +185,7 @@ namespace EPRN.Waste.API.Services
             journeyAnswersDto.Month = journey.Month == null ? string.Empty : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value);
             journeyAnswersDto.WasteType = journey.WasteType == null ? string.Empty : journey.WasteType.Name.ToString();
             journeyAnswersDto.Tonnes = journey.Tonnes == null ? string.Empty : journey.Tonnes.Value.ToString();
-            journeyAnswersDto.TonnageAdjusted = journey.Total == null ? string.Empty : journey.Total.Value.ToString();
+            journeyAnswersDto.TonnageAdjusted = journey.Adjustment == null ? string.Empty : journey.Adjustment.Value.ToString();
             journeyAnswersDto.Note = journey.Note;
             journeyAnswersDto.WasteSubType = journey.WasteSubType == null ? string.Empty : journey.WasteSubType.Name.ToString();
             journeyAnswersDto.Completed = journey.Completed == null ? false : journey.Completed.Value;
