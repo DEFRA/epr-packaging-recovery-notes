@@ -128,7 +128,7 @@ namespace EPRN.Portal.Services.HomeServices
 
             var rows = new List<CheckAnswerViewModel>
             {
-                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = GenerateUrl(journeyId, "Types") },
+                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteSubType, ChangeLink = GenerateUrl(journeyId, "SubTypes") },
                 new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = GenerateUrl(journeyId, "Baled") },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = journey.Tonnes.ToString(), ChangeLink = GenerateUrl(journeyId, "Tonnes") },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = string.Empty },
@@ -150,7 +150,7 @@ namespace EPRN.Portal.Services.HomeServices
                 new CheckAnswerViewModel { Question = CYAResources.ReprocessorWhereWasteSentName, Answer = string.Empty, ChangeLink = string.Empty },
                 new CheckAnswerViewModel { Question = CYAResources.ReprocessorWhereWasteSentAddress, Answer = string.Empty, ChangeLink = string.Empty },
 
-                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteType, ChangeLink = GenerateUrl(journeyId, "Types") },
+                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = journey.WasteSubType, ChangeLink = GenerateUrl(journeyId, "SubTypes") },
                 new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = journey.BaledWithWire, ChangeLink = GenerateUrl(journeyId, "Baled") },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = journey.Tonnes.ToString(), ChangeLink = GenerateUrl(journeyId, "Tonnes") },
                 new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = journey.TonnageAdjusted.ToString(), ChangeLink = string.Empty },
