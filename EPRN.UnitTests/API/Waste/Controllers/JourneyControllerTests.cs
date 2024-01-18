@@ -283,5 +283,34 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
             _mockJourneyService.Verify(s => s.GetBaledWithWire(It.IsAny<int>()), Times.Never);
         }
+
+        [TestMethod]
+        public async Task GetCategory_Returns_OK()
+        {
+            //Arrange
+            var journeyId = 3;
+
+            //Act
+            var result = await _journeyController.GetJourneyCategory(journeyId);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockJourneyService.Verify(s => s.GetCategory(It.Is<int>(p => p == journeyId)));
+        }
+
+        [TestMethod]
+        public async Task GetCategory_Returns_OK_ReturnsBadRequest_WhenNoIdSupplied()
+        {
+            //Arrange
+
+            //Act
+            var result = await _journeyController.GetJourneyCategory(null);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            _mockJourneyService.Verify(s => s.GetCategory(It.IsAny<int>()), Times.Never);
+        }
     }
 }
