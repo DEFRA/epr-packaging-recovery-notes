@@ -36,6 +36,7 @@ namespace EPRN.Portal.Services
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
+            var selectedMonth = await _httpJourneyService.GetSelectedMonth(journeyId);
 
             var duringWhichMonthRequestViewModel = default(DuringWhichMonthRequestViewModel);
 
@@ -51,9 +52,10 @@ namespace EPRN.Portal.Services
             duringWhichMonthRequestViewModel.JourneyId = journeyId;
             duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
             duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
+            duringWhichMonthRequestViewModel.SelectedMonth = selectedMonth;
 
 
-            int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
+            int firstMonthOfQuarter = ((currentMonth - 1) / 3 * 3) + 1;
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
@@ -115,7 +117,6 @@ namespace EPRN.Portal.Services
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
             };
         }
-
         public async Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             if (wasteSubTypesViewModel == null)
@@ -133,7 +134,6 @@ namespace EPRN.Portal.Services
                 wasteSubTypesViewModel.JourneyId,
                 wasteSubTypeId, adjustment);
         }
-
         private (int wasteSubTypeId, double adjustment) ProcessSubTypePayload(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             int wasteSubTypeId = wasteSubTypesViewModel.SelectedWasteSubTypeId.Value;
@@ -190,7 +190,6 @@ namespace EPRN.Portal.Services
                 wasteTypesViewModel.JourneyId,
                 wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
-
         public async Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteViewModel)
         {
             if (whatHaveYouDoneWasteViewModel == null)
@@ -230,7 +229,6 @@ namespace EPRN.Portal.Services
                 exportTonnageViewModel.ExportTonnes.Value);
         }
 
-
         public async Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId)
         {
             var dto = await _httpJourneyService.GetBaledWithWire(journeyId);
@@ -238,7 +236,6 @@ namespace EPRN.Portal.Services
 
             return vm;
         }
-
         public async Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel)
         {
             if (baledWireModel == null)
@@ -252,8 +249,8 @@ namespace EPRN.Portal.Services
 
 
             await _httpJourneyService.SaveBaledWithWire(
-                baledWireModel.JourneyId, 
-                baledWireModel.BaledWithWire.Value, 
+                baledWireModel.JourneyId,
+                baledWireModel.BaledWithWire.Value,
                 baledWireModel.BaledWithWire.Value == true ? baledWireModel.BaledWithWireDeductionPercentage.Value : 0);
         }
 

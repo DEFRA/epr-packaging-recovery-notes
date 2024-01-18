@@ -31,6 +31,11 @@ namespace EPRN.Portal.RESTServices
             return await Get<WasteRecordStatusDto>($"{journeyId}/status");
         }
 
+        public async Task<int?> GetSelectedMonth(int journeyId)
+        {
+            return await Get<int?>($"{journeyId}/Month");
+        }
+
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
             await Post($"{journeyId}/Month/{selectedMonth}");

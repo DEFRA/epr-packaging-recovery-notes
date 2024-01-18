@@ -33,6 +33,18 @@ namespace EPRN.Waste.API.Controllers
             return Ok(await _journeyService.GetWasteType(journeyId.Value));
         }
 
+        [HttpGet]
+        [Route("Month")]
+        public async Task<IActionResult> GetSelectedMonth(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            var selectdMonth = await _journeyService.GetSelectedMonth(journeyId.Value);
+
+            return Ok(selectdMonth);
+        }
+
         [HttpPost]
         [Route("Month/{selectedMonth}")]
         public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)

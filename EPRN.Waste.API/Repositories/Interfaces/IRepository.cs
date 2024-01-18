@@ -36,6 +36,8 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<WasteJourney> GetWasteSubTypeSelection(int journeyId);
 
+        Task<int?> GetSelectedMonth(int journeyId);
+
         Task<DoneWaste?> GetDoneWaste(int journeyId);
 
         Task<WasteJourney> GetWasteJourneyById(int jounreyId);

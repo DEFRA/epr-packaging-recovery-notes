@@ -51,6 +51,11 @@ namespace EPRN.Waste.API.Services
             return await _wasteRepository.Exists(journeyId);
         }
 
+        public async Task<int?> GetSelectedMonth(int journeyId)
+        {
+            return await _wasteRepository.GetSelectedMonth(journeyId);
+        }
+
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
             await _wasteRepository.UpdateJourneyMonth(journeyId, selectedMonth);

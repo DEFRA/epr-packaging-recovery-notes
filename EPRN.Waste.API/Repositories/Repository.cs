@@ -76,7 +76,7 @@ namespace EPRN.Waste.API.Repositories
             await _wasteContext
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp => 
+                .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(wj => wj.Month, selectedMonth)
                 );
         }
@@ -140,7 +140,14 @@ namespace EPRN.Waste.API.Repositories
                 .Where(wj => wj.Id == journeyId)
                 .SingleOrDefaultAsync();
         }
-
+        public async Task<int?> GetSelectedMonth(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .Select(wj => wj.Month)
+                .SingleOrDefaultAsync();
+        }
         public async Task<DoneWaste?> GetDoneWaste(int journeyId)
         {
             return await _wasteContext
