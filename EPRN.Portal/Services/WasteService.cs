@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
@@ -40,7 +39,7 @@ namespace EPRN.Portal.Services
         {
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
             var duringWhichMonthRequestViewModel = CreateDuringWhichMonthRequestViewModel(whatHaveYouDoneWaste);
-            PopulateViewModel(duringWhichMonthRequestViewModel, journeyId, whatHaveYouDoneWaste);
+            await PopulateViewModel(duringWhichMonthRequestViewModel, journeyId, whatHaveYouDoneWaste);
             return duringWhichMonthRequestViewModel;
         }
         
@@ -50,16 +49,21 @@ namespace EPRN.Portal.Services
                 ? new DuringWhichMonthReceivedRequestViewModel()
                 : new DuringWhichMonthSentOnRequestViewModel();
         }
-        
-        private async void PopulateViewModel(DuringWhichMonthRequestViewModel viewModel, int journeyId, DoneWaste whatHaveYouDoneWaste)
+
+        private async Task PopulateViewModel(DuringWhichMonthRequestViewModel viewModel, int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
             // TODO -- Add has submitted qtr return this logic when available, true for now
             const bool hasSubmittedPreviousQuarterReturn = true;
             
             viewModel.JourneyId = journeyId;
-            viewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
             viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
-            viewModel.Quarter = await _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
+            
+            var wasteTypeTask = _httpJourneyService.GetWasteType(journeyId);
+            var quarterTask = _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
+            
+            await Task.WhenAll(wasteTypeTask, quarterTask);
+            viewModel.WasteType = await wasteTypeTask;
+            viewModel.Quarter = await quarterTask;
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
@@ -89,7 +93,7 @@ namespace EPRN.Portal.Services
                 SelectedWasteTypeId = wasteTypeIdTask.Result
             };
         }
-
+        
         public async Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId)
         {
             var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
@@ -116,7 +120,7 @@ namespace EPRN.Portal.Services
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
             };
         }
-
+        
         public async Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             if (wasteSubTypesViewModel == null)
@@ -151,7 +155,6 @@ namespace EPRN.Portal.Services
 
             return (wasteSubTypeId, adjustment);
         }
-
         public async Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel)
         {
             if (wasteTypesViewModel == null)

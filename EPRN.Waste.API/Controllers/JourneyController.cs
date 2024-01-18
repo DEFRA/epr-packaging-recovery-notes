@@ -38,9 +38,12 @@ namespace EPRN.Waste.API.Controllers
 
         [HttpGet]
         [Route("QuarterlyDates/{currentDate}/{hasSubmittedPreviousQuarterReturn}")]
-        public async Task<Dictionary<int, string>> GetActiveQuarterlyDates(int? journeyId, int currentDate, bool hasSubmittedPreviousQuarterReturn)
+        public async Task<IActionResult> GetActiveQuarterlyDates(int? journeyId, int currentDate, bool hasSubmittedPreviousQuarterReturn)
         {
-            return await _quarterlyDatesService.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result =
+                await _quarterlyDatesService.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            
+            return Ok(result);
         }
 
         [HttpPost]
