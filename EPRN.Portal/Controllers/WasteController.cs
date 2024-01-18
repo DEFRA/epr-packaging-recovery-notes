@@ -4,6 +4,7 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using static EPRN.Portal.Constants.Strings;
 
 namespace EPRN.Portal.Controllers
 {
@@ -283,7 +284,7 @@ namespace EPRN.Portal.Controllers
 
         public IActionResult RedirectToPage(string actionName, int journeyId)
         {
-            bool fromCheckYourAnswers = HttpContext.Request.Query["rtap"] == "y" ? true : false;
+            bool fromCheckYourAnswers = HttpContext.Request.Query[QueryStrings.ReturnToAnswers] == QueryStrings.ReturnToAnswersYes ? true : false;
 
             if (fromCheckYourAnswers)
             {

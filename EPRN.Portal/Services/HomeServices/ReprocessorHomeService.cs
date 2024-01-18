@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using NuGet.Packaging;
+using static EPRN.Portal.Constants.Strings;
 
 namespace EPRN.Portal.Services.HomeServices
 {
@@ -171,7 +172,7 @@ namespace EPRN.Portal.Services.HomeServices
             }
             else
             {
-                return UrlHelper.Action(actionName, "Waste", new { id = journeyId, rtap = "y" });
+                return UrlHelper.Action(actionName, "Waste", new { id = journeyId, rtap = QueryStrings.ReturnToAnswersYes });
             }
         }
     }
