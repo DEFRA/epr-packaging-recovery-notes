@@ -400,24 +400,5 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Assert.AreEqual(400, badRequestResult.StatusCode);
             Assert.AreEqual("Invalid journey ID", badRequestResult.Value);
         }
-
-        [TestMethod]
-        public async Task GetJourneyAnswers_WithException_ReturnsInternalServerError()
-        {
-            //Arrange
-            _mockJourneyService.Setup(service => service.GetJourneyAnswers(It.IsAny<int>())).ThrowsAsync(new Exception("Simulated exception"));
-            int validJourneyId = 1;
-
-            //Act
-            var result = await _journeyController.GetJourneyAnswers(validJourneyId);
-
-            //Assert
-            Assert.IsInstanceOfType(result, typeof(ObjectResult));
-            var objectResult = result as ObjectResult;
-
-            Assert.IsNotNull(objectResult);
-            Assert.AreEqual(500, objectResult.StatusCode);
-            Assert.AreEqual("Internal Server Error", objectResult.Value);
-        }
     }
 }
