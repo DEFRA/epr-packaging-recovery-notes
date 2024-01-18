@@ -26,6 +26,11 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<WasteRecordStatusDto>($"{journeyId}/status");
         }
+        
+        public async Task<Dictionary<int, string>> GetQuarterlyMonths(DateTime currentDate)
+        {
+            return await Get<Dictionary<int, string>>($"/QuarterlyMonths/{currentDate}");
+        }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
         {
@@ -101,6 +106,5 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<string?>($"{journeyId}/Note");
         }
-
     }
 }

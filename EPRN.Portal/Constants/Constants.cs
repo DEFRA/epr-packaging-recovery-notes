@@ -15,6 +15,7 @@ namespace EPRN.Portal.Constants
             public const string Journey = "Journey";
             public const string Waste = "Waste";
             public const string PRN = "PRN";
+            public const string Returns = "Returns";          
         }
     }
 }

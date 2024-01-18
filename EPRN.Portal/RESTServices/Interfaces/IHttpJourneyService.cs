@@ -10,6 +10,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
+        Task<Dictionary<int, string>> GetQuarterlyMonths(DateTime currentDate);
+
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
 
         Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId);

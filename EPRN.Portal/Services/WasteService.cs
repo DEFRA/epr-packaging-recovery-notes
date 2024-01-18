@@ -39,27 +39,24 @@ namespace EPRN.Portal.Services
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
-
-            var duringWhichMonthRequestViewModel = default(DuringWhichMonthRequestViewModel);
-
-            if (whatHaveYouDoneWaste == DoneWaste.ReprocessedIt)
-            {
-                duringWhichMonthRequestViewModel = new DuringWhichMonthReceivedRequestViewModel();
-            }
-            else
-            {
-                duringWhichMonthRequestViewModel = new DuringWhichMonthSentOnRequestViewModel();
-            }
-
-            duringWhichMonthRequestViewModel.JourneyId = journeyId;
-            duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
-            duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
-
-            // Apply date logic for correct quarter and months 
-            //duringWhichMonthRequestViewModel.Quarter =
-            //    QuarterlyDatesService.GetQuarterMonthsToDisplay(DateTime.Today, true);
-
+            var duringWhichMonthRequestViewModel = CreateDuringWhichMonthRequestViewModel(whatHaveYouDoneWaste);
+            PopulateViewModel(duringWhichMonthRequestViewModel, journeyId, whatHaveYouDoneWaste);
             return duringWhichMonthRequestViewModel;
+        }
+        
+        private static DuringWhichMonthRequestViewModel CreateDuringWhichMonthRequestViewModel(DoneWaste whatHaveYouDoneWaste)
+        {
+            return whatHaveYouDoneWaste == DoneWaste.ReprocessedIt
+                ? new DuringWhichMonthReceivedRequestViewModel()
+                : new DuringWhichMonthSentOnRequestViewModel();
+        }
+        
+        private async void PopulateViewModel(DuringWhichMonthRequestViewModel viewModel, int journeyId, DoneWaste whatHaveYouDoneWaste)
+        {
+            viewModel.JourneyId = journeyId;
+            viewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
+            viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
+            viewModel.Quarter = await _httpJourneyService.GetQuarterlyMonths(DateTime.Today);
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)

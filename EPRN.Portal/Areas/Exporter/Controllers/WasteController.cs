@@ -23,7 +23,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (id == null)
                 return NotFound();
 
-            int currentMonth = DateTime.Now.Month;
+            var currentMonth = DateTime.Now.Month;
 
             var model = await _wasteService.GetQuarterForCurrentMonth(id.Value, currentMonth);
 
