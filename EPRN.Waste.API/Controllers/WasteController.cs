@@ -31,11 +31,5 @@ namespace EPRN.Waste.API.Controllers
             return await _wasteService.WasteSubTypes(wasteTypeid);
         }
 
-        [HttpGet]
-        [Route("QuarterlyDates")]
-        public async Task<Dictionary<int, string>> GetActiveQuarterlyDates(DateTime currentDate, bool hasSubmittedPreviousQuarterReturn)
-        {
-            return await _quarterlyDatesService.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
-        }
     }
 }

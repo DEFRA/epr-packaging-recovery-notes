@@ -36,7 +36,7 @@ namespace EPRN.Portal.Services
             return await _httpJourneyService.CreateJourney();
         }
 
-        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
+        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId)
         {
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
             var duringWhichMonthRequestViewModel = CreateDuringWhichMonthRequestViewModel(whatHaveYouDoneWaste);
@@ -53,10 +53,13 @@ namespace EPRN.Portal.Services
         
         private async void PopulateViewModel(DuringWhichMonthRequestViewModel viewModel, int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
+            // TODO -- Add has submitted qtr return this logic when available, true for now
+            const bool hasSubmittedPreviousQuarterReturn = true;
+            
             viewModel.JourneyId = journeyId;
             viewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
             viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
-            viewModel.Quarter = await _httpJourneyService.GetQuarterlyMonths(DateTime.Today);
+            viewModel.Quarter = await _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)

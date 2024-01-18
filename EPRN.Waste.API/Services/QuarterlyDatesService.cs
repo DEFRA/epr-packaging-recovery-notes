@@ -21,15 +21,17 @@ namespace EPRN.Waste.API.Services
                                   throw new ArgumentNullException(nameof(configSettings.Value.ReturnDeadlineDays));
         }
 
-        public async Task<Dictionary<int, string>> GetQuarterMonthsToDisplay(DateTime currentDate, bool hasSubmittedPreviousQuarterReturn)
+        public async Task<Dictionary<int, string>> GetQuarterMonthsToDisplay(int currentMonth, bool hasSubmittedPreviousQuarterReturn)
         {
             var monthsToDisplay = new List<int>();
             var quarterToReturn = new Dictionary<int, string>();
             
             // Overrides
-            if (_configSettings.Value.CurrentDateOverride.HasValue)
-                currentDate = _configSettings.Value.CurrentDateOverride.Value;
-            
+            if (_configSettings.Value.CurrentMonthOverride.HasValue)
+                currentMonth = _configSettings.Value.CurrentMonthOverride.Value;
+
+            DateTime currentDate = new(DateTime.Now.Year, currentMonth, DateTime.Now.Day);
+
             if (_configSettings.Value.HasSubmittedReturnOverride.HasValue)
                 hasSubmittedPreviousQuarterReturn = _configSettings.Value.HasSubmittedReturnOverride.Value;        
 

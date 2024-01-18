@@ -6,7 +6,7 @@ namespace EPRN.Portal.Services.Interfaces
     {
         Task<int> CreateJourney();
 
-        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth);
+        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 

@@ -2,6 +2,6 @@
 {
     public interface IQuarterlyDatesService
     {
-        Task<Dictionary<int, string>> GetQuarterMonthsToDisplay(DateTime currentDate, bool hasSubmittedPreviousQuarterReturn);
+        Task<Dictionary<int, string>> GetQuarterMonthsToDisplay(int currentMonth, bool hasSubmittedPreviousQuarterReturn);
     }
 }

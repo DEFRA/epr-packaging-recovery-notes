@@ -56,8 +56,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             int currentMonth = DateTime.Now.Month;
 
             _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(
-                It.Is<int>(id => id == journeyId),
-                It.Is<int>(month => month == currentMonth))).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+                It.Is<int>(id => id == journeyId))).ReturnsAsync(new DuringWhichMonthRequestViewModel());
 
             // Act
             var result = await _wasteController.DuringWhichMonth(journeyId);
@@ -190,7 +189,6 @@ namespace EPRN.UnitTests.Portal.Controllers
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel();
 
             _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(
-                It.IsAny<int>(),
                 It.IsAny<int>()))
                 .ReturnsAsync(new DuringWhichMonthRequestViewModel());
 

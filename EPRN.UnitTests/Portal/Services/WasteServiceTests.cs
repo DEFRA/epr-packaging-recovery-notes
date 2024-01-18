@@ -77,7 +77,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            int currentMonth = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
             string material = "testMaterial";
 
@@ -103,7 +102,7 @@ namespace EPRN.UnitTests.Portal.Services
             }
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -134,7 +133,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            int currentMonth = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
             string material = "testMaterial";
 
@@ -160,7 +158,7 @@ namespace EPRN.UnitTests.Portal.Services
             }
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);

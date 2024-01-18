@@ -9,9 +9,12 @@ namespace EPRN.Waste.API.Controllers
     [Route("api/[controller]/{journeyId}")]
     public class JourneyController : BaseController
     {
+        private readonly IQuarterlyDatesService _quarterlyDatesService;
+
         public JourneyController(
-            IJourneyService journeyService) : base(journeyService)
+            IJourneyService journeyService, IQuarterlyDatesService quarterlyDatesService) : base(journeyService)
         {
+            _quarterlyDatesService = quarterlyDatesService ?? throw new ArgumentNullException(nameof(quarterlyDatesService));
         }
 
         [HttpPost]
@@ -31,6 +34,13 @@ namespace EPRN.Waste.API.Controllers
                 return BadRequest("Journey ID is missing");
 
             return Ok(await _journeyService.GetWasteType(journeyId.Value));
+        }
+
+        [HttpGet]
+        [Route("QuarterlyDates/{currentDate}/{hasSubmittedPreviousQuarterReturn}")]
+        public async Task<Dictionary<int, string>> GetActiveQuarterlyDates(int? journeyId, int currentDate, bool hasSubmittedPreviousQuarterReturn)
+        {
+            return await _quarterlyDatesService.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
         }
 
         [HttpPost]

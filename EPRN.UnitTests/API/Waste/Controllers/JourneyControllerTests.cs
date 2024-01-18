@@ -3,11 +3,6 @@ using EPRN.Waste.API.Controllers;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPRN.UnitTests.API.Waste.Controllers
 {
@@ -21,7 +16,8 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         public void Init()
         {
             _mockJourneyService = new Mock<IJourneyService>();
-            _journeyController = new JourneyController(_mockJourneyService.Object);
+            var mockQuarterlyDatesService = new Mock<IQuarterlyDatesService>();
+            _journeyController = new JourneyController(_mockJourneyService.Object, mockQuarterlyDatesService.Object);
         }
 
         [TestMethod]

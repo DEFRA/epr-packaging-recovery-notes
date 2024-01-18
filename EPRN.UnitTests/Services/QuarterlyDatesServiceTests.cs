@@ -29,7 +29,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = new DateTime(DateTime.Now.Year, 1, 15); // Assuming the current date is within the first month of the first quarter
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.IsTrue(result.ContainsKey(1));
@@ -42,7 +42,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = new DateTime(DateTime.Now.Year, 2, 15); // Assuming the current date is within the first month of the first quarter
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.ContainsKey(1));           
@@ -57,7 +57,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = new DateTime(DateTime.Now.Year, 3, 15); // Assuming the current date is within the first month of the first quarter
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(3, result.Count);
             Assert.IsTrue(result.ContainsKey(1));           
@@ -74,7 +74,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = new DateTime(DateTime.Now.Year, 4, 15); // Assuming the current date is within the first month of the first quarter
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.IsTrue(result.ContainsKey(4));
@@ -87,7 +87,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = new DateTime(DateTime.Now.Year, 5, 15); // Assuming the current date is within the first month of the first quarter
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.ContainsKey(4));
@@ -102,7 +102,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = new DateTime(DateTime.Now.Year, 6, 15); // Assuming the current date is within the first month of the first quarter
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(3, result.Count);
             Assert.IsTrue(result.ContainsKey(4));
@@ -119,7 +119,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = DateTime.Now.AddMonths(1); // Updated
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.ContainsKey(1));
@@ -132,7 +132,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = DateTime.Now.AddMonths(4); // Updated
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(2, result.Count);
             Assert.IsTrue(result.ContainsKey(4));
@@ -144,7 +144,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = new DateTime(DateTime.Now.Year, 4, 15);
             var hasSubmittedPreviousQuarterReturn = false;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(3, result.Count);
             Assert.IsTrue(result.ContainsKey(1));
@@ -158,7 +158,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = DateTime.Now.AddMonths(5); // Updated
             var hasSubmittedPreviousQuarterReturn = true;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.IsTrue(result.ContainsKey(4));
@@ -170,7 +170,7 @@ namespace EPRN.UnitTests.Services
             var currentDate = DateTime.Now.AddMonths(5); // Updated
             var hasSubmittedPreviousQuarterReturn = false;
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
             Assert.AreEqual(1, result.Count);
             Assert.IsTrue(result.ContainsKey(4));

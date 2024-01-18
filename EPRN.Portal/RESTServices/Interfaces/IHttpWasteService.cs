@@ -8,5 +8,6 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task<IEnumerable<WasteTypeDto>> GetWasteMaterialTypes();
         
         Task<IEnumerable<WasteSubTypeDto>> GetWasteMaterialSubTypes(int wasteTypeId);
+
     }
 }
