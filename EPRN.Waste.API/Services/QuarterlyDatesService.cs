@@ -8,8 +8,8 @@ namespace EPRN.Waste.API.Services
 {
     public class QuarterlyDatesService : IQuarterlyDatesService
     {
-        private readonly List<int> _quarterStartMonths; // Changed to List<int>
-        private readonly List<int> _returnDeadlineDays; // Changed to List<int>
+        private readonly List<int> _quarterStartMonths; 
+        private readonly List<int> _returnDeadlineDays; 
         private readonly IOptions<AppConfigSettings> _configSettings;
         public QuarterlyDatesService(IOptions<AppConfigSettings> configSettings)
         {

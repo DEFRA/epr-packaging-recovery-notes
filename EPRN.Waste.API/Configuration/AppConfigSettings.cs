@@ -14,10 +14,7 @@ namespace EPRN.Waste.API.Configuration
         // ***** Test overrides
         // ***** Used to manipulate dates for test and QA purposes
         // ***** These will not contain values in production
-        
         public DateTime? CurrentDateOverride { get; set; }          
-        
-        public int? ActiveQuarterOverride { get; set; }    
         
         public bool? HasSubmittedReturnOverride { get; set; }
     }
