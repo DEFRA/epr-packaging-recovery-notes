@@ -165,10 +165,14 @@ namespace EPRN.Portal.Services.HomeServices
 
         private string GenerateUrl(int journeyId, string actionName)
         {
-            var url = UrlHelper.Action(actionName, "Waste", new { id = journeyId, rtap = "y" });
-
-            return url;
+            if (actionName == "SubTypes")
+            {
+                return UrlHelper.Action(actionName, "Waste", new { id = journeyId });
+            }
+            else
+            {
+                return UrlHelper.Action(actionName, "Waste", new { id = journeyId, rtap = "y" });
+            }
         }
-
     }
 }
