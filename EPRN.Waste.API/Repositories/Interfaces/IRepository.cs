@@ -1,5 +1,5 @@
-﻿using EPRN.Common.Data;
-using EPRN.Common.Data.DataModels;
+﻿using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 
 

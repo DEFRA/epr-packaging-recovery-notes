@@ -50,7 +50,10 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
             var result = await _prnController.Tonnes(id);
 
             // assert
-            _mockPrnService.Verify(s => s.GetTonnesViewModel(It.Is<int>(p => p == id)), Times.Once);
+            _mockPrnService.Verify(s => 
+                s.GetTonnesViewModel(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
 
@@ -105,7 +108,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
             var redirectResult = result as RedirectToActionResult;
             Assert.IsNotNull(redirectResult);
             Assert.AreEqual("Create", redirectResult.ActionName);
-            Assert.AreEqual("Prns", redirectResult.ControllerName);
+            Assert.AreEqual("PRNS", redirectResult.ControllerName);
             var routeValues = redirectResult.RouteValues.FirstOrDefault();
 
             Assert.IsNotNull(routeValues);
@@ -137,7 +140,10 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
             var result = await _prnController.Confirmation(id);
 
             // assert
-            _mockPrnService.Verify(s => s.GetConfirmation(It.Is<int>(p => p == id)), Times.Once);
+            _mockPrnService.Verify(s => 
+                s.GetConfirmation(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
 

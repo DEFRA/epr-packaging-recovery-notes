@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EPRN.Common.Enums;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.PRNS;
@@ -16,8 +18,9 @@ namespace EPRN.UnitTests.Portal.Services
         [TestInitialize]
         public void Init()
         {
-            _mockMapper = new Mock<IMapper>();
             _mockHttpPrnsService = new Mock<IHttpPrnsService>();
+            _mockMapper = new Mock<IMapper>();
+            
             _prnService = new PRNService(
                 _mockMapper.Object,
                 _mockHttpPrnsService.Object);
@@ -27,14 +30,18 @@ namespace EPRN.UnitTests.Portal.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public void PrnService_ThrowsException_WhenNoMapperSupplied()
         {
-            _prnService = new PRNService(null, _mockHttpPrnsService.Object);
+            _prnService = new PRNService(
+                null,
+                _mockHttpPrnsService.Object);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void PrnService_ThrowsException_WhenNoHttpPrnServiceSupplied()
         {
-            _prnService = new PRNService(_mockMapper.Object, null);
+            _prnService = new PRNService(
+                _mockMapper.Object,
+                null);
         }
 
         [TestMethod]
@@ -47,7 +54,10 @@ namespace EPRN.UnitTests.Portal.Services
             await _prnService.GetTonnesViewModel(id);
 
             // assert
-            _mockHttpPrnsService.Verify(s => s.GetPrnTonnage(It.Is<int>(p => p == id)), Times.Once);
+            _mockHttpPrnsService.Verify(s => 
+                s.GetPrnTonnage(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
         }
 
         [TestMethod]
@@ -79,6 +89,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // arrange
             var id = 3;
+            _mockHttpPrnsService.Setup(s => s.GetConfirmation(id)).ReturnsAsync(new Common.Dtos.ConfirmationDto());
 
             // act
             await _prnService.GetConfirmation(id);

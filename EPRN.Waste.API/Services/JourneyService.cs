@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data.DataModels;
 using EPRN.Common.Dtos;
-using EPRN.Common.Enums;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using DoneWaste = EPRN.Common.Enums.DoneWaste;
 
 
 namespace EPRN.Waste.API.Services
@@ -75,7 +75,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            var doneWaste = _mapper.Map<Common.Data.DoneWaste>(whatHaveYouDoneWaste);
+            var doneWaste = _mapper.Map<Common.Data.Enums.DoneWaste>(whatHaveYouDoneWaste);
             await _wasteRepository.UpdateJourneyDoneId(journeyId, doneWaste);
         }
 

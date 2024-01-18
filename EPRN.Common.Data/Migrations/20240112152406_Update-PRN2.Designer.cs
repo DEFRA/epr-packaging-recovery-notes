@@ -4,16 +4,19 @@ using EPRN.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EPRN.Common.Data.Migrations
+namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20240112152406_Update-PRN2")]
+    partial class UpdatePRN2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +32,6 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("datetime2");

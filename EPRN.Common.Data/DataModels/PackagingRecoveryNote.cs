@@ -1,13 +1,17 @@
-﻿namespace EPRN.Common.Data.DataModels
+﻿using EPRN.Common.Data.Enums;
+
+namespace EPRN.Common.Data.DataModels
 {
     public class PackagingRecoveryNote : BaseEntity
     {
-        public string Reference { get; set; }     
-      
+        public string Reference { get; set; }
+
         public string Note { get; set; }
 
         public int? WasteTypeId { get; set; }
-        
+
+        public Category Category { get; set; }
+
         public WasteType WasteType { get; set; }
 
         public int? WasteSubTypeId { get; set; }

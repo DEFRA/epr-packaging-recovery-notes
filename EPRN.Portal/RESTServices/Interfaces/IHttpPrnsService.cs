@@ -1,13 +1,22 @@
 ﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 
 namespace EPRN.Portal.RESTServices.Interfaces
 {
     public interface IHttpPrnsService
     {
-        Task<double?> GetPrnTonnage(int id);
+        Task<double?> GetPrnTonnage(
+            int id);
 
-        Task SaveTonnage(int id, double tonnage);
+        Task SaveTonnage(
+            int id,
+            double tonnage);
 
-        Task<ConfirmationDto> GetConfirmation(int id);
+        Task<ConfirmationDto> GetConfirmation(
+            int id);
+
+        Task<int> CreatePrnRecord(
+            int materialId,
+            Category category);
     }
 }
