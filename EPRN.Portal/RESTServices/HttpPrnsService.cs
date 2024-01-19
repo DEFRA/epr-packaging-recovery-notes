@@ -40,5 +40,16 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<ConfirmationDto>($"{id}/Confirmation");
         }
+
+        public async Task<CheckYourAnswersDto> GetCheckYourAnswers(
+            int id)
+        {
+            return await Get<CheckYourAnswersDto>($"{id}/check");
+        }
+
+        public async Task SaveCheckYourAnswers(int id)
+        {
+            await Post($"{id}/check");
+        }
     }
 }

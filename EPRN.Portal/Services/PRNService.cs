@@ -24,7 +24,7 @@ namespace EPRN.Portal.Services
         {
             return new TonnesViewModel
             {
-                JourneyId = id,
+                Id = id,
                 Tonnes = await _httpPrnsService.GetPrnTonnage(id)
             };
         }
@@ -33,7 +33,7 @@ namespace EPRN.Portal.Services
             TonnesViewModel tonnesViewModel)
         {
             await _httpPrnsService.SaveTonnage(
-                tonnesViewModel.JourneyId,
+                tonnesViewModel.Id,
                 tonnesViewModel.Tonnes.Value);
         }
 
@@ -84,6 +84,18 @@ namespace EPRN.Portal.Services
             {
                 Tables = listOfTables
             };
+        }
+
+        public async Task<CheckYourAnswersViewModel> GetCheckYourAnswersViewModel(int id)
+        {
+            var checkYourAnswersDto = await _httpPrnsService.GetCheckYourAnswers(id);
+
+            return _mapper.Map<CheckYourAnswersViewModel>(checkYourAnswersDto);
+        }
+
+        public async Task SaveCheckYourAnswers(int id)
+        {
+            await _httpPrnsService.SaveCheckYourAnswers(id);
         }
 
 

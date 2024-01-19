@@ -11,7 +11,8 @@ namespace EPRN.Portal.Controllers
         {
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
-        public async Task<IActionResult> Create()
+
+        public async Task<IActionResult> Create(int? id)
         {
             var viewModel = await _prnService.CreatePrnViewModel();
             return View(viewModel);

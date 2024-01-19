@@ -22,6 +22,8 @@ namespace EPRN.Common.Data.DataModels
 
         public int? SiteId { get; set; }
 
+        public PrnStatus Status { get; set; }
+
         public DateTime? CompletedDate { get; set; }
     }
 }

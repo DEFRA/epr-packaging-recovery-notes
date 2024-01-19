@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.PRNS;
@@ -68,7 +70,7 @@ namespace EPRN.UnitTests.Portal.Services
 
             var viewModel = new TonnesViewModel
             {
-                JourneyId = id,
+                Id = id,
                 Tonnes = tonnes,
             };
 

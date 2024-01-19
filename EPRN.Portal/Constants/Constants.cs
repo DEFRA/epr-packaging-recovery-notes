@@ -17,5 +17,12 @@ namespace EPRN.Portal.Constants
             public const string PRN = "PRN";
             public const string Returns = "Returns";          
         }
+
+        public static class QueryStrings
+        {
+            public const string ReturnToAnswers = "rtap";
+            public const string ReturnToAnswersYes = "y";
+
+        }
     }
 }
