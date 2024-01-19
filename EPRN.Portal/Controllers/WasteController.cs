@@ -14,8 +14,6 @@ namespace EPRN.Portal.Controllers
     [Route("[controller]/[action]/{id?}")]
     public class WasteController : BaseController
     {
-        private const string RedirectToAnswersPage = "redirectToAnswersPage";
-
         private readonly IWasteService _wasteService;
         private IHomeService _homeService;
 
@@ -28,7 +26,6 @@ namespace EPRN.Portal.Controllers
             if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
             _homeService = homeServiceFactory.CreateHomeService();
             if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
-
         }
 
         [HttpGet]
@@ -282,7 +279,7 @@ namespace EPRN.Portal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public IActionResult RedirectToPage(string actionName, int journeyId)
+        private IActionResult RedirectToPage(string actionName, int journeyId)
         {
             bool fromCheckYourAnswers = HttpContext.Request.Query[QueryStrings.ReturnToAnswers] == QueryStrings.ReturnToAnswersYes ? true : false;
 

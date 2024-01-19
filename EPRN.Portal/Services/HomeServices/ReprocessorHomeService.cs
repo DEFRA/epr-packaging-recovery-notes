@@ -17,9 +17,11 @@ namespace EPRN.Portal.Services.HomeServices
 {
     public class ReprocessorHomeService : BaseHomeService, IHomeService
     {
-        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService,
-            IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
-            : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
+        public ReprocessorHomeService(
+            IOptions<AppConfigSettings> configSettings,
+            IHttpJourneyService httpJourneyService,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor actionContextAccessor) : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
         {
         }
 
@@ -97,6 +99,10 @@ namespace EPRN.Portal.Services.HomeServices
                 throw new NullReferenceException(nameof(journeyDto));
 
             var viewModel = new CheckAnswersViewModel { JourneyId = journeyId, Completed = journeyDto.Completed };
+
+            if (journeyDto.WhatDoneWithWaste == null)
+                throw new NullReferenceException(nameof(journeyDto.WhatDoneWithWaste));
+
             var sections = journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString() ?
                 GetAnswerSectionsForWasteReceivedAndReprocessed(journeyDto, journeyId) :
                 GetAnswerSectionsForWasteSentOn(journeyDto, journeyId);

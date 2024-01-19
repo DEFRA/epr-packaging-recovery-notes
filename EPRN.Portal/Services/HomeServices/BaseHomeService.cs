@@ -16,8 +16,11 @@ namespace EPRN.Portal.Services
         protected IHttpJourneyService _httpJourneyService;
         protected IUrlHelper UrlHelper;
 
-        public BaseHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService,
-            IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
+        public BaseHomeService(
+            IOptions<AppConfigSettings> configSettings,
+            IHttpJourneyService httpJourneyService,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor actionContextAccessor)
         {
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
@@ -68,5 +71,6 @@ namespace EPRN.Portal.Services
 
         public abstract double? GetBaledWithWireDeductionPercentage();
 
-        public abstract Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId);    }
+        public abstract Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId);
+    }
 }
