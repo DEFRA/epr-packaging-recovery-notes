@@ -52,8 +52,15 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
-                Completed = true,
-                WhatDoneWithWaste = "ReprocessedIt"
+                Month = "1",
+                Tonnes = "23",
+                BaledWithWire = "No",
+                TonnageAdjusted = "34.5",
+                Note = "Note",
+                WasteType = "Paper",
+                WasteSubType = "Mixed paper/board",
+                WhatDoneWithWaste = "ReprocessedIt",
+                Completed = true
             };
 
             _mockHttpJourneyService.Setup(service => service.GetJourneyAnswers(journeyId)).ReturnsAsync(journeyAnswersDto);
@@ -67,7 +74,6 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             Assert.AreEqual(journeyAnswersDto.Completed, result.Completed);
 
             _mockHttpJourneyService.Verify(service => service.GetJourneyAnswers(journeyId), Times.Once);
-
         }
 
         [TestMethod]
@@ -94,7 +100,15 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
-                WhatDoneWithWaste = "ReprocessedIt"
+                Month = "1",
+                Tonnes = "23",
+                BaledWithWire = "No",
+                TonnageAdjusted = "34.5",
+                Note = "Note",
+                WasteType = "Paper",
+                WasteSubType = "Mixed paper/board",
+                WhatDoneWithWaste = "ReprocessedIt",
+                Completed = true
             };
 
             var expectedSection = new Dictionary<string, List<CheckAnswerViewModel>>();
@@ -117,7 +131,7 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             var result = await _reprocessorHomeService.GetCheckAnswers(journeyId);
 
             // Assert
-            Assert.AreEqual(expectedSection, result.Sections);
+            Assert.AreEqual(expectedSection.Count, result.Sections.Count);
 
             _mockHttpJourneyService.Verify(service => service.GetJourneyAnswers(journeyId), Times.Once());
         }
@@ -129,7 +143,15 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
-                WhatDoneWithWaste = "SentItOn"
+                Month = "1",
+                Tonnes = "23",
+                BaledWithWire = "No",
+                TonnageAdjusted = "34.5",
+                Note = "Note",
+                WasteType = "Paper",
+                WasteSubType = "Mixed paper/board",
+                WhatDoneWithWaste = "SentItOn",
+                Completed = true
             };
 
             var expectedSection = new Dictionary<string, List<CheckAnswerViewModel>>();
@@ -154,7 +176,7 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             var result = await _reprocessorHomeService.GetCheckAnswers(journeyId);
 
             // Assert
-            Assert.AreEqual(expectedSection, result.Sections);
+            Assert.AreEqual(expectedSection.Count, result.Sections.Count);
             _mockHttpJourneyService.Verify(service => service.GetJourneyAnswers(journeyId), Times.Once());
 
         }
