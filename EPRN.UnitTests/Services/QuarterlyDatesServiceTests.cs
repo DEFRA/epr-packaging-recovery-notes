@@ -31,9 +31,9 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(1, result.Count);
-            Assert.IsTrue(result.ContainsKey(1));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result[1]);
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[1]);
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterAndReturnSubmitted_ReturnsMonth_1_and_2_OfCurrentQuarter()
@@ -44,11 +44,11 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(2, result.Count);
-            Assert.IsTrue(result.ContainsKey(1));           
-            Assert.IsTrue(result.ContainsKey(2));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result[1]);           
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result[2]);
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));           
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[1]);           
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[2]);
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterAndReturnSubmitted_ReturnsMonth_1_and_2_and_3_OfCurrentQuarter()
@@ -59,13 +59,13 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(3, result.Count);
-            Assert.IsTrue(result.ContainsKey(1));           
-            Assert.IsTrue(result.ContainsKey(2));
-            Assert.IsTrue(result.ContainsKey(3));     
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-2).Month), result[1]);           
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result[2]);           
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result[3]);
+            Assert.AreEqual(3, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));           
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(3));     
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-2).Month), result.QuarterlyMonths[1]);           
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[2]);           
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[3]);
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarter_April_AndReturnSubmitted_ReturnsFirstMonthOfCurrentQuarter()
@@ -76,9 +76,9 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(1, result.Count);
-            Assert.IsTrue(result.ContainsKey(4));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result[4]);
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[4]);
         }
         [TestMethod]       
         public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterMayAndReturnSubmitted_ReturnsMonth_1_and_2_OfCurrentQuarter()
@@ -89,11 +89,11 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(2, result.Count);
-            Assert.IsTrue(result.ContainsKey(4));
-            Assert.IsTrue(result.ContainsKey(5));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result[4]);
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result[5]);
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(5));
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[4]);
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[5]);
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterJuneAndReturnSubmitted_ReturnsMonth_1_and_2_and_3_OfCurrentQuarter()
@@ -104,13 +104,13 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(3, result.Count);
-            Assert.IsTrue(result.ContainsKey(4));
-            Assert.IsTrue(result.ContainsKey(5));
-            Assert.IsTrue(result.ContainsKey(6));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-2).Month), result[4]);
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result[5]);
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result[6]);
+            Assert.AreEqual(3, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(5));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(6));
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-2).Month), result.QuarterlyMonths[4]);
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[5]);
+            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[6]);
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WithinCurrentQuarter_ReturnsCorrectMonths()
@@ -121,9 +121,9 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(2, result.Count);
-            Assert.IsTrue(result.ContainsKey(1));
-            Assert.IsTrue(result.ContainsKey(2));
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WithinReturnDeadlineAndPreviousQuarterReturnSubmitted_ReturnsMonth_1_and_2_OfCurrentQuarter()
@@ -134,8 +134,8 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(2, result.Count);
-            Assert.IsTrue(result.ContainsKey(4));
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WithinReturnDeadlineAndPreviousQuarterReturnNotSubmitted_ReturnsAllMonthsOfPreviousQuarter()
@@ -146,10 +146,10 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(3, result.Count);
-            Assert.IsTrue(result.ContainsKey(1));
-            Assert.IsTrue(result.ContainsKey(2));
-            Assert.IsTrue(result.ContainsKey(3));
+            Assert.AreEqual(3, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(3));
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_AfterReturnDeadlineAndPreviousQuarterReturnSubmitted_ReturnsFirstMonthOfCurrentQuarter()
@@ -160,8 +160,8 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(1, result.Count);
-            Assert.IsTrue(result.ContainsKey(4));
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
         }
         [TestMethod]
         public async Task GetQuarterMonthsToDisplay_AfterReturnDeadlineAndPreviousQuarterReturnNotSubmitted_ReturnsFirstMonthOfCurrentQuarter()
@@ -172,8 +172,8 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
             // Assert
-            Assert.AreEqual(1, result.Count);
-            Assert.IsTrue(result.ContainsKey(4));
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
         }
     }
 }

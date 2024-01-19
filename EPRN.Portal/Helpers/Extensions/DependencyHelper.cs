@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
-using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
 using EPRN.Portal.Profiles;
@@ -13,10 +11,11 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
+using EPRN.Common.Constants;
+using Strings = EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Helpers.Extensions
 {

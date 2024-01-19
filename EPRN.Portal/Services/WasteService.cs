@@ -60,10 +60,10 @@ namespace EPRN.Portal.Services
             
             var wasteTypeTask = _httpJourneyService.GetWasteType(journeyId);
             var quarterTask = _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
-            
+
             await Task.WhenAll(wasteTypeTask, quarterTask);
-            viewModel.WasteType = await wasteTypeTask;
-            viewModel.Quarter = await quarterTask;
+            viewModel.WasteType = wasteTypeTask.Result;
+            viewModel.Quarter = quarterTask.Result.QuarterlyMonths;
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)

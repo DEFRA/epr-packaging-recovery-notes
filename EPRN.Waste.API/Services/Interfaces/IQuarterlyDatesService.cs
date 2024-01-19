@@ -1,7 +1,9 @@
-﻿namespace EPRN.Waste.API.Services.Interfaces
+﻿using EPRN.Common.Dtos;
+
+namespace EPRN.Waste.API.Services.Interfaces
 {
     public interface IQuarterlyDatesService
     {
-        Task<Dictionary<int, string>> GetQuarterMonthsToDisplay(int currentMonth, bool hasSubmittedPreviousQuarterReturn);
+        Task<QuarterlyDatesDto> GetQuarterMonthsToDisplay(int currentMonth, bool hasSubmittedPreviousQuarterReturn);
     }
 }

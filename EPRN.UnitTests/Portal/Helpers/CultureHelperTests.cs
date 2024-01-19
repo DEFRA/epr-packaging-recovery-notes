@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using EPRN.Common.Constants;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Moq;
-using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers;
+
 
 namespace EPRN.UnitTests.Portal.Helpers
 {
