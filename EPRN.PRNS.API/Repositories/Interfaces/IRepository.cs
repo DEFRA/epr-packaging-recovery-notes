@@ -17,5 +17,9 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task UpdateTonnage(int id, double tonnes);
 
         Task<ConfirmationDto> GetConfirmation(int id);
+
+        Task<CheckYourAnswersDto> GetCheckYourAnswersData(int id);
+
+        Task UpdatePrnStatus(int id, PrnStatus status);
     }
 }

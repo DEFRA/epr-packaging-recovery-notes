@@ -17,5 +17,9 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task SaveTonnage(int id, double tonnage);
 
         Task<ConfirmationDto> GetConfirmation(int id);
+
+        Task<CheckYourAnswersDto> GetCheckYourAnswers(int id);
+
+        Task SaveCheckYourAnswers(int id);
     }
 }

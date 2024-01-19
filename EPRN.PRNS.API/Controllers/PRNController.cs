@@ -70,6 +70,31 @@ namespace EPRN.PRNS.API.Controllers
             return Ok(confirmationDto);
         }
 
+        [HttpGet]
+        [Route("Check")]
+        public async Task<IActionResult> CheckYourAnswers(
+            int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            var checkYourAnswersDto = await _prnService.GetCheckYourAnswers(id.Value);
+
+            return Ok(checkYourAnswersDto);
+        }
+
+        [HttpPost]
+        [Route("Check")]
+        public async Task<IActionResult> SaveCheckYourAnswersState(
+            int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            await _prnService.SaveCheckYourAnswers(id.Value);
+
+            return Ok();
+        }
 
         /// <summary>
         /// Ensures that for every request a check is made that the record exists

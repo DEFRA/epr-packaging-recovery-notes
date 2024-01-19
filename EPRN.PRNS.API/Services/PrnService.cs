@@ -46,5 +46,15 @@ namespace EPRN.PRNS.API.Services
         {
             return await _prnRepository.GetConfirmation(id);
         }
+
+        public async Task<CheckYourAnswersDto> GetCheckYourAnswers(int id)
+        {
+            return await _prnRepository.GetCheckYourAnswersData(id);
+        }
+
+        public async Task SaveCheckYourAnswers(int id)
+        {
+            await _prnRepository.UpdatePrnStatus(id, PrnStatus.CheckYourAnswersComplete);
+        }
     }
 }

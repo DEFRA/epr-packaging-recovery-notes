@@ -131,5 +131,71 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
                     It.Is<int>(p => p == id)), 
                 Times.Once);
         }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsBadRequest_WithNullParameter()
+        {
+            // arrange
+
+            // act
+            var result = await _prnController.CheckYourAnswers(null);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.GetCheckYourAnswers(It.IsAny<int>()),
+                Times.Never);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_CallsService_WithValidParameter()
+        {
+            // arrange
+            var id = 2;
+
+            // act
+            var result = await _prnController.CheckYourAnswers(id);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.GetCheckYourAnswers(It.Is<int>(p => p == id)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveCheckYourAnswersState_ReturnsBadRequest_WhenNullParameterSupplied()
+        {
+            // arrange
+
+            // act
+            var result = await _prnController.SaveCheckYourAnswersState(null);
+
+            // assert
+            _mockPrnService.Verify(s => 
+                s.SaveCheckYourAnswers(
+                    It.IsAny<int>()), 
+                Times.Never);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public async Task SaveCheckYourAnswersState_CallService_WithValidParameters()
+        {
+            // arrange
+            var id = 423;
+
+            // act
+            var result = await _prnController.SaveCheckYourAnswersState(id);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.SaveCheckYourAnswers(
+                    It.IsAny<int>()),
+                Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
     }
 }

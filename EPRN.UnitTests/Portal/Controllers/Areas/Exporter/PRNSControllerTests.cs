@@ -91,7 +91,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var tonnes = 5.7;
             var tonnesViewModel = new TonnesViewModel
             {
-                JourneyId = id,
+                Id = id,
                 Tonnes = tonnes,
             };
 
@@ -101,20 +101,20 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             // assert
             _mockPrnService.Verify(s =>
                 s.SaveTonnes(
-                    It.Is<TonnesViewModel>(p => p.JourneyId == id && p.Tonnes == tonnes)),
+                    It.Is<TonnesViewModel>(p => p.Id == id && p.Tonnes == tonnes)),
                 Times.Once());
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
 
             var redirectResult = result as RedirectToActionResult;
             Assert.IsNotNull(redirectResult);
-            Assert.AreEqual("Create", redirectResult.ActionName);
+            Assert.AreEqual("SentTo", redirectResult.ActionName);
             Assert.AreEqual("PRNS", redirectResult.ControllerName);
             var routeValues = redirectResult.RouteValues.FirstOrDefault();
 
             Assert.IsNotNull(routeValues);
             Assert.AreEqual("area", routeValues.Key);
-            Assert.AreEqual(string.Empty, routeValues.Value);
+            Assert.AreEqual(Category.Exporter, routeValues.Value);
         }
 
         [TestMethod]
@@ -152,6 +152,61 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
 
             // the view is the same as the action, therefore no name expected
             Assert.IsNull(viewResult.ViewName);
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsNotFound_WhenNoIdSupplied()
+        {
+            // arrange
+            
+            // act
+            var result = await _prnController.CheckYourAnswers((int?)null);
+
+            // assert
+            _mockPrnService.Verify(s => s.GetCheckYourAnswersViewModel(It.IsAny<int>()), Times.Never);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsViewResult_WhenValidParametersSupplied()
+        {
+            // arrange
+            var id = 402;
+
+            // act
+            var result = await _prnController.CheckYourAnswers(id);
+
+            // assert
+            _mockPrnService.Verify(s => 
+                s.GetCheckYourAnswersViewModel(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = (ViewResult)result;
+            Assert.IsNotNull(viewResult);
+            Assert.IsNull(viewResult.ViewName);
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_CallsService_WhenValidModelSupplied()
+        {
+            // arrange
+            var model = new CheckYourAnswersViewModel
+            {
+                Id = 4536
+            };
+
+            // act
+            await _prnController.CheckYourAnswers(model);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.SaveCheckYourAnswers(
+                    It.Is<int>(p => p == model.Id)),
+                Times.Once);
         }
     }
 }

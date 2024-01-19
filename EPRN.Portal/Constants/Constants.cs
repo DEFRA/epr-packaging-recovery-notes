@@ -16,5 +16,12 @@ namespace EPRN.Portal.Constants
             public const string Waste = "Waste";
             public const string PRN = "PRN";
         }
+
+        public static class QueryStrings
+        {
+            public const string ReturnToAnswers = "rtap";
+            public const string ReturnToAnswersYes = "y";
+
+        }
     }
 }

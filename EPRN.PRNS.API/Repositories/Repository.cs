@@ -28,7 +28,8 @@ namespace EPRN.PRNS.API.Repositories
             var prn = new PackagingRecoveryNote
             {
                 WasteTypeId = materialType,
-                Category = _mapper.Map<Category>(category)
+                Category = _mapper.Map<Category>(category),
+                Status = PrnStatus.Draft
             };
             
             _prnContext.Add(prn);
@@ -69,8 +70,42 @@ namespace EPRN.PRNS.API.Repositories
             return await _prnContext
                 .PRN
                 .Where(prn => prn.Id == id)
-                .Select(prn => _mapper.Map<ConfirmationDto>(prn))
+                .Select(prn => new ConfirmationDto
+                {
+                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ? 
+                        $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}" : prn.Reference,
+                    PrnComplete = prn.CompletedDate.HasValue && prn.CompletedDate.Value < DateTime.Now,
+                    CompanyNameSentTo = prn.SentTo ?? string.Empty
+                })
                 .SingleOrDefaultAsync();
+        }
+
+        public async Task<CheckYourAnswersDto> GetCheckYourAnswersData(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new CheckYourAnswersDto
+                {
+                    Id = prn.Id,
+                    MaterialName = prn.WasteTypeId.HasValue ? prn.WasteType.Name: string.Empty,
+                    Tonnage = prn.Tonnes,
+                    Notes = prn.Note,
+                    RecipientName = prn.SentTo
+                })
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task UpdatePrnStatus(
+            int id, 
+            Common.Enums.PrnStatus status)
+        {
+            await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .ExecuteUpdateAsync(sp =>
+                    sp.SetProperty(prn => prn.Status, _mapper.Map<PrnStatus>(status))
+                );
         }
     }
 }
