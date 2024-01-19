@@ -277,6 +277,42 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You neeed to submit your quarterly return by {0}.
+        /// </summary>
+        public static string QuarterlyReturnDue {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnDue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit this return.
+        /// </summary>
+        public static string QuarterlyReturnDueAction {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnDueAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your previous quarterly return Is now late.
+        /// </summary>
+        public static string QuarterlyReturnLate {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnLate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to submit this return.
+        /// </summary>
+        public static string QuarterlyReturnLateAction {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnLateAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Steel.
         /// </summary>
         public static string Steel {

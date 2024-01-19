@@ -189,6 +189,18 @@
   <data name="Plastic" xml:space="preserve">
     <value>Plastic</value>
   </data>
+  <data name="QuarterlyReturnDue" xml:space="preserve">
+    <value>You neeed to submit your quarterly return by {0}</value>
+  </data>
+  <data name="QuarterlyReturnDueAction" xml:space="preserve">
+    <value>Submit this return</value>
+  </data>
+  <data name="QuarterlyReturnLate" xml:space="preserve">
+    <value>Your previous quarterly return Is now late</value>
+  </data>
+  <data name="QuarterlyReturnLateAction" xml:space="preserve">
+    <value>You need to submit this return</value>
+  </data>
   <data name="Steel" xml:space="preserve">
     <value>Steel</value>
   </data>

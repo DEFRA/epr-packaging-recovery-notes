@@ -198,4 +198,16 @@
   <data name="Wood" xml:space="preserve">
     <value>[Welsh]Wood</value>
   </data>
+  <data name="QuarterlyReturnDue" xml:space="preserve">
+    <value>[Welsh]You neeed to submit your quarterly return by {0}</value>
+  </data>
+  <data name="QuarterlyReturnLate" xml:space="preserve">
+    <value>[Welsh]Your previous quarterly return Is now late</value>
+  </data>
+  <data name="QuarterlyReturnDueAction" xml:space="preserve">
+    <value>[Welsh]Submit this return</value>
+  </data>
+  <data name="QuarterlyReturnLateAction" xml:space="preserve">
+    <value>[Welsh]You need to submit this return</value>
+  </data>
 </root>
