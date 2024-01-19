@@ -3,6 +3,6 @@
     public class QuarterlyDatesDto
     {
         public Dictionary<int, string> QuarterlyMonths { get; set; }
-        public String NotificationMessage { get; set; }
+        public String Notification { get; set; }
     }
 }

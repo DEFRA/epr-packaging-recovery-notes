@@ -133,6 +133,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Important.
+        /// </summary>
+        public static string Important {
+            get {
+                return ResourceManager.GetString("Important", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to January.
         /// </summary>
         public static string Month1 {
@@ -277,7 +286,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You neeed to submit your quarterly return by {0}.
+        ///   Looks up a localized string similar to You neeed to submit your quarterly return by {date}.
         /// </summary>
         public static string QuarterlyReturnDue {
             get {

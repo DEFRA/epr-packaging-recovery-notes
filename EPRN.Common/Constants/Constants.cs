@@ -17,10 +17,16 @@ public static class Strings
         public const string PRN = "PRN";
         public const string Returns = "Returns";
     }
+    
+    public static class Notifications
+    {
+        public const string QuarterlyReturnDue = "QuarterlyReturnDue";
+        public const string QuarterlyReturnLate = "QuarterlyReturnLate";
+    }
+    
     public static class QueryStrings
     {
         public const string ReturnToAnswers = "rtap";
         public const string ReturnToAnswersYes = "y";
-
     }
 }

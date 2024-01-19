@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using EPRN.Common.Constants;
 using EPRN.Common.Dtos;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Services.Interfaces;
@@ -26,32 +27,36 @@ namespace EPRN.Waste.API.Services
             var quarterToReturn = new QuarterlyDatesDto
             {
                 QuarterlyMonths = new Dictionary<int, string>(),
-                NotificationMessage = "" // Initialize with an empty string or a default message
+                Notification = "" 
             };
+            
             // Overrides
             if (_configSettings.Value.CurrentMonthOverride.HasValue)
                 currentMonth = _configSettings.Value.CurrentMonthOverride.Value;
+            
             DateTime currentDate = new(DateTime.Now.Year, currentMonth, DateTime.Now.Day);
+            
             if (_configSettings.Value.HasSubmittedReturnOverride.HasValue)
                 hasSubmittedPreviousQuarterReturn = _configSettings.Value.HasSubmittedReturnOverride.Value;
+            
             var currentQuarter = GetCurrentQuarter(currentDate);
             var currentMonthInQuarter = GetCurrentMonthInQuarter(currentDate);
             var isWithinCurrentQuarter = IsWithinCurrentQuarter(currentDate, currentQuarter, currentMonthInQuarter);
             var isWithinReturnDeadline = IsWithinReturnDeadline(currentDate, currentQuarter);
+            
             if (isWithinCurrentQuarter && hasSubmittedPreviousQuarterReturn)
                 AddCurrentQuarterMonths(monthsToDisplay, currentQuarter, currentMonthInQuarter);
             else if (isWithinReturnDeadline)
-                HandleReturnDeadline(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn);
+                HandleReturnDeadline(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn, quarterToReturn);
             else
-                HandleLateReturn(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn);
+                HandleLateReturn(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn, quarterToReturn);
+            
             // Map month numbers to their names
             foreach (var month in monthsToDisplay)
                 quarterToReturn.QuarterlyMonths[month] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
-            // Set the NotificationMessage property based on your business logic
-            // quarterToReturn.NotificationMessage = "Your message here";
+            
             return quarterToReturn;
         }
-
 
         private static int GetCurrentQuarter(DateTime currentDate)
         {
@@ -76,7 +81,7 @@ namespace EPRN.Waste.API.Services
             DateTime returnDeadline = new(currentDate.Year, _quarterStartMonths[currentQuarter], _returnDeadlineDays[currentQuarter]);
             return currentDate <= returnDeadline;
         }
-        private  void HandleReturnDeadline(List<int> monthsToDisplay, int currentQuarter, bool hasSubmittedPreviousQuarterReturn)
+        private  void HandleReturnDeadline(List<int> monthsToDisplay, int currentQuarter, bool hasSubmittedPreviousQuarterReturn, QuarterlyDatesDto quarterToReturn)
         {
             // If the previous quarter return has been submitted, add the first month of the current quarter to the display
             if (hasSubmittedPreviousQuarterReturn)
@@ -85,8 +90,9 @@ namespace EPRN.Waste.API.Services
             {
                 // If the previous quarter return has not been submitted, add all the months of the previous quarter to the display
                 AddPreviousQuarterMonths(monthsToDisplay, currentQuarter);
-                // Display a warning message indicating that the return date is approaching
-                Console.WriteLine("Warning: Return date is approaching");
+                
+                // Warning message indicating that the return date is approaching
+                quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnDue;
             }
         }
 
@@ -94,10 +100,13 @@ namespace EPRN.Waste.API.Services
         {
             const int monthsInQuarter = 3;
             const int totalMonthsInYear = 12;
+            
             // Calculate the previous quarter
             var previousQuarter = (currentQuarter + 3 - 1) % 4;
+            
             // Get the start month of the previous quarter
             var startMonthOfPreviousQuarter = _quarterStartMonths[previousQuarter];
+            
             // Add the months of the previous quarter to the display
             for (var monthIndex = 0; monthIndex < monthsInQuarter; monthIndex++)
             {
@@ -106,25 +115,12 @@ namespace EPRN.Waste.API.Services
             }
         }
 
-
-        //private static void AddPreviousQuarterMonths(List<int> monthsToDisplay, int currentQuarter)
-        //{
-        //    const int monthsInQuarter = 3;
-        //    const int totalMonthsInYear = 12;
-        //    var previousQuarter = currentQuarter - 1;
-        //    for (var monthIndex = 1; monthIndex <= monthsInQuarter; monthIndex++)
-        //    {
-        //        var month = ((previousQuarter * monthsInQuarter + monthIndex - 1) % totalMonthsInYear) + 1;
-        //        monthsToDisplay.Add(month);
-        //    }
-        //}
-        private static void HandleLateReturn(List<int> monthsToDisplay, int currentQuarter, bool hasSubmittedPreviousQuarterReturn)
+        private static void HandleLateReturn(List<int> monthsToDisplay, int currentQuarter, bool hasSubmittedPreviousQuarterReturn, QuarterlyDatesDto quarterToReturn)
         {
             monthsToDisplay.Add((currentQuarter * 3) + 1);
-            if (!hasSubmittedPreviousQuarterReturn)
-            {
-                Console.WriteLine("Warning: Return is late");
-            }
+            
+            if (!hasSubmittedPreviousQuarterReturn) 
+                quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnLate;
         }
     }
 }

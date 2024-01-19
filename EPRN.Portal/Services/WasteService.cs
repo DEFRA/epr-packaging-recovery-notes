@@ -64,6 +64,7 @@ namespace EPRN.Portal.Services
             await Task.WhenAll(wasteTypeTask, quarterTask);
             viewModel.WasteType = wasteTypeTask.Result;
             viewModel.Quarter = quarterTask.Result.QuarterlyMonths;
+            viewModel.Notification = quarterTask.Result.Notification;
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
