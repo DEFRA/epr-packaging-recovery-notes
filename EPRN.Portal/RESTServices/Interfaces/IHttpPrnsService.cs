@@ -15,8 +15,14 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task<ConfirmationDto> GetConfirmation(
             int id);
 
+        Task<CheckYourAnswersDto> GetCheckYourAnswers(
+            int id);
+
         Task<int> CreatePrnRecord(
             int materialId,
             Category category);
+
+        Task SaveCheckYourAnswers(
+            int id);
     }
 }

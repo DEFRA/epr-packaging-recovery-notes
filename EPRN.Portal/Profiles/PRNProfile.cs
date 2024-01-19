@@ -9,6 +9,7 @@ namespace EPRN.Portal.Profiles
         public PRNProfile()
         {
             CreateMap<ConfirmationDto, ConfirmationViewModel>();
+            CreateMap<CheckYourAnswersDto, CheckYourAnswersViewModel>();
         }
     }
 }
