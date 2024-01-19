@@ -14,7 +14,7 @@ namespace EPRN.Waste.API.Migrations
                 name: "Category",
                 table: "WasteJourney",
                 type: "int",
-                nullable: true);
+                nullable: false);
         }
 
         /// <inheritdoc />

@@ -51,6 +51,6 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<string> GetWasteNote(int journeyId);
 
-        Task<Category?> GetCategory(int journeyId);
+        Task<Category> GetCategory(int journeyId);
     }
 }

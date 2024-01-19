@@ -217,7 +217,7 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<Category?> GetCategory(int journeyId)
+        public async Task<Category> GetCategory(int journeyId)
         {
             return await _wasteContext
                 .WasteJourney

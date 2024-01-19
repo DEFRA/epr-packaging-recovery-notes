@@ -45,6 +45,6 @@ namespace EPRN.Common.Data.DataModels
 
         public int? SiteId { get; set; }
 
-        public Category? Category { get; set; }
+        public Category Category { get; set; }
     }
 }
