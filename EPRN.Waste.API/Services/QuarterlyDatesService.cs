@@ -1,7 +1,6 @@
-﻿using System;
-using System.Globalization;
-using EPRN.Common.Constants;
+﻿using EPRN.Common.Constants;
 using EPRN.Common.Dtos;
+using EPRN.Common.Extensions;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
@@ -60,7 +59,7 @@ namespace EPRN.Waste.API.Services
             
             // Map month numbers to their names
             foreach (var month in monthsToDisplay)
-                quarterToReturn.QuarterlyMonths[month] = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+                quarterToReturn.QuarterlyMonths[month] = month.RadioButtonDateString(); //CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
             
             return quarterToReturn;
         }
@@ -97,12 +96,6 @@ namespace EPRN.Waste.API.Services
             var quarterStartDate = new DateTime(currentDate.Year, _quarterStartMonths[currentQuarter], 1);
             return currentDate <= quarterStartDate.AddMonths(currentMonthInQuarter);
         }
-
-        //private int GetCurrentQuarterStartMonth(int currentYear, int currentQuarter)
-        //{
-        //    var quarterStartDate = new DateTime(currentYear, _quarterStartMonths[currentQuarter], 1);
-        //    return quarterStartDate.Month;
-        //}
 
         private static void AddCurrentQuarterMonths(List<int> monthsToDisplay, int currentQuarter, int currentMonthInQuarter)
         {

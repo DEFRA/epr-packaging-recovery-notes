@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Reflection;
+using System.Resources;
+using AutoMapper;
 using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
@@ -63,9 +65,15 @@ namespace EPRN.Portal.Services
 
             await Task.WhenAll(wasteTypeTask, quarterTask);
             viewModel.WasteType = wasteTypeTask.Result;
-            viewModel.Quarter = quarterTask.Result.QuarterlyMonths;
+            //viewModel.Quarter = quarterTask.Result.QuarterlyMonths;
             viewModel.Notification = quarterTask.Result.Notification;
-            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToShortDateString();           
+            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToShortDateString();
+
+            var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
+                Assembly.GetExecutingAssembly());
+            
+            foreach (var itemMonth in quarterTask.Result.QuarterlyMonths) 
+                viewModel.Quarter.Add(itemMonth.Key, rm.GetString(itemMonth.Value));
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)

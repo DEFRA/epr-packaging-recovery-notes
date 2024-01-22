@@ -8,7 +8,7 @@ namespace EPRN.Portal.ViewModels.Waste
     {
         public int JourneyId { get; set; }
 
-        public Dictionary<int, string> Quarter { get; set; } = new Dictionary<int, string>();
+        public Dictionary<int, string> Quarter { get; set; } = new();
 
         public string WasteType { get; set; }
 
