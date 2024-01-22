@@ -39,5 +39,7 @@ namespace EPRN.Waste.API.Services.Interfaces
 
         Task<string> GetWasteRecordNote(int journeyId);
         Task<BaledWithWireDto> GetBaledWithWire(int journeyId);
+
+        Task<object?> GetCategory(int journeyId);
     }
 }

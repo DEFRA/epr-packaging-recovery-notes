@@ -27,6 +27,8 @@ namespace EPRN.Waste.API.Repositories.Interfaces
             int subTypeId,
             double adjustment);
 
+        Task UpdateJourneyCategory(int journeyId, Category category);
+
         Task<IList<WasteTypeDto>> GetAllWasteTypes();
 
         Task<IList<WasteSubTypeDto>> GetWasteSubTypes(int wasteTypeId);
@@ -48,5 +50,7 @@ namespace EPRN.Waste.API.Repositories.Interfaces
         Task<bool> Exists(int journeyId);
 
         Task<string> GetWasteNote(int journeyId);
+
+        Task<Category> GetCategory(int journeyId);
     }
 }

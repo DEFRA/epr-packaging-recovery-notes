@@ -37,6 +37,7 @@ namespace EPRN.Portal.Services
 
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
         {
+            var category = await _httpJourneyService.GetCategory(journeyId);
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
 
             var duringWhichMonthRequestViewModel = default(DuringWhichMonthRequestViewModel);
@@ -53,7 +54,7 @@ namespace EPRN.Portal.Services
             duringWhichMonthRequestViewModel.JourneyId = journeyId;
             duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
             duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
-
+            duringWhichMonthRequestViewModel.Category = category;
 
             int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));

@@ -15,6 +15,8 @@ namespace EPRN.Portal.ViewModels.Waste
         public DoneWaste WhatHaveYouDone { get; set; }
 
         public virtual int? SelectedMonth { get; set; }
+
+        public Category Category { get; set; }
     }
 
     // Class to be returned to the view if the DoneWaste enum returns ReprocessedIt and handles the error message correctly

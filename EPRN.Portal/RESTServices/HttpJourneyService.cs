@@ -104,5 +104,9 @@ namespace EPRN.Portal.RESTServices
             return await Get<string?>($"{journeyId}/Note");
         }
 
+        public async Task<Category> GetCategory(int journeyId)
+        {
+            return (Category)await Get<Category?>($"{journeyId}/Category");
+        }
     }
 }

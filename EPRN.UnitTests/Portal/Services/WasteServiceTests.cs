@@ -495,5 +495,62 @@ namespace EPRN.UnitTests.Portal.Services
 
         #endregion
 
+        #region Category
+
+        [TestMethod]
+        public async Task GetCategory_Exporter()
+        {
+            // Arrange
+            int journeyId = 3;
+            int currentMonth = 5;
+            
+            DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
+            {
+                JourneyId = journeyId,
+                Category = Category.Exporter
+            };
+
+            _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Exporter);
+
+            // Act
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+ 
+            Assert.AreEqual(journeyId, viewModel.JourneyId);
+            Assert.AreEqual(viewModel.Category, Category.Exporter);
+
+            _mockHttpJourneyService.Verify(service => service.GetCategory(It.Is<int>(id => id == journeyId)), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task GetCategory_Reprocessor()
+        {
+            // Arrange
+            int journeyId = 3;
+            int currentMonth = 5;
+
+            DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
+            {
+                JourneyId = journeyId,
+                Category = Category.Reprocessor
+            };
+
+            _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Reprocessor);
+
+            // Act
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+
+            Assert.AreEqual(journeyId, viewModel.JourneyId);
+            Assert.AreEqual(viewModel.Category, Category.Reprocessor);
+
+            _mockHttpJourneyService.Verify(service => service.GetCategory(It.Is<int>(id => id == journeyId)), Times.Once());
+        }
+
+        #endregion
     }
 }
