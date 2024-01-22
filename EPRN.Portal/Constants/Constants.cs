@@ -24,5 +24,4 @@ namespace EPRN.Portal.Constants
 
         }
     }
-
 }

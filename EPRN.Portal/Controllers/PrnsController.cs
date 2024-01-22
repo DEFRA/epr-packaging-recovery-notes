@@ -5,15 +5,16 @@ namespace EPRN.Portal.Controllers
 {
     public class PrnsController : BaseController
     {
-        private readonly IPRNService _PRNService;
+        private readonly IPRNService _prnService;
 
-        public PrnsController(IPRNService PRNService)
+        public PrnsController(IPRNService prnService)
         {
-            _PRNService = PRNService;
+            _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
-        public async Task<IActionResult> Create()
+
+        public async Task<IActionResult> Create(int? id)
         {
-            var viewModel = await _PRNService.CreatePrnViewModel();
+            var viewModel = await _prnService.CreatePrnViewModel();
             return View(viewModel);
         }
     }

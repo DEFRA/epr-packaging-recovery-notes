@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EPRN.Common.Data.DataModels;
+using EPRN.Common.Enums;
 using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services;
@@ -48,11 +50,18 @@ namespace EPRN.UnitTests.API.PRNS.Services
         public async Task CreatePrnRecord_CallsServiceMethod()
         {
             // Arrange
+            var materialId = 3;
+            var category = Category.Exporter;
+
             // Act
-            await _prnService.CreatePrnRecord();
+            await _prnService.CreatePrnRecord(materialId, category);
 
             // Assert
-            _mockRepository.Verify(s => s.CreatePrnRecord(), Times.Once());
+            _mockRepository.Verify(s => 
+                s.CreatePrnRecord(
+                    It.Is<int>(p => p == materialId), 
+                    It.Is<Category>(p => p == category)), 
+                Times.Once);
         }
 
         [TestMethod]
@@ -68,7 +77,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             _mockRepository.Verify(s => 
                 s.GetTonnage(
                     It.Is<int>(p => p == id)), 
-                Times.Once());
+                Times.Once);
         }
 
         [TestMethod]
@@ -86,7 +95,40 @@ namespace EPRN.UnitTests.API.PRNS.Services
                 s.UpdateTonnage(
                     It.Is<int>(p => p == id),
                     It.Is<double>(p => p == tonnage)), 
-                Times.Once());
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetCheckYourAnswers_CallsServiceMethod()
+        {
+            // Arrange
+            var id = 6;
+
+            // Act
+            await _prnService.GetCheckYourAnswers(id);
+
+            // Assert
+            _mockRepository.Verify(s =>
+                s.GetCheckYourAnswersData(
+                    It.Is<int>(p => p == id)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveCheckYourAnswers_CallsService_WithComplete()
+        {
+            // arrange
+            var id = 342;
+
+            // act
+            await _prnService.SaveCheckYourAnswers(id);
+
+            // assert
+            _mockRepository.Verify(s =>
+                s.UpdatePrnStatus(
+                    It.Is<int>(p => p == id),
+                    It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete)),
+                Times.Once);
         }
     }
 }

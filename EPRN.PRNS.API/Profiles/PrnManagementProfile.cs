@@ -6,7 +6,9 @@ namespace EPRN.PRNS.API.Profiles
     {
         public PrnManagementProfile()
         {
-           // Create Maps
+            // Create Maps
+            CreateMap<Common.Enums.Category, Common.Data.Enums.Category>();
+            CreateMap<Common.Enums.PrnStatus, Common.Data.Enums.PrnStatus>();
         }
     }
 }

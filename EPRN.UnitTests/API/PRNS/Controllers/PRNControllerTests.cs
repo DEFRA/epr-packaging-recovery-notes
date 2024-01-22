@@ -15,13 +15,13 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
     public class PRNControllerTests
     {
         private PRNController _prnController;
-        private Mock<IPrnService> _prnService;
+        private Mock<IPrnService> _mockPrnService;
 
         [TestInitialize]
         public void Init()
         {
-            _prnService = new Mock<IPrnService>();
-            _prnController = new PRNController(_prnService.Object);
+            _mockPrnService = new Mock<IPrnService>();
+            _prnController = new PRNController(_mockPrnService.Object);
         }
 
         [TestMethod]
@@ -46,7 +46,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            _prnService.Verify(s => s.GetTonnage(It.Is<int>(p => p == id)), Times.Once());
+            _mockPrnService.Verify(s => s.GetTonnage(It.Is<int>(p => p == id)), Times.Once());
         }
 
         [TestMethod]
@@ -74,7 +74,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            _prnService.Verify(s => s.SaveTonnage(It.Is<int>(p => p == id), It.Is<double>(p => p == tonnage)), Times.Once());
+            _mockPrnService.Verify(s => s.SaveTonnage(It.Is<int>(p => p == id), It.Is<double>(p => p == tonnage)), Times.Once());
         }
 
         [TestMethod]
@@ -101,6 +101,101 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public async Task GetConfirmation_ReturnsBadRequest_WhenNoIdSupplied()
+        {
+            // Arragne
+
+            // Act
+            var result = await _prnController.GetConfirmation(null);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public async Task GetConfirmation_Succeeds_WhenParametersProvided()
+        {
+            // arrange
+            var id = 4;
+
+            // act
+            await _prnController.GetConfirmation(id);
+
+            // assert
+            _mockPrnService.Verify(s => 
+                s.GetConfirmation(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsBadRequest_WithNullParameter()
+        {
+            // arrange
+
+            // act
+            var result = await _prnController.CheckYourAnswers(null);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.GetCheckYourAnswers(It.IsAny<int>()),
+                Times.Never);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_CallsService_WithValidParameter()
+        {
+            // arrange
+            var id = 2;
+
+            // act
+            var result = await _prnController.CheckYourAnswers(id);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.GetCheckYourAnswers(It.Is<int>(p => p == id)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveCheckYourAnswersState_ReturnsBadRequest_WhenNullParameterSupplied()
+        {
+            // arrange
+
+            // act
+            var result = await _prnController.SaveCheckYourAnswersState(null);
+
+            // assert
+            _mockPrnService.Verify(s => 
+                s.SaveCheckYourAnswers(
+                    It.IsAny<int>()), 
+                Times.Never);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (BadRequestObjectResult));
+        }
+
+        [TestMethod]
+        public async Task SaveCheckYourAnswersState_CallService_WithValidParameters()
+        {
+            // arrange
+            var id = 423;
+
+            // act
+            var result = await _prnController.SaveCheckYourAnswersState(id);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.SaveCheckYourAnswers(
+                    It.IsAny<int>()),
+                Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
         }
     }
 }

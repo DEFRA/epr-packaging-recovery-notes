@@ -1,5 +1,8 @@
-﻿using EPRN.Common.Data;
+﻿using AutoMapper;
+using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
+using EPRN.Common.Dtos;
 using EPRN.Waste.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,10 +10,14 @@ namespace EPRN.Waste.API.Repositories
 {
     public class Repository : IRepository
     {
+        private readonly IMapper _mapper;
         private readonly EPRNContext _wasteContext;
 
-        public Repository(EPRNContext eprnContext)
+        public Repository(
+            IMapper mapper,
+            EPRNContext eprnContext)
         {
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _wasteContext = eprnContext ?? throw new ArgumentNullException(nameof(eprnContext));
         }
 
@@ -99,18 +106,20 @@ namespace EPRN.Waste.API.Repositories
             await _wasteContext.SaveChangesAsync();
         }
 
-        public async Task<IList<WasteType>> GetAllWasteTypes()
+        public async Task<IList<WasteTypeDto>> GetAllWasteTypes()
         {
             return await _wasteContext
                 .WasteType
+                .Select(wt => _mapper.Map<WasteTypeDto>(wt))
                 .ToListAsync();
         }
 
-        public async Task<IList<WasteSubType>> GetWasteSubTypes(int wasteTypeId)
+        public async Task<IList<WasteSubTypeDto>> GetWasteSubTypes(int wasteTypeId)
         {
             return await _wasteContext
                 .WasteSubType
                 .Where(st => st.WasteTypeId == wasteTypeId)
+                .Select(wst => _mapper.Map<WasteSubTypeDto>(wst))
                 .ToListAsync();
         }
 
@@ -132,12 +141,16 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteJourney> GetWasteSubTypeSelection(int journeyId)
+        public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
         {
             return await _wasteContext
                 .WasteJourney
-                .Include(wj => wj.WasteSubType)
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == journeyId && wj.WasteSubTypeId.HasValue)
+                .Select(wj => new WasteSubTypeSelectionDto
+                {
+                    WasteSubTypeId = wj.WasteSubTypeId.Value,
+                    Adjustment = wj.WasteSubType.AdjustmentPercentageRequired ? wj.Adjustment : null
+                })
                 .SingleOrDefaultAsync();
         }
         public async Task<int?> GetSelectedMonth(int journeyId)
@@ -166,11 +179,21 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteJourney> GetWasteJourneyById(int journeyId)
+        public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(w => w.Id == journeyId)
+                .Select(w => _mapper.Map<WasteRecordStatusDto>(w))
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Where(w => w.Id == journeyId)
+                .Select(w => _mapper.Map<BaledWithWireDto>(w))
                 .SingleOrDefaultAsync();
         }
 

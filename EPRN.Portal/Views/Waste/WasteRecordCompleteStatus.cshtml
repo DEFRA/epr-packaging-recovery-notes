@@ -3,10 +3,6 @@
 @{
     ViewData["Title"] = @WasteRecordCompleteResources.HomePage_Title;
 }
-
-<div>
-    <a asp-controller="Home" asp-action="Index">@WasteRecordCompleteResources.BackLink</a>
-</div>
 <br />
 
 <div class="govuk-panel govuk-panel--confirmation">
@@ -19,10 +15,12 @@
 </div>
 
 <div class="text-center">
-    <span class="govuk-body govuk-!-font-weight-bold">@WasteRecordCompleteResources.WhatToDoNext</span><br /><br />
-    <span class="govuk-caption-m">@WasteRecordCompleteResources.AccountIsActive <a asp-action="Index">@WasteRecordCompleteResources.AccountLink</a></span><br />
-    <span class="govuk-caption-m">@WasteRecordCompleteResources.WasteBalance @Model.WasteBalance @WasteRecordCompleteResources.WasteBalance2</span><br />
+    <span class="govuk-caption-m">@WasteRecordCompleteResources.WasteBalance <b>@Model.WasteBalance</b> @WasteRecordCompleteResources.WasteBalance2</span><br />
+    <span class="govuk-caption-m"><a asp-action="Index">@WasteRecordCompleteResources.RecordMoreWaste</a></span><br />
+    <span class="govuk-caption-m"><a asp-action="Index">@WasteRecordCompleteResources.ViewEditDownloadOrDeleteWasteRecords</a></span><br />
+    <span class="govuk-caption-m"><a asp-action="Index">@WasteRecordCompleteResources.GoToAccountHomePage</a></span><br />
 </div>
+
 <br />
 
 <button class="govuk-button" data-module="govuk-button">

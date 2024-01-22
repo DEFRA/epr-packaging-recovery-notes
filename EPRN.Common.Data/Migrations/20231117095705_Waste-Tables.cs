@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System.Reflection;
 
 #nullable disable
 
@@ -10,7 +11,18 @@ namespace EPRN.Common.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            using StreamReader reader = new StreamReader(File.OpenRead(".\\Migrations\\LoadSQL\\waste-types.sql"));
+            var assembly = Assembly.Load("EPRN.Common.Data");
+
+            if (assembly == null)
+                throw new NullReferenceException("No assembly loaded");
+
+            string assemblyNamespace = "EPRN.Common.Data";
+            string resourcePath = "Migrations.LoadSQL.waste-types.sql";
+            string path = $"{assemblyNamespace}.{resourcePath}";
+
+            using var stream = assembly.GetManifestResourceStream(path);
+
+            using StreamReader reader = new StreamReader(stream);
 
             migrationBuilder.DropTable(
                 name: "DefaultTable");

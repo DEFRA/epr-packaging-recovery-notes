@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
@@ -71,36 +72,34 @@ namespace EPRN.Portal.Helpers.Extensions
                 .AddTransient<IHomeService, ExporterHomeService>()
                 .AddTransient<IHomeService, ReprocessorHomeService>()
                 .AddTransient<IHomeServiceFactory, HomeServiceFactory>()
-                .AddTransient<IPRNService, PRNService>()
                 .AddSingleton<IUserRoleService, UserRoleService>() // must be available through lifetime of the system
                 .AddSingleton<BackButtonViewModel>()
                 .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
                 .AddTransient<IHttpWasteService>(s =>
-                {
                     // create a new http service using the configuration for restful services and a http client factory
-                    return new HttpWasteService(
+                    new HttpWasteService(
                         s.GetRequiredService<IHttpContextAccessor>(),
                         s.GetRequiredService<IHttpClientFactory>(),
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
-                        Strings.ApiEndPoints.Waste);
-                })
+                        Strings.ApiEndPoints.Waste)
+                )
                 .AddTransient<IHttpJourneyService>(s =>
-                {
                     // create a new http service using the configuration for restful services and a http client factory
-                    return new HttpJourneyService(
+                    new HttpJourneyService(
                         s.GetRequiredService<IHttpContextAccessor>(),
                         s.GetRequiredService<IHttpClientFactory>(),
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
-                        Strings.ApiEndPoints.Journey);
-                })
+                        Strings.ApiEndPoints.Journey)
+                )
+
                 .AddTransient<IHttpPrnsService>(s =>
-                {
-                    return new HttpPrnsService(
+                    new HttpPrnsService(
                         s.GetRequiredService<IHttpContextAccessor>(),
                         s.GetRequiredService<IHttpClientFactory>(),
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
-                        Strings.ApiEndPoints.PRN);
-                });
+                        Strings.ApiEndPoints.PRN)
+                )
+                .AddTransient<IPRNService, PRNService>();
 
             services.AddScoped<IUrlHelper>(x => {
                 var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
@@ -121,6 +120,7 @@ namespace EPRN.Portal.Helpers.Extensions
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new WasteManagementProfile());
+                mc.AddProfile(new PRNProfile());
                 mc.AllowNullCollections = true;
             });
 

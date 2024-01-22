@@ -5,7 +5,7 @@ namespace EPRN.Portal.ViewModels.PRNS
 {
     public class TonnesViewModel
     {
-        public int JourneyId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         [Range(0, 1000000, ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "TonnesNotInRange")]

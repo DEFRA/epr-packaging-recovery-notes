@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services.Interfaces;
 
@@ -17,9 +19,11 @@ namespace EPRN.PRNS.API.Services
             _prnRepository = prnRepository ?? throw new ArgumentNullException(nameof(prnRepository));
         }
 
-        public async Task<int> CreatePrnRecord()
+        public async Task<int> CreatePrnRecord(
+            int materialId,
+            Category category)
         {
-            return await _prnRepository.CreatePrnRecord();
+            return await _prnRepository.CreatePrnRecord(materialId, category);
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -27,7 +31,8 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetTonnage(id);
         }
 
-        public async Task<bool> PrnRecordExists(int id)
+        public async Task<bool> PrnRecordExists(
+            int id)
         {
             return await _prnRepository.PrnExists(id);
         }
@@ -35,6 +40,21 @@ namespace EPRN.PRNS.API.Services
         public async Task SaveTonnage(int id, double tonnage)
         {
             await _prnRepository.UpdateTonnage(id, tonnage);
+        }
+
+        public async Task<ConfirmationDto> GetConfirmation(int id)
+        {
+            return await _prnRepository.GetConfirmation(id);
+        }
+
+        public async Task<CheckYourAnswersDto> GetCheckYourAnswers(int id)
+        {
+            return await _prnRepository.GetCheckYourAnswersData(id);
+        }
+
+        public async Task SaveCheckYourAnswers(int id)
+        {
+            await _prnRepository.UpdatePrnStatus(id, PrnStatus.CheckYourAnswersComplete);
         }
     }
 }
