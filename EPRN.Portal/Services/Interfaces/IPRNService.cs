@@ -18,5 +18,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task<CheckYourAnswersViewModel> GetCheckYourAnswersViewModel(int id);
 
         Task SaveCheckYourAnswers(int id);
+
+        Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id);
     }
 }

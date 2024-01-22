@@ -17,5 +17,15 @@ namespace EPRN.Portal.Controllers
             var viewModel = await _prnService.CreatePrnViewModel();
             return View(viewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
+            return View(viewModel);
+        }
     }
 }

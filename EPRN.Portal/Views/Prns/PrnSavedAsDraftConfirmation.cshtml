@@ -1,0 +1,25 @@
+﻿@model PrnSavedAsDraftViewModel
+
+@{
+    ViewData["Title"] = @ConfirmationResources.PERNPageTitle;
+}
+
+<div class="govuk-panel govuk-panel--confirmation">
+    <h1 class="govuk-panel__title">
+        PRN saved as a draft
+    </h1>
+    <div class="govuk-panel__body">
+        <label>PRN number</label>
+        <br />
+        <strong>@Model.PrnNumber</strong>
+    </div>
+</div>
+<br/>
+<div>
+    <a class="govuk-button govuk-!-margin-right-4" data-module="govuk-button" href="#">
+        View draft PRNs
+    </a>
+    <a class="govuk-button govuk-button--secondary" data-module="govuk-button" href="#">
+        Create another PRN
+    </a>
+</div>

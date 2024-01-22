@@ -125,5 +125,14 @@ namespace EPRN.Portal.Services
                 Rows = rows
             };
         }
+
+        public async Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id)
+        {
+            return new PrnSavedAsDraftViewModel
+            {
+                Id = id,
+                PrnNumber = "PRN222019EFGF",
+            };
+        }
     }
 }
