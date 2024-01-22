@@ -152,8 +152,6 @@ namespace EPRN.Waste.API.Services
             }
         }
         
-
-
         private static void HandleLateReturn(List<int> monthsToDisplay, int currentQuarter, bool hasSubmittedPreviousQuarterReturn, QuarterlyDatesDto quarterToReturn)
         {
             monthsToDisplay.Add((currentQuarter * 3) + 1);
