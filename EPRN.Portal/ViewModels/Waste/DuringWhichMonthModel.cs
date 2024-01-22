@@ -17,6 +17,8 @@ namespace EPRN.Portal.ViewModels.Waste
         public virtual int? SelectedMonth { get; set; }
 
         public string Notification { get; set; }
+  
+        public string NotificationDeadlineDate { get; set; }
     }
 
     // Class to be returned to the view if the DoneWaste enum returns ReprocessedIt and handles the error message correctly

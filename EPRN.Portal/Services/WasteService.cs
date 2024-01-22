@@ -65,6 +65,7 @@ namespace EPRN.Portal.Services
             viewModel.WasteType = wasteTypeTask.Result;
             viewModel.Quarter = quarterTask.Result.QuarterlyMonths;
             viewModel.Notification = quarterTask.Result.Notification;
+            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToShortDateString();           
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
