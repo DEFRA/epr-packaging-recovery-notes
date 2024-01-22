@@ -4,16 +4,18 @@
 
 @{
     string heading;
-    if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
-    {
-        ViewData["Title"] = @WhichQuarterResources.PageTitleReceived;
-        heading = WhichQuarterResources.HeadingReceived;
-    }
-    else
+    string hintText;
+    @if (@Model.Category == Category.Reprocessor)
     {
         ViewData["Title"] = @WhichQuarterResources.PageTitleSent;
         heading = WhichQuarterResources.HeadingSent;
-
+        hintText = WhichQuarterResources.HintTextSent;
+    }
+    else
+    {
+        ViewData["Title"] = @WhichQuarterResources.PageTitleReceived;
+        heading = WhichQuarterResources.HeadingReceived;
+        hintText = WhichQuarterResources.HintTextReceived;
     }
 }
 
@@ -27,7 +29,7 @@
     </span>
     <radios asp-for="SelectedMonth" asp-title="@heading">
         <div class="govuk-hint">
-            @WhichQuarterResources.HintText
+            @hintText
         </div>
 
         <p class="govuk-error-message">

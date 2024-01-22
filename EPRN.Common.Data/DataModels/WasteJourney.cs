@@ -44,5 +44,7 @@ namespace EPRN.Common.Data.DataModels
         public double? BaledWithWireDeductionPercentage { get; set; }
 
         public int? SiteId { get; set; }
+
+        public Category Category { get; set; }
     }
 }
