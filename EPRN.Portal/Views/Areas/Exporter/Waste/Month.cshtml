@@ -11,12 +11,12 @@
 
         if (Model.Notification == Strings.Notifications.QuarterlyReturnDue)
         {
-            notificationVm.PrimaryMessage = $"{WhichQuarterResources.QuarterlyReturnDue} {@Model.NotificationDeadlineDate}";
+            notificationVm.PrimaryMessage = $"{WhichQuarterResources.QuarterlyReturnDue} {Model.NotificationDeadlineDate}";
             notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnDueAction;
         }
         else if (Model.Notification == Strings.Notifications.QuarterlyReturnLate)
         {
-            notificationVm.PrimaryMessage = $"{WhichQuarterResources.QuarterlyReturnLate} {@Model.Quarter[0]}";
+            notificationVm.PrimaryMessage = WhichQuarterResources.QuarterlyReturnLate;
             notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnLateAction;
         }
 

@@ -48,13 +48,13 @@ namespace EPRN.Waste.API.Services
             var currentQuarter = GetCurrentQuarter(currentDate);
             var currentMonthInQuarter = GetCurrentMonthInQuarter(currentDate);
             var isWithinCurrentQuarter = IsWithinCurrentQuarter(currentDate, currentQuarter, currentMonthInQuarter);
-            var isWithinReturnDeadline = IsWithinReturnDeadline(currentDate, currentQuarter);
-            var previousQuarterDeadline = GetPreviousQuarterDeadline(currentQuarter, currentDate.Year);
+            var previousQuarterDeadline = GetPreviousQuarterDeadline(currentQuarter, currentDate.Year, currentMonth);
+            var isWithinReturnDeadline = IsWithinReturnDeadline(currentDate, previousQuarterDeadline);           
             
             if (isWithinCurrentQuarter && hasSubmittedPreviousQuarterReturn)
                 AddCurrentQuarterMonths(monthsToDisplay, currentQuarter, currentMonthInQuarter);
             else if (isWithinReturnDeadline)
-                HandleReturnDeadline(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn, quarterToReturn, previousQuarterDeadline);
+                HandleReturnDeadline(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn, quarterToReturn, previousQuarterDeadline, currentMonthInQuarter);
             else
                 HandleLateReturn(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn, quarterToReturn);
             
@@ -65,20 +65,21 @@ namespace EPRN.Waste.API.Services
             return quarterToReturn;
         }
 
-        private DateTime GetPreviousQuarterDeadline(int currentQuarter, int currentYear)
+        private DateTime GetPreviousQuarterDeadline(int currentQuarter, int currentYear, int currentMonth)
         {
-             var quarterDeadlineDays = _configSettings.Value.ReturnDeadlineForQuarter
-                .ToDictionary(kvp => int.Parse(kvp.Key.Substring(1)), kvp => kvp.Value);           
-            
+            var quarterDeadlineDays = _configSettings.Value.ReturnDeadlineForQuarter
+               .ToDictionary(kvp => int.Parse(kvp.Key.Substring(1)), kvp => kvp.Value);
+
             // Calculate the previous quarter
             var previousQuarter = currentQuarter == 0 ? 3 : currentQuarter - 1;
 
             // Get the deadline day for the previous quarter from the config settings
             var deadlineDay = quarterDeadlineDays[previousQuarter + 1];
-            
+
+  
             // Calculate the deadline month for the previous quarter
-            var deadlineMonth = previousQuarter == 3 ? 2 : (previousQuarter + 1) % 4 + 1;
-            
+            var deadlineMonth = previousQuarter == 3 ? 2 : _quarterStartMonths[currentQuarter];  //(previousQuarter + 1) % 4 + 1;
+
             // Return the deadline date for the previous quarter
             return new DateTime(currentYear, deadlineMonth, deadlineDay);
         }
@@ -96,21 +97,29 @@ namespace EPRN.Waste.API.Services
             var quarterStartDate = new DateTime(currentDate.Year, _quarterStartMonths[currentQuarter], 1);
             return currentDate <= quarterStartDate.AddMonths(currentMonthInQuarter);
         }
+
+        //private int GetCurrentQuarterStartMonth(int currentYear, int currentQuarter)
+        //{
+        //    var quarterStartDate = new DateTime(currentYear, _quarterStartMonths[currentQuarter], 1);
+        //    return quarterStartDate.Month;
+        //}
+
         private static void AddCurrentQuarterMonths(List<int> monthsToDisplay, int currentQuarter, int currentMonthInQuarter)
         {
             for (var i = 1; i <= currentMonthInQuarter; i++)
                 monthsToDisplay.Add((currentQuarter * 3) + i);
         }
-        private bool IsWithinReturnDeadline(DateTime currentDate, int currentQuarter)
+        private static bool IsWithinReturnDeadline(DateTime currentDate, DateTime returnDeadline)
         {
-            var returnDeadline = GetPreviousQuarterDeadline(currentQuarter, currentDate.Year);
             return currentDate <= returnDeadline;
         }
+        
         private  void HandleReturnDeadline(List<int> monthsToDisplay, 
             int currentQuarter, 
             bool hasSubmittedPreviousQuarterReturn, 
             QuarterlyDatesDto quarterToReturn,
-            DateTime previousQuarterDeadline)
+            DateTime previousQuarterDeadline,
+            int currentMonthInQuarter)
         {
             // If the previous quarter return has been submitted, add the first month of the current quarter to the display
             if (hasSubmittedPreviousQuarterReturn)
@@ -119,6 +128,11 @@ namespace EPRN.Waste.API.Services
             {
                 // If the previous quarter return has not been submitted, add all the months of the previous quarter to the display
                 AddPreviousQuarterMonths(monthsToDisplay, currentQuarter);
+                AddCurrentQuarterMonths(monthsToDisplay, currentQuarter, currentMonthInQuarter);
+
+                // No warning displayed in January
+                if (currentQuarter == 0 && currentMonthInQuarter == 1) 
+                    return;
                 
                 // Warning message indicating that the return date is approaching
                 quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnDue;
@@ -144,6 +158,8 @@ namespace EPRN.Waste.API.Services
                 monthsToDisplay.Add(month);
             }
         }
+        
+
 
         private static void HandleLateReturn(List<int> monthsToDisplay, int currentQuarter, bool hasSubmittedPreviousQuarterReturn, QuarterlyDatesDto quarterToReturn)
         {
