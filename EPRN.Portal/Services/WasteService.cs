@@ -65,8 +65,8 @@ namespace EPRN.Portal.Services
 
             await Task.WhenAll(wasteTypeTask, quarterTask);
             viewModel.WasteType = wasteTypeTask.Result;
-            //viewModel.Quarter = quarterTask.Result.QuarterlyMonths;
             viewModel.Notification = quarterTask.Result.Notification;
+            viewModel.SubmissionDate = quarterTask.Result.SubmissionDate;
             viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToShortDateString();
 
             var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",

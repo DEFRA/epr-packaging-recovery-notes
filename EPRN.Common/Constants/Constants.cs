@@ -22,6 +22,7 @@ public static class Strings
     {
         public const string QuarterlyReturnDue = "QuarterlyReturnDue";
         public const string QuarterlyReturnLate = "QuarterlyReturnLate";
+        public const string RecordFebruaryWaste = "RecordFebruaryWaste";        
     }
     
     public static class QueryStrings

@@ -1,4 +1,7 @@
 ﻿@using EPRN.Common.Enums;
+@using EPRN.Common.Extensions
+@using EPRN.Portal.Helpers.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 
 @model DuringWhichMonthRequestViewModel
 @{
@@ -47,24 +50,33 @@
     <span class="govuk-caption-l">
         @MasterResources.RecordingFor @Model.WasteType
     </span>
-    <radios asp-for="SelectedMonth" asp-title="@heading">
+    @if (!Model.SubmissionDate.IsFeb29() )
+    {
+        <radios asp-for="SelectedMonth" asp-title="@heading">
+            <div class="govuk-hint">
+                @WhichQuarterResources.HintText
+            </div>
+
+            <p class="govuk-error-message">
+                <span asp-validation-for="SelectedMonth"></span>
+            </p>
+            @if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
+            {
+                <partial name="_RadioOptionReprocessedIt" model="Model" />
+            }
+            else
+            {
+                <partial name="_RadioOptionSentItOn" model="Model" />
+            }
+        </radios>
+    }
+    else
+    {
+        <h1>@WhichQuarterResources.RecordFebruaryWaste</h1>
         <div class="govuk-hint">
-            @WhichQuarterResources.HintText
+            @WhichQuarterResources.HintTextFebruary
         </div>
-
-        <p class="govuk-error-message">
-            <span asp-validation-for="SelectedMonth"></span>
-        </p>
-        @if(Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
-        {
-            <partial name="_RadioOptionReprocessedIt" model="Model"/>
-        }
-        else
-        {
-            <partial name="_RadioOptionSentItOn" model="Model" />
-        }
-    </radios>
-
+    }
     <button class="govuk-button" data-module="govuk-button" type="submit">
         @MasterResources.ContinueBtn
     </button>

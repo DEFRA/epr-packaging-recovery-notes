@@ -141,6 +141,9 @@
   <data name="HintText" xml:space="preserve">
     <value>You can only record waste for this month and the months within an open quarterly return period.</value>
   </data>
+  <data name="HintTextFebruary" xml:space="preserve">
+    <value>You can only record waste for February. Recording waste for previous months is not possible once you've submitted your previous return.</value>
+  </data>
   <data name="Important" xml:space="preserve">
     <value>Important</value>
   </data>
@@ -203,6 +206,9 @@
   </data>
   <data name="QuarterlyReturnLateAction" xml:space="preserve">
     <value>You need to submit this return</value>
+  </data>
+  <data name="RecordFebruaryWaste" xml:space="preserve">
+    <value>Recording waste for February</value>
   </data>
   <data name="Steel" xml:space="preserve">
     <value>Steel</value>

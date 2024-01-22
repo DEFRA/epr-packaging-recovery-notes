@@ -40,14 +40,19 @@ namespace EPRN.Waste.API.Services
 
             // Construct the current date time
             DateTime currentDate = new(DateTime.Now.Year, currentMonth, currentDay);
-            
+            quarterToReturn.SubmissionDate = currentDate;
+
             if (_configSettings.Value.HasSubmittedReturnOverride.HasValue)
                 hasSubmittedPreviousQuarterReturn = _configSettings.Value.HasSubmittedReturnOverride.Value;
-            
+
+            // Quick check for leap year            
+            if (HandleFebruary29(hasSubmittedPreviousQuarterReturn,quarterToReturn))
+                return quarterToReturn;
+
             var currentQuarter = GetCurrentQuarter(currentDate);
             var currentMonthInQuarter = GetCurrentMonthInQuarter(currentDate);
             var isWithinCurrentQuarter = IsWithinCurrentQuarter(currentDate, currentQuarter, currentMonthInQuarter);
-            var previousQuarterDeadline = GetPreviousQuarterDeadline(currentQuarter, currentDate.Year, currentMonth);
+            var previousQuarterDeadline = GetPreviousQuarterDeadline(currentQuarter, currentDate.Year);
             var isWithinReturnDeadline = IsWithinReturnDeadline(currentDate, previousQuarterDeadline);           
             
             if (isWithinCurrentQuarter && hasSubmittedPreviousQuarterReturn)
@@ -64,7 +69,7 @@ namespace EPRN.Waste.API.Services
             return quarterToReturn;
         }
 
-        private DateTime GetPreviousQuarterDeadline(int currentQuarter, int currentYear, int currentMonth)
+        private DateTime GetPreviousQuarterDeadline(int currentQuarter, int currentYear)
         {
             var quarterDeadlineDays = _configSettings.Value.ReturnDeadlineForQuarter
                .ToDictionary(kvp => int.Parse(kvp.Key.Substring(1)), kvp => kvp.Value);
@@ -158,6 +163,17 @@ namespace EPRN.Waste.API.Services
             
             if (!hasSubmittedPreviousQuarterReturn) 
                 quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnLate;
+        }
+
+        private static bool HandleFebruary29(bool hasSubmittedPreviousQuarterReturn, QuarterlyDatesDto quarterToReturn)
+        {
+            if (!quarterToReturn.SubmissionDate.IsFeb29()) 
+                return false;
+            
+            if (!hasSubmittedPreviousQuarterReturn)
+                quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnLate;                 
+                
+            return true;
         }
     }
 }

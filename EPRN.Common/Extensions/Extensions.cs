@@ -6,5 +6,10 @@
         {
             return $"Month{key}";
         }
+        
+        public static bool IsFeb29(this DateTime date)
+        {
+            return DateTime.IsLeapYear(date.Year) && date is { Month: 2, Day: 29 };
+        }      
     }
 }

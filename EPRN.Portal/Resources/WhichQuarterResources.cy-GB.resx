@@ -213,4 +213,10 @@
   <data name="Important" xml:space="preserve">
     <value>[Welsh]Important</value>
   </data>
+  <data name="RecordFebruaryWaste" xml:space="preserve">
+    <value>[Welsh]Recording waste for February</value>
+  </data>
+  <data name="HintTextFebruary" xml:space="preserve">
+    <value>[Welsh]You can only record waste for February. Recording waste for previous months is not possible once you've submitted your previous return.</value>
+  </data>
 </root>
