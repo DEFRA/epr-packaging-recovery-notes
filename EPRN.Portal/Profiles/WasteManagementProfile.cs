@@ -10,7 +10,7 @@ namespace EPRN.Portal.Profiles
         {
             CreateMap<WasteRecordStatusViewModel, WasteRecordStatusDto>().ReverseMap();
             CreateMap<WasteSubTypeOptionViewModel, WasteSubTypeDto>().ReverseMap();
-            CreateMap<BaledWithWireViewModel, BaledWithWireDto>().ReverseMap();
+            CreateMap<BaledWithWireViewModel, GetBaledWithWireDto>().ReverseMap();
 
         }
     }

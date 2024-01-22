@@ -188,12 +188,12 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
+        public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
         {
             return await _wasteContext
                 .WasteJourney
                 .Where(w => w.Id == journeyId)
-                .Select(w => _mapper.Map<BaledWithWireDto>(w))
+                .Select(w => _mapper.Map<GetBaledWithWireDto>(w))
                 .SingleOrDefaultAsync();
         }
 

@@ -43,7 +43,7 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int jounreyId);
 
-        Task<BaledWithWireDto> GetBaledWithWire(int journeyId);
+        Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId);
 
         Task<WasteJourney> GetWasteJourneyById_FullModel(int journeyId);
 

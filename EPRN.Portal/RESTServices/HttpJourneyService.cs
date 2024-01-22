@@ -86,9 +86,9 @@ namespace EPRN.Portal.RESTServices
             await Post($"{journeyId}/Tonnage/{tonnage}");
         }
 
-        public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
+        public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
         {
-            return await Get<BaledWithWireDto>($"{journeyId}/BaledWithWire");
+            return await Get<GetBaledWithWireDto>($"{journeyId}/BaledWithWire");
         }
 
         public async Task SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)

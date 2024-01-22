@@ -80,7 +80,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task SaveWhatHaveYouDoneWaste(int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
-            var doneWaste = _mapper.Map<Common.Data.DoneWaste>(whatHaveYouDoneWaste);
+            var doneWaste = _mapper.Map<Common.Data.Enums.DoneWaste>(whatHaveYouDoneWaste);
             await _wasteRepository.UpdateJourneyDoneId(journeyId, doneWaste);
         }
 
@@ -91,7 +91,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
-            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
+            var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
 
             if (journey == null)
                 return null;
@@ -124,7 +124,7 @@ namespace EPRN.Waste.API.Services
         {
             var dto = new GetBaledWithWireDto { JourneyId = journeyId };
 
-            var journey = await _wasteRepository.GetWasteJourneyById(journeyId);
+            var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
             if (journey != null)
             {
                 dto.BaledWithWire = journey.BaledWithWire;
@@ -157,15 +157,14 @@ namespace EPRN.Waste.API.Services
                 throw new Exception(nameof(journey));
             }
 
-            var wasteSubType = journey.WasteSubType;
-            if (wasteSubType == null)
+            if (!journey.WasteSubTypeId.HasValue)
             {
-                throw new Exception(nameof(wasteSubType));
+                throw new Exception(nameof(journey));
             }
 
             var wasteSubTypeSelection = new WasteSubTypeSelectionDto
             {
-                WasteSubTypeId = wasteSubType.Id,
+                WasteSubTypeId = journey.WasteSubTypeId.Value,
                 Adjustment = journey.Adjustment
             };
 

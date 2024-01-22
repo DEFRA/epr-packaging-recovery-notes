@@ -228,7 +228,7 @@ namespace EPRN.Waste.API.Controllers
             if (journeyId == null)
                 return BadRequest("Journey ID is missing");
 
-            BaledWithWireDto result = await _journeyService.GetBaledWithWire(journeyId.Value);
+            GetBaledWithWireDto result = await _journeyService.GetBaledWithWire(journeyId.Value);
 
             return Ok(result);
         }

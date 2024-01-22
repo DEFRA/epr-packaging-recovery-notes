@@ -1,6 +1,6 @@
 ﻿namespace EPRN.Common.Dtos
 {
-    public class BaledWithWireDto
+    public class GetBaledWithWireDto
     {
         public int JourneyId { get; set; }
         public bool?  BaledWithWire { get; set; }
