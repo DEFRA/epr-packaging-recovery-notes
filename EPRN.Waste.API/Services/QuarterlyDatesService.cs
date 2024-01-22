@@ -64,7 +64,7 @@ namespace EPRN.Waste.API.Services
             
             // Map month numbers to their names
             foreach (var month in monthsToDisplay)
-                quarterToReturn.QuarterlyMonths[month] = month.RadioButtonDateString(); //CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+                quarterToReturn.QuarterlyMonths[month] = month.RadioButtonDateString();
             
             return quarterToReturn;
         }
