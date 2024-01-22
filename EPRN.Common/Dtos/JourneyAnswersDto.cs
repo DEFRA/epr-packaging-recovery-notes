@@ -2,6 +2,8 @@
 {
     public class JourneyAnswersDto
     {
+        public int JourneyId { get; set; }
+
         public string Month { get; set; }
 
         public string Tonnes { get; set; }

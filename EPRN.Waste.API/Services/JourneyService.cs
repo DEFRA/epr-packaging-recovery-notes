@@ -184,6 +184,7 @@ namespace EPRN.Waste.API.Services
 
             var journeyAnswersDto = new JourneyAnswersDto();
 
+            journeyAnswersDto.JourneyId = journeyId;
             journeyAnswersDto.WhatDoneWithWaste = journey.DoneWaste == null ? string.Empty : journey.DoneWaste.Value.ToString();
             journeyAnswersDto.BaledWithWire = journey.BaledWithWire == null ? string.Empty : (journey.BaledWithWire.Value == true ? "Yes" : "No");
             journeyAnswersDto.Month = journey.Month == null ? string.Empty : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value);

@@ -120,7 +120,7 @@
   <data name="BaledWithWire" xml:space="preserve">
     <value>Baled with wire</value>
   </data>
-  <data name="ChangeLinkText" xml:space="preserve">
+  <data name="Change" xml:space="preserve">
     <value>Change</value>
   </data>
   <data name="CreateBtn" xml:space="preserve">

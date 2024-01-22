@@ -20,8 +20,8 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             _mockWasteService = new Mock<IWasteService>();
             _homeServiceFactory = new Mock<IHomeServiceFactory>();
-            var exporterHomeService = new Mock<IHomeService>();
-            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CheckAnswersViewModel());
+            var exporterHomeService = new Mock<IUserBasedService>();
+            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAReprocessorViewModel());
             _homeServiceFactory.Setup(x => x.CreateHomeService()).Returns(exporterHomeService.Object);
             _wasteController = new WasteController(_mockWasteService.Object, _homeServiceFactory.Object);
         }
@@ -632,7 +632,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNotNull(viewResult.ViewData.Model);
 
             // check model is expected type
-            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(CheckAnswersViewModel));
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(CYAReprocessorViewModel));
 
             // check view name
             Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
@@ -657,7 +657,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             _wasteController.ModelState.AddModelError("Error", "Error");
 
             // Act
-            var result = await _wasteController.CheckYourAnswers(new CheckAnswersViewModel());
+            var result = await _wasteController.CheckYourAnswers(new CYAReprocessorViewModel());
 
             // Assert
             Assert.IsNotNull(result);
@@ -667,7 +667,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNotNull(viewResult.ViewData.Model);
 
             // check model is expected type
-            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(CheckAnswersViewModel));
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(CYAReprocessorViewModel));
 
             // check view name
             Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
@@ -679,7 +679,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Arrange
 
             // Act
-            var result = await _wasteController.CheckYourAnswers(new CheckAnswersViewModel());
+            var result = await _wasteController.CheckYourAnswers(new CYAReprocessorViewModel());
 
             // Assert
             Assert.IsNotNull(result);

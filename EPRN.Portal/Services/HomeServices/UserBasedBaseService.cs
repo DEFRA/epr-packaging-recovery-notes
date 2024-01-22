@@ -3,24 +3,18 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
 {
-    public abstract class BaseHomeService : IHomeService
+    public abstract class UserBasedBaseService : IUserBasedService
     {
         protected IOptions<AppConfigSettings> ConfigSettings;
         protected IHttpJourneyService _httpJourneyService;
-        protected IUrlHelper UrlHelper;
 
-        public BaseHomeService(
+        public UserBasedBaseService(
             IOptions<AppConfigSettings> configSettings,
-            IHttpJourneyService httpJourneyService,
-            IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor)
+            IHttpJourneyService httpJourneyService)
         {
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
@@ -35,7 +29,6 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_ExporterAndReprocessor));
 
             ConfigSettings = configSettings;
-            UrlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 
             _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(_httpJourneyService));
 
@@ -71,6 +64,6 @@ namespace EPRN.Portal.Services
 
         public abstract double? GetBaledWithWireDeductionPercentage();
 
-        public abstract Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId);
+        public abstract Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId);
     }
 }

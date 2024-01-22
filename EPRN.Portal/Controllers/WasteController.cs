@@ -15,7 +15,7 @@ namespace EPRN.Portal.Controllers
     public class WasteController : BaseController
     {
         private readonly IWasteService _wasteService;
-        private IHomeService _homeService;
+        private IUserBasedService _homeService;
 
         public WasteController(
             IWasteService wasteService,
@@ -267,16 +267,20 @@ namespace EPRN.Portal.Controllers
 
             var vm = await _homeService.GetCheckAnswers(id.Value);
 
-            return View(vm);
+            if (vm.DoneWaste == DoneWaste.ReprocessedIt)
+                return View("CYAReprocessorReprocessedIt", vm);
+            else if (vm.DoneWaste == DoneWaste.SentItOn)
+                return View("CYAReprocessorSentItOn", vm);
+            else
+                throw new Exception("Could not determine what happened to the waste");
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckYourAnswers(CheckAnswersViewModel checkAnswersViewModel)
+        public async Task<IActionResult> CheckYourAnswers(CYAReprocessorViewModel checkAnswersViewModel)
         {
             if (!ModelState.IsValid)
             {
                 var viewModel = await _homeService.GetCheckAnswers(checkAnswersViewModel.JourneyId);
-
                 return View(viewModel);
             }
 

@@ -1,12 +1,10 @@
 ﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.HomeServices;
-using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -16,7 +14,7 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
     public class ReprocessorHomeServiceTests
     {
         private Mock<IHttpJourneyService> _mockHttpJourneyService;
-        private ReprocessorHomeService _reprocessorHomeService;
+        private UserBasedReprocessorService _reprocessorHomeService;
 
         [TestInitialize]
         public void Init()
@@ -32,17 +30,12 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
 
             var mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
             mockConfigSettings.Setup(o => o.Value).Returns(mockConfig);
-            var mockUrlHelperFactory = new Mock<IUrlHelperFactory>();
-            var mockActionContextAccessor = new Mock<IActionContextAccessor>();
-            mockUrlHelperFactory.Setup(f => f.GetUrlHelper(It.IsAny<ActionContext>())).Returns(mockUrlHelper.Object);
 
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
 
-            _reprocessorHomeService = new ReprocessorHomeService(
+            _reprocessorHomeService = new UserBasedReprocessorService(
                 mockConfigSettings.Object,
-                _mockHttpJourneyService.Object,
-                mockUrlHelperFactory.Object,
-                mockActionContextAccessor.Object
+                _mockHttpJourneyService.Object
                 );
         }
 
@@ -94,12 +87,13 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
         }
 
         [TestMethod]
-        public async Task GetCheckAnswers_ReturnsViewModelWithCorrectSections_WhenWhatDoneWithWasteIsReprocessed()
+        public async Task GetJourneyAnswers_ReturnsValidViewModel_WhenWhatDoneWithWasteIsReprocessed()
         {
             // Arrange
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
+                JourneyId = journeyId,
                 Month = "1",
                 Tonnes = "23",
                 BaledWithWire = "No",
@@ -107,23 +101,9 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
                 Note = "Note",
                 WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
-                WhatDoneWithWaste = "ReprocessedIt",
+                WhatDoneWithWaste = DoneWaste.ReprocessedIt.ToString(),
                 Completed = true
             };
-
-            var expectedSection = new Dictionary<string, List<CheckAnswerViewModel>>();
-
-            var rows = new List<CheckAnswerViewModel>
-            {
-                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = "Example subtype", ChangeLink = "subtypeUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = "Example baled", ChangeLink = "baledUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = "Example tonnage", ChangeLink = "tonnageUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = "Example adjusted", ChangeLink = "adjustedUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.MonthReceived, Answer = "Example month", ChangeLink = "monthUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.Note, Answer = "Example note", ChangeLink = "noteUrl" }
-            };
-
-            expectedSection.Add(CYAResources.Title, rows);
 
             _mockHttpJourneyService.Setup(service => service.GetJourneyAnswers(journeyId)).ReturnsAsync(journeyAnswersDto);
 
@@ -131,13 +111,15 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             var result = await _reprocessorHomeService.GetCheckAnswers(journeyId);
 
             // Assert
-            Assert.AreEqual(expectedSection.Count, result.Sections.Count);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(journeyAnswersDto.JourneyId, result.JourneyId);
 
             _mockHttpJourneyService.Verify(service => service.GetJourneyAnswers(journeyId), Times.Once());
         }
 
         [TestMethod]
-        public async Task GetCheckAnswers_ReturnsViewModelWithCorrectSections_WhenWhatDoneWithWasteIsSetOn()
+        [ExpectedException(typeof(NullReferenceException))]
+        public async Task GetCheckAnswers_ReturnsException_WhenWhatDoneWithWasteIsNotKnown()
         {
             // Arrange
             int journeyId = 1;
@@ -150,25 +132,9 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
                 Note = "Note",
                 WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
-                WhatDoneWithWaste = "SentItOn",
+                WhatDoneWithWaste = "",
                 Completed = true
             };
-
-            var expectedSection = new Dictionary<string, List<CheckAnswerViewModel>>();
-
-            var rows = new List<CheckAnswerViewModel>
-            {
-                new CheckAnswerViewModel { Question = CYAResources.ReprocessorWhereWasteSentName, Answer = "Example name", ChangeLink = "nameUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.ReprocessorWhereWasteSentAddress, Answer = "Example address", ChangeLink = "addressUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.TypeOfWaste, Answer = "Example subtype", ChangeLink = "subtypeUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.BaledWithWire, Answer = "Example baled", ChangeLink = "baledUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.TonnageOfWaste, Answer = "Example tonnage", ChangeLink = "tonnageUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.TonnageAdjusted, Answer = "Example adjusted", ChangeLink = "adjustedUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.MonthReceived, Answer = "Example month", ChangeLink = "monthUrl" },
-                new CheckAnswerViewModel { Question = CYAResources.Note, Answer = "Example note", ChangeLink = "noteUrl" }
-            };
-
-            expectedSection.Add(CYAResources.Title, rows);
 
             _mockHttpJourneyService.Setup(service => service.GetJourneyAnswers(journeyId)).ReturnsAsync(journeyAnswersDto);
 
@@ -176,7 +142,9 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             var result = await _reprocessorHomeService.GetCheckAnswers(journeyId);
 
             // Assert
-            Assert.AreEqual(expectedSection.Count, result.Sections.Count);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(journeyAnswersDto.JourneyId, result.JourneyId);
+
             _mockHttpJourneyService.Verify(service => service.GetJourneyAnswers(journeyId), Times.Once());
 
         }

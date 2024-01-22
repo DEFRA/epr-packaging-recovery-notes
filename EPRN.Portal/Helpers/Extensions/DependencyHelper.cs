@@ -68,9 +68,9 @@ namespace EPRN.Portal.Helpers.Extensions
                 .AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>))
                 .AddSingleton<IQueryStringHelper, QueryStringHelper>()
                 .AddTransient<IWasteService, WasteService>()
-                .AddTransient<IHomeService, ExporterAndReprocessorHomeService>()
-                .AddTransient<IHomeService, ExporterHomeService>()
-                .AddTransient<IHomeService, ReprocessorHomeService>()
+                .AddTransient<IUserBasedService, ExporterAndReprocessorHomeService>()
+                .AddTransient<IUserBasedService, UserBasedExporterService>()
+                .AddTransient<IUserBasedService, UserBasedReprocessorService>()
                 .AddTransient<IHomeServiceFactory, HomeServiceFactory>()
                 .AddSingleton<IUserRoleService, UserRoleService>() // must be available through lifetime of the system
                 .AddSingleton<BackButtonViewModel>()

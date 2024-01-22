@@ -3,10 +3,10 @@ using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services.Interfaces
 {
-    public interface IHomeService
+    public interface IUserBasedService
     {
         Task<HomePageViewModel> GetHomePage();
         double? GetBaledWithWireDeductionPercentage();
-        Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId);
+        Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId);
     }
 }

@@ -4,18 +4,14 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services.HomeServices
 {
-    public class ExporterHomeService : BaseHomeService, IHomeService
+    public class UserBasedExporterService : UserBasedBaseService, IUserBasedService
     {
-        public ExporterHomeService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService, 
-            IUrlHelperFactory urlHelperFactory, IActionContextAccessor actionContextAccessor)
-            : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
+        public UserBasedExporterService(IOptions<AppConfigSettings> configSettings, IHttpJourneyService httpJourneyService)
+            : base(configSettings, httpJourneyService)
         {       
         }
 
@@ -86,7 +82,7 @@ namespace EPRN.Portal.Services.HomeServices
             return ConfigSettings.Value.DeductionAmount_Exporter;
         }
 
-        public override Task<CheckAnswersViewModel> GetCheckAnswers(int journeyId)
+        public override Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId)
         {
             throw new NotImplementedException();
         }

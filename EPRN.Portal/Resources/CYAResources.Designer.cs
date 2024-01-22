@@ -72,9 +72,9 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
-        public static string ChangeLinkText {
+        public static string Change {
             get {
-                return ResourceManager.GetString("ChangeLinkText", resourceCulture);
+                return ResourceManager.GetString("Change", resourceCulture);
             }
         }
         
