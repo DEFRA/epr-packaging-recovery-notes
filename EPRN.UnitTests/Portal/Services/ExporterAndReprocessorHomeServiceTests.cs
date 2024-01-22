@@ -2,7 +2,9 @@
 using EPRN.Portal.Resources;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Moq;
 
 namespace EPRN.UnitTests.Portal.Services
 {
@@ -11,16 +13,20 @@ namespace EPRN.UnitTests.Portal.Services
     {
         private ExporterAndReprocessorHomeService _exporterAndReprocessorHomeService;
         private IOptions<AppConfigSettings> _configSettings;
+        private Mock<IUrlHelper> _mockUrlHelper;
 
         [TestInitialize]
         public void Init()
         {
+            _mockUrlHelper = new Mock<IUrlHelper>();
             _configSettings = Options.Create<AppConfigSettings>(new AppConfigSettings());
             _configSettings.Value.DeductionAmount_Exporter = 0.0;
             _configSettings.Value.DeductionAmount_Reprocessor = 0.0;
             _configSettings.Value.DeductionAmount_ExporterAndReprocessor = 0.0;
 
-            _exporterAndReprocessorHomeService = new ExporterAndReprocessorHomeService(_configSettings);
+            _exporterAndReprocessorHomeService = new ExporterAndReprocessorHomeService(
+                _mockUrlHelper.Object,
+                _configSettings);
         }
 
         [TestMethod]

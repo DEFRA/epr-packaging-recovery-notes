@@ -1,20 +1,21 @@
-﻿using EPRN.Portal.ViewModels.Waste;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services.Interfaces
 {
     public interface IWasteService
     {
-        Task<int> CreateJourney();
+        Task<int> CreateJourney(
+            int materialId,
+            Category category);
 
         Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 
-        Task<WasteTypesViewModel> GetWasteTypesViewModel(int journeyId);
+        Task<RecordWasteViewModel> GetWasteTypesViewModel();
 
         Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId);
-
-        Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel);
 
         Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel);
 

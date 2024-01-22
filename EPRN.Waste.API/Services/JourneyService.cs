@@ -6,7 +6,7 @@ using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using DoneWaste = EPRN.Common.Enums.DoneWaste;
-
+using Category = EPRN.Common.Enums.Category;
 
 namespace EPRN.Waste.API.Services
 {
@@ -33,10 +33,14 @@ namespace EPRN.Waste.API.Services
             _deductionAmount = configSettings.Value.DeductionAmount.Value;
         }
 
-        public async Task<int> CreateJourney()
+        public async Task<int> CreateJourney(
+            int materialId,
+            Category category)
         {
             var journeyRecord = new WasteJourney
             {
+                WasteTypeId = materialId,
+                Category = _mapper.Map<Common.Data.Enums.Category>(category),
                 CreatedDate = DateTime.Now,
                 CreatedBy = "DEVELOPER"
             };

@@ -41,6 +41,8 @@ namespace EPRN.Common.Data.DataModels
 
         public DoneWaste? DoneWaste { get; set; }
 
+        public Category Category { get; set; }
+
         public double? BaledWithWireDeductionPercentage { get; set; }
 
         public int? SiteId { get; set; }

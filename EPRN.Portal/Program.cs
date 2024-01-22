@@ -1,6 +1,5 @@
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Constants;
-using EPRN.Portal.Helpers;
 using EPRN.Portal.Helpers.Extensions;
 using Microsoft.AspNetCore.Localization;
 

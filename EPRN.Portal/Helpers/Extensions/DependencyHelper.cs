@@ -12,7 +12,10 @@ using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
@@ -62,6 +65,12 @@ namespace EPRN.Portal.Helpers.Extensions
                     };
                 });
             services
+                .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
+                .AddScoped(x => {
+                    var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                    var factory = x.GetRequiredService<IUrlHelperFactory>();
+                    return factory.GetUrlHelper(actionContext);
+                })
                 .AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>))
                 .AddSingleton<IQueryStringHelper, QueryStringHelper>()
                 .AddTransient<IWasteService, WasteService>()

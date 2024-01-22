@@ -28,12 +28,18 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         public async Task CreateJourney_CallsService()
         {
             // arrange
+            var materialId = 56;
+            var category = Category.Exporter;
             
             // act
-            await _journeyController.CreateJourney();
+            await _journeyController.CreateJourney(materialId, category);
 
             // assert
-            _mockJourneyService.Verify(s => s.CreateJourney(), Times.Once());
+            _mockJourneyService.Verify(s => 
+                s.CreateJourney(
+                    It.Is<int>(p => p == materialId),
+                    It.Is<Category>(p => p == category)
+                ), Times.Once());
         }
 
         [TestMethod]
@@ -76,8 +82,6 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             var journeyId = 5;
             var monthSelected = 7;
 
-            _mockJourneyService!.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
-
             //Act
             var result = await _journeyController!.SaveJourneyMonth(journeyId, monthSelected);
 
@@ -95,8 +99,6 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         {
             //Arrange
             var monthSelected = 7;
-
-            _mockJourneyService!.Setup(ws => ws.CreateJourney());
 
             //Act
             var result = await _journeyController.SaveJourneyMonth(null, monthSelected);
@@ -118,7 +120,6 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             var journeyId = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
 
-            _mockJourneyService.Setup(ws => ws.CreateJourney());
             _mockJourneyService.Setup(ws => ws.GetWhatHaveYouDoneWaste(It.Is<int>(p => p == journeyId))).ReturnsAsync(expectedWhatHaveYouDoneWaste);
 
             //Act
@@ -139,7 +140,6 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         {
             //Arrange
             var journeyId = 5;
-            _mockJourneyService!.Setup(ws => ws.CreateJourney()).ReturnsAsync(journeyId);
 
             //Act
             var result = await _journeyController!.SaveWhatHaveYouDoneWaste(journeyId, DoneWaste.ReprocessedIt);
@@ -157,7 +157,6 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         public async Task SaveWhatHaveYouDoneWaste_ReturnsBadRequest_WhenNoJourneyId()
         {
             //Arrange
-            _mockJourneyService!.Setup(ws => ws.CreateJourney());
 
             //Act
             var result = await _journeyController.SaveWhatHaveYouDoneWaste(null, DoneWaste.ReprocessedIt);

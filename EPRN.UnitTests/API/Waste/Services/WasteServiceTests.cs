@@ -10,7 +10,6 @@ namespace EPRN.UnitTests.API.Waste.Services
     public class WasteServiceTests
     {
         private IWasteService _wasteService;
-        private Mock<IMapper> _mockMapper;
         private Mock<IRepository> _mockRepository;
 
         [TestInitialize]

@@ -17,9 +17,11 @@ namespace EPRN.Portal.RESTServices
         {
         }
 
-        public async Task<int> CreateJourney()
+        public async Task<int> CreateJourney(
+            int materialId,
+            Category category)
         {
-            return await Post<int>("Create");
+            return await Post<int>($"Create/Material/{materialId}/Category/{category}");
         }
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)

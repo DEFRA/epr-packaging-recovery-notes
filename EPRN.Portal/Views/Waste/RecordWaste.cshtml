@@ -1,0 +1,23 @@
+﻿@using EPRN.Portal.Services.Interfaces;
+@using Microsoft.Extensions.Localization;
+@using EPRN.Portal.Helpers.Interfaces;
+
+@model RecordWasteViewModel
+@inject ILocalizationHelper<WasteTypesResources> localizationHelper
+@inject IUserRoleService userRoleService
+
+@{
+    ViewData["Title"] = @WasteTypesResources.MaterialTypeOptionsTitle;
+}
+
+<label>Company name</label>
+<h1>Record waste</h1>
+@if (userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor))
+{
+    <partial name="_RecordWasteCategorySection" model="@Model.ReprocessorSiteMaterials" />
+}
+
+@if (userRoleService.HasRole(EPRN.Common.Enums.UserRole.Exporter))
+{
+    <partial name="_RecordWasteCategorySection" model="@Model.ExporterSiteMaterials" />
+}
