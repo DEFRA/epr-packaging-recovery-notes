@@ -7,6 +7,7 @@
         public Service Waste { get; set; }
 
         public Service PRN { get; set; }
+        
     }
 
     public class Service

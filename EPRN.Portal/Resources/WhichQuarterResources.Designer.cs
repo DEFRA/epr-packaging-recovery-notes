@@ -142,6 +142,24 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can only record waste for February. Recording waste for previous months is not possible once you&apos;ve submitted your previous return..
+        /// </summary>
+        public static string HintTextFebruary {
+            get {
+                return ResourceManager.GetString("HintTextFebruary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Important.
+        /// </summary>
+        public static string Important {
+            get {
+                return ResourceManager.GetString("Important", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to January.
         /// </summary>
         public static string Month1 {
@@ -282,6 +300,51 @@ namespace EPRN.Portal.Resources {
         public static string Plastic {
             get {
                 return ResourceManager.GetString("Plastic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You neeed to submit your quarterly return by .
+        /// </summary>
+        public static string QuarterlyReturnDue {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnDue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit this return.
+        /// </summary>
+        public static string QuarterlyReturnDueAction {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnDueAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your previous quarterly return Is now late.
+        /// </summary>
+        public static string QuarterlyReturnLate {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnLate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to submit this return.
+        /// </summary>
+        public static string QuarterlyReturnLateAction {
+            get {
+                return ResourceManager.GetString("QuarterlyReturnLateAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recording waste for February.
+        /// </summary>
+        public static string RecordFebruaryWaste {
+            get {
+                return ResourceManager.GetString("RecordFebruaryWaste", resourceCulture);
             }
         }
         

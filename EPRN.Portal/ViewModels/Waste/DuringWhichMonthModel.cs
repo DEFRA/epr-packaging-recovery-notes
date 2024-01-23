@@ -8,13 +8,19 @@ namespace EPRN.Portal.ViewModels.Waste
     {
         public int JourneyId { get; set; }
 
-        public Dictionary<int, string> Quarter { get; set; } = new Dictionary<int, string>();
+        public Dictionary<int, string> Quarter { get; set; } = new();
 
         public string WasteType { get; set; }
 
         public DoneWaste WhatHaveYouDone { get; set; }
 
         public virtual int? SelectedMonth { get; set; }
+
+        public string Notification { get; set; }
+  
+        public string NotificationDeadlineDate { get; set; }
+        
+        public DateTime SubmissionDate { get; set; }        
 
         public Category Category { get; set; }
     }

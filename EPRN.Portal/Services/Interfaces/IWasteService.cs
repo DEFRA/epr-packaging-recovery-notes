@@ -9,7 +9,7 @@ namespace EPRN.Portal.Services.Interfaces
             int materialId,
             Category category);
 
-        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth);
+        Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 

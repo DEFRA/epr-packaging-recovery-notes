@@ -11,6 +11,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
+        Task<QuarterlyDatesDto> GetQuarterlyMonths(int journeyId, int currentMonth, bool hasSubmittedPreviousQuarterReturn);
+
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
 
         Task SaveSelectedWasteType(int journeyId, int selectedWasteTypeId);
