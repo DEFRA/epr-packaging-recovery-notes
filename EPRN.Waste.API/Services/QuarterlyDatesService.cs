@@ -61,11 +61,19 @@ namespace EPRN.Waste.API.Services
                 HandleReturnDeadline(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn, quarterToReturn, previousQuarterDeadline, currentMonthInQuarter);
             else
                 HandleLateReturn(monthsToDisplay, currentQuarter, hasSubmittedPreviousQuarterReturn, quarterToReturn);
-            
+
             // Map month numbers to their names
+            var currentYear = DateTime.Now.Year;
             foreach (var month in monthsToDisplay)
-                quarterToReturn.QuarterlyMonths[month] = month.RadioButtonDateString();
-            
+            {
+                var monthString = month.RadioButtonDateString();
+                
+                if (month > currentMonth) 
+                    monthString += " " + (currentYear - 1); // Add the previous year as a suffix
+                
+                quarterToReturn.QuarterlyMonths[month] = monthString;
+            }
+
             return quarterToReturn;
         }
 
