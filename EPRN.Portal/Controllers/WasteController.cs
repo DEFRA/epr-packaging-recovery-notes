@@ -223,7 +223,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
         {
             await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Done", new { id = reProcessorExportViewModel.JourneyId });
         }
 
         [HttpGet]
