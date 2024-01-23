@@ -79,60 +79,49 @@ namespace EPRN.Portal.Services
 
         public async Task<RecordWasteViewModel> GetWasteTypesViewModel()
         {
-            //var wasteTypeIdTask = _httpJourneyService.GetWasteTypeId(journeyId);
-            //var wasteMaterialTypesTask = _httpWasteService.GetWasteMaterialTypes();
-
-            //await Task.WhenAll(wasteTypeIdTask, wasteMaterialTypesTask);
-
-            //return new WasteTypesViewModel
-            //{
-            //    JourneyId = journeyId,
-            //    WasteTypes = wasteMaterialTypesTask.Result.ToDictionary(t => t.Id, t => t.Name),
-            //    SelectedWasteTypeId = wasteTypeIdTask.Result
-            //};
-
-            return new RecordWasteViewModel
-            {
-                ExporterSiteMaterials = new ExporterSectionViewModel
+            return await Task.FromResult(
+                new RecordWasteViewModel
                 {
-                    Sites = new List<SiteSectionViewModel>
+                    ExporterSiteMaterials = new ExporterSectionViewModel
                     {
-                        new SiteSectionViewModel
+                        Sites = new List<SiteSectionViewModel>
                         {
-                            SiteName = "Tesco, Somewhere posh, England",
-                            SiteMaterials = new Dictionary<int, string>
+                            new SiteSectionViewModel
                             {
-                                { 4, "Steel" },
-                                { 12, "Paper" }
+                                SiteName = "Tesco, Somewhere posh, England",
+                                SiteMaterials = new Dictionary<int, string>
+                                {
+                                    { 4, "Steel" },
+                                    { 12, "Paper" }
+                                }
+                            }
+                        }
+                    },
+                    ReprocessorSiteMaterials = new ReproccesorSectionViewModel
+                    {
+                        Sites = new List<SiteSectionViewModel>
+                        { 
+                            new SiteSectionViewModel
+                            {
+                                SiteName = "Acme, London",
+                                SiteMaterials = new Dictionary<int, string>
+                                {
+                                    { 2, "Cardboard" }
+                                }
+                            },
+                            new SiteSectionViewModel
+                            {
+                                SiteName = "Microsoft, Swindon",
+                                SiteMaterials = new Dictionary<int, string>
+                                {
+                                    { 4, "Steel" },
+                                    { 2, "Cardboard" },
+                                    { 15, "Glass" }
+                                }
                             }
                         }
                     }
-                },
-                ReprocessorSiteMaterials = new ReproccesorSectionViewModel
-                {
-                    Sites = new List<SiteSectionViewModel>
-                    { 
-                        new SiteSectionViewModel
-                        {
-                            SiteName = "Acme, London",
-                            SiteMaterials = new Dictionary<int, string>
-                            {
-                                { 2, "Cardboard" }
-                            }
-                        },
-                        new SiteSectionViewModel
-                        {
-                            SiteName = "Microsoft, Swindon",
-                            SiteMaterials = new Dictionary<int, string>
-                            {
-                                { 4, "Steel" },
-                                { 2, "Cardboard" },
-                                { 15, "Glass" }
-                            }
-                        }
-                    }
-                }
-            };
+                });
         }
 
         public async Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId)

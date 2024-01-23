@@ -41,12 +41,14 @@ namespace EPRN.Common.Data.DataModels
 
         public DoneWaste? DoneWaste { get; set; }
 
-        public Category Category { get; set; }
-
         public double? BaledWithWireDeductionPercentage { get; set; }
 
         public int? SiteId { get; set; }
 
+        /// <summary>
+        /// Whether the waste is for an exporter or reprocessor. Selected at the point of creation
+        /// of a waste record
+        /// </summary>
         public Category Category { get; set; }
     }
 }
