@@ -74,8 +74,23 @@ namespace EPRN.Portal.Services
             var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
                 Assembly.GetExecutingAssembly());
             
-            foreach (var itemMonth in quarterTask.Result.QuarterlyMonths) 
-                viewModel.Quarter.Add(itemMonth.Key, rm.GetString(itemMonth.Value));
+            foreach (var itemMonth in quarterTask.Result.QuarterlyMonths)
+            {
+                var value = itemMonth.Value;
+                var suffix = "";
+                
+                // Check if the value has a suffix of underscore then year
+                if (value.Length > 5 && value[^5] == ' ')
+                {
+                    // Remove the year suffix and save it in the suffix variable
+                    suffix = value[^5..];
+                    value = value[..^5];
+                }
+                
+                // Get the string from the resource manager and add the suffix back
+                var resourceString = rm.GetString(value) + suffix;
+                viewModel.Quarter.Add(itemMonth.Key, resourceString);
+            }
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
