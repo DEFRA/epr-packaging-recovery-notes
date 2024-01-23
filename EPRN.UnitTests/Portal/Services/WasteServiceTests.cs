@@ -516,7 +516,7 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Exporter);
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -543,7 +543,7 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Reprocessor);
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);

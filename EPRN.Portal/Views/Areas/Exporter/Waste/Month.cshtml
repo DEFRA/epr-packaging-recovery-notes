@@ -6,16 +6,19 @@
 
 @{
     string heading;
+    string hintText;
+
     if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
     {
         ViewData["Title"] = @WhichQuarterResources.PageTitleReceived;
         heading = WhichQuarterResources.HeadingReceived;
+        hintText = WhichQuarterResources.HintTextReceived;
     }
     else
     {
         ViewData["Title"] = @WhichQuarterResources.PageTitleSent;
         heading = WhichQuarterResources.HeadingSent;
-
+        hintText = WhichQuarterResources.HintTextSent;
     }
 }
 
@@ -55,7 +58,7 @@
             {
                 <radios asp-for="SelectedMonth" asp-title="@heading">
                     <div class="govuk-hint">
-                        @WhichQuarterResources.HintText
+                        @hintText
                     </div>
 
                     <p class="govuk-error-message">
