@@ -4,16 +4,19 @@ using EPRN.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EPRN.Common.Data.Migrations
+namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20240117153148_Add-Category-Field")]
+    partial class AddCategoryField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +61,6 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SiteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<double?>("Tonnes")

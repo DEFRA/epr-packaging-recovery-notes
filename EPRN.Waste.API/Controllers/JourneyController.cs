@@ -245,5 +245,18 @@ namespace EPRN.Waste.API.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("Category")]
+        public async Task<IActionResult> GetJourneyCategory(
+            int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            var category = await _journeyService.GetCategory(journeyId.Value);
+
+            return Ok(category);
+        }
     }
 }

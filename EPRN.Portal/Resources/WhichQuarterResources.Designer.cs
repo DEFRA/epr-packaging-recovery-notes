@@ -106,7 +106,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to During which month was the waste received?.
+        ///   Looks up a localized string similar to When was it exported?.
         /// </summary>
         public static string HeadingReceived {
             get {
@@ -124,11 +124,20 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can only record waste for the current month and for those months within an open quarterly return period..
+        /// </summary>
+        public static string HintTextReceived {
+            get {
+                return ResourceManager.GetString("HintTextReceived", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can only record waste for this month and the months within an open quarterly return period..
         /// </summary>
-        public static string HintText {
+        public static string HintTextSent {
             get {
-                return ResourceManager.GetString("HintText", resourceCulture);
+                return ResourceManager.GetString("HintTextSent", resourceCulture);
             }
         }
         
@@ -259,7 +268,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to During which month was the waste received?.
+        ///   Looks up a localized string similar to When was it exported?.
         /// </summary>
         public static string PageTitleReceived {
             get {

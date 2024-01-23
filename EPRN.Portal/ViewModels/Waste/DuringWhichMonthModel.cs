@@ -21,6 +21,8 @@ namespace EPRN.Portal.ViewModels.Waste
         public string NotificationDeadlineDate { get; set; }
         
         public DateTime SubmissionDate { get; set; }        
+
+        public Category Category { get; set; }
     }
 
     // Class to be returned to the view if the DoneWaste enum returns ReprocessedIt and handles the error message correctly

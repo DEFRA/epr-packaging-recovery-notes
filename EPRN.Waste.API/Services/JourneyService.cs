@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
@@ -129,6 +130,11 @@ namespace EPRN.Waste.API.Services
             return await _wasteRepository.GetWasteNote(journeyId);
         }
 
+        public async Task<object?> GetCategory(int journeyId)
+        {
+            var category = await _wasteRepository.GetCategory(journeyId);
 
+            return _mapper.Map<Category>(category);
+        }
     }
 }

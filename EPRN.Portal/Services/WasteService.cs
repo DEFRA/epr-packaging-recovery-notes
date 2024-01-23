@@ -40,6 +40,7 @@ namespace EPRN.Portal.Services
 
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId)
         {
+            var category = await _httpJourneyService.GetCategory(journeyId);
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
             var duringWhichMonthRequestViewModel = CreateDuringWhichMonthRequestViewModel(whatHaveYouDoneWaste);
             await PopulateViewModel(duringWhichMonthRequestViewModel, journeyId, whatHaveYouDoneWaste);
