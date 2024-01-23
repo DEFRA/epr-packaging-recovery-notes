@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Services
@@ -20,6 +22,7 @@ namespace EPRN.UnitTests.Portal.Services
         private Mock<IHttpJourneyService> _mockHttpJourneyService = null;
         private Mock<ILocalizationHelper<WhichQuarterResources>> _mockLocalizationHelper = null;
 
+        private Mock<IOptions<AppConfigSettings>> _mockConfigSettings = null;
         [TestInitialize]
         public void Init()
         {
@@ -27,13 +30,15 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpWasteService = new Mock<IHttpWasteService>();
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
             _mockLocalizationHelper = new Mock<ILocalizationHelper<WhichQuarterResources>>();
-
+            _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
             _wasteService = new WasteService(
                 _mockMapper.Object,
                 _mockHttpWasteService.Object,
                 _mockHttpJourneyService.Object,
-                _mockLocalizationHelper.Object);
+                _mockLocalizationHelper.Object,
+                _mockConfigSettings.Object);
         }
+
 
         [TestMethod]
         public async Task GetWasteTypesViewModel_ReturnsValidModel_MappedCorrectly()
@@ -72,7 +77,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            int currentMonth = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
             string material = "testMaterial";
 
@@ -98,7 +102,7 @@ namespace EPRN.UnitTests.Portal.Services
             }
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -129,7 +133,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            int currentMonth = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
             string material = "testMaterial";
 
@@ -155,7 +158,7 @@ namespace EPRN.UnitTests.Portal.Services
             }
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -312,7 +315,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 1;
-            var dto = new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete };
+            var dto = new WasteRecordStatusDto { WasteRecordStatus = WasteRecordStatuses.Complete };
 
             _mockHttpJourneyService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(dto);
 
@@ -513,7 +516,7 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Exporter);
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -540,7 +543,7 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Reprocessor);
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);

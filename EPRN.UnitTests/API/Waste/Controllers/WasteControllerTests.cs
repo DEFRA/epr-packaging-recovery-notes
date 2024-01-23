@@ -9,11 +9,13 @@ namespace EPRN.UnitTests.API.Waste.Controllers
     {
         private WasteController _wasteController;
         private Mock<IWasteService> _mockWasteService;
-
+        private Mock<IQuarterlyDatesService> _mockQuarterlyDatesService;
+        
         [TestInitialize]
         public void Init()
         {
             _mockWasteService = new Mock<IWasteService>();
+            _mockQuarterlyDatesService = new Mock<IQuarterlyDatesService>();
             _wasteController = new WasteController(_mockWasteService.Object);
         }
 

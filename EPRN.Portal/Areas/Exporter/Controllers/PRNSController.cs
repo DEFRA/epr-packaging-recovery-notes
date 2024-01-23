@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Constants;
+using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
@@ -109,8 +110,8 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             // Handle redirection to CheckYourAnswers if this is where we originally came from
-            if (context.HttpContext.Request.Query.ContainsKey(Constants.Strings.QueryStrings.ReturnToAnswers) &&
-                context.HttpContext.Request.Query[Constants.Strings.QueryStrings.ReturnToAnswers] == Constants.Strings.QueryStrings.ReturnToAnswersYes &&
+            if (context.HttpContext.Request.Query.ContainsKey(Strings.QueryStrings.ReturnToAnswers) &&
+                context.HttpContext.Request.Query[Strings.QueryStrings.ReturnToAnswers] == Strings.QueryStrings.ReturnToAnswersYes &&
                 context.Result is RedirectToActionResult)
             {
                 var id = (context.Result as RedirectToActionResult).RouteValues["Id"].ToString();

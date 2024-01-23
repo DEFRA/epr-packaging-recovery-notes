@@ -1,5 +1,7 @@
 ﻿@model CheckYourAnswersViewModel;
 @using EPRN.Common.Enums;
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+
 
 @{
     ViewData["Title"] = CheckYourAnswersResources.Title;
@@ -9,7 +11,7 @@
     var queryStringRouteData = new Dictionary<string, string>
     {
         { "Id", Model.Id.ToString() },
-        { EPRN.Portal.Constants.Strings.QueryStrings.ReturnToAnswers, EPRN.Portal.Constants.Strings.QueryStrings.ReturnToAnswersYes }
+        { Strings.QueryStrings.ReturnToAnswers, Strings.QueryStrings.ReturnToAnswersYes }
     };
 }
 
