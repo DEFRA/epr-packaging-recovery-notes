@@ -19,18 +19,18 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? journeyId)
+        public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
         {
-            if (journeyId == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            else if (journeyId <= 0)
+            else if (id <= 0)
             {
                 return BadRequest();
             }
 
-            var viewModel = await _prnService.GetDraftPrnConfirmationModel(journeyId.Value);
+            var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
 
             return View(viewModel);
         }
