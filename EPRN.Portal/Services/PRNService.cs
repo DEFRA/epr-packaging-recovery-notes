@@ -128,6 +128,7 @@ namespace EPRN.Portal.Services
 
         public async Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id)
         {
+            //TODO: The PrnNumber property needs to be system generated in the future
             return new PrnSavedAsDraftViewModel
             {
                 Id = id,
