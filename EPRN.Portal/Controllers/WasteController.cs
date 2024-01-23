@@ -87,22 +87,31 @@ namespace EPRN.Portal.Controllers
         [HttpGet]
         public async Task<IActionResult> RecordWaste(int? id)
         {
-            //if (id == null)
-            //{
-            //    // TODO - need to record the type of waste (Exporter or Reprocessor)
-            //    // but we're limited here as the Types page needs re-doing due to a change
-            //    // of design
-            //    var journeyId = await _wasteService.CreateJourney();
-
-            //    return RedirectToAction(
-            //        Routes.Controllers.Actions.Waste.RecordWaste, 
-            //        new { id = journeyId });
-            //}
-
             var viewModel = await _wasteService.GetWasteTypesViewModel();
 
             return View(viewModel);
         }
+
+        /// <summary>
+        /// Need to record change to material type for existing waste record
+        /// </summary>
+        //[HttpPost]
+        //public async Task<IActionResult> RecordWaste(WasteTypesViewModel wasteTypesViewModel)
+        //{
+        //    if (wasteTypesViewModel == null)
+        //        return BadRequest();
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return await RecordWaste(wasteTypesViewModel.JourneyId);
+        //    }
+
+        //    await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
+
+        //    return RedirectToAction(
+        //        Routes.Controllers.Actions.Waste.Done, 
+        //        new { id = wasteTypesViewModel.JourneyId });
+        //}
 
         [HttpGet]
         [Route("/Waste/[action]/Material/{materialId}/Category/{category}")]
@@ -122,24 +131,6 @@ namespace EPRN.Portal.Controllers
 
             return RedirectToAction(Routes.Controllers.Actions.Waste.SubTypes, new { id });
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> RecordWaste(WasteTypesViewModel wasteTypesViewModel)
-        //{
-        //    if (wasteTypesViewModel == null)
-        //        return BadRequest();
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return await RecordWaste(wasteTypesViewModel.JourneyId);
-        //    }
-
-        //    await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
-
-        //    return RedirectToAction(
-        //        Routes.Controllers.Actions.Waste.Done, 
-        //        new { id = wasteTypesViewModel.JourneyId });
-        //}
 
         [HttpGet]
         public async Task<IActionResult> SubTypes(int? id)
