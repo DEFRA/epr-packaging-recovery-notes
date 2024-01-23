@@ -16,7 +16,7 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         {
             _mockWasteService = new Mock<IWasteService>();
             _mockQuarterlyDatesService = new Mock<IQuarterlyDatesService>();
-            _wasteController = new WasteController(_mockWasteService.Object, _mockQuarterlyDatesService.Object);
+            _wasteController = new WasteController(_mockWasteService.Object);
         }
 
         [TestMethod]

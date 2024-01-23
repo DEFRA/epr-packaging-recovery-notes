@@ -9,12 +9,10 @@ namespace EPRN.Waste.API.Controllers
     public class WasteController : ControllerBase
     {
         private readonly IWasteService _wasteService;
-        private readonly IQuarterlyDatesService _quarterlyDatesService;
 
-        public WasteController(IWasteService wasteService, IQuarterlyDatesService quarterlyDatesService)
+        public WasteController(IWasteService wasteService)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
-            _quarterlyDatesService = quarterlyDatesService ?? throw new ArgumentNullException(nameof(quarterlyDatesService));
         }
 
         [HttpGet]
@@ -30,6 +28,5 @@ namespace EPRN.Waste.API.Controllers
         {
             return await _wasteService.WasteSubTypes(wasteTypeid);
         }
-
     }
 }
