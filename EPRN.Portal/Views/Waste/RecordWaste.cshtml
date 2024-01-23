@@ -11,7 +11,11 @@
 }
 
 <label>Company name</label>
-<h1>Record waste</h1>
+<h1 class="govuk-label-wrapper">
+    <label class="govuk-label govuk-label--l" for="with-hint">
+        Record waste
+    </label>
+</h1>
 @if (userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor))
 {
     <partial name="_RecordWasteCategorySection" model="@Model.ReprocessorSiteMaterials" />

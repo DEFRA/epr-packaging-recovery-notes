@@ -1,10 +1,10 @@
 ﻿using EPRN.Portal.Configuration;
-using EPRN.Portal.Constants;
 using EPRN.Portal.Resources;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Services
 {

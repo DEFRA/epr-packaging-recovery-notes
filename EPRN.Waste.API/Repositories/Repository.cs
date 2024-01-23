@@ -155,7 +155,7 @@ namespace EPRN.Waste.API.Repositories
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId && wj.WasteSubTypeId.HasValue)
+                .Where(wj => wj.Id == journeyId)
                 .Select(wj => new WasteSubTypeSelectionDto
                 {
                     WasteSubTypeId = wj.WasteSubTypeId.Value,

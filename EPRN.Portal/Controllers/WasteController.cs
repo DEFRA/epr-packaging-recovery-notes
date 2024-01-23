@@ -4,7 +4,7 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Routes = EPRN.Portal.Constants.Routes;
+using Routes = EPRN.Common.Constants.Strings.Routes;
 
 namespace EPRN.Portal.Controllers
 {
@@ -105,7 +105,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        [Route("/Waste/[action]/{materialId}/Category/{category}")]
+        [Route("/Waste/[action]/Material/{materialId}/Category/{category}")]
         public async Task<IActionResult> Create(
             int? materialId, 
             Category? category)
