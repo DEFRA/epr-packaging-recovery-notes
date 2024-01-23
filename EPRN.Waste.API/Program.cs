@@ -9,6 +9,7 @@ using EPRN.Waste.API.Services;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +23,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IJourneyService, JourneyService>();
 builder.Services.AddTransient<IWasteService, WasteService>();
 builder.Services.AddTransient<IRepository, Repository>();
+builder.Services.AddTransient<IQuarterlyDatesService, QuarterlyDatesService>();
 
 // add db context options
 builder.Services.AddDbContext<EPRNContext>(options =>

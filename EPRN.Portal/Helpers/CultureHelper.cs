@@ -1,5 +1,5 @@
-﻿using EPRN.Portal.Constants;
-using Microsoft.AspNetCore.Localization;
+﻿using Microsoft.AspNetCore.Localization;
+using CultureConstants = EPRN.Common.Constants.CultureConstants;
 
 namespace EPRN.Portal.Helpers
 {

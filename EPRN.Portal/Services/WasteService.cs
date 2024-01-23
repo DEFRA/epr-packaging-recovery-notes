@@ -1,11 +1,15 @@
-﻿
+﻿using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using AutoMapper;
 using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
 {
@@ -20,11 +24,12 @@ namespace EPRN.Portal.Services
             IMapper mapper,
             IHttpWasteService httpWasteService,
             IHttpJourneyService httpJourneyService,
-            ILocalizationHelper<WhichQuarterResources> localizationHelper)
+            ILocalizationHelper<WhichQuarterResources> localizationHelper,
+            IOptions<AppConfigSettings> configSettings)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
-            _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(_httpJourneyService));
+            _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(httpJourneyService));
             _localizationHelper = localizationHelper ?? throw new ArgumentNullException(nameof(localizationHelper));
         }
 
@@ -33,33 +38,44 @@ namespace EPRN.Portal.Services
             return await _httpJourneyService.CreateJourney();
         }
 
-        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
+        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId)
         {
             var category = await _httpJourneyService.GetCategory(journeyId);
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
-
-            var duringWhichMonthRequestViewModel = default(DuringWhichMonthRequestViewModel);
-
-            if (whatHaveYouDoneWaste == DoneWaste.ReprocessedIt)
-            {
-                duringWhichMonthRequestViewModel = new DuringWhichMonthReceivedRequestViewModel();
-            }
-            else
-            {
-                duringWhichMonthRequestViewModel = new DuringWhichMonthSentOnRequestViewModel();
-            }
-
-            duringWhichMonthRequestViewModel.JourneyId = journeyId;
-            duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
-            duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
-            duringWhichMonthRequestViewModel.Category = category;
-
-            int firstMonthOfQuarter = (currentMonth - 1) / 3 * 3 + 1;
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
-
+            var duringWhichMonthRequestViewModel = CreateDuringWhichMonthRequestViewModel(whatHaveYouDoneWaste);
+            await PopulateViewModel(duringWhichMonthRequestViewModel, journeyId, whatHaveYouDoneWaste);
             return duringWhichMonthRequestViewModel;
+        }
+        
+        private static DuringWhichMonthRequestViewModel CreateDuringWhichMonthRequestViewModel(DoneWaste whatHaveYouDoneWaste)
+        {
+            return whatHaveYouDoneWaste == DoneWaste.ReprocessedIt
+                ? new DuringWhichMonthReceivedRequestViewModel()
+                : new DuringWhichMonthSentOnRequestViewModel();
+        }
+
+        private async Task PopulateViewModel(DuringWhichMonthRequestViewModel viewModel, int journeyId, DoneWaste whatHaveYouDoneWaste)
+        {
+            // TODO -- Add has submitted qtr return this logic when available, true for now
+            const bool hasSubmittedPreviousQuarterReturn = true;
+            
+            viewModel.JourneyId = journeyId;
+            viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
+            
+            var wasteTypeTask = _httpJourneyService.GetWasteType(journeyId);
+            var quarterTask = _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
+
+            await Task.WhenAll(wasteTypeTask, quarterTask);
+            viewModel.WasteType = wasteTypeTask.Result;
+            viewModel.Notification = quarterTask.Result.Notification;
+            viewModel.SubmissionDate = quarterTask.Result.SubmissionDate;
+            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
+
+            var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
+                Assembly.GetExecutingAssembly());
+            
+            foreach (var itemMonth in quarterTask.Result.QuarterlyMonths) 
+                viewModel.Quarter.Add(itemMonth.Key, rm.GetString(itemMonth.Value));
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
@@ -89,7 +105,7 @@ namespace EPRN.Portal.Services
                 SelectedWasteTypeId = wasteTypeIdTask.Result
             };
         }
-
+        
         public async Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId)
         {
             var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
@@ -116,7 +132,7 @@ namespace EPRN.Portal.Services
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
             };
         }
-
+        
         public async Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             if (wasteSubTypesViewModel == null)
@@ -151,7 +167,6 @@ namespace EPRN.Portal.Services
 
             return (wasteSubTypeId, adjustment);
         }
-
         public async Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel)
         {
             if (wasteTypesViewModel == null)

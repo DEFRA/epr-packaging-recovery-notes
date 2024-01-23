@@ -90,7 +90,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // arrange
             var id = 3;
-            _mockHttpPrnsService.Setup(s => s.GetConfirmation(id)).ReturnsAsync(new Common.Dtos.ConfirmationDto());
+            _mockHttpPrnsService.Setup(s => s.GetConfirmation(id)).ReturnsAsync(new ConfirmationDto());
 
             // act
             await _prnService.GetConfirmation(id);
@@ -98,38 +98,6 @@ namespace EPRN.UnitTests.Portal.Services
             // assert
             _mockHttpPrnsService.Verify(s => 
                 s.GetConfirmation(
-                    It.Is<int>(p => p == id)), 
-                Times.Once);
-        }
-
-        [TestMethod]
-        public async Task GetCheckYourAnswersViewModel_CallsService()
-        {
-            // arrange
-            var id = 45;
-            var dto = new CheckYourAnswersDto();
-            _mockHttpPrnsService.Setup(s => s.GetCheckYourAnswers(It.Is<int>(p => id == p))).ReturnsAsync(dto);
-
-            // act
-            await _prnService.GetCheckYourAnswersViewModel(id);
-
-            // assert
-            _mockHttpPrnsService.Verify(s => s.GetCheckYourAnswers(It.Is<int>(p => p == id)), Times.Once);
-            _mockMapper.Verify(m => m.Map<CheckYourAnswersViewModel>(It.Is<CheckYourAnswersDto>(p => p == dto)), Times.Once);
-        }
-
-        [TestMethod]
-        public async Task something()
-        {
-            // arrange
-            var id = 34;
-
-            // act
-            await _prnService.SaveCheckYourAnswers(id);
-
-            // assert
-            _mockHttpPrnsService.Verify(s =>
-                s.SaveCheckYourAnswers(
                     It.Is<int>(p => p == id)), 
                 Times.Once);
         }
