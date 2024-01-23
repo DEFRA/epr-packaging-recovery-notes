@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
 using System.Resources;
 using AutoMapper;
 using EPRN.Common.Enums;
@@ -67,7 +68,7 @@ namespace EPRN.Portal.Services
             viewModel.WasteType = wasteTypeTask.Result;
             viewModel.Notification = quarterTask.Result.Notification;
             viewModel.SubmissionDate = quarterTask.Result.SubmissionDate;
-            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToShortDateString();
+            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
 
             var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
                 Assembly.GetExecutingAssembly());

@@ -199,7 +199,7 @@
     <value>[Welsh]Wood</value>
   </data>
   <data name="QuarterlyReturnDue" xml:space="preserve">
-    <value>[Welsh]You neeed to submit your quarterly return by</value>
+    <value>[Welsh]You need to submit your quarterly return by</value>
   </data>
   <data name="QuarterlyReturnLate" xml:space="preserve">
     <value>[Welsh]Your previous quarterly return Is now late</value>

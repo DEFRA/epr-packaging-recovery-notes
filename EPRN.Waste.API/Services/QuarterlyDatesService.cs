@@ -80,9 +80,8 @@ namespace EPRN.Waste.API.Services
             // Get the deadline day for the previous quarter from the config settings
             var deadlineDay = quarterDeadlineDays[previousQuarter + 1];
 
-  
             // Calculate the deadline month for the previous quarter
-            var deadlineMonth = previousQuarter == 3 ? 2 : _quarterStartMonths[currentQuarter];  //(previousQuarter + 1) % 4 + 1;
+            var deadlineMonth = previousQuarter == 3 ? 2 : _quarterStartMonths[currentQuarter];
 
             // Return the deadline date for the previous quarter
             return new DateTime(currentYear, deadlineMonth, deadlineDay);

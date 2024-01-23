@@ -196,7 +196,7 @@
     <value>Plastic</value>
   </data>
   <data name="QuarterlyReturnDue" xml:space="preserve">
-    <value>You neeed to submit your quarterly return by </value>
+    <value>You need to submit your quarterly return by </value>
   </data>
   <data name="QuarterlyReturnDueAction" xml:space="preserve">
     <value>Submit this return</value>

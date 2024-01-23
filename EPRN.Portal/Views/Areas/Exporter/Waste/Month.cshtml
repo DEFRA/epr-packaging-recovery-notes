@@ -2,30 +2,7 @@
 @using EPRN.Common.Extensions
 @using EPRN.Portal.Helpers.TagHelpers
 @using Microsoft.AspNetCore.Mvc.TagHelpers
-
 @model DuringWhichMonthRequestViewModel
-@{
-    if (!string.IsNullOrWhiteSpace(Model.Notification))
-    {
-        var notificationVm = new NotificationViewModel
-        {
-            Title = WhichQuarterResources.Important
-        };
-
-        if (Model.Notification == Strings.Notifications.QuarterlyReturnDue)
-        {
-            notificationVm.PrimaryMessage = $"{WhichQuarterResources.QuarterlyReturnDue} {Model.NotificationDeadlineDate}";
-            notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnDueAction;
-        }
-        else if (Model.Notification == Strings.Notifications.QuarterlyReturnLate)
-        {
-            notificationVm.PrimaryMessage = WhichQuarterResources.QuarterlyReturnLate;
-            notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnLateAction;
-        }
-
-        <partial name="_NotificationPanel" model="@notificationVm" />
-    }
-}
 
 @{
     string heading;
@@ -45,39 +22,66 @@
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
     <input type="hidden" asp-for="WhatHaveYouDone" />
-    <partial name="_ValidationSummary" />
+    
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            @{
+                if (!string.IsNullOrWhiteSpace(Model.Notification))
+                {
+                    var notificationVm = new NotificationViewModel
+                    {
+                        Title = WhichQuarterResources.Important
+                    };
 
-    <span class="govuk-caption-l">
-        @MasterResources.RecordingFor @Model.WasteType
-    </span>
-    @if (!Model.SubmissionDate.IsFeb29() )
-    {
-        <radios asp-for="SelectedMonth" asp-title="@heading">
-            <div class="govuk-hint">
-                @WhichQuarterResources.HintText
-            </div>
+                    if (Model.Notification == Strings.Notifications.QuarterlyReturnDue)
+                    {
+                        notificationVm.PrimaryMessage = $"{WhichQuarterResources.QuarterlyReturnDue} {Model.NotificationDeadlineDate}";
+                        notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnDueAction;
+                    }
+                    else if (Model.Notification == Strings.Notifications.QuarterlyReturnLate)
+                    {
+                        notificationVm.PrimaryMessage = WhichQuarterResources.QuarterlyReturnLate;
+                        notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnLateAction;
+                    }
 
-            <p class="govuk-error-message">
-                <span asp-validation-for="SelectedMonth"></span>
-            </p>
-            @if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
+                    <partial name="_NotificationPanel" model="@notificationVm" />
+                }
+            }
+            <partial name="_ValidationSummary" />
+            <span class="govuk-caption-l">
+                @MasterResources.RecordingFor @Model.WasteType
+            </span>
+            @if (!Model.SubmissionDate.IsFeb29())
             {
-                <partial name="_RadioOptionReprocessedIt" model="Model" />
+                <radios asp-for="SelectedMonth" asp-title="@heading">
+                    <div class="govuk-hint">
+                        @WhichQuarterResources.HintText
+                    </div>
+
+                    <p class="govuk-error-message">
+                        <span asp-validation-for="SelectedMonth"></span>
+                    </p>
+                    @if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
+                    {
+                        <partial name="_RadioOptionReprocessedIt" model="Model" />
+                    }
+                    else
+                    {
+                        <partial name="_RadioOptionSentItOn" model="Model" />
+                    }
+                </radios>
             }
             else
             {
-                <partial name="_RadioOptionSentItOn" model="Model" />
+                <h1 class="govuk-heading-l">@WhichQuarterResources.RecordFebruaryWaste</h1>
+                <div class="govuk-hint">
+                    @WhichQuarterResources.HintTextFebruary
+                </div>
             }
-        </radios>
-    }
-    else
-    {
-        <h1 class="govuk-heading-l">@WhichQuarterResources.RecordFebruaryWaste</h1>
-        <div class="govuk-hint">
-            @WhichQuarterResources.HintTextFebruary
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+                @MasterResources.ContinueBtn
+            </button>
         </div>
-    }
-    <button class="govuk-button" data-module="govuk-button" type="submit">
-        @MasterResources.ContinueBtn
-    </button>
+    </div>
+
 </form>
