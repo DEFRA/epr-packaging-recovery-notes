@@ -28,7 +28,7 @@ namespace EPRN.Portal.Helpers.Extensions
         /// <summary>
         /// Extension method to add services for DI during startup
         /// </summary>
-        public static IServiceCollection AddDependencies(this IServiceCollection services, ConfigurationManager configuration)
+        public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<RequestLocalizationOptions>(options =>
             {

@@ -134,6 +134,11 @@ namespace EPRN.Waste.API.Services
             return await _wasteRepository.GetWasteNote(journeyId);
         }
 
+        public async Task SaveWasteRecordNote(int journeyId, string note)
+        {
+            await _wasteRepository.UpdateWasteNote(journeyId, note);
+        }
+
         public async Task<object?> GetCategory(int journeyId)
         {
             var category = await _wasteRepository.GetCategory(journeyId);

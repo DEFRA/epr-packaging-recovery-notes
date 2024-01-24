@@ -217,6 +217,16 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
+        public async Task UpdateWasteNote(int journeyId, string note)
+        {
+            await _wasteContext
+                .WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .ExecuteUpdateAsync(sp =>
+                    sp.SetProperty(wj => wj.Note, note)
+                );
+        }
+
         public async Task<Category> GetCategory(int journeyId)
         {
             return await _wasteContext
