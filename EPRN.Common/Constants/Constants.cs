@@ -31,6 +31,10 @@ public static class Strings
         public const string ReturnToAnswersYes = "y";
     }
 
+    /// <summary>
+    /// This class should be used to store the values of areas, controllers and action names
+    /// So we can use this instead of strings directly in controllers and views
+    /// </summary>
     public static class Routes
     {
         public static class Areas
