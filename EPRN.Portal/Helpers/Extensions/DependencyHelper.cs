@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using EPRN.Common.Constants;
 using EPRN.Portal.Configuration;
+using EPRN.Portal.Helpers.Attributes;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
 using EPRN.Portal.Profiles;
@@ -9,16 +11,14 @@ using EPRN.Portal.Services;
 using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
-using EPRN.Common.Constants;
 using Strings = EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Helpers.Extensions
@@ -104,7 +104,9 @@ namespace EPRN.Portal.Helpers.Extensions
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
                         Strings.ApiEndPoints.PRN)
                 )
-                .AddTransient<IPRNService, PRNService>();
+                .AddTransient<IPRNService, PRNService>()
+                .AddScoped<WasteTypeActionFilter>()
+                .AddScoped<WasteCommonViewModel>(); // this needs to be available throughout the whole request, therefore needs to be scoped
 
             // move where area views live so they exist in the same parent location as
             // as other views

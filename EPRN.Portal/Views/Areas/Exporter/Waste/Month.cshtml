@@ -22,6 +22,8 @@
     }
 }
 
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
     <input type="hidden" asp-for="WhatHaveYouDone" />
@@ -50,10 +52,7 @@
                     <partial name="_NotificationPanel" model="@notificationVm" />
                 }
             }
-            <partial name="_ValidationSummary" />
-            <span class="govuk-caption-l">
-                @MasterResources.RecordingFor @Model.WasteType
-            </span>
+            
             @if (!Model.SubmissionDate.IsFeb29())
             {
                 <radios asp-for="SelectedMonth" asp-title="@heading">

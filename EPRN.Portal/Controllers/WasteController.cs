@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Enums;
+using EPRN.Portal.Helpers.Attributes;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
@@ -12,6 +13,7 @@ namespace EPRN.Portal.Controllers
     /// The roiute can be navigate here by being either an Exporter or Reprocessor
     /// </summary>
     [Route("[controller]/[action]/{id?}")]
+    [ServiceFilter(typeof(WasteTypeActionFilter))]
     public class WasteController : BaseController
     {
         private readonly IWasteService _wasteService;

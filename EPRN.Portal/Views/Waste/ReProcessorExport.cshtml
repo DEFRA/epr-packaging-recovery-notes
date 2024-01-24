@@ -5,13 +5,10 @@
     ViewData["Title"] = ReProcessorExportResource.PageTitle;
 }
 
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
-    <partial name="_ValidationSummary" />
-
-    <span class="govuk-caption-l">
-        @MasterResources.RecordingFor @Model.WasteType
-    </span>
     <radios asp-for="SelectedSite" asp-title="@ReProcessorExportResource.Heading">
         <p class="govuk-error-message">
             <span asp-validation-for="SelectedSite"></span>

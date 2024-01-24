@@ -6,15 +6,11 @@
     ViewData["Title"] = @NoteResources.PageTitle;
 }
 
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
-    <input type="hidden" asp-for="WasteType" />
-    <partial name="_ValidationSummary" />
 
-    <span class="govuk-caption-l">
-        @MasterResources.RecordingFor @Model.WasteType
-    </span>
-    
     <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
