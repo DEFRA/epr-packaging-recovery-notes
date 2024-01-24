@@ -37,7 +37,7 @@ namespace EPRN.Common.Data.DataModels
 
         public WasteSubType WasteSubType { get; set; }
 
-        public string? ReferenceNumber { get; set; }
+        public string ReferenceNumber { get; set; }
 
         public DoneWaste? DoneWaste { get; set; }
 
