@@ -10,7 +10,7 @@ namespace EPRN.Portal.ViewModels.Waste
 
         public Dictionary<int, string> Quarter { get; set; } = new();
 
-        public string WasteType { get; set; }
+//        public string WasteType { get; set; }
 
         public DoneWaste WhatHaveYouDone { get; set; }
 
