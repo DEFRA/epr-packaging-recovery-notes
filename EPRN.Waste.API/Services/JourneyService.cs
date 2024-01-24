@@ -190,10 +190,6 @@ namespace EPRN.Waste.API.Services
                 throw new Exception(nameof(journey));
 
             var journeyAnswersDto = new JourneyAnswersDto();
-        public async Task SaveWasteRecordNote(int journeyId, string note)
-        {
-            await _wasteRepository.UpdateWasteNote(journeyId, note);
-        }
 
             journeyAnswersDto.JourneyId = journeyId;
             journeyAnswersDto.WhatDoneWithWaste = journey.DoneWaste == null ? string.Empty : journey.DoneWaste.Value.ToString();
@@ -208,6 +204,12 @@ namespace EPRN.Waste.API.Services
 
             return journeyAnswersDto;
         }
+
+        public async Task SaveWasteRecordNote(int journeyId, string note)
+        {
+            await _wasteRepository.UpdateWasteNote(journeyId, note);
+        }
+
         public async Task<object?> GetCategory(int journeyId)
         {
             var category = await _wasteRepository.GetCategory(journeyId);

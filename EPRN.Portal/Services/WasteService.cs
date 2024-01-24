@@ -42,8 +42,6 @@ namespace EPRN.Portal.Services
 
         public async Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel)
         {
-            var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
-            var selectedMonth = await _httpJourneyService.GetSelectedMonth(journeyId);
             if (wasteTypesViewModel == null)
                 throw new ArgumentNullException(nameof(wasteTypesViewModel));
 
@@ -68,16 +66,6 @@ namespace EPRN.Portal.Services
                 : new DuringWhichMonthSentOnRequestViewModel();
         }
 
-            duringWhichMonthRequestViewModel.JourneyId = journeyId;
-            duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
-            duringWhichMonthRequestViewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
-            duringWhichMonthRequestViewModel.SelectedMonth = selectedMonth;
-
-
-            int firstMonthOfQuarter = ((currentMonth - 1) / 3 * 3) + 1;
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
-            duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
         private async Task PopulateViewModel(DuringWhichMonthRequestViewModel viewModel, int journeyId, DoneWaste whatHaveYouDoneWaste)
         {
             // TODO -- Add has submitted qtr return this logic when available, true for now
@@ -262,18 +250,6 @@ namespace EPRN.Portal.Services
             return whatHaveYouDoneWasteModel;
         }
 
-        public async Task SaveSelectedMonth(WasteTypesViewModel wasteTypesViewModel)
-        {
-            if (wasteTypesViewModel == null)
-                throw new ArgumentNullException(nameof(wasteTypesViewModel));
-
-            if (wasteTypesViewModel.SelectedWasteTypeId == null)
-                throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
-
-            await _httpJourneyService.SaveSelectedWasteType(
-                wasteTypesViewModel.JourneyId,
-                wasteTypesViewModel.SelectedWasteTypeId.Value);
-        }
         public async Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteViewModel)
         {
             if (whatHaveYouDoneWasteViewModel == null)

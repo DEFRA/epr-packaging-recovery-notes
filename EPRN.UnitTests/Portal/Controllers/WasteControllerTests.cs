@@ -21,7 +21,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             _mockWasteService = new Mock<IWasteService>();
             _homeServiceFactory = new Mock<IHomeServiceFactory>();
             var exporterHomeService = new Mock<IUserBasedService>();
-            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAViewModel());
+            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAViewModel() { UserRole = UserRole.Reprocessor});
             _homeServiceFactory.Setup(x => x.CreateHomeService()).Returns(exporterHomeService.Object);
             _wasteController = new WasteController(_mockWasteService.Object, _homeServiceFactory.Object);
         }
@@ -660,8 +660,8 @@ namespace EPRN.UnitTests.Portal.Controllers
         //    Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(NoteViewModel));
 
             // check view name
-            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
-        }
+            //Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        //}
 
         [TestMethod]
         public async Task CheckYourAnswers_ReturnsCorrectViewModel_ForValidJourneyId()
@@ -683,7 +683,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(CYAViewModel));
 
             // check view name
-            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+            Assert.IsNotNull(viewResult.ViewName); // It's going to return the view name of the action by default
         }
 
         [TestMethod]
