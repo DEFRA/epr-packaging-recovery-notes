@@ -34,5 +34,11 @@ namespace EPRN.Portal.Controllers
 
             return View(viewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewSentPrns()
+        {
+            return View();
+        }
     }
 }
