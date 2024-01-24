@@ -2,6 +2,8 @@
 @using EPRN.Portal.Services.Interfaces;
 @using EPRN.Portal.Helpers.Extensions;
 
+@model ViewSentPrnsViewModel;
+
 @inject IUserRoleService userRoleService;
 
 @{
@@ -80,23 +82,20 @@
     <p class="govuk-body">@ViewSentPrnResources.ViewDownloadCancelText</p>
 
     <div class="govuk-form-group" style="float:right">
-        <label class="govuk-visually-hidden" for="select-status ">Select a filter</label>
-        <select class="govuk-select" id="select-status" name="sort">
-            <option selected="">@ViewSentPrnResources.FilterBy </option>
-            <option value="published">@ViewSentPrnResources.Accepted </option>
-            <option value="updated">@ViewSentPrnResources.AwaitingAcceptance</option>
-            <option value="views">@ViewSentPrnResources.Rejected</option>
-            <option value="views">@ViewSentPrnResources.AwaitingCancellation</option>
-            <option value="comments">@ViewSentPrnResources.Cancelled</option>
+        <select class="govuk-select" id="filter-by" name="filter-by">
+            <option value="all" selected>@ViewSentPrnResources.FilterBy </option>
+            <option value=@PrnRecordStatus.Accepted>@ViewSentPrnResources.Accepted </option>
+            <option value=@PrnRecordStatus.AwaitingAcceptance>@ViewSentPrnResources.AwaitingAcceptance</option>
+            <option value=@PrnRecordStatus.Rejected>@ViewSentPrnResources.Rejected</option>
+            <option value=@PrnRecordStatus.AwaitingCancellation>@ViewSentPrnResources.AwaitingCancellation</option>
+            <option value=@PrnRecordStatus.Cancelled>@ViewSentPrnResources.Cancelled</option>
         </select>
     </div>
-
     <div class="govuk-form-group" style="float:right">
-        <label class="govuk-visually-hidden" for="select-status ">Select a filter</label>
-        <select class="govuk-select" id="select-status" name="sort">
-            <option selected="">@ViewSentPrnResources.SortBy </option>
-            <option value="published">@ViewSentPrnResources.Material</option>
-            <option value="updated">@ViewSentPrnResources.SentTo</option>
+        <select class="govuk-select" id="sort-by" name="sort-by">
+            <option value="both" selected>@ViewSentPrnResources.SortBy </option>
+            <option value=@ViewSentPrnResources.Material>@ViewSentPrnResources.Material</option>
+            <option value=@ViewSentPrnResources.SentTo>@ViewSentPrnResources.SentTo</option>
         </select>
     </div>
 
@@ -112,21 +111,57 @@
             </tr>
         </thead>
         <tbody class="govuk-table__body">
-            <tr class="govuk-table__row">
-                <td class="govuk-table__cell">
-                    <a href="#">PRN0001</a>
-                </td>
-                <td class="govuk-table__cell">Paper/board</td>
-                <td class="govuk-table__cell"> Tesco</td>
-                <td class="govuk-table__cell">20/11/2023</td>
-                <td class="govuk-table__cell">170</td>
-                <td class="govuk-table__cell">
-                    <strong class="govuk-tag govuk-tag--blue">
-                        @ViewSentPrnResources.AwaitingAcceptance.ToUpper()
-                    </strong>
-                </td>
-            </tr>
+            @foreach (var row in Model.Rows)
+            {
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        <a href="@row.Link">@row.PrnNumber</a>
+                    </td>
+                    <td class="govuk-table__cell">@row.Material</td>
+                    <td class="govuk-table__cell">@row.SentTo</td>
+                    <td class="govuk-table__cell">@row.DateCreated</td>
+                    <td class="govuk-table__cell">@row.Tonnes</td>
 
+                    @switch (row.Status)
+                    {
+                        case PrnRecordStatus.Accepted:
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--green">
+                                    @ViewSentPrnResources.Accepted.ToUpper()
+                                </strong>
+                            </td>
+                            break;
+                        case PrnRecordStatus.AwaitingAcceptance:
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--blue">
+                                    @ViewSentPrnResources.AwaitingAcceptance.ToUpper()
+                                </strong>
+                            </td>
+                            break;
+                        case PrnRecordStatus.Rejected:
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--red">
+                                    @ViewSentPrnResources.Rejected.ToUpper()
+                                </strong>
+                            </td>
+                            break;
+                        case PrnRecordStatus.AwaitingCancellation:
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--purple">
+                                    @ViewSentPrnResources.AwaitingCancellation.ToUpper()
+                                </strong>
+                            </td>
+                            break;
+                        case PrnRecordStatus.Cancelled:
+                            <td class="govuk-table__cell">
+                                <strong class="govuk-tag govuk-tag--yellow">
+                                    @ViewSentPrnResources.Cancelled.ToUpper()
+                                </strong>
+                            </td>
+                            break;
+                    }
+                </tr>
+            }
         </tbody>
     </table>
 

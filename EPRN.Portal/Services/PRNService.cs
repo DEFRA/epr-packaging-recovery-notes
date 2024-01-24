@@ -135,5 +135,52 @@ namespace EPRN.Portal.Services
                 PrnNumber = "PRN222019EFGF",
             };
         }
+
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel()
+        {
+            //TODO: The real data retrieval is being implemented by Sajid
+
+            var row1 = CreatePrnRow("PRN001", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row2 = CreatePrnRow("PRN002", "Steel", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Rejected, "#");
+            var row3 = CreatePrnRow("PRN003", "Glass Other", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Cancelled, "#");
+            var row4 = CreatePrnRow("PRN004", "Paper Composting", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Accepted, "#");
+            var row5 = CreatePrnRow("PRN005", "Glass Remelt", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingCancellation, "#");
+            var row6 = CreatePrnRow("PRN006", "Aluminum", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Accepted, "#");
+            var row7 = CreatePrnRow("PRN007", "Plastic", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Rejected, "#");
+            var row8 = CreatePrnRow("PRN008", "Wood", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row9 = CreatePrnRow("PRN009", "Wood Composting", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Cancelled, "#");
+            var row10 = CreatePrnRow("PRN010", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
+
+            var listOfRows = new List<PrnRowViewModel>()
+            {
+                row1, row2, row3, row4, row5, row6, row7, row8, row9, row10
+            };
+
+            return new ViewSentPrnsViewModel
+            {
+                Rows = listOfRows
+            };
+        }
+
+        private PrnRowViewModel CreatePrnRow(
+            string prnNumber,
+            string material,
+            string sentTo,
+            string dateCreated,
+            double tonnes,
+            PrnRecordStatus status,
+            string link)
+        {
+            return new PrnRowViewModel
+            {
+                PrnNumber = prnNumber,
+                Material = material,
+                SentTo = sentTo,
+                DateCreated = dateCreated,
+                Tonnes = tonnes,
+                Status = status,
+                Link = link
+            };
+        }
     }
 }
