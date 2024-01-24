@@ -11,6 +11,8 @@ namespace EPRN.Waste.API.Profiles
         {
             CreateMap<WasteType, WasteTypeDto>();
             CreateMap<WasteSubType, WasteSubTypeDto>();
+            CreateMap<Common.Data.Enums.Category, Common.Enums.Category>()
+                .ReverseMap();
             CreateMap<Common.Data.Enums.DoneWaste, Common.Enums.DoneWaste>()
                 .ReverseMap();
             CreateMap<WasteJourney, WasteRecordStatusDto>()

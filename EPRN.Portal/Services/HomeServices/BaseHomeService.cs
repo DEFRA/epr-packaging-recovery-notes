@@ -1,6 +1,7 @@
 ﻿using EPRN.Portal.Configuration;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
@@ -8,8 +9,11 @@ namespace EPRN.Portal.Services
     public abstract class BaseHomeService : IHomeService
     {
         protected IOptions<AppConfigSettings> ConfigSettings;
+        protected IUrlHelper _urlHelper;
 
-        public BaseHomeService(IOptions<AppConfigSettings> configSettings)
+        public BaseHomeService(
+            IUrlHelper urlHelper,
+            IOptions<AppConfigSettings> configSettings)
         {
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
@@ -22,6 +26,8 @@ namespace EPRN.Portal.Services
 
             if (configSettings.Value.DeductionAmount_ExporterAndReprocessor == null)
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_ExporterAndReprocessor));
+
+            _urlHelper = urlHelper ?? throw new ArgumentNullException(nameof(urlHelper));
 
             ConfigSettings = configSettings;
         }

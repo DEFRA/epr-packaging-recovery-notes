@@ -18,12 +18,22 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("/api/[controller]/Create")]
-        public async Task<int> CreateJourney()
+        [Route("/api/[controller]/Create/Material/{materialId}/Category/{category}")]
+        public async Task<IActionResult> CreateJourney(
+            int? materialId,
+            Category? category)
         {
-            var journeyId = await _journeyService.CreateJourney();
+            if (materialId == null)
+                return BadRequest("Material ID is missing");
 
-            return journeyId;
+            if (category == null)
+                return BadRequest("Category is missing");
+
+            var journeyId = await _journeyService.CreateJourney(
+                materialId.Value, 
+                category.Value);
+
+            return Ok(journeyId);
         }
 
         [HttpGet]

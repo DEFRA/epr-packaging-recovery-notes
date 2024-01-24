@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    [Migration("20240118134000_test")]
-    partial class test
+    [Migration("20240118134000_AddPRN-Status")]
+    partial class AddPRNStatus
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

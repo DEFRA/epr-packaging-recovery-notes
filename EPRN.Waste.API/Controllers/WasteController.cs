@@ -17,7 +17,7 @@ namespace EPRN.Waste.API.Controllers
 
         [HttpGet]
         [Route("Types")]
-        public async Task<IEnumerable<WasteTypeDto>> WasteTypes()
+        public async Task<Dictionary<int, string>> WasteTypes()
         {
             return await _wasteService.WasteTypes();
         }

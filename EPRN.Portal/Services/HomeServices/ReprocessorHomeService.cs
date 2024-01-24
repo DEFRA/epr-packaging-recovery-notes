@@ -2,21 +2,27 @@
 using EPRN.Portal.Resources;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Services.HomeServices
 {
     public class ReprocessorHomeService : BaseHomeService, IHomeService
     {
-        public ReprocessorHomeService(IOptions<AppConfigSettings> configSettings) : base(configSettings)
-        {        
+        public ReprocessorHomeService(
+            IUrlHelper urlHelper,
+            IOptions<AppConfigSettings> configSettings) : base(urlHelper, configSettings)
+        {
         }
 
         protected override List<CardViewModel> GetCardViewModels()
         {
             var wasteCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_Waste_Link_RecordWaste, "#" },
+                { HomePageResources.HomePage_Waste_Link_RecordWaste, _urlHelper.ActionLink(
+                    Routes.Actions.Waste.RecordWaste, 
+                    Routes.Controllers.Waste) },
                 { HomePageResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#" }
             };
 

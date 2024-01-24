@@ -25,7 +25,7 @@ namespace EPRN.Common.Data.DataModels
 
         public bool? BaledWithWire { get; set; }
 
-        public string? Note { get; set; }
+        public string Note { get; set; }
 
         public bool? Completed { get; set; }
 
@@ -37,7 +37,7 @@ namespace EPRN.Common.Data.DataModels
 
         public WasteSubType WasteSubType { get; set; }
 
-        public string? ReferenceNumber { get; set; }
+        public string ReferenceNumber { get; set; }
 
         public DoneWaste? DoneWaste { get; set; }
 
@@ -45,6 +45,10 @@ namespace EPRN.Common.Data.DataModels
 
         public int? SiteId { get; set; }
 
+        /// <summary>
+        /// Whether the waste is for an exporter or reprocessor. Selected at the point of creation
+        /// of a waste record
+        /// </summary>
         public Category Category { get; set; }
     }
 }

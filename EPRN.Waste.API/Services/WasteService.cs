@@ -15,13 +15,14 @@ namespace EPRN.Waste.API.Services
             _wasteRepository = wasteRepository ?? throw new ArgumentNullException(nameof(_wasteRepository));
         }
 
-        public async Task<IEnumerable<WasteTypeDto>> WasteTypes()
+        public async Task<Dictionary<int, string>> WasteTypes()
         {
             // we want the entire table contents (at the
             // moment - there may be more requirements in the future)
             // so no where clause
-            return await _wasteRepository
-                .GetAllWasteTypes();
+            return new List<WasteTypeDto>(await _wasteRepository
+                .GetAllWasteTypes())
+                .ToDictionary(wt => wt.Id, t => t.Name);
         }
 
         public async Task<IEnumerable<WasteSubTypeDto>> WasteSubTypes(int wasteTypeid)
