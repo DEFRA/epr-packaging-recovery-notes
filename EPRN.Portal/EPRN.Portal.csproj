@@ -10,12 +10,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\sass\pages\**" />
     <Compile Remove="Controllers\Areas\**" />
     <Compile Remove="Views\DuringWhichMonth\**" />
+    <Content Remove="ClientApp\sass\pages\**" />
     <Content Remove="Controllers\Areas\**" />
     <Content Remove="Views\DuringWhichMonth\**" />
+    <EmbeddedResource Remove="ClientApp\sass\pages\**" />
     <EmbeddedResource Remove="Controllers\Areas\**" />
     <EmbeddedResource Remove="Views\DuringWhichMonth\**" />
+    <None Remove="ClientApp\sass\pages\**" />
     <None Remove="Controllers\Areas\**" />
     <None Remove="Views\DuringWhichMonth\**" />
   </ItemGroup>
@@ -226,10 +230,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\sass\pages\" />
   </ItemGroup>
 
   <ItemGroup>

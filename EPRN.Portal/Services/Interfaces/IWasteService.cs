@@ -9,11 +9,13 @@ namespace EPRN.Portal.Services.Interfaces
             int materialId,
             Category category);
 
+        Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel);
+
         Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId);
 
         Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
 
-        Task<RecordWasteViewModel> GetWasteTypesViewModel();
+        Task<RecordWasteViewModel> GetWasteTypesViewModel(int? id);
 
         Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId);
 

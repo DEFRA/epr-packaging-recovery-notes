@@ -25,28 +25,78 @@ namespace EPRN.UnitTests.Portal.Controllers
             _wasteController = new WasteController(_mockWasteService.Object, _homeServiceFactory.Object);
         }
 
-        //[TestMethod]
-        //public async Task RecordWaste_Return_Correctly()
-        //{
-        //    // Arrange
-        //    _mockWasteService.Setup(s => s.GetWasteTypesViewModel(It.IsAny<int>())).ReturnsAsync(new WasteTypesViewModel());
+        [TestMethod]
+        public async Task RecordWaste_WithNoIdParameter_CallsServiceCorrectly()
+        {
+            // arrange
 
-        //    // Act
-        //    var result = await _wasteController.RecordWaste(2);
+            // act
+            var result = await _wasteController.RecordWaste((int?)null);
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOfType(result, typeof(ViewResult));
+            // assert
+            _mockWasteService.Verify(s => s.GetWasteTypesViewModel(It.Is<int?>(p => p == null)), Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNull(((ViewResult)result).ViewName);
 
-        //    var viewResult = result as ViewResult;
-        //    Assert.IsNotNull(viewResult.ViewData.Model);
+        }
 
-        //    // check model is expected type
-        //    Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteTypesViewModel));
+        [TestMethod]
+        public async Task RecordWaste_WithIdParameter_CallsServiceCorrectly()
+        {
+            // arrange
+            var id = 45;
 
-        //    // check view name
-        //    Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
-        //}
+            // act
+            var result = await _wasteController.RecordWaste(id);
+
+            // assert
+            _mockWasteService.Verify(s => 
+                s.GetWasteTypesViewModel(
+                    It.Is<int?>(p => p.HasValue && p.Value == id)), 
+                Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNull(((ViewResult)result).ViewName);
+        }
+
+        [TestMethod]
+        public async Task RecordWaste_WithViewModel_CallsServiceCorrectly()
+        {
+            // arrange
+            var wasteTypesViewModel = new WasteTypeViewModel
+            {
+                Id = 7345,
+                MaterialId = 2435
+            };
+
+            // act
+            var result = await _wasteController.RecordWaste(wasteTypesViewModel);
+
+            // assert
+            _mockWasteService.Verify(s =>
+                s.SaveSelectedWasteType(
+                    It.Is<WasteTypeViewModel>(p => p == wasteTypesViewModel)), 
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task RecordWaste_WithInvalidViewModel_CallsServiceCorrectly()
+        {
+            // arrange
+            _wasteController.ModelState.AddModelError("Error", "Error");
+
+            // act
+            var result = await _wasteController.RecordWaste((WasteTypeViewModel)null);
+
+            // assert
+            _mockWasteService.Verify(s =>
+                s.SaveSelectedWasteType(
+                    It.IsAny<WasteTypeViewModel>()),
+                Times.Never);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
 
         [TestMethod]
         public async Task DuringWhichMonth_Return_Correctly()

@@ -38,36 +38,23 @@ public static class Strings
             public static class Exporter
             {
                 public const string PRNS = "PRNS";
-
-                public static class Actions
-                {
-                    public static class PRNS
-                    {
-                        public const string Tonnes = "Tonnes";
-                        public const string CreatePrn = "CreatePrn";
-                        public const string Confirmation = "Confirmation";
-                        public const string CheckYourAnswers = "CheckYourAnswers";
-                        public const string SentTo = "SentTo";
-                        public const string WhatToDo = "WhatToDo";
-                    }
-                }
             }
 
             public static class Reprocessor
             {
-                public const string PRNS = "PRNS";
+                public const string PRNS = "PRNS";                
+            }
 
-                public static class Actions
+            public static class Actions
+            {
+                public static class PRNS
                 {
-                    public static class PRNS
-                    {
-                        public const string Tonnes = "Tonnes";
-                        public const string CreatePrn = "CreatePrn";
-                        public const string Confirmation = "Confirmation";
-                        public const string CheckYourAnswers = "CheckYourAnswers";
-                        public const string SentTo = "SentTo";
-                        public const string WhatToDo = "WhatToDo";
-                    }
+                    public const string Tonnes = "Tonnes";
+                    public const string CreatePrn = "CreatePrn";
+                    public const string Confirmation = "Confirmation";
+                    public const string CheckYourAnswers = "CheckYourAnswers";
+                    public const string SentTo = "SentTo";
+                    public const string WhatToDo = "WhatToDo";
                 }
             }
         }
@@ -76,27 +63,28 @@ public static class Strings
         {
             public const string Home = "Home";
             public const string Prns = "Prns";
-            public const string Waste = "Waste";
+            public const string Waste = "Waste";   
+        }
 
-            public static class Actions
+        public static class Actions
+        {
+            public static class Prns
             {
-                public static class Prns
-                {
-                    public const string Create = "Create";
-                }
+                public const string Create = "Create";
+            }
 
-                public static class Waste
-                {
-                    public const string Done = "Done";
-                    public const string Month = "Month";
-                    public const string RecordWaste = "RecordWaste";
-                    public const string SubTypes = "SubTypes";
-                    public const string WasteRecordStatus = "WasteRecordStatus";
-                    public const string Tonnes = "Tonnes";
-                    public const string Baled = "Baled";
-                    public const string ReProcessorExport = "ReProcessorExport";
-                    public const string Note = "Note";
-                }
+            public static class Waste
+            {
+                public const string Create = "Create";
+                public const string Done = "Done";
+                public const string Month = "Month";
+                public const string RecordWaste = "RecordWaste";
+                public const string SubTypes = "SubTypes";
+                public const string WasteRecordStatus = "WasteRecordStatus";
+                public const string Tonnes = "Tonnes";
+                public const string Baled = "Baled";
+                public const string ReProcessorExport = "ReProcessorExport";
+                public const string Note = "Note";
             }
         }
     }

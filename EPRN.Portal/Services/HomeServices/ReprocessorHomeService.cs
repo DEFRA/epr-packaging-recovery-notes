@@ -21,7 +21,7 @@ namespace EPRN.Portal.Services.HomeServices
             var wasteCardLinks = new Dictionary<string, string>()
             {
                 { HomePageResources.HomePage_Waste_Link_RecordWaste, _urlHelper.ActionLink(
-                    Routes.Controllers.Actions.Waste.RecordWaste, 
+                    Routes.Actions.Waste.RecordWaste, 
                     Routes.Controllers.Waste) },
                 { HomePageResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#" }
             };

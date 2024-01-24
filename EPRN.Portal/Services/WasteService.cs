@@ -40,6 +40,16 @@ namespace EPRN.Portal.Services
             return await _httpJourneyService.CreateJourney(materialId, category);
         }
 
+        public async Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel)
+        {
+            if (wasteTypesViewModel == null)
+                throw new ArgumentNullException(nameof(wasteTypesViewModel));
+
+            await _httpJourneyService.SaveSelectedWasteType(
+                wasteTypesViewModel.Id,
+                wasteTypesViewModel.MaterialId);
+        }
+
         public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId)
         {
             var category = await _httpJourneyService.GetCategory(journeyId);
@@ -93,19 +103,26 @@ namespace EPRN.Portal.Services
                 duringWhichMonthRequestViewModel.SelectedMonth.Value);
         }
 
-        public async Task<RecordWasteViewModel> GetWasteTypesViewModel()
+        public async Task<RecordWasteViewModel> GetWasteTypesViewModel(int? id)
         {
+            var category = Category.Unknown;
+
+            if (id.HasValue)
+                category = await _httpJourneyService.GetCategory(id.Value);
             // get waste types from the API
             var materialTypes = await _httpWasteService.GetWasteMaterialTypes();
+
             var viewModel = new RecordWasteViewModel
             {
+                Id = id,
+                Category = category,
                 ExporterSiteMaterials = new ExporterSectionViewModel
                 {
                     Sites = new List<SiteSectionViewModel>
                     {
                         new SiteSectionViewModel
                         {
-                            SiteName = "Tesco, Somewhere posh, England",
+                            SiteName = "123 Letsbe Avenue, Policeville",
                             SiteMaterials = new Dictionary<int, string>
                             {
                                 { 4, materialTypes[4] },
@@ -120,7 +137,7 @@ namespace EPRN.Portal.Services
                     { 
                         new SiteSectionViewModel
                         {
-                            SiteName = "Acme, London",
+                            SiteName = "Lansbourne Trading Estate, Edinburgh",
                             SiteMaterials = new Dictionary<int, string>
                             {
                                 { 2, materialTypes[2] }
@@ -128,7 +145,7 @@ namespace EPRN.Portal.Services
                         },
                         new SiteSectionViewModel
                         {
-                            SiteName = "Microsoft, Swindon",
+                            SiteName = "1 Banburgh Drive, Cardiff",
                             SiteMaterials = new Dictionary<int, string>
                             {
                                 { 4, materialTypes[4] },
@@ -218,19 +235,6 @@ namespace EPRN.Portal.Services
 
             return whatHaveYouDoneWasteModel;
         }
-
-        //public async Task SaveSelectedMonth(WasteTypesViewModel wasteTypesViewModel)
-        //{
-        //    if (wasteTypesViewModel == null)
-        //        throw new ArgumentNullException(nameof(wasteTypesViewModel));
-
-        //    if (wasteTypesViewModel.SelectedWasteTypeId == null)
-        //        throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
-
-        //    await _httpJourneyService.SaveSelectedWasteType(
-        //        wasteTypesViewModel.JourneyId,
-        //        wasteTypesViewModel.SelectedWasteTypeId.Value);
-        //}
 
         public async Task SaveWhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWasteViewModel)
         {

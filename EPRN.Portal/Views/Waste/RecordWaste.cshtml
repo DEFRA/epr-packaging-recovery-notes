@@ -8,6 +8,7 @@
 
 @{
     ViewData["Title"] = @WasteTypesResources.MaterialTypeOptionsTitle;
+    ViewData["WasteId"] = Model.Id;
 }
 
 <label>Company name</label>
@@ -16,12 +17,14 @@
         Record waste
     </label>
 </h1>
-@if (userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor))
+@if ((Model.Id == null && userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor)) ||
+    (Model.Id.HasValue && userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor) && Model.Category == EPRN.Common.Enums.Category.Reprocessor))
 {
     <partial name="_RecordWasteCategorySection" model="@Model.ReprocessorSiteMaterials" />
 }
 
-@if (userRoleService.HasRole(EPRN.Common.Enums.UserRole.Exporter))
+@if ((Model.Id == null && userRoleService.HasRole(EPRN.Common.Enums.UserRole.Exporter)) ||
+    (Model.Id.HasValue && userRoleService.HasRole(EPRN.Common.Enums.UserRole.Exporter) && Model.Category == EPRN.Common.Enums.Category.Exporter))
 {
     <partial name="_RecordWasteCategorySection" model="@Model.ExporterSiteMaterials" />
 }

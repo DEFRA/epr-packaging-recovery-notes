@@ -30,7 +30,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        [ActionName(Routes.Controllers.Actions.Waste.Done)]
+        [ActionName(Routes.Actions.Waste.Done)]
         public async Task<IActionResult> WhatHaveYouDoneWaste(int? id)
         {
             if (id == null)
@@ -41,7 +41,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        [ActionName(Routes.Controllers.Actions.Waste.Done)]
+        [ActionName(Routes.Actions.Waste.Done)]
         public async Task<IActionResult> WhatHaveYouDoneWaste(WhatHaveYouDoneWasteModel whatHaveYouDoneWaste)
         {
             if (!ModelState.IsValid)
@@ -50,12 +50,12 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
             return RedirectToAction(
-                Routes.Controllers.Actions.Waste.Month, 
+                Routes.Actions.Waste.Month, 
                 new { id = whatHaveYouDoneWaste.JourneyId });
         }
 
         [HttpGet]
-        [ActionName(Routes.Controllers.Actions.Waste.Month)]
+        [ActionName(Routes.Actions.Waste.Month)]
         public async Task<IActionResult> DuringWhichMonth(int? id)
         {
             if (id == null)
@@ -67,7 +67,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        [ActionName(Routes.Controllers.Actions.Waste.Month)]
+        [ActionName(Routes.Actions.Waste.Month)]
         public async Task<IActionResult> DuringWhichMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
             if (!ModelState.IsValid)
@@ -80,41 +80,46 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
             return RedirectToAction(
-                Routes.Controllers.Actions.Waste.SubTypes, 
+                Routes.Actions.Waste.SubTypes, 
                 new { id = duringWhichMonthRequestViewModel.JourneyId });
         }
 
+        /// <summary>
+        /// Displays the Record Waste view
+        /// Dual usage - 
+        /// if no ID is provided then it is for creating a new record
+        /// if an ID for an existing record is provided then it is to edit the material type
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> RecordWaste(int? id)
         {
-            var viewModel = await _wasteService.GetWasteTypesViewModel();
+            var viewModel = await _wasteService.GetWasteTypesViewModel(id);
 
             return View(viewModel);
         }
 
         /// <summary>
-        /// Need to record change to material type for existing waste record
+        /// Record change to material type for existing waste record
         /// </summary>
-        //[HttpPost]
-        //public async Task<IActionResult> RecordWaste(WasteTypesViewModel wasteTypesViewModel)
-        //{
-        //    if (wasteTypesViewModel == null)
-        //        return BadRequest();
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return await RecordWaste(wasteTypesViewModel.JourneyId);
-        //    }
-
-        //    await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
-
-        //    return RedirectToAction(
-        //        Routes.Controllers.Actions.Waste.Done, 
-        //        new { id = wasteTypesViewModel.JourneyId });
-        //}
-
         [HttpGet]
-        [Route("/Waste/[action]/Material/{materialId}/Category/{category}")]
+        [Route("/[controller]/[action]/{id}/Material/{materialId}")]
+        public async Task<IActionResult> RecordWaste(WasteTypeViewModel wasteTypesViewModel)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
+
+            return RedirectToAction(
+                Routes.Actions.Waste.Done,
+                new { id = wasteTypesViewModel.Id });
+        }
+
+        /// <summary>
+        /// Creates a new Waste Record. Requires meterial ID and Category (Exporter or Reprocessor)
+        /// </summary>
+        [HttpGet]
+        [Route("/[controller]/[action]/Material/{materialId}/Category/{category}")]
         public async Task<IActionResult> Create(
             int? materialId, 
             Category? category)
@@ -129,7 +134,9 @@ namespace EPRN.Portal.Controllers
                 materialId.Value,
                 category.Value);
 
-            return RedirectToAction(Routes.Controllers.Actions.Waste.SubTypes, new { id });
+            return RedirectToAction(
+                Routes.Actions.Waste.Done, 
+                new { id });
         }
 
         [HttpGet]
@@ -159,7 +166,7 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveSelectedWasteSubType(wasteSubTypesViewModel);
 
             return RedirectToAction(
-                Routes.Controllers.Actions.Waste.Tonnes, 
+                Routes.Actions.Waste.Tonnes, 
                 new { id = wasteSubTypesViewModel.JourneyId });
         }
 
@@ -199,12 +206,12 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
             return RedirectToAction(
-                Routes.Controllers.Actions.Waste.Baled, 
+                Routes.Actions.Waste.Baled, 
                 new { id = exportTonnageViewModel.JourneyId });
         }
 
         [HttpGet]
-        [ActionName(Routes.Controllers.Actions.Waste.Baled)]
+        [ActionName(Routes.Actions.Waste.Baled)]
         public async Task<IActionResult> BaledWithWire(int? id)
         {
             if (id == null)
@@ -218,7 +225,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        [ActionName(Routes.Controllers.Actions.Waste.Baled)]
+        [ActionName(Routes.Actions.Waste.Baled)]
         public async Task<IActionResult> BaledWithWire(BaledWithWireViewModel baledWithWireModel)
         {
             if (!ModelState.IsValid)
@@ -228,7 +235,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction(
-                Routes.Controllers.Actions.Waste.Note, 
+                Routes.Actions.Waste.Note, 
                 new { id = baledWithWireModel.JourneyId });
         }
 
@@ -250,7 +257,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        [ActionName(Routes.Controllers.Actions.Waste.Note)]
+        [ActionName(Routes.Actions.Waste.Note)]
         public async Task<IActionResult> Note(int? id)
         {
             if (!id.HasValue)
@@ -262,7 +269,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        [ActionName(Routes.Controllers.Actions.Waste.Note)]
+        [ActionName(Routes.Actions.Waste.Note)]
         public async Task<IActionResult> Note(NoteViewModel noteViewModel)
         {
             if (!ModelState.IsValid)

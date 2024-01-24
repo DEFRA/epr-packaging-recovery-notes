@@ -25,7 +25,7 @@ namespace EPRN.Common.Data.DataModels
 
         public bool? BaledWithWire { get; set; }
 
-        public string? Note { get; set; }
+        public string Note { get; set; }
 
         public bool? Completed { get; set; }
 

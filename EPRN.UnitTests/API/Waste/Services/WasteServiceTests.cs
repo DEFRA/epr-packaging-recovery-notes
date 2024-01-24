@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services;
 using EPRN.Waste.API.Services.Interfaces;
@@ -24,7 +25,7 @@ namespace EPRN.UnitTests.API.Waste.Services
         public async Task WasteTypes_Returned_Succesfully()
         {
             // Arrange
-            
+            _mockRepository.Setup(s => s.GetAllWasteTypes()).ReturnsAsync(new List<WasteTypeDto>());
 
             // Act
             var wasteTypes = await _wasteService.WasteTypes();
