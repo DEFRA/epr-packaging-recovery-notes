@@ -64,6 +64,6 @@ namespace EPRN.Portal.Services
 
         public abstract double? GetBaledWithWireDeductionPercentage();
 
-        public abstract Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId);
+        public abstract Task<CYAViewModel> GetCheckAnswers(int journeyId);
     }
 }

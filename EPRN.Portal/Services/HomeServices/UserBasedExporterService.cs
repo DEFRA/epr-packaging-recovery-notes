@@ -1,4 +1,6 @@
-﻿using EPRN.Portal.Configuration;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
@@ -82,9 +84,47 @@ namespace EPRN.Portal.Services.HomeServices
             return ConfigSettings.Value.DeductionAmount_Exporter;
         }
 
-        public override Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId)
+        public override async Task<CYAViewModel> GetCheckAnswers(int journeyId)
         {
-            throw new NotImplementedException();
+            var journeyDto = await _httpJourneyService.GetJourneyAnswers(journeyId);
+
+            if (journeyDto == null)
+                throw new NullReferenceException(nameof(journeyDto));
+
+            var viewModel = new CYAViewModel
+            {
+                JourneyId = journeyId,
+                Completed = journeyDto.Completed,
+                UserRole = UserRole.Exporter
+            };
+
+            GetAnswerForWaste(viewModel, journeyDto);
+
+            return viewModel;
         }
+
+
+
+        #region check your answers
+
+        private void GetAnswerForWaste(CYAViewModel vm, JourneyAnswersDto journey)
+        {
+            GetBaseAnswers(vm, journey);
+
+            vm.ReprocessorWhereWasteSentName = string.Empty;
+            vm.ReprocessorWhereWasteSentAddress = string.Empty;
+        }
+
+        private void GetBaseAnswers(CYAViewModel vm, JourneyAnswersDto journey)
+        {
+            vm.TypeOfWaste = journey.WasteSubType;
+            vm.BaledWithWire = journey.BaledWithWire;
+            vm.TonnageOfWaste = journey.Tonnes.ToString();
+            vm.TonnageAdjusted = journey.TonnageAdjusted.ToString();
+            vm.MonthReceived = journey.Month;
+            vm.Note = journey.Note;
+        }
+
+        #endregion
     }
 }

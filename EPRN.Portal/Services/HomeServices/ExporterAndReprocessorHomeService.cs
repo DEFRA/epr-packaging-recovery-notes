@@ -82,7 +82,7 @@ namespace EPRN.Portal.Services
             return ConfigSettings.Value.DeductionAmount_ExporterAndReprocessor;
         }
 
-        public override Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId)
+        public override Task<CYAViewModel> GetCheckAnswers(int journeyId)
         {
             throw new NotImplementedException();
         }

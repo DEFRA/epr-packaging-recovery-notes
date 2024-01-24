@@ -85,19 +85,20 @@ namespace EPRN.Portal.Services.HomeServices
             return ConfigSettings.Value.DeductionAmount_Reprocessor;
         }
 
-        public override async Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId)
+        public override async Task<CYAViewModel> GetCheckAnswers(int journeyId)
         {
             var journeyDto = await _httpJourneyService.GetJourneyAnswers(journeyId);
 
             if (journeyDto == null)
                 throw new NullReferenceException(nameof(journeyDto));
 
-            if (journeyDto.WhatDoneWithWaste == null || !Enum.TryParse(journeyDto.WhatDoneWithWaste, out DoneWaste doneWaste))
-                throw new NullReferenceException(nameof(journeyDto.WhatDoneWithWaste));
+            if (string.IsNullOrWhiteSpace(journeyDto.WhatDoneWithWaste) || !Enum.TryParse(journeyDto.WhatDoneWithWaste, out DoneWaste doneWaste))
+                throw new NullReferenceException("WhatDoneWithWaste");
 
-            var viewModel = new CYAReprocessorViewModel { JourneyId = journeyId, 
+            var viewModel = new CYAViewModel { JourneyId = journeyId, 
                 Completed = journeyDto.Completed, 
-                DoneWaste = doneWaste 
+                DoneWaste = doneWaste,
+                UserRole = UserRole.Reprocessor
             };
 
             if (journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString())
@@ -111,12 +112,12 @@ namespace EPRN.Portal.Services.HomeServices
 
         #region check your answers
 
-        private void GetAnswerForWasteReceivedAndReprocessed(CYAReprocessorViewModel vm, JourneyAnswersDto journey)
+        private void GetAnswerForWasteReceivedAndReprocessed(CYAViewModel vm, JourneyAnswersDto journey)
         {
             GetBaseAnswers(vm, journey);
         }
 
-        private void GetAnswerForWasteSentOn(CYAReprocessorViewModel vm, JourneyAnswersDto journey)
+        private void GetAnswerForWasteSentOn(CYAViewModel vm, JourneyAnswersDto journey)
         {
             GetBaseAnswers(vm, journey);
 
@@ -124,7 +125,7 @@ namespace EPRN.Portal.Services.HomeServices
             vm.ReprocessorWhereWasteSentAddress = string.Empty;
         }
 
-        private void GetBaseAnswers(CYAReprocessorViewModel vm, JourneyAnswersDto journey)
+        private void GetBaseAnswers(CYAViewModel vm, JourneyAnswersDto journey)
         {
             vm.TypeOfWaste = journey.WasteSubType;
             vm.BaledWithWire = journey.BaledWithWire;

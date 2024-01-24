@@ -7,6 +7,6 @@ namespace EPRN.Portal.Services.Interfaces
     {
         Task<HomePageViewModel> GetHomePage();
         double? GetBaledWithWireDeductionPercentage();
-        Task<CYAReprocessorViewModel> GetCheckAnswers(int journeyId);
+        Task<CYAViewModel> GetCheckAnswers(int journeyId);
     }
 }

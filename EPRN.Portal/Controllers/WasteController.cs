@@ -3,8 +3,8 @@ using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using static EPRN.Portal.Constants.Strings;
 
 namespace EPRN.Portal.Controllers
 {
@@ -50,7 +50,8 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
-            return RedirectToPage("Month", whatHaveYouDoneWaste.JourneyId);
+            return RedirectToAction("Month", new { id = whatHaveYouDoneWaste.JourneyId });
+            //return RedirectToPage("Month", whatHaveYouDoneWaste.JourneyId);
         }
 
         [HttpGet]
@@ -82,7 +83,8 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToPage("SubTypes", duringWhichMonthRequestViewModel.JourneyId);
+            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            //return RedirectToPage("SubTypes", duringWhichMonthRequestViewModel.JourneyId);
         }
 
         [HttpGet]
@@ -116,7 +118,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteType(wasteTypesViewModel);
 
-            return RedirectToPage("Done", wasteTypesViewModel.JourneyId);
+            return RedirectToAction("Done", new { id = wasteTypesViewModel.JourneyId });
         }
 
         [HttpGet]
@@ -145,7 +147,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveSelectedWasteSubType(wasteSubTypesViewModel);
 
-            return RedirectToPage("Tonnes", wasteSubTypesViewModel.JourneyId);
+            return RedirectToAction("Tonnes", new { id = wasteSubTypesViewModel.JourneyId });
         }
 
         [HttpGet]
@@ -183,7 +185,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
-            return RedirectToPage("Baled", exportTonnageViewModel.JourneyId);
+            return RedirectToAction("Baled", new { id = exportTonnageViewModel.JourneyId });
         }
 
         [HttpGet]
@@ -211,7 +213,7 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
 
-            return RedirectToPage("Note", baledWithWireModel.JourneyId);
+            return RedirectToAction("Note", new { id = baledWithWireModel.JourneyId });
         }
 
         [HttpGet]
@@ -256,7 +258,8 @@ namespace EPRN.Portal.Controllers
 
             // if qs contains certain value then redirect to answers page
             // else continue
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");    
+            //return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -267,16 +270,31 @@ namespace EPRN.Portal.Controllers
 
             var vm = await _homeService.GetCheckAnswers(id.Value);
 
-            if (vm.DoneWaste == DoneWaste.ReprocessedIt)
-                return View("CYAReprocessorReprocessedIt", vm);
-            else if (vm.DoneWaste == DoneWaste.SentItOn)
-                return View("CYAReprocessorSentItOn", vm);
-            else
-                throw new Exception("Could not determine what happened to the waste");
+            switch (vm.UserRole)
+            {
+                case UserRole.None:
+                    throw new Exception("Could not determine user role");
+
+                case UserRole.Exporter:
+                    return View("CYAExporter", vm);
+
+                case UserRole.Reprocessor:
+                    {
+                        if (vm.DoneWaste == DoneWaste.ReprocessedIt)
+                            return View("CYAReprocessorReprocessedIt", vm);
+                        else if (vm.DoneWaste == DoneWaste.SentItOn)
+                            return View("CYAReprocessorSentItOn", vm);
+                        else
+                            throw new Exception("Could not determine what happened to the waste");
+                    }
+
+                default:
+                    throw new Exception("Could not determine user role");
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> CheckYourAnswers(CYAReprocessorViewModel checkAnswersViewModel)
+        public async Task<IActionResult> CheckYourAnswers(CYAViewModel checkAnswersViewModel)
         {
             if (!ModelState.IsValid)
             {
@@ -287,18 +305,19 @@ namespace EPRN.Portal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        private IActionResult RedirectToPage(string actionName, int journeyId)
-        {
-            bool fromCheckYourAnswers = HttpContext.Request.Query[QueryStrings.ReturnToAnswers] == QueryStrings.ReturnToAnswersYes ? true : false;
 
-            if (fromCheckYourAnswers)
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            // Handle redirection to CheckYourAnswers if this is where we originally came from
+            if (context.HttpContext.Request.Query.ContainsKey(Constants.Strings.QueryStrings.ReturnToAnswers) &&
+                context.HttpContext.Request.Query[Constants.Strings.QueryStrings.ReturnToAnswers] == Constants.Strings.QueryStrings.ReturnToAnswersYes &&
+                context.Result is RedirectToActionResult)
             {
-                return RedirectToAction("CheckYourAnswers", new { id = journeyId });
+                var id = (context.Result as RedirectToActionResult).RouteValues["Id"].ToString();
+                context.Result = RedirectToAction("CheckYourAnswers", "Waste", new { id });
             }
-            else
-            {
-                return RedirectToAction(actionName, new { id = journeyId });
-            }
+
+            base.OnActionExecuted(context);
         }
     }
 }

@@ -1,13 +1,26 @@
-﻿namespace EPRN.Portal.ViewModels.Waste
+﻿using EPRN.Common.Enums;
+
+namespace EPRN.Portal.ViewModels.Waste
 {
-    public class CYABaseViewModel
+    public class CYAViewModel
     {
+        public CYAViewModel()
+        {
+            UserRole = UserRole.None;
+        }
+
         public int JourneyId { get; set; }
+        public UserRole UserRole { get; set; }
+
 
         //[Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(CYAResources))]
         //[Range(typeof(bool), "true", "true", ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(CYAResources))]
         public bool Completed { get; set; }
+        public DoneWaste DoneWaste { get; set; }
 
+
+        public string ReprocessorWhereWasteSentName { get; internal set; }
+        public string ReprocessorWhereWasteSentAddress { get; internal set; }
 
         public string TypeOfWaste { get; internal set; }
         public string BaledWithWire { get; internal set; }
