@@ -5,14 +5,11 @@
     ViewData["Title"] = BaledWithWireResource.PageTitle;
 }
 
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
 <form method="post">
     <input type="hidden" asp-for="JourneyId" />
     <input type="hidden" asp-for="BaledWithWireDeductionPercentage" />
-    <partial name="_ValidationSummary" />
-
-    <span class="govuk-caption-l">
-        @MasterResources.RecordingFor @Model.WasteType
-    </span>
     <radios asp-for="BaledWithWire" asp-title="@BaledWithWireResource.Heading">
         <div class="govuk-hint">
             @BaledWithWireResource.HintText.Replace("<<percentage>>", Model.BaledWithWireDeductionPercentage.ToString())

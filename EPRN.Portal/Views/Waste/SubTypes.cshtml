@@ -3,16 +3,16 @@
 
 @model WasteSubTypesViewModel
 @inject ILocalizationHelper<WasteSubTypesResources> localizationHelper
+@inject WasteCommonViewModel wasteMetaData;
 
 @{
     ViewData["Title"] = @WasteSubTypesResources.MaterialSubTypeOptionsTitle;
 }
 
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
 <form method="post"> 
     <input type="hidden" asp-for="JourneyId" />
-    <partial name="_ValidationSummary" />
-
-    <span>** UNABLE TO POPULATE AT THE MOMENT **</span>
     <radios id="SelectedWasteSubTypeId" asp-for="SelectedWasteSubTypeId" asp-title="@WasteSubTypesResources.MaterialSubTypeOptionsTitle">
         <p class="govuk-error-message">
             <span asp-validation-for="SelectedWasteSubTypeId"></span>
