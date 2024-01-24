@@ -232,6 +232,21 @@ namespace EPRN.Waste.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("Note/{note}")]
+        public async Task<IActionResult> SaveWasteRecordNote(int? journeyId, string note)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (string.IsNullOrWhiteSpace(note))
+                return Ok();
+
+            await _journeyService.SaveWasteRecordNote(journeyId.Value, note);
+
+            return Ok();
+        }
+
         [HttpGet]
         [Route("BaledWithWire")]
         public async Task<ActionResult> GetBaledWithWire(int? journeyId)
