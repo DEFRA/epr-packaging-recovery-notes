@@ -7,80 +7,114 @@
 @{
     if (userRoleService.HasRole(UserRole.Reprocessor))
     {
-        ViewData["Title"] = CreatePrnPern.TitlePrn;
+        ViewData["Title"] = ViewSentPrnResources.PrnTitle;
     }
     else if (userRoleService.HasRole(UserRole.Exporter))
     {
-        ViewData["Title"] = CreatePrnPern.TitlePern;
+        ViewData["Title"] = ViewSentPrnResources.PernTitle;
     }
 
     if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
     {
-        ViewData["Title"] = CreatePrnPern.TitlePrnPern;
+        ViewData["Title"] = ViewSentPrnResources.PrnPernTitle;
     }
 }
 
 <div class="govuk-width-container ">
-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-xl">View sent PRN/PERNs</h1>
-            <form class="form" action="results" method="POST">
+            @{
+                if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+                {
+                    <h1 class="govuk-heading-xl">@ViewSentPrnResources.PrnHeading</h1>
+                }
+
+                if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+                {
+                    <h1 class="govuk-heading-xl">@ViewSentPrnResources.PernHeading</h1>
+                }
+
+                if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+                {
+                    <h1 class="govuk-heading-xl">@ViewSentPrnResources.PrnPernHeading</h1>
+                }
+            }
+            <form method="POST">
                 <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                         <label class="govuk-label" for="event-name">
-                            Search for a PRN by entering its number or the name of the company or compliance scheme you sent it to.
+                            @ViewSentPrnResources.SearchText
                         </label>
                     </h1>
                     <input class="govuk-input" id="event-name" name="eventName" type="text">
                 </div>
-                <button type="submit" class="govuk-button" data-module="govuk-button">
-                    Find PRN/PERN
-                </button>
+
+                @{
+                    if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+                    {
+                        <button type="submit" class="govuk-button" data-module="govuk-button">
+                            @ViewSentPrnResources.SearchPrnBtn
+                        </button>
+                    }
+
+                    if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+                    {
+                        <button type="submit" class="govuk-button" data-module="govuk-button">
+                            @ViewSentPrnResources.SearchPernBtn
+                        </button>
+                    }
+
+                    if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+                    {
+                        <button type="submit" class="govuk-button" data-module="govuk-button">
+                            @ViewSentPrnResources.SearchPrnPernBtn
+                        </button>
+                    }
+                }
             </form>
         </div>
     </div>
 
     <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
 
-    <p class="govuk-body">Select a PRN number to view, download or cancel it.</p>
+    <p class="govuk-body">@ViewSentPrnResources.ViewDownloadCancelText</p>
 
     <div class="govuk-form-group" style="float:right">
         <label class="govuk-visually-hidden" for="select-status ">Select a filter</label>
         <select class="govuk-select" id="select-status" name="sort">
-            <option selected="">Filter by </option>
-            <option value="published">Accepted </option>
-            <option value="updated">Awaiting acceptance</option>
-            <option value="views">Rejected</option>
-            <option value="views">Awaiting cancellation</option>
-            <option value="comments">Cancelled</option>
+            <option selected="">@ViewSentPrnResources.FilterBy </option>
+            <option value="published">@ViewSentPrnResources.Accepted </option>
+            <option value="updated">@ViewSentPrnResources.AwaitingAcceptance</option>
+            <option value="views">@ViewSentPrnResources.Rejected</option>
+            <option value="views">@ViewSentPrnResources.AwaitingCancellation</option>
+            <option value="comments">@ViewSentPrnResources.Cancelled</option>
         </select>
     </div>
 
     <div class="govuk-form-group" style="float:right">
         <label class="govuk-visually-hidden" for="select-status ">Select a filter</label>
         <select class="govuk-select" id="select-status" name="sort">
-            <option selected="">Sort by </option>
-            <option value="published">Material</option>
-            <option value="updated">Sent to</option>
+            <option selected="">@ViewSentPrnResources.SortBy </option>
+            <option value="published">@ViewSentPrnResources.Material</option>
+            <option value="updated">@ViewSentPrnResources.SentTo</option>
         </select>
     </div>
 
     <table class="govuk-table">
         <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">PRN number</th>
-                <th scope="col" class="govuk-table__header">Material</th>
-                <th scope="col" class="govuk-table__header">Sent to</th>
-                <th scope="col" class="govuk-table__header">Date created</th>
-                <th scope="col" class="govuk-table__header">Tonnes</th>
-                <th scope="col" class="govuk-table__header">Status</th>
+                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.PrnNumber</th>
+                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Material</th>
+                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.SentTo</th>
+                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.DateCreated</th>
+                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Tonnes</th>
+                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Status</th>
             </tr>
         </thead>
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
                 <td class="govuk-table__cell">
-                    <a href="prn-0001">PRN0001</a>
+                    <a href="#">PRN0001</a>
                 </td>
                 <td class="govuk-table__cell">Paper/board</td>
                 <td class="govuk-table__cell"> Tesco</td>
@@ -88,7 +122,7 @@
                 <td class="govuk-table__cell">170</td>
                 <td class="govuk-table__cell">
                     <strong class="govuk-tag govuk-tag--blue">
-                        Awaiting acceptance
+                        @ViewSentPrnResources.AwaitingAcceptance.ToUpper()
                     </strong>
                 </td>
             </tr>
@@ -102,7 +136,7 @@
                 <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
                     <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
                 </svg>
-                <span class="govuk-pagination__link-title">Previous<span class="govuk-visually-hidden"> page</span></span>
+                <span class="govuk-pagination__link-title">@ViewSentPrnResources.Previous<span class="govuk-visually-hidden"> page</span></span>
             </a>
         </div>
         <ul class="govuk-pagination__list">
@@ -125,7 +159,7 @@
 
         <div class="govuk-pagination__next">
             <a class="govuk-link govuk-pagination__link" href="#" rel="next">
-                <span class="govuk-pagination__link-title">Next<span class="govuk-visually-hidden"> page</span></span>
+                <span class="govuk-pagination__link-title">@ViewSentPrnResources.Next<span class="govuk-visually-hidden"> page</span></span>
                 <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
                     <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
                 </svg>
