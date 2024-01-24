@@ -9,13 +9,13 @@
     var queryStringRouteData = new Dictionary<string, string>
     {
         { "Id", Model.Id.ToString() },
-        { EPRN.Portal.Constants.Strings.QueryStrings.ReturnToAnswers, EPRN.Portal.Constants.Strings.QueryStrings.ReturnToAnswersYes }
+        { Strings.QueryStrings.ReturnToAnswers, Strings.QueryStrings.ReturnToAnswersYes }
     };
 }
 
 @if (Model.AnswersComplete)
 {
-    <h1>@CheckYourAnswersResources.PrnHeading</h1>
+    <h1 class="govuk-heading-l">@CheckYourAnswersResources.PrnHeading</h1>
     <table class="govuk-table">
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">

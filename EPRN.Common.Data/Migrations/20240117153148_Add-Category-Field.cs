@@ -5,14 +5,14 @@
 namespace EPRN.Waste.API.Migrations
 {
     /// <inheritdoc />
-    public partial class AddPRNCategory : Migration
+    public partial class AddCategoryField : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
                 name: "Category",
-                table: "PRN",
+                table: "WasteJourney",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
@@ -23,7 +23,7 @@ namespace EPRN.Waste.API.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Category",
-                table: "PRN");
+                table: "WasteJourney");
         }
     }
 }

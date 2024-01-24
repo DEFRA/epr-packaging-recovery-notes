@@ -3,6 +3,7 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -18,6 +19,7 @@ namespace EPRN.UnitTests.Portal.Services
         [TestInitialize]
         public void Init()
         {
+            _mockUrlHelper = new Mock<IUrlHelper>();
             _configSettings = Options.Create<AppConfigSettings>(new AppConfigSettings());
             _configSettings.Value.DeductionAmount_Exporter = 0.0;
             _configSettings.Value.DeductionAmount_Reprocessor = 0.0;

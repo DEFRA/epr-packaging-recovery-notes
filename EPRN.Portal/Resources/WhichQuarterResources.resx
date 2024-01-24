@@ -133,13 +133,22 @@
     <value>Glass</value>
   </data>
   <data name="HeadingReceived" xml:space="preserve">
-    <value>During which month was the waste received?</value>
+    <value>When was it exported?</value>
   </data>
   <data name="HeadingSent" xml:space="preserve">
     <value>When did you send it?</value>
   </data>
-  <data name="HintText" xml:space="preserve">
+  <data name="HintTextReceived" xml:space="preserve">
+    <value>You can only record waste for the current month and for those months within an open quarterly return period.</value>
+  </data>
+  <data name="HintTextSent" xml:space="preserve">
     <value>You can only record waste for this month and the months within an open quarterly return period.</value>
+  </data>
+  <data name="HintTextFebruary" xml:space="preserve">
+    <value>You can only record waste for February. Recording waste for previous months is not possible once you've submitted your previous return.</value>
+  </data>
+  <data name="Important" xml:space="preserve">
+    <value>Important</value>
   </data>
   <data name="Month1" xml:space="preserve">
     <value>January</value>
@@ -178,7 +187,7 @@
     <value>September</value>
   </data>
   <data name="PageTitleReceived" xml:space="preserve">
-    <value>During which month was the waste received?</value>
+    <value>When was it exported?</value>
   </data>
   <data name="PageTitleSent" xml:space="preserve">
     <value>When did you send it?</value>
@@ -188,6 +197,21 @@
   </data>
   <data name="Plastic" xml:space="preserve">
     <value>Plastic</value>
+  </data>
+  <data name="QuarterlyReturnDue" xml:space="preserve">
+    <value>You need to submit your quarterly return by </value>
+  </data>
+  <data name="QuarterlyReturnDueAction" xml:space="preserve">
+    <value>Submit this return</value>
+  </data>
+  <data name="QuarterlyReturnLate" xml:space="preserve">
+    <value>Your previous quarterly return Is now late</value>
+  </data>
+  <data name="QuarterlyReturnLateAction" xml:space="preserve">
+    <value>You need to submit this return</value>
+  </data>
+  <data name="RecordFebruaryWaste" xml:space="preserve">
+    <value>Recording waste for February</value>
   </data>
   <data name="Steel" xml:space="preserve">
     <value>Steel</value>

@@ -5,7 +5,7 @@
 namespace EPRN.Waste.API.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class AddPRNStatus : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

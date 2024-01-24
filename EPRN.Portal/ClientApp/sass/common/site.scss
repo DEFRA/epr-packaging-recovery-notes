@@ -1,3 +1,9 @@
 ﻿.display-right {
     float: right;
 }
+
+.govuk-table__cell {
+    &__right {
+        text-align: right !important;
+    }
+}

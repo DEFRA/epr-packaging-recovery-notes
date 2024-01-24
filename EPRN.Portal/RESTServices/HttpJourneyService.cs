@@ -16,9 +16,11 @@ namespace EPRN.Portal.RESTServices
         {
         }
 
-        public async Task<int> CreateJourney()
+        public async Task<int> CreateJourney(
+            int materialId,
+            Category category)
         {
-            return await Post<int>("Create");
+            return await Post<int>($"Create/Material/{materialId}/Category/{category}");
         }
 
         public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
@@ -29,6 +31,11 @@ namespace EPRN.Portal.RESTServices
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
             return await Get<WasteRecordStatusDto>($"{journeyId}/status");
+        }
+        
+        public async Task<QuarterlyDatesDto> GetQuarterlyMonths(int journeyId, int currentMonth, bool hasSubmittedPreviousQuarterReturn)
+        {
+            return await Get<QuarterlyDatesDto>($"{journeyId}/QuarterlyDates/{currentMonth}/{hasSubmittedPreviousQuarterReturn}");
         }
 
         public async Task<int?> GetSelectedMonth(int journeyId)
@@ -111,5 +118,9 @@ namespace EPRN.Portal.RESTServices
             return await Get<string?>($"{journeyId}/Note");
         }
 
+        public async Task<Category> GetCategory(int journeyId)
+        {
+            return (Category)await Get<Category?>($"{journeyId}/Category");
+        }
     }
 }

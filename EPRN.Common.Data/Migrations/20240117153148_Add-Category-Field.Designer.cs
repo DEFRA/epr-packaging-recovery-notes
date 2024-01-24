@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    [Migration("20240112153144_Add-PRN-Category")]
-    partial class AddPRNCategory
+    [Migration("20240117153148_Add-Category-Field")]
+    partial class AddCategoryField
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,6 +95,9 @@ namespace EPRN.Waste.API.Migrations
 
                     b.Property<double?>("BaledWithWireDeductionPercentage")
                         .HasColumnType("float");
+
+                    b.Property<int?>("Category")
+                        .HasColumnType("int");
 
                     b.Property<bool?>("Completed")
                         .HasColumnType("bit");

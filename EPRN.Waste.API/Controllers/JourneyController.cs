@@ -9,18 +9,31 @@ namespace EPRN.Waste.API.Controllers
     [Route("api/[controller]/{journeyId}")]
     public class JourneyController : BaseController
     {
+        private readonly IQuarterlyDatesService _quarterlyDatesService;
+
         public JourneyController(
-            IJourneyService journeyService) : base(journeyService)
+            IJourneyService journeyService, IQuarterlyDatesService quarterlyDatesService) : base(journeyService)
         {
+            _quarterlyDatesService = quarterlyDatesService ?? throw new ArgumentNullException(nameof(quarterlyDatesService));
         }
 
         [HttpPost]
-        [Route("/api/[controller]/Create")]
-        public async Task<int> CreateJourney()
+        [Route("/api/[controller]/Create/Material/{materialId}/Category/{category}")]
+        public async Task<IActionResult> CreateJourney(
+            int? materialId,
+            Category? category)
         {
-            var journeyId = await _journeyService.CreateJourney();
+            if (materialId == null)
+                return BadRequest("Material ID is missing");
 
-            return journeyId;
+            if (category == null)
+                return BadRequest("Category is missing");
+
+            var journeyId = await _journeyService.CreateJourney(
+                materialId.Value, 
+                category.Value);
+
+            return Ok(journeyId);
         }
 
         [HttpGet]
@@ -31,6 +44,16 @@ namespace EPRN.Waste.API.Controllers
                 return BadRequest("Journey ID is missing");
 
             return Ok(await _journeyService.GetWasteType(journeyId.Value));
+        }
+
+        [HttpGet]
+        [Route("QuarterlyDates/{currentDate}/{hasSubmittedPreviousQuarterReturn}")]
+        public async Task<IActionResult> GetActiveQuarterlyDates(int? journeyId, int currentDate, bool hasSubmittedPreviousQuarterReturn)
+        {
+            var result =
+                await _quarterlyDatesService.GetQuarterMonthsToDisplay(currentDate, hasSubmittedPreviousQuarterReturn);
+            
+            return Ok(result);
         }
 
         [HttpGet]
@@ -221,6 +244,21 @@ namespace EPRN.Waste.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("Note/{note}")]
+        public async Task<IActionResult> SaveWasteRecordNote(int? journeyId, string note)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (string.IsNullOrWhiteSpace(note))
+                return Ok();
+
+            await _journeyService.SaveWasteRecordNote(journeyId.Value, note);
+
+            return Ok();
+        }
+
         [HttpGet]
         [Route("BaledWithWire")]
         public async Task<ActionResult> GetBaledWithWire(int? journeyId)
@@ -257,6 +295,19 @@ namespace EPRN.Waste.API.Controllers
 
             JourneyAnswersDto dto = await _journeyService.GetJourneyAnswers(journeyId.Value);
             return Ok(dto);
+        }
+
+        [HttpGet]
+        [Route("Category")]
+        public async Task<IActionResult> GetJourneyCategory(
+            int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            var category = await _journeyService.GetCategory(journeyId.Value);
+
+            return Ok(category);
         }
     }
 }

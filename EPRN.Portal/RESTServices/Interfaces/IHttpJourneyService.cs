@@ -5,13 +5,17 @@ namespace EPRN.Portal.RESTServices.Interfaces
 {
     public interface IHttpJourneyService
     {
-        Task<int> CreateJourney();
+        Task<int> CreateJourney(
+            int materialId,
+            Category category);
 
         Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
 
         Task<int?> GetSelectedMonth(int journeyId);
+
+        Task<QuarterlyDatesDto> GetQuarterlyMonths(int journeyId, int currentMonth, bool hasSubmittedPreviousQuarterReturn);
 
         Task SaveSelectedMonth(int journeyId, int selectedMonth);
 
@@ -42,5 +46,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task SaveNote(int journeyId, string noteContent);
 
         Task<string> GetNote(int journeyId);
+
+        Task<Category> GetCategory(int journeyId);
     }
 }

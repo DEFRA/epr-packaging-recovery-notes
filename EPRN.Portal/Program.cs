@@ -1,3 +1,4 @@
+namespace EPRN.Portal
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Extensions;
@@ -12,74 +13,18 @@ builder.Services.AddDependencies(builder.Configuration);
 
 var supportedCultures = new[]
 {
-    CultureConstants.English,
-    CultureConstants.Welsh
-};
-
-builder.Services.AddLocalization(opts => 
-{ 
-    opts.ResourcesPath = "Resources"; 
-});
-builder.Services
-    .Configure<RequestLocalizationOptions>(opts =>
+    public class Program
     {
-        opts.DefaultRequestCulture = new RequestCulture(CultureConstants.English);
-        opts.SupportedCultures = supportedCultures;
-        opts.SupportedUICultures = supportedCultures;
-    });
-
-builder.Services.Configure<AppConfigSettings>(builder.Configuration.GetSection(AppConfigSettings.SectionName));
-
-
-// Check if in development environment
-if (builder.Environment.IsDevelopment())
-{
-    // Add services with Razor Runtime Compilation
-    builder.Services
-        .AddControllersWithViews()
-        .AddRazorRuntimeCompilation();
-}
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    // in development, remove browser caching for our pages
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        OnPrepareResponse = ctx =>
+        public static void Main(string[] args)
         {
-            ctx.Context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-            ctx.Context.Response.Headers["Pragma"] = "no-cache";
-            ctx.Context.Response.Headers["Expires"] = "0";
+            CreateHostBuilder(args).Build().Run();
         }
-    });
-    app.UseDeveloperExceptionPage();
+        
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder =>
+                {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
 }
-else
-{
-    app.UseExceptionHandler("/Error/500");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-    app.UseStatusCodePagesWithReExecute("/Error/{0}");
-    app.UseStaticFiles();
-}
-
-
-app.UsePrnMiddleware();
-app.UseRequestLocalization();
-app.UseHttpsRedirection();
-app.UseRouting();
-
-app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "areas",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapControllers();
-app.Run();

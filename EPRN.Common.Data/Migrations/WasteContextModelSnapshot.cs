@@ -96,6 +96,9 @@ namespace EPRN.Common.Data.Migrations
                     b.Property<double?>("BaledWithWireDeductionPercentage")
                         .HasColumnType("float");
 
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("Completed")
                         .HasColumnType("bit");
 

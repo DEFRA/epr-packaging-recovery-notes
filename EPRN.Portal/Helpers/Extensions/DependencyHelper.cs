@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
-using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
-using EPRN.Portal.Constants;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
 using EPRN.Portal.Profiles;
@@ -20,6 +18,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Security.Authentication;
+using EPRN.Common.Constants;
+using Strings = EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Helpers.Extensions
 {
@@ -28,7 +28,7 @@ namespace EPRN.Portal.Helpers.Extensions
         /// <summary>
         /// Extension method to add services for DI during startup
         /// </summary>
-        public static IServiceCollection AddDependencies(this IServiceCollection services, ConfigurationManager configuration)
+        public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<RequestLocalizationOptions>(options =>
             {
@@ -65,6 +65,12 @@ namespace EPRN.Portal.Helpers.Extensions
                     };
                 });
             services
+                .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
+                .AddScoped(x => {
+                    var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                    var factory = x.GetRequiredService<IUrlHelperFactory>();
+                    return factory.GetUrlHelper(actionContext);
+                })
                 .AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>))
                 .AddSingleton<IQueryStringHelper, QueryStringHelper>()
                 .AddTransient<IWasteService, WasteService>()

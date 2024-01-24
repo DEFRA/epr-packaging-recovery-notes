@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
-using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Services
@@ -14,12 +15,13 @@ namespace EPRN.UnitTests.Portal.Services
     [TestClass]
     public class WasteServiceTests
     {
-        private IWasteService _wasteService = null;
+        private WasteService _wasteService = null;
         private Mock<IMapper> _mockMapper = null;
         private Mock<IHttpWasteService> _mockHttpWasteService = null;
         private Mock<IHttpJourneyService> _mockHttpJourneyService = null;
         private Mock<ILocalizationHelper<WhichQuarterResources>> _mockLocalizationHelper = null;
 
+        private Mock<IOptions<AppConfigSettings>> _mockConfigSettings = null;
         [TestInitialize]
         public void Init()
         {
@@ -27,44 +29,64 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpWasteService = new Mock<IHttpWasteService>();
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
             _mockLocalizationHelper = new Mock<ILocalizationHelper<WhichQuarterResources>>();
-
+            _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
             _wasteService = new WasteService(
                 _mockMapper.Object,
                 _mockHttpWasteService.Object,
                 _mockHttpJourneyService.Object,
-                _mockLocalizationHelper.Object);
+                _mockLocalizationHelper.Object,
+                _mockConfigSettings.Object);
         }
 
         [TestMethod]
-        public async Task GetWasteTypesViewModel_ReturnsValidModel_MappedCorrectly()
+        public async Task GetWasteTypesViewModel_NoIdParameter_DoesNotCallForWasteCategory()
         {
-            // Arrange
-            var wasteType = new List<WasteTypeDto>
+            // arrange
+            _mockHttpWasteService.Setup(s => s.GetWasteMaterialTypes()).ReturnsAsync(new Dictionary<int, string>
             {
-                new WasteTypeDto
-                {
-                    Id = 1,
-                    Name = "Test1",
-                },
-                new WasteTypeDto
-                {
-                    Id = 99,
-                    Name = "Test99",
-                }
-            };
+                { 2, "" },
+                { 4, "" },
+                { 7, "" },
+                { 9, "" }
+            });
 
-            _mockHttpWasteService.Setup(s => s.GetWasteMaterialTypes()).ReturnsAsync(wasteType);
+            // act
+            var result = await _wasteService.GetWasteTypesViewModel(null);
 
-            // Act
-            var viewModel = await _wasteService.GetWasteTypesViewModel(7);
+            // assert
+            _mockHttpJourneyService.Verify(s => 
+                s.GetCategory(
+                    It.IsAny<int>()), 
+                Times.Never);
+            _mockHttpWasteService.Verify(s =>
+                s.GetWasteMaterialTypes(), Times.Once);
+            Assert.IsNotNull(result);
+        }
 
-            // Assert
-            Assert.IsNotNull(viewModel);
-            Assert.IsTrue(viewModel.WasteTypes.Count() == 2);
-            Assert.AreEqual(1, viewModel.WasteTypes.ElementAt(0).Key);
-            Assert.AreEqual("Test1", viewModel.WasteTypes.ElementAt(0).Value);
-            Assert.AreEqual(99, viewModel.WasteTypes.ElementAt(1).Key);
-            Assert.AreEqual("Test99", viewModel.WasteTypes.ElementAt(1).Value);
+        [TestMethod]
+        public async Task GetWasteTypesViewModel_WithValidIdParameter_CallsForWasteCategory()
+        {
+            // arrange
+            var id = 45;
+            _mockHttpWasteService.Setup(s => s.GetWasteMaterialTypes()).ReturnsAsync(new Dictionary<int, string>
+            {
+                { 2, "" },
+                { 4, "" },
+                { 7, "" },
+                { 9, "" }
+            });
+
+            // act
+            var result = await _wasteService.GetWasteTypesViewModel(id);
+
+            // assert
+            _mockHttpJourneyService.Verify(s =>
+                s.GetCategory(
+                    It.Is<int>(p => p == id)),
+                Times.Once);
+            _mockHttpWasteService.Verify(s =>
+                s.GetWasteMaterialTypes(), Times.Once);
+            Assert.IsNotNull(result);
         }
 
         [TestMethod]
@@ -72,7 +94,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            int currentMonth = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.ReprocessedIt;
             string material = "testMaterial";
 
@@ -98,7 +119,7 @@ namespace EPRN.UnitTests.Portal.Services
             }
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -129,7 +150,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 3;
-            int currentMonth = 5;
             var expectedWhatHaveYouDoneWaste = DoneWaste.SentItOn;
             string material = "testMaterial";
 
@@ -155,7 +175,7 @@ namespace EPRN.UnitTests.Portal.Services
             }
 
             // Act
-            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId, currentMonth);
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
 
             // Assert
             Assert.IsNotNull(viewModel);
@@ -185,10 +205,10 @@ namespace EPRN.UnitTests.Portal.Services
         public async Task SaveSelectedWasteType_Succeeds_WithValidModel()
         {
             // Arrange
-            var wasteTypesViewModel = new WasteTypesViewModel
+            var wasteTypesViewModel = new WasteTypeViewModel
             {
-                JourneyId = 1,
-                SelectedWasteTypeId = 10,
+                Id = 1,
+                MaterialId = 10,
             };
 
             // Act
@@ -246,19 +266,6 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task SaveSelectedWasteType_ThrowsException_WhenSelectedWasteTypeIdIsNull()
-        {
-            // Arrange
-            var wasteTypesViewModel = new WasteTypesViewModel();
-
-            // Act
-
-            // Assert
-            var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveSelectedWasteType(wasteTypesViewModel));
-            Assert.AreEqual("Value cannot be null. (Parameter 'SelectedWasteTypeId')", exception.Message);
-        }
-
-        [TestMethod]
         public async Task SaveSelectedMonth_ThrowsException_WhenSelectedMonthIsNull()
         {
             // Arrange
@@ -312,7 +319,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int journeyId = 1;
-            var dto = new WasteRecordStatusDto { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Complete };
+            var dto = new WasteRecordStatusDto { WasteRecordStatus = WasteRecordStatuses.Complete };
 
             _mockHttpJourneyService.Setup(s => s.GetWasteRecordStatus(journeyId)).ReturnsAsync(dto);
 
@@ -495,5 +502,62 @@ namespace EPRN.UnitTests.Portal.Services
 
         #endregion
 
+        #region Category
+
+        [TestMethod]
+        public async Task GetCategory_Exporter()
+        {
+            // Arrange
+            int journeyId = 3;
+            int currentMonth = 5;
+            
+            DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
+            {
+                JourneyId = journeyId,
+                Category = Category.Exporter
+            };
+
+            _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Exporter);
+
+            // Act
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+ 
+            Assert.AreEqual(journeyId, viewModel.JourneyId);
+            Assert.AreEqual(viewModel.Category, Category.Exporter);
+
+            _mockHttpJourneyService.Verify(service => service.GetCategory(It.Is<int>(id => id == journeyId)), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task GetCategory_Reprocessor()
+        {
+            // Arrange
+            int journeyId = 3;
+            int currentMonth = 5;
+
+            DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
+            {
+                JourneyId = journeyId,
+                Category = Category.Reprocessor
+            };
+
+            _mockHttpJourneyService.Setup(c => c.GetCategory(It.Is<int>(p => p == journeyId))).ReturnsAsync(Category.Reprocessor);
+
+            // Act
+            var viewModel = await _wasteService.GetQuarterForCurrentMonth(journeyId);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+
+            Assert.AreEqual(journeyId, viewModel.JourneyId);
+            Assert.AreEqual(viewModel.Category, Category.Reprocessor);
+
+            _mockHttpJourneyService.Verify(service => service.GetCategory(It.Is<int>(id => id == journeyId)), Times.Once());
+        }
+
+        #endregion
     }
 }

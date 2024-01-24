@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Waste.API.Configuration;
@@ -7,6 +8,8 @@ using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using DoneWaste = EPRN.Common.Enums.DoneWaste;
+using Category = EPRN.Common.Enums.Category;
 
 namespace EPRN.Waste.API.Services
 {
@@ -33,10 +36,14 @@ namespace EPRN.Waste.API.Services
             _deductionAmount = configSettings.Value.DeductionAmount.Value;
         }
 
-        public async Task<int> CreateJourney()
+        public async Task<int> CreateJourney(
+            int materialId,
+            Category category)
         {
             var journeyRecord = new WasteJourney
             {
+                WasteTypeId = materialId,
+                Category = _mapper.Map<Common.Data.Enums.Category>(category),
                 CreatedDate = DateTime.Now,
                 CreatedBy = "DEVELOPER"
             };
@@ -183,6 +190,10 @@ namespace EPRN.Waste.API.Services
                 throw new Exception(nameof(journey));
 
             var journeyAnswersDto = new JourneyAnswersDto();
+        public async Task SaveWasteRecordNote(int journeyId, string note)
+        {
+            await _wasteRepository.UpdateWasteNote(journeyId, note);
+        }
 
             journeyAnswersDto.JourneyId = journeyId;
             journeyAnswersDto.WhatDoneWithWaste = journey.DoneWaste == null ? string.Empty : journey.DoneWaste.Value.ToString();
@@ -196,6 +207,12 @@ namespace EPRN.Waste.API.Services
             journeyAnswersDto.Completed = journey.Completed == null ? false : journey.Completed.Value;
 
             return journeyAnswersDto;
+        }
+        public async Task<object?> GetCategory(int journeyId)
+        {
+            var category = await _wasteRepository.GetCategory(journeyId);
+
+            return _mapper.Map<Category>(category);
         }
     }
 }

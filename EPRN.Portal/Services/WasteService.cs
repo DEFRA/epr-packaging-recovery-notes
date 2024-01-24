@@ -1,11 +1,15 @@
-﻿
+﻿using System.Globalization;
+using System.Reflection;
+using System.Resources;
 using AutoMapper;
 using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
 {
@@ -20,34 +24,49 @@ namespace EPRN.Portal.Services
             IMapper mapper,
             IHttpWasteService httpWasteService,
             IHttpJourneyService httpJourneyService,
-            ILocalizationHelper<WhichQuarterResources> localizationHelper)
+            ILocalizationHelper<WhichQuarterResources> localizationHelper,
+            IOptions<AppConfigSettings> configSettings)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
-            _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(_httpJourneyService));
+            _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(httpJourneyService));
             _localizationHelper = localizationHelper ?? throw new ArgumentNullException(nameof(localizationHelper));
         }
 
-        public async Task<int> CreateJourney()
+        public async Task<int> CreateJourney(
+            int materialId,
+            Category category)
         {
-            return await _httpJourneyService.CreateJourney();
+            return await _httpJourneyService.CreateJourney(materialId, category);
         }
 
-        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId, int currentMonth)
+        public async Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel)
         {
             var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
             var selectedMonth = await _httpJourneyService.GetSelectedMonth(journeyId);
+            if (wasteTypesViewModel == null)
+                throw new ArgumentNullException(nameof(wasteTypesViewModel));
 
-            var duringWhichMonthRequestViewModel = default(DuringWhichMonthRequestViewModel);
+            await _httpJourneyService.SaveSelectedWasteType(
+                wasteTypesViewModel.Id,
+                wasteTypesViewModel.MaterialId);
+        }
 
-            if (whatHaveYouDoneWaste == DoneWaste.ReprocessedIt)
-            {
-                duringWhichMonthRequestViewModel = new DuringWhichMonthReceivedRequestViewModel();
-            }
-            else
-            {
-                duringWhichMonthRequestViewModel = new DuringWhichMonthSentOnRequestViewModel();
-            }
+        public async Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId)
+        {
+            var category = await _httpJourneyService.GetCategory(journeyId);
+            var whatHaveYouDoneWaste = await _httpJourneyService.GetWhatHaveYouDoneWaste(journeyId);
+            var duringWhichMonthRequestViewModel = CreateDuringWhichMonthRequestViewModel(whatHaveYouDoneWaste);
+            await PopulateViewModel(duringWhichMonthRequestViewModel, journeyId, whatHaveYouDoneWaste);
+            return duringWhichMonthRequestViewModel;
+        }
+        
+        private static DuringWhichMonthRequestViewModel CreateDuringWhichMonthRequestViewModel(DoneWaste whatHaveYouDoneWaste)
+        {
+            return whatHaveYouDoneWaste == DoneWaste.ReprocessedIt
+                ? new DuringWhichMonthReceivedRequestViewModel()
+                : new DuringWhichMonthSentOnRequestViewModel();
+        }
 
             duringWhichMonthRequestViewModel.JourneyId = journeyId;
             duringWhichMonthRequestViewModel.WasteType = await _httpJourneyService.GetWasteType(journeyId);
@@ -59,8 +78,43 @@ namespace EPRN.Portal.Services
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter, _localizationHelper.GetString($"Month{firstMonthOfQuarter}"));
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 1, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 1}"));
             duringWhichMonthRequestViewModel.Quarter.Add(firstMonthOfQuarter + 2, _localizationHelper.GetString($"Month{firstMonthOfQuarter + 2}"));
+        private async Task PopulateViewModel(DuringWhichMonthRequestViewModel viewModel, int journeyId, DoneWaste whatHaveYouDoneWaste)
+        {
+            // TODO -- Add has submitted qtr return this logic when available, true for now
+            const bool hasSubmittedPreviousQuarterReturn = true;
+            
+            viewModel.JourneyId = journeyId;
+            viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
+            
+            var wasteTypeTask = _httpJourneyService.GetWasteType(journeyId);
+            var quarterTask = _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
 
-            return duringWhichMonthRequestViewModel;
+            await Task.WhenAll(wasteTypeTask, quarterTask);
+            viewModel.WasteType = wasteTypeTask.Result;
+            viewModel.Notification = quarterTask.Result.Notification;
+            viewModel.SubmissionDate = quarterTask.Result.SubmissionDate;
+            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
+
+            var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
+                Assembly.GetExecutingAssembly());
+            
+            foreach (var itemMonth in quarterTask.Result.QuarterlyMonths)
+            {
+                var value = itemMonth.Value;
+                var suffix = "";
+                
+                // Check if the value has a suffix of underscore then year
+                if (value.Length > 5 && value[^5] == ' ')
+                {
+                    // Remove the year suffix and save it in the suffix variable
+                    suffix = value[^5..];
+                    value = value[..^5];
+                }
+                
+                // Get the string from the resource manager and add the suffix back
+                var resourceString = rm.GetString(value) + suffix;
+                viewModel.Quarter.Add(itemMonth.Key, resourceString);
+            }
         }
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
@@ -76,21 +130,63 @@ namespace EPRN.Portal.Services
                 duringWhichMonthRequestViewModel.SelectedMonth.Value);
         }
 
-        public async Task<WasteTypesViewModel> GetWasteTypesViewModel(int journeyId)
+        public async Task<RecordWasteViewModel> GetWasteTypesViewModel(int? id)
         {
-            var wasteTypeIdTask = _httpJourneyService.GetWasteTypeId(journeyId);
-            var wasteMaterialTypesTask = _httpWasteService.GetWasteMaterialTypes();
+            var category = Category.Unknown;
 
-            await Task.WhenAll(wasteTypeIdTask, wasteMaterialTypesTask);
+            if (id.HasValue)
+                category = await _httpJourneyService.GetCategory(id.Value);
+            // get waste types from the API
+            var materialTypes = await _httpWasteService.GetWasteMaterialTypes();
 
-            return new WasteTypesViewModel
+            var viewModel = new RecordWasteViewModel
             {
-                JourneyId = journeyId,
-                WasteTypes = wasteMaterialTypesTask.Result.ToDictionary(t => t.Id, t => t.Name),
-                SelectedWasteTypeId = wasteTypeIdTask.Result
+                Id = id,
+                Category = category,
+                ExporterSiteMaterials = new ExporterSectionViewModel
+                {
+                    Sites = new List<SiteSectionViewModel>
+                    {
+                        new SiteSectionViewModel
+                        {
+                            SiteName = "123 Letsbe Avenue, Policeville",
+                            SiteMaterials = new Dictionary<int, string>
+                            {
+                                { 4, materialTypes[4] },
+                                { 9, materialTypes[9] }
+                            }
+                        }
+                    }
+                },
+                ReprocessorSiteMaterials = new ReproccesorSectionViewModel
+                {
+                    Sites = new List<SiteSectionViewModel>
+                    { 
+                        new SiteSectionViewModel
+                        {
+                            SiteName = "Lansbourne Trading Estate, Edinburgh",
+                            SiteMaterials = new Dictionary<int, string>
+                            {
+                                { 2, materialTypes[2] }
+                            }
+                        },
+                        new SiteSectionViewModel
+                        {
+                            SiteName = "1 Banburgh Drive, Cardiff",
+                            SiteMaterials = new Dictionary<int, string>
+                            {
+                                { 4, materialTypes[4] },
+                                { 2, materialTypes[2] },
+                                { 7, materialTypes[7] }
+                            }
+                        }
+                    }
+                }
             };
-        }
 
+            return viewModel;
+        }
+        
         public async Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId)
         {
             var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
@@ -117,6 +213,7 @@ namespace EPRN.Portal.Services
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
             };
         }
+        
         public async Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             if (wasteSubTypesViewModel == null)
@@ -149,19 +246,6 @@ namespace EPRN.Portal.Services
             }
 
             return (wasteSubTypeId, adjustment);
-        }
-
-        public async Task SaveSelectedWasteType(WasteTypesViewModel wasteTypesViewModel)
-        {
-            if (wasteTypesViewModel == null)
-                throw new ArgumentNullException(nameof(wasteTypesViewModel));
-
-            if (wasteTypesViewModel.SelectedWasteTypeId == null)
-                throw new ArgumentNullException(nameof(wasteTypesViewModel.SelectedWasteTypeId));
-
-            await _httpJourneyService.SaveSelectedWasteType(
-                wasteTypesViewModel.JourneyId,
-                wasteTypesViewModel.SelectedWasteTypeId.Value);
         }
 
         public async Task<WhatHaveYouDoneWasteModel> GetWasteModel(int journeyId)
@@ -283,7 +367,7 @@ namespace EPRN.Portal.Services
             var noteViewModel = new NoteViewModel
             {
                 JourneyId = journeyId,
-                WasteType = await _httpJourneyService.GetNote(journeyId)
+                NoteContent = await _httpJourneyService.GetNote(journeyId)
             };
 
             return noteViewModel;
