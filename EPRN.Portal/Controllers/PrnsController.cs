@@ -42,6 +42,10 @@ namespace EPRN.Portal.Controllers
             {
                 return NotFound();
             }
+            else if (id <= 0)
+            {
+                return BadRequest();
+            }
 
             var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
             return View(viewModel);
