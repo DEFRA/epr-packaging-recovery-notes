@@ -17,13 +17,16 @@
                 </div>
             }
 
-            @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+            @if(Model.Pagination.TotalPages > 1)
             {
-                <li class="govuk-pagination__item @(i == Model.Pagination.CurrentPage ? "govuk-pagination__item--current" : "")">
-                    <a class="govuk-link govuk-pagination__link" href="@Url.Action("ViewSentPrns", new { page = i })" aria-current="Page @i">
-                        @i
-                    </a>
-                </li>
+                @for (int i = 1; i <= Model.Pagination.TotalPages; i++)
+                {
+                    <li class="govuk-pagination__item @(i == Model.Pagination.CurrentPage ? "govuk-pagination__item--current" : "")">
+                        <a class="govuk-link govuk-pagination__link" href="@Url.Action("ViewSentPrns", new { page = i })" aria-current="Page @i">
+                            @i
+                        </a>
+                    </li>
+                }
             }
 
             @if (Model.Pagination.CurrentPage < Model.Pagination.TotalPages)
