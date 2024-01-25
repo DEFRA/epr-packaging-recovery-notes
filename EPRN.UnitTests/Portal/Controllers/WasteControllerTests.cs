@@ -126,23 +126,6 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
         }
 
-        //[TestMethod]
-        //public async Task RecordWaste_CreatesNewJourney_WhenNoIdSupplied()
-        //{
-        //    // Arrange
-
-        //    // Act
-        //    var result = await _wasteController.RecordWaste((int?)null);
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-
-        //    _mockWasteService.Verify(s => s.CreateJourney(), Times.Once);
-        //    var redirectToActionResult = result as RedirectToActionResult;
-        //    Assert.IsNull(redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
-        //    Assert.AreEqual("Types", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
-        //}
-
         [TestMethod]
         public async Task DuringWhichMonth_ThrowsNotFoundException_WhenNoIdSupplied()
         {
@@ -153,28 +136,6 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
-
-        //[TestMethod]
-        //public async Task RecordWaste_Saves_WithValidData()
-        //{
-        //    // Arrange
-        //    var wasteTypesViewModel = new WasteTypesViewModel
-        //    {
-        //        JourneyId = 1,
-        //        SelectedWasteTypeId = 99
-        //    };
-
-        //    // Act
-        //    var result = await _wasteController.RecordWaste(wasteTypesViewModel);
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
-
-        //    var redirectToActionResult = result as RedirectToActionResult;
-        //    Assert.IsNull(redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
-        //    Assert.AreEqual("Done", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
-        //}
 
         [TestMethod]
         public async Task DuringWhichMonth_Saves_WithValidData()
@@ -197,70 +158,6 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNull(redirectToActionResult.ControllerName); // this will need to change eventually when we know where this redirects to
             Assert.AreEqual("SubTypes", redirectToActionResult.ActionName); // this will need to change eventually when we know where this redirects to
         }
-
-        //[TestMethod]
-        //public async Task RecordWaste_ReturnsCurrentView_WhenModelIsInvalid()
-        //{
-        //    // Arrange
-        //    var wasteTypesViewModel = new WasteTypesViewModel();
-        //    _mockWasteService.Setup(s => s.GetWasteTypesViewModel(It.IsAny<int>())).ReturnsAsync(new WasteTypesViewModel());
-        //    _wasteController.ModelState.AddModelError("Error", "Error");
-
-        //    // Act
-        //    var result = await _wasteController.RecordWaste(wasteTypesViewModel);
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-        //    var viewResult = result as ViewResult;
-        //    Assert.IsNotNull(viewResult.ViewData.Model);
-
-        //    // check model is expected type
-        //    Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteTypesViewModel));
-
-        //    // check view name
-        //    Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
-        //}
-
-        //[TestMethod]
-        //public async Task DuringWhichMonth_ReturnsCorrectView_WhenModelIsInvalid()
-        //{
-        //    // Arrange
-        //    var wasteTypesViewModel = new WasteTypesViewModel();
-        //    _mockWasteService.Setup(s => s.GetWasteTypesViewModel(It.IsAny<int>())).ReturnsAsync(new WasteTypesViewModel());
-        //    _wasteController.ModelState.AddModelError("Error", "Error");
-
-        //    // Arrange
-        //    var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel();
-        //    _mockWasteService.Setup(s => s.GetWasteModel(It.IsAny<int>())).ReturnsAsync(new WhatHaveYouDoneWasteModel());
-        //    _wasteController.ModelState.AddModelError("Error", "Error");
-
-        //    // Arrange
-        //    var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel();
-
-        //    _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(
-        //        It.IsAny<int>()))
-        //        .ReturnsAsync(new DuringWhichMonthRequestViewModel());
-
-        //    _wasteController.ModelState.AddModelError("Error", "Error");
-
-        //    // Act
-        //    var result = await _wasteController.DuringWhichMonth(duringWhichMonthRequestViewModel);
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-        //    var viewResult = result as ViewResult;
-        //    Assert.IsNotNull(viewResult.ViewData.Model);
-
-        //    // check model is expected type
-        //    Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(DuringWhichMonthRequestViewModel));
-
-        //    // check view name
-        //    Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
-        //}
 
         [TestMethod]
         public async Task WhatHaveYouDoneWaste_ReturnCurrentView_WhenModelIsInvalid()
@@ -569,8 +466,7 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             NoteViewModel noteViewModel = new NoteViewModel
             {
-                JourneyId = journeyId,
-                WasteType = wasteType
+                JourneyId = journeyId
             };
 
             _mockWasteService.Setup(s => s.GetNoteViewModel(It.Is<int>(p => p == journeyId))).ReturnsAsync(noteViewModel);
@@ -615,8 +511,7 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             NoteViewModel noteViewModel = new NoteViewModel
             {
-                JourneyId = 4,
-                WasteType = "testWasteType"
+                JourneyId = 4
             };
 
             // Act

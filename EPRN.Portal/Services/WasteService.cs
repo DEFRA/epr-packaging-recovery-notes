@@ -74,19 +74,19 @@ namespace EPRN.Portal.Services
             viewModel.JourneyId = journeyId;
             viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
             
-            var wasteTypeTask = _httpJourneyService.GetWasteType(journeyId);
-            var quarterTask = _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
+//            var wasteTypeTask = _httpJourneyService.GetWasteType(journeyId);
+            var quarterDates = await _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
 
-            await Task.WhenAll(wasteTypeTask, quarterTask);
-            viewModel.WasteType = wasteTypeTask.Result;
-            viewModel.Notification = quarterTask.Result.Notification;
-            viewModel.SubmissionDate = quarterTask.Result.SubmissionDate;
-            viewModel.NotificationDeadlineDate = quarterTask.Result.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
+//            await Task.WhenAll(wasteTypeTask, quarterTask);
+//            viewModel.WasteType = wasteTypeTask.Result;
+            viewModel.Notification = quarterDates.Notification;
+            viewModel.SubmissionDate = quarterDates.SubmissionDate;
+            viewModel.NotificationDeadlineDate = quarterDates.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
 
             var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
                 Assembly.GetExecutingAssembly());
             
-            foreach (var itemMonth in quarterTask.Result.QuarterlyMonths)
+            foreach (var itemMonth in quarterDates.QuarterlyMonths)
             {
                 var value = itemMonth.Value;
                 var suffix = "";
@@ -360,6 +360,11 @@ namespace EPRN.Portal.Services
             await _httpJourneyService.SaveNote(
                 noteViewModel.JourneyId,
                 noteViewModel.NoteContent);
+        }
+
+        public async Task<string> GetWasteType(int journeyId)
+        {
+            return await _httpJourneyService.GetWasteType(journeyId);
         }
     }
 }
