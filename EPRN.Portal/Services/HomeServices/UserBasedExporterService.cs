@@ -7,6 +7,7 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace EPRN.Portal.Services.HomeServices
 {
@@ -94,7 +95,7 @@ namespace EPRN.Portal.Services.HomeServices
             var viewModel = new CYAViewModel
             {
                 JourneyId = journeyId,
-                Completed = journeyDto.Completed,
+                Completed = journeyDto.Completed.HasValue ? journeyDto.Completed.Value : false,
                 UserRole = UserRole.Exporter
             };
 
@@ -118,10 +119,10 @@ namespace EPRN.Portal.Services.HomeServices
         private void GetBaseAnswers(CYAViewModel vm, JourneyAnswersDto journey)
         {
             vm.TypeOfWaste = journey.WasteSubType;
-            vm.BaledWithWire = journey.BaledWithWire;
+            vm.BaledWithWire = journey.BaledWithWire.HasValue ? (journey.BaledWithWire.Value == true ? "Yes" : "No") : string.Empty;
             vm.TonnageOfWaste = journey.Tonnes.ToString();
-            vm.TonnageAdjusted = journey.TonnageAdjusted.ToString();
-            vm.MonthReceived = journey.Month;
+            vm.TonnageAdjusted = journey.Adjustment.ToString();
+            vm.MonthReceived = journey.Month.HasValue ? (CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value)) : string.Empty;
             vm.Note = journey.Note;
         }
 

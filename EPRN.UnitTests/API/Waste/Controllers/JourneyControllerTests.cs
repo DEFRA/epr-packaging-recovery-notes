@@ -355,14 +355,14 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             int validJourneyId = 1;
 
             var expectedDto = new JourneyAnswersDto();
-            expectedDto.Month = "2";
-            expectedDto.Tonnes = "250";
-            expectedDto.BaledWithWire = "No";
-            expectedDto.TonnageAdjusted = "34.5";
+            expectedDto.Month = 2;
+            expectedDto.Tonnes = 250;
+            expectedDto.BaledWithWire = false;
+            expectedDto.Adjustment = 34.5;
             expectedDto.Note = "Some text";
             expectedDto.WasteType = "Paper/Board";
             expectedDto.WasteSubType = "sorted mixed paper/board";
-            expectedDto.WhatDoneWithWaste = "ReprocessedIt";
+            expectedDto.DoneWaste = DoneWaste.ReprocessedIt;
             expectedDto.Completed = true;
 
             _mockJourneyService.Setup(service => service.GetJourneyAnswers(It.IsAny<int>())).ReturnsAsync(expectedDto);

@@ -45,14 +45,14 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
-                Month = "1",
-                Tonnes = "23",
-                BaledWithWire = "No",
-                TonnageAdjusted = "34.5",
+                Month = 1,
+                Tonnes = 23,
+                BaledWithWire = false,
+                Adjustment = 34.5,
                 Note = "Note",
                 WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
-                WhatDoneWithWaste = "ReprocessedIt",
+                DoneWaste = DoneWaste.ReprocessedIt,
                 Completed = true
             };
 
@@ -94,14 +94,14 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             var journeyAnswersDto = new JourneyAnswersDto
             {
                 JourneyId = journeyId,
-                Month = "1",
-                Tonnes = "23",
-                BaledWithWire = "No",
-                TonnageAdjusted = "34.5",
+                Month = 1,
+                Tonnes = 23,
+                BaledWithWire = false,
+                Adjustment = 34.5,
                 Note = "Note",
                 WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
-                WhatDoneWithWaste = DoneWaste.ReprocessedIt.ToString(),
+                DoneWaste = DoneWaste.ReprocessedIt,
                 Completed = true
             };
 
@@ -125,14 +125,14 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
-                Month = "1",
-                Tonnes = "23",
-                BaledWithWire = "No",
-                TonnageAdjusted = "34.5",
+                Month = 1,
+                Tonnes = 23,
+                BaledWithWire = false,
+                Adjustment = 34.5,
                 Note = "Note",
                 WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
-                WhatDoneWithWaste = "",
+                //DoneWaste = null,
                 Completed = true
             };
 
@@ -157,7 +157,7 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
-                WhatDoneWithWaste = null
+                //DoneWaste = null
             };
 
             _mockHttpJourneyService.Setup(service => service.GetJourneyAnswers(journeyId)).ReturnsAsync(journeyAnswersDto);
@@ -177,14 +177,14 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
             int journeyId = 1;
             var journeyAnswersDto = new JourneyAnswersDto
             {
-                Month = "1",
-                Tonnes = "23",
-                BaledWithWire = "No",
-                TonnageAdjusted = "34.5",
+                Month = 1,
+                Tonnes = 23,
+                BaledWithWire = false,
+                Adjustment = 34.5,
                 Note = "Note",
                 WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
-                WhatDoneWithWaste = "ReprocessedIt",
+                DoneWaste = DoneWaste.ReprocessedIt,
                 Completed = true
             };
 

@@ -127,9 +127,9 @@ namespace EPRN.Waste.API.Services
             await _wasteRepository.UpdateJourneyTonnage(journeyId, tonnage);
         }
 
-        public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
+        public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
         {
-            var dto = new GetBaledWithWireDto { JourneyId = journeyId };
+            var dto = new BaledWithWireDto { JourneyId = journeyId };
 
             var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
             if (journey != null)
@@ -185,24 +185,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
         {
-            var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
-            if (journey == null)
-                throw new Exception(nameof(journey));
-
-            var journeyAnswersDto = new JourneyAnswersDto();
-
-            journeyAnswersDto.JourneyId = journeyId;
-            journeyAnswersDto.WhatDoneWithWaste = journey.DoneWaste == null ? string.Empty : journey.DoneWaste.Value.ToString();
-            journeyAnswersDto.BaledWithWire = journey.BaledWithWire == null ? string.Empty : (journey.BaledWithWire.Value == true ? "Yes" : "No");
-            journeyAnswersDto.Month = journey.Month == null ? string.Empty : CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value);
-            journeyAnswersDto.WasteType = journey.WasteType == null ? string.Empty : journey.WasteType.Name.ToString();
-            journeyAnswersDto.Tonnes = journey.Tonnes == null ? string.Empty : journey.Tonnes.Value.ToString();
-            journeyAnswersDto.TonnageAdjusted = journey.Adjustment == null ? string.Empty : journey.Adjustment.Value.ToString();
-            journeyAnswersDto.Note = journey.Note;
-            journeyAnswersDto.WasteSubType = journey.WasteSubType == null ? string.Empty : journey.WasteSubType.Name.ToString();
-            journeyAnswersDto.Completed = journey.Completed == null ? false : journey.Completed.Value;
-
-            return journeyAnswersDto;
+            return await _wasteRepository.GetWasteJourneyAnswersById(journeyId);
         }
 
         public async Task SaveWasteRecordNote(int journeyId, string note)

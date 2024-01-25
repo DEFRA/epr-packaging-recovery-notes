@@ -7,6 +7,7 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace EPRN.Portal.Services.HomeServices
 {
@@ -92,16 +93,16 @@ namespace EPRN.Portal.Services.HomeServices
             if (journeyDto == null)
                 throw new NullReferenceException(nameof(journeyDto));
 
-            if (string.IsNullOrWhiteSpace(journeyDto.WhatDoneWithWaste) || !Enum.TryParse(journeyDto.WhatDoneWithWaste, out DoneWaste doneWaste))
-                throw new NullReferenceException("WhatDoneWithWaste");
+            //if (string.IsNullOrWhiteSpace(journeyDto.DoneWaste) || !Enum.TryParse(journeyDto.DoneWaste, out DoneWaste doneWaste))
+            //    throw new NullReferenceException("WhatDoneWithWaste");
 
             var viewModel = new CYAViewModel { JourneyId = journeyId, 
-                Completed = journeyDto.Completed, 
-                DoneWaste = doneWaste,
+                Completed = journeyDto.Completed.HasValue ? journeyDto.Completed.Value : false, 
+                DoneWaste = journeyDto.DoneWaste,
                 UserRole = UserRole.Reprocessor
             };
 
-            if (journeyDto.WhatDoneWithWaste == DoneWaste.ReprocessedIt.ToString())
+            if (journeyDto.DoneWaste == DoneWaste.ReprocessedIt)
                 GetAnswerForWasteReceivedAndReprocessed(viewModel, journeyDto);
             else
                 GetAnswerForWasteSentOn(viewModel, journeyDto);
@@ -128,10 +129,10 @@ namespace EPRN.Portal.Services.HomeServices
         private void GetBaseAnswers(CYAViewModel vm, JourneyAnswersDto journey)
         {
             vm.TypeOfWaste = journey.WasteSubType;
-            vm.BaledWithWire = journey.BaledWithWire;
+            vm.BaledWithWire = journey.BaledWithWire.HasValue ? (journey.BaledWithWire.Value == true ? "Yes" : "No") : string.Empty;
             vm.TonnageOfWaste = journey.Tonnes.ToString();
-            vm.TonnageAdjusted = journey.TonnageAdjusted.ToString();
-            vm.MonthReceived = journey.Month;
+            vm.TonnageAdjusted = journey.Adjustment.ToString();
+            vm.MonthReceived = journey.Month.HasValue ? (CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value)) : string.Empty;
             vm.Note = journey.Note;
         }
 

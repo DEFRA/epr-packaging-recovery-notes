@@ -44,7 +44,7 @@ namespace EPRN.Waste.API.Services.Interfaces
 
         Task<object?> GetCategory(int journeyId);
 
-        Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId);
+        Task<BaledWithWireDto> GetBaledWithWire(int journeyId);
 
         Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
     }

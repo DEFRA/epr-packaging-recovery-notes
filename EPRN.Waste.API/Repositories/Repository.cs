@@ -198,12 +198,12 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<GetBaledWithWireDto> GetBaledWithWire(int journeyId)
+        public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
         {
             return await _wasteContext
                 .WasteJourney
                 .Where(w => w.Id == journeyId)
-                .Select(w => _mapper.Map<GetBaledWithWireDto>(w))
+                .Select(w => _mapper.Map<BaledWithWireDto>(w))
                 .SingleOrDefaultAsync();
         }
 
@@ -214,6 +214,17 @@ namespace EPRN.Waste.API.Repositories
                 .Include(x => x.WasteType)
                 .Include(x => x.WasteSubType)
                 .Where(wj => wj.Id == journeyId)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<JourneyAnswersDto> GetWasteJourneyAnswersById(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Include(x => x.WasteType)
+                .Include(x => x.WasteSubType)
+                .Where(wj => wj.Id == journeyId)
+                .Select(x => _mapper.Map<JourneyAnswersDto>(x))
                 .SingleOrDefaultAsync();
         }
 

@@ -1,26 +1,28 @@
-﻿namespace EPRN.Common.Dtos
+﻿using EPRN.Common.Enums;
+
+namespace EPRN.Common.Dtos
 {
     public class JourneyAnswersDto
     {
         public int JourneyId { get; set; }
 
-        public string Month { get; set; }
+        public int? Month { get; set; }
 
-        public string Tonnes { get; set; }
+        public double? Tonnes { get; set; }
 
-        public string BaledWithWire { get; set; }
+        public bool? BaledWithWire { get; set; }
 
-        public string TonnageAdjusted { get; set; }
+        public double? Adjustment { get; set; }
 
-        public string? Note { get; set; }
+        public string Note { get; set; }
 
         public string WasteType { get; set; }
 
         public string WasteSubType { get; set; }
 
-        public string WhatDoneWithWaste { get; set; }
+        public DoneWaste DoneWaste { get; set; }
 
-        public bool Completed { get; set; }
+        public bool? Completed { get; set; }
 
     }
 }

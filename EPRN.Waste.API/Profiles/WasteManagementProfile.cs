@@ -21,10 +21,13 @@ namespace EPRN.Waste.API.Profiles
                 .ForMember(d => d.WasteRecordReferenceNumber, o => o.MapFrom(o => o.ReferenceNumber ?? "WR00012"))
                 .ForMember(d => d.WasteRecordStatus, o => o.MapFrom(o =>
                     o.Completed.HasValue ? (o.Completed.Value ? WasteRecordStatuses.Complete : WasteRecordStatuses.Incomplete) : WasteRecordStatuses.Incomplete));
-            CreateMap<WasteJourney, GetBaledWithWireDto>()
+            CreateMap<WasteJourney, BaledWithWireDto>()
                 .ForMember(d => d.JourneyId, o => o.MapFrom(s => s.Id))
                 .ForMember(d => d.BaledWithWire, o => o.MapFrom(s => s.BaledWithWire))
                 .ForMember(d => d.BaledWithWireDeductionPercentage, o => o.MapFrom(s => s.BaledWithWireDeductionPercentage));
+            CreateMap<WasteJourney, JourneyAnswersDto>()
+                .ForMember(d => d.WasteType, o => o.MapFrom(s => s.WasteType.Name))
+                .ForMember(d => d.WasteSubType, o => o.MapFrom(s => s.WasteSubType.Name));
         }
     }
 }
