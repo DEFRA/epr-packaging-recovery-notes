@@ -1,0 +1,40 @@
+apiVersion: '2021-07-01'
+location: uksouth
+name: api-prn3-private
+properties:
+  imageRegistryCredentials:
+    - server: defraprnacr.azurecr.io
+      username: ${REGISTRY_USERNAME}
+      password: ${REGISTRY_PASSWORD}
+  containers:
+    - name: prnapi
+      properties:
+        image: defraprnacr.azurecr.io/prnapi:3.0.0-dotnetcore6.0.4
+        ports:
+          - port: 80
+            protocol: TCP
+        resources:
+          requests:
+            cpu: 1.0
+            memoryInGB: 1.0
+        environmentVariables:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Development
+          - name: ASPNETCORE_URLS
+            value: http://+:80
+  ipAddress:
+    type: Private
+    ports:
+      - protocol: tcp
+        port: '80'
+  osType: Linux
+  restartPolicy: Always
+  dnsConfig:
+    nameServers:
+      - 10.178.0.4
+      - 10.178.0.5
+  subnetIds:
+    - id: "/subscriptions/1fbcba2d-664e-4656-a8a7-3da5dbce2c30/resourceGroups/POCPRNNETRG1401/providers/Microsoft.Network/virtualNetworks/POCPRNNETVN1401/subnets/POCPRNNETSU1401"
+      name: prnsubnet
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
