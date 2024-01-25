@@ -5,9 +5,9 @@ namespace EPRN.Portal.ViewModels.PRNS
 {
     public class ActionPrnViewModel
     {
-        public int JourneyId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WhatHaveYouDoneWithWasteResource))]
-        public ActionPRN? DoWithPRN { get; set; }
+        public PrnStatus? DoWithPRN { get; set; }
     }
 }

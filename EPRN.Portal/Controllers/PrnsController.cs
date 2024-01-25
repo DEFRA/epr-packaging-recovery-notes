@@ -35,9 +35,15 @@ namespace EPRN.Portal.Controllers
             return View(viewModel);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Action(int? id)
         {
-            var viewModel = await _prnService.ActionPrnViewModel();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
             return View(viewModel);
         }
 

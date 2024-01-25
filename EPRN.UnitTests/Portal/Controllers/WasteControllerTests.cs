@@ -568,8 +568,7 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             NoteViewModel noteViewModel = new NoteViewModel
             {
-                JourneyId = journeyId,
-                //WasteType = wasteType
+                JourneyId = journeyId
             };
 
             _mockWasteService.Setup(s => s.GetNoteViewModel(It.Is<int>(p => p == journeyId))).ReturnsAsync(noteViewModel);

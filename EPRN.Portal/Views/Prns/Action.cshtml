@@ -11,21 +11,20 @@
 
 <partial name="_ValidationSummary" />
 <form method="post">
-    <input type="hidden" asp-for="JourneyId" />
     <radios asp-for="DoWithPRN" asp-title="@ActionPRNResources.Heading">
         <p class="govuk-error-message">
             <span asp-validation-for="DoWithPRN"></span>
         </p>
 
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" type="radio" asp-for="DoWithPRN" value="@ActionPRN.SendItTo" aria-describedby="@ActionPRNResources.SendItTo">
+            <input class="govuk-radios__input" type="radio" asp-for="DoWithPRN" value="@PrnStatus.Complete" aria-describedby="@ActionPRNResources.SendItTo">
             <label class="govuk-label govuk-radios__label" for="@ActionPRNResources.SendItTo">
                 @ActionPRNResources.SendItTo
             </label>
         </div>
 
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" type="radio" asp-for="DoWithPRN" value="@ActionPRN.SaveItAsDraft" aria-describedby="@ActionPRNResources.SaveItAsDraft">
+            <input class="govuk-radios__input" type="radio" asp-for="DoWithPRN" value="@PrnStatus.Draft" aria-describedby="@ActionPRNResources.SaveItAsDraft">
             <label class="govuk-label govuk-radios__label" for="@ActionPRNResources.SaveItAsDraft">
                 @ActionPRNResources.SaveItAsDraft
             </label>
