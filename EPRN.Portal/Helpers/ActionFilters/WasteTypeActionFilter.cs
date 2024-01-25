@@ -2,7 +2,7 @@
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace EPRN.Portal.Helpers.Attributes
+namespace EPRN.Portal.Helpers.Filters
 {
     public class WasteTypeActionFilter : IActionFilter
     {
