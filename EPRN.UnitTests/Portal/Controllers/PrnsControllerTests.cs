@@ -112,5 +112,44 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsNull(result.ViewName);
         }
+
+        [TestMethod]
+        public async Task ViewSentPrns_ReturnsViewResult()
+        {
+            // Arrange
+
+            // Act
+            var result = await _prnsController.ViewSentPrns();
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+        }
+
+        [TestMethod]
+        public async Task ViewSentPrns_CallsGetViewSentPrnsViewModel()
+        {
+            // Arrange
+
+            // Act
+            var result = await _prnsController.ViewSentPrns();
+
+            // Assert
+            _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(1), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task ViewSentPrns_ReturnsCorrectViewModel()
+        {
+            // Arrange
+            var expectedViewModel = new ViewSentPrnsViewModel();
+            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnsController.ViewSentPrns();
+
+            // Assert
+            Assert.AreEqual(expectedViewModel, (result as ViewResult)?.Model);
+        }
     }
 }
