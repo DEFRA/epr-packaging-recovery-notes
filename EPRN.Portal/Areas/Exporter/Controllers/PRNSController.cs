@@ -21,6 +21,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
+        [Route("[area]/[controller]/[action]/{Id}")]
         public async Task<IActionResult> Tonnes(int? id)
         {
             if (id == null)
@@ -57,6 +58,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
+        [Route("[area]/[controller]/[action]/{Id}")]
         public async Task<IActionResult> Confirmation(int? id)
         {
             if (id == null)

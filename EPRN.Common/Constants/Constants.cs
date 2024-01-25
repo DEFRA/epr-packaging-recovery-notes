@@ -75,6 +75,7 @@ public static class Strings
             public static class Prns
             {
                 public const string Create = "Create";
+                public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
             }
 
             public static class Waste

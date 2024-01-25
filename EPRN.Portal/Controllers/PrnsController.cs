@@ -1,5 +1,8 @@
-﻿using EPRN.Portal.Services.Interfaces;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Controllers
 {
@@ -39,17 +42,19 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> Action(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
-            else if (id <= 0)
-            {
-                return BadRequest();
-            }
-
+     
             var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
             return View(viewModel);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Action(ActionPrnViewModel actionPrnViewModel)
+        {
+            if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)
+                return RedirectToAction(Routes.Actions.Prns.PrnSavedAsDraftConfirmation, new { id = actionPrnViewModel.Id });
+            else
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category.Exporter, actionPrnViewModel.Id });
+        }
     }
 }
