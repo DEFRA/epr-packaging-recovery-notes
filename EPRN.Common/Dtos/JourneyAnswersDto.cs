@@ -16,8 +16,6 @@ namespace EPRN.Common.Dtos
 
         public string Note { get; set; }
 
-        public string WasteType { get; set; }
-
         public string WasteSubType { get; set; }
 
         public DoneWaste DoneWaste { get; set; }

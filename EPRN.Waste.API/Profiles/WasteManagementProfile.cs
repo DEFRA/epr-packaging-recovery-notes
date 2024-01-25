@@ -26,7 +26,6 @@ namespace EPRN.Waste.API.Profiles
                 .ForMember(d => d.BaledWithWire, o => o.MapFrom(s => s.BaledWithWire))
                 .ForMember(d => d.BaledWithWireDeductionPercentage, o => o.MapFrom(s => s.BaledWithWireDeductionPercentage));
             CreateMap<WasteJourney, JourneyAnswersDto>()
-                .ForMember(d => d.WasteType, o => o.MapFrom(s => s.WasteType.Name))
                 .ForMember(d => d.WasteSubType, o => o.MapFrom(s => s.WasteSubType.Name));
         }
     }

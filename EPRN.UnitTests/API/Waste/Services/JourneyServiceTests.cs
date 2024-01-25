@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data.DataModels;
+using EPRN.Common.Dtos;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services;
@@ -165,20 +166,16 @@ namespace EPRN.UnitTests.API.Waste.Services
         {
             // Arrange
             int journeyId = 1;
-            var journey = new WasteJourney
+            var journeyDto = new JourneyAnswersDto
             {
-                Id = journeyId,
                 Month = 1,
                 Tonnes = 34.7,
-                Total = 147.8,
                 BaledWithWire = false,
                 Note = "",
                 Completed = true,
-                WasteTypeId = 6,
-                WasteSubTypeId = 22
             };
 
-            _mockRepository.Setup(repo => repo.GetWasteJourneyById_FullModel(journeyId)).ReturnsAsync(journey);
+            _mockRepository.Setup(repo => repo.GetWasteJourneyAnswersById(journeyId)).ReturnsAsync(journeyDto);
 
             // Act
             var result = await _journeyService.GetJourneyAnswers(journeyId);
@@ -188,15 +185,17 @@ namespace EPRN.UnitTests.API.Waste.Services
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "nameof(journey)")]
-        public async Task GetJourneyAnswers_WhenJourneyIsNull_ThrowsException()
+        public async Task GetJourneyAnswers_WhenJourneyIsNull_ReturnsANullObject()
         {
             // Arrange
             int journeyId = 1;
             _mockRepository.Setup(repo => repo.GetWasteJourneyById_FullModel(journeyId)).ReturnsAsync((WasteJourney)null);
 
             // Act & Assert
-            await _journeyService.GetJourneyAnswers(journeyId);
+            var result = await _journeyService.GetJourneyAnswers(journeyId);
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }

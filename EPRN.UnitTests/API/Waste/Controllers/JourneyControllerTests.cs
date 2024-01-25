@@ -360,7 +360,6 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             expectedDto.BaledWithWire = false;
             expectedDto.Adjustment = 34.5;
             expectedDto.Note = "Some text";
-            expectedDto.WasteType = "Paper/Board";
             expectedDto.WasteSubType = "sorted mixed paper/board";
             expectedDto.DoneWaste = DoneWaste.ReprocessedIt;
             expectedDto.Completed = true;

@@ -50,7 +50,6 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
                 BaledWithWire = false,
                 Adjustment = 34.5,
                 Note = "Note",
-                WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
                 DoneWaste = DoneWaste.ReprocessedIt,
                 Completed = true
@@ -99,7 +98,6 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
                 BaledWithWire = false,
                 Adjustment = 34.5,
                 Note = "Note",
-                WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
                 DoneWaste = DoneWaste.ReprocessedIt,
                 Completed = true
@@ -118,60 +116,6 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public async Task GetCheckAnswers_ReturnsException_WhenWhatDoneWithWasteIsNotKnown()
-        {
-            // Arrange
-            int journeyId = 1;
-            var journeyAnswersDto = new JourneyAnswersDto
-            {
-                Month = 1,
-                Tonnes = 23,
-                BaledWithWire = false,
-                Adjustment = 34.5,
-                Note = "Note",
-                WasteType = "Paper",
-                WasteSubType = "Mixed paper/board",
-                //DoneWaste = null,
-                Completed = true
-            };
-
-            _mockHttpJourneyService.Setup(service => service.GetJourneyAnswers(journeyId)).ReturnsAsync(journeyAnswersDto);
-
-            // Act
-            var result = await _reprocessorHomeService.GetCheckAnswers(journeyId);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(journeyAnswersDto.JourneyId, result.JourneyId);
-
-            _mockHttpJourneyService.Verify(service => service.GetJourneyAnswers(journeyId), Times.Once());
-
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
-        public async Task GetCheckAnswers_ThrowsNullReferenceException_WhenWhatDoneWithWasteIsNull()
-        {
-            // Arrange
-            int journeyId = 1;
-            var journeyAnswersDto = new JourneyAnswersDto
-            {
-                //DoneWaste = null
-            };
-
-            _mockHttpJourneyService.Setup(service => service.GetJourneyAnswers(journeyId)).ReturnsAsync(journeyAnswersDto);
-
-            // Act
-            await _reprocessorHomeService.GetCheckAnswers(journeyId);
-
-            // Assert
-            // Expecting a NullReferenceException here
-
-            _mockHttpJourneyService.Verify(service => service.GetJourneyAnswers(journeyId), Times.Once());
-        }
-
-        [TestMethod]
         public async Task GetCheckAnswers_ReturnsViewModel_WhenJourneyIdIsValid()
         {
             int journeyId = 1;
@@ -182,7 +126,6 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
                 BaledWithWire = false,
                 Adjustment = 34.5,
                 Note = "Note",
-                WasteType = "Paper",
                 WasteSubType = "Mixed paper/board",
                 DoneWaste = DoneWaste.ReprocessedIt,
                 Completed = true
