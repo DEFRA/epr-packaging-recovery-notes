@@ -135,5 +135,12 @@ namespace EPRN.Portal.Services
                 PrnNumber = "PRN222019EFGF",
             };
         }
+
+        public async Task<ActionPrnViewModel> ActionPrnViewModel()
+        {
+            return new ActionPrnViewModel
+            {
+            };
+        }
     }
 }

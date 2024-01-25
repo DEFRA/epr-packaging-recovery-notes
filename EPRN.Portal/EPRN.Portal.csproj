@@ -32,6 +32,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\PRNS\ActionPRNResources.cy-GB.Designer.cs">
+      <DependentUpon>ActionPRNResources.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\PRNS\ActionPRNResources.Designer.cs">
+      <DependentUpon>ActionPRNResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\NoteResources.Designer.cs">
       <DependentUpon>NoteResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -135,9 +145,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ActionPRNResources.cy-GB.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\BaledWithWireResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BaledWithWireResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ActionPRNResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\NoteResources.resx">
       <LastGenOutput>NoteResources.Designer.cs</LastGenOutput>
