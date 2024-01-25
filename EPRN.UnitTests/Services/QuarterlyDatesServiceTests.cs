@@ -3,6 +3,8 @@ using EPRN.Waste.API.Services;
 using Microsoft.Extensions.Options;
 using Moq;
 using System.Globalization;
+using EPRN.Common.Constants;
+
 namespace EPRN.UnitTests.Services
 {
     [TestClass]
@@ -10,170 +12,181 @@ namespace EPRN.UnitTests.Services
     {
         private Mock<IOptions<AppConfigSettings>> _mockConfigSettings;
         private QuarterlyDatesService _service;
+        
+        
         [TestInitialize]
-        public void Setup()
+        public void TestInitialize()
         {
             _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
-            _mockConfigSettings.Setup(x => x.Value).Returns(new AppConfigSettings());
-            _mockConfigSettings.Setup(x => x.Value).Returns(new AppConfigSettings
+            var configSettings = new AppConfigSettings
             {
                 QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
-                ReturnDeadlineDays = new List<int> { 21, 21, 21, 28 }
-            });
+                ReturnDeadlineForQuarter = new Dictionary<string, int>
+                {
+                    { "Q1", 21 },
+                    { "Q2", 21 },
+                    { "Q3", 21 },
+                    { "Q4", 28 }
+                },
+                CurrentMonthOverride = 1,
+                CurrentDayOverride = 1,
+                HasSubmittedReturnOverride = false,
+                DeductionAmount = 0.15,
+
+            };
+            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
             _service = new QuarterlyDatesService(_mockConfigSettings.Object);
         }
+
+
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterAndReturnSubmitted_ReturnsFirstMonthOfCurrentQuarter()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsJanuaryAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
         {
             // Arrange
-            var currentDate = new DateTime(DateTime.Now.Year, 1, 15); // Assuming the current date is within the first month of the first quarter
-            var hasSubmittedPreviousQuarterReturn = true;
+            var configSettings = new AppConfigSettings
+            {
+                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
+                ReturnDeadlineForQuarter = new Dictionary<string, int>
+                {
+                    { "Q1", 21 },
+                    { "Q2", 21 },
+                    { "Q3", 21 },
+                    { "Q4", 28 }
+                },
+                CurrentMonthOverride = 1,
+                CurrentDayOverride = 1,
+                HasSubmittedReturnOverride = false
+            };
+            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
+            
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(1, false);
             // Assert
-            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.AreEqual(4, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(11));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(12));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[1]);
         }
+
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterAndReturnSubmitted_ReturnsMonth_1_and_2_OfCurrentQuarter()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsFebruaryAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
         {
             // Arrange
-            var currentDate = new DateTime(DateTime.Now.Year, 2, 15); // Assuming the current date is within the first month of the first quarter
-            var hasSubmittedPreviousQuarterReturn = true;
+            var configSettings = new AppConfigSettings
+            {
+                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
+                ReturnDeadlineForQuarter = new Dictionary<string, int>
+                {
+                    { "Q1", 21 },
+                    { "Q2", 21 },
+                    { "Q3", 21 },
+                    { "Q4", 28 }
+                },
+                CurrentMonthOverride = 2,
+                CurrentDayOverride = 1,
+                HasSubmittedReturnOverride = false
+            };
+            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(2, false);
             // Assert
-            Assert.AreEqual(2, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));           
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[1]);           
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[2]);
-        }
-        [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterAndReturnSubmitted_ReturnsMonth_1_and_2_and_3_OfCurrentQuarter()
-        {
-            // Arrange
-            var currentDate = new DateTime(DateTime.Now.Year, 3, 15); // Assuming the current date is within the first month of the first quarter
-            var hasSubmittedPreviousQuarterReturn = true;
-            // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
-            // Assert
-            Assert.AreEqual(3, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));           
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(3));     
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-2).Month), result.QuarterlyMonths[1]);           
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[2]);           
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[3]);
-        }
-        [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarter_April_AndReturnSubmitted_ReturnsFirstMonthOfCurrentQuarter()
-        {
-            // Arrange
-            var currentDate = new DateTime(DateTime.Now.Year, 4, 15); // Assuming the current date is within the first month of the first quarter
-            var hasSubmittedPreviousQuarterReturn = true;
-            // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
-            // Assert
-            Assert.AreEqual(1, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[4]);
-        }
-        [TestMethod]       
-        public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterMayAndReturnSubmitted_ReturnsMonth_1_and_2_OfCurrentQuarter()
-        {
-            // Arrange
-            var currentDate = new DateTime(DateTime.Now.Year, 5, 15); // Assuming the current date is within the first month of the first quarter
-            var hasSubmittedPreviousQuarterReturn = true;
-            // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
-            // Assert
-            Assert.AreEqual(2, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(5));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[4]);
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[5]);
-        }
-        [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinFirstMonthOfCurrentQuarterJuneAndReturnSubmitted_ReturnsMonth_1_and_2_and_3_OfCurrentQuarter()
-        {
-            // Arrange
-            var currentDate = new DateTime(DateTime.Now.Year, 6, 15); // Assuming the current date is within the first month of the first quarter
-            var hasSubmittedPreviousQuarterReturn = true;
-            // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
-            // Assert
-            Assert.AreEqual(3, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(5));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(6));
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-2).Month), result.QuarterlyMonths[4]);
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.AddMonths(-1).Month), result.QuarterlyMonths[5]);
-            Assert.AreEqual(CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(currentDate.Month), result.QuarterlyMonths[6]);
-        }
-        [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinCurrentQuarter_ReturnsCorrectMonths()
-        {
-            // Arrange
-            var currentDate = DateTime.Now.AddMonths(1); // Updated
-            var hasSubmittedPreviousQuarterReturn = true;
-            // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
-            // Assert
-            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.AreEqual(5, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(11));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(12));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
+            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
         }
+
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinReturnDeadlineAndPreviousQuarterReturnSubmitted_ReturnsMonth_1_and_2_OfCurrentQuarter()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsAprilAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
         {
             // Arrange
-            var currentDate = DateTime.Now.AddMonths(4); // Updated
-            var hasSubmittedPreviousQuarterReturn = true;
+            var configSettings = new AppConfigSettings
+            {
+                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
+                ReturnDeadlineForQuarter = new Dictionary<string, int>
+                {
+                    { "Q1", 21 },
+                    { "Q2", 21 },
+                    { "Q3", 21 },
+                    { "Q4", 28 }
+                },
+                CurrentMonthOverride = 4,
+                CurrentDayOverride = 1,
+                HasSubmittedReturnOverride = false
+            };
+            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(3, false);
             // Assert
-            Assert.AreEqual(2, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
-        }
-        [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WithinReturnDeadlineAndPreviousQuarterReturnNotSubmitted_ReturnsAllMonthsOfPreviousQuarter()
-        {
-            // Arrange
-            var currentDate = new DateTime(DateTime.Now.Year, 4, 15);
-            var hasSubmittedPreviousQuarterReturn = false;
-            // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
-            // Assert
-            Assert.AreEqual(3, result.QuarterlyMonths.Count);
+            Assert.AreEqual(4, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(3));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
+            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
         }
+
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_AfterReturnDeadlineAndPreviousQuarterReturnSubmitted_ReturnsFirstMonthOfCurrentQuarter()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsJulyAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
         {
             // Arrange
-            var currentDate = DateTime.Now.AddMonths(5); // Updated
-            var hasSubmittedPreviousQuarterReturn = true;
+            var configSettings = new AppConfigSettings
+            {
+                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
+                ReturnDeadlineForQuarter = new Dictionary<string, int>
+                {
+                    { "Q1", 21 },
+                    { "Q2", 21 },
+                    { "Q3", 21 },
+                    { "Q4", 28 }
+                },
+                CurrentMonthOverride = 7,
+                CurrentDayOverride = 1,
+                HasSubmittedReturnOverride = false
+            };
+            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(3, false);
             // Assert
-            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.AreEqual(4, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(5));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(6));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(7));
+            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
         }
-        [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_AfterReturnDeadlineAndPreviousQuarterReturnNotSubmitted_ReturnsFirstMonthOfCurrentQuarter()
+               [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsOctoberAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
         {
             // Arrange
-            var currentDate = DateTime.Now.AddMonths(5); // Updated
-            var hasSubmittedPreviousQuarterReturn = false;
+            var configSettings = new AppConfigSettings
+            {
+                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
+                ReturnDeadlineForQuarter = new Dictionary<string, int>
+                {
+                    { "Q1", 21 },
+                    { "Q2", 21 },
+                    { "Q3", 21 },
+                    { "Q4", 28 }
+                },
+                CurrentMonthOverride = 10,
+                CurrentDayOverride = 1,
+                HasSubmittedReturnOverride = false
+            };
+            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(currentDate.Month, hasSubmittedPreviousQuarterReturn);
+            var result = await _service.GetQuarterMonthsToDisplay(3, false);
             // Assert
-            Assert.AreEqual(1, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
-        }
+            Assert.AreEqual(4, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(7));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(8));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(9));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
+            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
+        } 
     }
 }
