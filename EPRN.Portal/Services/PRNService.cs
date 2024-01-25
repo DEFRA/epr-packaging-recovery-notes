@@ -141,15 +141,15 @@ namespace EPRN.Portal.Services
             //TODO: The real data retrieval is being implemented by Sajid
 
             var row1 = CreatePrnRow("PRN001", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row2 = CreatePrnRow("PRN002", "Steel", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Rejected, "#");
-            var row3 = CreatePrnRow("PRN003", "Glass Other", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Cancelled, "#");
-            var row4 = CreatePrnRow("PRN004", "Paper Composting", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Accepted, "#");
-            var row5 = CreatePrnRow("PRN005", "Glass Remelt", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingCancellation, "#");
-            var row6 = CreatePrnRow("PRN006", "Aluminum", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Accepted, "#");
-            var row7 = CreatePrnRow("PRN007", "Plastic", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Rejected, "#");
-            var row8 = CreatePrnRow("PRN008", "Wood", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row9 = CreatePrnRow("PRN009", "Wood Composting", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.Cancelled, "#");
-            var row10 = CreatePrnRow("PRN010", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row2 = CreatePrnRow("PRN002", "Steel", "Morrisons", "02/1/2024", 4.5, PrnRecordStatus.Rejected, "#");
+            var row3 = CreatePrnRow("PRN003", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnRecordStatus.Cancelled, "#");
+            var row4 = CreatePrnRow("PRN004", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnRecordStatus.Accepted, "#");
+            var row5 = CreatePrnRow("PRN005", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnRecordStatus.AwaitingCancellation, "#");
+            var row6 = CreatePrnRow("PRN006", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnRecordStatus.Accepted, "#");
+            var row7 = CreatePrnRow("PRN007", "Plastic", "Lidl", "07/04/2023", 43.9, PrnRecordStatus.Rejected, "#");
+            var row8 = CreatePrnRow("PRN008", "Wood", "Wilko", "22/02/2023", 63.4, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row9 = CreatePrnRow("PRN009", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnRecordStatus.Cancelled, "#");
+            var row10 = CreatePrnRow("PRN010", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnRecordStatus.AwaitingAcceptance, "#");
 
             var listOfRows = new List<PrnRowViewModel>()
             {
