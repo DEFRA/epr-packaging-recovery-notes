@@ -136,7 +136,7 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel()
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(int page = 1)
         {
             //TODO: The real data retrieval is being implemented by Sajid
 
@@ -151,14 +151,57 @@ namespace EPRN.Portal.Services
             var row9 = CreatePrnRow("PRN009", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnRecordStatus.Cancelled, "#");
             var row10 = CreatePrnRow("PRN010", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnRecordStatus.AwaitingAcceptance, "#");
 
+            var row11 = CreatePrnRow("PRN011", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row12 = CreatePrnRow("PRN012", "Steel", "Morrisons", "02/1/2024", 4.5, PrnRecordStatus.Rejected, "#");
+            var row13 = CreatePrnRow("PRN013", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnRecordStatus.Cancelled, "#");
+            var row14 = CreatePrnRow("PRN014", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnRecordStatus.Accepted, "#");
+            var row15 = CreatePrnRow("PRN015", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnRecordStatus.AwaitingCancellation, "#");
+            var row16 = CreatePrnRow("PRN016", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnRecordStatus.Accepted, "#");
+            var row17 = CreatePrnRow("PRN017", "Plastic", "Lidl", "07/04/2023", 43.9, PrnRecordStatus.Rejected, "#");
+            var row18 = CreatePrnRow("PRN018", "Wood", "Wilko", "22/02/2023", 63.4, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row19 = CreatePrnRow("PRN019", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnRecordStatus.Cancelled, "#");
+            var row20 = CreatePrnRow("PRN020", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnRecordStatus.AwaitingAcceptance, "#");
+
+            var row21 = CreatePrnRow("PRN021", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row22 = CreatePrnRow("PRN022", "Steel", "Morrisons", "02/1/2024", 4.5, PrnRecordStatus.Rejected, "#");
+            var row23 = CreatePrnRow("PRN023", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnRecordStatus.Cancelled, "#");
+            var row24 = CreatePrnRow("PRN024", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnRecordStatus.Accepted, "#");
+            var row25 = CreatePrnRow("PRN025", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnRecordStatus.AwaitingCancellation, "#");
+            var row26 = CreatePrnRow("PRN026", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnRecordStatus.Accepted, "#");
+            var row27 = CreatePrnRow("PRN027", "Plastic", "Lidl", "07/04/2023", 43.9, PrnRecordStatus.Rejected, "#");
+            var row28 = CreatePrnRow("PRN028", "Wood", "Wilko", "22/02/2023", 63.4, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row29 = CreatePrnRow("PRN029", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnRecordStatus.Cancelled, "#");
+            var row30 = CreatePrnRow("PRN030", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnRecordStatus.AwaitingAcceptance, "#");
+
             var listOfRows = new List<PrnRowViewModel>()
             {
-                row1, row2, row3, row4, row5, row6, row7, row8, row9, row10
+                row1, row2, row3, row4, row5, row6, row7, row8, row9, row10,
+                row11, row12, row13, row14, row15, row16, row17, row18, row19, row20,
+                row21, row22, row23, row24, row25, row26, row27, row28, row29, row30
+            };
+
+
+            var itemsPerPage = 10;
+            var totalItems = listOfRows.Count;
+            var totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
+
+            page = Math.Max(1, Math.Min(totalPages, page));
+
+            var startIndex = (page - 1) * itemsPerPage;
+            var paginatedItems = listOfRows.Skip(startIndex).Take(itemsPerPage);
+
+            var paginationModel = new PaginationViewModel
+            {
+                TotalItems = totalItems,
+                ItemsPerPage = itemsPerPage,
+                CurrentPage = page,
+                TotalPages = totalPages
             };
 
             return new ViewSentPrnsViewModel
             {
-                Rows = listOfRows
+                Rows = paginatedItems,
+                Pagination = paginationModel
             };
         }
 

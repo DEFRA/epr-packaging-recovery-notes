@@ -2,6 +2,8 @@
 {
     public class ViewSentPrnsViewModel
     {
-        public List<PrnRowViewModel> Rows { get; set; }
+        public IEnumerable<PrnRowViewModel> Rows { get; set; }
+
+        public PaginationViewModel Pagination { get; set; }
     }
 }
