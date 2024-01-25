@@ -41,14 +41,18 @@
                     <h1 class="govuk-heading-xl">@ViewSentPrnResources.PrnPernHeading</h1>
                 }
             }
-            <form method="POST">
+            <partial name="_ValidationSummary" />
+            <form method="post">
                 <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                         <label class="govuk-label" for="event-name">
                             @ViewSentPrnResources.SearchText
                         </label>
                     </h1>
-                    <input class="govuk-input" id="event-name" name="eventName" type="text">
+                    <p class="govuk-error-message">
+                        <span asp-validation-for="SearchTerm"></span>
+                    </p>
+                    <input class="govuk-input" id="SearchTerm" asp-for="SearchTerm" type="text">
                 </div>
 
                 @{

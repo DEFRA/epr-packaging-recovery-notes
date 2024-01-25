@@ -132,6 +132,9 @@
   <data name="DateCreated" xml:space="preserve">
     <value>[Welsh] Date created</value>
   </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>[Welsh] This field is required</value>
+  </data>
   <data name="FilterBy" xml:space="preserve">
     <value>[Welsh] Filter by</value>
   </data>

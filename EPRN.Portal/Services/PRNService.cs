@@ -136,7 +136,7 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(int page = 1)
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(int page = 1, string searchTerm = null)
         {
             //TODO: The real data retrieval is being implemented by Sajid
 
@@ -180,6 +180,11 @@ namespace EPRN.Portal.Services
                 row21, row22, row23, row24, row25, row26, row27, row28, row29, row30
             };
 
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                listOfRows = listOfRows.Where(e => e.PrnNumber.Contains(searchTerm) || e.SentTo.Contains(searchTerm)).ToList();
+            }
 
             var itemsPerPage = 10;
             var totalItems = listOfRows.Count;

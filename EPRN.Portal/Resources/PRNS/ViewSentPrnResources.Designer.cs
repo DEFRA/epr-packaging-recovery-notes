@@ -106,6 +106,15 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This field is required.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Filter by.
         /// </summary>
         public static string FilterBy {

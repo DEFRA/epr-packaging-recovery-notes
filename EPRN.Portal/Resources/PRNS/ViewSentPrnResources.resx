@@ -132,6 +132,9 @@
   <data name="DateCreated" xml:space="preserve">
     <value>Date created</value>
   </data>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>This field is required</value>
+  </data>
   <data name="FilterBy" xml:space="preserve">
     <value>Filter by</value>
   </data>
