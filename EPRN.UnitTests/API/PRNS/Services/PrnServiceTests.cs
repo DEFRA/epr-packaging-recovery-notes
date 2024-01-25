@@ -127,7 +127,8 @@ namespace EPRN.UnitTests.API.PRNS.Services
             _mockRepository.Verify(s =>
                 s.UpdatePrnStatus(
                     It.Is<int>(p => p == id),
-                    It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete)),
+                    It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete),
+                    It.Is<string>(p => p == null)),
                 Times.Once);
         }
     }

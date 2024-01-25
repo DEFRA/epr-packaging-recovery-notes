@@ -35,14 +35,14 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (!ModelState.IsValid)
             {
 
-                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId);
+                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.Id);
 
                 return View(model);
             }
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.JourneyId });
+            return RedirectToAction("SubTypes", new { id = duringWhichMonthRequestViewModel.Id });
         }
     }
 }

@@ -98,14 +98,23 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task UpdatePrnStatus(
             int id, 
-            Common.Enums.PrnStatus status)
+            Common.Enums.PrnStatus status,
+            string reason = null)
         {
-            await _prnContext
-                .PRN
-                .Where(prn => prn.Id == id)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(prn => prn.Status, _mapper.Map<PrnStatus>(status))
-                );
+            try
+            {
+                await _prnContext
+                    .PRN
+                    .Where(prn => prn.Id == id)
+                    .ExecuteUpdateAsync(sp => sp
+                        .SetProperty(prn => prn.Status, _mapper.Map<PrnStatus>(status))
+                        .SetProperty(prn => prn.StatusReason, reason)
+                    );
+            }
+            catch (Exception e)
+            {
+                e.GetType();
+            }
         }
     }
 }

@@ -5,10 +5,11 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Areas.Exporter.Controllers
 {
-    [Area("Exporter")]
+    [Area(Routes.Areas.Exporter)]
     public class PRNSController : BaseController
     {
         private IPRNService _prnService;
@@ -41,7 +42,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("SentTo", "PRNS", new { area = Category, tonnesViewModel.Id });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.SentTo, 
+                Routes.Areas.Controllers.Exporter.PRNS, 
+                new { area = Category, tonnesViewModel.Id });
         }
 
         [HttpGet]
@@ -53,7 +57,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
 
-            return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Tonnes,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new { Id = prnId });
         }
 
         [HttpGet]
@@ -86,7 +93,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction("WhatToDo", "PRNS", new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.WhatToDo,
+                Routes.Areas.Controllers.Exporter.PRNS, 
+                new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 

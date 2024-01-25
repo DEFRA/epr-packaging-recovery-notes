@@ -25,5 +25,7 @@ namespace EPRN.Common.Data.DataModels
         public PrnStatus Status { get; set; }
 
         public DateTime? CompletedDate { get; set; }
+
+        public string StatusReason { get; set; }
     }
 }

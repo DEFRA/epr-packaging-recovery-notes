@@ -67,6 +67,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\PRNS\CancelResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CancelResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PRNS\CheckYourAnswersResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -87,6 +92,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>PRNSTonnesResources.resx</DependentUpon>
     </Compile>
+      <Compile Update="Resources\PRNS\RecordWasteResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RecordWasteResources.resx</DependentUpon>
+      </Compile>
     <Compile Update="Resources\ReProcessorExportResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -164,6 +174,10 @@
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\CancelResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CancelResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\CheckYourAnswersResources.cy-GB.resx">
       <Generator></Generator>
     </EmbeddedResource>
@@ -182,6 +196,10 @@
     <EmbeddedResource Update="Resources\PRNS\PRNSTonnesResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PRNSTonnesResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\RecordWasteResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RecordWasteResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ReProcessorExportResource.cy-GB.resx">
       <LastGenOutput>ReProcessorExportResource.cy-GB.Designer.cs</LastGenOutput>

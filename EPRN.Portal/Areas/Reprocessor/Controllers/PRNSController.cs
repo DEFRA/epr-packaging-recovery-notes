@@ -5,10 +5,11 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
-    [Area("Reprocessor")]
+    [Area(Routes.Areas.Reprocessor)]
     public class PRNSController : BaseController
     {
         private IPRNService _prnService;
@@ -41,7 +42,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("SentTo", "PRNS", new { area = string.Empty });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.SentTo,
+                Routes.Areas.Controllers.Reprocessor.PRNS,
+                new { area = string.Empty });
         }
 
         [HttpGet]
@@ -53,7 +57,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
 
-            return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Tonnes,
+                Routes.Areas.Controllers.Reprocessor.PRNS,
+                new { Id = prnId });
         }
 
         [HttpGet]
@@ -87,7 +94,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction("WhatToDo", "PRNS", new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.WhatToDo, 
+                Routes.Areas.Controllers.Reprocessor.PRNS, 
+                new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -105,6 +115,22 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         [HttpGet]
         public async Task<IActionResult> WhatToDo(int? id)
         {
+            return View();
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public IActionResult RequestCancellation(int? id)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public async Task<IActionResult> RequestCancellation(CancelViewModel cancelViewModel)
+        {
+            await _prnService.CancelPRN(cancelViewModel);
+
             return View();
         }
 

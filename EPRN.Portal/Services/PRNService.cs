@@ -135,5 +135,12 @@ namespace EPRN.Portal.Services
                 PrnNumber = "PRN222019EFGF",
             };
         }
+
+        public async Task CancelPRN(CancelViewModel cancelViewModel)
+        {
+            await _httpPrnsService.CancelPRN(
+                cancelViewModel.Id, 
+                cancelViewModel.CancelReason);
+        }
     }
 }
