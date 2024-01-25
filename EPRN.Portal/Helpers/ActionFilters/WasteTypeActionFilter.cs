@@ -18,7 +18,7 @@ namespace EPRN.Portal.Helpers.Filters
         {
         }
 
-        public async void OnActionExecuting(ActionExecutingContext context)
+        public void OnActionExecuting(ActionExecutingContext context)
         {
             // need to get the journey id from the route data
             var idValue = context.HttpContext.Request.RouteValues["id"];
@@ -27,7 +27,7 @@ namespace EPRN.Portal.Helpers.Filters
                 !int.TryParse(idValue.ToString(), out int id))
                 return;
 
-            var wasteName = await _wasteService.GetWasteType(id);
+            var wasteName = Task.Run(async () => await _wasteService.GetWasteType(id)).Result;
 
             var wasteCommonViewModel = context.HttpContext.RequestServices.GetService<WasteCommonViewModel>();
             wasteCommonViewModel.WasteName = wasteName;
