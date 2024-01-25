@@ -1,5 +1,5 @@
 ﻿using EPRN.Common.Enums;
-using EPRN.Portal.Helpers.Attributes;
+using EPRN.Portal.Helpers.Filters;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
