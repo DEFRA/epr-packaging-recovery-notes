@@ -2,7 +2,6 @@
 using EPRN.Waste.API.Services;
 using Microsoft.Extensions.Options;
 using Moq;
-using System.Globalization;
 using EPRN.Common.Constants;
 
 namespace EPRN.UnitTests.Services
@@ -11,14 +10,13 @@ namespace EPRN.UnitTests.Services
     public class QuarterlyDatesServiceTests
     {
         private Mock<IOptions<AppConfigSettings>> _mockConfigSettings;
+        private AppConfigSettings _configSettings;
         private QuarterlyDatesService _service;
-        
-        
         [TestInitialize]
         public void TestInitialize()
         {
             _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
-            var configSettings = new AppConfigSettings
+            _configSettings = new AppConfigSettings
             {
                 QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
                 ReturnDeadlineForQuarter = new Dictionary<string, int>
@@ -27,166 +25,218 @@ namespace EPRN.UnitTests.Services
                     { "Q2", 21 },
                     { "Q3", 21 },
                     { "Q4", 28 }
-                },
-                CurrentMonthOverride = 1,
-                CurrentDayOverride = 1,
-                HasSubmittedReturnOverride = false,
-                DeductionAmount = 0.15,
-
+                }
             };
-            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
+        }
+        
+        private void SetupMockConfigSettings()
+        {
+            _mockConfigSettings.Setup(x => x.Value).Returns(_configSettings);
             _service = new QuarterlyDatesService(_mockConfigSettings.Object);
         }
 
-
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsJanuaryAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsJanAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
         {
             // Arrange
-            var configSettings = new AppConfigSettings
-            {
-                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
-                ReturnDeadlineForQuarter = new Dictionary<string, int>
-                {
-                    { "Q1", 21 },
-                    { "Q2", 21 },
-                    { "Q3", 21 },
-                    { "Q4", 28 }
-                },
-                CurrentMonthOverride = 1,
-                CurrentDayOverride = 1,
-                HasSubmittedReturnOverride = false
-            };
-            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
-            
+            _configSettings.CurrentMonthOverride = 1;
+            _configSettings.CurrentDayOverride = 15;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(1, false);
+            var result = await _service.GetQuarterMonthsToDisplay(4, false);
             // Assert
-            Assert.AreEqual(4, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(11));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(12));
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
+            Assert.AreEqual(string.Empty, result.Notification);
         }
-
+        
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsFebruaryAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsFebAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
         {
             // Arrange
-            var configSettings = new AppConfigSettings
-            {
-                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
-                ReturnDeadlineForQuarter = new Dictionary<string, int>
-                {
-                    { "Q1", 21 },
-                    { "Q2", 21 },
-                    { "Q3", 21 },
-                    { "Q4", 28 }
-                },
-                CurrentMonthOverride = 2,
-                CurrentDayOverride = 1,
-                HasSubmittedReturnOverride = false
-            };
-            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
+            _configSettings.CurrentMonthOverride = 2;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(2, false);
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
             // Assert
-            Assert.AreEqual(5, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(11));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(12));
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
-            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
+            Assert.AreEqual(string.Empty, result.Notification);
         }
-
+        
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsAprilAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsMarchAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
         {
             // Arrange
-            var configSettings = new AppConfigSettings
-            {
-                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
-                ReturnDeadlineForQuarter = new Dictionary<string, int>
-                {
-                    { "Q1", 21 },
-                    { "Q2", 21 },
-                    { "Q3", 21 },
-                    { "Q4", 28 }
-                },
-                CurrentMonthOverride = 4,
-                CurrentDayOverride = 1,
-                HasSubmittedReturnOverride = false
-            };
-            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
+            _configSettings.CurrentMonthOverride = 3;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(3, false);
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
             // Assert
-            Assert.AreEqual(4, result.QuarterlyMonths.Count);
+            Assert.AreEqual(3, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(3));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
-            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
+            Assert.AreEqual(string.Empty, result.Notification);
         }
 
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsJulyAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsAprilAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
         {
             // Arrange
-            var configSettings = new AppConfigSettings
-            {
-                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
-                ReturnDeadlineForQuarter = new Dictionary<string, int>
-                {
-                    { "Q1", 21 },
-                    { "Q2", 21 },
-                    { "Q3", 21 },
-                    { "Q4", 28 }
-                },
-                CurrentMonthOverride = 7,
-                CurrentDayOverride = 1,
-                HasSubmittedReturnOverride = false
-            };
-            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
+            _configSettings.CurrentMonthOverride = 4;
+            _configSettings.CurrentDayOverride = 15;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(3, false);
+            var result = await _service.GetQuarterMonthsToDisplay(4, false);
             // Assert
-            Assert.AreEqual(4, result.QuarterlyMonths.Count);
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsMayAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 5;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
+            // Assert
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(5));
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsJuneAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 6;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
+            // Assert
+            Assert.AreEqual(3, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(4));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(5));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(6));
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(7));
-            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
+            Assert.AreEqual(string.Empty, result.Notification);
         }
-               [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsOctoberAndPreviousQuarterReturnNotSubmitted_ReturnsExpectedResult()
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsJulyAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
         {
             // Arrange
-            var configSettings = new AppConfigSettings
-            {
-                QuarterStartMonths = new List<int> { 1, 4, 7, 10 },
-                ReturnDeadlineForQuarter = new Dictionary<string, int>
-                {
-                    { "Q1", 21 },
-                    { "Q2", 21 },
-                    { "Q3", 21 },
-                    { "Q4", 28 }
-                },
-                CurrentMonthOverride = 10,
-                CurrentDayOverride = 1,
-                HasSubmittedReturnOverride = false
-            };
-            _mockConfigSettings.Setup(x => x.Value).Returns(configSettings);
+            _configSettings.CurrentMonthOverride = 7;
+            _configSettings.CurrentDayOverride = 15;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
             // Act
-            var result = await _service.GetQuarterMonthsToDisplay(3, false);
+            var result = await _service.GetQuarterMonthsToDisplay(4, false);
             // Assert
-            Assert.AreEqual(4, result.QuarterlyMonths.Count);
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(7));
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsAugAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 8;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
+            // Assert
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(7));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(8));
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsSepAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 9;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
+            // Assert
+            Assert.AreEqual(3, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(7));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(8));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(9));
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsOctAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 10;
+            _configSettings.CurrentDayOverride = 15;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(4, false);
+            // Assert
+            Assert.AreEqual(1, result.QuarterlyMonths.Count);
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
-            Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
-        } 
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsNovAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 11;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
+            // Assert
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(11));
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsDecAndPreviousQuarterReturnSubmittedBeforeDeadline_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 12;
+            _configSettings.CurrentDayOverride = 25;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(5, false);
+            // Assert
+            Assert.AreEqual(3, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(10));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(11));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(12));
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
     }
 }
