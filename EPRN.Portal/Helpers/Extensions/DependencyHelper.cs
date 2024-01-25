@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using EPRN.Common.Constants;
 using EPRN.Portal.Configuration;
-using EPRN.Portal.Helpers.Attributes;
+using EPRN.Portal.Helpers.Filters;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Models;
 using EPRN.Portal.Profiles;
