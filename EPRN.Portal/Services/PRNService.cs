@@ -183,7 +183,16 @@ namespace EPRN.Portal.Services
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                listOfRows = listOfRows.Where(e => e.PrnNumber.Contains(searchTerm) || e.SentTo.Contains(searchTerm)).ToList();
+                listOfRows = listOfRows.Where(
+                    e => e.PrnNumber.Contains(
+                        searchTerm,
+                        StringComparison.OrdinalIgnoreCase
+                        )
+                    ||
+                        e.SentTo.Contains(
+                            searchTerm,
+                            StringComparison.OrdinalIgnoreCase))
+                    .ToList();
             }
 
             var itemsPerPage = 10;
