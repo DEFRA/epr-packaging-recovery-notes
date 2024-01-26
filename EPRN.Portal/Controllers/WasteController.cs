@@ -137,7 +137,7 @@ namespace EPRN.Portal.Controllers
                 category.Value);
 
             return RedirectToAction(
-                Routes.Actions.Waste.Done, 
+                Routes.Actions.Waste.ReProcessorExport, 
                 new { id });
         }
 
@@ -255,7 +255,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
         {
             await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction( Routes.Actions.Waste.Month, new { id = reProcessorExportViewModel.JourneyId });
         }
 
         [HttpGet]
