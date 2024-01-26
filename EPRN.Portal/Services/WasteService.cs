@@ -74,36 +74,54 @@ namespace EPRN.Portal.Services
             viewModel.JourneyId = journeyId;
             viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
             
-//            var wasteTypeTask = _httpJourneyService.GetWasteType(journeyId);
             var quarterDates = await _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
 
-//            await Task.WhenAll(wasteTypeTask, quarterTask);
-//            viewModel.WasteType = wasteTypeTask.Result;
             viewModel.Notification = quarterDates.Notification;
             viewModel.SubmissionDate = quarterDates.SubmissionDate;
             viewModel.NotificationDeadlineDate = quarterDates.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
+            viewModel.Category = whatHaveYouDoneWaste == DoneWaste.ReprocessedIt
+                ? Category.Reprocessor
+                : Category.Exporter;
 
             var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
                 Assembly.GetExecutingAssembly());
-            
+
             foreach (var itemMonth in quarterDates.QuarterlyMonths)
             {
-                var value = itemMonth.Value;
-                var suffix = "";
-                
-                // Check if the value has a suffix of underscore then year
-                if (value.Length > 5 && value[^5] == ' ')
-                {
-                    // Remove the year suffix and save it in the suffix variable
-                    suffix = value[^5..];
-                    value = value[..^5];
-                }
-                
-                // Get the string from the resource manager and add the suffix back
-                var resourceString = rm.GetString(value) + suffix;
+                var (value, suffix) = ProcessValue(itemMonth.Value);
+                var resourceString = GetResourceString(value, suffix, rm);
                 viewModel.Quarter.Add(itemMonth.Key, resourceString);
             }
         }
+
+        /// <summary>
+        /// Processes the input string and separates it into a value and a year suffix.
+        /// The suffix is the last five characters of the input string if they start with a space.
+        /// </summary>
+        /// <param name="value">The input string to be processed.</param>
+        /// <returns>A tuple containing the processed value and suffix.</returns>
+        private static (string value, string suffix) ProcessValue(string value)
+        {
+            var suffix = "";
+            if (value.Length > 5 && value[^5] == ' ')
+            {
+                suffix = value[^5..];
+                value = value[..^5];
+            }
+            return (value, suffix);
+        }
+        /// <summary>
+        /// Retrieves a resource string from the resource manager and appends a year suffix to it.
+        /// </summary>
+        /// <param name="value">The name of the resource string to retrieve.</param>
+        /// <param name="suffix">The suffix to append to the resource string.</param>
+        /// <param name="rm">The resource manager to retrieve the resource string from.</param>
+        /// <returns>The resource string with the suffix appended.</returns>
+        private static string GetResourceString(string value, string suffix, ResourceManager rm)
+        {
+            return rm.GetString(value) + suffix;
+        }
+
 
         public async Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel)
         {
