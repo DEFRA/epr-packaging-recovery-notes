@@ -14,14 +14,14 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
     [TestClass]
     public class PRNControllerTests
     {
-        private PRNController _prnController;
+        private EPRN.PRNS.API.Controllers.PRNController _prnController;
         private Mock<IPrnService> _mockPrnService;
 
         [TestInitialize]
         public void Init()
         {
             _mockPrnService = new Mock<IPrnService>();
-            _prnController = new PRNController(_mockPrnService.Object);
+            _prnController = new EPRN.PRNS.API.Controllers.PRNController(_mockPrnService.Object);
         }
 
         [TestMethod]
@@ -30,7 +30,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         {
             // Arrange
             // Act
-            new PRNController(null);
+            new EPRN.PRNS.API.Controllers.PRNController(null);
 
             // Assert - covered by expected exception attribute
         }

@@ -96,6 +96,15 @@ namespace EPRN.PRNS.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
+        public async Task<Common.Enums.PrnStatus> GetStatus(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => _mapper.Map<Common.Enums.PrnStatus>(prn.Status))
+                .SingleOrDefaultAsync();
+        }
+
         public async Task UpdatePrnStatus(
             int id, 
             Common.Enums.PrnStatus status,

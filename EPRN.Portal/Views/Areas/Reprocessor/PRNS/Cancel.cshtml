@@ -6,6 +6,13 @@
     ViewData["Title"] = @NoteResources.PageTitle;
 }
 
+@if (Model.Status == PrnStatus.Accepted ||
+    Model.Status == PrnStatus.Complete)
+{
+    <label>THIS IS ACCEPTED AND THEREFORE CANNOT BE COMPLETED</label>
+}
+else
+{
 <partial name="_ValidationSummary" />
 <form method="post">
     <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
@@ -32,3 +39,4 @@
         @MasterResources.ContinueBtn
     </button>
 </form>
+}

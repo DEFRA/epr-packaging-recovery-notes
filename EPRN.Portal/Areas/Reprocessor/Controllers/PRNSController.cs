@@ -120,15 +120,22 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
         [HttpGet]
         [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
-        public IActionResult RequestCancellation(int? id)
+        public async Task<IActionResult> RequestCancellation(int? id)
         {
-            return View();
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetCancelViewModel(id.Value);
+            return View(viewModel);
         }
 
         [HttpPost]
         [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
         public async Task<IActionResult> RequestCancellation(CancelViewModel cancelViewModel)
         {
+            if (!ModelState.IsValid)
+                return View();
+
             await _prnService.CancelPRN(cancelViewModel);
 
             return View();

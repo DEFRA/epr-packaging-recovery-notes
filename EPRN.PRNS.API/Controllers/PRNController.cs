@@ -96,13 +96,27 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("Status")]
+        public async Task<IActionResult> GetStatus(
+            int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            return Ok(await _prnService.GetStatus(id.Value));
+        }
+
         [HttpPost]
         [Route("Cancel")]
         public async Task<IActionResult> CancelPrn(
-            int id,
-            [FromBody]string reason)
+            int? id,
+            [FromBody] string reason)
         {
-            await _prnService.CancelPrn(id, reason);
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            await _prnService.CancelPrn(id.Value, reason);
 
             return Ok();
         }

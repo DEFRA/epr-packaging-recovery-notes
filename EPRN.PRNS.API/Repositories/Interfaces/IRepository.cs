@@ -20,6 +20,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
 
         Task<CheckYourAnswersDto> GetCheckYourAnswersData(int id);
 
+        Task<PrnStatus> GetStatus(int id);
+
         Task UpdatePrnStatus(
             int id, 
             PrnStatus status, 

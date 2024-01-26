@@ -61,11 +61,38 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The maximum length of the cancellation reason is 200 characters.
+        /// </summary>
+        public static string MaxLengthMessage {
+            get {
+                return ResourceManager.GetString("MaxLengthMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Why do you want to cancel this PERN?.
+        /// </summary>
+        public static string PERNCancelQuestion {
+            get {
+                return ResourceManager.GetString("PERNCancelQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Why do you want to cancel this PRN?.
         /// </summary>
         public static string PRNCancelQuestion {
             get {
                 return ResourceManager.GetString("PRNCancelQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please add a reason for cancellation.
+        /// </summary>
+        public static string ReasonRequired {
+            get {
+                return ResourceManager.GetString("ReasonRequired", resourceCulture);
             }
         }
     }

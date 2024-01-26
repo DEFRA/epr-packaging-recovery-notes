@@ -136,10 +136,18 @@ namespace EPRN.Portal.Services
             };
         }
 
+        public async Task<CancelViewModel> GetCancelViewModel(int id)
+        {
+            return new CancelViewModel
+            {
+                Status = await _httpPrnsService.GetStatus(id)
+            };
+        }
+
         public async Task CancelPRN(CancelViewModel cancelViewModel)
         {
             await _httpPrnsService.CancelPRN(
-                cancelViewModel.Id, 
+                cancelViewModel.Id,
                 cancelViewModel.CancelReason);
         }
     }
