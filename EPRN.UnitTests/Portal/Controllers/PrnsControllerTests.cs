@@ -135,7 +135,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var result = await _prnsController.ViewSentPrns();
 
             // Assert
-            _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(1), Times.Once());
+            _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(1, It.IsAny<string>()), Times.Once());
         }
 
         [TestMethod]
@@ -143,7 +143,11 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             // Arrange
             var expectedViewModel = new ViewSentPrnsViewModel();
-            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+            _mockPrnService.Setup(
+                service => service.GetViewSentPrnsViewModel(
+                    It.IsAny<int>(),
+                    It.IsAny<string>()))
+                .ReturnsAsync(expectedViewModel);
 
             // Act
             var result = await _prnsController.ViewSentPrns();
