@@ -88,11 +88,11 @@
     <div class="govuk-form-group" style="float:right">
         <select class="govuk-select" id="filter-by" name="filter-by">
             <option value="All" selected>@ViewSentPrnResources.FilterBy </option>
-            <option value=@PrnRecordStatus.Accepted>@ViewSentPrnResources.Accepted </option>
-            <option value=@PrnRecordStatus.AwaitingAcceptance>@ViewSentPrnResources.AwaitingAcceptance</option>
-            <option value=@PrnRecordStatus.Rejected>@ViewSentPrnResources.Rejected</option>
-            <option value=@PrnRecordStatus.AwaitingCancellation>@ViewSentPrnResources.AwaitingCancellation</option>
-            <option value=@PrnRecordStatus.Cancelled>@ViewSentPrnResources.Cancelled</option>
+            <option value=@PrnStatus.Accepted>@ViewSentPrnResources.Accepted </option>
+            <option value=@PrnStatus.AwaitingAcceptance>@ViewSentPrnResources.AwaitingAcceptance</option>
+            <option value=@PrnStatus.Rejected>@ViewSentPrnResources.Rejected</option>
+            <option value=@PrnStatus.AwaitingCancellation>@ViewSentPrnResources.AwaitingCancellation</option>
+            <option value=@PrnStatus.Cancelled>@ViewSentPrnResources.Cancelled</option>
         </select>
     </div>
     <div class="govuk-form-group" style="float:right">
@@ -128,35 +128,35 @@
 
                     @switch (row.Status)
                     {
-                        case PrnRecordStatus.Accepted:
+                        case PrnStatus.Accepted:
                             <td class="govuk-table__cell">
                                 <strong class="govuk-tag govuk-tag--green">
                                     @ViewSentPrnResources.Accepted.ToUpper()
                                 </strong>
                             </td>
                             break;
-                        case PrnRecordStatus.AwaitingAcceptance:
+                        case PrnStatus.AwaitingAcceptance:
                             <td class="govuk-table__cell">
                                 <strong class="govuk-tag govuk-tag--blue">
                                     @ViewSentPrnResources.AwaitingAcceptance.ToUpper()
                                 </strong>
                             </td>
                             break;
-                        case PrnRecordStatus.Rejected:
+                        case PrnStatus.Rejected:
                             <td class="govuk-table__cell">
                                 <strong class="govuk-tag govuk-tag--red">
                                     @ViewSentPrnResources.Rejected.ToUpper()
                                 </strong>
                             </td>
                             break;
-                        case PrnRecordStatus.AwaitingCancellation:
+                        case PrnStatus.AwaitingCancellation:
                             <td class="govuk-table__cell">
                                 <strong class="govuk-tag govuk-tag--purple">
                                     @ViewSentPrnResources.AwaitingCancellation.ToUpper()
                                 </strong>
                             </td>
                             break;
-                        case PrnRecordStatus.Cancelled:
+                        case PrnStatus.Cancelled:
                             <td class="govuk-table__cell">
                                 <strong class="govuk-tag govuk-tag--yellow">
                                     @ViewSentPrnResources.Cancelled.ToUpper()

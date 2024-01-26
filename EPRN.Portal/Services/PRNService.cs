@@ -181,38 +181,38 @@ namespace EPRN.Portal.Services
 
         private List<PrnRowViewModel> GetListOfPrnRows()
         {
-            var row1 = CreatePrnRow("PRN001", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row2 = CreatePrnRow("PRN002", "Steel", "Morrisons", "02/1/2024", 4.5, PrnRecordStatus.Rejected, "#");
-            var row3 = CreatePrnRow("PRN003", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnRecordStatus.Cancelled, "#");
-            var row4 = CreatePrnRow("PRN004", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnRecordStatus.Accepted, "#");
-            var row5 = CreatePrnRow("PRN005", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnRecordStatus.AwaitingCancellation, "#");
-            var row6 = CreatePrnRow("PRN006", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnRecordStatus.Accepted, "#");
-            var row7 = CreatePrnRow("PRN007", "Plastic", "Lidl", "07/04/2023", 43.9, PrnRecordStatus.Rejected, "#");
-            var row8 = CreatePrnRow("PRN008", "Wood", "Wilko", "22/02/2023", 63.4, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row9 = CreatePrnRow("PRN009", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnRecordStatus.Cancelled, "#");
-            var row10 = CreatePrnRow("PRN010", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row1 = CreatePrnRow("PRN001", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnStatus.AwaitingAcceptance, "#");
+            var row2 = CreatePrnRow("PRN002", "Steel", "Morrisons", "02/1/2024", 4.5, PrnStatus.Rejected, "#");
+            var row3 = CreatePrnRow("PRN003", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnStatus.Cancelled, "#");
+            var row4 = CreatePrnRow("PRN004", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnStatus.Accepted, "#");
+            var row5 = CreatePrnRow("PRN005", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnStatus.AwaitingCancellation, "#");
+            var row6 = CreatePrnRow("PRN006", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnStatus.Accepted, "#");
+            var row7 = CreatePrnRow("PRN007", "Plastic", "Lidl", "07/04/2023", 43.9, PrnStatus.Rejected, "#");
+            var row8 = CreatePrnRow("PRN008", "Wood", "Wilko", "22/02/2023", 63.4, PrnStatus.AwaitingAcceptance, "#");
+            var row9 = CreatePrnRow("PRN009", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnStatus.Cancelled, "#");
+            var row10 = CreatePrnRow("PRN010", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnStatus.AwaitingAcceptance, "#");
 
-            var row11 = CreatePrnRow("PRN011", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row12 = CreatePrnRow("PRN012", "Steel", "Morrisons", "02/1/2024", 4.5, PrnRecordStatus.Rejected, "#");
-            var row13 = CreatePrnRow("PRN013", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnRecordStatus.Cancelled, "#");
-            var row14 = CreatePrnRow("PRN014", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnRecordStatus.Accepted, "#");
-            var row15 = CreatePrnRow("PRN015", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnRecordStatus.AwaitingCancellation, "#");
-            var row16 = CreatePrnRow("PRN016", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnRecordStatus.Accepted, "#");
-            var row17 = CreatePrnRow("PRN017", "Plastic", "Lidl", "07/04/2023", 43.9, PrnRecordStatus.Rejected, "#");
-            var row18 = CreatePrnRow("PRN018", "Wood", "Wilko", "22/02/2023", 63.4, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row19 = CreatePrnRow("PRN019", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnRecordStatus.Cancelled, "#");
-            var row20 = CreatePrnRow("PRN020", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row11 = CreatePrnRow("PRN011", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnStatus.AwaitingAcceptance, "#");
+            var row12 = CreatePrnRow("PRN012", "Steel", "Morrisons", "02/1/2024", 4.5, PrnStatus.Rejected, "#");
+            var row13 = CreatePrnRow("PRN013", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnStatus.Cancelled, "#");
+            var row14 = CreatePrnRow("PRN014", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnStatus.Accepted, "#");
+            var row15 = CreatePrnRow("PRN015", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnStatus.AwaitingCancellation, "#");
+            var row16 = CreatePrnRow("PRN016", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnStatus.Accepted, "#");
+            var row17 = CreatePrnRow("PRN017", "Plastic", "Lidl", "07/04/2023", 43.9, PrnStatus.Rejected, "#");
+            var row18 = CreatePrnRow("PRN018", "Wood", "Wilko", "22/02/2023", 63.4, PrnStatus.AwaitingAcceptance, "#");
+            var row19 = CreatePrnRow("PRN019", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnStatus.Cancelled, "#");
+            var row20 = CreatePrnRow("PRN020", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnStatus.AwaitingAcceptance, "#");
 
-            var row21 = CreatePrnRow("PRN021", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row22 = CreatePrnRow("PRN022", "Steel", "Morrisons", "02/1/2024", 4.5, PrnRecordStatus.Rejected, "#");
-            var row23 = CreatePrnRow("PRN023", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnRecordStatus.Cancelled, "#");
-            var row24 = CreatePrnRow("PRN024", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnRecordStatus.Accepted, "#");
-            var row25 = CreatePrnRow("PRN025", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnRecordStatus.AwaitingCancellation, "#");
-            var row26 = CreatePrnRow("PRN026", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnRecordStatus.Accepted, "#");
-            var row27 = CreatePrnRow("PRN027", "Plastic", "Lidl", "07/04/2023", 43.9, PrnRecordStatus.Rejected, "#");
-            var row28 = CreatePrnRow("PRN028", "Wood", "Wilko", "22/02/2023", 63.4, PrnRecordStatus.AwaitingAcceptance, "#");
-            var row29 = CreatePrnRow("PRN029", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnRecordStatus.Cancelled, "#");
-            var row30 = CreatePrnRow("PRN030", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnRecordStatus.AwaitingAcceptance, "#");
+            var row21 = CreatePrnRow("PRN021", "Paper/board", "Tesco", "20/11/2023", 107.0, PrnStatus.AwaitingAcceptance, "#");
+            var row22 = CreatePrnRow("PRN022", "Steel", "Morrisons", "02/1/2024", 4.5, PrnStatus.Rejected, "#");
+            var row23 = CreatePrnRow("PRN023", "Glass Other", "Sainsbury's", "17/05/2023", 3.1, PrnStatus.Cancelled, "#");
+            var row24 = CreatePrnRow("PRN024", "Paper Composting", "Asda", "23/07/2023", 15.6, PrnStatus.Accepted, "#");
+            var row25 = CreatePrnRow("PRN025", "Glass Remelt", "Aldi", "4/12/2023", 27.8, PrnStatus.AwaitingCancellation, "#");
+            var row26 = CreatePrnRow("PRN026", "Aluminum", "Poundland", "19/03/2023", 91.2, PrnStatus.Accepted, "#");
+            var row27 = CreatePrnRow("PRN027", "Plastic", "Lidl", "07/04/2023", 43.9, PrnStatus.Rejected, "#");
+            var row28 = CreatePrnRow("PRN028", "Wood", "Wilko", "22/02/2023", 63.4, PrnStatus.AwaitingAcceptance, "#");
+            var row29 = CreatePrnRow("PRN029", "Wood Composting", "Farmfoods", "08/08/2023", 211.6, PrnStatus.Cancelled, "#");
+            var row30 = CreatePrnRow("PRN030", "Paper/board", "Co-op Food", "16/06/2023", 92.7, PrnStatus.AwaitingAcceptance, "#");
 
             return new List<PrnRowViewModel>()
             {
@@ -228,7 +228,7 @@ namespace EPRN.Portal.Services
             string sentTo,
             string dateCreated,
             double tonnes,
-            PrnRecordStatus status,
+            PrnStatus status,
             string link)
         {
             return new PrnRowViewModel
