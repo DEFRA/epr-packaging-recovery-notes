@@ -1,5 +1,5 @@
 ﻿using EPRN.Common.Enums;
-using EPRN.Portal.Helpers.Attributes;
+using EPRN.Portal.Helpers.Filters;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
@@ -56,6 +56,7 @@ namespace EPRN.Portal.Controllers
                 new { id = whatHaveYouDoneWaste.JourneyId });
         }
 
+
         [HttpGet]
         [ActionName(Routes.Actions.Waste.Month)]
         public async Task<IActionResult> DuringWhichMonth(int? id)
@@ -75,15 +76,12 @@ namespace EPRN.Portal.Controllers
             if (!ModelState.IsValid)
             {
                 var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId);
-
                 return View(model);
             }
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction(
-                Routes.Actions.Waste.SubTypes, 
-                new { id = duringWhichMonthRequestViewModel.JourneyId });
+            return RedirectToAction( Routes.Actions.Waste.SubTypes, new { id = duringWhichMonthRequestViewModel.JourneyId });
         }
 
         /// <summary>
@@ -137,7 +135,7 @@ namespace EPRN.Portal.Controllers
                 category.Value);
 
             return RedirectToAction(
-                Routes.Actions.Waste.Done, 
+                Routes.Actions.Waste.ReProcessorExport, 
                 new { id });
         }
 
@@ -255,7 +253,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
         {
             await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction( Routes.Actions.Waste.Month, new { id = reProcessorExportViewModel.JourneyId });
         }
 
         [HttpGet]
