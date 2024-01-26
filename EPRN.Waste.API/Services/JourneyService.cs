@@ -98,23 +98,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
-            var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
-
-            if (journey == null)
-                return null;
-
-            var dto = new WasteRecordStatusDto
-            {
-                JourneyId = journey.Id,
-                WasteBalance = journey.Quantity ?? 0,
-                WasteRecordReferenceNumber = journey.ReferenceNumber,
-                WasteRecordStatus = WasteRecordStatuses.Incomplete
-            };
-
-            if (journey.Completed.HasValue)
-                dto.WasteRecordStatus = journey.Completed.Value ? WasteRecordStatuses.Complete : WasteRecordStatuses.Incomplete;
-
-            return dto;
+            return await _wasteRepository.GetWasteRecordStatus(journeyId);
         }
 
         public async Task<double?> GetTonnage(int journeyId)
