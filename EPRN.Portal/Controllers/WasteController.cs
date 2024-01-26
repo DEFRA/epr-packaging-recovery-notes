@@ -56,6 +56,7 @@ namespace EPRN.Portal.Controllers
                 new { id = whatHaveYouDoneWaste.JourneyId });
         }
 
+
         [HttpGet]
         [ActionName(Routes.Actions.Waste.Month)]
         public async Task<IActionResult> DuringWhichMonth(int? id)
@@ -75,15 +76,12 @@ namespace EPRN.Portal.Controllers
             if (!ModelState.IsValid)
             {
                 var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId);
-
                 return View(model);
             }
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction(
-                Routes.Actions.Waste.SubTypes, 
-                new { id = duringWhichMonthRequestViewModel.JourneyId });
+            return RedirectToAction( Routes.Actions.Waste.SubTypes, new { id = duringWhichMonthRequestViewModel.JourneyId });
         }
 
         /// <summary>
