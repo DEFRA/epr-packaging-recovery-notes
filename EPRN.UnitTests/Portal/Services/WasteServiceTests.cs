@@ -133,7 +133,6 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual("May", viewModel.Quarter.ElementAt(1).Value);
             Assert.AreEqual(6, viewModel.Quarter.ElementAt(2).Key);
             Assert.AreEqual("June", viewModel.Quarter.ElementAt(2).Value);
-            //Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
 
             foreach (var item in expectedQuarter)
@@ -189,7 +188,6 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual("May", viewModel.Quarter.ElementAt(1).Value);
             Assert.AreEqual(6, viewModel.Quarter.ElementAt(2).Key);
             Assert.AreEqual("June", viewModel.Quarter.ElementAt(2).Value);
-           // Assert.AreEqual(material, viewModel.WasteType);
             Assert.AreEqual(journeyId, viewModel.JourneyId);
 
             foreach (var item in expectedQuarter)
@@ -421,7 +419,6 @@ namespace EPRN.UnitTests.Portal.Services
             var noteViewModel = new NoteViewModel
             {
                 JourneyId = 1,
-                //WasteType = "testWasteType",
                 NoteContent = "Some dummy note content"
             };
 
