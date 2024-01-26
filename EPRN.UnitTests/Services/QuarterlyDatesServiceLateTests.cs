@@ -208,22 +208,6 @@ namespace EPRN.UnitTests.Services
         }    
         
         [TestMethod]
-        public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsFebruaryAndPreviousQuarterReturnNotSubmittedAndAfterDeadline_ReturnsExpectedResult()
-        {
-            // Arrange
-            _configSettings.CurrentMonthOverride = 2;
-            _configSettings.CurrentDayOverride = 25;
-            _configSettings.HasSubmittedReturnOverride = false;
-            SetupMockConfigSettings();
-            // Act
-            var result = await _service.GetQuarterMonthsToDisplay(9, false);
-            // Assert
-            Assert.AreEqual(1, result.QuarterlyMonths.Count);
-            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
-            Assert.AreEqual(string.Empty, result.Notification);
-        }   
-        
-        [TestMethod]
         public async Task GetQuarterMonthsToDisplay_WhenCurrentMonthIsMarchAndPreviousQuarterReturnNotSubmittedAndAfterDeadline_ReturnsExpectedResult()
         {
             // Arrange
@@ -239,6 +223,22 @@ namespace EPRN.UnitTests.Services
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
             Assert.IsTrue(result.QuarterlyMonths.ContainsKey(3));           
             Assert.AreEqual(string.Empty, result.Notification);
-        }            
+        }
+
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_Feb29_LeapYearReturnNotSubmitted_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 2;
+            _configSettings.CurrentDayOverride = 29;
+            _configSettings.HasSubmittedReturnOverride = false;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(9, false);
+            // Assert
+            Assert.AreEqual(0, result.QuarterlyMonths.Count);
+            Assert.AreEqual(new DateTime(DateTime.Now.Year, 2, 29), result.SubmissionDate);
+            Assert.AreEqual(Strings.Notifications.QuarterlyReturnLate, result.Notification);
+        }
     }
 }

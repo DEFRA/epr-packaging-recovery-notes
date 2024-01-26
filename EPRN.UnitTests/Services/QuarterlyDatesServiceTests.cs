@@ -2,7 +2,6 @@
 using EPRN.Waste.API.Services;
 using Microsoft.Extensions.Options;
 using Moq;
-using EPRN.Common.Constants;
 
 namespace EPRN.UnitTests.Services
 {

@@ -1,4 +1,5 @@
-﻿using EPRN.Waste.API.Configuration;
+﻿using System.Security;
+using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Services;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -131,6 +132,20 @@ namespace EPRN.UnitTests.Services
             Assert.AreEqual(Strings.Notifications.QuarterlyReturnDue, result.Notification);
         }
 
-
+        [TestMethod]
+        public async Task GetQuarterMonthsToDisplay_Feb29_LeapYearReturnSubmitted_ReturnsExpectedResult()
+        {
+            // Arrange
+            _configSettings.CurrentMonthOverride = 2;
+            _configSettings.CurrentDayOverride = 29;
+            _configSettings.HasSubmittedReturnOverride = true;
+            SetupMockConfigSettings();
+            // Act
+            var result = await _service.GetQuarterMonthsToDisplay(9, false);
+            // Assert
+            Assert.AreEqual(0, result.QuarterlyMonths.Count);
+            Assert.AreEqual(new DateTime(DateTime.Now.Year, 2, 29), result.SubmissionDate);
+            Assert.AreEqual(string.Empty, result.Notification);
+        }
     }
 }

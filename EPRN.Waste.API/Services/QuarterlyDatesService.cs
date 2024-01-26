@@ -127,10 +127,6 @@ namespace EPRN.Waste.API.Services
             // If the previous quarter return has been submitted, add the first month of the current quarter to the display
             if (hasSubmittedPreviousQuarterReturn)
                 monthsToDisplay.Add((currentQuarter * 3) + 1);
-            // TODO -- Check if this is required, requirements are not clear
-            //else if (currentQuarter == 1 && currentMonthInQuarter == 2)
-            //    // Late return in February is different case, deadline is 28th for Q4 previous year so just add February
-            //    monthsToDisplay.Add(2);
             else
             {
                 // If the previous quarter return has not been submitted, add all the months of the previous quarter to the display
