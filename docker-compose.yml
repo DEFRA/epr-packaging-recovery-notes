@@ -1,15 +1,19 @@
 version: '3.4'
-
 services:
-  eprn.waste.api:
-    image: ${DOCKER_REGISTRY-}eprnwasteapi
-    build:
-      context: .
-      dockerfile: EPRN.Waste.API/Dockerfile
+    prnportal:
+        image: ${DOCKER_REGISTRY-}prnportal
+        build:
+            context: .
+            dockerfile: EPRN.Portal/Dockerfile
 
-  eprn.portal:
-    image: ${DOCKER_REGISTRY-}eprnportal
-    build:
-      context: .
-      dockerfile: EPRN.Portal/Dockerfile
+    wasteapi:
+        image: ${DOCKER_REGISTRY-}wasteapi
+        build:
+            context: .
+            dockerfile: EPRN.Waste.API/Dockerfile
 
+    prnapi:
+        image: ${DOCKER_REGISTRY-}prnapi
+        build:
+            context: .
+            dockerfile: EPRN.PRNS.API/Dockerfile
