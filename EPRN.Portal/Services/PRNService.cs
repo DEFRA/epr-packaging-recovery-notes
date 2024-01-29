@@ -136,8 +136,20 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(int page = 1, string searchTerm = null)
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(
+            int page = 1,
+            int pageSize = 10,
+            string searchTerm = null,
+            string filterBy = null,
+            string sortBy = null)
         {
+
+            //var sentPrnsDto = await _httpPrnsService.GetSentPrns(page, pageSize, searchTerm, filterBy, sortBy);
+
+            //var listOfPrns = _mapper.Map<List<PrnDto>>(sentPrnsDto);
+
+            //return listOfPrns;
+
             //TODO: The real data retrieval is being implemented by Sajid
             var listOfRows = GetListOfPrnRows();
 

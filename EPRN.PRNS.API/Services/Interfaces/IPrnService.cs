@@ -21,5 +21,13 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task<CheckYourAnswersDto> GetCheckYourAnswers(int id);
 
         Task SaveCheckYourAnswers(int id);
+
+        Task<List<SentPrnsDto>> GetSentPrns(
+            int? page,
+            int pageSize,
+            string? searchTerm,
+            string? filterBy,
+            string? sortBy
+            );
     }
 }

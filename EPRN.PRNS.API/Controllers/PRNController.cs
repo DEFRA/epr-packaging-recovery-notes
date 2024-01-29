@@ -96,6 +96,14 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("GetSentPrns/Page/{page}/PageSize/{pageSize}/SearchTerm/{searchTerm}/FilterBy/{filterBy}/SortBy/{sortBy}")]
+        public async Task<IActionResult> GetSentPrns(int? page, int pageSize, string? searchTerm, string? filterBy, string? sortBy)
+        {
+            var sentPrnsDto = await _prnService.GetSentPrns(page.Value, pageSize, searchTerm, filterBy, sortBy);
+            return Ok(sentPrnsDto);
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db

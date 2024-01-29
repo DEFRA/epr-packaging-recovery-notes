@@ -51,5 +51,15 @@ namespace EPRN.Portal.RESTServices
         {
             await Post($"{id}/check");
         }
+
+        public async Task<List<SentPrnsDto>> GetSentPrns(
+            int? page,
+            int pageSize,
+            string? searchTerm,
+            string? filterBy,
+            string? sortBy)
+        {
+            return await Get<List<SentPrnsDto>>($"GetSentPrns/Page/{page}/PageSize/{pageSize}/SearchTerm/{searchTerm}/FilterBy/{filterBy}/SortBy/{sortBy}");
+        }
     }
 }

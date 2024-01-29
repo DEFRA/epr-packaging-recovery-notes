@@ -21,5 +21,13 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task<CheckYourAnswersDto> GetCheckYourAnswersData(int id);
 
         Task UpdatePrnStatus(int id, PrnStatus status);
+
+        Task<List<SentPrnsDto>> GetSentPrns(
+            int? page,
+            int pageSize,
+            string? searchTerm,
+            string? filterBy,
+            string? sortBy
+            );
     }
 }
