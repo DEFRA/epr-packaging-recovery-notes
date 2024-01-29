@@ -4,6 +4,8 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -25,9 +27,14 @@ namespace EPRN.UnitTests.Portal.Services
             _configSettings.Value.DeductionAmount_ExporterAndReprocessor = 0.0;
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
 
+            var urlHelperFactory = new Mock<IUrlHelperFactory>();
+            var actionContextAccessor = new Mock<IActionContextAccessor>();
+
             _exporterHomeService = new UserBasedExporterService(
-                _configSettings, 
-                _mockHttpJourneyService.Object
+            _configSettings,
+            _mockHttpJourneyService.Object,
+                urlHelperFactory.Object,
+                actionContextAccessor.Object
                 );
         }
 

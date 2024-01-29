@@ -5,6 +5,8 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.HomeServices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -30,12 +32,16 @@ namespace EPRN.UnitTests.Portal.Services.HomeServices
 
             var mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
             mockConfigSettings.Setup(o => o.Value).Returns(mockConfig);
-
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
 
+            var urlHelperFactory = new Mock<IUrlHelperFactory>();
+            var actionContextAccessor = new Mock<IActionContextAccessor>();
+
             _reprocessorHomeService = new UserBasedReprocessorService(
-                mockConfigSettings.Object,
-                _mockHttpJourneyService.Object
+            mockConfigSettings.Object,
+            _mockHttpJourneyService.Object,
+                urlHelperFactory.Object,
+                actionContextAccessor.Object
                 );
         }
 

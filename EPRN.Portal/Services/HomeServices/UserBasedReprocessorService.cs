@@ -6,6 +6,8 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 
@@ -15,7 +17,10 @@ namespace EPRN.Portal.Services.HomeServices
     {
         public UserBasedReprocessorService(
             IOptions<AppConfigSettings> configSettings,
-            IHttpJourneyService httpJourneyService) : base(configSettings, httpJourneyService)
+            IHttpJourneyService httpJourneyService,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor actionContextAccessor) 
+            : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
         {
         }
 
