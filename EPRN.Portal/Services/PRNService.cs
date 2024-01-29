@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
@@ -136,59 +137,10 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(
-            int page = 1,
-            int pageSize = 10,
-            string searchTerm = null,
-            string filterBy = null,
-            string sortBy = null)
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsDto request)
         {
-
-            //var sentPrnsDto = await _httpPrnsService.GetSentPrns(page, pageSize, searchTerm, filterBy, sortBy);
-
-            //var listOfPrns = _mapper.Map<List<PrnDto>>(sentPrnsDto);
-
-            //return listOfPrns;
-
-            //TODO: The real data retrieval is being implemented by Sajid
-            var listOfRows = GetListOfPrnRows();
-
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                listOfRows = listOfRows.Where(
-                    e => e.PrnNumber.Contains(
-                        searchTerm,
-                        StringComparison.OrdinalIgnoreCase
-                        )
-                    ||
-                        e.SentTo.Contains(
-                            searchTerm,
-                            StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-            }
-
-            var itemsPerPage = 10;
-            var totalItems = listOfRows.Count;
-            var totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
-
-            page = Math.Max(1, Math.Min(totalPages, page));
-
-            var startIndex = (page - 1) * itemsPerPage;
-            var paginatedItems = listOfRows.Skip(startIndex).Take(itemsPerPage);
-
-            var paginationModel = new PaginationViewModel
-            {
-                TotalItems = totalItems,
-                ItemsPerPage = itemsPerPage,
-                CurrentPage = page,
-                TotalPages = totalPages
-            };
-
-            return new ViewSentPrnsViewModel
-            {
-                Rows = paginatedItems,
-                Pagination = paginationModel
-            };
+            var sentPrnsDto = await _httpPrnsService.GetSentPrns(request);
+            return _mapper.Map<ViewSentPrnsViewModel>(sentPrnsDto);
         }
 
         private List<PrnRowViewModel> GetListOfPrnRows()

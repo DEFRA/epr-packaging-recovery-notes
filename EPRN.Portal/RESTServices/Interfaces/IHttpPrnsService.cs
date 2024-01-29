@@ -25,12 +25,6 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task SaveCheckYourAnswers(
             int id);
 
-        Task<List<SentPrnsDto>> GetSentPrns(
-            int? page,
-            int pageSize,
-            string? searchTerm,
-            string? filterBy,
-            string? sortBy
-            );
+        Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
     }
 }

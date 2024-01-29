@@ -10,6 +10,9 @@ namespace EPRN.Portal.Profiles
         {
             CreateMap<ConfirmationDto, ConfirmationViewModel>();
             CreateMap<CheckYourAnswersDto, CheckYourAnswersViewModel>();
+            CreateMap<PrnDto, PrnRowViewModel>();
+            CreateMap<PaginationDto, PaginationViewModel>();
+            CreateMap<SentPrnsDto, ViewSentPrnsViewModel>();
         }
     }
 }

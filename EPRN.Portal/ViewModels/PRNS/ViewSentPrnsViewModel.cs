@@ -1,7 +1,4 @@
-﻿using EPRN.Portal.Resources.PRNS;
-using System.ComponentModel.DataAnnotations;
-
-namespace EPRN.Portal.ViewModels.PRNS
+﻿namespace EPRN.Portal.ViewModels.PRNS
 {
     public class ViewSentPrnsViewModel
     {
@@ -9,7 +6,6 @@ namespace EPRN.Portal.ViewModels.PRNS
 
         public PaginationViewModel Pagination { get; set; }
 
-        [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(ViewSentPrnResources))]
         public string SearchTerm { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Portal.ViewModels.PRNS;
 
 namespace EPRN.Portal.Services.Interfaces
@@ -21,7 +22,7 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id);
 
-        Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(int page = 1, string searchTerm = null);
+        Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsDto request);
 
     }
 }

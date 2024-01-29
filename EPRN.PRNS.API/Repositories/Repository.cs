@@ -108,29 +108,37 @@ namespace EPRN.PRNS.API.Repositories
                 );
         }
 
-        public async Task<List<SentPrnsDto>> GetSentPrns(
-            int? page,
-            int pageSize,
-            string? searchTerm,
-            string? filterBy,
-            string? sortBy)
+        public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
-            var listOfPrns = new List<PrnDto>();
+            var recordsPerPage = request.PageSize;
+            var totalRecords = await _prnContext.PRN.CountAsync();
+            var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
 
-            if (!string.IsNullOrEmpty(searchTerm))
+            var prns = await _prnContext.PRN
+                .Skip((request.Page.Value - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToListAsync();
+
+            return new SentPrnsDto()
             {
+                Rows = prns.Select(prn => new PrnDto
+                {
+                    PrnNumber = prn.Reference,
+                    //Material = prn.Material,
+                    SentTo = prn.SentTo,
+                    DateCreated = prn.CreatedDate.ToShortDateString(),
+                    Tonnes = prn.Tonnes.Value,
+                    Status = EPRN.Common.Enums.PrnStatus.Accepted
+                }).ToList(),
 
-            }
-
-            if (!string.IsNullOrEmpty(filterBy))
-            {
-
-            }
-
-            if (!string.IsNullOrEmpty(sortBy))
-            {
-
-            }
+                Pagination = new PaginationDto
+                {
+                    TotalItems = totalRecords,
+                    CurrentPage = request.Page.Value,
+                    ItemsPerPage = recordsPerPage,
+                    TotalPages = totalPages,
+                }
+            };
         }
     }
 }

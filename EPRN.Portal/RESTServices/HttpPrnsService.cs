@@ -52,14 +52,10 @@ namespace EPRN.Portal.RESTServices
             await Post($"{id}/check");
         }
 
-        public async Task<List<SentPrnsDto>> GetSentPrns(
-            int? page,
-            int pageSize,
-            string? searchTerm,
-            string? filterBy,
-            string? sortBy)
+        public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
-            return await Get<List<SentPrnsDto>>($"GetSentPrns/Page/{page}/PageSize/{pageSize}/SearchTerm/{searchTerm}/FilterBy/{filterBy}/SortBy/{sortBy}");
+            return await Get<SentPrnsDto>(
+                $"GetSentPrns/Page/{request.Page}/PageSize/{request.PageSize}/SearchTerm/{request.SearchTerm}/FilterBy/{request.FilterBy}/SortBy/{request.SortBy}");
         }
     }
 }

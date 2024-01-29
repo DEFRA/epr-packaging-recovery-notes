@@ -57,20 +57,9 @@ namespace EPRN.PRNS.API.Services
             await _prnRepository.UpdatePrnStatus(id, PrnStatus.CheckYourAnswersComplete);
         }
 
-        public async Task<List<SentPrnsDto>> GetSentPrns(
-            int? page,
-            int pageSize,
-            string? searchTerm,
-            string? filterBy,
-            string? sortBy)
+        public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
-            return await _prnRepository.GetSentPrns(
-                page,
-                pageSize,
-                searchTerm,
-                filterBy,
-                sortBy
-                );
+            return await _prnRepository.GetSentPrns(request);
         }
     }
 }

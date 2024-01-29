@@ -1,5 +1,5 @@
-﻿using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels.PRNS;
+﻿using EPRN.Common.Dtos;
+using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
@@ -36,25 +36,25 @@ namespace EPRN.Portal.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> ViewSentPrns(int page = 1)
+        [HttpGet("ViewSentPrns/{page=1}/{searchTerm?}/{filterBy?}/{sortBy?}")]
+        public async Task<IActionResult> ViewSentPrns([FromRoute] GetSentPrnsDto request)
         {
-            var viewModel = await _prnService.GetViewSentPrnsViewModel(page, null);
+            var viewModel = await _prnService.GetViewSentPrnsViewModel(request);
 
             return View(viewModel);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> ViewSentPrns(ViewSentPrnsViewModel viewSentPrnsViewModel, int page = 1)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(viewSentPrnsViewModel);
-            }
+        //[HttpPost]
+        //public async Task<IActionResult> ViewSentPrns(ViewSentPrnsViewModel viewSentPrnsViewModel, int page = 1)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View(viewSentPrnsViewModel);
+        //    }
 
-            var viewModel = await _prnService.GetViewSentPrnsViewModel(page, viewSentPrnsViewModel.SearchTerm);
+        //    var viewModel = await _prnService.GetViewSentPrnsViewModel(page, viewSentPrnsViewModel.SearchTerm);
 
-            return View(viewModel);
-        }
+        //    return View(viewModel);
+        //}
     }
 }

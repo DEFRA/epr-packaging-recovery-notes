@@ -22,12 +22,6 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
 
         Task UpdatePrnStatus(int id, PrnStatus status);
 
-        Task<List<SentPrnsDto>> GetSentPrns(
-            int? page,
-            int pageSize,
-            string? searchTerm,
-            string? filterBy,
-            string? sortBy
-            );
+        Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
     }
 }

@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -96,11 +97,10 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        [Route("GetSentPrns/Page/{page}/PageSize/{pageSize}/SearchTerm/{searchTerm}/FilterBy/{filterBy}/SortBy/{sortBy}")]
-        public async Task<IActionResult> GetSentPrns(int? page, int pageSize, string? searchTerm, string? filterBy, string? sortBy)
+        [HttpGet("GetSentPrns/Page/{page=1}/SearchTerm/{searchTerm?}/FilterBy/{filterBy?}/SortBy/{sortBy?}")]
+        public async Task<IActionResult> GetSentPrns([FromRoute] GetSentPrnsDto request)
         {
-            var sentPrnsDto = await _prnService.GetSentPrns(page.Value, pageSize, searchTerm, filterBy, sortBy);
+            var sentPrnsDto = await _prnService.GetSentPrns(request);
             return Ok(sentPrnsDto);
         }
 

@@ -5,5 +5,7 @@
         public List<PrnDto> Rows { get; set; }
 
         public PaginationDto Pagination { get; set; }
+
+        public string SearchTerm { get; set; }
     }
 }
