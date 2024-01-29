@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EPRN.Common.Data.DataModels;
+using EPRN.Common.Dtos;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services;
@@ -48,10 +50,10 @@ namespace EPRN.UnitTests.API.Waste.Services
             await _journeyService.SaveWasteType(journeyId, wasteTypeId);
 
             // assert
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.UpdateJourneyWasteTypeId(
-                    It.Is<int>(p => p == journeyId), 
-                    It.Is<int>(p => p == wasteTypeId)), 
+                    It.Is<int>(p => p == journeyId),
+                    It.Is<int>(p => p == wasteTypeId)),
                 Times.Once);
         }
 
@@ -66,10 +68,10 @@ namespace EPRN.UnitTests.API.Waste.Services
             await _journeyService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.UpdateJourneyMonth(
-                    It.Is<int>(p => p == journeyId), 
-                    It.Is<int>(p => p == selectedMonth)), 
+                    It.Is<int>(p => p == journeyId),
+                    It.Is<int>(p => p == selectedMonth)),
                 Times.Once);
         }
 
@@ -84,10 +86,10 @@ namespace EPRN.UnitTests.API.Waste.Services
             await _journeyService.SaveSelectedMonth(journeyId, selectedMonth);
 
             // assert
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.UpdateJourneyMonth(
                     It.Is<int>(p => p == journeyId),
-                    It.Is<int>(p => p== selectedMonth)), 
+                    It.Is<int>(p => p == selectedMonth)),
                 Times.Once);
         }
 
@@ -96,14 +98,14 @@ namespace EPRN.UnitTests.API.Waste.Services
         {
             // arrange
             var journeyId = 8;
-            
+
             // act
             var result = await _journeyService.GetWasteType(journeyId);
 
             // assert
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.GetWasteTypeName(
-                    It.Is<int>(p => p == journeyId)), 
+                    It.Is<int>(p => p == journeyId)),
                 Times.Once());
         }
 
@@ -113,15 +115,15 @@ namespace EPRN.UnitTests.API.Waste.Services
             // arrange
             var journeyId = 5;
             var tonnage = (double)56.3;
-            
+
             // act
             await _journeyService.SaveTonnage(journeyId, tonnage);
 
             // assert
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.UpdateJourneyTonnage(
                     It.Is<int>(p => p == journeyId),
-                    It.Is<double>(p => p == tonnage)), 
+                    It.Is<double>(p => p == tonnage)),
                 Times.Once);
         }
 
@@ -130,14 +132,14 @@ namespace EPRN.UnitTests.API.Waste.Services
         {
             // arrange
             var journeyId = 8;
-            
+
             // act
             await _journeyService.GetWhatHaveYouDoneWaste(journeyId);
 
             // assert
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.GetDoneWaste(
-                    It.Is<int>(p => p == journeyId)), 
+                    It.Is<int>(p => p == journeyId)),
                 Times.Once());
         }
 
@@ -152,11 +154,48 @@ namespace EPRN.UnitTests.API.Waste.Services
             await _journeyService.SaveReprocessorExport(journeyId, siteId);
 
             // assert
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.UpdateJourneySiteId(
                     It.Is<int>(p => p == journeyId),
-                    It.Is<int>(p => p == siteId)), 
+                    It.Is<int>(p => p == siteId)),
                 Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetJourneyAnswers_WhenJourneyExists_ReturnsJourneyAnswersDto()
+        {
+            // Arrange
+            int journeyId = 1;
+            var journeyDto = new JourneyAnswersDto
+            {
+                Month = 1,
+                Tonnes = 34.7,
+                BaledWithWire = false,
+                Note = "",
+                Completed = true,
+            };
+
+            _mockRepository.Setup(repo => repo.GetWasteJourneyAnswersById(journeyId)).ReturnsAsync(journeyDto);
+
+            // Act
+            var result = await _journeyService.GetJourneyAnswers(journeyId);
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task GetJourneyAnswers_WhenJourneyIsNull_ReturnsANullObject()
+        {
+            // Arrange
+            int journeyId = 1;
+            _mockRepository.Setup(repo => repo.GetWasteJourneyById_FullModel(journeyId)).ReturnsAsync((WasteJourney)null);
+
+            // Act & Assert
+            var result = await _journeyService.GetJourneyAnswers(journeyId);
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }

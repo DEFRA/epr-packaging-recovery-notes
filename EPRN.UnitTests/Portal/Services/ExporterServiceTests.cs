@@ -1,8 +1,11 @@
 ﻿using EPRN.Portal.Configuration;
 using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -11,22 +14,28 @@ namespace EPRN.UnitTests.Portal.Services
     [TestClass]
     public class ExporterServiceTests
     {
-        private ExporterHomeService _exporterHomeService;
+        private UserBasedExporterService _exporterHomeService;
         private IOptions<AppConfigSettings> _configSettings;
-        private Mock<IUrlHelper> _mockUrlHelper;
+        private Mock<IHttpJourneyService> _mockHttpJourneyService = null;
 
         [TestInitialize]
         public void Init()
         {
-            _mockUrlHelper = new Mock<IUrlHelper>();
             _configSettings = Options.Create<AppConfigSettings>(new AppConfigSettings());
             _configSettings.Value.DeductionAmount_Exporter = 0.0;
             _configSettings.Value.DeductionAmount_Reprocessor = 0.0;
             _configSettings.Value.DeductionAmount_ExporterAndReprocessor = 0.0;
+            _mockHttpJourneyService = new Mock<IHttpJourneyService>();
 
-            _exporterHomeService = new ExporterHomeService(
-                _mockUrlHelper.Object,
-                _configSettings);
+            var urlHelperFactory = new Mock<IUrlHelperFactory>();
+            var actionContextAccessor = new Mock<IActionContextAccessor>();
+
+            _exporterHomeService = new UserBasedExporterService(
+            _configSettings,
+            _mockHttpJourneyService.Object,
+                urlHelperFactory.Object,
+                actionContextAccessor.Object
+                );
         }
 
         [TestMethod]
