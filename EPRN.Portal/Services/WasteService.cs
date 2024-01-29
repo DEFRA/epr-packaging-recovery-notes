@@ -237,7 +237,6 @@ namespace EPRN.Portal.Services
                 wasteSubTypesViewModel.JourneyId,
                 wasteSubTypeId, adjustment);
         }
-
         private (int wasteSubTypeId, double adjustment) ProcessSubTypePayload(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             int wasteSubTypeId = wasteSubTypesViewModel.SelectedWasteSubTypeId.Value;
@@ -308,7 +307,6 @@ namespace EPRN.Portal.Services
                 exportTonnageViewModel.ExportTonnes.Value);
         }
 
-
         public async Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId)
         {
             var dto = await _httpJourneyService.GetBaledWithWire(journeyId);
@@ -316,7 +314,6 @@ namespace EPRN.Portal.Services
 
             return vm;
         }
-
         public async Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel)
         {
             if (baledWireModel == null)
@@ -330,8 +327,8 @@ namespace EPRN.Portal.Services
 
 
             await _httpJourneyService.SaveBaledWithWire(
-                baledWireModel.JourneyId, 
-                baledWireModel.BaledWithWire.Value, 
+                baledWireModel.JourneyId,
+                baledWireModel.BaledWithWire.Value,
                 baledWireModel.BaledWithWire.Value == true ? baledWireModel.BaledWithWireDeductionPercentage.Value : 0);
         }
 

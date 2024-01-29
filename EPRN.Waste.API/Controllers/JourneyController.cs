@@ -56,6 +56,18 @@ namespace EPRN.Waste.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("Month")]
+        public async Task<IActionResult> GetSelectedMonth(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            var selectdMonth = await _journeyService.GetSelectedMonth(journeyId.Value);
+
+            return Ok(selectdMonth);
+        }
+
         [HttpPost]
         [Route("Month/{selectedMonth}")]
         public async Task<IActionResult> SaveJourneyMonth(int? journeyId, int? selectedMonth)
@@ -269,6 +281,20 @@ namespace EPRN.Waste.API.Controllers
                 baledWithWireDeductionPercentage);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("JourneyAnswers")]
+        public async Task<IActionResult> GetJourneyAnswers(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (journeyId <= 0)
+                return BadRequest("Invalid journey ID");
+
+            JourneyAnswersDto dto = await _journeyService.GetJourneyAnswers(journeyId.Value);
+            return Ok(dto);
         }
 
         [HttpGet]
