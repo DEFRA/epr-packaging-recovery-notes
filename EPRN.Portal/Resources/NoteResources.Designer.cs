@@ -79,20 +79,20 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Include any notes that could help differentiate this waste record from others..
-        /// </summary>
-        public static string HintText {
-            get {
-                return ResourceManager.GetString("HintText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to You can enter up to 200 characters.
         /// </summary>
         public static string HintTextInfo {
             get {
                 return ResourceManager.GetString("HintTextInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include any notes that could help differentiate this &lt;PRNTYPE&gt; from others..
+        /// </summary>
+        public static string HintTextWithReplace {
+            get {
+                return ResourceManager.GetString("HintTextWithReplace", resourceCulture);
             }
         }
         

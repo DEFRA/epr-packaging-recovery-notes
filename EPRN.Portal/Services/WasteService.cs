@@ -358,10 +358,15 @@ namespace EPRN.Portal.Services
 
         public async Task<NoteViewModel> GetNoteViewModel(int journeyId)
         {
+            var noteDto = await _httpJourneyService.GetNote(journeyId);
+            if (noteDto == null)
+                throw new ArgumentNullException(nameof(NoteViewModel));
+
             var noteViewModel = new NoteViewModel
             {
                 JourneyId = journeyId,
-                NoteContent = await _httpJourneyService.GetNote(journeyId)
+                NoteContent = noteDto.Note,
+                WasteCategory = noteDto.WasteCategory
             };
 
             return noteViewModel;

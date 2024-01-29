@@ -123,6 +123,9 @@
   <data name="ContinueBtn" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="CreateWithReplace" xml:space="preserve">
+    <value>Create a &lt;PRNTYPE&gt; for:</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="RecordingFor" xml:space="preserve">
     <value>Recording for:</value>
+  </data>
+  <data name="SkipQuestionLink" xml:space="preserve">
+    <value>Skip question</value>
   </data>
   <data name="SummaryError" xml:space="preserve">
     <value>There is a problem</value>

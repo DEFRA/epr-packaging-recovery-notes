@@ -79,6 +79,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create a &lt;PRNTYPE&gt; for:.
+        /// </summary>
+        public static string CreateWithReplace {
+            get {
+                return ResourceManager.GetString("CreateWithReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
@@ -111,6 +120,15 @@ namespace EPRN.Portal.Resources {
         public static string RecordingFor {
             get {
                 return ResourceManager.GetString("RecordingFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip question.
+        /// </summary>
+        public static string SkipQuestionLink {
+            get {
+                return ResourceManager.GetString("SkipQuestionLink", resourceCulture);
             }
         }
         

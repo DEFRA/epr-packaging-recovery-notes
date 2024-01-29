@@ -123,11 +123,11 @@
   <data name="ErrorMessageTooLong" xml:space="preserve">
     <value>[Welsh]Note must be 200 characters or less</value>
   </data>
-  <data name="HintText" xml:space="preserve">
-    <value>[Welsh]Include any notes that could help differentiate this waste record from others.</value>
-  </data>
   <data name="HintTextInfo" xml:space="preserve">
     <value>[Welsh]You can enter up to 200 characters</value>
+  </data>
+  <data name="HintTextWithReplace" xml:space="preserve">
+    <value>Include any notes that could help differentiate this &lt;PRNTYPE&gt; from others.</value>
   </data>
   <data name="PageHeading" xml:space="preserve">
     <value>[Welsh]Add a note (optional)</value>
