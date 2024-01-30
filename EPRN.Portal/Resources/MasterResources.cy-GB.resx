@@ -138,6 +138,12 @@
   <data name="OppositeLanguage" xml:space="preserve">
     <value>English</value>
   </data>
+  <data name="PERN" xml:space="preserve">
+    <value>[Welsh]PERN</value>
+  </data>
+  <data name="PRN" xml:space="preserve">
+    <value>[Welsh]PRN</value>
+  </data>
   <data name="RecordingFor" xml:space="preserve">
     <value>[Welsh]Recording for:</value>
   </data>
@@ -146,5 +152,8 @@
   </data>
   <data name="String" xml:space="preserve">
     <value>[Welsh]There is a problem</value>
+  </data>
+  <data name="UnknownWasteType" xml:space="preserve">
+    <value>[Welsh]&lt;UNKNOWN WASTE TYPE&gt;</value>
   </data>
 </root>

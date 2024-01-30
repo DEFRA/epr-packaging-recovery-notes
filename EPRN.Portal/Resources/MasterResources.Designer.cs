@@ -115,6 +115,24 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PERN.
+        /// </summary>
+        public static string PERN {
+            get {
+                return ResourceManager.GetString("PERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PRN.
+        /// </summary>
+        public static string PRN {
+            get {
+                return ResourceManager.GetString("PRN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Recording for:.
         /// </summary>
         public static string RecordingFor {
@@ -138,6 +156,15 @@ namespace EPRN.Portal.Resources {
         public static string SummaryError {
             get {
                 return ResourceManager.GetString("SummaryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;UNKNOWN WASTE TYPE&gt;.
+        /// </summary>
+        public static string UnknownWasteType {
+            get {
+                return ResourceManager.GetString("UnknownWasteType", resourceCulture);
             }
         }
     }

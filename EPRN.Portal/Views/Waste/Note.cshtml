@@ -25,13 +25,13 @@
                 @switch (Model.WasteCategory)
                 {
                     case Category.Reprocessor:
-                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", "PRN");
+                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", MasterResources.PRN);
                         break;
                     case Category.Exporter:
-                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", "PERN");
+                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", MasterResources.PERN);
                         break;
                     case Category.Unknown:
-                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", "<UNKNOWN WASTE TYPE>");
+                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", MasterResources.UnknownWasteType);
                         break;
                 }              
             </div>
