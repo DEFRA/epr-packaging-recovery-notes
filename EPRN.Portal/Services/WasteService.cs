@@ -346,15 +346,15 @@ namespace EPRN.Portal.Services
             await _httpJourneyService.SaveReprocessorExport(reProcessorExportViewModel.Id, reProcessorExportViewModel.SelectedSite.Value);
         }
 
-        public async Task<NoteViewModel> GetNoteViewModel(int Id)
+        public async Task<NoteViewModel> GetNoteViewModel(int id)
         {
-            var noteDto = await _httpJourneyService.GetNote(journeyId);
+            var noteDto = await _httpJourneyService.GetNote(id);
             if (noteDto == null)
                 throw new ArgumentNullException(nameof(NoteViewModel));
 
             var noteViewModel = new NoteViewModel
             {
-                Id = Id,
+                Id = id,
                 NoteContent = noteDto.Note,
                 WasteCategory = noteDto.WasteCategory
             };

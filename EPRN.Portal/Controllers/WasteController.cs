@@ -19,7 +19,7 @@ namespace EPRN.Portal.Controllers
     public class WasteController : BaseController
     {
         private readonly IWasteService _wasteService;
-        private IUserBasedService _homeService;
+        private readonly IUserBasedService _homeService;
 
         public WasteController(
             IWasteService wasteService,
@@ -76,7 +76,7 @@ namespace EPRN.Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId);
+                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.Id);
                 return View(model);
             }
 
@@ -256,7 +256,10 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
         {
             await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
-            return RedirectToAction( Routes.Actions.Waste.Month, new { id = reProcessorExportViewModel.JourneyId });
+            
+            return RedirectToAction( 
+                Routes.Actions.Waste.Month, 
+                new { id = reProcessorExportViewModel.Id });
         }
 
         [HttpGet]
@@ -284,8 +287,7 @@ namespace EPRN.Portal.Controllers
 
             // if qs contains certain value then redirect to answers page
             // else continue
-            return RedirectToAction("Index", "Home");    
-            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home"); 
         }
 
         [HttpGet]
