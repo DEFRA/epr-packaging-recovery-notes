@@ -237,11 +237,16 @@ namespace EPRN.Waste.API.Repositories
             return exists;
         }
 
-        public async Task<string> GetWasteNote(int journeyId)
+        public async Task<NoteDto> GetWasteNote(int journeyId)
         {
             return await _wasteContext.WasteJourney
                 .Where(wj => wj.Id == journeyId)
-                .Select(wj => wj.Note)
+                .Select(x => new NoteDto
+                {
+                    JourneyId = journeyId,
+                    Note = x.Note,
+                    WasteCategory = Enum.Parse<Common.Enums.Category>(x.Category.ToString())
+                })
                 .SingleOrDefaultAsync();
         }
 
