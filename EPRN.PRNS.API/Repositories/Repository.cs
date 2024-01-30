@@ -110,20 +110,13 @@ namespace EPRN.PRNS.API.Repositories
             Common.Enums.PrnStatus status,
             string reason = null)
         {
-            try
-            {
-                await _prnContext
-                    .PRN
-                    .Where(prn => prn.Id == id)
-                    .ExecuteUpdateAsync(sp => sp
-                        .SetProperty(prn => prn.Status, _mapper.Map<PrnStatus>(status))
-                        .SetProperty(prn => prn.StatusReason, reason)
-                    );
-            }
-            catch (Exception e)
-            {
-                e.GetType();
-            }
+            await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .ExecuteUpdateAsync(sp => sp
+                    .SetProperty(prn => prn.Status, _mapper.Map<PrnStatus>(status))
+                    .SetProperty(prn => prn.StatusReason, reason)
+                );
         }
     }
 }
