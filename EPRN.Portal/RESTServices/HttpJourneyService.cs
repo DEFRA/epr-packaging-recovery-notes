@@ -122,5 +122,10 @@ namespace EPRN.Portal.RESTServices
         {
             return (Category)await Get<Category?>($"{journeyId}/Category");
         }
+
+        public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)
+        {
+            await Post($"{journeyId}/DecemberWaste/{decemberWaste}");
+        }
     }
 }

@@ -329,6 +329,31 @@ namespace EPRN.Portal.Controllers
         }
 
 
+        [HttpGet]
+        [ActionName(Routes.Actions.Waste.DecemberWaste)]
+        public async Task<IActionResult> DecemberWaste(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var model = await _wasteService.GetDecemberWasteModel(id.Value);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Actions.Waste.DecemberWaste)]
+        public async Task<IActionResult> DecemberWaste(DecemberWasteViewModel decemberWaste)
+        {
+            if (!ModelState.IsValid)
+                return View(decemberWaste);
+
+            await _wasteService.SaveDecemberWaste(decemberWaste);
+
+            return RedirectToAction("Month", new { id = decemberWaste.JourneyId });
+            //return RedirectToPage("Month", whatHaveYouDoneWaste.JourneyId);
+        }
+
+
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             // Handle redirection to CheckYourAnswers if this is where we originally came from

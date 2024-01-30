@@ -1,0 +1,36 @@
+﻿@using EPRN.Common.Enums;
+
+@model DecemberWasteViewModel
+@{
+    ViewData["Title"] = DecemberWasteResource.PageTitle;
+}
+
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
+<form method="post">
+    <input type="hidden" asp-for="JourneyId" />
+    <radios asp-for="DecemberWaste" asp-title="@DecemberWasteResource.Heading">
+        <p class="govuk-error-message">
+            <span asp-validation-for="DecemberWaste"></span>
+        </p>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="DecemberWaste" value=@true aria-describedby="@DecemberWasteResource.YesSelection">
+            <label class="govuk-label govuk-radios__label" for="@DecemberWasteResource.YesSelection">
+                @DecemberWasteResource.YesSelection
+            </label>
+        </div>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="DecemberWaste" value=@false aria-describedby="@DecemberWasteResource.NoSelection">
+            <label class="govuk-label govuk-radios__label" for="@DecemberWasteResource.NoSelection">
+                @DecemberWasteResource.NoSelection
+            </label>
+        </div>
+
+    </radios>
+
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @MasterResources.ContinueBtn
+    </button>
+</form>

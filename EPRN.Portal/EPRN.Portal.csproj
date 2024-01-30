@@ -122,6 +122,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WasteTypesResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\DecemberWasteResource.Designer.cs">
+      <DependentUpon>DecemberWasteResource.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\WhichQuarterResources.Designer.cs">
       <DependentUpon>WhichQuarterResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -131,11 +136,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>HomeResources.resx</DependentUpon>
-    </Compile>
-    <Compile Update="Resources\WhatHaveYouDoneWithWasteResource.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>WhatHaveYouDoneWithWasteResource.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
@@ -221,6 +221,11 @@
     <EmbeddedResource Update="Resources\WasteTypesResources.cy-GB.resx">
       <Generator></Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\DecemberWasteResource.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>DecemberWasteResource.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\WhatHaveYouDoneWithWasteResource.cy-GB.resx">
       <Generator></Generator>
     </EmbeddedResource>
@@ -239,10 +244,6 @@
     <EmbeddedResource Update="Resources\HomeResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>HomeResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\WhatHaveYouDoneWithWasteResource.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>WhatHaveYouDoneWithWasteResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

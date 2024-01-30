@@ -58,7 +58,7 @@ namespace EPRN.Portal.Services
             await PopulateViewModel(duringWhichMonthRequestViewModel, journeyId, whatHaveYouDoneWaste);
             return duringWhichMonthRequestViewModel;
         }
-        
+
         private static DuringWhichMonthRequestViewModel CreateDuringWhichMonthRequestViewModel(DoneWaste whatHaveYouDoneWaste)
         {
             return whatHaveYouDoneWaste == DoneWaste.ReprocessedIt
@@ -70,10 +70,10 @@ namespace EPRN.Portal.Services
         {
             // TODO -- Add has submitted qtr return this logic when available, true for now
             const bool hasSubmittedPreviousQuarterReturn = true;
-            
+
             viewModel.JourneyId = journeyId;
             viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
-            
+
             var quarterDates = await _httpJourneyService.GetQuarterlyMonths(journeyId, DateTime.Now.Month, hasSubmittedPreviousQuarterReturn);
 
             viewModel.Notification = quarterDates.Notification;
@@ -167,7 +167,7 @@ namespace EPRN.Portal.Services
                 ReprocessorSiteMaterials = new ReproccesorSectionViewModel
                 {
                     Sites = new List<SiteSectionViewModel>
-                    { 
+                    {
                         new SiteSectionViewModel
                         {
                             SiteName = "Lansbourne Trading Estate, Edinburgh",
@@ -192,7 +192,7 @@ namespace EPRN.Portal.Services
 
             return viewModel;
         }
-        
+
         public async Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId)
         {
             var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
@@ -219,7 +219,7 @@ namespace EPRN.Portal.Services
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
             };
         }
-        
+
         public async Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             if (wasteSubTypesViewModel == null)
@@ -388,6 +388,31 @@ namespace EPRN.Portal.Services
         public async Task<string> GetWasteType(int journeyId)
         {
             return await _httpJourneyService.GetWasteType(journeyId);
+        }
+
+        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int journeyId)
+        {
+            var decemberWasteModel = new DecemberWasteViewModel()
+            {
+                JourneyId = journeyId,
+                DecemberWaste = true,
+            };
+
+            return decemberWasteModel;
+        }
+
+        public async Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel)
+        {
+            if (decemberWasteModel == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel));
+
+            if (decemberWasteModel.DecemberWaste == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel.DecemberWaste));
+
+            await _httpJourneyService.SaveDecemberWaste(
+                decemberWasteModel.JourneyId,
+                decemberWasteModel.DecemberWaste.Value);
+
         }
     }
 }
