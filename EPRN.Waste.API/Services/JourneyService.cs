@@ -162,7 +162,7 @@ namespace EPRN.Waste.API.Services
             return wasteSubTypeSelection;
         }
 
-        public async Task<string> GetWasteRecordNote(int journeyId)
+        public async Task<NoteDto> GetWasteRecordNote(int journeyId)
         {
             return await _wasteRepository.GetWasteNote(journeyId);
         }
