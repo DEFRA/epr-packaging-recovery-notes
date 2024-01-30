@@ -3,10 +3,11 @@
     "Docker Compose": {
         "commandName": "DockerCompose",
         "commandVersion": "1.0",
-        "serviceActions": {
-            "eprn.waste.api": "StartDebugging",
-            "eprn.portal": "StartDebugging"
-        },
+      "serviceActions": {
+        "wasteapi": "StartDebugging",
+        "prnapi": "StartDebugging",
+        "prnportal": "StartDebugging"
+      },
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
