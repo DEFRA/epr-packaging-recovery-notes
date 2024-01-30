@@ -22,7 +22,6 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id);
 
-        Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsDto request);
-
+        Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request);
     }
 }

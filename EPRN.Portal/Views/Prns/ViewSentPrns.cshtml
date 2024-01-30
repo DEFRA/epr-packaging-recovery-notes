@@ -5,6 +5,7 @@
 @model ViewSentPrnsViewModel;
 
 @inject IUserRoleService userRoleService;
+@inject ILocalizationHelper<MasterResources> localizationHelper
 
 @{
     if (userRoleService.HasRole(UserRole.Reprocessor))
@@ -125,45 +126,11 @@
                     <td class="govuk-table__cell">@row.SentTo</td>
                     <td class="govuk-table__cell">@row.DateCreated</td>
                     <td class="govuk-table__cell">@row.Tonnes</td>
-
-                    @switch (row.Status)
-                    {
-                        case PrnStatus.Accepted:
-                            <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--green">
-                                    @ViewSentPrnResources.Accepted.ToUpper()
-                                </strong>
-                            </td>
-                            break;
-                        case PrnStatus.AwaitingAcceptance:
-                            <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--blue">
-                                    @ViewSentPrnResources.AwaitingAcceptance.ToUpper()
-                                </strong>
-                            </td>
-                            break;
-                        case PrnStatus.Rejected:
-                            <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--red">
-                                    @ViewSentPrnResources.Rejected.ToUpper()
-                                </strong>
-                            </td>
-                            break;
-                        case PrnStatus.AwaitingCancellation:
-                            <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--purple">
-                                    @ViewSentPrnResources.AwaitingCancellation.ToUpper()
-                                </strong>
-                            </td>
-                            break;
-                        case PrnStatus.Cancelled:
-                            <td class="govuk-table__cell">
-                                <strong class="govuk-tag govuk-tag--yellow">
-                                    @ViewSentPrnResources.Cancelled.ToUpper()
-                                </strong>
-                            </td>
-                            break;
-                    }
+                    <td class="govuk-table__cell">
+                        <strong class="govuk-tag govuk-tag--@row.GetCssClassForStatus()">
+                            @localizationHelper.GetString(row.Status.ToString())
+                        </strong>
+                    </td>
                 </tr>
             }
         </tbody>

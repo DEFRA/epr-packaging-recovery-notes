@@ -13,6 +13,7 @@ namespace EPRN.Portal.Profiles
             CreateMap<PrnDto, PrnRowViewModel>();
             CreateMap<PaginationDto, PaginationViewModel>();
             CreateMap<SentPrnsDto, ViewSentPrnsViewModel>();
+            CreateMap<GetSentPrnsViewModel, GetSentPrnsDto>();
         }
     }
 }

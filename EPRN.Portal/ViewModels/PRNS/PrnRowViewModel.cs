@@ -11,5 +11,23 @@ namespace EPRN.Portal.ViewModels.PRNS
         public double Tonnes { get; set; }
         public PrnStatus Status { get; set; }
         public string Link { get; set; }
+
+        public string GetCssClassForStatus()
+        {
+            switch (Status)
+            {
+                case PrnStatus.Accepted:
+                    return "green";
+                case PrnStatus.AwaitingAcceptance:
+                    return "blue";
+                case PrnStatus.Rejected:
+                    return "red";
+                case PrnStatus.AwaitingCancellation:
+                    return "purple";
+                case PrnStatus.Cancelled:
+                    return "yellow";
+            }
+            return null;
+        }
     }
 }

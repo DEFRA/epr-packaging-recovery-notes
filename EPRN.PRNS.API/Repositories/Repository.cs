@@ -114,22 +114,29 @@ namespace EPRN.PRNS.API.Repositories
             var totalRecords = await _prnContext.PRN.CountAsync();
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
 
-            var prns = await _prnContext.PRN
+            var prns = _prnContext.PRN
+                .Include(x => x.WasteType)
                 .Skip((request.Page - 1) * request.PageSize)
-                .Take(request.PageSize)
-                .ToListAsync();
+                .Take(request.PageSize);
+
+            if (!string.IsNullOrWhiteSpace(request.SearchTerm))
+            {
+                prns.Where(e => e.SentTo.Contains(
+                    request.SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    e.Reference.Contains(request.SearchTerm, StringComparison.OrdinalIgnoreCase));
+            }
 
             return new SentPrnsDto()
             {
-                Rows = prns.Select(prn => new PrnDto
+                Rows = await prns.Select(prn => new PrnDto
                 {
                     PrnNumber = prn.Reference,
                     //Material = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToShortDateString(),
                     Tonnes = prn.Tonnes.Value,
-                    Status = EPRN.Common.Enums.PrnStatus.Accepted
-                }).ToList(),
+                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status)
+                }).ToListAsync(),
 
                 Pagination = new PaginationDto
                 {

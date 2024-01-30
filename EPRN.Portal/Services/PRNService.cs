@@ -137,9 +137,10 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsDto request)
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request)
         {
-            var sentPrnsDto = await _httpPrnsService.GetSentPrns(request);
+            var getSentPrnsDto = _mapper.Map<GetSentPrnsDto>(request);
+            var sentPrnsDto = await _httpPrnsService.GetSentPrns(getSentPrnsDto);
             return _mapper.Map<ViewSentPrnsViewModel>(sentPrnsDto);
         }
 
