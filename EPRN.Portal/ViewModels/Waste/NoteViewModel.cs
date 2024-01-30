@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Resources;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Portal.ViewModels.Waste
@@ -9,6 +10,8 @@ namespace EPRN.Portal.ViewModels.Waste
 
         [StringLength(200, ErrorMessageResourceName = "ErrorMessageTooLong", ErrorMessageResourceType = typeof(NoteResources))]
         public string NoteContent { get; set; }
+
+        public Category WasteCategory { get; set; }
 
     }
 }

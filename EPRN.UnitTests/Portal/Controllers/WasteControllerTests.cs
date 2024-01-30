@@ -20,7 +20,8 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             _mockWasteService = new Mock<IWasteService>();
             _homeServiceFactory = new Mock<IHomeServiceFactory>();
-            var exporterHomeService = new Mock<IHomeService>();
+            var exporterHomeService = new Mock<IUserBasedService>();
+            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAViewModel() { UserRole = UserRole.Reprocessor});
             _homeServiceFactory.Setup(x => x.CreateHomeService()).Returns(exporterHomeService.Object);
             _wasteController = new WasteController(_mockWasteService.Object, _homeServiceFactory.Object);
         }
@@ -504,8 +505,83 @@ namespace EPRN.UnitTests.Portal.Controllers
         //    // check model is expected type
         //    Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(NoteViewModel));
 
-        //    // check view name
-        //    Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+            // check view name
+            //Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
         //}
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsCorrectViewModel_ForValidJourneyId()
+        {
+            // Arrange
+            int journeyId = 1;
+
+            // Act
+            var result = await _wasteController.CheckYourAnswers(journeyId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(CYAViewModel));
+
+            // check view name
+            Assert.IsNotNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsNotFound_ForNullJourneyId()
+        {
+            // Arrange
+
+            // Act
+            var result = await _wasteController.CheckYourAnswers((int?)null);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsCorrectView_WhenModelIsInvalid()
+        {
+            // Arrange
+            _wasteController.ModelState.AddModelError("Error", "Error");
+
+            // Act
+            var result = await _wasteController.CheckYourAnswers(new CYAViewModel());
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsNotNull(viewResult.ViewData.Model);
+
+            // check model is expected type
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(CYAViewModel));
+
+            // check view name
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task CheckYourAnswers_ReturnsRedirectToAction_WhenModelIsValid()
+        {
+            // Arrange
+
+            // Act
+            var result = await _wasteController.CheckYourAnswers(new CYAViewModel());
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+
+            var redirectResult = result as RedirectToActionResult;
+            Assert.AreEqual("Index", redirectResult.ActionName);
+            Assert.AreEqual("Home", redirectResult.ControllerName);
+        }
     }
 }

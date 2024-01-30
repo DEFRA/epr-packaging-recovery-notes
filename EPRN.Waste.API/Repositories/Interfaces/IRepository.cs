@@ -39,17 +39,23 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId);
 
+        Task<int?> GetSelectedMonth(int journeyId);
+
         Task<DoneWaste?> GetDoneWaste(int journeyId);
 
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int jounreyId);
 
         Task<BaledWithWireDto> GetBaledWithWire(int journeyId);
 
+        Task<WasteJourney> GetWasteJourneyById_FullModel(int journeyId);
+
+        Task<JourneyAnswersDto> GetWasteJourneyAnswersById(int journeyId);
+
         Task<double?> GetWasteTonnage(int journeyId);
 
         Task<bool> Exists(int journeyId);
 
-        Task<string> GetWasteNote(int journeyId);
+        Task<NoteDto> GetWasteNote(int journeyId);
 
         Task UpdateWasteNote(int journeyId, string note);
 

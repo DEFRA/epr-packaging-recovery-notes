@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Waste.API.Controllers;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -69,6 +70,21 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             _mockJourneyService.Verify(s => s.GetWasteType(
                  It.IsAny<int>()), Times.Never
              );
+        }
+
+        [TestMethod]
+        public async Task GetSelectedMonth_Returns_OK_With_Valid_Id()
+        {
+            //Arrange
+            var journeyId = 3;
+
+            //Act
+            var result = await _journeyController.GetSelectedMonth(journeyId);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockJourneyService.Verify(s => s.GetSelectedMonth(It.Is<int>(p => p == journeyId)));
         }
 
         [TestMethod]
@@ -280,32 +296,139 @@ namespace EPRN.UnitTests.API.Waste.Controllers
         }
 
         [TestMethod]
-        public async Task GetCategory_Returns_OK()
+        public async Task GetJourneyAnswers_WithValidId_ReturnsOk()
         {
             //Arrange
-            var journeyId = 3;
+            int validJourneyId = 1;
 
             //Act
-            var result = await _journeyController.GetJourneyCategory(journeyId);
+            var result = await _journeyController.GetJourneyAnswers(validJourneyId);
 
             //Assert
-            Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
-            _mockJourneyService.Verify(s => s.GetCategory(It.Is<int>(p => p == journeyId)));
+            var okResult = result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
         }
 
         [TestMethod]
-        public async Task GetCategory_Returns_OK_ReturnsBadRequest_WhenNoIdSupplied()
+        public async Task GetJourneyAnswers_WithNullId_ReturnsBadRequest()
         {
             //Arrange
+            int? nullJourneyId = null;
 
             //Act
-            var result = await _journeyController.GetJourneyCategory(null);
+            var result = await _journeyController.GetJourneyAnswers(nullJourneyId);
 
             //Assert
-            Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-            _mockJourneyService.Verify(s => s.GetCategory(It.IsAny<int>()), Times.Never);
+            var badRequestResult = result as BadRequestObjectResult;
+
+            Assert.IsNotNull(badRequestResult);
+            Assert.AreEqual(400, badRequestResult.StatusCode);
+            Assert.AreEqual("Journey ID is missing", badRequestResult.Value);
         }
+
+        [TestMethod]
+        public async Task GetJourneyAnswers_WithZeroId_ReturnsBadRequest()
+        {
+            //Arrange
+            int zeroJourneyId = 0;
+
+            //Act
+            var result = await _journeyController.GetJourneyAnswers(zeroJourneyId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            var badRequestResult = result as BadRequestObjectResult;
+
+            Assert.IsNotNull(badRequestResult);
+            Assert.AreEqual(400, badRequestResult.StatusCode);
+            Assert.AreEqual("Invalid journey ID", badRequestResult.Value);
+        }
+
+        [TestMethod]
+        public async Task GetJourneyAnswers_WithValidId_ReturnsCorrectDto()
+        {
+            //Arrange
+            int validJourneyId = 1;
+
+            var expectedDto = new JourneyAnswersDto();
+            expectedDto.Month = 2;
+            expectedDto.Tonnes = 250;
+            expectedDto.BaledWithWire = false;
+            expectedDto.Adjustment = 34.5;
+            expectedDto.Note = "Some text";
+            expectedDto.WasteSubType = "sorted mixed paper/board";
+            expectedDto.DoneWaste = DoneWaste.ReprocessedIt;
+            expectedDto.Completed = true;
+
+            _mockJourneyService.Setup(service => service.GetJourneyAnswers(It.IsAny<int>())).ReturnsAsync(expectedDto);
+
+            //Act
+            var result = await _journeyController.GetJourneyAnswers(validJourneyId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            var okResult = result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+
+            var actualDto = okResult.Value as JourneyAnswersDto;
+            Assert.IsNotNull(actualDto);
+            Assert.AreEqual(expectedDto, actualDto);
+        }
+
+        [TestMethod]
+        public async Task GetJourneyAnswers_WithInValidId_ReturnsBadRequest()
+        {
+            //Arrange
+            _mockJourneyService.Setup(service => service.GetJourneyAnswers(It.IsAny<int>())).ReturnsAsync(null as JourneyAnswersDto);
+            int invalidJourneyId = -1;
+
+            //Act
+            var result = await _journeyController.GetJourneyAnswers(invalidJourneyId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            var badRequestResult = result as BadRequestObjectResult;
+
+            Assert.IsNotNull(badRequestResult);
+            Assert.AreEqual(400, badRequestResult.StatusCode);
+            Assert.AreEqual("Invalid journey ID", badRequestResult.Value);
+        }
+
+        [TestMethod]
+        public async Task GetWasteRecordNote_WithValidId_ReturnsCorrectDto()
+        {
+            //Arrange
+            int validJourneyId = 1;
+            string validNote = "abc";
+            Category wasteCategory = Category.Unknown;
+
+            var expectedDto = new NoteDto();
+            expectedDto.JourneyId = validJourneyId;
+            expectedDto.Note = validNote;
+            expectedDto.WasteCategory = wasteCategory;
+
+            _mockJourneyService.Setup(service => service.GetWasteRecordNote(It.IsAny<int>())).ReturnsAsync(expectedDto);
+
+            //Act
+            var result = await _journeyController.GetWasteRecordNote(validJourneyId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            var okResult = result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+
+            var actualDto = okResult.Value as NoteDto;
+            Assert.IsNotNull(actualDto);
+            Assert.AreEqual(expectedDto, actualDto);
+        }
+
     }
 }

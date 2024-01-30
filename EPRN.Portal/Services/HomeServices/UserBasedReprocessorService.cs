@@ -1,18 +1,26 @@
-﻿using EPRN.Portal.Configuration;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
+using EPRN.Portal.Configuration;
 using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
-using Microsoft.AspNetCore.Mvc;
+using EPRN.Portal.ViewModels.Waste;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
-using static EPRN.Common.Constants.Strings;
+using System.Globalization;
 
 namespace EPRN.Portal.Services.HomeServices
 {
-    public class ReprocessorHomeService : BaseHomeService, IHomeService
+    public class UserBasedReprocessorService : UserBasedBaseService, IUserBasedService
     {
-        public ReprocessorHomeService(
-            IUrlHelper urlHelper,
-            IOptions<AppConfigSettings> configSettings) : base(urlHelper, configSettings)
+        public UserBasedReprocessorService(
+            IOptions<AppConfigSettings> configSettings,
+            IHttpJourneyService httpJourneyService,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor actionContextAccessor) 
+            : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
         {
         }
 
@@ -20,9 +28,7 @@ namespace EPRN.Portal.Services.HomeServices
         {
             var wasteCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_Waste_Link_RecordWaste, _urlHelper.ActionLink(
-                    Routes.Actions.Waste.RecordWaste, 
-                    Routes.Controllers.Waste) },
+                { HomePageResources.HomePage_Waste_Link_RecordWaste, "#" },
                 { HomePageResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#" }
             };
 
@@ -84,5 +90,58 @@ namespace EPRN.Portal.Services.HomeServices
         {
             return ConfigSettings.Value.DeductionAmount_Reprocessor;
         }
+
+        public override async Task<CYAViewModel> GetCheckAnswers(int journeyId)
+        {
+            var journeyDto = await _httpJourneyService.GetJourneyAnswers(journeyId);
+
+            if (journeyDto == null)
+                throw new NullReferenceException(nameof(journeyDto));
+
+            //if (string.IsNullOrWhiteSpace(journeyDto.DoneWaste) || !Enum.TryParse(journeyDto.DoneWaste, out DoneWaste doneWaste))
+            //    throw new NullReferenceException("WhatDoneWithWaste");
+
+            var viewModel = new CYAViewModel { JourneyId = journeyId, 
+                Completed = journeyDto.Completed.HasValue ? journeyDto.Completed.Value : false, 
+                DoneWaste = journeyDto.DoneWaste,
+                UserRole = UserRole.Reprocessor
+            };
+
+            if (journeyDto.DoneWaste == DoneWaste.ReprocessedIt)
+                GetAnswerForWasteReceivedAndReprocessed(viewModel, journeyDto);
+            else
+                GetAnswerForWasteSentOn(viewModel, journeyDto);
+
+            return viewModel;
+        }
+
+
+        #region check your answers
+
+        private void GetAnswerForWasteReceivedAndReprocessed(CYAViewModel vm, JourneyAnswersDto journey)
+        {
+            GetBaseAnswers(vm, journey);
+        }
+
+        private void GetAnswerForWasteSentOn(CYAViewModel vm, JourneyAnswersDto journey)
+        {
+            GetBaseAnswers(vm, journey);
+
+            vm.ReprocessorWhereWasteSentName = string.Empty;
+            vm.ReprocessorWhereWasteSentAddress = string.Empty;
+        }
+
+        private void GetBaseAnswers(CYAViewModel vm, JourneyAnswersDto journey)
+        {
+            vm.TypeOfWaste = journey.WasteSubType;
+            vm.BaledWithWire = journey.BaledWithWire.HasValue ? (journey.BaledWithWire.Value == true ? "Yes" : "No") : string.Empty;
+            vm.TonnageOfWaste = journey.Tonnes.ToString();
+            vm.TonnageAdjusted = journey.Adjustment.ToString();
+            vm.MonthReceived = journey.Month.HasValue ? (CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value)) : string.Empty;
+            vm.Note = journey.Note;
+        }
+
+        #endregion
+
     }
 }

@@ -1,9 +1,11 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Constants;
+using EPRN.Common.Enums;
 using EPRN.Portal.Helpers.Filters;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Routes = EPRN.Common.Constants.Strings.Routes;
 
@@ -17,10 +19,10 @@ namespace EPRN.Portal.Controllers
     public class WasteController : BaseController
     {
         private readonly IWasteService _wasteService;
-        private IHomeService _homeService;
+        private IUserBasedService _homeService;
 
         public WasteController(
-            IWasteService wasteService, 
+            IWasteService wasteService,
             IHomeServiceFactory homeServiceFactory)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
@@ -28,7 +30,6 @@ namespace EPRN.Portal.Controllers
             if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
             _homeService = homeServiceFactory.CreateHomeService();
             if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
-
         }
 
         [HttpGet]
@@ -56,6 +57,7 @@ namespace EPRN.Portal.Controllers
                 new { id = whatHaveYouDoneWaste.Id });
         }
 
+
         [HttpGet]
         [ActionName(Routes.Actions.Waste.Month)]
         public async Task<IActionResult> DuringWhichMonth(int? id)
@@ -74,8 +76,7 @@ namespace EPRN.Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.Id);
-
+                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId);
                 return View(model);
             }
 
@@ -137,7 +138,7 @@ namespace EPRN.Portal.Controllers
                 category.Value);
 
             return RedirectToAction(
-                Routes.Actions.Waste.Done, 
+                Routes.Actions.Waste.ReProcessorExport, 
                 new { id });
         }
 
@@ -220,7 +221,7 @@ namespace EPRN.Portal.Controllers
                 return NotFound();
 
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
-            if(model.BaledWithWireDeductionPercentage == null)
+            if (model.BaledWithWireDeductionPercentage == null)
                 model.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
             return View(model);
@@ -255,7 +256,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
         {
             await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction( Routes.Actions.Waste.Month, new { id = reProcessorExportViewModel.JourneyId });
         }
 
         [HttpGet]
@@ -264,9 +265,9 @@ namespace EPRN.Portal.Controllers
         {
             if (!id.HasValue)
                 return NotFound();
-            
+
             var model = await _wasteService.GetNoteViewModel(id.Value);
-            
+
             return View(model);
         }
 
@@ -281,7 +282,68 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveNote(noteViewModel);
 
+            // if qs contains certain value then redirect to answers page
+            // else continue
+            return RedirectToAction("Index", "Home");    
+            //return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CheckYourAnswers(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var vm = await _homeService.GetCheckAnswers(id.Value);
+
+            switch (vm.UserRole)
+            {
+                case UserRole.None:
+                    throw new Exception("Could not determine user role");
+
+                case UserRole.Exporter:
+                    return View("CYAExporter", vm);
+
+                case UserRole.Reprocessor:
+                    {
+                        if (vm.DoneWaste == DoneWaste.ReprocessedIt)
+                            return View("CYAReprocessorReprocessedIt", vm);
+                        else if (vm.DoneWaste == DoneWaste.SentItOn)
+                            return View("CYAReprocessorSentItOn", vm);
+                        else
+                            throw new Exception("Could not determine what happened to the waste");
+                    }
+
+                default:
+                    throw new Exception("Could not determine user role");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckYourAnswers(CYAViewModel checkAnswersViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = await _homeService.GetCheckAnswers(checkAnswersViewModel.JourneyId);
+                return View(viewModel);
+            }
+
             return RedirectToAction("Index", "Home");
+        }
+
+
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            // Handle redirection to CheckYourAnswers if this is where we originally came from
+            if (context.HttpContext.Request.Query.ContainsKey(Strings.QueryStrings.ReturnToAnswers) &&
+                context.HttpContext.Request.Query[Strings.QueryStrings.ReturnToAnswers] == Strings.QueryStrings.ReturnToAnswersYes &&
+                context.Result is RedirectToActionResult)
+            {
+                var id = (context.Result as RedirectToActionResult).RouteValues["Id"].ToString();
+                context.Result = RedirectToAction("CheckYourAnswers", "Waste", new { id });
+            }
+
+            base.OnActionExecuted(context);
         }
     }
 }

@@ -117,43 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back" xml:space="preserve">
-    <value>[Welsh]Back</value>
+  <data name="BaledWithWire" xml:space="preserve">
+    <value>Baled with wire</value>
   </data>
-  <data name="ContinueBtn" xml:space="preserve">
-    <value>[Welsh]Continue</value>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>[Welsh]Create a &lt;PRNTYPE&gt; for:</value>
+  <data name="CreateBtn" xml:space="preserve">
+    <value>Create waste record</value>
   </data>
-  <data name="CreateWithReplace" xml:space="preserve">
-    <value>[Welsh]Create a &lt;PRNTYPE&gt; for:</value>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>You must complete all questions before creating your waste record</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>[Welsh]Home</value>
+  <data name="MaterialType" xml:space="preserve">
+    <value>What is the material type?</value>
   </data>
-  <data name="MustBeANumber" xml:space="preserve">
-    <value>[Welsh]Please enter a valid numerical value</value>
+  <data name="MonthReceived" xml:space="preserve">
+    <value>Month the waste was received</value>
   </data>
-  <data name="OppositeLanguage" xml:space="preserve">
-    <value>English</value>
+  <data name="MonthWasteExported" xml:space="preserve">
+    <value>When the waste was exported</value>
   </data>
-  <data name="PERN" xml:space="preserve">
-    <value>[Welsh]PERN</value>
+  <data name="Note" xml:space="preserve">
+    <value>Note (optional)</value>
   </data>
-  <data name="PRN" xml:space="preserve">
-    <value>[Welsh]PRN</value>
+  <data name="ReprocessorResentPageHeader" xml:space="preserve">
+    <value>Check your answers before creating this waste record</value>
   </data>
-  <data name="RecordingFor" xml:space="preserve">
-    <value>[Welsh]Recording for:</value>
+  <data name="ReprocessorWhereWasteSentAddress" xml:space="preserve">
+    <value>Address of the reprocessor where the waste was sent</value>
   </data>
-  <data name="SkipQuestionLink" xml:space="preserve">
-    <value>[Welsh]Skip question</value>
+  <data name="ReprocessorWhereWasteSentName" xml:space="preserve">
+    <value>Name of the reprocessor where the waste was sent</value>
   </data>
-  <data name="String" xml:space="preserve">
-    <value>[Welsh]There is a problem</value>
+  <data name="Title" xml:space="preserve">
+    <value>Check your answers before creating this waste record</value>
   </data>
-  <data name="UnknownWasteType" xml:space="preserve">
-    <value>[Welsh]&lt;UNKNOWN WASTE TYPE&gt;</value>
+  <data name="TonnageAdjusted" xml:space="preserve">
+    <value>Tonnage adjusted for deductions</value>
+  </data>
+  <data name="TonnageOfWaste" xml:space="preserve">
+    <value>Tonnage of waste</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="TypeOfWaste" xml:space="preserve">
+    <value>Type of waste</value>
   </data>
 </root>

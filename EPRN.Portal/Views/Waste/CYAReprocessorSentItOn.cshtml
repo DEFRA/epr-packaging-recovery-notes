@@ -1,0 +1,160 @@
+﻿@using EPRN.Common.Enums;
+
+@model CYAViewModel
+
+@{
+    ViewData["Title"] = CYAResources.Title;
+
+    // create the route data for returning to previous pages and showing that
+    // completing those redirects back here
+    var queryStringRouteData = new Dictionary<string, string>
+    {
+        { "Id", Model.JourneyId.ToString() },
+        { Strings.QueryStrings.ReturnToAnswers, Strings.QueryStrings.ReturnToAnswersYes }
+    };
+}
+
+@if (Model.Completed)
+{
+    <h1 class="govuk-heading-l">@CYAResources.Title</h1>
+
+    <table class="govuk-table">
+        <tbody class="govuk-table__body">
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.ReprocessorWhereWasteSentName
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.ReprocessorWhereWasteSentName
+                </td>
+                <td class="govuk-table__cell">
+                    <a asp-action="CheckYourAnswers"
+                       asp-controller="Waste"
+                       asp-area=""
+                       asp-all-route-data=queryStringRouteData
+                       asp-route-action="check">@CYAResources.Change</a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.ReprocessorWhereWasteSentAddress
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.ReprocessorWhereWasteSentAddress
+                </td>
+                <td class="govuk-table__cell">
+                    <a asp-action="CheckYourAnswers"
+                       asp-controller="Waste"
+                       asp-area=""
+                       asp-all-route-data=queryStringRouteData
+                       asp-route-action="check">@CYAResources.Change</a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.TypeOfWaste
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.TypeOfWaste
+                </td>
+                <td class="govuk-table__cell">
+                    <a asp-action="SubTypes"
+                       asp-controller="Waste"
+                       asp-area=""
+                       asp-all-route-data=queryStringRouteData
+                       asp-route-action="check">@CYAResources.Change</a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.BaledWithWire
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.BaledWithWire
+                </td>
+                <td class="govuk-table__cell">
+                    <a asp-action="Baled"
+                       asp-controller="Waste"
+                       asp-area=""
+                       asp-all-route-data=queryStringRouteData
+                       asp-route-action="check">@CYAResources.Change</a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.TonnageOfWaste
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.TonnageOfWaste
+                </td>
+                <td class="govuk-table__cell">
+                    <a asp-action="Tonnes"
+                       asp-controller="Waste"
+                       asp-area=""
+                       asp-all-route-data=queryStringRouteData
+                       asp-route-action="check">@CYAResources.Change</a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.TonnageAdjusted
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.TonnageAdjusted
+                </td>
+                <td class="govuk-table__cell">
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.MonthReceived
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.MonthReceived
+                </td>
+                <td class="govuk-table__cell">
+                    <a asp-action="Month"
+                       asp-controller="Waste"
+                       asp-area=""
+                       asp-all-route-data=queryStringRouteData
+                       asp-route-action="check">@CYAResources.Change</a>
+                </td>
+            </tr>
+
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    @CYAResources.Note
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.Note
+                </td>
+                <td class="govuk-table__cell">
+                    <a asp-action="Note"
+                       asp-controller="Waste"
+                       asp-area=""
+                       asp-all-route-data=queryStringRouteData
+                       asp-route-action="check">@CYAResources.Change</a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <form method="post">
+        <input type="hidden" value="@Model.JourneyId" />
+        <button class="govuk-button govuk-!-margin-right-4" data-module="govuk-button">
+            @CYAResources.CreateBtn
+        </button>
+    </form>
+}
+else
+{
+    <partial name="_ErrorSummaryPanel" model="@CYAResources.ErrorMessage" />
+}

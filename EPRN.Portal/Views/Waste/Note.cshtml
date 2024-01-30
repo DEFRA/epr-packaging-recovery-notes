@@ -1,4 +1,7 @@
 ﻿@using EPRN.Common.Enums;
+@using EPRN.Portal.Services.Interfaces;
+
+@inject IUserRoleService userRoleService
 
 @model NoteViewModel
 
@@ -7,7 +10,7 @@
 }
 
 <partial name="_ValidationSummary" />
-<partial name="_WasteTypeName" />
+<partial name="_CreateWasteTypeName" for="@Model.WasteCategory" />
 <form method="post">
     <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
         <div class="govuk-form-group">
@@ -17,7 +20,18 @@
                 </label>
             </h1>
             <div id="with-hint-hint" class="govuk-hint">
-                @NoteResources.HintText
+                @switch (Model.WasteCategory)
+                {
+                    case Category.Reprocessor:
+                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", MasterResources.PRN);
+                        break;
+                    case Category.Exporter:
+                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", MasterResources.PERN);
+                        break;
+                    case Category.Unknown:
+                        @NoteResources.HintTextWithReplace.Replace("<PRNTYPE>", MasterResources.UnknownWasteType);
+                        break;
+                }              
             </div>
             <p class="govuk-error-message">
                 <span asp-validation-for="NoteContent"></span>
@@ -32,4 +46,5 @@
     <button class="govuk-button" data-module="govuk-button" type="submit">
         @MasterResources.ContinueBtn
     </button>
+    <a asp-action="Note">@MasterResources.SkipQuestionLink</a>
 </form>

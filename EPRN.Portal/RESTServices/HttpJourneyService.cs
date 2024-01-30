@@ -3,7 +3,6 @@ using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
-using EPRN.Portal.ViewModels;
 
 namespace EPRN.Portal.RESTServices
 {
@@ -24,6 +23,11 @@ namespace EPRN.Portal.RESTServices
             return await Post<int>($"Create/Material/{materialId}/Category/{category}");
         }
 
+        public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
+        {
+            return await Get<JourneyAnswersDto>($"{journeyId}/JourneyAnswers");
+        }
+
         public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
         {
             return await Get<WasteRecordStatusDto>($"{journeyId}/status");
@@ -32,6 +36,11 @@ namespace EPRN.Portal.RESTServices
         public async Task<QuarterlyDatesDto> GetQuarterlyMonths(int journeyId, int currentMonth, bool hasSubmittedPreviousQuarterReturn)
         {
             return await Get<QuarterlyDatesDto>($"{journeyId}/QuarterlyDates/{currentMonth}/{hasSubmittedPreviousQuarterReturn}");
+        }
+
+        public async Task<int?> GetSelectedMonth(int journeyId)
+        {
+            return await Get<int?>($"{journeyId}/Month");
         }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
@@ -104,9 +113,9 @@ namespace EPRN.Portal.RESTServices
             await Post($"{journeyId}/Note/{noteContent}");
         }
 
-        public async Task<string?> GetNote(int journeyId)
+        public async Task<NoteDto> GetNote(int journeyId)
         {
-            return await Get<string?>($"{journeyId}/Note");
+            return await Get<NoteDto>($"{journeyId}/Note");
         }
 
         public async Task<Category> GetCategory(int journeyId)
