@@ -5,6 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\packaging-recovery-notes</DockerfileContext>
+    <UserSecretsId>6dd221a1-a913-4aad-afc4-c0ba36258585</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
