@@ -115,7 +115,7 @@ namespace EPRN.PRNS.API.Repositories
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
 
             var prns = await _prnContext.PRN
-                .Skip((request.Page.Value - 1) * request.PageSize)
+                .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToListAsync();
 
@@ -134,7 +134,7 @@ namespace EPRN.PRNS.API.Repositories
                 Pagination = new PaginationDto
                 {
                     TotalItems = totalRecords,
-                    CurrentPage = request.Page.Value,
+                    CurrentPage = request.Page,
                     ItemsPerPage = recordsPerPage,
                     TotalPages = totalPages,
                 }

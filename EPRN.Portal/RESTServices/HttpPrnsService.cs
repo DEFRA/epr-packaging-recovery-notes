@@ -54,8 +54,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
-            return await Get<SentPrnsDto>(
-                $"GetSentPrns/Page/{request.Page}/PageSize/{request.PageSize}/SearchTerm/{request.SearchTerm}/FilterBy/{request.FilterBy}/SortBy/{request.SortBy}");
+            return await Get<SentPrnsDto>($"GetSentPrns?page={request.Page}&searchTerm={request.SearchTerm}&filterBy={request.FilterBy}&sortBy={request.SortBy}", false);
         }
     }
 }

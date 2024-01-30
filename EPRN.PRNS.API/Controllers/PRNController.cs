@@ -97,8 +97,8 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
-        [HttpGet("GetSentPrns/Page/{page=1}/SearchTerm/{searchTerm?}/FilterBy/{filterBy?}/SortBy/{sortBy?}")]
-        public async Task<IActionResult> GetSentPrns([FromRoute] GetSentPrnsDto request)
+        [HttpGet("/{page?}/{searchTerm?}/{filterBy?}/{sortBy?}")]
+        public async Task<IActionResult> GetSentPrns([FromQuery] GetSentPrnsDto request)
         {
             var sentPrnsDto = await _prnService.GetSentPrns(request);
             return Ok(sentPrnsDto);
