@@ -2,10 +2,12 @@
 using EPRN.Common.Data.DataModels;
 using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 using DoneWaste = EPRN.Common.Enums.DoneWaste;
 using Category = EPRN.Common.Enums.Category;
 
@@ -54,6 +56,11 @@ namespace EPRN.Waste.API.Services
         public async Task<bool> JourneyExists(int journeyId)
         {
             return await _wasteRepository.Exists(journeyId);
+        }
+
+        public async Task<int?> GetSelectedMonth(int journeyId)
+        {
+            return await _wasteRepository.GetSelectedMonth(journeyId);
         }
 
         public async Task SaveSelectedMonth(int journeyId, int selectedMonth)
@@ -106,7 +113,16 @@ namespace EPRN.Waste.API.Services
 
         public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
         {
-            return await _wasteRepository.GetBaledWithWire(journeyId);
+            var dto = new BaledWithWireDto { JourneyId = journeyId };
+
+            var journey = await _wasteRepository.GetWasteJourneyById_FullModel(journeyId);
+            if (journey != null)
+            {
+                dto.BaledWithWire = journey.BaledWithWire;
+                dto.BaledWithWireDeductionPercentage = journey.BaledWithWireDeductionPercentage;
+            }
+
+            return dto;
         }
 
         public async Task SaveBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
@@ -126,12 +142,34 @@ namespace EPRN.Waste.API.Services
 
         public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
         {
-            return await _wasteRepository.GetWasteSubTypeSelection(journeyId);
+            var journey = await _wasteRepository.GetWasteSubTypeSelection(journeyId);
+            if (journey == null)
+            {
+                throw new Exception(nameof(journey));
+            }
+
+            if (!journey.WasteSubTypeId.HasValue)
+            {
+                throw new Exception(nameof(journey));
+            }
+
+            var wasteSubTypeSelection = new WasteSubTypeSelectionDto
+            {
+                WasteSubTypeId = journey.WasteSubTypeId.Value,
+                Adjustment = journey.Adjustment
+            };
+
+            return wasteSubTypeSelection;
         }
 
         public async Task<string> GetWasteRecordNote(int journeyId)
         {
             return await _wasteRepository.GetWasteNote(journeyId);
+        }
+
+        public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
+        {
+            return await _wasteRepository.GetWasteJourneyAnswersById(journeyId);
         }
 
         public async Task SaveWasteRecordNote(int journeyId, string note)

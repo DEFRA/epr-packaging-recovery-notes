@@ -9,14 +9,14 @@ namespace EPRN.UnitTests.Portal.Controllers
     public class HomeControllerTests
     {
         private HomeController _homeController;
-        private Mock<IHomeService> _mockHomeService;
+        private Mock<IUserBasedService> _mockHomeService;
         private Mock<IHomeServiceFactory> _mockHomeServiceFactory;
 
 
         [TestInitialize]
         public void Init()
         {
-            _mockHomeService = new Mock<IHomeService>();
+            _mockHomeService = new Mock<IUserBasedService>();
             _mockHomeServiceFactory = new Mock<IHomeServiceFactory>();
             _mockHomeServiceFactory.Setup(s => s.CreateHomeService()).Returns(_mockHomeService.Object);
             _homeController = new HomeController(_mockHomeServiceFactory.Object);

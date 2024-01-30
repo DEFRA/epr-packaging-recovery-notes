@@ -4,6 +4,6 @@ namespace EPRN.Portal.Helpers.Interfaces
 {
     public interface IHomeServiceFactory
     {
-        IHomeService CreateHomeService();
+        IUserBasedService CreateHomeService();
     }
 }

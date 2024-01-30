@@ -83,7 +83,7 @@ namespace EPRN.Waste.API.Repositories
             await _wasteContext
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp => 
+                .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(wj => wj.Month, selectedMonth)
                 );
         }
@@ -163,7 +163,14 @@ namespace EPRN.Waste.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
-
+        public async Task<int?> GetSelectedMonth(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .Select(wj => wj.Month)
+                .SingleOrDefaultAsync();
+        }
         public async Task<DoneWaste?> GetDoneWaste(int journeyId)
         {
             return await _wasteContext
@@ -197,6 +204,27 @@ namespace EPRN.Waste.API.Repositories
                 .WasteJourney
                 .Where(w => w.Id == journeyId)
                 .Select(w => _mapper.Map<BaledWithWireDto>(w))
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<WasteJourney> GetWasteJourneyById_FullModel(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Include(x => x.WasteType)
+                .Include(x => x.WasteSubType)
+                .Where(wj => wj.Id == journeyId)
+                .SingleOrDefaultAsync();
+        }
+
+        public async Task<JourneyAnswersDto> GetWasteJourneyAnswersById(int journeyId)
+        {
+            return await _wasteContext
+                .WasteJourney
+                .Include(x => x.WasteType)
+                .Include(x => x.WasteSubType)
+                .Where(wj => wj.Id == journeyId)
+                .Select(x => _mapper.Map<JourneyAnswersDto>(x))
                 .SingleOrDefaultAsync();
         }
 

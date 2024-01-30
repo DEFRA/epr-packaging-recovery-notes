@@ -1,19 +1,25 @@
 ﻿using EPRN.Portal.Configuration;
+using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
 {
-    public abstract class BaseHomeService : IHomeService
+    public abstract class UserBasedBaseService : IUserBasedService
     {
         protected IOptions<AppConfigSettings> ConfigSettings;
-        protected IUrlHelper _urlHelper;
+        protected IHttpJourneyService _httpJourneyService;
+        protected IUrlHelper UrlHelper;
 
-        public BaseHomeService(
-            IUrlHelper urlHelper,
-            IOptions<AppConfigSettings> configSettings)
+        public UserBasedBaseService(IOptions<AppConfigSettings> configSettings, 
+            IHttpJourneyService httpJourneyService,
+            IUrlHelperFactory urlHelperFactory, 
+            IActionContextAccessor actionContextAccessor)
         {
             if (configSettings.Value == null)
                 throw new ArgumentNullException(nameof(configSettings));
@@ -27,9 +33,12 @@ namespace EPRN.Portal.Services
             if (configSettings.Value.DeductionAmount_ExporterAndReprocessor == null)
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount_ExporterAndReprocessor));
 
-            _urlHelper = urlHelper ?? throw new ArgumentNullException(nameof(urlHelper));
-
             ConfigSettings = configSettings;
+
+            UrlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
+
+            _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(_httpJourneyService));
+
         }
 
         public virtual async Task<HomePageViewModel> GetHomePage()
@@ -62,5 +71,6 @@ namespace EPRN.Portal.Services
 
         public abstract double? GetBaledWithWireDeductionPercentage();
 
+        public abstract Task<CYAViewModel> GetCheckAnswers(int journeyId);
     }
 }
