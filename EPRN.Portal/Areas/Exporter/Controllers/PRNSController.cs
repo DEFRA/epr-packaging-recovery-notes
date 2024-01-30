@@ -12,7 +12,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
     [Area(Routes.Areas.Exporter)]
     public class PRNSController : BaseController
     {
-        private IPRNService _prnService;
+        private readonly IPRNService _prnService;
 
         private Category Category => Category.Exporter;
 
@@ -114,6 +114,50 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         [HttpGet]
         public async Task<IActionResult> WhatToDo(int? id)
         {
+            return View();
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public async Task<IActionResult> PRNCancellation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetCancelViewModel(id.Value);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public async Task<IActionResult> PRNCancellation(CancelViewModel cancelViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(await _prnService.GetCancelViewModel(cancelViewModel.Id));
+
+            await _prnService.CancelPRN(cancelViewModel);
+
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Cancelled,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new { area = Routes.Areas.Exporter, id = cancelViewModel.Id });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.RequestCancel)]
+        public async Task<IActionResult> RequestCancellation(int? id)
+        {
+            // *** Stubbed method ***
+            /*
+             * For a user to request from the recipient to Cancel the PRN
+             */
+            return null;
+        }
+
+        [HttpGet]
+        public IActionResult Cancelled(int? id)
+        {
+            // *** Stubbed method ***
             return View();
         }
 

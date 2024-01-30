@@ -135,8 +135,7 @@ namespace EPRN.Portal.Services
                 {
                     Sites = new List<SiteSectionViewModel>
                     {
-                        new SiteSectionViewModel
-                        {
+                        new() {
                             SiteName = "123 Letsbe Avenue, Policeville",
                             SiteMaterials = new Dictionary<int, string>
                             {
@@ -150,16 +149,14 @@ namespace EPRN.Portal.Services
                 {
                     Sites = new List<SiteSectionViewModel>
                     { 
-                        new SiteSectionViewModel
-                        {
+                        new() {
                             SiteName = "Lansbourne Trading Estate, Edinburgh",
                             SiteMaterials = new Dictionary<int, string>
                             {
                                 { 2, materialTypes[2] }
                             }
                         },
-                        new SiteSectionViewModel
-                        {
+                        new() {
                             SiteName = "1 Banburgh Drive, Cardiff",
                             SiteMaterials = new Dictionary<int, string>
                             {

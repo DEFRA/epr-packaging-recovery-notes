@@ -263,4 +263,11 @@
     <ProjectReference Include="..\EPRN.Common\EPRN.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Areas\Exporter\PRNS\Cancel.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

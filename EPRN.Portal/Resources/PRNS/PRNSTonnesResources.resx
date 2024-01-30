@@ -142,6 +142,6 @@
     <value>Tonnage for this PRN</value>
   </data>
   <data name="WasteBalance" xml:space="preserve">
-    <value>Your waste balanace is:</value>
+    <value>Your waste balance is:</value>
   </data>
 </root>

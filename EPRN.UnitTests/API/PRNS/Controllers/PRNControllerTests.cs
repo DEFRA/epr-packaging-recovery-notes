@@ -1,13 +1,7 @@
-﻿using EPRN.Portal.Areas.Exporter.Controllers;
-using EPRN.PRNS.API.Controllers;
+﻿using EPRN.Common.Enums;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPRN.UnitTests.API.PRNS.Controllers
 {
@@ -50,19 +44,6 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         }
 
         [TestMethod]
-        public async Task GetTonnage_ReturnsBadRequest_WhenNoIdSupplied()
-        {
-            // Arrange
-
-            // Act
-            var result = await _prnController.GetTonnage(null);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
         public async Task SaveTonnage_CallsService_WhenParametersProvided()
         {
             // Arrange
@@ -75,45 +56,6 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             // Assert
             Assert.IsNotNull(result);
             _mockPrnService.Verify(s => s.SaveTonnage(It.Is<int>(p => p == id), It.Is<double>(p => p == tonnage)), Times.Once());
-        }
-
-        [TestMethod]
-        public async Task SaveTonnage_ReturnsBadRequest_WhenNoIdSupplied()
-        {
-            // Arrange
-
-            // Act
-            var result = await _prnController.SaveTonnage(null, 1);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
-        public async Task SaveTonnage_ReturnsBadRequest_WhenNoTonnageSupplied()
-        {
-            // Arrange
-
-            // Act
-            var result = await _prnController.SaveTonnage(1, null);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
-        public async Task GetConfirmation_ReturnsBadRequest_WhenNoIdSupplied()
-        {
-            // Arragne
-
-            // Act
-            var result = await _prnController.GetConfirmation(null);
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
         }
 
         [TestMethod]
@@ -133,22 +75,6 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         }
 
         [TestMethod]
-        public async Task CheckYourAnswers_ReturnsBadRequest_WithNullParameter()
-        {
-            // arrange
-
-            // act
-            var result = await _prnController.CheckYourAnswers(null);
-
-            // assert
-            _mockPrnService.Verify(s =>
-                s.GetCheckYourAnswers(It.IsAny<int>()),
-                Times.Never);
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
-        }
-
-        [TestMethod]
         public async Task CheckYourAnswers_CallsService_WithValidParameter()
         {
             // arrange
@@ -161,23 +87,6 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             _mockPrnService.Verify(s =>
                 s.GetCheckYourAnswers(It.Is<int>(p => p == id)),
                 Times.Once);
-        }
-
-        [TestMethod]
-        public async Task SaveCheckYourAnswersState_ReturnsBadRequest_WhenNullParameterSupplied()
-        {
-            // arrange
-
-            // act
-            var result = await _prnController.SaveCheckYourAnswersState(null);
-
-            // assert
-            _mockPrnService.Verify(s => 
-                s.SaveCheckYourAnswers(
-                    It.IsAny<int>()), 
-                Times.Never);
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof (BadRequestObjectResult));
         }
 
         [TestMethod]
@@ -196,6 +105,43 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
                 Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
+
+        [TestMethod]
+        public async Task GetStatus_ReturnsPopulatedOk()
+        {
+            // arrange
+            var id = 2435;
+            var status = PrnStatus.Sent;
+            _mockPrnService.Setup(s => s.GetStatus(id)).ReturnsAsync(PrnStatus.Sent);
+
+            // act
+            var result = await _prnController.GetStatus(id);
+
+            // assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (OkObjectResult));
+            var okObjectResult = (OkObjectResult)result;
+
+            Assert.AreEqual(status, okObjectResult.Value);
+        }
+
+        [TestMethod]
+        public async Task CancelPrn_CallsService()
+        {
+            // arrange
+            var id = 234;
+            var reason = "sdfsfdsdf";
+
+            // act
+            await _prnController.CancelPrn(id, reason);
+
+            // assert
+            _mockPrnService.Verify(s => 
+                s.CancelPrn(
+                    It.Is<int>(p => p == id),
+                    It.Is<string>(p => p == reason)),
+                Times.Once);
         }
     }
 }

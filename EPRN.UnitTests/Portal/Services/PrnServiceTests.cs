@@ -101,5 +101,49 @@ namespace EPRN.UnitTests.Portal.Services
                     It.Is<int>(p => p == id)), 
                 Times.Once);
         }
+
+        [TestMethod]
+        public async Task GetCancelViewModel_CallsService_Successfully()
+        {
+            // arrange
+            var id = 123;
+            var status = PrnStatus.Sent;
+            _mockHttpPrnsService.Setup(s => s.GetStatus(id)).ReturnsAsync(status);
+
+            // act
+           var viewModel = await _prnService.GetCancelViewModel(id);
+
+            // assert
+            _mockHttpPrnsService.Verify(s => 
+                s.GetStatus(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+            Assert.IsNotNull(viewModel);
+            Assert.AreEqual(status, viewModel.Status);
+            Assert.AreEqual(id, viewModel.Id);
+        }
+
+        [TestMethod]
+        public async Task CancelPRN_CallsService_Successfully()
+        {
+            // arrange
+            var id = 432;
+            var reason = "fsdgdsfg";
+            var viewModel = new CancelViewModel
+            {
+                Id = id,
+                CancelReason = reason,
+            };
+
+            // act
+            await _prnService.CancelPRN(viewModel);
+
+            // assert
+            _mockHttpPrnsService.Verify(s => 
+                s.CancelPRN(
+                    It.Is<int>(p => p == id),
+                    It.Is<string>(p => p == reason)),
+                Times.Once);
+        }
     }
 }

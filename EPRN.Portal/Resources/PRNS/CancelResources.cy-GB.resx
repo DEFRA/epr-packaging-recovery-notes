@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="HintInfo" xml:space="preserve">
+    <value>[Welsh]You can enter uo to 200 characters</value>
+  </data>
+  <data name="PERNAlreadyCancelled" xml:space="preserve">
+    <value>[Welsh]This PERN has already been accepted</value>
+  </data>
+  <data name="PRNAlreadyCancelled" xml:space="preserve">
+    <value>[Welsh]This PRN has already been accepted</value>
+  </data>
   <data name="PRNCancelQuestion" xml:space="preserve">
     <value>[Welsh]Why do you want to cancel this PRN?</value>
+  </data>
+  <data name="RequestToCancelPERN" xml:space="preserve">
+    <value>[Welsh]Request to cancel this PERN</value>
+  </data>
+  <data name="RequestToCancelPRN" xml:space="preserve">
+    <value>[Welsh]Request to cancel this PRN</value>
   </data>
 </root>

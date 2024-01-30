@@ -12,7 +12,7 @@ namespace EPRN.Portal.Helpers.Filters
     /// </summary>
     public class WasteTypeActionFilter : IActionFilter
     {
-        private IWasteService _wasteService;
+        private readonly IWasteService _wasteService;
 
         public WasteTypeActionFilter(
             IWasteService wasteService)

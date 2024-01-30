@@ -8,8 +8,8 @@ namespace EPRN.Portal.Services
 {
     public class PRNService : IPRNService
     {
-        private IMapper _mapper;
-        private IHttpPrnsService _httpPrnsService;
+        private readonly IMapper _mapper;
+        private readonly IHttpPrnsService _httpPrnsService;
 
         public PRNService(
             IMapper mapper,
@@ -140,6 +140,7 @@ namespace EPRN.Portal.Services
         {
             return new CancelViewModel
             {
+                Id = id,
                 Status = await _httpPrnsService.GetStatus(id)
             };
         }

@@ -61,6 +61,33 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel PERN.
+        /// </summary>
+        public static string CancelPERNTitle {
+            get {
+                return ResourceManager.GetString("CancelPERNTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel PRN.
+        /// </summary>
+        public static string CancelPRNTitle {
+            get {
+                return ResourceManager.GetString("CancelPRNTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can enter uo to 200 characters.
+        /// </summary>
+        public static string HintInfo {
+            get {
+                return ResourceManager.GetString("HintInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The maximum length of the cancellation reason is 200 characters.
         /// </summary>
         public static string MaxLengthMessage {
@@ -70,11 +97,29 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This PERN has already been accepted.
+        /// </summary>
+        public static string PERNAlreadyCancelled {
+            get {
+                return ResourceManager.GetString("PERNAlreadyCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Why do you want to cancel this PERN?.
         /// </summary>
         public static string PERNCancelQuestion {
             get {
                 return ResourceManager.GetString("PERNCancelQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PRN has already been accepted.
+        /// </summary>
+        public static string PRNAlreadyCancelled {
+            get {
+                return ResourceManager.GetString("PRNAlreadyCancelled", resourceCulture);
             }
         }
         
@@ -93,6 +138,24 @@ namespace EPRN.Portal.Resources.PRNS {
         public static string ReasonRequired {
             get {
                 return ResourceManager.GetString("ReasonRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to cancel this PERN.
+        /// </summary>
+        public static string RequestToCancelPERN {
+            get {
+                return ResourceManager.GetString("RequestToCancelPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to cancel this PRN.
+        /// </summary>
+        public static string RequestToCancelPRN {
+            get {
+                return ResourceManager.GetString("RequestToCancelPRN", resourceCulture);
             }
         }
     }
