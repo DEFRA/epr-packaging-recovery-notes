@@ -124,7 +124,7 @@ namespace EPRN.PRNS.API.Repositories
                 Rows = prns.Select(prn => new PrnDto
                 {
                     PrnNumber = prn.Reference,
-                    //Material = prn.Material,
+                    //Material = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToShortDateString(),
                     Tonnes = prn.Tonnes.Value,
