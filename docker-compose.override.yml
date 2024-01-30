@@ -15,10 +15,9 @@ services:
   wasteapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:5000
+      - ASPNETCORE_URLS=http://+:5000
     ports:
-      - "5000"
-      - "443"
+      - "5000:5000"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -28,10 +27,9 @@ services:
   prnapi:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:5001
+      - ASPNETCORE_URLS=http://+:5001
     ports:
-      - "5001"
-      - "443"
+      - "5001:5001"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

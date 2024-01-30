@@ -7,9 +7,9 @@
             "eprn.waste.api": "StartDebugging",
             "eprn.portal": "StartDebugging"
         },
-        "environmentVariables": {
-            "ASPNETCORE_ENVIRONMENT": "Prod"
-        }
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
     }
   }
 }
