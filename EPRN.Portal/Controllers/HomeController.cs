@@ -6,7 +6,7 @@ namespace EPRN.Portal.Controllers
 {
     public class HomeController : BaseController
     {
-        private IHomeService _homeService;
+        private IUserBasedService _homeService;
 
         public HomeController(IHomeServiceFactory homeServiceFactory)
         {

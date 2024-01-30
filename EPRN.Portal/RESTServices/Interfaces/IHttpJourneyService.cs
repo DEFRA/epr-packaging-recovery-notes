@@ -9,7 +9,11 @@ namespace EPRN.Portal.RESTServices.Interfaces
             int materialId,
             Category category);
 
+        Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
+
         Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId);
+
+        Task<int?> GetSelectedMonth(int journeyId);
 
         Task<QuarterlyDatesDto> GetQuarterlyMonths(int journeyId, int currentMonth, bool hasSubmittedPreviousQuarterReturn);
 

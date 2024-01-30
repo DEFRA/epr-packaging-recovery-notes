@@ -14,6 +14,8 @@ using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
@@ -74,12 +76,13 @@ namespace EPRN.Portal.Helpers.Extensions
                 .AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>))
                 .AddSingleton<IQueryStringHelper, QueryStringHelper>()
                 .AddTransient<IWasteService, WasteService>()
-                .AddTransient<IHomeService, ExporterAndReprocessorHomeService>()
-                .AddTransient<IHomeService, ExporterHomeService>()
-                .AddTransient<IHomeService, ReprocessorHomeService>()
+                .AddTransient<IUserBasedService, ExporterAndReprocessorHomeService>()
+                .AddTransient<IUserBasedService, UserBasedExporterService>()
+                .AddTransient<IUserBasedService, UserBasedReprocessorService>()
                 .AddTransient<IHomeServiceFactory, HomeServiceFactory>()
                 .AddSingleton<IUserRoleService, UserRoleService>() // must be available through lifetime of the system
                 .AddSingleton<BackButtonViewModel>()
+                .AddSingleton<IActionContextAccessor, ActionContextAccessor>()
                 .AddTransient<IHttpWasteService>(s =>
                     // create a new http service using the configuration for restful services and a http client factory
                     new HttpWasteService(
@@ -107,6 +110,12 @@ namespace EPRN.Portal.Helpers.Extensions
                 .AddTransient<IPRNService, PRNService>()
                 .AddScoped<WasteTypeActionFilter>()
                 .AddScoped<WasteCommonViewModel>(); // this needs to be available throughout the whole request, therefore needs to be scoped
+
+            services.AddScoped<IUrlHelper>(x => {
+                var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = x.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+            });
 
             // move where area views live so they exist in the same parent location as
             // as other views
