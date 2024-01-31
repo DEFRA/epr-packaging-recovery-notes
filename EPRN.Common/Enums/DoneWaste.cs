@@ -3,6 +3,7 @@
     public enum DoneWaste
     {
         ReprocessedIt,
-        SentItOn
+        SentItOn,
+        ExportedIt
     }
 }
