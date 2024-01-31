@@ -19,7 +19,6 @@ namespace EPRN.Portal.Services
         private readonly IMapper _mapper;
         private readonly IHttpWasteService _httpWasteService;
         private readonly IHttpJourneyService _httpJourneyService;
-        private readonly ILocalizationHelper<WhichQuarterResources> _localizationHelper;
 
         public WasteService(
             IMapper mapper,
@@ -31,7 +30,6 @@ namespace EPRN.Portal.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
             _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(httpJourneyService));
-            _localizationHelper = localizationHelper ?? throw new ArgumentNullException(nameof(localizationHelper));
         }
 
         public async Task<int> CreateJourney(
@@ -68,7 +66,7 @@ namespace EPRN.Portal.Services
 
             var viewModel = CreateDuringWhichMonthRequestViewModel(whatHaveYouDoneWaste);
 
-            viewModel.JourneyId = journeyId;
+            viewModel.Id = journeyId;
             viewModel.WhatHaveYouDone = whatHaveYouDoneWaste;
             viewModel.Category = category;
             viewModel.Notification = quarterDates.Notification;
@@ -142,7 +140,7 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(viewModel.SelectedMonth));
 
             await _httpJourneyService.SaveSelectedMonth(
-                viewModel.JourneyId,
+                viewModel.Id,
                 viewModel.SelectedMonth.Value);
         }
 
@@ -224,7 +222,7 @@ namespace EPRN.Portal.Services
 
             return new WasteSubTypesViewModel
             {
-                JourneyId = journeyId,
+                Id = journeyId,
                 WasteSubTypeOptions = wasteSubTypeOptions,
                 SelectedWasteSubTypeId = selectedWasteSubTypeTask.Result.WasteSubTypeId,
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
@@ -245,7 +243,7 @@ namespace EPRN.Portal.Services
             (int wasteSubTypeId, double adjustment) = ProcessSubTypePayload(wasteSubTypesViewModel);
 
             await _httpJourneyService.SaveSelectedWasteSubType(
-                wasteSubTypesViewModel.JourneyId,
+                wasteSubTypesViewModel.Id,
                 wasteSubTypeId, adjustment);
         }
         private (int wasteSubTypeId, double adjustment) ProcessSubTypePayload(WasteSubTypesViewModel wasteSubTypesViewModel)
@@ -271,7 +269,7 @@ namespace EPRN.Portal.Services
 
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel()
             {
-                JourneyId = journeyId,
+                Id = journeyId,
                 // We're not part of a journey yet, so this can't really be hooked up
                 //WasteType = await _httpWasteService.GetWasteType(journeyId)
             };
@@ -287,7 +285,7 @@ namespace EPRN.Portal.Services
             if (whatHaveYouDoneWasteViewModel.WhatHaveYouDone == null)
                 throw new ArgumentNullException(nameof(whatHaveYouDoneWasteViewModel.WhatHaveYouDone));
 
-            await _httpJourneyService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWasteViewModel.JourneyId, whatHaveYouDoneWasteViewModel.WhatHaveYouDone.Value);
+            await _httpJourneyService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWasteViewModel.Id, whatHaveYouDoneWasteViewModel.WhatHaveYouDone.Value);
         }
 
         public async Task<WasteRecordStatusViewModel> GetWasteRecordStatus(int journeyId)
@@ -300,7 +298,7 @@ namespace EPRN.Portal.Services
         {
             return new ExportTonnageViewModel
             {
-                JourneyId = journeyId,
+                Id = journeyId,
                 ExportTonnes = await _httpJourneyService.GetWasteTonnage(journeyId)
             };
         }
@@ -314,7 +312,7 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(exportTonnageViewModel.ExportTonnes));
 
             await _httpJourneyService.SaveTonnage(
-                exportTonnageViewModel.JourneyId,
+                exportTonnageViewModel.Id,
                 exportTonnageViewModel.ExportTonnes.Value);
         }
 
@@ -338,7 +336,7 @@ namespace EPRN.Portal.Services
 
 
             await _httpJourneyService.SaveBaledWithWire(
-                baledWireModel.JourneyId,
+                baledWireModel.Id,
                 baledWireModel.BaledWithWire.Value,
                 baledWireModel.BaledWithWire.Value == true ? baledWireModel.BaledWithWireDeductionPercentage.Value : 0);
         }
@@ -347,7 +345,7 @@ namespace EPRN.Portal.Services
         {
             var reProcessorExport = new ReProcessorExportViewModel()
             {
-                JourneyId = journeyId,
+                Id = journeyId,
             };
 
             return reProcessorExport;
@@ -359,20 +357,20 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(reProcessorExportViewModel));
 
             if (reProcessorExportViewModel == null)
-                throw new ArgumentNullException(nameof(reProcessorExportViewModel.JourneyId));
+                throw new ArgumentNullException(nameof(reProcessorExportViewModel.Id));
 
             if (reProcessorExportViewModel.SelectedSite == null)
                 throw new ArgumentNullException(nameof(reProcessorExportViewModel.SelectedSite));
 
-            await _httpJourneyService.SaveReprocessorExport(reProcessorExportViewModel.JourneyId, reProcessorExportViewModel.SelectedSite.Value);
+            await _httpJourneyService.SaveReprocessorExport(reProcessorExportViewModel.Id, reProcessorExportViewModel.SelectedSite.Value);
         }
 
         public async Task<NoteViewModel> GetNoteViewModel(int journeyId)
         {
             var noteViewModel = new NoteViewModel
             {
-                JourneyId = journeyId,
-                NoteContent = await _httpJourneyService.GetNote(journeyId)
+                Id = journeyId,
+                NoteContent =   _httpJourneyService.GetNote(journeyId).Result.Note
             };
 
             return noteViewModel;
@@ -387,7 +385,7 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(noteViewModel.NoteContent));
 
             await _httpJourneyService.SaveNote(
-                noteViewModel.JourneyId,
+                noteViewModel.Id,
                 noteViewModel.NoteContent);
         }
 
