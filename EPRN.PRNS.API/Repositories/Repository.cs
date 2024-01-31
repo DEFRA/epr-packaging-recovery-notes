@@ -111,24 +111,32 @@ namespace EPRN.PRNS.API.Repositories
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
             var recordsPerPage = request.PageSize;
-            var totalRecords = await _prnContext.PRN.CountAsync();
-            var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
 
             var prns = _prnContext.PRN
-                .Include(x => x.WasteType)
-                .Skip((request.Page - 1) * request.PageSize)
-                .Take(request.PageSize);
+                .Include(repo => repo.WasteType)
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
-                prns.Where(e => e.SentTo.Contains(
-                    request.SearchTerm, StringComparison.OrdinalIgnoreCase) ||
-                    e.Reference.Contains(request.SearchTerm, StringComparison.OrdinalIgnoreCase));
+                prns = prns.Where(e =>
+                    EF.Functions.Like(e.Reference, $"%{request.SearchTerm}%") ||
+                    EF.Functions.Like(e.SentTo, $"%{request.SearchTerm}%"));
             }
+
+            // get the count BEFORE paging
+            var totalRecords = await prns.CountAsync();
+
+            prns = prns
+                .Skip((request.Page - 1) * request.PageSize)
+                .Take(request.PageSize);
+
+            var orderedList = prns.OrderBy(e => e.Reference);
+
+            var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
 
             return new SentPrnsDto()
             {
-                Rows = await prns.Select(prn => new PrnDto
+                Rows = await orderedList.Select(prn => new PrnDto
                 {
                     PrnNumber = prn.Reference,
                     //Material = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,

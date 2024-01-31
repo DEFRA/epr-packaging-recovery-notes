@@ -36,10 +36,11 @@ namespace EPRN.Portal.Controllers
             return View(viewModel);
         }
 
-        [HttpGet("ViewSentPrns/{page?}/{searchTerm?}/{filterBy?}/{sortBy?}")]
+        [HttpGet]
         public async Task<IActionResult> ViewSentPrns([FromQuery] GetSentPrnsViewModel request)
         {
             var viewModel = await _prnService.GetViewSentPrnsViewModel(request);
+
             return View(viewModel);
         }
 

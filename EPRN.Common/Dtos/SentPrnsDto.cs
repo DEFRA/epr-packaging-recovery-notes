@@ -2,7 +2,7 @@
 {
     public class SentPrnsDto
     {
-        public List<PrnDto> Rows { get; set; }
+        public IEnumerable<PrnDto> Rows { get; set; }
 
         public PaginationDto Pagination { get; set; }
 
