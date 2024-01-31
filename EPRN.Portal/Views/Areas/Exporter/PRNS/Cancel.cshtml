@@ -4,14 +4,15 @@
 @model CancelViewModel
 
 @{
-    ViewData["Title"] = @NoteResources.PageTitle;
+    ViewData["Title"] = @CancelResources.PageTitlePERN;
 }
 
-@if (Model.Status == PrnStatus.Accepted)
+@if (Model.Status == null || 
+    Model.Status.Value.GetCancelPermission() != CancelPermission.CancelAllowed)
 {
     var notification = new NotificationViewModel
     {
-        PrimaryMessage = CancelResources.PERNAlreadyCancelled,
+        PrimaryMessage = CancelResources.AlreadyCancelledPERN,
         SecondaryMessage = CancelResources.RequestToCancelPERN,
         LinkUrl = Url.ActionLink(
             Routes.Areas.Actions.PRNS.RequestCancel,
@@ -29,7 +30,7 @@ else
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="with-hint">
-                    @CancelResources.PRNCancelQuestion
+                    @CancelResources.CancelQuestionPERN
                 </label>
             </h1>
             <p class="govuk-error-message">

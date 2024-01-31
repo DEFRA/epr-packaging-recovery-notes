@@ -86,6 +86,14 @@ namespace EPRN.PRNS.API.Controllers
             return Ok(await _prnService.GetStatus(id));
         }
 
+        [HttpGet]
+        [Route("StatusAndProducer")]
+        public async Task<IActionResult> GetStatusAndProducer(
+            int id)
+        {
+            return Ok(await _prnService.GetStatusWithProducerName(id));
+        }
+
         [HttpPost]
         [Route("Cancel")]
         public async Task<IActionResult> CancelPrn(
@@ -93,6 +101,17 @@ namespace EPRN.PRNS.API.Controllers
             [FromBody] string reason)
         {
             await _prnService.CancelPrn(id, reason);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("RequestCancel")]
+        public async Task<IActionResult> RequestCancelPrn(
+            int id,
+            [FromBody] string reason)
+        {
+            await _prnService.RequestCancelPrn(id, reason);
 
             return Ok();
         }

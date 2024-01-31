@@ -296,5 +296,41 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
 
+        [TestMethod]
+        public async Task CancelAcceptedPERN_WithValidId_ShouldReturnViewResult()
+        {
+            // Arrange
+            int validId = 1;
+            var expectedViewModel = new RequestCancelViewModel();
+
+            _mockPrnService
+                .Setup(x => x.GetRequestCancelViewModel(It.IsAny<int>()))
+                .ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.CancelAcceptedPRN(validId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+
+            _mockPrnService.Verify(s =>
+                s.GetRequestCancelViewModel(
+                    It.Is<int>(p => p == validId)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_WithNullId_ShouldReturnNotFoundResult()
+        {
+            // Arrange
+            int? nullId = null;
+
+            // Act
+            var result = await _prnController.CancelAcceptedPRN(nullId) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
     }
 }

@@ -23,8 +23,12 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task<PrnStatus> GetStatus(int id);
 
+        Task<StatusAndProducerDto> GetStatusWithProducerName(int id);
+
         Task SaveCheckYourAnswers(int id);
 
         Task CancelPrn(int id, string reason);
+
+        Task RequestCancelPrn(int id, string reason);
     }
 }

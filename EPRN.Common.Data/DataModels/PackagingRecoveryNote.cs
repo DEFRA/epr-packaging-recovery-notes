@@ -17,6 +17,7 @@ namespace EPRN.Common.Data.DataModels
 
         public int? WasteSubTypeId { get; set; }
 
+        // The recipient of the PRN
         public string SentTo { get; set; }
 
         public double? Tonnes { get; set; }

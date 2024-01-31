@@ -145,11 +145,25 @@ namespace EPRN.Portal.Services
             };
         }
 
+        public async Task<RequestCancelViewModel> GetRequestCancelViewModel(int id)
+        {
+            var dto = await _httpPrnsService.GetStatusAndProducer(id);
+
+            return _mapper.Map<RequestCancelViewModel>(dto);
+        }
+
         public async Task CancelPRN(CancelViewModel cancelViewModel)
         {
             await _httpPrnsService.CancelPRN(
                 cancelViewModel.Id,
                 cancelViewModel.CancelReason);
+        }
+
+        public async Task RequestToCancelPRN(RequestCancelViewModel requestCancelViewModel)
+        {
+            await _httpPrnsService.RequestCancelPRN(
+                requestCancelViewModel.Id,
+                requestCancelViewModel.CancelReason);
         }
     }
 }

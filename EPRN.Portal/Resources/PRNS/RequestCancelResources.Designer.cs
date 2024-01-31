@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources.PRNS {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CancelResources {
+    public class RequestCancelResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CancelResources() {
+        internal RequestCancelResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources.PRNS {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.CancelResources", typeof(CancelResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.RequestCancelResources", typeof(RequestCancelResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,20 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PERN has already been accepted.
+        ///   Looks up a localized string similar to Cancel this PERN.
         /// </summary>
-        public static string AlreadyCancelledPERN {
+        public static string CancelButtonPERN {
             get {
-                return ResourceManager.GetString("AlreadyCancelledPERN", resourceCulture);
+                return ResourceManager.GetString("CancelButtonPERN", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PRN has already been accepted.
+        ///   Looks up a localized string similar to Cancel this PRN.
         /// </summary>
-        public static string AlreadyCancelledPRN {
+        public static string CancelButtonPRN {
             get {
-                return ResourceManager.GetString("AlreadyCancelledPRN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Why do you want to cancel this PERN?.
-        /// </summary>
-        public static string CancelQuestionPERN {
-            get {
-                return ResourceManager.GetString("CancelQuestionPERN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Why do you want to cancel this PRN?.
-        /// </summary>
-        public static string CancelQuestionPRN {
-            get {
-                return ResourceManager.GetString("CancelQuestionPRN", resourceCulture);
+                return ResourceManager.GetString("CancelButtonPRN", resourceCulture);
             }
         }
         
@@ -115,7 +97,43 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel PERN.
+        ///   Looks up a localized string similar to This PERN has not yet been accepted.
+        /// </summary>
+        public static string NotAcceptedPERN {
+            get {
+                return ResourceManager.GetString("NotAcceptedPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PRN has not yet been accepted.
+        /// </summary>
+        public static string NotAcceptedPRN {
+            get {
+                return ResourceManager.GetString("NotAcceptedPRN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to cancel this PERN.
+        /// </summary>
+        public static string PageHeadingPERN {
+            get {
+                return ResourceManager.GetString("PageHeadingPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to cancel this PRN.
+        /// </summary>
+        public static string PageHeadingPRN {
+            get {
+                return ResourceManager.GetString("PageHeadingPRN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to cancel PERN.
         /// </summary>
         public static string PageTitlePERN {
             get {
@@ -124,7 +142,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel PRN.
+        ///   Looks up a localized string similar to Request to cancel PRN.
         /// </summary>
         public static string PageTitlePRN {
             get {
@@ -142,20 +160,47 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request to cancel this PERN.
+        ///   Looks up a localized string similar to Why do you want to cancel this PERN?.
         /// </summary>
-        public static string RequestToCancelPERN {
+        public static string RequestQuestionPERN {
             get {
-                return ResourceManager.GetString("RequestToCancelPERN", resourceCulture);
+                return ResourceManager.GetString("RequestQuestionPERN", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Request to cancel this PRN.
+        ///   Looks up a localized string similar to Why do you want to cancel this PRN?.
         /// </summary>
-        public static string RequestToCancelPRN {
+        public static string RequestQuestionPRN {
             get {
-                return ResourceManager.GetString("RequestToCancelPRN", resourceCulture);
+                return ResourceManager.GetString("RequestQuestionPRN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If they agree to cancel, we&apos;ll ask {0} to approve your request..
+        /// </summary>
+        public static string RequestToCancelInfo2 {
+            get {
+                return ResourceManager.GetString("RequestToCancelInfo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has already accepted this PERN. We&apos;ll send them your cancellation request. They can either accept it or reject it..
+        /// </summary>
+        public static string RequestToCancelInfoPERN {
+            get {
+                return ResourceManager.GetString("RequestToCancelInfoPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has already accepted this PRN. We&apos;ll send them your cancellation request. They can either accept it or reject it..
+        /// </summary>
+        public static string RequestToCancelInfoPRN {
+            get {
+                return ResourceManager.GetString("RequestToCancelInfoPRN", resourceCulture);
             }
         }
     }

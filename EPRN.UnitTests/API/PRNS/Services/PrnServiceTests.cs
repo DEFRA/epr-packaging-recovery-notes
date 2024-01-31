@@ -179,5 +179,67 @@ namespace EPRN.UnitTests.API.PRNS.Services
                     It.IsAny<string>()),
                 Times.Never);
         }
+
+        [TestMethod]
+        public async Task GetStatusWithProducerName_CallService()
+        {
+            // arrange
+            var id = 45;
+
+            // act
+            await _prnService.GetStatusWithProducerName(id);
+
+            // assert
+            _mockRepository.Verify(s =>
+                s.GetStatusAndRecipient(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task RequestCancelPrn_WithAcceptedPrn_ShouldUpdateStatus()
+        {
+            // Arrange
+            int id = 1;
+            string reason = "Cancellation Reason";
+
+            _mockRepository
+                .Setup(x => x.GetStatus(It.IsAny<int>()))
+                .ReturnsAsync(PrnStatus.Accepted);
+
+            // Act
+            await _prnService.RequestCancelPrn(id, reason);
+
+            // Assert
+            _mockRepository.Verify(x => 
+                x.UpdatePrnStatus(
+                    It.Is<int>(prnId => prnId == id),
+                    It.Is<PrnStatus>(status => status == PrnStatus.CancellationRequested),
+                    It.Is<string>(cancelReason => cancelReason == reason)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task RequestCancelPrn_WithNotAcceptedPrn_ShouldNotUpdateStatus()
+        {
+            // Arrange
+            int id = 1;
+            string reason = "Cancellation Reason";
+
+            _mockRepository
+                .Setup(x => x.GetStatus(It.IsAny<int>()))
+                .ReturnsAsync(PrnStatus.Sent);
+
+            // Act
+            await _prnService.RequestCancelPrn(id, reason);
+
+            // Assert
+            _mockRepository.Verify(x => 
+                x.UpdatePrnStatus(
+                    It.IsAny<int>(),
+                    It.IsAny<PrnStatus>(),
+                    It.IsAny<string>()),
+                Times.Never);
+        }
     }
 }
