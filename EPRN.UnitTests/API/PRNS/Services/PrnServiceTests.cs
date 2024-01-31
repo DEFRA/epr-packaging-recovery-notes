@@ -179,5 +179,21 @@ namespace EPRN.UnitTests.API.PRNS.Services
                     It.IsAny<string>()),
                 Times.Never);
         }
+
+        [TestMethod]
+        public async Task GetStatusWithProducerName_CallService()
+        {
+            // arrange
+            var id = 45;
+
+            // act
+            await _prnService.GetStatusWithProducerName(id);
+
+            // assert
+            _mockRepository.Verify(s =>
+                s.GetStatusAndRecipient(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+        }
     }
 }

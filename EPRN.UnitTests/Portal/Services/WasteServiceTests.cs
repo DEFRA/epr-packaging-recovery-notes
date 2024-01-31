@@ -4,6 +4,7 @@ using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.Waste;
@@ -403,6 +404,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int Id = 3;
+            _mockHttpJourneyService.Setup(s => s.GetNote(Id)).ReturnsAsync(new NoteDto());
 
             // Act
             var viewModel = await _wasteService.GetNoteViewModel(Id);

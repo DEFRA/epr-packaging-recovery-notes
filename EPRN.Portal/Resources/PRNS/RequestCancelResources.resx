@@ -117,17 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlreadyCancelledPERN" xml:space="preserve">
-    <value>This PERN has already been accepted</value>
+  <data name="CancelButtonPERN" xml:space="preserve">
+    <value>Cancel this PERN</value>
   </data>
-  <data name="AlreadyCancelledPRN" xml:space="preserve">
-    <value>This PRN has already been accepted</value>
-  </data>
-  <data name="CancelQuestionPERN" xml:space="preserve">
-    <value>Why do you want to cancel this PERN?</value>
-  </data>
-  <data name="CancelQuestionPRN" xml:space="preserve">
-    <value>Why do you want to cancel this PRN?</value>
+  <data name="CancelButtonPRN" xml:space="preserve">
+    <value>Cancel this PRN</value>
   </data>
   <data name="HintInfo" xml:space="preserve">
     <value>You can enter uo to 200 characters</value>
@@ -135,19 +129,40 @@
   <data name="MaxLengthMessage" xml:space="preserve">
     <value>The maximum length of the cancellation reason is 200 characters</value>
   </data>
+  <data name="NotAcceptedPERN" xml:space="preserve">
+    <value>This PERN has not yet been accepted</value>
+  </data>
+  <data name="NotAcceptedPRN" xml:space="preserve">
+    <value>This PRN has not yet been accepted</value>
+  </data>
+  <data name="PageHeadingPERN" xml:space="preserve">
+    <value>Request to cancel this PERN</value>
+  </data>
+  <data name="PageHeadingPRN" xml:space="preserve">
+    <value>Request to cancel this PRN</value>
+  </data>
   <data name="PageTitlePERN" xml:space="preserve">
-    <value>Cancel PERN</value>
+    <value>Request to cancel PERN</value>
   </data>
   <data name="PageTitlePRN" xml:space="preserve">
-    <value>Cancel PRN</value>
+    <value>Request to cancel PRN</value>
   </data>
   <data name="ReasonRequired" xml:space="preserve">
     <value>Please add a reason for cancellation</value>
   </data>
-  <data name="RequestToCancelPERN" xml:space="preserve">
-    <value>Request to cancel this PERN</value>
+  <data name="RequestQuestionPERN" xml:space="preserve">
+    <value>Why do you want to cancel this PERN?</value>
   </data>
-  <data name="RequestToCancelPRN" xml:space="preserve">
-    <value>Request to cancel this PRN</value>
+  <data name="RequestQuestionPRN" xml:space="preserve">
+    <value>Why do you want to cancel this PRN?</value>
+  </data>
+  <data name="RequestToCancelInfo2" xml:space="preserve">
+    <value>If they agree to cancel, we'll ask {0} to approve your request.</value>
+  </data>
+  <data name="RequestToCancelInfoPERN" xml:space="preserve">
+    <value>{0} has already accepted this PERN. We'll send them your cancellation request. They can either accept it or reject it.</value>
+  </data>
+  <data name="RequestToCancelInfoPRN" xml:space="preserve">
+    <value>{0} has already accepted this PRN. We'll send them your cancellation request. They can either accept it or reject it.</value>
   </data>
 </root>

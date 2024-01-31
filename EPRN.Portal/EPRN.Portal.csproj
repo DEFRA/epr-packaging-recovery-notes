@@ -102,6 +102,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>RecordWasteResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\PRNS\RequestCancelResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RequestCancelResources.resx</DependentUpon>
+      </Compile>
     <Compile Update="Resources\ReProcessorExportResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -209,6 +214,10 @@
     <EmbeddedResource Update="Resources\PRNS\RecordWasteResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RecordWasteResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\RequestCancelResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RequestCancelResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ReProcessorExportResource.cy-GB.resx">
       <LastGenOutput>ReProcessorExportResource.cy-GB.Designer.cs</LastGenOutput>

@@ -22,6 +22,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
 
         Task<PrnStatus> GetStatus(int id);
 
+        Task<StatusAndProducerDto> GetStatusAndRecipient(int id);
+
         Task UpdatePrnStatus(
             int id, 
             PrnStatus status, 

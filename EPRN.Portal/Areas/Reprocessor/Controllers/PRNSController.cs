@@ -146,13 +146,13 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
         [HttpGet]
         [ActionName(Routes.Areas.Actions.PRNS.RequestCancel)]
-        public async Task<IActionResult> RequestCancellation(int? id)
+        public async Task<IActionResult> CancelAcceptedPRN(int? id)
         {
-            // *** Stubbed method ***
-            /*
-             * For a user to request from the recipient to Cancel the PRN
-             */
-            return null;
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetCancelViewModel(id.Value);
+            return View(viewModel);
         }
 
         [HttpGet]

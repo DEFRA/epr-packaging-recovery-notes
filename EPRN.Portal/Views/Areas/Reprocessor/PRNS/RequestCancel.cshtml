@@ -1,25 +1,25 @@
 ﻿@using EPRN.Common.Enums;
 @using static EPRN.Common.Constants.Strings
 
-@model CancelViewModel
+@model RequestCancelViewModel
 
 @{
-    ViewData["Title"] = CancelResources.PageTitlePRN;
+    ViewData["Title"] = @RequestCancelResources.PageTitlePRN;
 }
 
-@if (Model.Status == PrnStatus.Accepted)
+@if (Model.Status != PrnStatus.Accepted)
 {
     var notification = new NotificationViewModel
     {
-        PrimaryMessage = CancelResources.AlreadyCancelledPRN,
-        SecondaryMessage = CancelResources.RequestToCancelPRN,
+        PrimaryMessage = RequestCancelResources.NotAcceptedPRN,
+        SecondaryMessage = RequestCancelResources.CancelButtonPRN,
         LinkUrl = Url.ActionLink(
-            Routes.Areas.Actions.PRNS.RequestCancel, 
-            Routes.Areas.Controllers.Reprocessor.PRNS, 
+            Routes.Areas.Actions.PRNS.Cancel,
+            Routes.Areas.Controllers.Reprocessor.PRNS,
             new { Area = Routes.Areas.Reprocessor, id = Model.Id })
     };
 
-    <partial name="_NotificationPanel" model="notification"/>
+    <partial name="_NotificationPanel" model="notification" />
 }
 else
 {
@@ -29,16 +29,27 @@ else
             <div class="govuk-form-group">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--l" for="with-hint">
-                        @CancelResources.CancelQuestionPRN
+                        @RequestCancelResources.PageHeadingPRN
                     </label>
                 </h1>
+                <p>
+                    @string.Format(RequestCancelResources.RequestToCancelInfoPRN, Model.Producer)
+                </p>
+                <p>
+                    @string.Format(RequestCancelResources.RequestToCancelInfo2, Model.Regulator)
+                </p>
+                <h2 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="with-hint">
+                        @RequestCancelResources.RequestQuestionPRN
+                    </label>
+                </h2>
                 <p class="govuk-error-message">
                     <span asp-validation-for="CancelReason"></span>
                 </p>
                 <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="CancelReason" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
             </div>
             <div id="with-hint-info" class="govuk-hint govuk-character-count__message">
-                @CancelResources.HintInfo
+                @RequestCancelResources.HintInfo
             </div>
         </div>
 

@@ -30,5 +30,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task CancelPRN(
             int id,
             string reason);
+
+        Task<StatusAndProducerDto> GetStatusAndProducer(int id);
     }
 }

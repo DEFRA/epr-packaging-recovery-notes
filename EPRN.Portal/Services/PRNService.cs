@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
@@ -143,6 +144,13 @@ namespace EPRN.Portal.Services
                 Id = id,
                 Status = await _httpPrnsService.GetStatus(id)
             };
+        }
+
+        public async Task<RequestCancelViewModel> GetRequestCancelViewModel(int id)
+        {
+            var dto = await _httpPrnsService.GetStatusAndProducer(id);
+
+            return _mapper.Map<RequestCancelViewModel>(dto);
         }
 
         public async Task CancelPRN(CancelViewModel cancelViewModel)

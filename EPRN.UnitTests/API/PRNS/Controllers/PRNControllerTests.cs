@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -142,6 +143,33 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
                     It.Is<int>(p => p == id),
                     It.Is<string>(p => p == reason)),
                 Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetStatusAndProducer()
+        {
+            // arrange
+            var id = 324;
+            var statusAndProducerDto = new StatusAndProducerDto
+            {
+                Status = PrnStatus.Accepted,
+                Producer = "A producer"
+            };
+            _mockPrnService.Setup(s => s.GetStatusWithProducerName(id)).ReturnsAsync(statusAndProducerDto);
+
+            // act
+            var result = await _prnController.GetStatusAndProducer(id);
+
+            // assert
+            _mockPrnService.Verify(s => 
+                s.GetStatusWithProducerName(
+                    It.Is<int>(p => p == id)),
+                Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            var okObjectResult = (OkObjectResult)result;
+
+            Assert.AreEqual(statusAndProducerDto, okObjectResult.Value);
         }
     }
 }

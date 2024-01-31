@@ -10,6 +10,8 @@ namespace EPRN.Portal.Profiles
         {
             CreateMap<ConfirmationDto, ConfirmationViewModel>();
             CreateMap<CheckYourAnswersDto, CheckYourAnswersViewModel>();
+            CreateMap<StatusAndProducerDto, RequestCancelViewModel>()
+                .ForMember(d => d.Regulator, o => o.Ignore()); // we don't know where the regulator is coming from yet
         }
     }
 }

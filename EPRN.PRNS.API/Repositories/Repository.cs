@@ -105,6 +105,20 @@ namespace EPRN.PRNS.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
+        public async Task<StatusAndProducerDto> GetStatusAndRecipient(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new StatusAndProducerDto
+                {
+                    Id = prn.Id,
+                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status),
+                    Producer = prn.SentTo
+                })
+                .SingleOrDefaultAsync();
+        }
+
         public async Task UpdatePrnStatus(
             int id, 
             Common.Enums.PrnStatus status,
