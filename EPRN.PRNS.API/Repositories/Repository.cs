@@ -123,6 +123,27 @@ namespace EPRN.PRNS.API.Repositories
                     EF.Functions.Like(e.SentTo, $"%{request.SearchTerm}%"));
             }
 
+            if (!string.IsNullOrWhiteSpace(request.SortBy))
+            {
+                if (request.SortBy == "Material")
+                {
+                    prns = prns.OrderBy(e => e.WasteType);
+                }
+                else if (request.SortBy == "SentTo")
+                {
+                    prns = prns.OrderBy(e => e.SentTo);
+                }
+            }
+
+            //if (!string.IsNullOrWhiteSpace(request.FilterBy))
+            //{
+            //    switch (request.FilterBy)
+            //    {
+            //        case PrnStatus.Accepted:
+            //            return prns = prns.Where(e => EF.Functions.Like(e.Status, $"%{request.FilterBy}%"));
+            //    }
+            //}
+
             // get the count BEFORE paging
             var totalRecords = await prns.CountAsync();
 
@@ -130,16 +151,14 @@ namespace EPRN.PRNS.API.Repositories
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
 
-            var orderedList = prns.OrderBy(e => e.Reference);
-
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
 
             return new SentPrnsDto()
             {
-                Rows = await orderedList.Select(prn => new PrnDto
+                Rows = await prns.Select(prn => new PrnDto
                 {
                     PrnNumber = prn.Reference,
-                    //Material = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,
+                    Material = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToShortDateString(),
                     Tonnes = prn.Tonnes.Value,
