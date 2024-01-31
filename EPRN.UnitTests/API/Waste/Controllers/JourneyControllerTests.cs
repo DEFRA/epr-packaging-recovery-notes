@@ -430,5 +430,66 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Assert.AreEqual(expectedDto, actualDto);
         }
 
+        [TestMethod]
+        public async Task GetDecemberWaste_Returns_OK()
+        {
+            //Arrange
+            var journeyId = 3;
+
+            //Act
+            var result = await _journeyController.GetDecemberWaste(journeyId);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockJourneyService.Verify(s => s.GetDecemberWaste(It.Is<int>(p => p == journeyId)));
+        }
+
+        [TestMethod]
+        public async Task GetWasteRecord_WithValidId_ReturnsCorrectDto()
+        {
+            //Arrange
+            int validJourneyId = 1;
+            bool decemberWaste = true;
+
+            var expectedDto = new DecemberWasteDto();
+            expectedDto.JourneyId = validJourneyId;
+            expectedDto.DecemberWaste = decemberWaste;
+            
+            _mockJourneyService.Setup(service => service.GetDecemberWaste(It.IsAny<int>())).ReturnsAsync(expectedDto);
+
+            //Act
+            var result = await _journeyController.GetDecemberWaste(validJourneyId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            var okResult = result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+
+            var actualDto = okResult.Value as DecemberWasteDto;
+            Assert.IsNotNull(actualDto);
+            Assert.AreEqual(expectedDto, actualDto);
+        }
+
+        [TestMethod]
+        public async Task GetWasteRecord_WithInValidId_ReturnsBadRequest()
+        {
+            //Arrange
+            _mockJourneyService.Setup(service => service.GetDecemberWaste(It.IsAny<int>())).ReturnsAsync(null as DecemberWasteDto);
+            int invalidJourneyId = -1;
+
+            //Act
+            var result = await _journeyController.GetDecemberWaste(invalidJourneyId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestObjectResult));
+            var badRequestResult = result as BadRequestObjectResult;
+
+            Assert.IsNotNull(badRequestResult);
+            Assert.AreEqual(400, badRequestResult.StatusCode);
+            Assert.AreEqual("Invalid journey ID", badRequestResult.Value);
+        }
     }
 }

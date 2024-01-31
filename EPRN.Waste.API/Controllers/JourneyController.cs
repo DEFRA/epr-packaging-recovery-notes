@@ -316,6 +316,8 @@ namespace EPRN.Waste.API.Controllers
         {
             if (journeyId == null)
                 return BadRequest("Journey ID is missing");
+            if (journeyId <= 0)
+                return BadRequest("Invalid journey ID");
 
             DecemberWasteDto result = await _journeyService.GetDecemberWaste(journeyId.Value);
 

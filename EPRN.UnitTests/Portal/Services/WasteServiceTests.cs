@@ -402,7 +402,7 @@ namespace EPRN.UnitTests.Portal.Services
         public async Task GetNote_ReturnsValidModel()
         {
             // Arrange
-            int journeyId = 3;
+            int journeyId = 1;
 
             // Act
             var viewModel = await _wasteService.GetNoteViewModel(journeyId);
