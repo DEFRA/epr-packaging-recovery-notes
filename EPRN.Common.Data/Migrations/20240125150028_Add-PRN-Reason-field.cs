@@ -13,7 +13,8 @@ namespace EPRN.Waste.API.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "StatusReason",
                 table: "PRN",
-                type: "nvarchar(max)",
+                type: "nvarchar(200)",
+                maxLength: 200,
                 nullable: true);
         }
 

@@ -64,7 +64,8 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("StatusReason")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<double?>("Tonnes")
                         .HasColumnType("float");
