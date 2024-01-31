@@ -43,7 +43,7 @@
                 }
             }
             <partial name="_ValidationSummary" />
-            <form method="post">
+            <form id="prnsForm" name="prnsForm" method="get" asp-controller="Prns" asp-action="ViewSentPrns">
                 <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
                         <label class="govuk-label" for="event-name">
@@ -78,64 +78,62 @@
                         </button>
                     }
                 }
+
+                <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+                <p class="govuk-body">@ViewSentPrnResources.ViewDownloadCancelText</p>
+
+                <div class="govuk-form-group" style="float:right">
+                    <select id="filterBy" name="filterBy" class="govuk-select" asp-for="FilterBy" asp-items="Model.FilterItems"></select>
+                </div>
+                <div class="govuk-form-group" style="float:right">
+                    <select id="sortBy" name="sortBy" class="govuk-select" asp-for="SortBy" asp-items="Model.SortItems"></select>
+                </div>
+
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.PrnNumber</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Material</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.SentTo</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.DateCreated</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Tonnes</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        @foreach (var row in Model.Rows)
+                        {
+                            <tr class="govuk-table__row" data-status="@row.Status">
+                                <td class="govuk-table__cell">
+                                    <a href="@row.Link">@row.PrnNumber</a>
+                                </td>
+                                <td class="govuk-table__cell">@row.Material</td>
+                                <td class="govuk-table__cell">@row.SentTo</td>
+                                <td class="govuk-table__cell">@row.DateCreated</td>
+                                <td class="govuk-table__cell">@row.Tonnes</td>
+                                <td class="govuk-table__cell">
+                                    <strong class="govuk-tag govuk-tag--@row.GetCssClassForStatus()">
+                                        @localizationHelper.GetString(row.Status.ToString())
+                                    </strong>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <partial name="_Pagination" model="Model" />
             </form>
         </div>
     </div>
-
-    <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
-
-    <p class="govuk-body">@ViewSentPrnResources.ViewDownloadCancelText</p>
-
-    <div class="govuk-form-group" style="float:right">
-        <select class="govuk-select" id="filter-by" name="filter-by">
-            <option value="All" selected>@ViewSentPrnResources.FilterBy </option>
-            <option value=@PrnStatus.Accepted>@ViewSentPrnResources.Accepted </option>
-            <option value=@PrnStatus.AwaitingAcceptance>@ViewSentPrnResources.AwaitingAcceptance</option>
-            <option value=@PrnStatus.Rejected>@ViewSentPrnResources.Rejected</option>
-            <option value=@PrnStatus.AwaitingCancellation>@ViewSentPrnResources.AwaitingCancellation</option>
-            <option value=@PrnStatus.Cancelled>@ViewSentPrnResources.Cancelled</option>
-        </select>
-    </div>
-    <div class="govuk-form-group" style="float:right">
-        <select class="govuk-select" id="sort-by" name="sort-by">
-            <option value="both" selected>@ViewSentPrnResources.SortBy </option>
-            <option value=@ViewSentPrnResources.Material>@ViewSentPrnResources.Material</option>
-            <option value=@ViewSentPrnResources.SentTo>@ViewSentPrnResources.SentTo</option>
-        </select>
-    </div>
-
-    <table class="govuk-table">
-        <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.PrnNumber</th>
-                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Material</th>
-                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.SentTo</th>
-                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.DateCreated</th>
-                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Tonnes</th>
-                <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Status</th>
-            </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-            @foreach (var row in Model.Rows)
-            {
-                <tr class="govuk-table__row" data-status="@row.Status">
-                    <td class="govuk-table__cell">
-                        <a href="@row.Link">@row.PrnNumber</a>
-                    </td>
-                    <td class="govuk-table__cell">@row.Material</td>
-                    <td class="govuk-table__cell">@row.SentTo</td>
-                    <td class="govuk-table__cell">@row.DateCreated</td>
-                    <td class="govuk-table__cell">@row.Tonnes</td>
-                    <td class="govuk-table__cell">
-                        <strong class="govuk-tag govuk-tag--@row.GetCssClassForStatus()">
-                            @localizationHelper.GetString(row.Status.ToString())
-                        </strong>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <partial name="_Pagination" model="Model" />
-
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#filterBy').change(function () {
+            $('#prnsForm').submit();
+        });
+        $('#sortBy').change(function () {
+            $('#prnsForm').submit();
+        });
+    });
+</script>

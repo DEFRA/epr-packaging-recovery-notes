@@ -125,26 +125,13 @@ namespace EPRN.PRNS.API.Repositories
                     EF.Functions.Like(repo.SentTo, $"%{request.SearchTerm}%"));
             }
 
-            if (!string.IsNullOrWhiteSpace(request.SortBy))
-            {
-                if (request.SortBy == "Material")
-                {
-                    prns = prns.OrderBy(e => e.WasteType);
-                }
-                else if (request.SortBy == "SentTo")
-                {
-                    prns = prns.OrderBy(e => e.SentTo);
-                }
-            }
+            if (!string.IsNullOrWhiteSpace(request.FilterBy))
+                prns = prns.Where(e => (int)e.Status == int.Parse(request.FilterBy));
 
-            //if (!string.IsNullOrWhiteSpace(request.FilterBy))
-            //{
-            //    switch (request.FilterBy)
-            //    {
-            //        case PrnStatus.Accepted:
-            //            return prns = prns.Where(e => EF.Functions.Like(e.Status, $"%{request.FilterBy}%"));
-            //    }
-            //}
+            if (request.SortBy == "1")
+                prns = prns.OrderByDescending(e => e.WasteType);
+            else if (request.SortBy == "2")
+                prns = prns.OrderBy(e => e.SentTo);
 
             // get the count BEFORE paging
             var totalRecords = await prns.CountAsync();

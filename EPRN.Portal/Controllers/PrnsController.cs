@@ -39,9 +39,9 @@ namespace EPRN.Portal.Controllers
         [HttpGet]
         public async Task<IActionResult> ViewSentPrns([FromQuery] GetSentPrnsViewModel request)
         {
-            var viewModel = await _prnService.GetViewSentPrnsViewModel(request);
+            var viewSentPrnsViewModel = await _prnService.GetViewSentPrnsViewModel(request);
 
-            return View(viewModel);
+            return View(viewSentPrnsViewModel);
         }
 
         //[HttpPost]
