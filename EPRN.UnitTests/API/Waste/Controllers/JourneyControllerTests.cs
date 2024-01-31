@@ -399,5 +399,36 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Assert.AreEqual(400, badRequestResult.StatusCode);
             Assert.AreEqual("Invalid journey ID", badRequestResult.Value);
         }
+
+        [TestMethod]
+        public async Task GetWasteRecordNote_WithValidId_ReturnsCorrectDto()
+        {
+            //Arrange
+            int validJourneyId = 1;
+            string validNote = "abc";
+            Category wasteCategory = Category.Unknown;
+
+            var expectedDto = new NoteDto();
+            expectedDto.JourneyId = validJourneyId;
+            expectedDto.Note = validNote;
+            expectedDto.WasteCategory = wasteCategory;
+
+            _mockJourneyService.Setup(service => service.GetWasteRecordNote(It.IsAny<int>())).ReturnsAsync(expectedDto);
+
+            //Act
+            var result = await _journeyController.GetWasteRecordNote(validJourneyId);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            var okResult = result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+
+            var actualDto = okResult.Value as NoteDto;
+            Assert.IsNotNull(actualDto);
+            Assert.AreEqual(expectedDto, actualDto);
+        }
+
     }
 }

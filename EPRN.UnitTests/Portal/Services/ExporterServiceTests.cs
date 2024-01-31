@@ -3,7 +3,6 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.ViewModels;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;

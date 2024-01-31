@@ -1,16 +1,8 @@
 ﻿using AutoMapper;
-using EPRN.Common.Data.DataModels;
 using EPRN.Common.Enums;
-using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services;
-using Microsoft.Extensions.Options;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EPRN.UnitTests.API.PRNS.Services
 {
@@ -127,8 +119,65 @@ namespace EPRN.UnitTests.API.PRNS.Services
             _mockRepository.Verify(s =>
                 s.UpdatePrnStatus(
                     It.Is<int>(p => p == id),
-                    It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete)),
+                    It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete),
+                    It.Is<string>(p => p == null)),
                 Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetStatus_CallService_WithParameters()
+        {
+            // arrange
+            var id = 234;
+
+            // act
+            await _prnService.GetStatus(id);
+
+            // assert
+            _mockRepository.Verify(s => 
+                s.GetStatus(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CancelPrn_UpdatesStatus_WhenNotAccepted()
+        {
+            // arrange
+            var id = 234;
+            var reason = "sdfsfsdf";
+            _mockRepository.Setup(s => s.GetStatus(id)).ReturnsAsync(PrnStatus.Sent);
+
+            // act
+            await _prnService.CancelPrn(id, reason);
+
+            // assert
+            _mockRepository.Verify(s =>
+                s.UpdatePrnStatus(
+                    It.Is<int>(p => p == id),
+                    It.Is<PrnStatus>(p => p == PrnStatus.Cancelled),
+                    It.Is<string>(p => p == reason)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CancelPrn_DoesNotUpdatesStatus_WhenAccepted()
+        {
+            // arrange
+            var id = 234;
+            var reason = "sdfsfsdf";
+            _mockRepository.Setup(s => s.GetStatus(id)).ReturnsAsync(PrnStatus.Accepted);
+
+            // act
+            await _prnService.CancelPrn(id, reason);
+
+            // assert
+            _mockRepository.Verify(s =>
+                s.UpdatePrnStatus(
+                    It.IsAny<int>(),
+                    It.IsAny<PrnStatus>(),
+                    It.IsAny<string>()),
+                Times.Never);
         }
     }
 }

@@ -38,14 +38,20 @@ public static class Strings
     {
         public static class Areas
         {
-            public static class Exporter
-            {
-                public const string PRNS = "PRNS";
-            }
+            public const string Exporter = "Exporter";
+            public const string Reprocessor = "Reprocessor";
 
-            public static class Reprocessor
+            public static class Controllers
             {
-                public const string PRNS = "PRNS";                
+                public static class Exporter
+                {
+                    public const string PRNS = "PRNS";
+                }
+
+                public static class Reprocessor
+                {
+                    public const string PRNS = "PRNS";
+                }   
             }
 
             public static class Actions
@@ -58,6 +64,9 @@ public static class Strings
                     public const string CheckYourAnswers = "CheckYourAnswers";
                     public const string SentTo = "SentTo";
                     public const string WhatToDo = "WhatToDo";
+                    public const string Cancel = "Cancel";
+                    public const string RequestCancel = "RequestToCancel";
+                    public const string Cancelled = "Cancelled";
                 }
             }
         }

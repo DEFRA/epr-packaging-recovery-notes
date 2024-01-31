@@ -6,7 +6,7 @@ namespace EPRN.Portal.ViewModels.Waste
 {
     public class DuringWhichMonthRequestViewModel
     {
-        public int JourneyId { get; set; }
+        public int Id { get; set; }
 
         public Dictionary<int, string> Quarter { get; set; } = new();
 

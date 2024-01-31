@@ -3,7 +3,7 @@
     "PRN.Web": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:7166?role=exporter&role=reprocessor",
+      "launchUrl": "https://localhost:7166?role=exporter",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

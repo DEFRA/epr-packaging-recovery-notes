@@ -113,9 +113,9 @@ namespace EPRN.Portal.RESTServices
             await Post($"{journeyId}/Note/{noteContent}");
         }
 
-        public async Task<string?> GetNote(int journeyId)
+        public async Task<NoteDto> GetNote(int journeyId)
         {
-            return await Get<string?>($"{journeyId}/Note");
+            return await Get<NoteDto>($"{journeyId}/Note");
         }
 
         public async Task<Category> GetCategory(int journeyId)

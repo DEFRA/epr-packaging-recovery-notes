@@ -5,13 +5,14 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
-    [Area("Reprocessor")]
+    [Area(Routes.Areas.Reprocessor)]
     public class PRNSController : BaseController
     {
-        private IPRNService _prnService;
+        private readonly IPRNService _prnService;
 
         private Category Category => Category.Reprocessor;
 
@@ -41,7 +42,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("SentTo", "PRNS", new { area = string.Empty });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.SentTo,
+                Routes.Areas.Controllers.Reprocessor.PRNS,
+                new { area = string.Empty });
         }
 
         [HttpGet]
@@ -53,7 +57,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
 
-            return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Tonnes,
+                Routes.Areas.Controllers.Reprocessor.PRNS,
+                new { Id = prnId });
         }
 
         [HttpGet]
@@ -87,7 +94,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction("WhatToDo", "PRNS", new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.WhatToDo, 
+                Routes.Areas.Controllers.Reprocessor.PRNS, 
+                new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -105,6 +115,50 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         [HttpGet]
         public async Task<IActionResult> WhatToDo(int? id)
         {
+            return View();
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public async Task<IActionResult> PRNCancellation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetCancelViewModel(id.Value);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public async Task<IActionResult> PRNCancellation(CancelViewModel cancelViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(await _prnService.GetCancelViewModel(cancelViewModel.Id));
+
+            await _prnService.CancelPRN(cancelViewModel);
+
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Cancelled, 
+                Routes.Areas.Controllers.Reprocessor.PRNS,
+                new { area = Routes.Areas.Reprocessor, id = cancelViewModel.Id });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.RequestCancel)]
+        public async Task<IActionResult> RequestCancellation(int? id)
+        {
+            // *** Stubbed method ***
+            /*
+             * For a user to request from the recipient to Cancel the PRN
+             */
+            return null;
+        }
+
+        [HttpGet]
+        public IActionResult Cancelled(int? id)
+        {
+            // *** Stubbed method ***
             return View();
         }
 

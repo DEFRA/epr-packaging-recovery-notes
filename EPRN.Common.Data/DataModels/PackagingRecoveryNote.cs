@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Data.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Common.Data.DataModels
 {
@@ -25,5 +26,8 @@ namespace EPRN.Common.Data.DataModels
         public PrnStatus Status { get; set; }
 
         public DateTime? CompletedDate { get; set; }
+
+        [MaxLength(200)]
+        public string StatusReason { get; set; }
     }
 }

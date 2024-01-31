@@ -123,6 +123,9 @@
   <data name="ContinueBtn" xml:space="preserve">
     <value>Continue</value>
   </data>
+  <data name="CreateWithReplace" xml:space="preserve">
+    <value>Create a &lt;PRNTYPE&gt; for:</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -132,10 +135,22 @@
   <data name="OppositeLanguage" xml:space="preserve">
     <value>Cymraeg</value>
   </data>
+  <data name="PERN" xml:space="preserve">
+    <value>PERN</value>
+  </data>
+  <data name="PRN" xml:space="preserve">
+    <value>PRN</value>
+  </data>
   <data name="RecordingFor" xml:space="preserve">
     <value>Recording for:</value>
   </data>
+  <data name="SkipQuestionLink" xml:space="preserve">
+    <value>Skip question</value>
+  </data>
   <data name="SummaryError" xml:space="preserve">
     <value>There is a problem</value>
+  </data>
+  <data name="UnknownWasteType" xml:space="preserve">
+    <value>&lt;UNKNOWN WASTE TYPE&gt;</value>
   </data>
 </root>

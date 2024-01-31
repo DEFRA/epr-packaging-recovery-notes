@@ -5,7 +5,7 @@ namespace EPRN.Portal.ViewModels.Waste
 {
     public class BaledWithWireViewModel
     {
-        public int JourneyId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(BaledWithWireResource))]
         public bool? BaledWithWire { get; set; }
