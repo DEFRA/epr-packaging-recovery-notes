@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources.PRNS {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PRNSTonnesResources {
+    public class CancelResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PRNSTonnesResources() {
+        internal CancelResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources.PRNS {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.PRNSTonnesResources", typeof(PRNSTonnesResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.CancelResources", typeof(CancelResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,101 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a PERN for:.
+        ///   Looks up a localized string similar to Cancel PERN.
         /// </summary>
-        public static string PERNCreateLabel {
+        public static string CancelPERNTitle {
             get {
-                return ResourceManager.GetString("PERNCreateLabel", resourceCulture);
+                return ResourceManager.GetString("CancelPERNTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many tonnes is this PERN for?.
+        ///   Looks up a localized string similar to Cancel PRN.
         /// </summary>
-        public static string PERNHowManyTonnesLabel {
+        public static string CancelPRNTitle {
             get {
-                return ResourceManager.GetString("PERNHowManyTonnesLabel", resourceCulture);
+                return ResourceManager.GetString("CancelPRNTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PERN.
+        ///   Looks up a localized string similar to You can enter uo to 200 characters.
         /// </summary>
-        public static string PERNRoundingLabel {
+        public static string HintInfo {
             get {
-                return ResourceManager.GetString("PERNRoundingLabel", resourceCulture);
+                return ResourceManager.GetString("HintInfo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tonnage for this PERN.
+        ///   Looks up a localized string similar to The maximum length of the cancellation reason is 200 characters.
         /// </summary>
-        public static string PERNTitle {
+        public static string MaxLengthMessage {
             get {
-                return ResourceManager.GetString("PERNTitle", resourceCulture);
+                return ResourceManager.GetString("MaxLengthMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a PRN for:.
+        ///   Looks up a localized string similar to This PERN has already been accepted.
         /// </summary>
-        public static string PRNCreateLabel {
+        public static string PERNAlreadyCancelled {
             get {
-                return ResourceManager.GetString("PRNCreateLabel", resourceCulture);
+                return ResourceManager.GetString("PERNAlreadyCancelled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many tonnes is this PRN for?.
+        ///   Looks up a localized string similar to Why do you want to cancel this PERN?.
         /// </summary>
-        public static string PRNHowManyTonnesLabel {
+        public static string PERNCancelQuestion {
             get {
-                return ResourceManager.GetString("PRNHowManyTonnesLabel", resourceCulture);
+                return ResourceManager.GetString("PERNCancelQuestion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PRN.
+        ///   Looks up a localized string similar to This PRN has already been accepted.
         /// </summary>
-        public static string PRNRoundingLabel {
+        public static string PRNAlreadyCancelled {
             get {
-                return ResourceManager.GetString("PRNRoundingLabel", resourceCulture);
+                return ResourceManager.GetString("PRNAlreadyCancelled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tonnage for this PRN.
+        ///   Looks up a localized string similar to Why do you want to cancel this PRN?.
         /// </summary>
-        public static string PRNTitle {
+        public static string PRNCancelQuestion {
             get {
-                return ResourceManager.GetString("PRNTitle", resourceCulture);
+                return ResourceManager.GetString("PRNCancelQuestion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your waste balance is:.
+        ///   Looks up a localized string similar to Please add a reason for cancellation.
         /// </summary>
-        public static string WasteBalance {
+        public static string ReasonRequired {
             get {
-                return ResourceManager.GetString("WasteBalance", resourceCulture);
+                return ResourceManager.GetString("ReasonRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to cancel this PERN.
+        /// </summary>
+        public static string RequestToCancelPERN {
+            get {
+                return ResourceManager.GetString("RequestToCancelPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request to cancel this PRN.
+        /// </summary>
+        public static string RequestToCancelPRN {
+            get {
+                return ResourceManager.GetString("RequestToCancelPRN", resourceCulture);
             }
         }
     }

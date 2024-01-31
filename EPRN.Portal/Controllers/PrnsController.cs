@@ -1,4 +1,5 @@
 ﻿using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
@@ -22,13 +23,10 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
-            else if (id <= 0)
-            {
+            
+            if (id <= 0)
                 return BadRequest();
-            }
 
             var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
 

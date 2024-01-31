@@ -8,7 +8,6 @@
 <partial name="_ValidationSummary" />
 <partial name="_WasteTypeName" />
 <form method="post">
-    <input type="hidden" asp-for="JourneyId" />
     <radios asp-for="WhatHaveYouDone" asp-title="@WhatHaveYouDoneWithWasteResource.Heading">
         <p class="govuk-error-message">
             <span asp-validation-for="WhatHaveYouDone"></span>

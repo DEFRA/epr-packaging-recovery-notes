@@ -117,31 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PERNCreateLabel" xml:space="preserve">
-    <value>[Welsh]Create a PERN for:</value>
+  <data name="CancelPERNTitle" xml:space="preserve">
+    <value>Cancel PERN</value>
   </data>
-  <data name="PERNHowManyTonnesLabel" xml:space="preserve">
-    <value>[Welsh]How many tonnes is this PERN for?</value>
+  <data name="CancelPRNTitle" xml:space="preserve">
+    <value>Cancel PRN</value>
   </data>
-  <data name="PERNRoundingLabel" xml:space="preserve">
-    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PERN</value>
+  <data name="HintInfo" xml:space="preserve">
+    <value>You can enter uo to 200 characters</value>
   </data>
-  <data name="PERNTitle" xml:space="preserve">
-    <value>[Welsh]Tonnage for this PERN</value>
+  <data name="MaxLengthMessage" xml:space="preserve">
+    <value>The maximum length of the cancellation reason is 200 characters</value>
   </data>
-  <data name="PRNCreateLabel" xml:space="preserve">
-    <value>[Welsh]Create a PRN for:</value>
+  <data name="PERNAlreadyCancelled" xml:space="preserve">
+    <value>This PERN has already been accepted</value>
   </data>
-  <data name="PRNHowManyTonnesLabel" xml:space="preserve">
-    <value>[Welsh]How many tonnes is this PRN for?</value>
+  <data name="PERNCancelQuestion" xml:space="preserve">
+    <value>Why do you want to cancel this PERN?</value>
   </data>
-  <data name="PRNRoundingLabel" xml:space="preserve">
-    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PRN</value>
+  <data name="PRNAlreadyCancelled" xml:space="preserve">
+    <value>This PRN has already been accepted</value>
   </data>
-  <data name="PRNTitle" xml:space="preserve">
-    <value>[Welsh]Tonnage for this PRN</value>
+  <data name="PRNCancelQuestion" xml:space="preserve">
+    <value>Why do you want to cancel this PRN?</value>
   </data>
-  <data name="WasteBalance" xml:space="preserve">
-    <value>[Welsh]Your waste balance is:</value>
+  <data name="ReasonRequired" xml:space="preserve">
+    <value>Please add a reason for cancellation</value>
+  </data>
+  <data name="RequestToCancelPERN" xml:space="preserve">
+    <value>Request to cancel this PERN</value>
+  </data>
+  <data name="RequestToCancelPRN" xml:space="preserve">
+    <value>Request to cancel this PRN</value>
   </data>
 </root>

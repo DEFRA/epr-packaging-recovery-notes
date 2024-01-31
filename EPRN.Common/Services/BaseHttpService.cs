@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Net.Http.Json;
 
 namespace EPRN.Portal.Services
 {
@@ -33,6 +34,7 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(endPointName));
 
             _httpClient = httpClientFactory.CreateClient();
+            _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
 
             if (_baseUrl.EndsWith("/"))
                 _baseUrl = _baseUrl.TrimEnd('/');
@@ -118,7 +120,7 @@ namespace EPRN.Portal.Services
 
             if (payload != null)
             {
-                msg.Content = new StringContent(JsonConvert.SerializeObject(payload));
+                msg.Content = JsonContent.Create(payload);
             }
 
             return msg;

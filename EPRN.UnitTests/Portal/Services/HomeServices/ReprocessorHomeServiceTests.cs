@@ -1,7 +1,6 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
-using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.HomeServices;
 using Microsoft.AspNetCore.Mvc;

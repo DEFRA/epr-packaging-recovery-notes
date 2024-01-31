@@ -38,12 +38,12 @@ $(document).ready(function () {
         }
     });
 
-    $('form input').elementValidationError(function (element) {
+    $('form input, form textarea').elementValidationError(function (element) {
         clearSummaryErrors();
         displayValidation();
     });
 
-    $('form input').elementValidationSuccess(function (element) {
+    $('form input, form textarea').elementValidationSuccess(function (element) {
         
         $(element).closest('.govuk-form-group').removeClass('govuk-form-group--error');
 

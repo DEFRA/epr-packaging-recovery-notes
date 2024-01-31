@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using System.Drawing;
 
 namespace EPRN.PRNS.API.Services.Interfaces
 {
@@ -20,6 +21,10 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task<CheckYourAnswersDto> GetCheckYourAnswers(int id);
 
+        Task<PrnStatus> GetStatus(int id);
+
         Task SaveCheckYourAnswers(int id);
+
+        Task CancelPrn(int id, string reason);
     }
 }

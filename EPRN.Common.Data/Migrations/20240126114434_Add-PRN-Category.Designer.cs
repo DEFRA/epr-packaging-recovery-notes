@@ -4,16 +4,19 @@ using EPRN.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EPRN.Common.Data.Migrations
+namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20240126114434_Add-PRN-Category")]
+    partial class AddPRNCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,8 +67,7 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("StatusReason")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Tonnes")
                         .HasColumnType("float");

@@ -117,31 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PERNCreateLabel" xml:space="preserve">
-    <value>[Welsh]Create a PERN for:</value>
+  <data name="AccreditationsLabel" xml:space="preserve">
+    <value>Accreditations for:</value>
   </data>
-  <data name="PERNHowManyTonnesLabel" xml:space="preserve">
-    <value>[Welsh]How many tonnes is this PERN for?</value>
+  <data name="ChooseAccreditationLabel" xml:space="preserve">
+    <value>Choose an accreditation to record waste against.</value>
   </data>
-  <data name="PERNRoundingLabel" xml:space="preserve">
-    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PERN</value>
+  <data name="ChooseLinkText" xml:space="preserve">
+    <value>Choose</value>
   </data>
-  <data name="PERNTitle" xml:space="preserve">
-    <value>[Welsh]Tonnage for this PERN</value>
+  <data name="CompanyNameLabel" xml:space="preserve">
+    <value>Company label</value>
   </data>
-  <data name="PRNCreateLabel" xml:space="preserve">
-    <value>[Welsh]Create a PRN for:</value>
+  <data name="MaterialHeading" xml:space="preserve">
+    <value>Material</value>
   </data>
-  <data name="PRNHowManyTonnesLabel" xml:space="preserve">
-    <value>[Welsh]How many tonnes is this PRN for?</value>
-  </data>
-  <data name="PRNRoundingLabel" xml:space="preserve">
-    <value>[Welsh]Round this to the nearest whole tonne to determine the amount available for creating the PRN</value>
-  </data>
-  <data name="PRNTitle" xml:space="preserve">
-    <value>[Welsh]Tonnage for this PRN</value>
-  </data>
-  <data name="WasteBalance" xml:space="preserve">
-    <value>[Welsh]Your waste balance is:</value>
+  <data name="RecordWasteLabel" xml:space="preserve">
+    <value>Record waste</value>
   </data>
 </root>

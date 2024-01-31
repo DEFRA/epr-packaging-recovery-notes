@@ -6,9 +6,7 @@ namespace EPRN.Portal.ViewModels.Waste
 {
     public class WhatHaveYouDoneWasteModel
     {
-        public int JourneyId { get; set; }
-
-//        public string WasteType { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(WhatHaveYouDoneWithWasteResource))]
         public DoneWaste? WhatHaveYouDone { get; set; }

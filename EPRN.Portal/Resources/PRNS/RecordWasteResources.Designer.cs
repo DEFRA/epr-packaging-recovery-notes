@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources.PRNS {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class PRNSTonnesResources {
+    public class RecordWasteResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal PRNSTonnesResources() {
+        internal RecordWasteResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources.PRNS {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.PRNSTonnesResources", typeof(PRNSTonnesResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.RecordWasteResources", typeof(RecordWasteResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,56 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a PERN for:.
+        ///   Looks up a localized string similar to Accreditations for:.
         /// </summary>
-        public static string PERNCreateLabel {
+        public static string AccreditationsLabel {
             get {
-                return ResourceManager.GetString("PERNCreateLabel", resourceCulture);
+                return ResourceManager.GetString("AccreditationsLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many tonnes is this PERN for?.
+        ///   Looks up a localized string similar to Choose an accreditation to record waste against..
         /// </summary>
-        public static string PERNHowManyTonnesLabel {
+        public static string ChooseAccreditationLabel {
             get {
-                return ResourceManager.GetString("PERNHowManyTonnesLabel", resourceCulture);
+                return ResourceManager.GetString("ChooseAccreditationLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PERN.
+        ///   Looks up a localized string similar to Choose.
         /// </summary>
-        public static string PERNRoundingLabel {
+        public static string ChooseLinkText {
             get {
-                return ResourceManager.GetString("PERNRoundingLabel", resourceCulture);
+                return ResourceManager.GetString("ChooseLinkText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tonnage for this PERN.
+        ///   Looks up a localized string similar to Company label.
         /// </summary>
-        public static string PERNTitle {
+        public static string CompanyNameLabel {
             get {
-                return ResourceManager.GetString("PERNTitle", resourceCulture);
+                return ResourceManager.GetString("CompanyNameLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a PRN for:.
+        ///   Looks up a localized string similar to Material.
         /// </summary>
-        public static string PRNCreateLabel {
+        public static string MaterialHeading {
             get {
-                return ResourceManager.GetString("PRNCreateLabel", resourceCulture);
+                return ResourceManager.GetString("MaterialHeading", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many tonnes is this PRN for?.
+        ///   Looks up a localized string similar to Record waste.
         /// </summary>
-        public static string PRNHowManyTonnesLabel {
+        public static string RecordWasteLabel {
             get {
-                return ResourceManager.GetString("PRNHowManyTonnesLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Round this to the nearest whole tonne to determine the amount available for creating the PRN.
-        /// </summary>
-        public static string PRNRoundingLabel {
-            get {
-                return ResourceManager.GetString("PRNRoundingLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tonnage for this PRN.
-        /// </summary>
-        public static string PRNTitle {
-            get {
-                return ResourceManager.GetString("PRNTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Your waste balance is:.
-        /// </summary>
-        public static string WasteBalance {
-            get {
-                return ResourceManager.GetString("WasteBalance", resourceCulture);
+                return ResourceManager.GetString("RecordWasteLabel", resourceCulture);
             }
         }
     }
