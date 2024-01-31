@@ -18,5 +18,4 @@ RUN dotnet publish "EPRN.Portal.csproj" -c Release -o /app/publish /p:UseAppHost
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY ["EPRN.Portal/Views", "Views/"]
 ENTRYPOINT ["dotnet", "EPRN.Portal.dll"]
