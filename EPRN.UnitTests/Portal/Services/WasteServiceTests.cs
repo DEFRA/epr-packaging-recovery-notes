@@ -90,7 +90,6 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        [Ignore]
         public async Task GetQuarterForCurrentMonth_ReturnsValidModel_ReprocessedIt()
         {
             // Arrange

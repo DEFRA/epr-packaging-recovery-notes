@@ -133,13 +133,13 @@
     <value>[Welsh]Glass</value>
   </data>
   <data name="HeadingReceived" xml:space="preserve">
-    <value>[Welsh]During which month was the waste received?</value>
+    <value>[Welsh]When did you receive the waste?</value>
   </data>
   <data name="HeadingSent" xml:space="preserve">
     <value>[Welsh]When did you send it?</value>
   </data>
   <data name="HintText" xml:space="preserve">
-    <value>[Welsh]You can only record waste for this month and the months within an open quarterly return period.</value>
+    <value>[Welsh]You can only record waste for the current month and for those months within an open quarterly return period.</value>
   </data>
   <data name="Month1" xml:space="preserve">
     <value>[Welsh]January</value>
@@ -218,5 +218,23 @@
   </data>
   <data name="HintTextFebruary" xml:space="preserve">
     <value>[Welsh]You can only record waste for February. Recording waste for previous months is not possible once you've submitted your previous return.</value>
+  </data>
+  <data name="HintTextReceived" xml:space="preserve">
+    <value>[Welsh]You can only record waste for the current month and for those months within an open quarterly return period.</value>
+  </data>
+  <data name="HintTextSent" xml:space="preserve">
+    <value>[Welsh]You can only record waste for the current month and for those months within an open quarterly return period.</value>
+  </data>
+  <data name="HeadingExported" xml:space="preserve">
+    <value>[Welsh]When was it exported?</value>
+  </data>
+  <data name="PageTitleExported" xml:space="preserve">
+    <value>[Welsh]When was it exported?</value>
+  </data>
+  <data name="HintTextExported" xml:space="preserve">
+    <value>[Welsh]You can only record waste for the current month and for those months within an open quarterly return period.</value>
+  </data>
+  <data name="ErrorMessagExported" xml:space="preserve">
+    <value>[Welsh]Select the month the waste was exported</value>
   </data>
 </root>

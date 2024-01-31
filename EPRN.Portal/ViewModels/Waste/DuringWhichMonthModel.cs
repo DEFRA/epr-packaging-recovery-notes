@@ -10,8 +10,6 @@ namespace EPRN.Portal.ViewModels.Waste
 
         public Dictionary<int, string> Quarter { get; set; } = new();
 
-//        public string WasteType { get; set; }
-
         public DoneWaste WhatHaveYouDone { get; set; }
 
         public virtual int? SelectedMonth { get; set; }
@@ -38,4 +36,11 @@ namespace EPRN.Portal.ViewModels.Waste
         [Required(ErrorMessageResourceName = "ErrorMessageReceived", ErrorMessageResourceType = typeof(WhichQuarterResources))]
         public override int? SelectedMonth { get; set; }
     }
+    
+     // Class to be returned to the view if the DoneWaste enum returns SentItOn and handles the error message correctly
+    public class DuringWhichMonthExportedRequestViewModel : DuringWhichMonthRequestViewModel
+    {
+        [Required(ErrorMessageResourceName = "ErrorMessageExported", ErrorMessageResourceType = typeof(WhichQuarterResources))]
+        public override int? SelectedMonth { get; set; }
+    }   
 }
