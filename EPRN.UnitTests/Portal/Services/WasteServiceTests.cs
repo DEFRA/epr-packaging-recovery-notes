@@ -560,5 +560,28 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         #endregion
+
+        #region DecemberWaste
+
+        [TestMethod]
+        public async Task SaveDecemberWasteWireModel_Succeeds_WithValidModel()
+        {
+            // Arrange
+            DecemberWasteViewModel decemberWireModel = new DecemberWasteViewModel();
+            decemberWireModel.JourneyId = 1;
+            decemberWireModel.WasteForDecember = true;
+            decemberWireModel.BalanceAvailable = 100;
+
+            // Act
+            await _wasteService.SaveDecemberWaste(decemberWireModel);
+
+            // Assert
+            _mockHttpJourneyService.Verify(s => s.SaveDecemberWaste(
+                   It.Is<int>(p => p == 1),
+                   It.Is<bool>(p => p == true)),
+                   Times.Once);
+        }
+
+        #endregion
     }
 }
