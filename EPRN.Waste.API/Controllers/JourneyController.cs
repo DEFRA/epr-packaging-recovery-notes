@@ -309,5 +309,28 @@ namespace EPRN.Waste.API.Controllers
 
             return Ok(category);
         }
+
+        [HttpGet]
+        [Route("DecemberWaste")]
+        public async Task<ActionResult> GetDecemberWaste(int? journeyId)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            DecemberWasteDto result = await _journeyService.GetDecemberWaste(journeyId.Value);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("DecemberWaste/{decemberWaste}")]
+        public async Task<ActionResult> SaveDecemberWaste(int journeyId, bool decemberWaste)
+        {
+            await _journeyService.SaveDecemberWaste(
+                journeyId,
+                decemberWaste);
+
+            return Ok();
+        }
     }
 }

@@ -88,7 +88,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hint Text.
+        ///   Looks up a localized string similar to Available balance from waste received in December:.
         /// </summary>
         public static string HintText {
             get {
@@ -120,6 +120,15 @@ namespace EPRN.Portal.Resources {
         public static string ThereIsAProblem {
             get {
                 return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tonnes.
+        /// </summary>
+        public static string Tonnes {
+            get {
+                return ResourceManager.GetString("Tonnes", resourceCulture);
             }
         }
         

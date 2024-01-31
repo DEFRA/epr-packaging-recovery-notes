@@ -4,6 +4,7 @@ using EPRN.Common.Data.DataModels;
 using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 using EPRN.Waste.API.Repositories.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 namespace EPRN.Waste.API.Repositories
@@ -267,6 +268,34 @@ namespace EPRN.Waste.API.Repositories
                 .Where(wj => wj.Id == journeyId)
                 .Select(wj => wj.Category)
                 .SingleOrDefaultAsync();
+        }
+
+        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        {
+            var decemberWaste = _wasteContext.WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .Select(x => new DecemberWasteDto
+                {
+                    JourneyId = journeyId,
+                    DecemberWaste = x.DecemberWaste
+                })
+                .SingleOrDefaultAsync();
+
+            return new DecemberWasteDto() 
+                        { 
+                            DecemberWaste = decemberWaste.Result.DecemberWaste, 
+                            JourneyId = journeyId 
+                        };
+        }
+
+        public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)
+        {
+            await _wasteContext
+                .WasteJourney
+                .Where(wj => wj.Id == journeyId)
+                .ExecuteUpdateAsync(sp =>
+                    sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
+                );
         }
     }
 }

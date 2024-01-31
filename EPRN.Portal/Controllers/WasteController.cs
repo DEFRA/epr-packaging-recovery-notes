@@ -349,8 +349,9 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveDecemberWaste(decemberWaste);
 
-            return RedirectToAction("Month", new { id = decemberWaste.JourneyId });
-            //return RedirectToPage("Month", whatHaveYouDoneWaste.JourneyId);
+            return RedirectToAction(
+                Routes.Actions.Waste.Tonnes,
+                new { id = decemberWaste.JourneyId });
         }
 
 

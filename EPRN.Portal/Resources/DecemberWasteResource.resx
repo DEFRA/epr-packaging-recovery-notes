@@ -127,7 +127,7 @@
     <value>Are you creating this PRN from waste received in December?</value>
   </data>
   <data name="HintText" xml:space="preserve">
-    <value>Hint Text</value>
+    <value>Available balance from waste received in December:</value>
   </data>
   <data name="NoSelection" xml:space="preserve">
     <value>No</value>
@@ -137,6 +137,9 @@
   </data>
   <data name="ThereIsAProblem" xml:space="preserve">
     <value>There is a problem</value>
+  </data>
+  <data name="Tonnes" xml:space="preserve">
+    <value>Tonnes</value>
   </data>
   <data name="YesSelection" xml:space="preserve">
     <value>Yes</value>

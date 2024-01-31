@@ -47,5 +47,9 @@ namespace EPRN.Waste.API.Services.Interfaces
         Task<BaledWithWireDto> GetBaledWithWire(int journeyId);
 
         Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
+
+        Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
+
+        Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
     }
 }

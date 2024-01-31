@@ -392,10 +392,17 @@ namespace EPRN.Portal.Services
 
         public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int journeyId)
         {
-            var decemberWasteModel = new DecemberWasteViewModel()
+            var wasteDTO = await _httpJourneyService.GetDecemberWaste(journeyId);
+            if (wasteDTO == null)
+                throw new ArgumentNullException(nameof(DecemberWasteViewModel));
+
+            var wasteTonnage = _httpJourneyService.GetWasteTonnage(journeyId);
+
+            var decemberWasteModel = new DecemberWasteViewModel
             {
                 JourneyId = journeyId,
-                DecemberWaste = true,
+                WasteForDecember = wasteDTO.DecemberWaste,
+                BalanceAvailable = (double)wasteTonnage.Result.Value
             };
 
             return decemberWasteModel;
@@ -406,12 +413,12 @@ namespace EPRN.Portal.Services
             if (decemberWasteModel == null)
                 throw new ArgumentNullException(nameof(decemberWasteModel));
 
-            if (decemberWasteModel.DecemberWaste == null)
-                throw new ArgumentNullException(nameof(decemberWasteModel.DecemberWaste));
+            if (decemberWasteModel.WasteForDecember == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel.WasteForDecember));
 
             await _httpJourneyService.SaveDecemberWaste(
                 decemberWasteModel.JourneyId,
-                decemberWasteModel.DecemberWaste.Value);
+                decemberWasteModel.WasteForDecember.Value);
 
         }
     }
