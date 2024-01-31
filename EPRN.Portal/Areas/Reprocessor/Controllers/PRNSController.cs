@@ -151,8 +151,23 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (id == null)
                 return NotFound();
 
-            var viewModel = await _prnService.GetCancelViewModel(id.Value);
+            var viewModel = await _prnService.GetRequestCancelViewModel(id.Value);
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.RequestCancel)]
+        public async Task<IActionResult> CancelAcceptedPRN(RequestCancelViewModel requestCancelViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(requestCancelViewModel);
+
+            await _prnService.RequestToCancelPRN(requestCancelViewModel);
+
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.CancelRequested,
+                Routes.Areas.Controllers.Reprocessor.PRNS,
+                new { id = requestCancelViewModel.Id, area = Routes.Areas.Reprocessor });
         }
 
         [HttpGet]

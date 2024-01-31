@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
@@ -158,6 +157,13 @@ namespace EPRN.Portal.Services
             await _httpPrnsService.CancelPRN(
                 cancelViewModel.Id,
                 cancelViewModel.CancelReason);
+        }
+
+        public async Task RequestToCancelPRN(RequestCancelViewModel requestCancelViewModel)
+        {
+            await _httpPrnsService.RequestCancelPRN(
+                requestCancelViewModel.Id,
+                requestCancelViewModel.CancelReason);
         }
     }
 }

@@ -28,5 +28,7 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task SaveCheckYourAnswers(int id);
 
         Task CancelPrn(int id, string reason);
+
+        Task RequestCancelPrn(int id, string reason);
     }
 }

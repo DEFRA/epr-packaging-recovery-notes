@@ -2,13 +2,13 @@
 {
     public enum PrnStatus
     {
-        Draft,
-        CheckYourAnswersComplete,
+        Draft = 0,
+        CheckYourAnswersComplete = 1,
         // sent to a producer/compliance scheme
-        Sent, 
+        Sent = 2, 
         // accepted by the producer/compliance scheme - this is the last step of the process therefore no need for Completed
-        Accepted,
-        CancellationRequested,
-        Cancelled
+        Accepted = 3,
+        CancellationRequested = 4,
+        Cancelled = 5
     }
 }

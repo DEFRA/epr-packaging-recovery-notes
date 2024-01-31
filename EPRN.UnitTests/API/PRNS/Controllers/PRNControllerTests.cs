@@ -171,5 +171,27 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
 
             Assert.AreEqual(statusAndProducerDto, okObjectResult.Value);
         }
+
+        [TestMethod]
+        public async Task RequestCancelPrn_ShouldReturnOkResult()
+        {
+            // Arrange
+            int id = 1;
+            string reason = "Cancellation Reason";
+
+            // Act
+            var result = await _prnController.RequestCancelPrn(id, reason);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+
+            // Ensure that the service method was called with the correct arguments
+            _mockPrnService.Verify(x => 
+                x.RequestCancelPrn(
+                    It.Is<int>(prnId => prnId == id),
+                    It.Is<string>(cancelReason => cancelReason == reason)),
+                Times.Once);
+        }
     }
 }

@@ -145,5 +145,30 @@ namespace EPRN.UnitTests.Portal.Services
                     It.Is<string>(p => p == reason)),
                 Times.Once);
         }
+
+        [TestMethod]
+        public async Task GetRequestCancelViewModel_ShouldReturnViewModel()
+        {
+            // Arrange
+            int id = 1;
+            var expectedDto = new StatusAndProducerDto(); // Replace YourDto with the actual DTO type
+
+            _mockHttpPrnsService
+                .Setup(x => x.GetStatusAndProducer(It.IsAny<int>()))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnService.GetRequestCancelViewModel(id);
+
+            // Assert
+            _mockHttpPrnsService.Verify(s => 
+                s.GetStatusAndProducer(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+            _mockMapper.Verify(m => 
+                m.Map<RequestCancelViewModel>(
+                    It.Is<StatusAndProducerDto>(p => p == expectedDto)), 
+                Times.Once);
+        }
     }
 }

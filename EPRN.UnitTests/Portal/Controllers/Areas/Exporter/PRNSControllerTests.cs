@@ -296,5 +296,94 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
         }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_WithValidId_ShouldReturnViewResult()
+        {
+            // Arrange
+            int validId = 1;
+            var expectedViewModel = new RequestCancelViewModel();
+
+            _mockPrnService
+                .Setup(x => x.GetRequestCancelViewModel(It.IsAny<int>()))
+                .ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.CancelAcceptedPERN(validId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel, result.Model);
+
+            _mockPrnService.Verify(s => 
+                s.GetRequestCancelViewModel(
+                    It.Is<int>(p => p == validId)), 
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_WithNullId_ShouldReturnNotFoundResult()
+        {
+            // Arrange
+            int? nullId = null;
+
+            // Act
+            var result = await _prnController.CancelAcceptedPERN(nullId) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_WithValidModel_ShouldRedirectToAction()
+        {
+            // Arrange
+            var validModel = new RequestCancelViewModel
+            {
+                Id = 1,
+                CancelReason = "SomeReason",
+                // Add other properties as needed
+            };
+
+            // Act
+            var result = await _prnController.CancelAcceptedPERN(validModel) as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(Routes.Areas.Actions.PRNS.CancelRequested, result.ActionName);
+            Assert.AreEqual(Routes.Areas.Controllers.Exporter.PRNS, result.ControllerName);
+            CollectionAssert.AreEquivalent(
+                new[] { new KeyValuePair<string, object>("id", validModel.Id), new KeyValuePair<string, object>("area", Routes.Areas.Exporter) },
+                result.RouteValues.ToList());
+
+            // Ensure that the service method was called with the correct arguments
+            _mockPrnService.Verify(x => 
+                x.RequestToCancelPRN(
+                    It.Is<RequestCancelViewModel>(id => id == validModel)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_WithInvalidModel_ShouldReturnViewResult()
+        {
+            // Arrange
+            var invalidModel = new RequestCancelViewModel();
+            _prnController.ModelState.AddModelError("PropertyName", "Error Message");
+
+            // Act
+            var result = await _prnController.CancelAcceptedPERN(invalidModel) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(invalidModel, result.Model);
+            // You can add more specific assertions based on your requirements
+            // For example, you might want to assert the view name, ViewData, etc.
+            // Ensure that the service method was not called in this case
+            _mockPrnService.Verify(x => 
+                x.RequestToCancelPRN(
+                    It.IsAny<RequestCancelViewModel>()), 
+                Times.Never);
+        }
     }
 }

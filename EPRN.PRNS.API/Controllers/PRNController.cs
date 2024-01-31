@@ -105,6 +105,17 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("RequestCancel")]
+        public async Task<IActionResult> RequestCancelPrn(
+            int id,
+            [FromBody] string reason)
+        {
+            await _prnService.RequestCancelPrn(id, reason);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db

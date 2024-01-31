@@ -81,5 +81,18 @@ namespace EPRN.PRNS.API.Services
                     reason);
             }
         }
+
+        public async Task RequestCancelPrn(int id, string reason)
+        {
+            // this needs to be for an accepted PRN... 
+            // not sure where to do that yet
+            if (await _prnRepository.GetStatus(id) == PrnStatus.Accepted)
+            {
+                await _prnRepository.UpdatePrnStatus(
+                    id,
+                    PrnStatus.CancellationRequested,
+                    reason);
+            }
+        }
     }
 }

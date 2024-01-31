@@ -67,6 +67,7 @@ public static class Strings
                     public const string Cancel = "Cancel";
                     public const string RequestCancel = "RequestCancel";
                     public const string Cancelled = "Cancelled";
+                    public const string CancelRequested = "CancelRequested";
                 }
             }
         }

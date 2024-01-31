@@ -154,8 +154,34 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return View(viewModel);
         }
 
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.RequestCancel)]
+        public async Task<IActionResult> CancelAcceptedPERN(RequestCancelViewModel requestCancelViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(requestCancelViewModel);
+
+            await _prnService.RequestToCancelPRN(requestCancelViewModel);
+
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.CancelRequested,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new { id = requestCancelViewModel.Id, area = Routes.Areas.Exporter });
+        }
+
         [HttpGet]
         public IActionResult Cancelled(int? id)
+        {
+            // *** Stubbed method ***
+            return View();
+        }
+
+        /// <summary>
+        /// This action comes from a succesful request to cancel an
+        /// accepted PRN (CancelAcceptedPERN)
+        /// </summary>
+        [HttpGet]
+        public IActionResult CancelRequested(int? id)
         {
             // *** Stubbed method ***
             return View();
