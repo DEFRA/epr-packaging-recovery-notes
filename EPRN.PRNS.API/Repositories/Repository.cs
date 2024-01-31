@@ -116,11 +116,13 @@ namespace EPRN.PRNS.API.Repositories
                 .Include(repo => repo.WasteType)
                 .AsQueryable();
 
+            prns = prns.OrderByDescending(repo => repo.CreatedDate);
+
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
-                prns = prns.Where(e =>
-                    EF.Functions.Like(e.Reference, $"%{request.SearchTerm}%") ||
-                    EF.Functions.Like(e.SentTo, $"%{request.SearchTerm}%"));
+                prns = prns.Where(repo =>
+                    EF.Functions.Like(repo.Reference, $"%{request.SearchTerm}%") ||
+                    EF.Functions.Like(repo.SentTo, $"%{request.SearchTerm}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(request.SortBy))
