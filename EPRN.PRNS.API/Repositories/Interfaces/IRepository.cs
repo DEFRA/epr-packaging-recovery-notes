@@ -28,7 +28,6 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
             int id, 
             PrnStatus status, 
             string reason = null);
-        Task UpdatePrnStatus(int id, PrnStatus status);
 
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
     }

@@ -1,6 +1,5 @@
 ﻿@using EPRN.Common.Enums;
 @using EPRN.Portal.Services.Interfaces;
-@using EPRN.Portal.Helpers.Extensions;
 
 @model ViewSentPrnsViewModel;
 
@@ -49,7 +48,7 @@
                             @ViewSentPrnResources.SearchText
                         </label>
                     </h1>
-                    @if (Model.Rows.Count() == 0 && !string.IsNullOrWhiteSpace(Model.SearchTerm))
+                    @if (!Model.Rows.Any() && !string.IsNullOrWhiteSpace(Model.SearchTerm))
                     {
                         <p class="govuk-error-message">@ViewSentPrnResources.Error</p>
                     }
