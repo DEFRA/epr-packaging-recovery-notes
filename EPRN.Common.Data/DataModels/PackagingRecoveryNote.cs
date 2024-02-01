@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Data.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Common.Data.DataModels
 {
@@ -16,6 +17,7 @@ namespace EPRN.Common.Data.DataModels
 
         public int? WasteSubTypeId { get; set; }
 
+        // The recipient of the PRN
         public string SentTo { get; set; }
 
         public double? Tonnes { get; set; }
@@ -25,5 +27,8 @@ namespace EPRN.Common.Data.DataModels
         public PrnStatus Status { get; set; }
 
         public DateTime? CompletedDate { get; set; }
+
+        [MaxLength(200)]
+        public string StatusReason { get; set; }
     }
 }

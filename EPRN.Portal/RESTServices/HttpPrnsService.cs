@@ -52,6 +52,26 @@ namespace EPRN.Portal.RESTServices
             await Post($"{id}/check");
         }
 
+        public async Task<PrnStatus> GetStatus(int id)
+        {
+            return await Get<PrnStatus>($"{id}/Status");
+        }
+
+        public async Task CancelPRN(int id, string reason)
+        {
+            await Post($"{id}/Cancel", reason);
+        }
+
+        public async Task<StatusAndProducerDto> GetStatusAndProducer(int id)
+        {
+            return await Get<StatusAndProducerDto>($"{id}/StatusAndProducer");
+        }
+
+        public async Task RequestCancelPRN(int id, string reason)
+        {
+            await Post($"{id}/RequestCancel", reason);
+        }
+
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
             return await Get<SentPrnsDto>($"GetSentPrns{BuildUrlWithQueryString(request)}", false);

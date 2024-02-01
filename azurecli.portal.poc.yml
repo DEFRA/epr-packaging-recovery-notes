@@ -9,7 +9,7 @@ properties:
   containers:
     - name: prnportal
       properties:
-        image: defraprnacr.azurecr.io/prnportal:3.0.0-dotnetcore6.0.4
+        image: defraprnacr.azurecr.io/prnportal:6.0.0-dotnetcore6.0.4
         ports:
           - port: 80
             protocol: TCP

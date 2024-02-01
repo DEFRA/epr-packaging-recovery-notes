@@ -133,7 +133,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your waste balanace is:.
+        ///   Looks up a localized string similar to Your waste balance is:.
         /// </summary>
         public static string WasteBalance {
             get {

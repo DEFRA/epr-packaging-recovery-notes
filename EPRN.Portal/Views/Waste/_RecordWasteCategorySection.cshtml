@@ -4,7 +4,7 @@
 }
 <div>
     <h2>@Model.Category.ToString()</h2>
-    <label>Choose an accreditation to record waste against.</label>
+    <label>@RecordWasteResources.ChooseAccreditationLabel</label>
     @foreach (var siteViewModel in Model.Sites)
     {
         <partial name="_RecordWasteSiteSection" model="siteViewModel" view-data="ViewData" />

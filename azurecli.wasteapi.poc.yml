@@ -9,7 +9,7 @@ properties:
   containers:
     - name: wasteapi
       properties:
-        image: defraprnacr.azurecr.io/wasteapi:3.0.0-dotnetcore6.0.4
+        image: defraprnacr.azurecr.io/wasteapi:6.0.0-dotnetcore6.0.4
         ports:
           - port: 80
             protocol: TCP

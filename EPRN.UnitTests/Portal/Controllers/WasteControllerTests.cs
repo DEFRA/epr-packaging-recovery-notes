@@ -103,14 +103,14 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task DuringWhichMonth_Return_Correctly()
         {
             // Arrange
-            int journeyId = 8;
+            int Id = 8;
             int currentMonth = DateTime.Now.Month;
 
             _mockWasteService.Setup(s => s.GetQuarterForCurrentMonth(
-                It.Is<int>(id => id == journeyId))).ReturnsAsync(new DuringWhichMonthRequestViewModel());
+                It.Is<int>(id => id == Id))).ReturnsAsync(new DuringWhichMonthRequestViewModel());
 
             // Act
-            var result = await _wasteController.DuringWhichMonth(journeyId);
+            var result = await _wasteController.DuringWhichMonth(Id);
 
             // Assert
             Assert.IsNotNull(result);
@@ -143,7 +143,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Arrange
             var duringWhichMonthRequestViewModel = new DuringWhichMonthRequestViewModel
             {
-                JourneyId = 1,
+                Id = 1,
                 SelectedMonth = 11
             };
 
@@ -188,7 +188,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Arrange
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
             {
-                JourneyId = 1,
+                Id = 1,
                 WhatHaveYouDone = DoneWaste.ReprocessedIt
             };
 
@@ -217,7 +217,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Arrange
             var whatHaveYouDoneWasteModel = new WhatHaveYouDoneWasteModel
             {
-                JourneyId = 1,
+                Id = 1,
                 WhatHaveYouDone = DoneWaste.SentItOn
             };
 
@@ -244,66 +244,17 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
 
-        //[TestMethod]
-        //public async Task GetWasteRecordStatus_Return_RecordCompleteView_ValidId()
-        //{
-            // Arrange
-            //_mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = WasteRecordStatuses.Complete });
-
-        //    // Act
-        //    var result = await _wasteController.GetWasteRecordStatus(2);
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-        //    var viewResult = result as ViewResult;
-        //    Assert.IsNotNull(viewResult.ViewData.Model);
-
-        //    // check model is expected type
-        //    Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
-
-        //    // check view name
-        //    Assert.IsNotNull(viewResult.ViewName);
-        //    Assert.AreEqual("WasteRecordCompleteStatus", viewResult.ViewName);
-
-        //}
-
-        //[TestMethod]
-        //public async Task GetWasteRecordStatus_Return_RecordNotCompleteView_InValidId()
-        //{
-        //    // Arrange
-        //    _mockWasteService.Setup(s => s.GetWasteRecordStatus(It.IsAny<int>())).ReturnsAsync(new WasteRecordStatusViewModel { WasteRecordStatus = Common.Enums.WasteRecordStatuses.Incomplete });
-
-        //    // Act
-        //    var result = await _wasteController.GetWasteRecordStatus(2);
-
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    Assert.IsInstanceOfType(result, typeof(ViewResult));
-
-        //    var viewResult = result as ViewResult;
-        //    Assert.IsNotNull(viewResult.ViewData.Model);
-
-        //    // check model is expected type
-        //    Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(WasteRecordStatusViewModel));
-
-        //    // check view name
-        //    Assert.IsNotNull(viewResult.ViewName);
-        //    Assert.AreEqual("WasteRecordStatus", viewResult.ViewName);
-        //}
-
         [TestMethod]
         public async Task Tonnes_WithValidId_ReturnsViewWithModel()
         {
             // Arrange
-            var journeyId = 3;
+            var Id = 3;
             var exportTonnageViewModel = new ExportTonnageViewModel();
 
             _mockWasteService.Setup(s => s.GetExportTonnageViewModel(3)).ReturnsAsync(exportTonnageViewModel);
 
             // Act
-            var result = await _wasteController.Tonnes(journeyId);
+            var result = await _wasteController.Tonnes(Id);
 
             // Assert
             Assert.IsNotNull(result);
@@ -334,7 +285,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Arrange
             var exportTonnageViewModel = new ExportTonnageViewModel
             {
-                JourneyId = 6,
+                Id = 6,
                 ExportTonnes = 44.5
             };
 
@@ -354,7 +305,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             _wasteController.ModelState.AddModelError("Error", "Error");
             var exportTonnageViewModel = new ExportTonnageViewModel
             {
-                JourneyId = 6,
+                Id = 6,
                 ExportTonnes = 44.5
             };
 
@@ -400,7 +351,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             // Arrange
             var baledWithWireModel = new BaledWithWireViewModel
             {
-                JourneyId = 1,
+                Id = 1,
                 BaledWithWire = true
             };
 
@@ -427,10 +378,10 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task BaledWithWire_Saves_WithValidData()
         {
             // Arrange
-            var journeyId = 3;
+            var Id = 3;
             var baledWithWireModel = new BaledWithWireViewModel
             {
-                JourneyId = journeyId,
+                Id = Id,
                 BaledWithWire = true
             };
 
@@ -443,7 +394,7 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             var redirectToActionResult = result as RedirectToActionResult;
             Assert.AreEqual("Note", redirectToActionResult.ActionName);
-            Assert.AreEqual(journeyId, redirectToActionResult.RouteValues.FirstOrDefault(rv => rv.Key == "id").Value);
+            Assert.AreEqual(Id, redirectToActionResult.RouteValues.FirstOrDefault(rv => rv.Key == "id").Value);
         }
 
         [TestMethod]
@@ -461,18 +412,18 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task Note_Return_Correctly()
         {
             // Arrange
-            var journeyId = 38;
+            var Id = 38;
             var wasteType = "testWasteType";
 
             NoteViewModel noteViewModel = new NoteViewModel
             {
-                JourneyId = journeyId
+                Id = Id
             };
 
-            _mockWasteService.Setup(s => s.GetNoteViewModel(It.Is<int>(p => p == journeyId))).ReturnsAsync(noteViewModel);
+            _mockWasteService.Setup(s => s.GetNoteViewModel(It.Is<int>(p => p == Id))).ReturnsAsync(noteViewModel);
 
             // Act
-            var result = await _wasteController.Note(journeyId);
+            var result = await _wasteController.Note(Id);
 
             // Assert
             Assert.IsNotNull(result);
@@ -488,7 +439,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
 
             // Ensure that the service is called only once
-            _mockWasteService.Verify(s => s.GetNoteViewModel(It.Is<int>(p => p == journeyId)), Times.Once);
+            _mockWasteService.Verify(s => s.GetNoteViewModel(It.Is<int>(p => p == Id)), Times.Once);
         }
 
         [TestMethod]
@@ -511,7 +462,7 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             NoteViewModel noteViewModel = new NoteViewModel
             {
-                JourneyId = 4
+                Id = 4
             };
 
             // Act

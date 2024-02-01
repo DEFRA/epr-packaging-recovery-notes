@@ -101,5 +101,74 @@ namespace EPRN.UnitTests.Portal.Services
                     It.Is<int>(p => p == id)), 
                 Times.Once);
         }
+
+        [TestMethod]
+        public async Task GetCancelViewModel_CallsService_Successfully()
+        {
+            // arrange
+            var id = 123;
+            var status = PrnStatus.Sent;
+            _mockHttpPrnsService.Setup(s => s.GetStatus(id)).ReturnsAsync(status);
+
+            // act
+           var viewModel = await _prnService.GetCancelViewModel(id);
+
+            // assert
+            _mockHttpPrnsService.Verify(s => 
+                s.GetStatus(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+            Assert.IsNotNull(viewModel);
+            Assert.AreEqual(status, viewModel.Status);
+            Assert.AreEqual(id, viewModel.Id);
+        }
+
+        [TestMethod]
+        public async Task CancelPRN_CallsService_Successfully()
+        {
+            // arrange
+            var id = 432;
+            var reason = "fsdgdsfg";
+            var viewModel = new CancelViewModel
+            {
+                Id = id,
+                CancelReason = reason,
+            };
+
+            // act
+            await _prnService.CancelPRN(viewModel);
+
+            // assert
+            _mockHttpPrnsService.Verify(s => 
+                s.CancelPRN(
+                    It.Is<int>(p => p == id),
+                    It.Is<string>(p => p == reason)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetRequestCancelViewModel_ShouldReturnViewModel()
+        {
+            // Arrange
+            int id = 1;
+            var expectedDto = new StatusAndProducerDto(); // Replace YourDto with the actual DTO type
+
+            _mockHttpPrnsService
+                .Setup(x => x.GetStatusAndProducer(It.IsAny<int>()))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnService.GetRequestCancelViewModel(id);
+
+            // Assert
+            _mockHttpPrnsService.Verify(s => 
+                s.GetStatusAndProducer(
+                    It.Is<int>(p => p == id)), 
+                Times.Once);
+            _mockMapper.Verify(m => 
+                m.Map<RequestCancelViewModel>(
+                    It.Is<StatusAndProducerDto>(p => p == expectedDto)), 
+                Times.Once);
+        }
     }
 }

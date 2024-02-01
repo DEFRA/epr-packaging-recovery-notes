@@ -5,13 +5,14 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Areas.Exporter.Controllers
 {
-    [Area("Exporter")]
+    [Area(Routes.Areas.Exporter)]
     public class PRNSController : BaseController
     {
-        private IPRNService _prnService;
+        private readonly IPRNService _prnService;
 
         private Category Category => Category.Exporter;
 
@@ -41,7 +42,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveTonnes(tonnesViewModel);
 
-            return RedirectToAction("SentTo", "PRNS", new { area = Category, tonnesViewModel.Id });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.SentTo, 
+                Routes.Areas.Controllers.Exporter.PRNS, 
+                new { area = Category, tonnesViewModel.Id });
         }
 
         [HttpGet]
@@ -53,7 +57,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
 
-            return RedirectToAction("Tonnes", "PRNS", new { Id = prnId });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Tonnes,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new { Id = prnId });
         }
 
         [HttpGet]
@@ -86,7 +93,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction("WhatToDo", "PRNS", new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.WhatToDo,
+                Routes.Areas.Controllers.Exporter.PRNS, 
+                new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -104,6 +114,76 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         [HttpGet]
         public async Task<IActionResult> WhatToDo(int? id)
         {
+            return View();
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public async Task<IActionResult> PRNCancellation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetCancelViewModel(id.Value);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.Cancel)]
+        public async Task<IActionResult> PRNCancellation(CancelViewModel cancelViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(await _prnService.GetCancelViewModel(cancelViewModel.Id));
+
+            await _prnService.CancelPRN(cancelViewModel);
+
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Cancelled,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new { area = Routes.Areas.Exporter, id = cancelViewModel.Id });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.RequestCancel)]
+        public async Task<IActionResult> CancelAcceptedPERN(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetRequestCancelViewModel(id.Value);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.RequestCancel)]
+        public async Task<IActionResult> CancelAcceptedPERN(RequestCancelViewModel requestCancelViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(requestCancelViewModel);
+
+            await _prnService.RequestToCancelPRN(requestCancelViewModel);
+
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.CancelRequested,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new { id = requestCancelViewModel.Id, area = Routes.Areas.Exporter });
+        }
+
+        [HttpGet]
+        public IActionResult Cancelled(int? id)
+        {
+            // *** Stubbed method ***
+            return View();
+        }
+
+        /// <summary>
+        /// This action comes from a succesful request to cancel an
+        /// accepted PRN (CancelAcceptedPERN)
+        /// </summary>
+        [HttpGet]
+        public IActionResult CancelRequested(int? id)
+        {
+            // *** Stubbed method ***
             return View();
         }
 

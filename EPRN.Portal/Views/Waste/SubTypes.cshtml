@@ -11,8 +11,7 @@
 
 <partial name="_ValidationSummary" />
 <partial name="_WasteTypeName" />
-<form method="post"> 
-    <input type="hidden" asp-for="JourneyId" />
+<form method="post">
     <radios id="SelectedWasteSubTypeId" asp-for="SelectedWasteSubTypeId" asp-title="@WasteSubTypesResources.MaterialSubTypeOptionsTitle">
         <p class="govuk-error-message">
             <span asp-validation-for="SelectedWasteSubTypeId"></span>

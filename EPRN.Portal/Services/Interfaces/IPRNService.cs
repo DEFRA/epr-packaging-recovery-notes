@@ -22,6 +22,14 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id);
 
+        Task<CancelViewModel> GetCancelViewModel(int id);
+
+        Task<RequestCancelViewModel> GetRequestCancelViewModel(int id);
+
+        Task RequestToCancelPRN(RequestCancelViewModel requestCancelViewModel);
+
+        Task CancelPRN(CancelViewModel cancelViewModel);
+
         Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request);
     }
 }

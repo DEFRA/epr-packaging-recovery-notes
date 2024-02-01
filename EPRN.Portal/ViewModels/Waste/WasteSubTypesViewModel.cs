@@ -5,7 +5,7 @@ namespace EPRN.Portal.ViewModels.Waste
 {
     public class WasteSubTypesViewModel
     {
-        public int JourneyId { get; set; }
+        public int Id { get; set; }
 
         public List<WasteSubTypeOptionViewModel> WasteSubTypeOptions { get; set; }
 

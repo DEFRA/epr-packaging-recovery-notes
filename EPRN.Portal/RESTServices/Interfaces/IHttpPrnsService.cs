@@ -25,6 +25,18 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task SaveCheckYourAnswers(
             int id);
 
+        Task<PrnStatus> GetStatus(int id);
+
+        Task CancelPRN(
+            int id,
+            string reason);
+
+        Task<StatusAndProducerDto> GetStatusAndProducer(int id);
+
+        Task RequestCancelPRN(
+            int id,
+            string reason);
+
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
     }
 }

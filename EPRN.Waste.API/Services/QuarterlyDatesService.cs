@@ -29,7 +29,7 @@ namespace EPRN.Waste.API.Services
             var quarterToReturn = new QuarterlyDatesDto
             {
                 QuarterlyMonths = new Dictionary<int, string>(),
-                Notification = "" 
+                Notification = string.Empty 
             };
             
             // Overrides
@@ -101,6 +101,7 @@ namespace EPRN.Waste.API.Services
         {
             return (currentDate.Month - 1) % 3 + 1;
         }
+        
         private bool IsWithinCurrentQuarter(DateTime currentDate, int currentQuarter, int currentMonthInQuarter)
         {
             var quarterStartDate = new DateTime(currentDate.Year, _quarterStartMonths[currentQuarter -1], 1);
@@ -112,6 +113,7 @@ namespace EPRN.Waste.API.Services
             for (var i = 1; i <= currentMonthInQuarter; i++)
                 monthsToDisplay.Add((currentQuarter - 1) * 3 + i);
         }
+        
         private static bool IsWithinReturnDeadline(DateTime currentDate, DateTime returnDeadline)
         {
             return currentDate <= returnDeadline;
@@ -169,7 +171,6 @@ namespace EPRN.Waste.API.Services
             if (currentMonth == startMonthOfCurrentQuarter && !hasSubmittedPreviousQuarterReturn) 
                 quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnLate;
         }
-
 
         private static bool HandleFebruary29(bool hasSubmittedPreviousQuarterReturn, QuarterlyDatesDto quarterToReturn)
         {
