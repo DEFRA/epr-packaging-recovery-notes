@@ -42,7 +42,6 @@
                     <h1 class="govuk-heading-xl">@ViewSentPrnResources.PrnPernHeading</h1>
                 }
             }
-            <partial name="_ValidationSummary" />
             <form id="prnsForm" name="prnsForm" method="get" asp-controller="Prns" asp-action="ViewSentPrns">
                 <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
@@ -50,9 +49,10 @@
                             @ViewSentPrnResources.SearchText
                         </label>
                     </h1>
-                    <p class="govuk-error-message">
-                        <span asp-validation-for="SearchTerm"></span>
-                    </p>
+                    @if (Model.Rows.Count() == 0 && !string.IsNullOrWhiteSpace(Model.SearchTerm))
+                    {
+                        <p class="govuk-error-message">@ViewSentPrnResources.Error</p>
+                    }
                     <input class="govuk-input" id="SearchTerm" asp-for="SearchTerm" type="text">
                 </div>
 
@@ -126,14 +126,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('#filterBy').change(function () {
-            $('#prnsForm').submit();
-        });
-        $('#sortBy').change(function () {
-            $('#prnsForm').submit();
-        });
-    });
-</script>

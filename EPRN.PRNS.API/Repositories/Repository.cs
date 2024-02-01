@@ -151,7 +151,8 @@ namespace EPRN.PRNS.API.Repositories
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToShortDateString(),
                     Tonnes = prn.Tonnes.Value,
-                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status)
+                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status),
+                    Link = "#"
                 }).ToListAsync(),
 
                 Pagination = new PaginationDto
@@ -160,7 +161,11 @@ namespace EPRN.PRNS.API.Repositories
                     CurrentPage = request.Page,
                     ItemsPerPage = recordsPerPage,
                     TotalPages = totalPages,
-                }
+                },
+
+                SearchTerm = request.SearchTerm,
+                FilterBy = request.FilterBy,
+                SortBy = request.SortBy
             };
         }
     }
