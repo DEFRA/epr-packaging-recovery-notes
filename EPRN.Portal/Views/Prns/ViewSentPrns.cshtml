@@ -106,7 +106,7 @@
                         {
                             <tr class="govuk-table__row" data-status="@row.Status">
                                 <td class="govuk-table__cell">
-                                    <a href="@row.Link">@row.PrnNumber</a>
+                                    <a href="@Url.Action("ViewSentPrn", "Prns", new { id = row.PrnNumber })">@row.PrnNumber</a>
                                 </td>
                                 <td class="govuk-table__cell">@row.Material</td>
                                 <td class="govuk-table__cell">@row.SentTo</td>

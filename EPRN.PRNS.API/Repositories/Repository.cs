@@ -151,8 +151,7 @@ namespace EPRN.PRNS.API.Repositories
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToShortDateString(),
                     Tonnes = prn.Tonnes.Value,
-                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status),
-                    Link = "#"
+                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status)
                 }).ToListAsync(),
 
                 Pagination = new PaginationDto

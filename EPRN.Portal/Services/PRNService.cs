@@ -4,6 +4,9 @@ using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace EPRN.Portal.Services
 {
@@ -11,13 +14,17 @@ namespace EPRN.Portal.Services
     {
         private IMapper _mapper;
         private IHttpPrnsService _httpPrnsService;
+        private readonly IUrlHelper _urlHelper;
 
         public PRNService(
             IMapper mapper,
-            IHttpPrnsService httpPrnsService)
+            IHttpPrnsService httpPrnsService,
+            IUrlHelperFactory urlHelperFactory,
+            IActionContextAccessor actionContextAccessor)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpPrnsService = httpPrnsService ?? throw new ArgumentNullException(nameof(httpPrnsService));
+            _urlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
         }
 
         public async Task<TonnesViewModel> GetTonnesViewModel(
