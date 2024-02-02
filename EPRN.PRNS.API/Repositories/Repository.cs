@@ -155,37 +155,37 @@ namespace EPRN.PRNS.API.Repositories
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
             var recordsPerPage = request.PageSize;
-
             var prns = _prnContext.PRN
                 .Include(repo => repo.WasteType)
+                .Include(repo => repo.PrnHistory)
                 .AsQueryable();
-
-            prns = prns.OrderByDescending(repo => repo.CreatedDate);
-
+           
+            if (!string.IsNullOrWhiteSpace(request.FilterBy))
+            {
+                var filterByStatus = (Common.Enums.PrnStatus)Enum.Parse(typeof(Common.Enums.PrnStatus), request.FilterBy);
+                prns = prns.Where(e => e.PrnHistory != null && e.PrnHistory.Any() && (Common.Enums.PrnStatus)e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
+            }
+            
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 prns = prns.Where(repo =>
                     EF.Functions.Like(repo.Reference, $"%{request.SearchTerm}%") ||
                     EF.Functions.Like(repo.SentTo, $"%{request.SearchTerm}%"));
             }
-
-            if (!string.IsNullOrWhiteSpace(request.FilterBy))
-                prns = prns.Where(e => (int)e.Status == int.Parse(request.FilterBy));
-
+            
             if (request.SortBy == "1")
                 prns = prns.OrderByDescending(e => e.WasteType);
             else if (request.SortBy == "2")
                 prns = prns.OrderBy(e => e.SentTo);
-
+            else
+                prns = prns.OrderByDescending(repo => repo.CreatedDate);
+            
             // get the count BEFORE paging
             var totalRecords = await prns.CountAsync();
-
             prns = prns
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
-
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
-
             return new SentPrnsDto()
             {
                 Rows = await prns.Select(prn => new PrnDto
@@ -195,9 +195,10 @@ namespace EPRN.PRNS.API.Repositories
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToShortDateString(),
                     Tonnes = prn.Tonnes.Value,
-                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status)
+                    Status = prn.PrnHistory != null && prn.PrnHistory.Any()
+                        ? (Common.Enums.PrnStatus)prn.PrnHistory.OrderByDescending(h => h.Created).First().Status
+                        : default
                 }).ToListAsync(),
-
                 Pagination = new PaginationDto
                 {
                     TotalItems = totalRecords,
@@ -205,11 +206,12 @@ namespace EPRN.PRNS.API.Repositories
                     ItemsPerPage = recordsPerPage,
                     TotalPages = totalPages,
                 },
-
                 SearchTerm = request.SearchTerm,
                 FilterBy = request.FilterBy,
                 SortBy = request.SortBy
             };
         }
+
+
     }
 }
