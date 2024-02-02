@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Controllers;
+﻿using EPRN.Common.Dtos;
+using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -113,47 +114,56 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNull(result.ViewName);
         }
 
-        //[TestMethod]
-        //public async Task ViewSentPrns_ReturnsViewResult()
-        //{
-        //    // Arrange
+        #region ViewSentPrns
 
-        //    // Act
-        //    var result = await _prnsController.ViewSentPrns();
+        [TestMethod]
+        public async Task ViewSentPrns_ReturnsViewResultWithCorrectModel()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(request)).ReturnsAsync(new ViewSentPrnsViewModel());
 
-        //    // Assert
-        //    Assert.IsInstanceOfType(result, typeof(ViewResult));
+            // Act
+            var result = await _prnsController.ViewSentPrns(request) as ViewResult;
 
-        //}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(request), Times.Once());
+        }
 
-        //[TestMethod]
-        //public async Task ViewSentPrns_CallsGetViewSentPrnsViewModel()
-        //{
-        //    // Arrange
+        [TestMethod]
+        public async Task ViewSentPrns_ReturnsCorrectView()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(request)).ReturnsAsync(new ViewSentPrnsViewModel());
 
-        //    // Act
-        //    var result = await _prnsController.ViewSentPrns();
+            // Act
+            var result = await _prnsController.ViewSentPrns(request) as ViewResult;
 
-        //    // Assert
-        //    _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(1, It.IsAny<string>()), Times.Once());
-        //}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNotNull(result, result.ViewName);
+            _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(request), Times.Once());
+        }
 
-        //[TestMethod]
-        //public async Task ViewSentPrns_ReturnsCorrectViewModel()
-        //{
-        //    // Arrange
-        //    var expectedViewModel = new ViewSentPrnsViewModel();
-        //    _mockPrnService.Setup(
-        //        service => service.GetViewSentPrnsViewModel(
-        //            It.IsAny<int>(),
-        //            It.IsAny<string>()))
-        //        .ReturnsAsync(expectedViewModel);
+        [TestMethod]
+        public async Task ViewSentPrns_PassesCorrectModelToView()
+        {
+            // Arrange
+            var expectedModel = new ViewSentPrnsViewModel();
+            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(It.IsAny<GetSentPrnsViewModel>())).ReturnsAsync(expectedModel);
 
-        //    // Act
-        //    var result = await _prnsController.ViewSentPrns();
+            // Act
+            var result = await _prnsController.ViewSentPrns(new GetSentPrnsViewModel()) as ViewResult;
 
-        //    // Assert
-        //    Assert.AreEqual(expectedViewModel, (result as ViewResult)?.Model);
-        //}
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.AreEqual(expectedModel, result.Model);
+        }
+
+        #endregion
     }
 }

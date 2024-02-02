@@ -1,32 +1,32 @@
 ﻿using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
-using Microsoft.EntityFrameworkCore;
 using EPRN.Common.Data.Enums;
+using Microsoft.EntityFrameworkCore;
 
 namespace EPRN.UnitTests.SeedData
 {
-  
+
     [TestClass]
     public class SeedDataOperations
     {
         [TestMethod]
-        [Ignore("This test is ignored by design, it is only run manually to seeds data into the PRN and PRNHistory tables")]        
+        //[Ignore("This test is ignored by design, it is only run manually to seeds data into the PRN and PRNHistory tables")]
         public void PrnAndPrnHistorySeedData()
         {
             // Your connection string, change it to your own local db
-            var connectionString = "server=(localdb)\\MSSQLLocalDB;Database=Waste;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
-            
+            var connectionString = "server=.;Database=Waste;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True;";
+
             // Create a new options instance telling the context to use SQL Server with the connection string
             var options = new DbContextOptionsBuilder<EPRNContext>()
                 .UseSqlServer(connectionString)
                 .Options;
-            
+
             // Create a new context instance
             using var context = new EPRNContext(options);
-            
+
             // Run the seed data code
             SeedData(context);
-            
+
             // Assert that the data was added correctly
             Assert.AreEqual(30, context.PRN.Count());
             Assert.AreEqual(30, context.PRNHistory.Count());
@@ -43,42 +43,42 @@ namespace EPRN.UnitTests.SeedData
         /// <param name="context">The DbContext to use for data seeding.</param>
         private void SeedData(EPRNContext context)
         {
-                // Check if any data already exists
-                if (!context.PRN.Any() && !context.PRNHistory.Any())
+            // Check if any data already exists
+            if (!context.PRN.Any() && !context.PRNHistory.Any())
+            {
+                var random = new Random();
+                var sentToOptions = new[] { "Tesco", "Morrisons", "Argos", "Cadbury" };
+                var prnStatusValues = new[] { PrnStatus.Accepted, PrnStatus.AwaitingAcceptance, PrnStatus.Cancelled, PrnStatus.AwaitingCancellation, PrnStatus.Rejected };
+                for (int i = 0; i < 30; i++)
                 {
-                    var random = new Random();
-                    var sentToOptions = new[] { "Tesco", "Morrisons", "Argos", "Cadbury" };
-                    var prnStatusValues = new[] { PrnStatus.Accepted, PrnStatus.AwaitingAcceptance, PrnStatus.Cancelled, PrnStatus.AwaitingCancellation, PrnStatus.Rejected };
-                    for (int i = 0; i < 30; i++)
+                    var prn = new PackagingRecoveryNote
                     {
-                        var prn = new PackagingRecoveryNote
-                        {
-                            Reference = $"PRN{i + 294055}", // Unique reference for each row
-                            Note = $"Note{i}",
-                            WasteTypeId = random.Next(1, 10), // Random number between 1 and 9
-                            Category = new Category(), // Populate this as needed
-                            WasteType = new WasteType(), // Populate this as needed
-                            WasteSubTypeId = null,
-                            SentTo = sentToOptions[random.Next(sentToOptions.Length)], // Randomly select one of the options
-                            Tonnes = random.Next(30, 110),
-                            SiteId = random.Next(1, 25),
-                            CompletedDate = DateTime.Now.AddDays(-i),
-                            CreatedDate = DateTime.Now.AddDays(-i)
-                        };
-                        context.PRN.Add(prn);
-                        var prnHistory = new PrnHistory
-                        {
-                            PrnId = prn.Id,
-                            Status = prnStatusValues[random.Next(prnStatusValues.Length)], // Randomly select one of the enum values
-                            Reason = $"Reason{i}",
-                            Created = DateTime.Now.AddDays(-i),
-                            CreatedBy = $"CreatedBy{i}",
-                            PackagingRecoveryNote = prn
-                        };
-                        context.PRNHistory.Add(prnHistory);
-                    }
-                    context.SaveChanges();
+                        Reference = $"PRN{i + 294055}", // Unique reference for each row
+                        Note = $"Note{i}",
+                        WasteTypeId = random.Next(1, 10), // Random number between 1 and 9
+                        Category = new Category(), // Populate this as needed
+                        WasteType = new WasteType(), // Populate this as needed
+                        WasteSubTypeId = null,
+                        SentTo = sentToOptions[random.Next(sentToOptions.Length)], // Randomly select one of the options
+                        Tonnes = random.Next(30, 110),
+                        SiteId = random.Next(1, 25),
+                        CompletedDate = DateTime.Now.AddDays(-i),
+                        CreatedDate = DateTime.Now.AddDays(-i)
+                    };
+                    context.PRN.Add(prn);
+                    var prnHistory = new PrnHistory
+                    {
+                        PrnId = prn.Id,
+                        Status = prnStatusValues[random.Next(prnStatusValues.Length)], // Randomly select one of the enum values
+                        Reason = $"Reason{i}",
+                        Created = DateTime.Now.AddDays(-i),
+                        CreatedBy = $"CreatedBy{i}",
+                        PackagingRecoveryNote = prn
+                    };
+                    context.PRNHistory.Add(prnHistory);
                 }
+                context.SaveChanges();
+            }
         }
     }
 }
