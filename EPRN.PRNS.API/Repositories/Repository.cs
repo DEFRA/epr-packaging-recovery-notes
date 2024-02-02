@@ -12,6 +12,7 @@ namespace EPRN.PRNS.API.Repositories
     {
         private readonly IMapper _mapper;
         private readonly EPRNContext _prnContext;
+        private const string USERNAME = "PRN USERNAME";
 
         public Repository(
             IMapper mapper,
@@ -29,7 +30,16 @@ namespace EPRN.PRNS.API.Repositories
             {
                 WasteTypeId = materialType,
                 Category = _mapper.Map<Category>(category),
-                Status = PrnStatus.Draft
+                PrnHistory = new List<PrnHistory>
+                { 
+                    new PrnHistory
+                    {
+                        Created = DateTime.UtcNow,
+                        CreatedBy = USERNAME,
+                        Status = PrnStatus.Draft,
+                        Reason = "Created"
+                    }
+                }
             };
             
             _prnContext.Add(prn);
@@ -99,22 +109,24 @@ namespace EPRN.PRNS.API.Repositories
         public async Task<Common.Enums.PrnStatus> GetStatus(int id)
         {
             return await _prnContext
-                .PRN
-                .Where(prn => prn.Id == id)
-                .Select(prn => _mapper.Map<Common.Enums.PrnStatus>(prn.Status))
+                .PRNHistory
+                .Where(h => h.PrnId == id)
+                .OrderByDescending(prn => prn.Created)
+                .Select(h => _mapper.Map<Common.Enums.PrnStatus>(h.Status))
                 .SingleOrDefaultAsync();
         }
 
         public async Task<StatusAndProducerDto> GetStatusAndRecipient(int id)
         {
             return await _prnContext
-                .PRN
-                .Where(prn => prn.Id == id)
-                .Select(prn => new StatusAndProducerDto
+                .PRNHistory
+                .Where(h => h.PrnId == id)
+                .OrderByDescending(h => h.Created)
+                .Select(h => new StatusAndProducerDto
                 {
-                    Id = prn.Id,
-                    Status = _mapper.Map<Common.Enums.PrnStatus>(prn.Status),
-                    Producer = prn.SentTo
+                    Id = h.PackagingRecoveryNote.Id,
+                    Status = _mapper.Map<Common.Enums.PrnStatus>(h.Status),
+                    Producer = h.PackagingRecoveryNote.SentTo
                 })
                 .SingleOrDefaultAsync();
         }
