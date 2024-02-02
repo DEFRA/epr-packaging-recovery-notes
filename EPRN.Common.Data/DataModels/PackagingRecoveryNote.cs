@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Common.Data.DataModels
 {
-    public class PackagingRecoveryNote : BaseEntity
+    public class PackagingRecoveryNote : IdBaseEntity
     {
         public string Reference { get; set; }
 
@@ -24,11 +24,8 @@ namespace EPRN.Common.Data.DataModels
 
         public int? SiteId { get; set; }
 
-        public PrnStatus Status { get; set; }
-
         public DateTime? CompletedDate { get; set; }
 
-        [MaxLength(200)]
-        public string StatusReason { get; set; }
+        public ICollection<PrnHistory> PrnHistory { get; set; }
     }
 }
