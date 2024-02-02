@@ -44,7 +44,7 @@ namespace EPRN.PRNS.API.Repositories
                     }
                 }
             };
-            
+
             await _prnContext.AddAsync(prn);
             await _prnContext.SaveChangesAsync();
 
@@ -85,7 +85,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Where(prn => prn.Id == id)
                 .Select(prn => new ConfirmationDto
                 {
-                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ? 
+                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ?
                         $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}" : prn.Reference,
                     PrnComplete = prn.CompletedDate.HasValue && prn.CompletedDate.Value < DateTime.Now,
                     CompanyNameSentTo = prn.SentTo ?? string.Empty
@@ -101,7 +101,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Select(prn => new CheckYourAnswersDto
                 {
                     Id = prn.Id,
-                    MaterialName = prn.WasteTypeId.HasValue ? prn.WasteType.Name: string.Empty,
+                    MaterialName = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,
                     Tonnage = prn.Tonnes,
                     Notes = prn.Note,
                     RecipientName = prn.SentTo
@@ -135,7 +135,7 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task UpdatePrnStatus(
-            int id, 
+            int id,
             Common.Enums.PrnStatus status,
             string reason = null)
         {
@@ -150,38 +150,6 @@ namespace EPRN.PRNS.API.Repositories
 
             await _prnContext.AddAsync(historyRecord);
             await _prnContext.SaveChangesAsync();
-        }
-
-        public async Task<PRNDetailsDto> GetDetails(int id)
-        {
-            return await _prnContext
-                .PRN
-                .Where(prn => prn.Id == id)
-                .Select(prn => new PRNDetailsDto
-                {
-                    AccreditationNumber = "UNKNOWN",
-                    ReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ?
-                        $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}" : prn.Reference,
-                    SiteAddress = $"Unknown street{Environment.NewLine}Unknown town{Environment.NewLine}Unknown postcode",
-                    CreatedBy = prn.PrnHistory.First(h => h.Status == PrnStatus.Draft).CreatedBy,
-                    DecemberWasteBalance = false,
-                    Tonnage = prn.Tonnes,
-                    SentTo = prn.SentTo,
-                    Note = prn.Note,
-                    History =
-                        // get the history 
-                        prn
-                        .PrnHistory
-                        .OrderByDescending(h => h.Created)
-                        .Select(h => new PRNHistoryDto
-                        {
-                            Created = h.Created,
-                            Reason = h.Reason,
-                            Status = _mapper.Map<Common.Enums.PrnStatus>(h.Status),
-                            Username = h.CreatedBy
-                        })
-                })
-                .SingleOrDefaultAsync();
         }
     }
 }
