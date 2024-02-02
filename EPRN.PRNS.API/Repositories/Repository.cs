@@ -12,7 +12,10 @@ namespace EPRN.PRNS.API.Repositories
     {
         private readonly IMapper _mapper;
         private readonly EPRNContext _prnContext;
-        private const string USERNAME = "PRN USERNAME";
+
+        // we will need to identify the username when account system is implemented
+        // most likely we could inject this from somesort of user management class
+        private const string username = "PRN USER";
 
         public Repository(
             IMapper mapper,
@@ -31,18 +34,18 @@ namespace EPRN.PRNS.API.Repositories
                 WasteTypeId = materialType,
                 Category = _mapper.Map<Category>(category),
                 PrnHistory = new List<PrnHistory>
-                { 
+                {
                     new PrnHistory
                     {
-                        Created = DateTime.UtcNow,
-                        CreatedBy = USERNAME,
                         Status = PrnStatus.Draft,
+                        Created = DateTime.UtcNow,
+                        CreatedBy = username,
                         Reason = "Created"
                     }
                 }
             };
-            
-            _prnContext.Add(prn);
+
+            await _prnContext.AddAsync(prn);
             await _prnContext.SaveChangesAsync();
 
             return prn.Id;
@@ -82,7 +85,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Where(prn => prn.Id == id)
                 .Select(prn => new ConfirmationDto
                 {
-                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ? 
+                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ?
                         $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}" : prn.Reference,
                     PrnComplete = prn.CompletedDate.HasValue && prn.CompletedDate.Value < DateTime.Now,
                     CompanyNameSentTo = prn.SentTo ?? string.Empty
@@ -98,7 +101,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Select(prn => new CheckYourAnswersDto
                 {
                     Id = prn.Id,
-                    MaterialName = prn.WasteTypeId.HasValue ? prn.WasteType.Name: string.Empty,
+                    MaterialName = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,
                     Tonnage = prn.Tonnes,
                     Notes = prn.Note,
                     RecipientName = prn.SentTo
@@ -108,10 +111,10 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task<Common.Enums.PrnStatus> GetStatus(int id)
         {
-            return await _prnContext
-                .PRNHistory
+            // This is the status on the most recent PrnHistory record
+            return await _prnContext.PRNHistory
                 .Where(h => h.PrnId == id)
-                .OrderByDescending(prn => prn.Created)
+                .OrderByDescending(h => h.Created)
                 .Select(h => _mapper.Map<Common.Enums.PrnStatus>(h.Status))
                 .SingleOrDefaultAsync();
         }
@@ -132,17 +135,21 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task UpdatePrnStatus(
-            int id, 
+            int id,
             Common.Enums.PrnStatus status,
             string reason = null)
         {
-            await _prnContext
-                .PRN
-                .Where(prn => prn.Id == id)
-                .ExecuteUpdateAsync(sp => sp
-                    .SetProperty(prn => prn.Status, _mapper.Map<PrnStatus>(status))
-                    .SetProperty(prn => prn.StatusReason, reason)
-                );
+            var historyRecord = new PrnHistory
+            {
+                PrnId = id,
+                CreatedBy = username,
+                Created = DateTime.UtcNow,
+                Status = _mapper.Map<PrnStatus>(status),
+                Reason = reason
+            };
+
+            await _prnContext.AddAsync(historyRecord);
+            await _prnContext.SaveChangesAsync();
         }
     }
 }
