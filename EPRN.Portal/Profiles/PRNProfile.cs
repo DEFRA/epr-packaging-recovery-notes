@@ -12,6 +12,17 @@ namespace EPRN.Portal.Profiles
             CreateMap<CheckYourAnswersDto, CheckYourAnswersViewModel>();
             CreateMap<StatusAndProducerDto, RequestCancelViewModel>()
                 .ForMember(d => d.Regulator, o => o.Ignore()); // we don't know where the regulator is coming from yet
+
+            CreateMap<PRNDetailsDto, ViewPRNViewModel>()
+                .ForMember(d => d.SiteAddress, o => o.MapFrom(s => s.SiteAddress.Replace(Environment.NewLine, "<br/>")))
+                // get the current status from the history records. It's the most history record
+                .ForMember(d => d.Status, o => o.MapFrom(s => 
+                    s.History
+                    .OrderByDescending(h => h.Created)
+                    .Select(h => h.Status)
+                    .First()));
+
+            CreateMap<PRNHistoryDto, PRNHistoryViewModel>();
         }
     }
 }

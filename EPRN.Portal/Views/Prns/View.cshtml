@@ -1,0 +1,61 @@
+﻿@model ViewPRNViewModel
+
+<div>
+    <h1 class="govuk-heading-xl">@Model.ReferenceNumber</h1>
+    <p class="govuk-body">Accreditation number: @Model.AccreditationNumber</p>
+    <p class="govuk-body">Created by: @Model.CreatedBy</p>
+    <h3 class="govuk-body-l">Accreditation address:</h3>
+    <p class="govuk-body">@Html.Raw(Model.SiteAddress)</p>
+    <p class="govuk-body">Date issued</p>
+
+
+    <table class="govuk-table">
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    PRN Created from waste received in December
+                </th>
+                <td class="govuk-table__cell">@(Model.DecemberWasteBalance ? "Yes" : "No")</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    Packaging producer or compliance scheme
+                </th>
+                <td class="govuk-table__cell">@Model.SentTo</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    Note
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.Note
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">
+                    Status
+                </th>
+                <td class="govuk-table__cell">
+                    @Model.Status.ToString()
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="govuk-body-s">@Model.ReferenceNumber history</h2>
+    @foreach(var history in Model.History)
+    {
+        <div>
+            <div style="display:inline-block;width:10px;height:100%;">
+                <div style="height:10px;width:10px;background-color:red;"></div>
+                <div style="height:calc(100% - 10px);background-color:yellow;"></div>
+            </div>
+            <div style="display:inline-block;">
+                <h3>@history.Status.ToString()</h3>
+                <label>@history.Username</label>
+                <label>@history.Reason</label>
+                <label>@history.Created.ToString("d MMM yyyy")</label>
+            </div>
+        </div>
+    }
+</div>

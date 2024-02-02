@@ -1,6 +1,6 @@
 ﻿using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Controllers
 {
@@ -25,10 +25,19 @@ namespace EPRN.Portal.Controllers
             if (id == null)
                 return NotFound();
             
-            if (id <= 0)
-                return BadRequest();
-
             var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Actions.Prns.View)]
+        public async Task<IActionResult> ViewPRN(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetViewPrnViewModel(id.Value);
 
             return View(viewModel);
         }

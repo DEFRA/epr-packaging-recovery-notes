@@ -94,5 +94,10 @@ namespace EPRN.PRNS.API.Services
                     reason);
             }
         }
+
+        public async Task<PRNDetailsDto> GetPrnDetails(int id)
+        {
+            return await _prnRepository.GetDetails(id);
+        }
     }
 }

@@ -9,6 +9,7 @@
         // accepted by the producer/compliance scheme - this is the last step of the process therefore no need for Completed
         Accepted = 3,
         CancellationRequested = 4,
-        Cancelled = 5
+        Cancelled = 5,
+        Rejected = 7
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 
@@ -32,21 +33,6 @@ namespace EPRN.UnitTests.Portal.Controllers
             var notFoundResult = result as NotFoundResult;
 
             Assert.AreEqual(404, notFoundResult.StatusCode);
-        }
-
-        [TestMethod]
-        public async Task PrnSavedAsDraftConfirmation_ReturnsBadRequest_WhenJourneyIdZero()
-        {
-            // Arrange
-
-            // Act
-            var result = await _prnsController.PrnSavedAsDraftConfirmation(0);
-
-            // Assert
-            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
-            var badRequestResult = result as BadRequestResult;
-
-            Assert.AreEqual(400, badRequestResult.StatusCode);
         }
 
         [TestMethod]
@@ -111,6 +97,40 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsNull(result.ViewName);
+        }
+
+        [TestMethod]
+        public async Task ViewPRN_Action_With_Valid_Id_Should_Return_ViewResult_With_ViewModel()
+        {
+            // Arrange
+            int idValue = 1;
+            var expectedViewModel = new ViewPRNViewModel(); // Replace with the actual ViewModel type
+
+            _mockPrnService.Setup(service => service.GetViewPrnViewModel(idValue))
+                           .ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnsController.ViewPRN(idValue);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.AreEqual(expectedViewModel, viewResult.Model);
+        }
+
+        [TestMethod]
+        public async Task ViewPRN_Action_With_Null_Id_Should_Return_NotFoundResult()
+        {
+            // Arrange
+            int? id = null;
+
+            // Act
+            var result = await _prnsController.ViewPRN(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
     }
 }

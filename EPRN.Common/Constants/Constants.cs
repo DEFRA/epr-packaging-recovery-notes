@@ -84,6 +84,7 @@ public static class Strings
             public static class Prns
             {
                 public const string Create = "Create";
+                public const string View = "View";
             }
 
             public static class Waste

@@ -28,5 +28,7 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
             int id, 
             PrnStatus status, 
             string reason = null);
+
+        Task<PRNDetailsDto> GetDetails(int id);
     }
 }

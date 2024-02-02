@@ -36,5 +36,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task RequestCancelPRN(
             int id,
             string reason);
+
+        Task<PRNDetailsDto> GetPrnDetails(int id);
     }
 }

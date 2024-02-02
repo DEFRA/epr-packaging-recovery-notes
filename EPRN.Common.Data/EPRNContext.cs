@@ -25,5 +25,7 @@ namespace EPRN.Common.Data
         public virtual DbSet<WasteJourney> WasteJourney { get; set; }
 
         public virtual DbSet<PackagingRecoveryNote> PRN { get; set; }
+
+        public virtual DbSet<PrnHistory> PRNHistory { get; set; }
     }
 }

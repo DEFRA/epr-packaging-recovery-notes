@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -114,6 +115,15 @@ namespace EPRN.PRNS.API.Controllers
             await _prnService.RequestCancelPrn(id, reason);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("Details")]
+        public async Task<IActionResult> GetPrnDetails(int id)
+        {
+            var prnDetailsDto = await _prnService.GetPrnDetails(id);
+
+            return Ok(prnDetailsDto);
         }
 
         /// <summary>
