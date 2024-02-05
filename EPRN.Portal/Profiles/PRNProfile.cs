@@ -12,6 +12,10 @@ namespace EPRN.Portal.Profiles
             CreateMap<CheckYourAnswersDto, CheckYourAnswersViewModel>();
             CreateMap<StatusAndProducerDto, RequestCancelViewModel>()
                 .ForMember(d => d.Regulator, o => o.Ignore()); // we don't know where the regulator is coming from yet
+            CreateMap<PrnDto, PrnRowViewModel>();
+            CreateMap<PaginationDto, PaginationViewModel>();
+            CreateMap<SentPrnsDto, ViewSentPrnsViewModel>();
+            CreateMap<GetSentPrnsViewModel, GetSentPrnsDto>();
         }
     }
 }

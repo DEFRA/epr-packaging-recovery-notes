@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Portal.ViewModels.PRNS;
 
 namespace EPRN.Portal.Services.Interfaces
@@ -28,6 +29,8 @@ namespace EPRN.Portal.Services.Interfaces
         Task RequestToCancelPRN(RequestCancelViewModel requestCancelViewModel);
 
         Task CancelPRN(CancelViewModel cancelViewModel);
+
+        Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request);
 
         Task<DecemberWasteViewModel> GetDecemberWasteModel(int materialId, Category category);
 

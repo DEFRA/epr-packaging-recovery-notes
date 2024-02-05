@@ -82,6 +82,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CheckYourAnswersResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\PRNS\ViewSentPrnResources.Designer.cs">
+      <DependentUpon>ViewSentPrnResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\PRNS\PrnSavedAsDraftResources.Designer.cs">
       <DependentUpon>PrnSavedAsDraftResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -198,6 +203,10 @@
     <EmbeddedResource Update="Resources\PRNS\CheckYourAnswersResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CheckYourAnswersResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\ViewSentPrnResources.resx">
+      <LastGenOutput>ViewSentPrnResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\PrnSavedAsDraftResources.resx">
       <LastGenOutput>PrnSavedAsDraftResources.Designer.cs</LastGenOutput>

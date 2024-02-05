@@ -31,6 +31,8 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task RequestCancelPrn(int id, string reason);
 
+        Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
+
         Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
 
         Task SaveDecemberWaste(int jouneyId, bool decemberWaste);

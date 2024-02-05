@@ -95,6 +95,11 @@ namespace EPRN.PRNS.API.Services
             }
         }
 
+        public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
+        {
+            return await _prnRepository.GetSentPrns(request);
+        }
+
         public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
         {
             var decemberWaste = await _prnRepository.GetDecemberWaste(journeyId);
