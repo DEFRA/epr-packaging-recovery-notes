@@ -1,6 +1,5 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Portal.Services.Interfaces;
-using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EPRN.Portal.Controllers
@@ -25,7 +24,7 @@ namespace EPRN.Portal.Controllers
         {
             if (id == null)
                 return NotFound();
-            
+
             if (id <= 0)
                 return BadRequest();
 
@@ -41,18 +40,5 @@ namespace EPRN.Portal.Controllers
 
             return View(viewSentPrnsViewModel);
         }
-
-        //[HttpPost]
-        //public async Task<IActionResult> ViewSentPrns(ViewSentPrnsViewModel viewSentPrnsViewModel, int page = 1)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(viewSentPrnsViewModel);
-        //    }
-
-        //    var viewModel = await _prnService.GetViewSentPrnsViewModel(page, viewSentPrnsViewModel.SearchTerm);
-
-        //    return View(viewModel);
-        //}
     }
 }

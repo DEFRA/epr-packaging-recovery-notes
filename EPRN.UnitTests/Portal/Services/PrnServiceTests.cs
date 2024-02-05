@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.PRNS;
@@ -21,7 +20,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             _mockHttpPrnsService = new Mock<IHttpPrnsService>();
             _mockMapper = new Mock<IMapper>();
-            
+
             _prnService = new PRNService(
                 _mockMapper.Object,
                 _mockHttpPrnsService.Object);
@@ -55,9 +54,9 @@ namespace EPRN.UnitTests.Portal.Services
             await _prnService.GetTonnesViewModel(id);
 
             // assert
-            _mockHttpPrnsService.Verify(s => 
+            _mockHttpPrnsService.Verify(s =>
                 s.GetPrnTonnage(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
@@ -78,10 +77,10 @@ namespace EPRN.UnitTests.Portal.Services
             await _prnService.SaveTonnes(viewModel);
 
             // assert
-            _mockHttpPrnsService.Verify(s => 
+            _mockHttpPrnsService.Verify(s =>
                 s.SaveTonnage(
                     It.Is<int>(p => p == id),
-                    It.Is<double>(p => p == tonnes)), 
+                    It.Is<double>(p => p == tonnes)),
                 Times.Once);
         }
 
@@ -96,9 +95,9 @@ namespace EPRN.UnitTests.Portal.Services
             await _prnService.GetConfirmation(id);
 
             // assert
-            _mockHttpPrnsService.Verify(s => 
+            _mockHttpPrnsService.Verify(s =>
                 s.GetConfirmation(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
@@ -111,12 +110,12 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpPrnsService.Setup(s => s.GetStatus(id)).ReturnsAsync(status);
 
             // act
-           var viewModel = await _prnService.GetCancelViewModel(id);
+            var viewModel = await _prnService.GetCancelViewModel(id);
 
             // assert
-            _mockHttpPrnsService.Verify(s => 
+            _mockHttpPrnsService.Verify(s =>
                 s.GetStatus(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
             Assert.IsNotNull(viewModel);
             Assert.AreEqual(status, viewModel.Status);
@@ -139,7 +138,7 @@ namespace EPRN.UnitTests.Portal.Services
             await _prnService.CancelPRN(viewModel);
 
             // assert
-            _mockHttpPrnsService.Verify(s => 
+            _mockHttpPrnsService.Verify(s =>
                 s.CancelPRN(
                     It.Is<int>(p => p == id),
                     It.Is<string>(p => p == reason)),
@@ -161,14 +160,53 @@ namespace EPRN.UnitTests.Portal.Services
             var result = await _prnService.GetRequestCancelViewModel(id);
 
             // Assert
-            _mockHttpPrnsService.Verify(s => 
+            _mockHttpPrnsService.Verify(s =>
                 s.GetStatusAndProducer(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
-            _mockMapper.Verify(m => 
+            _mockMapper.Verify(m =>
                 m.Map<RequestCancelViewModel>(
-                    It.Is<StatusAndProducerDto>(p => p == expectedDto)), 
+                    It.Is<StatusAndProducerDto>(p => p == expectedDto)),
                 Times.Once);
+        }
+
+        #region GetViewSentPrnsViewModel
+
+        [TestMethod]
+        public async Task GetViewSentPrnsViewModel_HappyPath()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            var getSentPrnsDto = new GetSentPrnsDto();
+            var sentPrnsDto = new SentPrnsDto();
+            var expectedViewModel = new ViewSentPrnsViewModel();
+
+            _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns(getSentPrnsDto);
+            _mockHttpPrnsService.Setup(service => service.GetSentPrns(getSentPrnsDto)).ReturnsAsync(sentPrnsDto);
+            _mockMapper.Setup(m => m.Map<ViewSentPrnsViewModel>(sentPrnsDto)).Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetViewSentPrnsViewModel(request);
+
+            // Assert
+            _mockMapper.Verify(m => m.Map<GetSentPrnsDto>(request), Times.Once);
+            _mockHttpPrnsService.Verify(s => s.GetSentPrns(getSentPrnsDto), Times.Once);
+            _mockMapper.Verify(m => m.Map<ViewSentPrnsViewModel>(sentPrnsDto), Times.Once);
+            Assert.AreSame(expectedViewModel, result);
+        }
+
+        [TestMethod]
+        public async Task GetViewSentPrnsViewModel_NullRequest()
+        {
+            // Arrange
+
+            // Act
+            var result = await _prnService.GetViewSentPrnsViewModel(null);
+
+            // Assert
+            Assert.IsNull(result);
+
+            #endregion
         }
     }
 }
