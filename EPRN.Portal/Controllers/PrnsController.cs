@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Services.Interfaces;
+﻿using EPRN.Common.Dtos;
+using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using static EPRN.Common.Constants.Strings;
 
@@ -41,6 +42,14 @@ namespace EPRN.Portal.Controllers
             var viewModel = await _prnService.GetViewPrnViewModel(reference);
 
             return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewSentPrns([FromQuery] GetSentPrnsViewModel request)
+        {
+            var viewSentPrnsViewModel = await _prnService.GetViewSentPrnsViewModel(request);
+
+            return View(viewSentPrnsViewModel);
         }
     }
 }

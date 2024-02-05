@@ -98,6 +98,11 @@ namespace EPRN.PRNS.API.Services
             }
         }
 
+        public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
+        {
+            return await _prnRepository.GetSentPrns(request);
+        }
+
         public async Task<PRNDetailsDto> GetPrnDetails(string reference)
         {
             return await _prnRepository.GetDetails(reference);

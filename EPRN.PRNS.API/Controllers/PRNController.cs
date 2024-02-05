@@ -117,6 +117,13 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
+        [HttpGet("/{page?}/{searchTerm?}/{filterBy?}/{sortBy?}")]
+        public async Task<IActionResult> GetSentPrns([FromQuery] GetSentPrnsDto request)
+        {
+            var sentPrnsDto = await _prnService.GetSentPrns(request);
+            return Ok(sentPrnsDto);
+        }
+
         [HttpGet]
         [Route("/api/[controller]/Details/{reference}")]
         public async Task<IActionResult> GetPrnDetails(string reference)

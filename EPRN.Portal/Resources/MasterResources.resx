@@ -117,8 +117,20 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accepted" xml:space="preserve">
+    <value>ACCEPTED</value>
+  </data>
+  <data name="AwaitingAcceptance" xml:space="preserve">
+    <value>AWAITING ACCEPTANCE</value>
+  </data>
+  <data name="AwaitingCancellation" xml:space="preserve">
+    <value>AWAITING CANCELLATION</value>
+  </data>
   <data name="Back" xml:space="preserve">
     <value>Back</value>
+  </data>
+  <data name="Cancelled" xml:space="preserve">
+    <value>CANCELLED</value>
   </data>
   <data name="ContinueBtn" xml:space="preserve">
     <value>Continue</value>
@@ -146,6 +158,9 @@
   </data>
   <data name="RecordingFor" xml:space="preserve">
     <value>Recording for:</value>
+  </data>
+  <data name="Rejected" xml:space="preserve">
+    <value>REJECTED</value>
   </data>
   <data name="SkipQuestionLink" xml:space="preserve">
     <value>Skip question</value>

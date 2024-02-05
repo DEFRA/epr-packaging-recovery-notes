@@ -45,12 +45,12 @@ namespace EPRN.Portal.Services
         /// <summary>
         /// Performs an Http GET returning the specified object
         /// </summary>
-        protected async Task<T> Get<T>(string url)
+        protected async Task<T> Get<T>(string url, bool includeTrailingSlash = true)
         {
             if (string.IsNullOrWhiteSpace(url))
                 throw new ArgumentNullException(nameof(url));
 
-            url = $"{_baseUrl}/{url}/";
+            url = includeTrailingSlash ? $"{_baseUrl}/{url}/" : $"{_baseUrl}/{url}";
 
             return await Send<T>(CreateMessage(url, null, HttpMethod.Get));
         }
@@ -108,8 +108,8 @@ namespace EPRN.Portal.Services
         }
 
         private HttpRequestMessage CreateMessage(
-            string url, 
-            object payload, 
+            string url,
+            object payload,
             HttpMethod httpMethod)
         {
             var msg = new HttpRequestMessage
@@ -129,7 +129,7 @@ namespace EPRN.Portal.Services
         private async Task<T> Send<T>(HttpRequestMessage requestMessage)
         {
             var response = await _httpClient.SendAsync(requestMessage);
-            
+
             if (response.IsSuccessStatusCode)
             {
                 var responseStream = await response.Content.ReadAsStreamAsync();
@@ -182,6 +182,13 @@ namespace EPRN.Portal.Services
             {
                 return false;
             }
+        }
+        public static string BuildUrlWithQueryString(object dto)
+        {
+            var properties = dto.GetType().GetProperties()
+                .Where(p => p.GetValue(dto, null) != null)
+                .Select(p => p.Name + "=" + Uri.EscapeDataString(p.GetValue(dto, null).ToString()));
+            return "?" + string.Join("&", properties);
         }
     }
 }

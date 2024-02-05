@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Controllers;
+﻿using EPRN.Common.Dtos;
+using EPRN.Portal.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using EPRN.PRNS.API.Services.Interfaces;
@@ -98,6 +99,58 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsNull(result.ViewName);
         }
+
+        #region ViewSentPrns
+
+        [TestMethod]
+        public async Task ViewSentPrns_ReturnsViewResultWithCorrectModel()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(request)).ReturnsAsync(new ViewSentPrnsViewModel());
+
+            // Act
+            var result = await _prnsController.ViewSentPrns(request) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(request), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task ViewSentPrns_ReturnsCorrectView()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(request)).ReturnsAsync(new ViewSentPrnsViewModel());
+
+            // Act
+            var result = await _prnsController.ViewSentPrns(request) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNotNull(result, result.ViewName);
+            _mockPrnService.Verify(service => service.GetViewSentPrnsViewModel(request), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task ViewSentPrns_PassesCorrectModelToView()
+        {
+            // Arrange
+            var expectedModel = new ViewSentPrnsViewModel();
+            _mockPrnService.Setup(service => service.GetViewSentPrnsViewModel(It.IsAny<GetSentPrnsViewModel>())).ReturnsAsync(expectedModel);
+
+            // Act
+            var result = await _prnsController.ViewSentPrns(new GetSentPrnsViewModel()) as ViewResult;
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.AreEqual(expectedModel, result.Model);
+        }
+
+        #endregion
 
         [TestMethod]
         public async Task ViewPRN_Action_With_Valid_Id_Should_Return_ViewResult_With_ViewModel()

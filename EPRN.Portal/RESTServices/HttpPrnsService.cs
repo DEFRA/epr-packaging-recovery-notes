@@ -72,6 +72,11 @@ namespace EPRN.Portal.RESTServices
             await Post($"{id}/RequestCancel", reason);
         }
 
+        public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
+        {
+            return await Get<SentPrnsDto>($"GetSentPrns{BuildUrlWithQueryString(request)}", false);
+        }
+
         public async Task<PRNDetailsDto> GetPrnDetails(string reference)
         {
             return await Get<PRNDetailsDto>($"Details/{reference}");

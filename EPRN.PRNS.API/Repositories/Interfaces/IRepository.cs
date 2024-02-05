@@ -30,6 +30,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
             PrnStatus status, 
             string reason = null);
 
+        Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
+
         Task<PRNDetailsDto> GetDetails(string reference);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Portal.Helpers.Extensions;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace EPRN.Portal
 {
@@ -11,10 +12,10 @@ namespace EPRN.Portal
             Configuration = configuration;
             Environment = env;
         }
-        
+
         public IConfiguration Configuration { get; }
         public IWebHostEnvironment Environment { get; }
-        
+
         public void ConfigureServices(IServiceCollection services)
         {
             if (Environment.IsDevelopment())
@@ -23,10 +24,11 @@ namespace EPRN.Portal
                     .AddControllersWithViews()
                     .AddRazorRuntimeCompilation();
             }
-            
+
             services.AddControllersWithViews();
             services.AddControllers();
             services.AddDependencies(Configuration);
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
             var supportedCultures = new[]
             {
@@ -68,7 +70,7 @@ namespace EPRN.Portal
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
                 app.UseStaticFiles();
             }
-            
+
             app.UsePrnMiddleware();
             app.UseRequestLocalization();
             app.UseHttpsRedirection();
