@@ -1,0 +1,61 @@
+﻿@using EPRN.Common.Enums;
+@using static EPRN.Common.Constants.Strings
+
+@model RequestCancelViewModel
+
+@{
+    ViewData["Title"] = @RequestCancelResources.PageTitlePERN;
+}
+
+@if (Model.Status == null ||
+    Model.Status.Value.GetCancelPermission() != CancelPermission.RequestToCancelAllowed)
+{
+    var notification = new NotificationViewModel
+    {
+        PrimaryMessage = RequestCancelResources.NotAcceptedPRN,
+        SecondaryMessage = RequestCancelResources.CancelButtonPERN,
+        LinkUrl = Url.ActionLink(
+            Routes.Areas.Actions.PRNS.Cancel,
+            Routes.Areas.Controllers.Exporter.PRNS,
+            new { Area = Routes.Areas.Exporter, id = Model.Id })
+    };
+
+    <partial name="_NotificationPanel" model="notification" />
+}
+else
+{
+    <partial name="_ValidationSummary" />
+    <form method="post">
+        <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="with-hint">
+                        @RequestCancelResources.PageHeadingPERN
+                    </label>
+                </h1>
+                <p>
+                    @string.Format(RequestCancelResources.RequestToCancelInfoPERN, Model.Producer)
+                </p>
+                <p>
+                    @string.Format(RequestCancelResources.RequestToCancelInfo2, Model.Regulator)
+                </p>
+                <h2 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="with-hint">
+                        @RequestCancelResources.RequestQuestionPERN
+                    </label>
+                </h2>
+                <p class="govuk-error-message">
+                    <span asp-validation-for="CancelReason"></span>
+                </p>
+                <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="CancelReason" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
+            </div>
+            <div id="with-hint-info" class="govuk-hint govuk-character-count__message">
+                @RequestCancelResources.HintInfo
+            </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button" type="submit">
+            @MasterResources.ContinueBtn
+        </button>
+    </form>
+    }

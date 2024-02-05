@@ -82,8 +82,6 @@ namespace EPRN.UnitTests.Portal.Helpers
         public void OnActionExecuting_DoesNotRetrievesWasteType_WhenIdDoesNotExists()
         {
             // Arrange
-            var id = 56;
-            var wasteType = "Steel";
             var modelState = new ModelStateDictionary();
             var mockHttpContext = new Mock<HttpContext>();
             var serviceProvider = new Mock<IServiceProvider>();

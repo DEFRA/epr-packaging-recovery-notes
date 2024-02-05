@@ -9,8 +9,8 @@ namespace EPRN.Portal.Services
 {
     public class PRNService : IPRNService
     {
-        private IMapper _mapper;
-        private IHttpPrnsService _httpPrnsService;
+        private readonly IMapper _mapper;
+        private readonly IHttpPrnsService _httpPrnsService;
 
         public PRNService(
             IMapper mapper,
@@ -135,6 +135,36 @@ namespace EPRN.Portal.Services
                 Id = id,
                 PrnNumber = "PRN222019EFGF",
             };
+        }
+
+        public async Task<CancelViewModel> GetCancelViewModel(int id)
+        {
+            return new CancelViewModel
+            {
+                Id = id,
+                Status = await _httpPrnsService.GetStatus(id)
+            };
+        }
+
+        public async Task<RequestCancelViewModel> GetRequestCancelViewModel(int id)
+        {
+            var dto = await _httpPrnsService.GetStatusAndProducer(id);
+
+            return _mapper.Map<RequestCancelViewModel>(dto);
+        }
+
+        public async Task CancelPRN(CancelViewModel cancelViewModel)
+        {
+            await _httpPrnsService.CancelPRN(
+                cancelViewModel.Id,
+                cancelViewModel.CancelReason);
+        }
+
+        public async Task RequestToCancelPRN(RequestCancelViewModel requestCancelViewModel)
+        {
+            await _httpPrnsService.RequestCancelPRN(
+                requestCancelViewModel.Id,
+                requestCancelViewModel.CancelReason);
         }
 
         public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int materialId, Category category)

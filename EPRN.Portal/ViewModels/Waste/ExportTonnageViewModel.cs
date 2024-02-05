@@ -5,7 +5,7 @@ namespace EPRN.Portal.ViewModels.Waste
 {
     public class ExportTonnageViewModel
     {
-        public int JourneyId { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "MissingTonnageError")]
         [Range(0, 1000000, ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "TonnesNotInRange")]

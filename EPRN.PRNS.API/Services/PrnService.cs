@@ -52,9 +52,47 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetCheckYourAnswersData(id);
         }
 
+        public async Task<PrnStatus> GetStatus(int id)
+        {
+            return await _prnRepository.GetStatus(id);
+        }
+
+        public async Task<StatusAndProducerDto> GetStatusWithProducerName(int id)
+        {
+            return await _prnRepository.GetStatusAndRecipient(id);
+        }
+
         public async Task SaveCheckYourAnswers(int id)
         {
-            await _prnRepository.UpdatePrnStatus(id, PrnStatus.CheckYourAnswersComplete);
+            await _prnRepository.UpdatePrnStatus(
+                id, 
+                PrnStatus.CheckYourAnswersComplete);
+        }
+
+        public async Task CancelPrn(int id, string reason)
+        {
+            // this needs to be for a not accepted PRN... 
+            // not sure where to do that yet
+            if (await _prnRepository.GetStatus(id) != PrnStatus.Accepted)
+            {
+                await _prnRepository.UpdatePrnStatus(
+                    id,
+                    PrnStatus.Cancelled,
+                    reason);
+            }
+        }
+
+        public async Task RequestCancelPrn(int id, string reason)
+        {
+            // this needs to be for an accepted PRN... 
+            // not sure where to do that yet
+            if (await _prnRepository.GetStatus(id) == PrnStatus.Accepted)
+            {
+                await _prnRepository.UpdatePrnStatus(
+                    id,
+                    PrnStatus.CancellationRequested,
+                    reason);
+            }
         }
 
         public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)

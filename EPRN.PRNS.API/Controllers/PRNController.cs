@@ -31,12 +31,9 @@ namespace EPRN.PRNS.API.Controllers
 
         [HttpGet]
         [Route("Tonnage")]
-        public async Task<IActionResult> GetTonnage(int? id)
+        public async Task<IActionResult> GetTonnage(int id)
         {
-            if (id == null)
-                return BadRequest("Missing ID");
-
-            var tonnage = await _prnService.GetTonnage(id.Value);
+            var tonnage = await _prnService.GetTonnage(id);
 
             return Ok(tonnage);
         }
@@ -44,16 +41,10 @@ namespace EPRN.PRNS.API.Controllers
         [HttpPost]
         [Route("Tonnage/{tonnage}")]
         public async Task<IActionResult> SaveTonnage(
-            int? id,
-            double? tonnage)
+            int id,
+            double tonnage)
         {
-            if (id == null)
-                return BadRequest("Missing ID");
-
-            if (tonnage == null)
-                return BadRequest("Missong Tonnage");
-
-            await _prnService.SaveTonnage(id.Value, tonnage.Value);
+            await _prnService.SaveTonnage(id, tonnage);
 
             return Ok();
         }
@@ -61,12 +52,9 @@ namespace EPRN.PRNS.API.Controllers
         [HttpGet]
         [Route("Confirmation")]
         public async Task<IActionResult> GetConfirmation(
-            int? id)
+            int id)
         {
-            if (id == null)
-                return BadRequest("Missing ID");
-
-            var confirmationDto = await _prnService.GetConfirmation(id.Value);
+            var confirmationDto = await _prnService.GetConfirmation(id);
 
             return Ok(confirmationDto);
         }
@@ -74,12 +62,9 @@ namespace EPRN.PRNS.API.Controllers
         [HttpGet]
         [Route("Check")]
         public async Task<IActionResult> CheckYourAnswers(
-            int? id)
+            int id)
         {
-            if (id == null)
-                return BadRequest("Missing ID");
-
-            var checkYourAnswersDto = await _prnService.GetCheckYourAnswers(id.Value);
+            var checkYourAnswersDto = await _prnService.GetCheckYourAnswers(id);
 
             return Ok(checkYourAnswersDto);
         }
@@ -87,12 +72,47 @@ namespace EPRN.PRNS.API.Controllers
         [HttpPost]
         [Route("Check")]
         public async Task<IActionResult> SaveCheckYourAnswersState(
-            int? id)
+            int id)
         {
-            if (id == null)
-                return BadRequest("Missing ID");
+            await _prnService.SaveCheckYourAnswers(id);
 
-            await _prnService.SaveCheckYourAnswers(id.Value);
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("Status")]
+        public async Task<IActionResult> GetStatus(
+            int id)
+        {
+            return Ok(await _prnService.GetStatus(id));
+        }
+
+        [HttpGet]
+        [Route("StatusAndProducer")]
+        public async Task<IActionResult> GetStatusAndProducer(
+            int id)
+        {
+            return Ok(await _prnService.GetStatusWithProducerName(id));
+        }
+
+        [HttpPost]
+        [Route("Cancel")]
+        public async Task<IActionResult> CancelPrn(
+            int id,
+            [FromBody] string reason)
+        {
+            await _prnService.CancelPrn(id, reason);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("RequestCancel")]
+        public async Task<IActionResult> RequestCancelPrn(
+            int id,
+            [FromBody] string reason)
+        {
+            await _prnService.RequestCancelPrn(id, reason);
 
             return Ok();
         }

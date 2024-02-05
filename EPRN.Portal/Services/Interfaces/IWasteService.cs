@@ -14,7 +14,7 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<DuringWhichMonthRequestViewModel> GetQuarterForCurrentMonth(int journeyId);
 
-        Task SaveSelectedMonth(DuringWhichMonthRequestViewModel duringWhichMonthRequestViewModel);
+        Task SaveSelectedMonth(DuringWhichMonthRequestViewModel viewModel);
 
         Task<RecordWasteViewModel> GetWasteTypesViewModel(int? id);
 

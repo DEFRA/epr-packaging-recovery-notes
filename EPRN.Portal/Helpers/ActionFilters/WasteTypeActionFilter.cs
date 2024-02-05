@@ -4,9 +4,15 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace EPRN.Portal.Helpers.Filters
 {
+    /// <summary>
+    /// This class is applied to the WasteController at the controller level
+    /// It ensures for any Action that has an Id parameter it will retrieve the name
+    /// of the waste material being used. This way, it avoids every action having
+    /// to perform that task itself
+    /// </summary>
     public class WasteTypeActionFilter : IActionFilter
     {
-        private IWasteService _wasteService;
+        private readonly IWasteService _wasteService;
 
         public WasteTypeActionFilter(
             IWasteService wasteService)
@@ -16,6 +22,7 @@ namespace EPRN.Portal.Helpers.Filters
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
+            // does nothing
         }
 
         public void OnActionExecuting(ActionExecutingContext context)
