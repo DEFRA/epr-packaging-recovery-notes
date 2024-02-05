@@ -61,7 +61,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Accepted.
+        ///   Looks up a localized string similar to PRN Accepted.
         /// </summary>
         public static string Accepted {
             get {
@@ -70,7 +70,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Cancel requested.
+        ///   Looks up a localized string similar to PRN Cancel requested.
         /// </summary>
         public static string CancellationRequested {
             get {
@@ -79,7 +79,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Cancelled.
+        ///   Looks up a localized string similar to PRN Cancelled.
         /// </summary>
         public static string Cancelled {
             get {
@@ -88,7 +88,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Completed answers.
+        ///   Looks up a localized string similar to PRN Completed answers.
         /// </summary>
         public static string CheckYourAnswersComplete {
             get {
@@ -97,7 +97,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Created from waste received in December.
+        ///   Looks up a localized string similar to PRN Created from waste received in December.
         /// </summary>
         public static string CreatedFromWasteDecemberLabel {
             get {
@@ -106,7 +106,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]Date issued:.
+        ///   Looks up a localized string similar to Date issued:.
         /// </summary>
         public static string DateIssuedLabel {
             get {
@@ -115,7 +115,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Created.
+        ///   Looks up a localized string similar to PRN Created.
         /// </summary>
         public static string Draft {
             get {
@@ -124,7 +124,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]history.
+        ///   Looks up a localized string similar to history.
         /// </summary>
         public static string History {
             get {
@@ -133,7 +133,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]Note.
+        ///   Looks up a localized string similar to Note.
         /// </summary>
         public static string NoteLabel {
             get {
@@ -142,7 +142,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]Packaging producer or compliance scheme.
+        ///   Looks up a localized string similar to Packaging producer or compliance scheme.
         /// </summary>
         public static string ProducerOrComplianceLabel {
             get {
@@ -151,7 +151,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Rejected.
+        ///   Looks up a localized string similar to PRN Rejected.
         /// </summary>
         public static string Rejected {
             get {
@@ -160,7 +160,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]PRN Sent completed.
+        ///   Looks up a localized string similar to PRN Sent completed.
         /// </summary>
         public static string Sent {
             get {
@@ -169,7 +169,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to [Welsh]Status.
+        ///   Looks up a localized string similar to Status.
         /// </summary>
         public static string StatusLabel {
             get {

@@ -32,7 +32,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
-        [ActionName(Routes.Actions.Prns.View)]
+        [ActionName(Routes.Actions.PRNS.View)]
         [Route("[controller]/[action]/{reference}")]
         public async Task<IActionResult> ViewPRN(string reference)
         {
@@ -45,6 +45,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpGet]
+        [ActionName(Routes.Actions.PRNS.ViewSentPrns)]
         public async Task<IActionResult> ViewSentPrns([FromQuery] GetSentPrnsViewModel request)
         {
             var viewSentPrnsViewModel = await _prnService.GetViewSentPrnsViewModel(request);

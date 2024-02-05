@@ -160,7 +160,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Include(repo => repo.WasteType)
                 .Include(repo => repo.PrnHistory)
                 .AsQueryable();
-           
+
             if (!string.IsNullOrWhiteSpace(request.FilterBy))
             {
                 var filterByStatus = (Common.Enums.PrnStatus)Enum.Parse(typeof(Common.Enums.PrnStatus), request.FilterBy);
@@ -212,8 +212,6 @@ namespace EPRN.PRNS.API.Repositories
                 SortBy = request.SortBy
             };
         }
-
-
 
         public async Task<PRNDetailsDto> GetDetails(string reference)
         {

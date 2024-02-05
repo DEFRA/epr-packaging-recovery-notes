@@ -118,42 +118,42 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accepted" xml:space="preserve">
-    <value>[Welsh]PRN Accepted</value>
+    <value>PRN Accepted</value>
   </data>
   <data name="CancellationRequested" xml:space="preserve">
-    <value>[Welsh]PRN Cancel requested</value>
+    <value>PRN Cancel requested</value>
   </data>
   <data name="Cancelled" xml:space="preserve">
-    <value>[Welsh]PRN Cancelled</value>
+    <value>PRN Cancelled</value>
   </data>
   <data name="CheckYourAnswersComplete" xml:space="preserve">
-    <value>[Welsh]PRN Completed answers</value>
+    <value>PRN Completed answers</value>
   </data>
   <data name="CreatedFromWasteDecemberLabel" xml:space="preserve">
-    <value>[Welsh]PRN Created from waste received in December</value>
+    <value>PRN Created from waste received in December</value>
   </data>
   <data name="DateIssuedLabel" xml:space="preserve">
-    <value>[Welsh]Date issued:</value>
+    <value>Date issued:</value>
   </data>
   <data name="Draft" xml:space="preserve">
-    <value>[Welsh]PRN Created</value>
+    <value>PRN Created</value>
   </data>
   <data name="History" xml:space="preserve">
-    <value>[Welsh]history</value>
+    <value>history</value>
   </data>
   <data name="NoteLabel" xml:space="preserve">
-    <value>[Welsh]Note</value>
+    <value>Note</value>
   </data>
   <data name="ProducerOrComplianceLabel" xml:space="preserve">
-    <value>[Welsh]Packaging producer or compliance scheme</value>
+    <value>Packaging producer or compliance scheme</value>
   </data>
   <data name="Rejected" xml:space="preserve">
-    <value>[Welsh]PRN Rejected</value>
+    <value>PRN Rejected</value>
   </data>
   <data name="Sent" xml:space="preserve">
-    <value>[Welsh]PRN Sent completed</value>
+    <value>PRN Sent completed</value>
   </data>
   <data name="StatusLabel" xml:space="preserve">
-    <value>[Welsh]Status</value>
+    <value>Status</value>
   </data>
 </root>
