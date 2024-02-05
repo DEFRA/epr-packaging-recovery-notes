@@ -157,9 +157,9 @@ namespace EPRN.PRNS.API.Repositories
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
                 .Include(repo => repo.WasteType)
-                .Include(repo => repo.PrnHistory)
+                .Include(repo => repo.PrnHistory.Where(history => history.Status >= PrnStatus.Accepted))
                 .AsQueryable();
-           
+
             if (!string.IsNullOrWhiteSpace(request.FilterBy))
             {
                 var filterByStatus = (Common.Enums.PrnStatus)Enum.Parse(typeof(Common.Enums.PrnStatus), request.FilterBy);
