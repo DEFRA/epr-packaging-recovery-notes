@@ -236,43 +236,5 @@ namespace EPRN.UnitTests.API.Waste.Services
             // Assert
             Assert.IsNull(result);
         }
-
-        //[TestMethod]
-        //public async Task GetDecemberWaste_WhenJourneyExists_ReturnsDecemberWasteDto()
-        //{
-        //    // Arrange
-        //    int journeyId = 1;
-        //    var decemberWasteDto = new DecemberWasteDto
-        //    {
-        //        DecemberWaste = true
-        //    };
-
-        //    _mockRepository.Setup(repo => repo.GetDecemberWaste(journeyId)).ReturnsAsync(decemberWasteDto);
-
-        //    // Act
-        //    var result = await _journeyService.GetDecemberWaste(journeyId);
-
-        //    // Assert
-        //    //Assert.IsNotNull(result);
-        //    Assert.IsNotNull(decemberWasteDto);
-        //}
-
-        //[TestMethod]
-        //public async Task SaveDecemberWaste_WithValidParameters_Succeeds()
-        //{
-        //    // arrange
-        //    var journeyId = 5;
-        //    var decemberWaste = true;
-
-        //    // act
-        //    await _journeyService.SaveDecemberWaste(journeyId, decemberWaste);
-
-        //    // assert
-        //    _mockRepository.Verify(r =>
-        //        r.SaveDecemberWaste(
-        //            It.Is<int>(p => p == journeyId),
-        //            It.Is<bool>(p => p == decemberWaste)),
-        //        Times.Once);
-        //}
     }
 }
