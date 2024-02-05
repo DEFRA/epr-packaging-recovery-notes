@@ -27,8 +27,7 @@ namespace EPRN.Common.Data.DataModels
         public DateTime? CompletedDate { get; set; }
 
         public ICollection<PrnHistory> PrnHistory { get; set; }
-        public DateTime? CompletedDate { get; set; }
-
+        
         public bool? DecemberWaste { get; set; }
     }
 }

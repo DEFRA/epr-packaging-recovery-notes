@@ -10,10 +10,6 @@ namespace EPRN.Waste.API.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "DecemberWaste",
-                table: "WasteJourney");
-
             migrationBuilder.AddColumn<bool>(
                 name: "DecemberWaste",
                 table: "PRN",
@@ -28,11 +24,6 @@ namespace EPRN.Waste.API.Migrations
                 name: "DecemberWaste",
                 table: "PRN");
 
-            migrationBuilder.AddColumn<bool>(
-                name: "DecemberWaste",
-                table: "WasteJourney",
-                type: "bit",
-                nullable: true);
         }
     }
 }
