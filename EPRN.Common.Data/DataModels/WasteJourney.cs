@@ -50,7 +50,5 @@ namespace EPRN.Common.Data.DataModels
         /// of a waste record
         /// </summary>
         public Category Category { get; set; }
-
-        public bool? DecemberWaste { get; set; }
     }
 }

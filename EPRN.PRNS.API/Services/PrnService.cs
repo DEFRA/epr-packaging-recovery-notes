@@ -56,5 +56,17 @@ namespace EPRN.PRNS.API.Services
         {
             await _prnRepository.UpdatePrnStatus(id, PrnStatus.CheckYourAnswersComplete);
         }
+
+        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        {
+            var decemberWaste = await _prnRepository.GetDecemberWaste(journeyId);
+
+            return _mapper.Map<DecemberWasteDto>(decemberWaste);
+        }
+
+        public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
+        {
+            await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
+        }
     }
 }

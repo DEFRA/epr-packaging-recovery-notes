@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    [Migration("20240131100924_Add December Waste")]
+    [Migration("20240201160919_Add December Waste")]
     partial class AddDecemberWaste
     {
         /// <inheritdoc />
@@ -44,6 +44,9 @@ namespace EPRN.Waste.API.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool?>("DecemberWaste")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
@@ -110,9 +113,6 @@ namespace EPRN.Waste.API.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool?>("DecemberWaste")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("DoneWaste")
                         .HasColumnType("int");

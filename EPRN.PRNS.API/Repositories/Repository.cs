@@ -107,5 +107,32 @@ namespace EPRN.PRNS.API.Repositories
                     sp.SetProperty(prn => prn.Status, _mapper.Map<PrnStatus>(status))
                 );
         }
+
+        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        {
+            var decemberWaste = _prnContext.PRN
+                .Where(wj => wj.Id == journeyId)
+                .Select(x => new DecemberWasteDto
+                {
+                    JourneyId = journeyId,
+                    DecemberWaste = x.DecemberWaste
+                })
+                .SingleOrDefaultAsync();
+
+            return new DecemberWasteDto()
+            {
+                DecemberWaste = decemberWaste.Result.DecemberWaste,
+                JourneyId = journeyId
+            };
+        }
+
+        public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)
+        {
+            await _prnContext.PRN
+                .Where(wj => wj.Id == journeyId)
+                .ExecuteUpdateAsync(sp =>
+                    sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
+                );
+        }
     }
 }

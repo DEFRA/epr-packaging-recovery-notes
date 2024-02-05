@@ -183,17 +183,5 @@ namespace EPRN.Waste.API.Services
 
             return _mapper.Map<Category>(category);
         }
-
-        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
-        {
-            var decemberWaste = await _wasteRepository.GetDecemberWaste(journeyId);
-
-            return _mapper.Map<DecemberWasteDto>(decemberWaste);
-        }
-
-        public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
-        {
-            await _wasteRepository.SaveDecemberWaste(jouneyId, decemberWaste);
-        }
     }
 }

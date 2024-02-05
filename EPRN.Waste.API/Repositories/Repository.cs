@@ -269,33 +269,5 @@ namespace EPRN.Waste.API.Repositories
                 .Select(wj => wj.Category)
                 .SingleOrDefaultAsync();
         }
-
-        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
-        {
-            var decemberWaste = _wasteContext.WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .Select(x => new DecemberWasteDto
-                {
-                    JourneyId = journeyId,
-                    DecemberWaste = x.DecemberWaste
-                })
-                .SingleOrDefaultAsync();
-
-            return new DecemberWasteDto() 
-                        { 
-                            DecemberWaste = decemberWaste.Result.DecemberWaste, 
-                            JourneyId = journeyId 
-                        };
-        }
-
-        public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)
-        {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
-                );
-        }
     }
 }

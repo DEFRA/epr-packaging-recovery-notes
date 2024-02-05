@@ -20,5 +20,9 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveCheckYourAnswers(int id);
 
         Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id);
+
+        Task<DecemberWasteViewModel> GetDecemberWasteModel(int materialId, Category category);
+
+        Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel);
     }
 }

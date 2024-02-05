@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Enums;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
@@ -134,6 +135,37 @@ namespace EPRN.Portal.Services
                 Id = id,
                 PrnNumber = "PRN222019EFGF",
             };
+        }
+
+        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int materialId, Category category)
+        {
+            var decemberWasteModel = new DecemberWasteViewModel
+            {
+                materialId = materialId,
+                WasteForDecember = null,
+                BalanceAvailable = 260,
+                Category = category
+            };
+
+            return decemberWasteModel;
+        }
+
+        public async Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel)
+        {
+            if (decemberWasteModel == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel));
+
+            if (decemberWasteModel.WasteForDecember == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel.WasteForDecember));
+
+            if (decemberWasteModel.Id == 0)
+            {
+                decemberWasteModel.Id = await CreatePrnRecord(decemberWasteModel.materialId, Category.Reprocessor);
+            }
+
+            await _httpPrnsService.SaveDecemberWaste(
+                decemberWasteModel.Id,
+                decemberWasteModel.WasteForDecember.Value);
         }
     }
 }

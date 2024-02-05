@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Enums;
+using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services.Interfaces
@@ -44,9 +45,5 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveNote(NoteViewModel noteViewModel);
 
         Task<string> GetWasteType(int journeyId);
-
-        Task<DecemberWasteViewModel> GetDecemberWasteModel(int journeyId);
-
-        Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel);
     }
 }

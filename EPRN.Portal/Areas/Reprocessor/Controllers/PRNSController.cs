@@ -108,6 +108,30 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> DecemberWaste(int? materialId)
+        {
+            Category categoryValue = Category.Reprocessor;
+
+            if (materialId == null)
+                return BadRequest();
+
+            var model = await _prnService.GetDecemberWasteModel(materialId.Value, categoryValue);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DecemberWaste(DecemberWasteViewModel decemberWaste)
+        {
+            if (!ModelState.IsValid)
+                return View(decemberWaste);
+
+            await _prnService.SaveDecemberWaste(decemberWaste);
+
+            return RedirectToAction("Tonnes", new { id = decemberWaste.Id });
+        }
+
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             // Handle redirection to CheckYourAnswers if this is where we originally came from

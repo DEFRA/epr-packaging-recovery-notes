@@ -42,6 +42,9 @@ namespace EPRN.Common.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool?>("DecemberWaste")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -107,9 +110,6 @@ namespace EPRN.Common.Data.Migrations
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool?>("DecemberWaste")
-                        .HasColumnType("bit");
 
                     b.Property<int?>("DoneWaste")
                         .HasColumnType("int");

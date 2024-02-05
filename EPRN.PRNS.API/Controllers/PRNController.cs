@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Enums;
+using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -92,6 +93,32 @@ namespace EPRN.PRNS.API.Controllers
                 return BadRequest("Missing ID");
 
             await _prnService.SaveCheckYourAnswers(id.Value);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("DecemberWaste")]
+        public async Task<ActionResult> GetDecemberWaste(int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+            
+            DecemberWasteDto result = await _prnService.GetDecemberWaste(id.Value);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("DecemberWaste/{decemberWaste}")]
+        public async Task<ActionResult> SaveDecemberWaste(int? id, bool decemberWaste)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            await _prnService.SaveDecemberWaste(
+                id.Value,
+                decemberWaste);
 
             return Ok();
         }

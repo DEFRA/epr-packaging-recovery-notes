@@ -21,5 +21,9 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task<CheckYourAnswersDto> GetCheckYourAnswers(int id);
 
         Task SaveCheckYourAnswers(int id);
+
+        Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
+
+        Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
     }
 }

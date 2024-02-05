@@ -51,5 +51,15 @@ namespace EPRN.Portal.RESTServices
         {
             await Post($"{id}/check");
         }
+
+        public async Task<DecemberWasteDto> GetDecemberWaste(int id)
+        {
+            return await Get<DecemberWasteDto>($"{id}/DecemberWaste");
+        }
+        
+        public async Task SaveDecemberWaste(int id, bool decemberWaste)
+        {
+            await Post($"{id}/DecemberWaste/{decemberWaste}");
+        }
     }
 }

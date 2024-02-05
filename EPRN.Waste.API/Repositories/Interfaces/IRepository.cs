@@ -60,9 +60,5 @@ namespace EPRN.Waste.API.Repositories.Interfaces
         Task UpdateWasteNote(int journeyId, string note);
 
         Task<Category> GetCategory(int journeyId);
-
-        Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
-
-        Task SaveDecemberWaste(int journeyId, bool decemberWaste);
     }
 }

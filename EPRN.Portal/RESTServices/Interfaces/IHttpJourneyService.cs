@@ -48,9 +48,5 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task<NoteDto> GetNote(int journeyId);
 
         Task<Category> GetCategory(int journeyId);
-
-        Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
-
-        Task SaveDecemberWaste(int journeyId, bool decemberWaste);
     }
 }

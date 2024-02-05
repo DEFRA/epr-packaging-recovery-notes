@@ -24,5 +24,9 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task SaveCheckYourAnswers(
             int id);
+
+        Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
+
+        Task SaveDecemberWaste(int journeyId, bool decemberWaste);
     }
 }
