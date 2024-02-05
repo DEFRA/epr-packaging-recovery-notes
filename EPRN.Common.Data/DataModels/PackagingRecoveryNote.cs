@@ -1,5 +1,4 @@
 ﻿using EPRN.Common.Data.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Common.Data.DataModels
 {
@@ -27,5 +26,8 @@ namespace EPRN.Common.Data.DataModels
         public DateTime? CompletedDate { get; set; }
 
         public ICollection<PrnHistory> PrnHistory { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
     }
 }

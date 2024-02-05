@@ -1,8 +1,14 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Common.Extensions;
+using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+using EPRN.Portal.Helpers;
 
 namespace EPRN.Portal.Services
 {
@@ -164,6 +170,31 @@ namespace EPRN.Portal.Services
             await _httpPrnsService.RequestCancelPRN(
                 requestCancelViewModel.Id,
                 requestCancelViewModel.CancelReason);
+        }
+
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request)
+        {
+            var getSentPrnsDto = _mapper.Map<GetSentPrnsDto>(request);
+            var sentPrnsDto = await _httpPrnsService.GetSentPrns(getSentPrnsDto);
+           
+            var viewModel = _mapper.Map<ViewSentPrnsViewModel>(sentPrnsDto);
+
+            viewModel.FilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
+                @ViewSentPrnResources.FilterBy, 
+                PrnStatus.Accepted, 
+                PrnStatus.AwaitingAcceptance, 
+                PrnStatus.Rejected,
+                PrnStatus.AwaitingCancellation, 
+                PrnStatus.Cancelled);
+            
+            viewModel.SortItems = new List<SelectListItem>
+            {
+                new() { Value = "", Text = @ViewSentPrnResources.SortBy }, 
+                new() { Value = "1", Text = "Material" },
+                new() { Value = "2", Text = "Sent to" }
+            };
+
+            return viewModel;
         }
     }
 }

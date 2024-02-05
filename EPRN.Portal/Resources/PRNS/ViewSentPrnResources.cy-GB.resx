@@ -118,54 +118,87 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Accepted" xml:space="preserve">
-    <value>ACCEPTED</value>
+    <value>[Welsh] Accepted</value>
   </data>
   <data name="AwaitingAcceptance" xml:space="preserve">
-    <value>AWAITING ACCEPTANCE</value>
+    <value>[Welsh] Awaiting acceptance</value>
   </data>
   <data name="AwaitingCancellation" xml:space="preserve">
-    <value>AWAITING CANCELLATION</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>[Welsh] Awaiting cancellation</value>
   </data>
   <data name="Cancelled" xml:space="preserve">
-    <value>CANCELLED</value>
+    <value>[Welsh] Cancelled</value>
   </data>
-  <data name="ContinueBtn" xml:space="preserve">
-    <value>Continue</value>
+  <data name="DateCreated" xml:space="preserve">
+    <value>[Welsh] Date created</value>
   </data>
-  <data name="CreateWithReplace" xml:space="preserve">
-    <value>Create a &lt;PRNTYPE&gt; for:</value>
+  <data name="Error" xml:space="preserve">
+    <value>[Welsh]Record not found. Check the details and try again.</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>[Welsh] This field is required</value>
   </data>
-  <data name="MustBeANumber" xml:space="preserve">
-    <value>Please enter a valid numerical value</value>
+  <data name="FilterBy" xml:space="preserve">
+    <value>[Welsh] Filter by</value>
   </data>
-  <data name="OppositeLanguage" xml:space="preserve">
-    <value>Cymraeg</value>
+  <data name="Material" xml:space="preserve">
+    <value>[Welsh] Material</value>
   </data>
-  <data name="PERN" xml:space="preserve">
-    <value>PERN</value>
+  <data name="Next" xml:space="preserve">
+    <value>[Welsh] Next</value>
   </data>
-  <data name="PRN" xml:space="preserve">
-    <value>PRN</value>
+  <data name="PernHeading" xml:space="preserve">
+    <value>[Welsh] View sent PERNs</value>
   </data>
-  <data name="RecordingFor" xml:space="preserve">
-    <value>Recording for:</value>
+  <data name="PernTitle" xml:space="preserve">
+    <value>[Welsh] Sent PERNs</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>[Welsh] Previous</value>
+  </data>
+  <data name="PrnHeading" xml:space="preserve">
+    <value>[Welsh] View sent PRNs</value>
+  </data>
+  <data name="PrnNumber" xml:space="preserve">
+    <value>[Welsh] PRN number</value>
+  </data>
+  <data name="PrnPernHeading" xml:space="preserve">
+    <value>[Welsh] View sent PRN/PERNs</value>
+  </data>
+  <data name="PrnPernTitle" xml:space="preserve">
+    <value>[Welsh] Sent PRN/PERNs</value>
+  </data>
+  <data name="PrnTitle" xml:space="preserve">
+    <value>[Welsh] Sent PRNs</value>
   </data>
   <data name="Rejected" xml:space="preserve">
-    <value>REJECTED</value>
+    <value>[Welsh] Rejected</value>
   </data>
-  <data name="SkipQuestionLink" xml:space="preserve">
-    <value>Skip question</value>
+  <data name="SearchPernBtn" xml:space="preserve">
+    <value>[Welsh] Find PERN</value>
   </data>
-  <data name="SummaryError" xml:space="preserve">
-    <value>There is a problem</value>
+  <data name="SearchPrnBtn" xml:space="preserve">
+    <value>[Welsh] Find PRN</value>
   </data>
-  <data name="UnknownWasteType" xml:space="preserve">
-    <value>&lt;UNKNOWN WASTE TYPE&gt;</value>
+  <data name="SearchPrnPernBtn" xml:space="preserve">
+    <value>[Welsh] Find PRN/PERN</value>
+  </data>
+  <data name="SearchText" xml:space="preserve">
+    <value>[Welsh] Search for a PRN by entering its number or the name of the company or compliance scheme you sent it to</value>
+  </data>
+  <data name="SentTo" xml:space="preserve">
+    <value>[Welsh] Sent to</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>[Welsh] Sort by</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>[Welsh] Status</value>
+  </data>
+  <data name="Tonnes" xml:space="preserve">
+    <value>[Welsh] Tonnes</value>
+  </data>
+  <data name="ViewDownloadCancelText" xml:space="preserve">
+    <value>[Welsh] Select a PRN number to view, download or cancel it.</value>
   </data>
 </root>

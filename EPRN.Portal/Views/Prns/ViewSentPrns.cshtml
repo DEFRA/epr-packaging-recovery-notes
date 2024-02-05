@@ -1,0 +1,127 @@
+﻿@using EPRN.Common.Enums;
+@using EPRN.Portal.Services.Interfaces;
+
+@model ViewSentPrnsViewModel;
+
+@inject IUserRoleService userRoleService;
+@inject ILocalizationHelper<MasterResources> localizationHelper
+
+@{
+    if (userRoleService.HasRole(UserRole.Reprocessor))
+    {
+        ViewData["Title"] = ViewSentPrnResources.PrnTitle;
+    }
+    else if (userRoleService.HasRole(UserRole.Exporter))
+    {
+        ViewData["Title"] = ViewSentPrnResources.PernTitle;
+    }
+
+    if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+    {
+        ViewData["Title"] = ViewSentPrnResources.PrnPernTitle;
+    }
+}
+
+<div class="govuk-width-container ">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            @{
+                if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+                {
+                    <h1 class="govuk-heading-xl">@ViewSentPrnResources.PrnHeading</h1>
+                }
+
+                if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+                {
+                    <h1 class="govuk-heading-xl">@ViewSentPrnResources.PernHeading</h1>
+                }
+
+                if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+                {
+                    <h1 class="govuk-heading-xl">@ViewSentPrnResources.PrnPernHeading</h1>
+                }
+            }
+            <form id="prnsForm" name="prnsForm" method="get" asp-controller="Prns" asp-action="ViewSentPrns">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label" for="event-name">
+                            @ViewSentPrnResources.SearchText
+                        </label>
+                    </h1>
+                    @if (!Model.Rows.Any() && !string.IsNullOrWhiteSpace(Model.SearchTerm))
+                    {
+                        <p class="govuk-error-message">@ViewSentPrnResources.Error</p>
+                    }
+                    <input class="govuk-input" id="SearchTerm" asp-for="SearchTerm" type="text">
+                </div>
+
+                @{
+                    if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+                    {
+                        <button type="submit" class="govuk-button" data-module="govuk-button">
+                            @ViewSentPrnResources.SearchPrnBtn
+                        </button>
+                    }
+
+                    if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+                    {
+                        <button type="submit" class="govuk-button" data-module="govuk-button">
+                            @ViewSentPrnResources.SearchPernBtn
+                        </button>
+                    }
+
+                    if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+                    {
+                        <button type="submit" class="govuk-button" data-module="govuk-button">
+                            @ViewSentPrnResources.SearchPrnPernBtn
+                        </button>
+                    }
+                }
+
+                <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+                <p class="govuk-body">@ViewSentPrnResources.ViewDownloadCancelText</p>
+
+                <div class="govuk-form-group" style="float:right">
+                    <select id="filterBy" name="filterBy" class="govuk-select" asp-for="FilterBy" asp-items="Model.FilterItems"></select>
+                </div>
+                <div class="govuk-form-group" style="float:right">
+                    <select id="sortBy" name="sortBy" class="govuk-select" asp-for="SortBy" asp-items="Model.SortItems"></select>
+                </div>
+
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.PrnNumber</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Material</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.SentTo</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.DateCreated</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Tonnes</th>
+                            <th scope="col" class="govuk-table__header">@ViewSentPrnResources.Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        @foreach (var row in Model.Rows)
+                        {
+                            <tr class="govuk-table__row" data-status="@row.Status">
+                                <td class="govuk-table__cell">
+                                    <a href="@Url.Action("View", "Prns", new { id = row.PrnNumber })">@row.PrnNumber</a>
+                                </td>
+                                <td class="govuk-table__cell">@row.Material</td>
+                                <td class="govuk-table__cell">@row.SentTo</td>
+                                <td class="govuk-table__cell">@row.DateCreated</td>
+                                <td class="govuk-table__cell">@row.Tonnes</td>
+                                <td class="govuk-table__cell">
+                                    <strong class="govuk-tag govuk-tag--@row.GetCssClassForStatus()">
+                                        @localizationHelper.GetString(row.Status.ToString())
+                                    </strong>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <partial name="_Pagination" model="Model" />
+            </form>
+        </div>
+    </div>
+</div>
