@@ -8,6 +8,7 @@ using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources.PRNS;
 
 namespace EPRN.Portal.Services
 {
