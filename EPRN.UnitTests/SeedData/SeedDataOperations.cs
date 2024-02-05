@@ -10,7 +10,7 @@ namespace EPRN.UnitTests.SeedData
     public class SeedDataOperations
     {
         [TestMethod]
-        //[Ignore("This test is ignored by design, it is only run manually to seeds data into the PRN and PRNHistory tables")]
+        [Ignore("This test is ignored by design, it is only run manually to seeds data into the PRN and PRNHistory tables")]
         public void PrnAndPrnHistorySeedData()
         {
             // Your connection string, change it to your own local db
