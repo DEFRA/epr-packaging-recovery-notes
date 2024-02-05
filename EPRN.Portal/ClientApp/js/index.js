@@ -17,6 +17,7 @@ import jqueryvalidatehooks from "./common/jquery-validate-hooks";
 // add imports to further files here
 import subTypes from "./pages/SubTypes"
 import prnCreate from "./pages/Prn-Create"
+import Accordian from "./common/overrides"
 
 $(document).ready(function () {
     initAll();

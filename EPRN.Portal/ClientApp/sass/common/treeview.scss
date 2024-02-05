@@ -1,0 +1,23 @@
+﻿
+.dwp-timeline__events {
+    border-left: 3px solid #1d70b8;
+    list-style-type: none;
+    padding: 0;
+}
+
+.dwp-timeline__events--entry {
+    margin: 32px 0;
+    padding-left: 18px;
+    position: relative;
+    top: -10px;
+}
+
+.dwp-timeline__events--entry::before {
+    background-color: #1d70b8;
+    content: "";
+    height: 3px;
+    left: -1px;
+    position: absolute;
+    top: 10px;
+    width: 11px;
+}

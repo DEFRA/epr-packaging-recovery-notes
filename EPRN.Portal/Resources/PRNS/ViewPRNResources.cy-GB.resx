@@ -117,49 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back" xml:space="preserve">
-    <value>[Welsh]Back</value>
+  <data name="Accepted" xml:space="preserve">
+    <value>PRN Accepted</value>
   </data>
-  <data name="ContinueBtn" xml:space="preserve">
-    <value>[Welsh]Continue</value>
+  <data name="CancellationRequested" xml:space="preserve">
+    <value>PRN Cancel requested</value>
   </data>
-  <data name="Create" xml:space="preserve">
-    <value>[Welsh]Create a &lt;PRNTYPE&gt; for:</value>
+  <data name="Cancelled" xml:space="preserve">
+    <value>PRN Cancelled</value>
   </data>
-  <data name="CreateWithReplace" xml:space="preserve">
-    <value>[Welsh]Create a &lt;PRNTYPE&gt; for:</value>
+  <data name="CheckYourAnswersComplete" xml:space="preserve">
+    <value>PRN Completed answers</value>
   </data>
-  <data name="Home" xml:space="preserve">
-    <value>[Welsh]Home</value>
+  <data name="CreatedFromWasteDecemberLabel" xml:space="preserve">
+    <value>PRN Created from waste received in December</value>
   </data>
-  <data name="MustBeANumber" xml:space="preserve">
-    <value>[Welsh]Please enter a valid numerical value</value>
+  <data name="DateIssuedLabel" xml:space="preserve">
+    <value>Date issued:</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>[Welsh]No</value>
+  <data name="Draft" xml:space="preserve">
+    <value>PRN Created</value>
   </data>
-  <data name="OppositeLanguage" xml:space="preserve">
-    <value>English</value>
+  <data name="NoteLabel" xml:space="preserve">
+    <value>Note</value>
   </data>
-  <data name="PERN" xml:space="preserve">
-    <value>[Welsh]PERN</value>
+  <data name="ProducerOrComplianceLabel" xml:space="preserve">
+    <value>Packaging producer or compliance scheme</value>
   </data>
-  <data name="PRN" xml:space="preserve">
-    <value>[Welsh]PRN</value>
+  <data name="Rejected" xml:space="preserve">
+    <value>PRN Rejected</value>
   </data>
-  <data name="RecordingFor" xml:space="preserve">
-    <value>[Welsh]Recording for:</value>
+  <data name="Sent" xml:space="preserve">
+    <value>PRN Sent completed</value>
   </data>
-  <data name="SkipQuestionLink" xml:space="preserve">
-    <value>[Welsh]Skip question</value>
-  </data>
-  <data name="String" xml:space="preserve">
-    <value>[Welsh]There is a problem</value>
-  </data>
-  <data name="UnknownWasteType" xml:space="preserve">
-    <value>[Welsh]&lt;UNKNOWN WASTE TYPE&gt;</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>[Welsh]Yes</value>
+  <data name="StatusLabel" xml:space="preserve">
+    <value>Status</value>
   </data>
 </root>

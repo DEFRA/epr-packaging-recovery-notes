@@ -32,12 +32,13 @@ namespace EPRN.Portal.Controllers
 
         [HttpGet]
         [ActionName(Routes.Actions.Prns.View)]
-        public async Task<IActionResult> ViewPRN(int? id)
+        [Route("[controller]/[action]/{reference}")]
+        public async Task<IActionResult> ViewPRN(string reference)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(reference))
                 return NotFound();
 
-            var viewModel = await _prnService.GetViewPrnViewModel(id.Value);
+            var viewModel = await _prnService.GetViewPrnViewModel(reference);
 
             return View(viewModel);
         }

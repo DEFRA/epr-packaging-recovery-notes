@@ -103,7 +103,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task ViewPRN_Action_With_Valid_Id_Should_Return_ViewResult_With_ViewModel()
         {
             // Arrange
-            int idValue = 1;
+            var idValue = "PRN1";
             var expectedViewModel = new ViewPRNViewModel(); // Replace with the actual ViewModel type
 
             _mockPrnService.Setup(service => service.GetViewPrnViewModel(idValue))
@@ -124,7 +124,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task ViewPRN_Action_With_Null_Id_Should_Return_NotFoundResult()
         {
             // Arrange
-            int? id = null;
+            var id = default(string);
 
             // Act
             var result = await _prnsController.ViewPRN(id);

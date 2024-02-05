@@ -10,8 +10,6 @@ namespace EPRN.Portal.ViewModels.PRNS
 
         public string CreatedBy { get; set; }
 
-        public DateTime DateIssued { get; set; }
-
         public string SiteAddress { get; set; }
 
         public bool DecemberWasteBalance { get; set; }
@@ -19,6 +17,9 @@ namespace EPRN.Portal.ViewModels.PRNS
         public double? Tonnage { get; set; }
 
         public string SentTo { get; set; }
+
+        // this is the date issued
+        public DateTime? DateSent { get; set; }
 
         public string Note { get; set; }
 

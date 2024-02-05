@@ -7,7 +7,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
     {
         Task<int> CreatePrnRecord(
             int materialType,
-            Category category);
+            Category category,
+            string prnReference);
 
         Task<bool> PrnExists(
             int id);
@@ -29,6 +30,6 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
             PrnStatus status, 
             string reason = null);
 
-        Task<PRNDetailsDto> GetDetails(int id);
+        Task<PRNDetailsDto> GetDetails(string reference);
     }
 }

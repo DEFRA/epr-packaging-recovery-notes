@@ -29,6 +29,6 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task CancelPRN(CancelViewModel cancelViewModel);
 
-        Task<ViewPRNViewModel> GetViewPrnViewModel(int id);
+        Task<ViewPRNViewModel> GetViewPrnViewModel(string reference);
     }
 }

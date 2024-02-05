@@ -132,6 +132,9 @@
   <data name="MustBeANumber" xml:space="preserve">
     <value>Please enter a valid numerical value</value>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
   <data name="OppositeLanguage" xml:space="preserve">
     <value>Cymraeg</value>
   </data>
@@ -152,5 +155,8 @@
   </data>
   <data name="UnknownWasteType" xml:space="preserve">
     <value>&lt;UNKNOWN WASTE TYPE&gt;</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

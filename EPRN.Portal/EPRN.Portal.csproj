@@ -107,6 +107,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>RequestCancelResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\PRNS\ViewPRNResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ViewPRNResources.resx</DependentUpon>
+      </Compile>
     <Compile Update="Resources\ReProcessorExportResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -218,6 +223,13 @@
     <EmbeddedResource Update="Resources\PRNS\RequestCancelResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RequestCancelResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\ViewPRNResources.cy-GB.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\ViewPRNResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ViewPRNResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\ReProcessorExportResource.cy-GB.resx">
       <LastGenOutput>ReProcessorExportResource.cy-GB.Designer.cs</LastGenOutput>

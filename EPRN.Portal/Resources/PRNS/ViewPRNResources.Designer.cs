@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources {
+namespace EPRN.Portal.Resources.PRNS {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class MasterResources {
+    public class ViewPRNResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MasterResources() {
+        internal ViewPRNResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.MasterResources", typeof(MasterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.ViewPRNResources", typeof(ViewPRNResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,128 +61,119 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Back.
+        ///   Looks up a localized string similar to [Welsh]PRN Accepted.
         /// </summary>
-        public static string Back {
+        public static string Accepted {
             get {
-                return ResourceManager.GetString("Back", resourceCulture);
+                return ResourceManager.GetString("Accepted", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to [Welsh]PRN Cancel requested.
         /// </summary>
-        public static string ContinueBtn {
+        public static string CancellationRequested {
             get {
-                return ResourceManager.GetString("ContinueBtn", resourceCulture);
+                return ResourceManager.GetString("CancellationRequested", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create a &lt;PRNTYPE&gt; for:.
+        ///   Looks up a localized string similar to [Welsh]PRN Cancelled.
         /// </summary>
-        public static string CreateWithReplace {
+        public static string Cancelled {
             get {
-                return ResourceManager.GetString("CreateWithReplace", resourceCulture);
+                return ResourceManager.GetString("Cancelled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to [Welsh]PRN Completed answers.
         /// </summary>
-        public static string Home {
+        public static string CheckYourAnswersComplete {
             get {
-                return ResourceManager.GetString("Home", resourceCulture);
+                return ResourceManager.GetString("CheckYourAnswersComplete", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please enter a valid numerical value.
+        ///   Looks up a localized string similar to [Welsh]PRN Created from waste received in December.
         /// </summary>
-        public static string MustBeANumber {
+        public static string CreatedFromWasteDecemberLabel {
             get {
-                return ResourceManager.GetString("MustBeANumber", resourceCulture);
+                return ResourceManager.GetString("CreatedFromWasteDecemberLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to [Welsh]Date issued:.
         /// </summary>
-        public static string No {
+        public static string DateIssuedLabel {
             get {
-                return ResourceManager.GetString("No", resourceCulture);
+                return ResourceManager.GetString("DateIssuedLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cymraeg.
+        ///   Looks up a localized string similar to [Welsh]PRN Created.
         /// </summary>
-        public static string OppositeLanguage {
+        public static string Draft {
             get {
-                return ResourceManager.GetString("OppositeLanguage", resourceCulture);
+                return ResourceManager.GetString("Draft", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PERN.
+        ///   Looks up a localized string similar to [Welsh]history.
         /// </summary>
-        public static string PERN {
+        public static string History {
             get {
-                return ResourceManager.GetString("PERN", resourceCulture);
+                return ResourceManager.GetString("History", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PRN.
+        ///   Looks up a localized string similar to [Welsh]Note.
         /// </summary>
-        public static string PRN {
+        public static string NoteLabel {
             get {
-                return ResourceManager.GetString("PRN", resourceCulture);
+                return ResourceManager.GetString("NoteLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recording for:.
+        ///   Looks up a localized string similar to [Welsh]Packaging producer or compliance scheme.
         /// </summary>
-        public static string RecordingFor {
+        public static string ProducerOrComplianceLabel {
             get {
-                return ResourceManager.GetString("RecordingFor", resourceCulture);
+                return ResourceManager.GetString("ProducerOrComplianceLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skip question.
+        ///   Looks up a localized string similar to [Welsh]PRN Rejected.
         /// </summary>
-        public static string SkipQuestionLink {
+        public static string Rejected {
             get {
-                return ResourceManager.GetString("SkipQuestionLink", resourceCulture);
+                return ResourceManager.GetString("Rejected", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is a problem.
+        ///   Looks up a localized string similar to [Welsh]PRN Sent completed.
         /// </summary>
-        public static string SummaryError {
+        public static string Sent {
             get {
-                return ResourceManager.GetString("SummaryError", resourceCulture);
+                return ResourceManager.GetString("Sent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;UNKNOWN WASTE TYPE&gt;.
+        ///   Looks up a localized string similar to [Welsh]Status.
         /// </summary>
-        public static string UnknownWasteType {
+        public static string StatusLabel {
             get {
-                return ResourceManager.GetString("UnknownWasteType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        public static string Yes {
-            get {
-                return ResourceManager.GetString("Yes", resourceCulture);
+                return ResourceManager.GetString("StatusLabel", resourceCulture);
             }
         }
     }

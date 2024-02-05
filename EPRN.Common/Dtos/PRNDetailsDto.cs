@@ -16,6 +16,8 @@ namespace EPRN.Common.Dtos
 
         public double? Tonnage { get; set; }
 
+        public DateTime? DateSent { get; set; }
+
         public string SentTo { get; set; }
 
         public string Note { get; set; }

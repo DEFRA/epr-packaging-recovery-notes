@@ -166,9 +166,9 @@ namespace EPRN.Portal.Services
                 requestCancelViewModel.CancelReason);
         }
 
-        public async Task<ViewPRNViewModel> GetViewPrnViewModel(int id)
+        public async Task<ViewPRNViewModel> GetViewPrnViewModel(string reference)
         {
-            var dto = await _httpPrnsService.GetPrnDetails(id);
+            var dto = await _httpPrnsService.GetPrnDetails(reference);
 
             return _mapper.Map<ViewPRNViewModel>(dto);
         }

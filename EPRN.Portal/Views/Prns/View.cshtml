@@ -1,31 +1,26 @@
 ﻿@model ViewPRNViewModel
-
 <div>
     <h1 class="govuk-heading-xl">@Model.ReferenceNumber</h1>
-    <p class="govuk-body">Accreditation number: @Model.AccreditationNumber</p>
-    <p class="govuk-body">Created by: @Model.CreatedBy</p>
-    <h3 class="govuk-body-l">Accreditation address:</h3>
     <p class="govuk-body">@Html.Raw(Model.SiteAddress)</p>
-    <p class="govuk-body">Date issued</p>
-
+    <p class="govuk-body">@ViewPRNResources.DateIssuedLabel @Model.DateSent?.ToString("d MMM yyyy")</p>
 
     <table class="govuk-table">
         <tbody class="govuk-table__body">
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">
-                    PRN Created from waste received in December
+                    @ViewPRNResources.CreatedFromWasteDecemberLabel
                 </th>
-                <td class="govuk-table__cell">@(Model.DecemberWasteBalance ? "Yes" : "No")</td>
+                <td class="govuk-table__cell">@(Model.DecemberWasteBalance ? MasterResources.Yes : MasterResources.No)</td>
             </tr>
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">
-                    Packaging producer or compliance scheme
+                    @ViewPRNResources.ProducerOrComplianceLabel @Model.SentTo
                 </th>
                 <td class="govuk-table__cell">@Model.SentTo</td>
             </tr>
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">
-                    Note
+                    @ViewPRNResources.NoteLabel
                 </th>
                 <td class="govuk-table__cell">
                     @Model.Note
@@ -33,29 +28,40 @@
             </tr>
             <tr class="govuk-table__row">
                 <th scope="row" class="govuk-table__header">
-                    Status
+                    @ViewPRNResources.StatusLabel
                 </th>
                 <td class="govuk-table__cell">
-                    @Model.Status.ToString()
+                    @ViewPRNResources.ResourceManager.GetString(Model.Status.ToString())
                 </td>
             </tr>
         </tbody>
     </table>
-
-    <h2 class="govuk-body-s">@Model.ReferenceNumber history</h2>
-    @foreach(var history in Model.History)
-    {
-        <div>
-            <div style="display:inline-block;width:10px;height:100%;">
-                <div style="height:10px;width:10px;background-color:red;"></div>
-                <div style="height:calc(100% - 10px);background-color:yellow;"></div>
+    <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+        <div class="govuk-accordion__section">
+            <div class="govuk-accordion__section-header">
+                <h2 class="govuk-accordion__section-heading no-top-border">
+                    <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                        @($"{Model.ReferenceNumber} {ViewPRNResources.History}")
+                    </span>
+                </h2>
             </div>
-            <div style="display:inline-block;">
-                <h3>@history.Status.ToString()</h3>
-                <label>@history.Username</label>
-                <label>@history.Reason</label>
-                <label>@history.Created.ToString("d MMM yyyy")</label>
+            <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+                <div class="dwp-timeline">
+                    <ol class="dwp-timeline__events">
+                        @foreach (var history in Model.History)
+                        {
+                            <li class="dwp-timeline__events--entry">
+                                <div>
+                                    <h2 class="govuk-heading-s govuk-!-margin-bottom-1">@ViewPRNResources.ResourceManager.GetString(history.Status.ToString())</h2>
+                                    <p class="govuk-caption-m govuk-!-margin-bottom-1">@history.Username</p>
+                                    <p class="govuk-caption-m govuk-!-margin-bottom-1">@history.Reason</p>
+                                    <p class="govuk-caption-m">@history.Created.ToString("d MMM yyyy")</p>
+                                </div>
+                            </li>
+                        }
+                    </ol>
+                </div>
             </div>
         </div>
-    }
+    </div>
 </div>

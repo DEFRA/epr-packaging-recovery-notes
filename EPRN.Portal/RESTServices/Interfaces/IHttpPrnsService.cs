@@ -37,6 +37,6 @@ namespace EPRN.Portal.RESTServices.Interfaces
             int id,
             string reason);
 
-        Task<PRNDetailsDto> GetPrnDetails(int id);
+        Task<PRNDetailsDto> GetPrnDetails(string reference);
     }
 }
