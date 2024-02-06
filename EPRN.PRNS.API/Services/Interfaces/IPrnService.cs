@@ -32,5 +32,7 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task RequestCancelPrn(int id, string reason);
 
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
+
+        Task<PRNDetailsDto> GetPrnDetails(string reference);
     }
 }

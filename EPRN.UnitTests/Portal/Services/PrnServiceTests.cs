@@ -153,7 +153,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int id = 1;
-            var expectedDto = new StatusAndProducerDto(); // Replace YourDto with the actual DTO type
+            var expectedDto = new StatusAndProducerDto();
 
             _mockHttpPrnsService
                 .Setup(x => x.GetStatusAndProducer(It.IsAny<int>()))
@@ -329,7 +329,30 @@ namespace EPRN.UnitTests.Portal.Services
             // Assert
             Assert.IsNull(result);
         }
-
         #endregion
+        
+        [TestMethod]
+        public async Task GetViewPrnViewModel_ShouldReturnMappedViewModel()
+        {
+            // Arrange
+            var reference = "YourReferenceValue";
+            var expectedDto = new PRNDetailsDto(); // Replace YourDto with the actual type returned by _httpPrnsService.GetPrnDetails
+            var expectedViewModel = new ViewPRNViewModel(); // Replace ViewPRNViewModel with the actual ViewModel type
+
+            // Mocking the IHttpPrnsService
+            _mockHttpPrnsService.Setup(service => service.GetPrnDetails(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Mocking the IMapper
+            _mockMapper.Setup(m => m.Map<ViewPRNViewModel>(expectedDto))
+                .Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetViewPrnViewModel(reference);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel, result);
+        }
     }
 }

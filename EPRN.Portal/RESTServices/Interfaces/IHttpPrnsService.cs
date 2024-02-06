@@ -38,5 +38,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
             string reason);
 
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
+
+        Task<PRNDetailsDto> GetPrnDetails(string reference);
     }
 }

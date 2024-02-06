@@ -1,5 +1,6 @@
 ﻿@using EPRN.Common.Enums;
 @using EPRN.Portal.Services.Interfaces;
+@using static EPRN.Common.Constants.Strings
 
 @model ViewSentPrnsViewModel;
 
@@ -106,7 +107,7 @@
                         {
                             <tr class="govuk-table__row" data-status="@row.Status">
                                 <td class="govuk-table__cell">
-                                    <a href="@Url.Action("View", "Prns", new { id = row.PrnNumber })">@row.PrnNumber</a>
+                                    <a href="@Url.Action(Routes.Actions.PRNS.View, Routes.Controllers.PRNS, new { id = row.PrnNumber })">@row.PrnNumber</a>
                                 </td>
                                 <td class="govuk-table__cell">@row.Material</td>
                                 <td class="govuk-table__cell">@row.SentTo</td>

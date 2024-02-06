@@ -1,6 +1,7 @@
 ﻿using EPRN.Portal.Helpers.Interfaces;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
+using System.Xml.Linq;
 
 namespace EPRN.Portal.Helpers
 {
@@ -16,10 +17,10 @@ namespace EPRN.Portal.Helpers
         {
             var type = typeof(T);
             var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName ?? string.Empty);
-            var localizer = _localizerFactory.Create(type.Name, assemblyName.Name);
+            var localizer = _localizerFactory.Create(type.FullName, assemblyName.Name);
 
             var val = localizer.GetString(key.Replace(" ", "-"));
-            return val;
+            return val.Value;
         }
     }
 }

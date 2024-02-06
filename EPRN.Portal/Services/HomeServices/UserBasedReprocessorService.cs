@@ -38,9 +38,13 @@ namespace EPRN.Portal.Services.HomeServices
 
             var managePrnCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_ManagePrn_Link_CreatePrn, "#" },
-                { HomePageResources.HomePage_ManagePrn_Link_ViewEditDraftPrn, "#" },
-                { HomePageResources.HomePage_ManagePrn_Link_ViewSentPrns, "#" }
+                { HomePageResources.HomePage_ManagePern_Link_CreatePern, UrlHelper.ActionLink(
+                    Routes.Actions.PRNS.Create,
+                    Routes.Controllers.PRNS) },
+                { HomePageResources.HomePage_ManagePern_Link_ViewEditDraftPerns, "#" },
+                { HomePageResources.HomePage_ManagePern_Link_ViewSentPerns, UrlHelper.ActionLink(
+                    Routes.Actions.PRNS.ViewSentPrns,
+                    Routes.Controllers.PRNS) }
             };
 
             var returnsCardLinks = new Dictionary<string, string>()

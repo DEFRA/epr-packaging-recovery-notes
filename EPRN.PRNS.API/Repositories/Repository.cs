@@ -27,12 +27,14 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task<int> CreatePrnRecord(
             int materialType,
-            Common.Enums.Category category)
+            Common.Enums.Category category,
+            string prnReference)
         {
             var prn = new PackagingRecoveryNote
             {
                 WasteTypeId = materialType,
                 Category = _mapper.Map<Category>(category),
+                Reference = prnReference,
                 PrnHistory = new List<PrnHistory>
                 {
                     new PrnHistory
@@ -85,8 +87,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Where(prn => prn.Id == id)
                 .Select(prn => new ConfirmationDto
                 {
-                    PRNReferenceNumber = string.IsNullOrWhiteSpace(prn.Reference) ?
-                        $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}" : prn.Reference,
+                    PRNReferenceNumber = prn.Reference,
                     PrnComplete = prn.CompletedDate.HasValue && prn.CompletedDate.Value < DateTime.Now,
                     CompanyNameSentTo = prn.SentTo ?? string.Empty
                 })
@@ -212,6 +213,36 @@ namespace EPRN.PRNS.API.Repositories
             };
         }
 
-
+        public async Task<PRNDetailsDto> GetDetails(string reference)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Reference == reference)
+                .Select(prn => new PRNDetailsDto
+                {
+                    AccreditationNumber = "UNKNOWN",
+                    ReferenceNumber = prn.Reference,
+                    SiteAddress = $"Unknown street{Environment.NewLine}Unknown town{Environment.NewLine}Unknown postcode",
+                    CreatedBy = prn.PrnHistory.First(h => h.Status == PrnStatus.Draft).CreatedBy,
+                    DecemberWasteBalance = false,
+                    Tonnage = prn.Tonnes,
+                    DateSent = prn.PrnHistory.Where(h => h.Status == PrnStatus.Accepted).Select(h => h.Created).FirstOrDefault(),
+                    SentTo = prn.SentTo,
+                    Note = prn.Note,
+                    History =
+                        // get the history 
+                        prn
+                        .PrnHistory
+                        .OrderByDescending(h => h.Created)
+                        .Select(h => new PRNHistoryDto
+                        {
+                            Created = h.Created,
+                            Reason = h.Reason,
+                            Status = _mapper.Map<Common.Enums.PrnStatus>(h.Status),
+                            Username = h.CreatedBy
+                        })
+                })
+                .SingleOrDefaultAsync();
+        }
     }
 }
