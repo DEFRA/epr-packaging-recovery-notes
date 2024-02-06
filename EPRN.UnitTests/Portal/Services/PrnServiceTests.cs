@@ -329,10 +329,8 @@ namespace EPRN.UnitTests.Portal.Services
             // Assert
             Assert.IsNull(result);
         }
-
-            #endregion
-        }
-
+        #endregion
+        
         [TestMethod]
         public async Task GetViewPrnViewModel_ShouldReturnMappedViewModel()
         {
