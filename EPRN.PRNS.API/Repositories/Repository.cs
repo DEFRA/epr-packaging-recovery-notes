@@ -117,7 +117,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Where(h => h.PrnId == id)
                 .OrderByDescending(h => h.Created)
                 .Select(h => _mapper.Map<Common.Enums.PrnStatus>(h.Status))
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task<StatusAndProducerDto> GetStatusAndRecipient(int id)
@@ -132,7 +132,7 @@ namespace EPRN.PRNS.API.Repositories
                     Status = _mapper.Map<Common.Enums.PrnStatus>(h.Status),
                     Producer = h.PackagingRecoveryNote.SentTo
                 })
-                .SingleOrDefaultAsync();
+                .FirstOrDefaultAsync();
         }
 
         public async Task UpdatePrnStatus(
