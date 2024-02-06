@@ -23,7 +23,10 @@ namespace EPRN.PRNS.API.Services
             int materialId,
             Category category)
         {
-            return await _prnRepository.CreatePrnRecord(materialId, category);
+            return await _prnRepository.CreatePrnRecord(
+                materialId, 
+                category,
+                GenerateReferenceNumber());
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -99,6 +102,16 @@ namespace EPRN.PRNS.API.Services
         {
             return await _prnRepository.GetSentPrns(request);
         }
+
+        public async Task<PRNDetailsDto> GetPrnDetails(string reference)
+        {
+            return await _prnRepository.GetDetails(reference);
+        }
+
+        // Stub this and generate a random PRN reference number
+        // In time a specific generation algorithm will
+        // be specified
+        private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
 
         public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
         {

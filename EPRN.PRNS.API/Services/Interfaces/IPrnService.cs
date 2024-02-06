@@ -33,6 +33,8 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
 
+        Task<PRNDetailsDto> GetPrnDetails(string reference);
+
         Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
 
         Task SaveDecemberWaste(int jouneyId, bool decemberWaste);

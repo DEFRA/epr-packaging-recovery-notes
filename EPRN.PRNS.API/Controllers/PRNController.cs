@@ -126,6 +126,18 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpGet]
+        [Route("/api/[controller]/Details/{reference}")]
+        public async Task<IActionResult> GetPrnDetails(string reference)
+        {
+            var prnDetailsDto = await _prnService.GetPrnDetails(reference);
+
+            if (prnDetailsDto == null)
+                return NotFound();
+
+            return Ok(prnDetailsDto);
+        }
+
+        [HttpGet]
         [Route("DecemberWaste")]
         public async Task<ActionResult> GetDecemberWaste(int? id)
         {
@@ -157,7 +169,7 @@ namespace EPRN.PRNS.API.Controllers
         /// </summary>
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            if (context.ActionDescriptor.Parameters.Any(p => p.Name == idParameter) &&
+           if (context.ActionDescriptor.Parameters.Any(p => p.Name == idParameter) &&
                 context.ActionArguments.ContainsKey(idParameter))
             {
                 int id = Convert.ToInt32(context.ActionArguments[idParameter]);

@@ -7,3 +7,9 @@
         text-align: right !important;
     }
 }
+
+.govuk-accordion__section-heading.no-top-border {
+    .govuk-accordion__section-button {
+        border-top: 0;
+    }
+}

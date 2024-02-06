@@ -3,6 +3,7 @@ using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using static EPRN.Common.Constants.Strings;
 using Routes = EPRN.Common.Constants.Strings.Routes;
 
 namespace EPRN.Portal.Controllers
@@ -35,16 +36,27 @@ namespace EPRN.Portal.Controllers
         {
             if (id == null)
                 return NotFound();
-
-            if (id <= 0)
-                return BadRequest();
-
+            
             var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
 
             return View(viewModel);
         }
 
         [HttpGet]
+        [ActionName(Routes.Actions.PRNS.View)]
+        [Route("[controller]/[action]/{reference}")]
+        public async Task<IActionResult> ViewPRN(string reference)
+        {
+            if (string.IsNullOrWhiteSpace(reference))
+                return NotFound();
+
+            var viewModel = await _prnService.GetViewPrnViewModel(reference);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Actions.PRNS.ViewSentPrns)]
         public async Task<IActionResult> ViewSentPrns([FromQuery] GetSentPrnsViewModel request)
         {
             var viewSentPrnsViewModel = await _prnService.GetViewSentPrnsViewModel(request);

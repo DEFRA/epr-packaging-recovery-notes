@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services;
@@ -52,7 +53,8 @@ namespace EPRN.UnitTests.API.PRNS.Services
             _mockRepository.Verify(s => 
                 s.CreatePrnRecord(
                     It.Is<int>(p => p == materialId), 
-                    It.Is<Category>(p => p == category)), 
+                    It.Is<Category>(p => p == category),
+                    It.IsAny<string>()), 
                 Times.Once);
         }
 
@@ -240,6 +242,40 @@ namespace EPRN.UnitTests.API.PRNS.Services
                     It.IsAny<PrnStatus>(),
                     It.IsAny<string>()),
                 Times.Never);
+        }
+
+        [TestMethod]
+        public async Task GetPrnDetails_WhenRepositoryReturnsDto_ShouldReturnDto()
+        {
+            // Arrange
+            var reference = "YourReferenceValue";
+            var expectedDto = new PRNDetailsDto();
+
+            _mockRepository.Setup(repository => repository.GetDetails(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnService.GetPrnDetails(reference);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedDto, result);
+        }
+
+        [TestMethod]
+        public async Task GetPrnDetails_WhenRepositoryReturnsNull_ShouldReturnNull()
+        {
+            // Arrange
+            var reference = "YourReferenceValue";
+
+            _mockRepository.Setup(repository => repository.GetDetails(reference))
+                .ReturnsAsync((PRNDetailsDto)null);
+
+            // Act
+            var result = await _prnService.GetPrnDetails(reference);
+
+            // Assert
+            Assert.IsNull(result);
         }
     }
 }

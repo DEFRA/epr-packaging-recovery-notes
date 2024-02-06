@@ -39,6 +39,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
 
+        Task<PRNDetailsDto> GetPrnDetails(string reference);
+
         Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
 
         Task SaveDecemberWaste(int journeyId, bool decemberWaste);

@@ -142,6 +142,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cymraeg.
         /// </summary>
         public static string OppositeLanguage {
@@ -210,6 +219,15 @@ namespace EPRN.Portal.Resources {
         public static string UnknownWasteType {
             get {
                 return ResourceManager.GetString("UnknownWasteType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
