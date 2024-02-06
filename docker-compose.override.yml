@@ -4,10 +4,9 @@ services:
   prnportal:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:3000
     ports:
-      - "80"
-      - "443"
+      - "3000:3000"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
@@ -16,6 +15,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000
+      - ConnectionStrings__WasteConnectionString=server=Your_IP_Address;Database=Waste;user=userId;password=YourPassword;TrustServerCertificate=True;
     ports:
       - "5000:5000"
     volumes:
@@ -28,6 +28,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5001
+      - ConnectionStrings__WasteConnectionString=server=192.168.1.124;Database=Waste;user=sa;password=DefraSecurePassword!;TrustServerCertificate=True;
     ports:
       - "5001:5001"
     volumes:

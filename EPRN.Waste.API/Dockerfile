@@ -1,19 +1,24 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
-WORKDIR /app
+FROM defradigital/dotnetcore-development:dotnet6.0 AS build-env
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-
-COPY . .
+COPY --chown=dotnet . .
 RUN dotnet restore "EPRN.Waste.API/EPRN.Waste.API.csproj"
 
-WORKDIR "/src/EPRN.Waste.API"
-RUN dotnet build "EPRN.Waste.API.csproj" -c Release -o /app/build
+#USER root
+#RUN apk update && apk add --no-cache npm
+#USER dotnet
+#ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/internal-ca.crt
 
-FROM build AS publish
-RUN dotnet publish "EPRN.Waste.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+COPY --chown=dotnet:dotnet . .
+WORKDIR /home/dotnet/EPRN.Waste.API
+RUN dotnet publish -c Release -o out
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "EPRN.Waste.API.dll"]
+FROM defradigital/dotnetcore:dotnet6.0
+COPY --from=build-env --chown=dotnet /home/dotnet/EPRN.Waste.API/out .
+
+#USER root
+#RUN apk add icu-libs libintl
+USER dotnet
+
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0
+
+CMD dotnet EPRN.Waste.API.dll
