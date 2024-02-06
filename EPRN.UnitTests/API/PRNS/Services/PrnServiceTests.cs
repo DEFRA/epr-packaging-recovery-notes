@@ -249,7 +249,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
         {
             // Arrange
             var reference = "YourReferenceValue";
-            var expectedDto = new PRNDetailsDto(); // Replace PRNDetailsDto with the actual type
+            var expectedDto = new PRNDetailsDto();
 
             _mockRepository.Setup(repository => repository.GetDetails(reference))
                 .ReturnsAsync(expectedDto);

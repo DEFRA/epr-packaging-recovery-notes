@@ -17,9 +17,6 @@ namespace EPRN.Portal.Helpers
         {
             var type = typeof(T);
             var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName ?? string.Empty);
-
-            //var name = "EPRN.Portal.Resources.PRNS.ViewPRNResources";
-            //var localizer = _localizerFactory.Create(name, assemblyName.Name);
             var localizer = _localizerFactory.Create(type.FullName, assemblyName.Name);
 
             var val = localizer.GetString(key.Replace(" ", "-"));

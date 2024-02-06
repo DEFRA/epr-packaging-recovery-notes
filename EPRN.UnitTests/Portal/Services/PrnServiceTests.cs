@@ -150,7 +150,7 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int id = 1;
-            var expectedDto = new StatusAndProducerDto(); // Replace YourDto with the actual DTO type
+            var expectedDto = new StatusAndProducerDto();
 
             _mockHttpPrnsService
                 .Setup(x => x.GetStatusAndProducer(It.IsAny<int>()))

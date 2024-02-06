@@ -157,7 +157,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             // Arrange
             var idValue = "PRN1";
-            var expectedViewModel = new ViewPRNViewModel(); // Replace with the actual ViewModel type
+            var expectedViewModel = new ViewPRNViewModel();
 
             _mockPrnService.Setup(service => service.GetViewPrnViewModel(idValue))
                            .ReturnsAsync(expectedViewModel);
