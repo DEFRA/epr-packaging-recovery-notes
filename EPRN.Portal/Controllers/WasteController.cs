@@ -333,6 +333,25 @@ namespace EPRN.Portal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpGet]
+        [ActionName(Routes.Actions.Waste.AccredidationLimit)]
+        public async Task<IActionResult> AccredidationLimit(int? id)
+        {
+            if (!id.HasValue)
+                return NotFound();
+
+            var model = await _wasteService.GetAccredidationLimit(id.Value);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Actions.Waste.AccredidationLimit)]
+        public IActionResult AccredidationLimitPost(int? id)
+        {
+            return RedirectToAction("Tonnes", "Waste", new { id });
+        }
+
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {

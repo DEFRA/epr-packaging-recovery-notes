@@ -44,5 +44,8 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveNote(NoteViewModel noteViewModel);
 
         Task<string> GetWasteType(int journeyId);
+
+        Task<AccredidationLimitViewModel> GetAccredidationLimit(int value);
+
     }
 }

@@ -100,6 +100,7 @@ public static class Strings
                 public const string Baled = "Baled";
                 public const string ReProcessorExport = "ReProcessorExport";
                 public const string Note = "Note";
+                public const string AccredidationLimit = "AccredidationLimit";
             }
         }
     }

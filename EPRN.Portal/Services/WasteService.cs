@@ -393,5 +393,22 @@ namespace EPRN.Portal.Services
         {
             return await _httpJourneyService.GetWasteType(journeyId);
         }
+
+        public async Task<AccredidationLimitViewModel> GetAccredidationLimit(int journeyId)
+        {
+            var accredidationLimitDto = await _httpJourneyService.GetAccredidationLimit(journeyId);
+
+            var vm = new AccredidationLimitViewModel
+            {
+                JourneyId = journeyId,
+                UserRole = UserRole.Exporter,
+                AccredidationLimit = accredidationLimitDto.AccredidationLimit,
+                TotalToDate = accredidationLimitDto.TotalToDate,
+                NewAmountEntered = accredidationLimitDto.NewAmountEntered,
+                ExcessOfLimit = accredidationLimitDto.ExcessOfLimit
+            };
+
+            return vm;
+        }
     }
 }

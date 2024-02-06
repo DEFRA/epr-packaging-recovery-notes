@@ -48,5 +48,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task<NoteDto> GetNote(int journeyId);
 
         Task<Category> GetCategory(int journeyId);
+
+        Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId);
     }
 }
