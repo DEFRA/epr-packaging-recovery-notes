@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.PRNS;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Services
@@ -196,17 +199,137 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         [TestMethod]
-        public async Task GetViewSentPrnsViewModel_NullRequest()
+        public async Task GetViewSentPrnsViewModel_ShouldMapRequestToDto()
         {
             // Arrange
+            var request = new GetSentPrnsViewModel();
+            var getSentPrnsDto = new GetSentPrnsDto();
+            var sentPrnsDto = new SentPrnsDto();
+            var expectedViewModel = new ViewSentPrnsViewModel();
+
+            _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns(getSentPrnsDto);
+            _mockHttpPrnsService.Setup(service => service.GetSentPrns(getSentPrnsDto)).ReturnsAsync(sentPrnsDto);
+            _mockMapper.Setup(m => m.Map<ViewSentPrnsViewModel>(sentPrnsDto)).Returns(expectedViewModel);
 
             // Act
-            var result = await _prnService.GetViewSentPrnsViewModel(null);
+            var result = await _prnService.GetViewSentPrnsViewModel(request);
+
+            // Assert
+            _mockMapper.Verify(m => m.Map<GetSentPrnsDto>(request), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task GetViewSentPrnsViewModel_ShouldCallGetSentPrnsService()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            var getSentPrnsDto = new GetSentPrnsDto();
+            var sentPrnsDto = new SentPrnsDto();
+            var expectedViewModel = new ViewSentPrnsViewModel();
+
+            _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns(getSentPrnsDto);
+            _mockHttpPrnsService.Setup(service => service.GetSentPrns(getSentPrnsDto)).ReturnsAsync(sentPrnsDto);
+            _mockMapper.Setup(m => m.Map<ViewSentPrnsViewModel>(sentPrnsDto)).Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetViewSentPrnsViewModel(request);
+
+            // Assert
+            _mockHttpPrnsService.Verify(s => s.GetSentPrns(It.IsAny<GetSentPrnsDto>()), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task GetViewSentPrnsViewModel_ShouldMapDtoToViewModel()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            _mockMapper.Setup(m => m.Map<ViewSentPrnsViewModel>(It.IsAny<GetSentPrnsDto>())).Returns(new ViewSentPrnsViewModel());
+
+            // Act
+            var result = await _prnService.GetViewSentPrnsViewModel(request);
+
+            // Assert
+            _mockMapper.Verify(m => m.Map<ViewSentPrnsViewModel>(It.IsAny<GetSentPrnsDto>()), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task GetViewSentPrnsViewModel_ShouldSetFilterItems()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            var getSentPrnsDto = new GetSentPrnsDto();
+            var sentPrnsDto = new SentPrnsDto();
+            var expectedViewModel = new ViewSentPrnsViewModel();
+
+            var expectedFilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
+                @ViewSentPrnResources.FilterBy,
+                PrnStatus.Accepted,
+                PrnStatus.AwaitingAcceptance,
+                PrnStatus.Rejected,
+                PrnStatus.AwaitingCancellation,
+                PrnStatus.Cancelled);
+
+            _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns(getSentPrnsDto);
+            _mockHttpPrnsService.Setup(service => service.GetSentPrns(getSentPrnsDto)).ReturnsAsync(sentPrnsDto);
+            _mockMapper.Setup(m => m.Map<ViewSentPrnsViewModel>(sentPrnsDto)).Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetViewSentPrnsViewModel(request);
+
+            // Assert
+            Assert.IsNotNull(result.FilterItems);
+            Assert.IsTrue(expectedFilterItems.Count == result.FilterItems.Count);
+            Assert.AreEqual(expectedFilterItems[1].Value, result.FilterItems[1].Value);
+        }
+
+        [TestMethod]
+        public async Task GetViewSentPrnsViewModel_ShouldSetSortItems()
+        {
+            // Arrange
+            var request = new GetSentPrnsViewModel();
+            var getSentPrnsDto = new GetSentPrnsDto();
+            var sentPrnsDto = new SentPrnsDto();
+            var expectedViewModel = new ViewSentPrnsViewModel();
+
+            var expectedSortItems = new List<SelectListItem>
+            {
+                new() { Value = "", Text = @ViewSentPrnResources.SortBy },
+                new() { Value = "1", Text = "Material" },
+                new() { Value = "2", Text = "Sent to" }
+            };
+
+            _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns(getSentPrnsDto);
+            _mockHttpPrnsService.Setup(service => service.GetSentPrns(getSentPrnsDto)).ReturnsAsync(sentPrnsDto);
+            _mockMapper.Setup(m => m.Map<ViewSentPrnsViewModel>(sentPrnsDto)).Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetViewSentPrnsViewModel(request);
+
+            // Assert
+            Assert.IsNotNull(result.SortItems);
+            Assert.IsTrue(expectedSortItems.Count == result.SortItems.Count);
+            Assert.AreEqual(expectedSortItems[1].Value, result.SortItems[1].Value);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public async Task GetViewSentPrnsViewModel_ThrowsNullReferenceException_WhenRequestObjectIsNull()
+        {
+            // Arrange
+            var request = (GetSentPrnsViewModel)null;
+            var getSentPrnsDto = new GetSentPrnsDto();
+            var sentPrnsDto = new SentPrnsDto();
+            var expectedViewModel = new ViewSentPrnsViewModel();
+
+            _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns((GetSentPrnsDto)null);
+
+            // Act
+            var result = await _prnService.GetViewSentPrnsViewModel(request);
 
             // Assert
             Assert.IsNull(result);
-
-            #endregion
         }
+
+        #endregion
     }
 }
