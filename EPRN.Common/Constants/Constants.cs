@@ -75,15 +75,17 @@ public static class Strings
         public static class Controllers
         {
             public const string Home = "Home";
-            public const string Prns = "Prns";
+            public const string PRNS = "Prns";
             public const string Waste = "Waste";   
         }
 
         public static class Actions
         {
-            public static class Prns
+            public static class PRNS
             {
                 public const string Create = "Create";
+                public const string View = "View";
+                public const string ViewSentPrns = "ViewSentPrns";
             }
 
             public static class Waste

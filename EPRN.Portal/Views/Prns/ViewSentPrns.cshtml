@@ -1,5 +1,6 @@
 ﻿@using EPRN.Common.Enums;
 @using EPRN.Portal.Services.Interfaces;
+@using static EPRN.Common.Constants.Strings
 
 @model ViewSentPrnsViewModel;
 
@@ -56,26 +57,27 @@
                 </div>
 
                 @{
-                    if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+                    var hasRoleReprocessor = userRoleService.HasRole(UserRole.Reprocessor);
+                    var hasRoleExporter = userRoleService.HasRole(UserRole.Exporter);
+                    var buttonLabel = string.Empty;
+                    if (hasRoleReprocessor && !hasRoleExporter)
                     {
-                        <button type="submit" class="govuk-button" data-module="govuk-button">
-                            @ViewSentPrnResources.SearchPrnBtn
-                        </button>
+                        buttonLabel = ViewSentPrnResources.SearchPrnBtn;
                     }
-
-                    if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+                    else if (!hasRoleReprocessor && hasRoleExporter)
                     {
-                        <button type="submit" class="govuk-button" data-module="govuk-button">
-                            @ViewSentPrnResources.SearchPernBtn
-                        </button>
+                        buttonLabel = ViewSentPrnResources.SearchPernBtn;
                     }
-
-                    if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+                    else if (hasRoleReprocessor && hasRoleExporter)
                     {
-                        <button type="submit" class="govuk-button" data-module="govuk-button">
-                            @ViewSentPrnResources.SearchPrnPernBtn
-                        </button>
+                        buttonLabel = ViewSentPrnResources.SearchPrnPernBtn;
                     }
+                }
+                @if (!string.IsNullOrEmpty(buttonLabel))
+                {
+                    <button type="submit" class="govuk-button" data-module="govuk-button">
+                        @buttonLabel
+                    </button>
                 }
 
                 <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
@@ -105,7 +107,7 @@
                         {
                             <tr class="govuk-table__row" data-status="@row.Status">
                                 <td class="govuk-table__cell">
-                                    <a href="@Url.Action("View", "Prns", new { id = row.PrnNumber })">@row.PrnNumber</a>
+                                    <a href="@Url.Action(Routes.Actions.PRNS.View, Routes.Controllers.PRNS, new { id = row.PrnNumber })">@row.PrnNumber</a>
                                 </td>
                                 <td class="govuk-table__cell">@row.Material</td>
                                 <td class="govuk-table__cell">@row.SentTo</td>

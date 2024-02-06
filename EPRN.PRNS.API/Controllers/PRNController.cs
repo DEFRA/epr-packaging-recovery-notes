@@ -124,13 +124,25 @@ namespace EPRN.PRNS.API.Controllers
             return Ok(sentPrnsDto);
         }
 
+        [HttpGet]
+        [Route("/api/[controller]/Details/{reference}")]
+        public async Task<IActionResult> GetPrnDetails(string reference)
+        {
+            var prnDetailsDto = await _prnService.GetPrnDetails(reference);
+
+            if (prnDetailsDto == null)
+                return NotFound();
+
+            return Ok(prnDetailsDto);
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db
         /// </summary>
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            if (context.ActionDescriptor.Parameters.Any(p => p.Name == idParameter) &&
+           if (context.ActionDescriptor.Parameters.Any(p => p.Name == idParameter) &&
                 context.ActionArguments.ContainsKey(idParameter))
             {
                 int id = Convert.ToInt32(context.ActionArguments[idParameter]);

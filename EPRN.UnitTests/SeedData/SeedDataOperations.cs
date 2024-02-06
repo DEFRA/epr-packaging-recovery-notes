@@ -57,7 +57,6 @@ namespace EPRN.UnitTests.SeedData
                         Note = $"Note{i}",
                         WasteTypeId = random.Next(1, 10), // Random number between 1 and 9
                         Category = new Category(), // Populate this as needed
-                        WasteType = new WasteType(), // Populate this as needed
                         WasteSubTypeId = null,
                         SentTo = sentToOptions[random.Next(sentToOptions.Length)], // Randomly select one of the options
                         Tonnes = random.Next(30, 110),

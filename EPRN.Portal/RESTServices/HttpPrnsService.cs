@@ -76,5 +76,10 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<SentPrnsDto>($"GetSentPrns{BuildUrlWithQueryString(request)}", false);
         }
+
+        public async Task<PRNDetailsDto> GetPrnDetails(string reference)
+        {
+            return await Get<PRNDetailsDto>($"Details/{reference}");
+        }
     }
 }
