@@ -79,13 +79,9 @@
                                     <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.Tonnage</td>
                                     <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.NoOfDrafts</td>
                                     <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">
-                                        @if (row.Tonnage.DisplayLinkForTonnage() & Model.DateWithinDecemberRange)
+                                        @if (row.Tonnage.DisplayLinkForTonnage())
                                         {
-                                            <a asp-action="DecemberWaste" asp-controller="PRNS" asp-area="Reprocessor"  asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
-                                        }
-                                        else if (row.Tonnage.DisplayLinkForTonnage())
-                                        {
-                                            <a asp-action="Tonnes" asp-controller="Waste" asp-route-id="1">@CreatePrnPern.ChooseLink</a>
+                                            <a asp-action="CreatePrn" asp-controller="PRNS" asp-area="Reprocessor" asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
                                         }
                                         else if (row.Tonnage.DisplayWarningForTonnage())
                                         {
@@ -125,13 +121,9 @@
                                     <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.Tonnage</td>
                                     <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">@row.NoOfDrafts</td>
                                     <td class="govuk-table__cell govuk-table__cell--numeric" style="text-align: left">
-                                        @if (row.Tonnage.DisplayLinkForTonnage() & Model.DateWithinDecemberRange)
+                                        @if (row.Tonnage.DisplayLinkForTonnage())
                                         {
-                                            <a asp-action="DecemberWaste" asp-controller="PRNS" asp-area="Reprocessor" asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
-                                        }
-                                        else if (row.Tonnage.DisplayLinkForTonnage())
-                                        {
-                                            <a asp-action="Tonnes" asp-controller="Waste" asp-route-id="1">@CreatePrnPern.ChooseLink</a>
+                                            <a asp-action="CreatePrn" asp-controller="PRNS" asp-area="Exporter" asp-route-materialId="@row.MaterialId">@CreatePrnPern.ChooseLink</a>
                                         }
                                         else if (row.Tonnage.DisplayWarningForTonnage())
                                         {

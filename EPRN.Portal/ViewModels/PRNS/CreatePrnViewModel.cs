@@ -7,7 +7,5 @@
         public string Description { get; set; }
 
         public List<TableViewModel> Tables { get; set; }
-
-        public bool DateWithinDecemberRange { get; set; }
     }
 }

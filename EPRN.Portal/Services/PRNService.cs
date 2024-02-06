@@ -172,14 +172,15 @@ namespace EPRN.Portal.Services
                 requestCancelViewModel.CancelReason);
         }
 
-        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int materialId, Category category)
+        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int Id)
         {
             var decemberWasteModel = new DecemberWasteViewModel
             {
-                materialId = materialId,
+                Id = 25,
+                materialId = 1,
                 WasteForDecember = null,
                 BalanceAvailable = 260,
-                Category = category
+                Category = Category.Unknown
             };
 
             return decemberWasteModel;

@@ -12,12 +12,6 @@ namespace EPRN.Portal.Controllers
     {
         private readonly IPRNService _prnService;
 
-        private bool IsCurrentDateWithinDecOrJan()
-        {
-            return (DateTime.Now.Month == 12 || 
-                    DateTime.Now.Month == 1);
-        }
-
         public PrnsController(IPRNService prnService)
         {
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
@@ -26,8 +20,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> Create(int? id)
         {
             var viewModel = await _prnService.CreatePrnViewModel();
-            viewModel.DateWithinDecemberRange = IsCurrentDateWithinDecOrJan();
-
+            
             return View(viewModel);
         }
 
