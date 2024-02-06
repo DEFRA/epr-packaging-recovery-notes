@@ -309,5 +309,23 @@ namespace EPRN.Waste.API.Controllers
 
             return Ok(category);
         }
+
+        [HttpGet]
+        [Route("AccredidationLimit")]
+        public async Task<IActionResult> GetJourneyAccredidationLimitAlert(int? journeyId, string userReferenceId, double? newQuantityEntered)
+        {
+            if (journeyId == null)
+                return BadRequest("Journey ID is missing");
+
+            if (string.IsNullOrWhiteSpace(userReferenceId))
+                return BadRequest("User Reference ID is missing");
+
+            if (newQuantityEntered == null)
+                return BadRequest("New Quantity entered is missing");
+
+            var model = await _journeyService.GetAccredidationLimit(journeyId.Value, userReferenceId, newQuantityEntered.Value);
+
+            return View(model);
+        }
     }
 }

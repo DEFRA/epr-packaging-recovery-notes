@@ -123,9 +123,9 @@ namespace EPRN.Portal.RESTServices
             return (Category)await Get<Category?>($"{journeyId}/Category");
         }
 
-        public async Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId)
+        public async Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered)
         {
-            return await Get<AccredidationLimitDto>($"{journeyId}/AccredidationLimit");
+            return await Get<AccredidationLimitDto>($"{journeyId}/AccredidationLimit/{userReferenceId}/{newQuantityEntered}");
         }
 
     }

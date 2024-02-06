@@ -45,7 +45,6 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<string> GetWasteType(int journeyId);
 
-        Task<AccredidationLimitViewModel> GetAccredidationLimit(int value);
-
+        Task<AccredidationLimitViewModel> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered);
     }
 }

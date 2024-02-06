@@ -49,6 +49,6 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<Category> GetCategory(int journeyId);
 
-        Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId);
+        Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered);
     }
 }

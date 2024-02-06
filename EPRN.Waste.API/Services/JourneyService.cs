@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data.DataModels;
-using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
-using EPRN.Common.Enums;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
-using System.Globalization;
 using DoneWaste = EPRN.Common.Enums.DoneWaste;
 using Category = EPRN.Common.Enums.Category;
 
@@ -18,6 +15,7 @@ namespace EPRN.Waste.API.Services
         private readonly double _deductionAmount;
         public readonly IMapper _mapper;
         public readonly IRepository _wasteRepository;
+        private const double AccredidationLimit = 400;
 
         public JourneyService(
             IMapper mapper,
@@ -182,6 +180,22 @@ namespace EPRN.Waste.API.Services
             var category = await _wasteRepository.GetCategory(journeyId);
 
             return _mapper.Map<Category>(category);
+        }
+
+        public async Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered)
+        {
+            var totalQuantityForUser = await _wasteRepository.GetTotalQuantityForAllUserJourneys(userReferenceId);
+
+            var dto = new AccredidationLimitDto();
+            dto.JourneyId = journeyId;
+            dto.UserReferenceId = userReferenceId;
+            dto.AccredidationLimit = AccredidationLimit;
+            dto.NewAmountEntered = newQuantityEntered;
+            dto.TotalToDate = totalQuantityForUser;
+            dto.ExcessOfLimit = dto.AccredidationLimit - dto.TotalToDate - newQuantityEntered;
+
+            return dto;
+
         }
     }
 }

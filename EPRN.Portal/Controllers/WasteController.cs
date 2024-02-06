@@ -340,7 +340,10 @@ namespace EPRN.Portal.Controllers
             if (!id.HasValue)
                 return NotFound();
 
-            var model = await _wasteService.GetAccredidationLimit(id.Value);
+            var userReferenceId = "userId";
+            var newQuantityEntered = 222;
+
+            var model = await _wasteService.GetAccredidationLimit(id.Value, userReferenceId, newQuantityEntered);
 
             return View(model);
         }
