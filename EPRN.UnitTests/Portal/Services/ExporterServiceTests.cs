@@ -27,15 +27,18 @@ namespace EPRN.UnitTests.Portal.Services
             _configSettings.Value.DeductionAmount_Reprocessor = 0.0;
             _configSettings.Value.DeductionAmount_ExporterAndReprocessor = 0.0;
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
-            _mockUrlHelper = new Mock<IUrlHelper>();
 
             var urlHelperFactory = new Mock<IUrlHelperFactory>();
             var actionContextAccessor = new Mock<IActionContextAccessor>();
+           _mockUrlHelper = new Mock<IUrlHelper>(MockBehavior.Strict);
+            _mockUrlHelper.Setup(
+                x => x.Action(
+                    It.IsAny<UrlActionContext>()
+                )
+            )
+            .Returns("callbackUrl");
 
             urlHelperFactory.Setup(f => f.GetUrlHelper(It.IsAny<ActionContext>())).Returns(_mockUrlHelper.Object);
-
-            _mockUrlHelper.Setup(u => u.ActionContext)
-                .Returns(new ActionContext());
 
             _exporterHomeService = new UserBasedExporterService(
                 _configSettings,
@@ -62,7 +65,6 @@ namespace EPRN.UnitTests.Portal.Services
         public async Task GetHomePage_Returns_Correct_Cards()
         {
             // Arrange
-            //_mockUrlHelper.ActionLink(_mockUrlHelper.Object, "actionName", "controllerName");
 
             // Act
             var viewModel = await _exporterHomeService.GetHomePage();

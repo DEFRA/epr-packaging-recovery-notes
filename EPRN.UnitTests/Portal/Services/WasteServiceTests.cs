@@ -263,7 +263,7 @@ namespace EPRN.UnitTests.Portal.Services
 
             // Assert
             var exception = await Assert.ThrowsExceptionAsync<ArgumentNullException>(async () => await _wasteService.SaveSelectedMonth(null));
-            Assert.AreEqual("Value cannot be null. (Parameter 'duringWhichMonthRequestViewModel')", exception.Message);
+            Assert.AreEqual("Value cannot be null. (Parameter 'viewModel')", exception.Message);
         }
 
         [TestMethod]
