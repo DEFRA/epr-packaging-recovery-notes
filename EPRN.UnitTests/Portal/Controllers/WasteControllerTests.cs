@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Services.Interfaces;
@@ -586,8 +587,47 @@ namespace EPRN.UnitTests.Portal.Controllers
         }
 
         [TestMethod]
-        public async Task AccredidationLimit_ReturnsRedirectToAction_WhenModelIsValid()
+        public async Task AccredidationLimit_ReturnsView_WhenModelIsValid()
         {
+            // Arrange class objects
+            _mockWasteService = new Mock<IWasteService>();
+            _mockWasteService.Setup(x => x.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>()))
+                .ReturnsAsync(new AccredidationLimitViewModel { AccredidationLimit = Common.Constants.Double.AccredidationLimit, ExcessOfLimit = 0 });
+            _homeServiceFactory = new Mock<IHomeServiceFactory>();
+            var exporterHomeService = new Mock<IUserBasedService>();
+            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAViewModel() { UserRole = UserRole.Reprocessor });
+            _homeServiceFactory.Setup(x => x.CreateHomeService()).Returns(exporterHomeService.Object);
+            _wasteController = new WasteController(_mockWasteService.Object, _homeServiceFactory.Object);
+
+            // Arrange
+            var journeyId = 1;
+            var userReferenceId = "someuser";
+
+            // Act
+            var result = await _wasteController.AccredidationLimit(journeyId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+
+            var viewResult = result as ViewResult;
+            Assert.IsInstanceOfType(viewResult.ViewData.Model, typeof(AccredidationLimitViewModel));
+            Assert.IsNull(viewResult.ViewName); // It's going to return the view name of the action by default
+        }
+
+        [TestMethod]
+        public async Task AccredidationLimit_ReturnsRedirectToAction_WhenModelIsInValid()
+        {
+            // Arrange class objects
+            _mockWasteService = new Mock<IWasteService>();
+            _mockWasteService.Setup(x => x.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>()))
+                .ReturnsAsync(new AccredidationLimitViewModel { AccredidationLimit = Common.Constants.Double.AccredidationLimit, ExcessOfLimit = -25 });
+            _homeServiceFactory = new Mock<IHomeServiceFactory>();
+            var exporterHomeService = new Mock<IUserBasedService>();
+            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAViewModel() { UserRole = UserRole.Reprocessor });
+            _homeServiceFactory.Setup(x => x.CreateHomeService()).Returns(exporterHomeService.Object);
+            _wasteController = new WasteController(_mockWasteService.Object, _homeServiceFactory.Object);
+
             // Arrange
             var journeyId = 1;
             var userReferenceId = "someuser";
@@ -603,5 +643,6 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.AreEqual("Index", redirectResult.ActionName);
             Assert.AreEqual("Home", redirectResult.ControllerName);
         }
+
     }
 }

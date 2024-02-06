@@ -4,12 +4,12 @@ namespace EPRN.Portal.ViewModels.Waste
 {
     public class AccredidationLimitViewModel
     {
-        public UserRole UserRole { get; internal set; }
-        public int JourneyId { get; internal set; }
-        public double AccredidationLimit { get; internal set; }
-        public double TotalToDate { get; internal set; }
-        public double NewAmountEntered { get; internal set; }
-        public double ExcessOfLimit { get; internal set; }
+        public UserRole UserRole { get; set; }
+        public int JourneyId { get; set; }
+        public double AccredidationLimit { get; set; }
+        public double TotalToDate { get; set; }
+        public double NewAmountEntered { get; set; }
+        public double ExcessOfLimit { get; set; }
         public string UserReferenceId { get; set; }
     }
 }

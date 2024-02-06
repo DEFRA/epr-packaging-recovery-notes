@@ -345,7 +345,11 @@ namespace EPRN.Portal.Controllers
 
             var model = await _wasteService.GetAccredidationLimit(journeyId.Value, userReferenceId, newQuantityEntered);
 
-            return View(model);
+            if (model.ExcessOfLimit >= 0)
+                return View(model);
+
+            return RedirectToAction("Index", "Home");
+
         }
 
         [HttpPost]
