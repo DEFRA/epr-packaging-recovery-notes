@@ -48,7 +48,7 @@ namespace EPRN.Waste.API.Services.Interfaces
 
         Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
 
-        Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered);
+        Task<AccredidationLimitDto> GetAccredidationLimit(string userReferenceId, double newQuantityEntered);
         
     }
 }

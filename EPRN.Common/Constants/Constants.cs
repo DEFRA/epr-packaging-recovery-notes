@@ -105,3 +105,9 @@ public static class Strings
         }
     }
 }
+
+public static class Double
+{
+    public static readonly double AccredidationLimit = 400;
+
+}

@@ -269,14 +269,14 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<double> GetTotalQuantityForAllUserJourneys(string userReferenceId)
+        public async Task<double?> GetTotalQuantityForAllUserJourneys(string userReferenceId)
         {
             var totalQuantity = _wasteContext
                 .WasteJourney
                 .Where(x => x.UserReference == userReferenceId)
                 .Sum(x => x.Quantity);
 
-            return (double)totalQuantity;
+            return totalQuantity;
         }
     }
 }

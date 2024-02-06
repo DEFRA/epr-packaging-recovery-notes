@@ -61,6 +61,6 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<Category> GetCategory(int journeyId);
         
-        Task<double> GetTotalQuantityForAllUserJourneys(string userReferenceId);
+        Task<double?> GetTotalQuantityForAllUserJourneys(string userReferenceId);
     }
 }

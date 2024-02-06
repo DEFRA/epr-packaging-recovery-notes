@@ -19,6 +19,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public void Init()
         {
             _mockWasteService = new Mock<IWasteService>();
+            _mockWasteService.Setup(x => x.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>())).ReturnsAsync(new AccredidationLimitViewModel());
             _homeServiceFactory = new Mock<IHomeServiceFactory>();
             var exporterHomeService = new Mock<IUserBasedService>();
             exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAViewModel() { UserRole = UserRole.Reprocessor});
@@ -574,6 +575,25 @@ namespace EPRN.UnitTests.Portal.Controllers
 
             // Act
             var result = await _wasteController.CheckYourAnswers(new CYAViewModel());
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+
+            var redirectResult = result as RedirectToActionResult;
+            Assert.AreEqual("Index", redirectResult.ActionName);
+            Assert.AreEqual("Home", redirectResult.ControllerName);
+        }
+
+        [TestMethod]
+        public async Task AccredidationLimit_ReturnsRedirectToAction_WhenModelIsValid()
+        {
+            // Arrange
+            var journeyId = 1;
+            var userReferenceId = "someuser";
+
+            // Act
+            var result = await _wasteController.AccredidationLimit(journeyId);
 
             // Assert
             Assert.IsNotNull(result);

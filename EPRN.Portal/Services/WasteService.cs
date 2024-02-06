@@ -402,6 +402,7 @@ namespace EPRN.Portal.Services
             {
                 JourneyId = journeyId,
                 UserRole = UserRole.Exporter,
+                UserReferenceId = accredidationLimitDto.UserReferenceId,
                 AccredidationLimit = accredidationLimitDto.AccredidationLimit,
                 TotalToDate = accredidationLimitDto.TotalToDate,
                 NewAmountEntered = accredidationLimitDto.NewAmountEntered,

@@ -10,5 +10,6 @@ namespace EPRN.Portal.ViewModels.Waste
         public double TotalToDate { get; internal set; }
         public double NewAmountEntered { get; internal set; }
         public double ExcessOfLimit { get; internal set; }
+        public string UserReferenceId { get; set; }
     }
 }

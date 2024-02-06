@@ -562,5 +562,33 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         #endregion
+
+        [TestMethod]
+        public async Task GetAccredidationLimit_WithValidValues()
+        {
+            // Arrange
+            int journeyId = 3;
+            string userReferenceId = "someuser";
+            double newQuantityEntered = 20;
+
+            var expectedDto = new AccredidationLimitDto { 
+                JourneyId = journeyId,
+                UserReferenceId = userReferenceId
+            };
+
+            _mockHttpJourneyService.Setup(c => c.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>()))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var viewModel = await _wasteService.GetAccredidationLimit(journeyId, userReferenceId, newQuantityEntered);
+
+            // Assert
+            Assert.IsNotNull(viewModel);
+
+            Assert.AreEqual(journeyId, viewModel.JourneyId);
+            Assert.AreEqual(userReferenceId, viewModel.UserReferenceId);
+
+            _mockHttpJourneyService.Verify(service => service.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>()), Times.Once());
+        }
     }
 }

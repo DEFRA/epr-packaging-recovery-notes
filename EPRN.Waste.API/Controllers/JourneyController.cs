@@ -311,8 +311,8 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("AccredidationLimit")]
-        public async Task<IActionResult> GetJourneyAccredidationLimitAlert(int? journeyId, string userReferenceId, double? newQuantityEntered)
+        [Route("UserAccredidationLimit")]
+        public async Task<IActionResult> GetUserAccredidationLimitAlert(int? journeyId, string userReferenceId, double? newQuantityEntered)
         {
             if (journeyId == null)
                 return BadRequest("Journey ID is missing");
@@ -323,9 +323,9 @@ namespace EPRN.Waste.API.Controllers
             if (newQuantityEntered == null)
                 return BadRequest("New Quantity entered is missing");
 
-            var model = await _journeyService.GetAccredidationLimit(journeyId.Value, userReferenceId, newQuantityEntered.Value);
+            var dto = await _journeyService.GetAccredidationLimit(userReferenceId, newQuantityEntered.Value);
 
-            return View(model);
+            return Ok(dto);
         }
     }
 }

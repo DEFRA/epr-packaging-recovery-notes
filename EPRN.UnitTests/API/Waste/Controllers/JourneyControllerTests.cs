@@ -430,5 +430,35 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Assert.AreEqual(expectedDto, actualDto);
         }
 
+        [TestMethod]
+        public async Task GetJourneyAccredidationLimitAlert_WithValidId_ReturnsCorrectDto()
+        {
+            //Arrange
+            int validJourneyId = 1;
+            string userReferenceId = "someuser";
+            double newQuantityEntered = 20;
+
+            var expectedDto = new AccredidationLimitDto();
+            expectedDto.JourneyId = validJourneyId;
+            expectedDto.AccredidationLimit = Common.Constants.Double.AccredidationLimit;
+            
+            _mockJourneyService.Setup(service => service.GetAccredidationLimit(It.IsAny<string>(), It.IsAny<double>()))
+                .ReturnsAsync(expectedDto);
+
+            //Act
+            var result = await _journeyController.GetUserAccredidationLimitAlert(validJourneyId, userReferenceId, newQuantityEntered);
+
+            //Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            var okResult = result as OkObjectResult;
+
+            Assert.IsNotNull(okResult);
+            Assert.AreEqual(200, okResult.StatusCode);
+
+            var actualDto = okResult.Value as AccredidationLimitDto;
+            Assert.IsNotNull(actualDto);
+            Assert.AreEqual(expectedDto, actualDto);
+        }
+
     }
 }

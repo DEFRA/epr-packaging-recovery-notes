@@ -7,6 +7,7 @@ using EPRN.Waste.API.Services;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using Moq;
+using System.Reflection.Metadata;
 
 namespace EPRN.UnitTests.API.Waste.Services
 {
@@ -236,5 +237,51 @@ namespace EPRN.UnitTests.API.Waste.Services
             // Assert
             Assert.IsNull(result);
         }
+
+
+        [TestMethod]
+        public async Task GetAccredidationLimit_Returns_With_Valid_UserReference()
+        {
+            // arrange
+            var userReferenceId = "someuser";
+            var newQuantityEntered = 10;
+            var existingTotalQuantity = 200;
+
+            _mockRepository.Setup(x => x.GetTotalQuantityForAllUserJourneys(userReferenceId)).ReturnsAsync(existingTotalQuantity);
+
+            // act
+            var result = await _journeyService.GetAccredidationLimit(userReferenceId, newQuantityEntered);
+
+            // assert
+            _mockRepository.Verify(r =>
+                r.GetTotalQuantityForAllUserJourneys(
+                    It.Is<string>(p => p == userReferenceId)),
+                Times.Once());
+
+            Assert.IsTrue(result.ExcessOfLimit == 190);
+        }
+
+        [TestMethod]
+        public async Task GetAccredidationLimit_Returns_With_InValid_UserReference()
+        {
+            // arrange
+            var userReferenceId = "no user";
+            var newQuantityEntered = 10;
+            double? returnedValue = null;
+
+            _mockRepository.Setup(x => x.GetTotalQuantityForAllUserJourneys(userReferenceId)).ReturnsAsync(returnedValue);
+
+            // act
+            var result = await _journeyService.GetAccredidationLimit(userReferenceId, newQuantityEntered);
+
+            // assert
+            _mockRepository.Verify(r =>
+                r.GetTotalQuantityForAllUserJourneys(
+                    It.Is<string>(p => p == userReferenceId)),
+                Times.Once());
+
+            Assert.IsTrue(result.ExcessOfLimit == (Common.Constants.Double.AccredidationLimit - newQuantityEntered));
+        }
+
     }
 }
