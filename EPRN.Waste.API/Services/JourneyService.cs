@@ -148,14 +148,9 @@ namespace EPRN.Waste.API.Services
                 throw new Exception(nameof(journey));
             }
 
-            if (!journey.WasteSubTypeId.HasValue)
-            {
-                throw new Exception(nameof(journey));
-            }
-
             var wasteSubTypeSelection = new WasteSubTypeSelectionDto
             {
-                WasteSubTypeId = journey.WasteSubTypeId.Value,
+                WasteSubTypeId = journey.WasteSubTypeId,
                 Adjustment = journey.Adjustment
             };
 
