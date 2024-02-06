@@ -56,26 +56,27 @@
                 </div>
 
                 @{
-                    if (userRoleService.HasRole(UserRole.Reprocessor) && !userRoleService.HasRole(UserRole.Exporter))
+                    var hasRoleReprocessor = userRoleService.HasRole(UserRole.Reprocessor);
+                    var hasRoleExporter = userRoleService.HasRole(UserRole.Exporter);
+                    var buttonLabel = string.Empty;
+                    if (hasRoleReprocessor && !hasRoleExporter)
                     {
-                        <button type="submit" class="govuk-button" data-module="govuk-button">
-                            @ViewSentPrnResources.SearchPrnBtn
-                        </button>
+                        buttonLabel = ViewSentPrnResources.SearchPrnBtn;
                     }
-
-                    if (userRoleService.HasRole(UserRole.Exporter) && !userRoleService.HasRole(UserRole.Reprocessor))
+                    else if (!hasRoleReprocessor && hasRoleExporter)
                     {
-                        <button type="submit" class="govuk-button" data-module="govuk-button">
-                            @ViewSentPrnResources.SearchPernBtn
-                        </button>
+                        buttonLabel = ViewSentPrnResources.SearchPernBtn;
                     }
-
-                    if (userRoleService.HasRole(UserRole.Exporter) && userRoleService.HasRole(UserRole.Reprocessor))
+                    else if (hasRoleReprocessor && hasRoleExporter)
                     {
-                        <button type="submit" class="govuk-button" data-module="govuk-button">
-                            @ViewSentPrnResources.SearchPrnPernBtn
-                        </button>
+                        buttonLabel = ViewSentPrnResources.SearchPrnPernBtn;
                     }
+                }
+                @if (!string.IsNullOrEmpty(buttonLabel))
+                {
+                    <button type="submit" class="govuk-button" data-module="govuk-button">
+                        @buttonLabel
+                    </button>
                 }
 
                 <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
