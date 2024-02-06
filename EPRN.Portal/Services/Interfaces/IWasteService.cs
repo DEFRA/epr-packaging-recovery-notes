@@ -1,5 +1,4 @@
 ﻿using EPRN.Common.Enums;
-using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
 
 namespace EPRN.Portal.Services.Interfaces
