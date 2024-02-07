@@ -16,6 +16,12 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
         private Category Category => Category.Exporter;
 
+        private bool IsCurrentDateWithinDecOrJan()
+        {
+            return (DateTime.Now.Month == 12 ||
+                    DateTime.Now.Month == 1);
+        }
+
         public PRNSController(Func<Category, IPRNService> prnServiceFactory)
         {
             if (prnServiceFactory == null)
@@ -63,7 +69,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.Tonnes,
+                Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Exporter.PRNS,
                 new { Id = prnId });
         }
@@ -190,6 +196,31 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         {
             // *** Stubbed method ***
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DecemberWaste(int? id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            var model = await _prnService.GetDecemberWasteModel(id.Value);
+
+            if (this.IsCurrentDateWithinDecOrJan())
+                return View(model);
+            else
+                return RedirectToAction("Tonnes", new { id = model.Id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DecemberWaste(DecemberWasteViewModel decemberWaste)
+        {
+            if (!ModelState.IsValid)
+                return View(decemberWaste);
+
+            await _prnService.SaveDecemberWaste(decemberWaste);
+
+            return RedirectToAction("Tonnes", new { id = decemberWaste.Id });
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

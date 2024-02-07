@@ -1,9 +1,9 @@
 ﻿using EPRN.Common.Dtos;
-using EPRN.Common.Enums;
 using EPRN.Waste.API.Controllers;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using EPRN.Common.Enums;
 
 namespace EPRN.UnitTests.API.Waste.Controllers
 {
@@ -429,6 +429,5 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Assert.IsNotNull(actualDto);
             Assert.AreEqual(expectedDto, actualDto);
         }
-
     }
 }

@@ -68,6 +68,7 @@ public static class Strings
                     public const string RequestCancel = "RequestCancel";
                     public const string Cancelled = "Cancelled";
                     public const string CancelRequested = "CancelRequested";
+                    public const string DecemberWaste = "DecemberWaste";
                 }
             }
         }
@@ -100,6 +101,7 @@ public static class Strings
                 public const string Baled = "Baled";
                 public const string ReProcessorExport = "ReProcessorExport";
                 public const string Note = "Note";
+                public const string DecemberWaste = "DecemberWaste";
             }
         }
     }

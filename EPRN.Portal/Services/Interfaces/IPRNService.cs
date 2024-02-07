@@ -33,5 +33,9 @@ namespace EPRN.Portal.Services.Interfaces
         Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request);
 
         Task<ViewPRNViewModel> GetViewPrnViewModel(string reference);
+
+        Task<DecemberWasteViewModel> GetDecemberWasteModel(int id);
+
+        Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel);
     }
 }
