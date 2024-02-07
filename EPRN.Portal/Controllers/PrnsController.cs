@@ -55,7 +55,7 @@ namespace EPRN.Portal.Controllers
         {
             var viewSentPrnsViewModel = await _prnService.GetViewSentPrnsViewModel(request);
 
-            return View(viewModel);
+            return View(viewSentPrnsViewModel);
         }
 
         [HttpGet]
@@ -72,7 +72,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> Action(ActionPrnViewModel actionPrnViewModel)
         {
             if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)
-                return RedirectToAction(Routes.Actions.Prns.PrnSavedAsDraftConfirmation, new { id = actionPrnViewModel.Id });
+                return RedirectToAction(Routes.Actions.PRNS.PrnSavedAsDraftConfirmation, new { id = actionPrnViewModel.Id });
             else
                 return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category.Exporter, actionPrnViewModel.Id });
         }
