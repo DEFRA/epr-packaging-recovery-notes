@@ -360,8 +360,8 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int reference = 25;
-            var expectedDto = new DecemberWasteDto(); // Replace YourDto with the actual type returned by _httpPrnsService.GetPrnDetails
-            var expectedViewModel = new DecemberWasteViewModel(); // Replace ViewPRNViewModel with the actual ViewModel type
+            var expectedDto = new DecemberWasteDto();
+            var expectedViewModel = new DecemberWasteViewModel();
 
             expectedViewModel.BalanceAvailable = 260;
             expectedViewModel.Category = Category.Unknown;
