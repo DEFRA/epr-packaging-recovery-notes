@@ -7,12 +7,24 @@ namespace EPRN.Portal.RESTServices
 {
     public class HttpPrnsService : BaseHttpService, IHttpPrnsService
     {
+        private Category _category;
+
         public HttpPrnsService(
             IHttpContextAccessor httpContextAccessor,
             IHttpClientFactory httpClientFactory,
             string baseUrl,
             string endPointName) : base(httpContextAccessor, httpClientFactory, baseUrl, endPointName)
         {
+        }
+
+        public HttpPrnsService(
+            IHttpContextAccessor httpContextAccessor,
+            IHttpClientFactory httpClientFactory,
+            Category category,
+            string baseUrl,
+            string endPointName) : base(httpContextAccessor, httpClientFactory, baseUrl, endPointName)
+        {
+            _category = category;
         }
 
         public async Task<int> CreatePrnRecord(
@@ -32,44 +44,44 @@ namespace EPRN.Portal.RESTServices
             int id,
             double tonnage)
         {
-            await Post($"{id}/Tonnage/{tonnage}");
+            await Post($"{id}/Category/{_category}/Tonnage/{tonnage}");
         }
 
         public async Task<ConfirmationDto> GetConfirmation(
             int id)
         {
-            return await Get<ConfirmationDto>($"{id}/Confirmation");
+            return await Get<ConfirmationDto>($"{id}/Category/{_category}/Confirmation");
         }
 
         public async Task<CheckYourAnswersDto> GetCheckYourAnswers(
             int id)
         {
-            return await Get<CheckYourAnswersDto>($"{id}/check");
+            return await Get<CheckYourAnswersDto>($"{id}/Category/{_category}/check");
         }
 
         public async Task SaveCheckYourAnswers(int id)
         {
-            await Post($"{id}/check");
+            await Post($"{id}/Category/{_category}/check");
         }
 
         public async Task<PrnStatus> GetStatus(int id)
         {
-            return await Get<PrnStatus>($"{id}/Status");
+            return await Get<PrnStatus>($"{id}/Category/{_category}/Status");
         }
 
         public async Task CancelPRN(int id, string reason)
         {
-            await Post($"{id}/Cancel", reason);
+            await Post($"{id}/Category/{_category}/Cancel", reason);
         }
 
         public async Task<StatusAndProducerDto> GetStatusAndProducer(int id)
         {
-            return await Get<StatusAndProducerDto>($"{id}/StatusAndProducer");
+            return await Get<StatusAndProducerDto>($"{id}/Category/{_category}/StatusAndProducer");
         }
 
         public async Task RequestCancelPRN(int id, string reason)
         {
-            await Post($"{id}/RequestCancel", reason);
+            await Post($"{id}/Category/{_category}/RequestCancel", reason);
         }
 
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
@@ -79,7 +91,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<PRNDetailsDto> GetPrnDetails(string reference)
         {
-            return await Get<PRNDetailsDto>($"Details/{reference}");
+            return await Get<PRNDetailsDto>($"Category/{_category}/Details/{reference}");
         }
     }
 }

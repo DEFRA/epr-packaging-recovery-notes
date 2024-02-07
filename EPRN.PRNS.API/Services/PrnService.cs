@@ -35,9 +35,10 @@ namespace EPRN.PRNS.API.Services
         }
 
         public async Task<bool> PrnRecordExists(
-            int id)
+            int id,
+            Category category)
         {
-            return await _prnRepository.PrnExists(id);
+            return await _prnRepository.PrnExists(id, category);
         }
 
         public async Task SaveTonnage(int id, double tonnage)

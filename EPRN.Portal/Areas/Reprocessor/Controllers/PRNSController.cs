@@ -16,8 +16,13 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
         private Category Category => Category.Reprocessor;
 
-        public PRNSController(IPRNService prnService)
+        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
         {
+            if (prnServiceFactory == null)
+                throw new ArgumentNullException(nameof(prnServiceFactory));
+
+            var prnService = prnServiceFactory.Invoke(Category);
+
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 

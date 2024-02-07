@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Areas.Reprocessor.Controllers;
+﻿using EPRN.Common.Data.Enums;
+using EPRN.Portal.Areas.Reprocessor.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,9 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
-            _prnController = new PRNSController(_mockPrnService.Object);
+            var factory = new Func<EPRN.Common.Enums.Category, IPRNService>((category) => _mockPrnService.Object);
+            
+            _prnController = new PRNSController(factory);
         }
 
         [TestMethod]
