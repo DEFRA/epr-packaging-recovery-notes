@@ -232,7 +232,9 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveDecemberWaste(decemberWaste);
 
-            return RedirectToAction("Tonnes", new { id = decemberWaste.Id });
+            return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes,
+                                    Routes.Areas.Controllers.Exporter.PRNS,
+                                    new { decemberWaste.Id });
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
