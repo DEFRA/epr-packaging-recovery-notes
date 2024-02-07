@@ -25,7 +25,7 @@ namespace EPRN.Portal.RESTServices
         public async Task<double?> GetPrnTonnage(
             int id)
         {
-            return await Get<double?>($"{id}/Tonnage");
+            return await Get<double?>($"{id}/Category/{_category}/Tonnage");
         }
 
         public async Task SaveTonnage(
