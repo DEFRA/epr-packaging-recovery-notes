@@ -333,7 +333,6 @@ namespace EPRN.Portal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             // Handle redirection to CheckYourAnswers if this is where we originally came from

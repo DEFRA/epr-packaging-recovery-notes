@@ -4,7 +4,6 @@ using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
-using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.Waste;
@@ -562,5 +561,6 @@ namespace EPRN.UnitTests.Portal.Services
         }
 
         #endregion
+
     }
 }
