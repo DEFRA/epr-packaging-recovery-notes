@@ -4,7 +4,6 @@ using EPRN.Common.Data.DataModels;
 using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 using EPRN.Waste.API.Repositories.Interfaces;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 
 namespace EPRN.Waste.API.Repositories
