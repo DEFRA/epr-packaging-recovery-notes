@@ -335,15 +335,15 @@ namespace EPRN.Portal.Controllers
 
         [HttpGet]
         [ActionName(Routes.Actions.Waste.AccredidationLimit)]
-        public async Task<IActionResult> AccredidationLimit(int? journeyId)
+        public async Task<IActionResult> AccredidationLimit(int? id)
         {
-            if (!journeyId.HasValue)
+            if (!id.HasValue)
                 return NotFound();
 
             var userReferenceId = "userId";
             var newQuantityEntered = 222;
 
-            var model = await _wasteService.GetAccredidationLimit(journeyId.Value, userReferenceId, newQuantityEntered);
+            var model = await _wasteService.GetAccredidationLimit(id.Value, userReferenceId, newQuantityEntered);
 
             if (model.ExcessOfLimit >= 0)
                 return View(model);

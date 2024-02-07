@@ -311,8 +311,9 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpGet]
-        [Route("UserAccredidationLimit")]
-        public async Task<IActionResult> GetUserAccredidationLimitAlert(int? journeyId, string userReferenceId, double? newQuantityEntered)
+        [Route("UserAccredidationLimit/{userReferenceId}/{newQuantityEntered}")]
+        public async Task<IActionResult> GetUserAccredidationLimitAlert(int? journeyId, 
+            string userReferenceId, double? newQuantityEntered)
         {
             if (journeyId == null)
                 return BadRequest("Journey ID is missing");
