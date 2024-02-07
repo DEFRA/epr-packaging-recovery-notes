@@ -13,7 +13,7 @@
     <input type="hidden" name="performLimitCheck" value="false" />
 
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-one-half">
+        <div class="govuk-grid-column-two-thirds">
             <fieldset class="govuk-fieldset">
                 <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper">
@@ -35,15 +35,18 @@
 
                 </div>
             </fieldset>
+
+            <div class="govuk-button-group">
             <button class="govuk-button" data-module="govuk-button" type="submit">
                 @MasterResources.ContinueBtn
             </button>
-            <button class="govuk-button" data-module="govuk-button" asp-action="Tonnes"
-                    asp-all-route-data="@(new Dictionary<string, string> { { "id", Model.JourneyId.ToString() } })">
-                @MasterResources.Cancelled
-            </button>
+            
+            <a href="@Model.JourneyId" class="govuk-button govuk-button--secondary">Cancel</a>
+            </div>
+
         </div>
     </div>
 </form>
+
 
 
