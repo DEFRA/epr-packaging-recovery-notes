@@ -20,16 +20,20 @@ namespace EPRN.Portal.Controllers
     {
         private readonly IWasteService _wasteService;
         private readonly IUserBasedService _homeService;
+        private readonly WasteCommonViewModel _wasteCommonViewModel;
 
         public WasteController(
             IWasteService wasteService,
-            IHomeServiceFactory homeServiceFactory)
+            IHomeServiceFactory homeServiceFactory, WasteCommonViewModel wasteCommonViewModel)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
 
             if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
             _homeService = homeServiceFactory.CreateHomeService();
             if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
+
+            _wasteCommonViewModel = wasteCommonViewModel;
+
         }
 
         [HttpGet]
@@ -206,6 +210,21 @@ namespace EPRN.Portal.Controllers
                 return View(exportTonnageViewModel);
             }
 
+            // first check if accredidation limit has been reached
+            //----------------------------------------------------
+
+            if (exportTonnageViewModel.ExportTonnes.HasValue)
+            {
+                var accredidationLimitViewModel = await _wasteService.GetAccredidationLimit(
+                    exportTonnageViewModel.Id, _wasteCommonViewModel.CompanyReferenceId, 
+                    exportTonnageViewModel.ExportTonnes.Value);
+
+                if (accredidationLimitViewModel.ExcessOfLimit < 0)
+                    return View("AccredidationLimit", accredidationLimitViewModel);
+            }
+
+            //----------------------------------------------------
+
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
             return RedirectToAction(
@@ -333,24 +352,24 @@ namespace EPRN.Portal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [HttpGet]
-        [ActionName(Routes.Actions.Waste.AccredidationLimit)]
-        public async Task<IActionResult> AccredidationLimit(int? id)
-        {
-            if (!id.HasValue)
-                return NotFound();
+        //[HttpGet]
+        //[ActionName(Routes.Actions.Waste.AccredidationLimit)]
+        //public async Task<IActionResult> AccredidationLimit(int? id)
+        //{
+        //    if (!id.HasValue)
+        //        return NotFound();
 
-            var userReferenceId = "userId";
-            var newQuantityEntered = 222;
+        //    var userReferenceId = "userId";
+        //    var newQuantityEntered = 222;
 
-            var model = await _wasteService.GetAccredidationLimit(id.Value, userReferenceId, newQuantityEntered);
+        //    var model = await _wasteService.GetAccredidationLimit(id.Value, userReferenceId, newQuantityEntered);
 
-            if (model.ExcessOfLimit >= 0)
-                return View(model);
+        //    if (model.ExcessOfLimit >= 0)
+        //        return View(model);
 
-            return RedirectToAction("Index", "Home");
+        //    return RedirectToAction("Index", "Home");
 
-        }
+        //}
 
         [HttpPost]
         [ActionName(Routes.Actions.Waste.AccredidationLimit)]

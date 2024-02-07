@@ -274,7 +274,7 @@ namespace EPRN.Waste.API.Repositories
             var totalQuantity = _wasteContext
                 .WasteJourney
                 .Where(x => x.UserReference == userReferenceId)
-                .Sum(x => x.Quantity);
+                .Sum(x => x.Tonnes);
 
             return totalQuantity;
         }
