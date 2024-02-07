@@ -17,6 +17,9 @@ namespace EPRN.Portal.RESTServices
         {
         }
 
+        /// <summary>
+        /// Overloaded constructor where category is needed for validating against a PRN id
+        /// </summary>
         public HttpPrnsService(
             IHttpContextAccessor httpContextAccessor,
             IHttpClientFactory httpClientFactory,
