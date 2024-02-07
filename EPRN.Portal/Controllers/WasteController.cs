@@ -203,7 +203,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Tonnes(ExportTonnageViewModel exportTonnageViewModel)
+        public async Task<IActionResult> Tonnes(ExportTonnageViewModel exportTonnageViewModel, bool performLimitCheck = true)
         {
             if (!ModelState.IsValid)
             {
@@ -213,10 +213,11 @@ namespace EPRN.Portal.Controllers
             // first check if accredidation limit has been reached
             //----------------------------------------------------
 
-            if (exportTonnageViewModel.ExportTonnes.HasValue)
+            if (performLimitCheck && exportTonnageViewModel.ExportTonnes.HasValue)
             {
                 var accredidationLimitViewModel = await _wasteService.GetAccredidationLimit(
-                    exportTonnageViewModel.Id, _wasteCommonViewModel.CompanyReferenceId, 
+                    exportTonnageViewModel.Id, 
+                    _wasteCommonViewModel.CompanyReferenceId, 
                     exportTonnageViewModel.ExportTonnes.Value);
 
                 if (accredidationLimitViewModel.ExcessOfLimit < 0)
@@ -230,6 +231,13 @@ namespace EPRN.Portal.Controllers
             return RedirectToAction(
                 Routes.Actions.Waste.Baled, 
                 new { id = exportTonnageViewModel.Id });
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Actions.Waste.AccredidationLimit)]
+        public IActionResult AccredidationLimitPost(int? id)
+        {
+            return RedirectToAction("Tonnes", "Waste", new { id });
         }
 
         [HttpGet]
@@ -351,33 +359,6 @@ namespace EPRN.Portal.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-        //[HttpGet]
-        //[ActionName(Routes.Actions.Waste.AccredidationLimit)]
-        //public async Task<IActionResult> AccredidationLimit(int? id)
-        //{
-        //    if (!id.HasValue)
-        //        return NotFound();
-
-        //    var userReferenceId = "userId";
-        //    var newQuantityEntered = 222;
-
-        //    var model = await _wasteService.GetAccredidationLimit(id.Value, userReferenceId, newQuantityEntered);
-
-        //    if (model.ExcessOfLimit >= 0)
-        //        return View(model);
-
-        //    return RedirectToAction("Index", "Home");
-
-        //}
-
-        [HttpPost]
-        [ActionName(Routes.Actions.Waste.AccredidationLimit)]
-        public IActionResult AccredidationLimitPost(int? id)
-        {
-            return RedirectToAction("Tonnes", "Waste", new { id });
-        }
-
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {
