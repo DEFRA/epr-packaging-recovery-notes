@@ -18,9 +18,10 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<int> CreateJourney(
             int materialId,
-            Category category)
+            Category category,
+            string companyReferenceId)
         {
-            return await Post<int>($"Create/Material/{materialId}/Category/{category}");
+            return await Post<int>($"Create/Material/{materialId}/Category/{category}/{companyReferenceId}");
         }
 
         public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)

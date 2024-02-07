@@ -139,7 +139,8 @@ namespace EPRN.Portal.Controllers
 
             var id = await _wasteService.CreateJourney(
                 materialId.Value,
-                category.Value);
+                category.Value,
+                _wasteCommonViewModel.CompanyReferenceId);
 
             return RedirectToAction(
                 Routes.Actions.Waste.ReProcessorExport, 

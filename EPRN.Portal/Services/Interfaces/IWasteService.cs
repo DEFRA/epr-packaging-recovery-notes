@@ -7,7 +7,8 @@ namespace EPRN.Portal.Services.Interfaces
     {
         Task<int> CreateJourney(
             int materialId,
-            Category category);
+            Category category,
+            string companyReferenceId);
 
         Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel);
 

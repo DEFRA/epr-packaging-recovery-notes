@@ -34,9 +34,10 @@ namespace EPRN.Portal.Services
 
         public async Task<int> CreateJourney(
             int materialId,
-            Category category)
+            Category category,
+            string companyReferenceId)
         {
-            return await _httpJourneyService.CreateJourney(materialId, category);
+            return await _httpJourneyService.CreateJourney(materialId, category, companyReferenceId);
         }
 
         public async Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel)

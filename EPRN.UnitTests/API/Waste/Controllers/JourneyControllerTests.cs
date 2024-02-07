@@ -27,15 +27,17 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             // arrange
             var materialId = 56;
             var category = Category.Exporter;
-            
+            var companyReferenceId = Guid.NewGuid().ToString();
+
             // act
-            await _journeyController.CreateJourney(materialId, category);
+            await _journeyController.CreateJourney(materialId, category, companyReferenceId);
 
             // assert
             _mockJourneyService.Verify(s => 
                 s.CreateJourney(
                     It.Is<int>(p => p == materialId),
-                    It.Is<Category>(p => p == category)
+                    It.Is<Category>(p => p == category),
+                    It.Is<string>(p => p == companyReferenceId)
                 ), Times.Once());
         }
 

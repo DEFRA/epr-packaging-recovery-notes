@@ -35,14 +35,16 @@ namespace EPRN.Waste.API.Services
 
         public async Task<int> CreateJourney(
             int materialId,
-            Category category)
+            Category category,
+            string companyReferenceId)
         {
             var journeyRecord = new WasteJourney
             {
                 WasteTypeId = materialId,
                 Category = _mapper.Map<Common.Data.Enums.Category>(category),
                 CreatedDate = DateTime.Now,
-                CreatedBy = "DEVELOPER"
+                CreatedBy = "DEVELOPER",
+                UserReference = companyReferenceId
             };
 
             await _wasteRepository.AddJourney(journeyRecord);

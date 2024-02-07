@@ -18,10 +18,11 @@ namespace EPRN.Waste.API.Controllers
         }
 
         [HttpPost]
-        [Route("/api/[controller]/Create/Material/{materialId}/Category/{category}")]
+        [Route("/api/[controller]/Create/Material/{materialId}/Category/{category}/{companyReferenceId}")]
         public async Task<IActionResult> CreateJourney(
             int? materialId,
-            Category? category)
+            Category? category,
+            string companyReferenceId)
         {
             if (materialId == null)
                 return BadRequest("Material ID is missing");
@@ -29,9 +30,13 @@ namespace EPRN.Waste.API.Controllers
             if (category == null)
                 return BadRequest("Category is missing");
 
+            if (string.IsNullOrWhiteSpace(companyReferenceId))
+                return BadRequest("Company Reference ID is missing");
+
             var journeyId = await _journeyService.CreateJourney(
                 materialId.Value, 
-                category.Value);
+                category.Value,
+                companyReferenceId);
 
             return Ok(journeyId);
         }

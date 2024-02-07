@@ -7,7 +7,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
     {
         Task<int> CreateJourney(
             int materialId,
-            Category category);
+            Category category,
+            string companyReferenceId);
 
         Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
 
