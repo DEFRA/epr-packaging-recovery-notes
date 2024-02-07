@@ -14,9 +14,13 @@ window.$ = window.jQuery = jQuery;
 // functions and add further validation routines in
 import jqueryvalidatehooks from "./common/jquery-validate-hooks";
 
+// overrides of government scripts
+import Accordian from "./common/overrides"
+
 // add imports to further files here
 import subTypes from "./pages/SubTypes"
 import prnCreate from "./pages/Prn-Create"
+import viewSentPrns from "./pages/ViewSentPrns"
 
 $(document).ready(function () {
     initAll();
@@ -38,12 +42,12 @@ $(document).ready(function () {
         }
     });
 
-    $('form input').elementValidationError(function (element) {
+    $('form input, form textarea').elementValidationError(function (element) {
         clearSummaryErrors();
         displayValidation();
     });
 
-    $('form input').elementValidationSuccess(function (element) {
+    $('form input, form textarea').elementValidationSuccess(function (element) {
         
         $(element).closest('.govuk-form-group').removeClass('govuk-form-group--error');
 

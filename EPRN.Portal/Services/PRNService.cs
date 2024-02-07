@@ -1,15 +1,21 @@
 ﻿using AutoMapper;
+using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources.PRNS;
 
 namespace EPRN.Portal.Services
 {
     public class PRNService : IPRNService
     {
-        private IMapper _mapper;
-        private IHttpPrnsService _httpPrnsService;
+        private readonly IMapper _mapper;
+        private readonly IHttpPrnsService _httpPrnsService;
 
         public PRNService(
             IMapper mapper,
@@ -134,6 +140,100 @@ namespace EPRN.Portal.Services
                 Id = id,
                 PrnNumber = "PRN222019EFGF",
             };
+        }
+
+        public async Task<CancelViewModel> GetCancelViewModel(int id)
+        {
+            return new CancelViewModel
+            {
+                Id = id,
+                Status = await _httpPrnsService.GetStatus(id)
+            };
+        }
+
+        public async Task<RequestCancelViewModel> GetRequestCancelViewModel(int id)
+        {
+            var dto = await _httpPrnsService.GetStatusAndProducer(id);
+
+            return _mapper.Map<RequestCancelViewModel>(dto);
+        }
+
+        public async Task CancelPRN(CancelViewModel cancelViewModel)
+        {
+            await _httpPrnsService.CancelPRN(
+                cancelViewModel.Id,
+                cancelViewModel.CancelReason);
+        }
+
+        public async Task RequestToCancelPRN(RequestCancelViewModel requestCancelViewModel)
+        {
+            await _httpPrnsService.RequestCancelPRN(
+                requestCancelViewModel.Id,
+                requestCancelViewModel.CancelReason);
+        }
+
+        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int Id)
+        {
+            var decemberWasteModel = new DecemberWasteViewModel
+            {
+                Id = 25,
+                materialId = 1,
+                WasteForDecember = null,
+                BalanceAvailable = 260,
+                Category = Category.Unknown
+            };
+
+            return decemberWasteModel;
+        }
+
+        public async Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel)
+        {
+            if (decemberWasteModel == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel));
+
+            if (decemberWasteModel.WasteForDecember == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel.WasteForDecember));
+
+            if (decemberWasteModel.Id == 0)
+            {
+                decemberWasteModel.Id = await CreatePrnRecord(decemberWasteModel.materialId, Category.Reprocessor);
+            }
+
+            await _httpPrnsService.SaveDecemberWaste(
+                decemberWasteModel.Id,
+                decemberWasteModel.WasteForDecember.Value);
+        }
+
+        public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request)
+        {
+            var getSentPrnsDto = _mapper.Map<GetSentPrnsDto>(request);
+            var sentPrnsDto = await _httpPrnsService.GetSentPrns(getSentPrnsDto);
+           
+            var viewModel = _mapper.Map<ViewSentPrnsViewModel>(sentPrnsDto);
+
+            viewModel.FilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
+                @ViewSentPrnResources.FilterBy, 
+                PrnStatus.Accepted, 
+                PrnStatus.AwaitingAcceptance, 
+                PrnStatus.Rejected,
+                PrnStatus.AwaitingCancellation, 
+                PrnStatus.Cancelled);
+            
+            viewModel.SortItems = new List<SelectListItem>
+            {
+                new() { Value = "", Text = @ViewSentPrnResources.SortBy }, 
+                new() { Value = "1", Text = "Material" },
+                new() { Value = "2", Text = "Sent to" }
+            };
+
+            return viewModel;
+        }
+
+        public async Task<ViewPRNViewModel> GetViewPrnViewModel(string reference)
+        {
+            var dto = await _httpPrnsService.GetPrnDetails(reference);
+
+            return _mapper.Map<ViewPRNViewModel>(dto);
         }
 
         public async Task<ActionPrnViewModel> GetActionPrnViewModel(int id)

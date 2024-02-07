@@ -38,14 +38,20 @@ public static class Strings
     {
         public static class Areas
         {
-            public static class Exporter
-            {
-                public const string PRNS = "PRNS";
-            }
+            public const string Exporter = "Exporter";
+            public const string Reprocessor = "Reprocessor";
 
-            public static class Reprocessor
+            public static class Controllers
             {
-                public const string PRNS = "PRNS";                
+                public static class Exporter
+                {
+                    public const string PRNS = "PRNS";
+                }
+
+                public static class Reprocessor
+                {
+                    public const string PRNS = "PRNS";
+                }   
             }
 
             public static class Actions
@@ -58,6 +64,11 @@ public static class Strings
                     public const string CheckYourAnswers = "CheckYourAnswers";
                     public const string SentTo = "SentTo";
                     public const string WhatToDo = "WhatToDo";
+                    public const string Cancel = "Cancel";
+                    public const string RequestCancel = "RequestCancel";
+                    public const string Cancelled = "Cancelled";
+                    public const string CancelRequested = "CancelRequested";
+                    public const string DecemberWaste = "DecemberWaste";
                 }
             }
         }
@@ -65,15 +76,17 @@ public static class Strings
         public static class Controllers
         {
             public const string Home = "Home";
-            public const string Prns = "Prns";
+            public const string PRNS = "Prns";
             public const string Waste = "Waste";   
         }
 
         public static class Actions
         {
-            public static class Prns
+            public static class PRNS
             {
                 public const string Create = "Create";
+                public const string View = "View";
+                public const string ViewSentPrns = "ViewSentPrns";
                 public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
             }
 
@@ -89,6 +102,7 @@ public static class Strings
                 public const string Baled = "Baled";
                 public const string ReProcessorExport = "ReProcessorExport";
                 public const string Note = "Note";
+                public const string DecemberWaste = "DecemberWaste";
             }
         }
     }

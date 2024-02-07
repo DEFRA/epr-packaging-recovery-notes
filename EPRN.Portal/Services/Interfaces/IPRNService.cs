@@ -1,4 +1,5 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Portal.ViewModels.PRNS;
 
 namespace EPRN.Portal.Services.Interfaces
@@ -20,6 +21,22 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveCheckYourAnswers(int id);
 
         Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id);
+
+        Task<CancelViewModel> GetCancelViewModel(int id);
+
+        Task<RequestCancelViewModel> GetRequestCancelViewModel(int id);
+
+        Task RequestToCancelPRN(RequestCancelViewModel requestCancelViewModel);
+
+        Task CancelPRN(CancelViewModel cancelViewModel);
+
+        Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request);
+
+        Task<ViewPRNViewModel> GetViewPrnViewModel(string reference);
+
+        Task<DecemberWasteViewModel> GetDecemberWasteModel(int id);
+
+        Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel);
 
         Task<ActionPrnViewModel> GetActionPrnViewModel(int id);
     }

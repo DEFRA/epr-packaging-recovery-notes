@@ -2,7 +2,7 @@
 
 namespace EPRN.Common.Data.DataModels
 {
-    public class PackagingRecoveryNote : BaseEntity
+    public class PackagingRecoveryNote : IdBaseEntity
     {
         public string Reference { get; set; }
 
@@ -16,14 +16,20 @@ namespace EPRN.Common.Data.DataModels
 
         public int? WasteSubTypeId { get; set; }
 
+        // The recipient of the PRN
         public string SentTo { get; set; }
 
         public double? Tonnes { get; set; }
 
         public int? SiteId { get; set; }
 
-        public PrnStatus Status { get; set; }
-
         public DateTime? CompletedDate { get; set; }
+
+        public ICollection<PrnHistory> PrnHistory { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        
+        public bool? DecemberWaste { get; set; }
     }
 }

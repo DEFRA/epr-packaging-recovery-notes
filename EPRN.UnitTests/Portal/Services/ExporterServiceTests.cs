@@ -16,6 +16,7 @@ namespace EPRN.UnitTests.Portal.Services
     {
         private UserBasedExporterService _exporterHomeService;
         private IOptions<AppConfigSettings> _configSettings;
+        private Mock<IUrlHelper> _mockUrlHelper;
         private Mock<IHttpJourneyService> _mockHttpJourneyService = null;
 
         [TestInitialize]
@@ -29,10 +30,19 @@ namespace EPRN.UnitTests.Portal.Services
 
             var urlHelperFactory = new Mock<IUrlHelperFactory>();
             var actionContextAccessor = new Mock<IActionContextAccessor>();
+           _mockUrlHelper = new Mock<IUrlHelper>(MockBehavior.Strict);
+            _mockUrlHelper.Setup(
+                x => x.Action(
+                    It.IsAny<UrlActionContext>()
+                )
+            )
+            .Returns("callbackUrl");
+
+            urlHelperFactory.Setup(f => f.GetUrlHelper(It.IsAny<ActionContext>())).Returns(_mockUrlHelper.Object);
 
             _exporterHomeService = new UserBasedExporterService(
-            _configSettings,
-            _mockHttpJourneyService.Object,
+                _configSettings,
+                _mockHttpJourneyService.Object,
                 urlHelperFactory.Object,
                 actionContextAccessor.Object
                 );

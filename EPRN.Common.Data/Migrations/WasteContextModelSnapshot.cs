@@ -36,17 +36,10 @@ namespace EPRN.Common.Data.Migrations
                     b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("getdate()");
 
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
@@ -58,9 +51,6 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("SiteId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.Property<double?>("Tonnes")
@@ -77,6 +67,39 @@ namespace EPRN.Common.Data.Migrations
                     b.HasIndex("WasteTypeId");
 
                     b.ToTable("PRN");
+                });
+
+            modelBuilder.Entity("EPRN.Common.Data.DataModels.PrnHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PrnId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PrnId");
+
+                    b.ToTable("PRNHistory");
                 });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteJourney", b =>
@@ -209,6 +232,17 @@ namespace EPRN.Common.Data.Migrations
                     b.Navigation("WasteType");
                 });
 
+            modelBuilder.Entity("EPRN.Common.Data.DataModels.PrnHistory", b =>
+                {
+                    b.HasOne("EPRN.Common.Data.DataModels.PackagingRecoveryNote", "PackagingRecoveryNote")
+                        .WithMany("PrnHistory")
+                        .HasForeignKey("PrnId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PackagingRecoveryNote");
+                });
+
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteJourney", b =>
                 {
                     b.HasOne("EPRN.Common.Data.DataModels.WasteSubType", "WasteSubType")
@@ -233,6 +267,11 @@ namespace EPRN.Common.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("WasteType");
+                });
+
+            modelBuilder.Entity("EPRN.Common.Data.DataModels.PackagingRecoveryNote", b =>
+                {
+                    b.Navigation("PrnHistory");
                 });
 
             modelBuilder.Entity("EPRN.Common.Data.DataModels.WasteSubType", b =>

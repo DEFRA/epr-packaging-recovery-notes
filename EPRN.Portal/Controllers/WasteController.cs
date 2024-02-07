@@ -19,7 +19,7 @@ namespace EPRN.Portal.Controllers
     public class WasteController : BaseController
     {
         private readonly IWasteService _wasteService;
-        private IUserBasedService _homeService;
+        private readonly IUserBasedService _homeService;
 
         public WasteController(
             IWasteService wasteService,
@@ -52,8 +52,9 @@ namespace EPRN.Portal.Controllers
 
             await _wasteService.SaveWhatHaveYouDoneWaste(whatHaveYouDoneWaste);
 
-            return RedirectToAction("Month", new { id = whatHaveYouDoneWaste.JourneyId });
-            //return RedirectToPage("Month", whatHaveYouDoneWaste.JourneyId);
+            return RedirectToAction(
+                Routes.Actions.Waste.Month, 
+                new { id = whatHaveYouDoneWaste.Id });
         }
 
 
@@ -75,13 +76,15 @@ namespace EPRN.Portal.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.JourneyId);
+                var model = await _wasteService.GetQuarterForCurrentMonth(duringWhichMonthRequestViewModel.Id);
                 return View(model);
             }
 
             await _wasteService.SaveSelectedMonth(duringWhichMonthRequestViewModel);
 
-            return RedirectToAction( Routes.Actions.Waste.SubTypes, new { id = duringWhichMonthRequestViewModel.JourneyId });
+            return RedirectToAction(
+                Routes.Actions.Waste.SubTypes, 
+                new { id = duringWhichMonthRequestViewModel.Id });
         }
 
         /// <summary>
@@ -160,14 +163,14 @@ namespace EPRN.Portal.Controllers
                 wasteSubTypesViewModel.AdjustmentRequired &&
                 ModelState["CustomPercentage"].ValidationState == ModelValidationState.Invalid)
             {
-                return await SubTypes(wasteSubTypesViewModel.JourneyId);
+                return await SubTypes(wasteSubTypesViewModel.Id);
             }
 
             await _wasteService.SaveSelectedWasteSubType(wasteSubTypesViewModel);
 
             return RedirectToAction(
                 Routes.Actions.Waste.Tonnes, 
-                new { id = wasteSubTypesViewModel.JourneyId });
+                new { id = wasteSubTypesViewModel.Id });
         }
 
         [HttpGet]
@@ -207,7 +210,7 @@ namespace EPRN.Portal.Controllers
 
             return RedirectToAction(
                 Routes.Actions.Waste.Baled, 
-                new { id = exportTonnageViewModel.JourneyId });
+                new { id = exportTonnageViewModel.Id });
         }
 
         [HttpGet]
@@ -236,7 +239,7 @@ namespace EPRN.Portal.Controllers
             await _wasteService.SaveBaledWithWire(baledWithWireModel);
             return RedirectToAction(
                 Routes.Actions.Waste.Note, 
-                new { id = baledWithWireModel.JourneyId });
+                new { id = baledWithWireModel.Id });
         }
 
         [HttpGet]
@@ -253,7 +256,10 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> ReProcessorExport(ReProcessorExportViewModel reProcessorExportViewModel)
         {
             await _wasteService.SaveReprocessorExport(reProcessorExportViewModel);
-            return RedirectToAction( Routes.Actions.Waste.Month, new { id = reProcessorExportViewModel.JourneyId });
+            
+            return RedirectToAction( 
+                Routes.Actions.Waste.Month, 
+                new { id = reProcessorExportViewModel.Id });
         }
 
         [HttpGet]
@@ -281,8 +287,7 @@ namespace EPRN.Portal.Controllers
 
             // if qs contains certain value then redirect to answers page
             // else continue
-            return RedirectToAction("Index", "Home");    
-            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home"); 
         }
 
         [HttpGet]
@@ -327,7 +332,6 @@ namespace EPRN.Portal.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {

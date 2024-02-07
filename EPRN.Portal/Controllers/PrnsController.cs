@@ -1,8 +1,11 @@
-﻿using EPRN.Common.Enums;
+﻿using EPRN.Common.Constants;
+using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using static EPRN.Common.Constants.Strings;
+using Routes = EPRN.Common.Constants.Strings.Routes;
 
 namespace EPRN.Portal.Controllers
 {
@@ -18,6 +21,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> Create(int? id)
         {
             var viewModel = await _prnService.CreatePrnViewModel();
+            
             return View(viewModel);
         }
 
@@ -25,15 +29,31 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
-            else if (id <= 0)
-            {
-                return BadRequest();
-            }
-
+            
             var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Actions.PRNS.View)]
+        [Route("[controller]/[action]/{reference}")]
+        public async Task<IActionResult> ViewPRN(string reference)
+        {
+            if (string.IsNullOrWhiteSpace(reference))
+                return NotFound();
+
+            var viewModel = await _prnService.GetViewPrnViewModel(reference);
+
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Actions.PRNS.ViewSentPrns)]
+        public async Task<IActionResult> ViewSentPrns([FromQuery] GetSentPrnsViewModel request)
+        {
+            var viewSentPrnsViewModel = await _prnService.GetViewSentPrnsViewModel(request);
 
             return View(viewModel);
         }

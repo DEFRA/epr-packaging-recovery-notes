@@ -61,6 +61,33 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ACCEPTED.
+        /// </summary>
+        public static string Accepted {
+            get {
+                return ResourceManager.GetString("Accepted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AWAITING ACCEPTANCE.
+        /// </summary>
+        public static string AwaitingAcceptance {
+            get {
+                return ResourceManager.GetString("AwaitingAcceptance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AWAITING CANCELLATION.
+        /// </summary>
+        public static string AwaitingCancellation {
+            get {
+                return ResourceManager.GetString("AwaitingCancellation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back.
         /// </summary>
         public static string Back {
@@ -70,11 +97,29 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CANCELLED.
+        /// </summary>
+        public static string Cancelled {
+            get {
+                return ResourceManager.GetString("Cancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Continue.
         /// </summary>
         public static string ContinueBtn {
             get {
                 return ResourceManager.GetString("ContinueBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a &lt;PRNTYPE&gt; for:.
+        /// </summary>
+        public static string CreateWithReplace {
+            get {
+                return ResourceManager.GetString("CreateWithReplace", resourceCulture);
             }
         }
         
@@ -97,11 +142,38 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cymraeg.
         /// </summary>
         public static string OppositeLanguage {
             get {
                 return ResourceManager.GetString("OppositeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PERN.
+        /// </summary>
+        public static string PERN {
+            get {
+                return ResourceManager.GetString("PERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PRN.
+        /// </summary>
+        public static string PRN {
+            get {
+                return ResourceManager.GetString("PRN", resourceCulture);
             }
         }
         
@@ -115,11 +187,47 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to REJECTED.
+        /// </summary>
+        public static string Rejected {
+            get {
+                return ResourceManager.GetString("Rejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip question.
+        /// </summary>
+        public static string SkipQuestionLink {
+            get {
+                return ResourceManager.GetString("SkipQuestionLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is a problem.
         /// </summary>
         public static string SummaryError {
             get {
                 return ResourceManager.GetString("SummaryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;UNKNOWN WASTE TYPE&gt;.
+        /// </summary>
+        public static string UnknownWasteType {
+            get {
+                return ResourceManager.GetString("UnknownWasteType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }

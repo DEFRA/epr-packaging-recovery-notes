@@ -1,0 +1,50 @@
+﻿@using EPRN.Common.Enums;
+@using static EPRN.Common.Constants.Strings
+
+@model CancelViewModel
+
+@{
+    ViewData["Title"] = CancelResources.PageTitlePRN;
+}
+
+@if (Model.Status == null ||
+   Model.Status.Value.GetCancelPermission() != CancelPermission.CancelAllowed)
+{
+    var notification = new NotificationViewModel
+    {
+        PrimaryMessage = CancelResources.AlreadyCancelledPRN,
+        SecondaryMessage = CancelResources.RequestToCancelPRN,
+        LinkUrl = Url.ActionLink(
+            Routes.Areas.Actions.PRNS.RequestCancel, 
+            Routes.Areas.Controllers.Reprocessor.PRNS, 
+            new { Area = Routes.Areas.Reprocessor, id = Model.Id })
+    };
+
+    <partial name="_NotificationPanel" model="notification"/>
+}
+else
+{
+    <partial name="_ValidationSummary" />
+    <form method="post">
+        <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+            <div class="govuk-form-group">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--l" for="with-hint">
+                        @CancelResources.CancelQuestionPRN
+                    </label>
+                </h1>
+                <p class="govuk-error-message">
+                    <span asp-validation-for="CancelReason"></span>
+                </p>
+                <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="CancelReason" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
+            </div>
+            <div id="with-hint-info" class="govuk-hint govuk-character-count__message">
+                @CancelResources.HintInfo
+            </div>
+        </div>
+
+        <button class="govuk-button" data-module="govuk-button" type="submit">
+            @MasterResources.ContinueBtn
+        </button>
+    </form>
+}

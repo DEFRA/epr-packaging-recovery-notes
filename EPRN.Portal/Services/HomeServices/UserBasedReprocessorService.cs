@@ -6,10 +6,12 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels;
 using EPRN.Portal.ViewModels.Waste;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Options;
 using System.Globalization;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Services.HomeServices
 {
@@ -28,15 +30,21 @@ namespace EPRN.Portal.Services.HomeServices
         {
             var wasteCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_Waste_Link_RecordWaste, "#" },
+                { HomePageResources.HomePage_Waste_Link_RecordWaste, UrlHelper.Action(
+                    Routes.Actions.Waste.RecordWaste,
+                    Routes.Controllers.Waste) },
                 { HomePageResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#" }
             };
 
             var managePrnCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_ManagePrn_Link_CreatePrn, "#" },
-                { HomePageResources.HomePage_ManagePrn_Link_ViewEditDraftPrn, "#" },
-                { HomePageResources.HomePage_ManagePrn_Link_ViewSentPrns, "#" }
+                { HomePageResources.HomePage_ManagePern_Link_CreatePern, UrlHelper.Action(
+                    Routes.Actions.PRNS.Create,
+                    Routes.Controllers.PRNS) },
+                { HomePageResources.HomePage_ManagePern_Link_ViewEditDraftPerns, "#" },
+                { HomePageResources.HomePage_ManagePern_Link_ViewSentPerns, UrlHelper.Action(
+                    Routes.Actions.PRNS.ViewSentPrns,
+                    Routes.Controllers.PRNS) }
             };
 
             var returnsCardLinks = new Dictionary<string, string>()

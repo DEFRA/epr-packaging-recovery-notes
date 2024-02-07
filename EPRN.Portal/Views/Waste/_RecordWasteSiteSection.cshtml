@@ -6,11 +6,11 @@
     var category = (int)ViewData["category"];
 }
 
-<h3>Accreditations for: @Model.SiteName</h3>
+<h3>@($"{RecordWasteResources.AccreditationsLabel} {Model.SiteName}")</h3>
 <table class="govuk-table">
     <thead class="govuk-table__head">
         <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header">Material</th>
+            <th scope="col" class="govuk-table__header">@RecordWasteResources.MaterialHeading</th>
             <th scope="col" class="govuk-table__header"></th>
         </tr>
     </thead>
@@ -28,7 +28,7 @@
                             asp-controller=@Routes.Controllers.Waste
                             asp-route-id=@id
                             asp-route-materialId=@siteMaterial.Key>
-                            Choose
+                            @RecordWasteResources.ChooseLinkText
                         </a>
                     }
                     else
@@ -39,7 +39,7 @@
                             asp-controller=@Routes.Controllers.Waste 
                             asp-route-materialId=@siteMaterial.Key
                             asp-route-category=@category>
-                            Choose
+                            @RecordWasteResources.ChooseLinkText
                         </a>
                     }
                 </td>

@@ -1,0 +1,25 @@
+﻿@inject WasteCommonViewModel wasteMetaData;
+@model EPRN.Common.Enums.Category;
+
+@{
+    var prnType = "";
+    switch (Model)
+    {
+        case EPRN.Common.Enums.Category.Unknown:
+            prnType = MasterResources.UnknownWasteType;
+            break;
+
+        case EPRN.Common.Enums.Category.Exporter:
+            prnType = MasterResources.PERN;
+            break;
+
+        case EPRN.Common.Enums.Category.Reprocessor:
+            prnType = MasterResources.PRN;
+            break;
+
+    }
+}
+
+<span class="govuk-caption-l">
+    @MasterResources.CreateWithReplace.Replace("<PRNTYPE>", prnType) @wasteMetaData.WasteName
+</span>

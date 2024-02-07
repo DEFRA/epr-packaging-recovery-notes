@@ -128,6 +128,24 @@ namespace EPRN.UnitTests.API.Waste.Services
         }
 
         [TestMethod]
+        public async Task SaveNote_WithValidParameters_Succeeds()
+        {
+            // arrange
+            var journeyId = 5;
+            var note = "abc";
+            
+            // act
+            await _journeyService.SaveWasteRecordNote(journeyId, note);
+
+            // assert
+            _mockRepository.Verify(r =>
+                r.UpdateWasteNote(
+                    It.Is<int>(p => p == journeyId),
+                    It.Is<string>(p => p == note)),
+                Times.Once);
+        }
+
+        [TestMethod]
         public async Task GetWhatHaveYouDoneWaste_Succeeeds_With_Valid_Id_ReprocessedIt()
         {
             // arrange
@@ -142,6 +160,27 @@ namespace EPRN.UnitTests.API.Waste.Services
                     It.Is<int>(p => p == journeyId)),
                 Times.Once());
         }
+
+        [TestMethod]
+        public async Task GetWasteRecordNote_ReturnsValidDto_With_ValidJourneyId()
+        {
+            // arrange
+            var journeyId = 8;
+            var noteDto = new NoteDto() { JourneyId = journeyId, Note = "abc", WasteCategory = Common.Enums.Category.Unknown };
+            _mockRepository.Setup(x => x.GetWasteNote(It.IsAny<int>())).ReturnsAsync(noteDto);
+
+            // act
+            var dto = await _journeyService.GetWasteRecordNote(journeyId);
+
+            // assert
+            Assert.IsNotNull(dto);
+            
+            _mockRepository.Verify(r =>
+                r.GetWasteNote(
+                    It.Is<int>(p => p == journeyId)),
+                Times.Once());
+        }
+
 
         [TestMethod]
         public async Task SaveReProcessor_WithInvalidJourneyId_ThrowsArgumentNullException()

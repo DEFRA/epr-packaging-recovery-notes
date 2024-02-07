@@ -23,7 +23,10 @@ namespace EPRN.PRNS.API.Services
             int materialId,
             Category category)
         {
-            return await _prnRepository.CreatePrnRecord(materialId, category);
+            return await _prnRepository.CreatePrnRecord(
+                materialId, 
+                category,
+                GenerateReferenceNumber());
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -52,9 +55,74 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetCheckYourAnswersData(id);
         }
 
+        public async Task<PrnStatus> GetStatus(int id)
+        {
+            return await _prnRepository.GetStatus(id);
+        }
+
+        public async Task<StatusAndProducerDto> GetStatusWithProducerName(int id)
+        {
+            return await _prnRepository.GetStatusAndRecipient(id);
+        }
+
         public async Task SaveCheckYourAnswers(int id)
         {
-            await _prnRepository.UpdatePrnStatus(id, PrnStatus.CheckYourAnswersComplete);
+            await _prnRepository.UpdatePrnStatus(
+                id, 
+                PrnStatus.CheckYourAnswersComplete);
+        }
+
+        public async Task CancelPrn(int id, string reason)
+        {
+            // this needs to be for a not accepted PRN... 
+            // not sure where to do that yet
+            if (await _prnRepository.GetStatus(id) != PrnStatus.Accepted)
+            {
+                await _prnRepository.UpdatePrnStatus(
+                    id,
+                    PrnStatus.Cancelled,
+                    reason);
+            }
+        }
+
+        public async Task RequestCancelPrn(int id, string reason)
+        {
+            // this needs to be for an accepted PRN... 
+            // not sure where to do that yet
+            if (await _prnRepository.GetStatus(id) == PrnStatus.Accepted)
+            {
+                await _prnRepository.UpdatePrnStatus(
+                    id,
+                    PrnStatus.CancellationRequested,
+                    reason);
+            }
+        }
+
+        public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
+        {
+            return await _prnRepository.GetSentPrns(request);
+        }
+
+        public async Task<PRNDetailsDto> GetPrnDetails(string reference)
+        {
+            return await _prnRepository.GetDetails(reference);
+        }
+
+        // Stub this and generate a random PRN reference number
+        // In time a specific generation algorithm will
+        // be specified
+        private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+
+        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        {
+            var decemberWaste = await _prnRepository.GetDecemberWaste(journeyId);
+
+            return _mapper.Map<DecemberWasteDto>(decemberWaste);
+        }
+
+        public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
+        {
+            await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
         }
     }
 }

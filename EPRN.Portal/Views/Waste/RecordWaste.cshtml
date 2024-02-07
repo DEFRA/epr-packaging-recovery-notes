@@ -11,10 +11,12 @@
     ViewData["WasteId"] = Model.Id;
 }
 
-<label>Company name</label>
+<label class ="govuk-label">
+    @RecordWasteResources.CompanyNameLabel
+</label>
 <h1 class="govuk-label-wrapper">
     <label class="govuk-label govuk-label--l" for="with-hint">
-        Record waste
+        @RecordWasteResources.RecordWasteLabel
     </label>
 </h1>
 @if ((Model.Id == null && userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor)) ||

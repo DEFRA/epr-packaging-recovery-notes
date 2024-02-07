@@ -3,26 +3,34 @@
 @model DuringWhichMonthRequestViewModel
 
 @{
-    string heading;
-    string hintText;
-    @if (@Model.Category == Category.Reprocessor)
+    string heading = null;
+    string hintText = null;
+    @if (Model.Category == Category.Reprocessor)
     {
-        ViewData["Title"] = @WhichQuarterResources.PageTitleSent;
-        heading = WhichQuarterResources.HeadingSent;
-        hintText = WhichQuarterResources.HintTextSent;
+        if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
+        {
+            ViewData["Title"] = @WhichQuarterResources.PageTitleReceived;
+            heading = WhichQuarterResources.HeadingReceived;
+            hintText = WhichQuarterResources.HintTextReceived;
+        }
+        else if (Model.WhatHaveYouDone == DoneWaste.SentItOn)
+        {
+            ViewData["Title"] = @WhichQuarterResources.PageTitleSent;
+            heading = WhichQuarterResources.HeadingSent;
+            hintText = WhichQuarterResources.HintTextSent;
+        }
     }
-    else
+    else if (Model.Category == Category.Exporter)
     {
-        ViewData["Title"] = @WhichQuarterResources.PageTitleReceived;
-        heading = WhichQuarterResources.HeadingReceived;
-        hintText = WhichQuarterResources.HintTextReceived;
+        ViewData["Title"] = @WhichQuarterResources.PageTitleExported;
+        heading = WhichQuarterResources.HeadingExported;
+        hintText = WhichQuarterResources.HintTextExported;
     }
 }
 
 <partial name="_ValidationSummary" />
 <partial name="_WasteTypeName" />
 <form method="post">
-    <input type="hidden" asp-for="JourneyId" />
     <input type="hidden" asp-for="WhatHaveYouDone" />
     <radios asp-for="SelectedMonth" asp-title="@heading">
         <div class="govuk-hint">
