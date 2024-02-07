@@ -1,1 +1,49 @@
-﻿<h1>Accredidation Limit</h1>
+﻿@model AccredidationLimitViewModel
+
+@{
+    ViewData["Title"] = @AccredidationLimitResources.Title;
+}
+
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
+
+<form method="post" action="Tonnes">
+    <input type="hidden" name="Id" value="@Model.JourneyId" />
+    <input type="hidden" name="ExportTonnes" value="@Model.NewAmountEntered" />
+    <input type="hidden" name="performLimitCheck" value="false" />
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="event-name">
+                            @AccredidationLimitResources.LimitAlertTitle
+                        </label>
+                    </h1>
+
+                    <p class="govuk-hint">
+                        @AccredidationLimitResources.Line1_Part1
+                        <a href="#">
+                            @AccredidationLimitResources.Line1_Part2
+                        </a>     
+                        @AccredidationLimitResources.Line1_Part3
+                    </p>
+                    <p class="govuk-hint">@AccredidationLimitResources.Line2.Replace("<<newTonnageEntered>>", Model.NewAmountEntered.ToString()).Replace("<<exceedLimitBy>>", Model.ExcessOfLimit.ToString())</p>
+                    <p class="govuk-hint">@AccredidationLimitResources.Line3.Replace("<<currentAccredidationLimit>>", Model.AccredidationLimit.ToString())</p>
+                    <p class="govuk-hint">@AccredidationLimitResources.Line4.Replace("<<totalPrnTonnageToDate>>", Model.TotalToDate.ToString())</p>
+
+                </div>
+            </fieldset>
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+                @MasterResources.ContinueBtn
+            </button>
+            <button class="govuk-button" data-module="govuk-button" asp-action="Tonnes"
+                    asp-all-route-data="@(new Dictionary<string, string> { { "id", Model.JourneyId.ToString() } })">
+                @MasterResources.Cancelled
+            </button>
+        </div>
+    </div>
+</form>
+
+

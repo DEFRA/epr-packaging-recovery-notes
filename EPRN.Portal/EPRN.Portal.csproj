@@ -25,6 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\AccredidationLimitResources.cy-GB.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\AccredidationLimitResources.cy-GB.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.25" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
@@ -32,6 +40,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\AccredidationLimitResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AccredidationLimitResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CYAResources.Designer.cs">
       <DependentUpon>CYAResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -165,6 +178,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\AccredidationLimitResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccredidationLimitResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\BaledWithWireResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BaledWithWireResource.Designer.cs</LastGenOutput>
