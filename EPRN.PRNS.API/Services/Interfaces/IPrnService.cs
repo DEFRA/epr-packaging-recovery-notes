@@ -1,13 +1,13 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using System.Drawing;
 
 namespace EPRN.PRNS.API.Services.Interfaces
 {
     public interface IPrnService
     {
         Task<bool> PrnRecordExists(
-            int id);
+            int id,
+            Category category);
 
         Task<int> CreatePrnRecord(
             int materialId,
@@ -34,5 +34,9 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
 
         Task<PRNDetailsDto> GetPrnDetails(string reference);
+
+        Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
+
+        Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
     }
 }

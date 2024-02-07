@@ -1,5 +1,6 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -7,10 +8,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace EPRN.PRNS.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]/{id}")]
+    [Route("api/[controller]/{id}/Category/{category}")]
     public class PRNController : Controller
     {
         private const string idParameter = "id";
+        private const string categoryParameter = "category";
         private IPrnService _prnService;
 
         public PRNController(IPrnService prnService)
@@ -125,7 +127,7 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpGet]
-        [Route("/api/[controller]/Details/{reference}")]
+        [Route("/api/[controller]/Category/{category}/Details/{reference}")]
         public async Task<IActionResult> GetPrnDetails(string reference)
         {
             var prnDetailsDto = await _prnService.GetPrnDetails(reference);
@@ -136,21 +138,52 @@ namespace EPRN.PRNS.API.Controllers
             return Ok(prnDetailsDto);
         }
 
+        [HttpGet]
+        [Route("DecemberWaste")]
+        public async Task<ActionResult> GetDecemberWaste(int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+            
+            DecemberWasteDto result = await _prnService.GetDecemberWaste(id.Value);
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("DecemberWaste/{decemberWaste}")]
+        public async Task<ActionResult> SaveDecemberWaste(int? id, bool decemberWaste)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            await _prnService.SaveDecemberWaste(
+                id.Value,
+                decemberWaste);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db
         /// </summary>
         public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-           if (context.ActionDescriptor.Parameters.Any(p => p.Name == idParameter) &&
-                context.ActionArguments.ContainsKey(idParameter))
+            // if both id and category parameters exist, then we are retrieving a PRN in the usual journey
+            // and therefore we need to exist the category is correct for the given ID. If a record is not
+            // found for the given parameters, then we return a not found result without doing any further processing
+            if (context.RouteData.Values.ContainsKey(idParameter) &&
+                context.RouteData.Values.ContainsKey(categoryParameter))
             {
-                int id = Convert.ToInt32(context.ActionArguments[idParameter]);
-
-                if (!await _prnService.PrnRecordExists(id))
+                int  id = Convert.ToInt32(context.RouteData.Values[idParameter]);
+                if (Enum.TryParse<EPRN.Common.Enums.Category>(context.RouteData.Values["category"].ToString(), out var category))
                 {
-                    context.Result = NotFound();
-                    return;
+                    if (!await _prnService.PrnRecordExists(id, category))
+                    {
+                        context.Result = NotFound();
+                        return;
+                    }
                 }
             }
 

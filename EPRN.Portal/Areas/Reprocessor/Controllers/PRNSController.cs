@@ -16,8 +16,19 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
         private Category Category => Category.Reprocessor;
 
-        public PRNSController(IPRNService prnService)
+        private bool IsCurrentDateWithinDecOrJan()
         {
+            return (DateTime.Now.Month == 12 ||
+                    DateTime.Now.Month == 1);
+        }
+
+        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
+        {
+            if (prnServiceFactory == null)
+                throw new ArgumentNullException(nameof(prnServiceFactory));
+
+            var prnService = prnServiceFactory.Invoke(Category);
+
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 
@@ -58,7 +69,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.Tonnes,
+                Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
                 new { Id = prnId });
         }
@@ -175,6 +186,35 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         {
             // *** Stubbed method ***
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DecemberWaste(int? id)
+        {
+            if (id == null)
+                return BadRequest();
+
+            var model = await _prnService.GetDecemberWasteModel(id.Value);
+
+            if (this.IsCurrentDateWithinDecOrJan())
+                return View(model);
+            else
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes, 
+                                        Routes.Areas.Controllers.Reprocessor.PRNS, 
+                                        new { id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DecemberWaste(DecemberWasteViewModel decemberWaste)
+        {
+            if (!ModelState.IsValid)
+                return View(decemberWaste);
+
+            await _prnService.SaveDecemberWaste(decemberWaste);
+
+            return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes,
+                        Routes.Areas.Controllers.Reprocessor.PRNS,
+                        new { decemberWaste.Id });
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

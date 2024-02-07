@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using EPRN.Common.Extensions;
-using EPRN.Portal.Resources.PRNS;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources.PRNS;
 
 namespace EPRN.Portal.Services
 {
@@ -170,6 +170,38 @@ namespace EPRN.Portal.Services
             await _httpPrnsService.RequestCancelPRN(
                 requestCancelViewModel.Id,
                 requestCancelViewModel.CancelReason);
+        }
+
+        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int id)
+        {
+            var decemberWasteModel = new DecemberWasteViewModel
+            {
+                Id = id,
+                materialId = 1,
+                WasteForDecember = null,
+                BalanceAvailable = 260,
+                Category = Category.Unknown
+            };
+
+            return decemberWasteModel;
+        }
+
+        public async Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel)
+        {
+            if (decemberWasteModel == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel));
+
+            if (decemberWasteModel.WasteForDecember == null)
+                throw new ArgumentNullException(nameof(decemberWasteModel.WasteForDecember));
+
+            if (decemberWasteModel.Id == 0)
+            {
+                decemberWasteModel.Id = await CreatePrnRecord(decemberWasteModel.materialId, Category.Reprocessor);
+            }
+
+            await _httpPrnsService.SaveDecemberWaste(
+                decemberWasteModel.Id,
+                decemberWasteModel.WasteForDecember.Value);
         }
 
         public async Task<ViewSentPrnsViewModel> GetViewSentPrnsViewModel(GetSentPrnsViewModel request)

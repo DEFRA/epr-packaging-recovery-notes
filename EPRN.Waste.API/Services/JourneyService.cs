@@ -141,24 +141,7 @@ namespace EPRN.Waste.API.Services
 
         public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
         {
-            var journey = await _wasteRepository.GetWasteSubTypeSelection(journeyId);
-            if (journey == null)
-            {
-                throw new Exception(nameof(journey));
-            }
-
-            if (!journey.WasteSubTypeId.HasValue)
-            {
-                throw new Exception(nameof(journey));
-            }
-
-            var wasteSubTypeSelection = new WasteSubTypeSelectionDto
-            {
-                WasteSubTypeId = journey.WasteSubTypeId.Value,
-                Adjustment = journey.Adjustment
-            };
-
-            return wasteSubTypeSelection;
+            return await _wasteRepository.GetWasteSubTypeSelection(journeyId);
         }
 
         public async Task<NoteDto> GetWasteRecordNote(int journeyId)

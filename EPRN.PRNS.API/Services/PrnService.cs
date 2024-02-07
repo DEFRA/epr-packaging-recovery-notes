@@ -35,9 +35,10 @@ namespace EPRN.PRNS.API.Services
         }
 
         public async Task<bool> PrnRecordExists(
-            int id)
+            int id,
+            Category category)
         {
-            return await _prnRepository.PrnExists(id);
+            return await _prnRepository.PrnExists(id, category);
         }
 
         public async Task SaveTonnage(int id, double tonnage)
@@ -112,5 +113,17 @@ namespace EPRN.PRNS.API.Services
         // In time a specific generation algorithm will
         // be specified
         private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+
+        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        {
+            var decemberWaste = await _prnRepository.GetDecemberWaste(journeyId);
+
+            return _mapper.Map<DecemberWasteDto>(decemberWaste);
+        }
+
+        public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
+        {
+            await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
+        }
     }
 }

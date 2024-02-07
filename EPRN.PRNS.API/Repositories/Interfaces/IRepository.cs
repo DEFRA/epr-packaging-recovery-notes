@@ -11,7 +11,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
             string prnReference);
 
         Task<bool> PrnExists(
-            int id);
+            int id,
+            Category category);
 
         Task<double?> GetTonnage(int id);
 
@@ -33,5 +34,10 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
 
         Task<PRNDetailsDto> GetDetails(string reference);
+
+
+        Task<DecemberWasteDto> GetDecemberWaste(int id);
+
+        Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
     }
 }
