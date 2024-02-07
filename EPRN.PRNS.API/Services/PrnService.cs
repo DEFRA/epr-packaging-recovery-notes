@@ -112,5 +112,17 @@ namespace EPRN.PRNS.API.Services
         // In time a specific generation algorithm will
         // be specified
         private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+
+        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        {
+            var decemberWaste = await _prnRepository.GetDecemberWaste(journeyId);
+
+            return _mapper.Map<DecemberWasteDto>(decemberWaste);
+        }
+
+        public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
+        {
+            await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
+        }
     }
 }

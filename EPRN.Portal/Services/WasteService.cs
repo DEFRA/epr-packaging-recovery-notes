@@ -9,6 +9,7 @@ using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
 using Microsoft.Extensions.Options;
 
@@ -201,7 +202,7 @@ namespace EPRN.Portal.Services
 
             return viewModel;
         }
-        
+
         public async Task<WasteSubTypesViewModel> GetWasteSubTypesViewModel(int journeyId)
         {
             var wasteTypeId = await _httpJourneyService.GetWasteTypeId(journeyId);
@@ -228,7 +229,7 @@ namespace EPRN.Portal.Services
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
             };
         }
-        
+
         public async Task SaveSelectedWasteSubType(WasteSubTypesViewModel wasteSubTypesViewModel)
         {
             if (wasteSubTypesViewModel == null)

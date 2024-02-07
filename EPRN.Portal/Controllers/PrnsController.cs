@@ -1,7 +1,10 @@
-﻿using EPRN.Common.Dtos;
+﻿using EPRN.Common.Constants;
+using EPRN.Common.Dtos;
+using EPRN.Common.Enums;
 using EPRN.Portal.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using static EPRN.Common.Constants.Strings;
+using Routes = EPRN.Common.Constants.Strings.Routes;
 
 namespace EPRN.Portal.Controllers
 {
@@ -17,6 +20,7 @@ namespace EPRN.Portal.Controllers
         public async Task<IActionResult> Create(int? id)
         {
             var viewModel = await _prnService.CreatePrnViewModel();
+            
             return View(viewModel);
         }
 

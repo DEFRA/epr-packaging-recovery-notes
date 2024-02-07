@@ -229,5 +229,38 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             // Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
+
+        [TestMethod]
+        public async Task GetDecemberWaste_Returns_OK()
+        {
+            //Arrange
+            var id = 3;
+
+            //Act
+            var result = await _prnController.GetDecemberWaste(id);
+
+            //Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+            _mockPrnService.Verify(s => s.GetDecemberWaste(It.Is<int>(p => p == id)));
+        }
+
+        [TestMethod]
+        public async Task SaveDecemberWaste_CallService_WithValidParameters()
+        {
+            // arrange
+            var id = 2;
+
+            // act
+            var result = await _prnController.SaveDecemberWaste(id, true);
+
+            // assert
+            _mockPrnService.Verify(s =>
+                s.SaveDecemberWaste(
+                    It.IsAny<int>(), true),
+                Times.Once);
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
     }
 }
