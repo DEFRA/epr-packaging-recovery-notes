@@ -1,13 +1,13 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using System.Drawing;
 
 namespace EPRN.PRNS.API.Services.Interfaces
 {
     public interface IPrnService
     {
         Task<bool> PrnRecordExists(
-            int id);
+            int id,
+            Category category);
 
         Task<int> CreatePrnRecord(
             int materialId,

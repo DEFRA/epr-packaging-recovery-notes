@@ -56,7 +56,7 @@ namespace EPRN.UnitTests.SeedData
                         Reference = $"PRN{i + 294055}", // Unique reference for each row
                         Note = $"Note{i}",
                         WasteTypeId = random.Next(1, 10), // Random number between 1 and 9
-                        Category = new Category(), // Populate this as needed
+                        Category = (Category)random.Next(1, 3)  , // Populate either as exporter or reprocessor
                         WasteSubTypeId = null,
                         SentTo = sentToOptions[random.Next(sentToOptions.Length)], // Randomly select one of the options
                         Tonnes = random.Next(30, 110),

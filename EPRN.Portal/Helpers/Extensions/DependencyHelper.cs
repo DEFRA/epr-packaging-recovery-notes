@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EPRN.Common.Constants;
+using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Filters;
 using EPRN.Portal.Helpers.Interfaces;
@@ -98,15 +99,32 @@ namespace EPRN.Portal.Helpers.Extensions
                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.Waste.Url,
                         Strings.ApiEndPoints.Journey)
                 )
-
-                .AddTransient<IHttpPrnsService>(s =>
-                    new HttpPrnsService(
-                        s.GetRequiredService<IHttpContextAccessor>(),
-                        s.GetRequiredService<IHttpClientFactory>(),
-                        s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
-                        Strings.ApiEndPoints.PRN)
-                )
+                // Sometimes we want a PRN service that has a HTTPPRNService that is non specific
+                // to the category so that we can view, search and create PRNs
                 .AddTransient<IPRNService, PRNService>()
+                .AddTransient<IHttpPrnsService>(s =>
+                     new HttpPrnsService(
+                         s.GetRequiredService<IHttpContextAccessor>(),
+                         s.GetRequiredService<IHttpClientFactory>(),
+                         s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
+                         Strings.ApiEndPoints.PRN)
+                )
+                // We need a PRN service that has a HTTPPRNService relevant to the area it's in
+                // so we can cross reference ID and Category to ensure we have the right PRN
+                .AddTransient(s =>
+                    new Func<Category, IPRNService>((category) =>
+                    {
+                        var httpPrnService = new HttpPrnsService(
+                            s.GetRequiredService<IHttpContextAccessor>(),
+                            s.GetRequiredService<IHttpClientFactory>(),
+                            category,
+                            s.GetRequiredService<IOptions<ServicesConfiguration>>().Value.PRN.Url,
+                            Strings.ApiEndPoints.PRN);
+                        return new PRNService(
+                            s.GetRequiredService<IMapper>(),
+                            httpPrnService);
+                    })
+                )
                 .AddScoped<WasteTypeActionFilter>()
                 .AddScoped<WasteCommonViewModel>(); // this needs to be available throughout the whole request, therefore needs to be scoped
 

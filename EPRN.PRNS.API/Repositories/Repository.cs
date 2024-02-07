@@ -54,11 +54,12 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task<bool> PrnExists(
-            int id)
+            int id, 
+            EPRN.Common.Enums.Category category)
         {
             return await _prnContext
                 .PRN
-                .AnyAsync(p => p.Id == id);
+                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -158,8 +159,9 @@ namespace EPRN.PRNS.API.Repositories
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
                 .Include(repo => repo.WasteType)
-                .Include(repo => repo.PrnHistory.Where(history => history.Status >= PrnStatus.Accepted))
-                .AsQueryable();
+                .Include(repo => repo.PrnHistory)//.Where(history => history.Status >= PrnStatus.Accepted))
+                //.AsQueryable();
+                .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
 
             if (!string.IsNullOrWhiteSpace(request.FilterBy))
             {
