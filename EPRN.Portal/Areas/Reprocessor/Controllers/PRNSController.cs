@@ -199,7 +199,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (this.IsCurrentDateWithinDecOrJan())
                 return View(model);
             else
-                return RedirectToAction("Tonnes", new { id = model.Id });
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes, 
+                                        Routes.Areas.Controllers.Reprocessor.PRNS, 
+                                        new { id });
         }
 
         [HttpPost]
@@ -210,7 +212,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveDecemberWaste(decemberWaste);
 
-            return RedirectToAction("Tonnes", new { id = decemberWaste.Id });
+            return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes,
+                        Routes.Areas.Controllers.Reprocessor.PRNS,
+                        new { decemberWaste.Id });
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

@@ -354,5 +354,37 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedViewModel, result);
         }
+
+        [TestMethod]
+        public async Task GetDecemberWasteViewModel_ShouldReturnMappedViewModel()
+        {
+            // Arrange
+            int reference = 25;
+            var expectedDto = new DecemberWasteDto();
+            var expectedViewModel = new DecemberWasteViewModel();
+
+            expectedViewModel.BalanceAvailable = 260;
+            expectedViewModel.Category = Category.Unknown;
+            expectedViewModel.materialId = 1;
+            expectedViewModel.Id = reference;
+
+            // Mocking the IHttpPrnsService
+            _mockHttpPrnsService.Setup(service => service.GetDecemberWaste(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Mocking the IMapper
+            _mockMapper.Setup(m => m.Map<DecemberWasteViewModel>(expectedDto))
+                .Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetDecemberWasteModel(reference);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel.Id, result.Id);
+            Assert.AreEqual(expectedViewModel.BalanceAvailable, result.BalanceAvailable);
+            Assert.AreEqual(expectedViewModel.materialId, result.materialId);
+            Assert.AreEqual(expectedViewModel.Category, result.Category);
+        }
     }
 }
