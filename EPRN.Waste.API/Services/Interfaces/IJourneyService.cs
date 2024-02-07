@@ -35,7 +35,7 @@ namespace EPRN.Waste.API.Services.Interfaces
 
         Task SaveReprocessorExport(int journeyId, int siteId);
 
-        Task<double?> GetTonnage(int journeyId);
+        Task<WasteTonnageDto> GetTonnage(int journeyId);
 
         Task<bool> JourneyExists(int journeyId);
 

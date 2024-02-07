@@ -364,8 +364,6 @@ namespace EPRN.UnitTests.Portal.Services
             var expectedViewModel = new DecemberWasteViewModel();
 
             expectedViewModel.BalanceAvailable = 260;
-            expectedViewModel.Category = Category.Unknown;
-            expectedViewModel.materialId = 1;
             expectedViewModel.Id = reference;
 
             // Mocking the IHttpPrnsService
@@ -383,8 +381,6 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedViewModel.Id, result.Id);
             Assert.AreEqual(expectedViewModel.BalanceAvailable, result.BalanceAvailable);
-            Assert.AreEqual(expectedViewModel.materialId, result.materialId);
-            Assert.AreEqual(expectedViewModel.Category, result.Category);
         }
     }
 }

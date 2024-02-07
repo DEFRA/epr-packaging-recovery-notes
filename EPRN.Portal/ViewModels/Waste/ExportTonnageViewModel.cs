@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Resources;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Resources;
 using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Portal.ViewModels.Waste
@@ -10,5 +11,7 @@ namespace EPRN.Portal.ViewModels.Waste
         [Required(ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "MissingTonnageError")]
         [Range(0, 1000000, ErrorMessageResourceType = typeof(ExportTonnageResources), ErrorMessageResourceName = "TonnesNotInRange")]
         public double? ExportTonnes { get; set; }
+
+        public Category Category { get; set; }
     }
 }

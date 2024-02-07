@@ -123,16 +123,19 @@
   <data name="ErrorMessage" xml:space="preserve">
     <value>Select if you are creating this PRN from your December waste balance</value>
   </data>
-  <data name="Heading" xml:space="preserve">
-    <value>Are you creating this PRN from waste received in December?</value>
-  </data>
   <data name="HintText" xml:space="preserve">
     <value>Available balance from waste received in December:</value>
   </data>
-  <data name="NoSelection" xml:space="preserve">
-    <value>No</value>
+  <data name="PERNHeading" xml:space="preserve">
+    <value>Are you creating this PERN from waste received in December?</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
+  <data name="PERNPageTitle" xml:space="preserve">
+    <value>Are you creating this PERN from waste received in December?</value>
+  </data>
+  <data name="PRNHeading" xml:space="preserve">
+    <value>Are you creating this PRN from waste received in December?</value>
+  </data>
+  <data name="PRNPageTitle" xml:space="preserve">
     <value>Are you creating this PRN from waste received in December?</value>
   </data>
   <data name="ThereIsAProblem" xml:space="preserve">
@@ -140,8 +143,5 @@
   </data>
   <data name="Tonnes" xml:space="preserve">
     <value>Tonnes</value>
-  </data>
-  <data name="YesSelection" xml:space="preserve">
-    <value>Yes</value>
   </data>
 </root>

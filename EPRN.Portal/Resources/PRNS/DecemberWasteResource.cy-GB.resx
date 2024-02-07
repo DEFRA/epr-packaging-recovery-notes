@@ -117,22 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HowMuchTonnageExportQuestion" xml:space="preserve">
-    <value>How many tonnes did you export?</value>
+  <data name="Continue" xml:space="preserve">
+    <value>[Welsh]Continue</value>
   </data>
-  <data name="HowMuchTonnageReceiveQuestion" xml:space="preserve">
-    <value>How many tonnes did you receive?</value>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>[Welsh]Select if you are creating this PRN from your December waste balance</value>
   </data>
-  <data name="MissingTonnageError" xml:space="preserve">
-    <value>Enter the total tonnes of material sent</value>
+  <data name="HintText" xml:space="preserve">
+    <value>[Welsh]Available balance from waste received in December:</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Record waste</value>
+  <data name="PERNHeading" xml:space="preserve">
+    <value>[Welsh]Are you creating this PERN from waste received in December?</value>
   </data>
-  <data name="TonnesLabel" xml:space="preserve">
-    <value>Tonnes</value>
+  <data name="PERNPageTitle" xml:space="preserve">
+    <value>[Welsh]Are you creating this PERN from waste received in December?</value>
   </data>
-  <data name="TonnesNotInRange" xml:space="preserve">
-    <value>Tonnage must be greater than zero, and less than 1,000,000</value>
+  <data name="PRNHeading" xml:space="preserve">
+    <value>[Welsh]Are you creating this PRN from waste received in December?</value>
+  </data>
+  <data name="PRNPageTitle" xml:space="preserve">
+    <value>[Welsh]Are you creating this PRN from waste received in December?</value>
+  </data>
+  <data name="ThereIsAProblem" xml:space="preserve">
+    <value>[Welsh]There is a problem</value>
+  </data>
+  <data name="Tonnes" xml:space="preserve">
+    <value>[Welsh]Tonnes</value>
   </data>
 </root>
