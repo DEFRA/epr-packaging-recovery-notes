@@ -83,9 +83,9 @@ namespace EPRN.Portal.RESTServices
             return await Get<WasteSubTypeSelectionDto>($"{journeyId}/Subtype");
         }
 
-        public async Task<double?> GetWasteTonnage(int journeyId)
+        public async Task<WasteTonnageDto> GetWasteTonnage(int journeyId)
         {
-            return await Get<double?>($"{journeyId}/Tonnage");
+            return await Get<WasteTonnageDto>($"{journeyId}/Tonnage");
         }
 
         public async Task SaveTonnage(int journeyId, double tonnage)

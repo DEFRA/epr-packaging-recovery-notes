@@ -147,7 +147,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WasteTypesResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\DecemberWasteResource.Designer.cs">
+    <Compile Update="Resources\PRNS\DecemberWasteResource.Designer.cs">
       <DependentUpon>DecemberWasteResource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -209,6 +209,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CheckYourAnswersResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\ViewSentPrnResources.resx">
       <LastGenOutput>ViewSentPrnResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -269,7 +273,7 @@
     <EmbeddedResource Update="Resources\WasteTypesResources.cy-GB.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\DecemberWasteResource.resx">
+    <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>DecemberWasteResource.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -297,11 +297,9 @@ namespace EPRN.Portal.Services
 
         public async Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId)
         {
-            return new ExportTonnageViewModel
-            {
-                Id = journeyId,
-                ExportTonnes = await _httpJourneyService.GetWasteTonnage(journeyId)
-            };
+            var dto = await _httpJourneyService.GetWasteTonnage(journeyId);
+
+            return _mapper.Map<ExportTonnageViewModel>(dto);
         }
 
         public async Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel)

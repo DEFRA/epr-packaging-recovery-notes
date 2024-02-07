@@ -2,13 +2,12 @@
 
 @model DecemberWasteViewModel
 @{
-    ViewData["Title"] = DecemberWasteResource.PageTitle;
+    ViewData["Title"] = DecemberWasteResource.PERNPageTitle;
 }
 
 <partial name="_ValidationSummary" />
 <form method="post">
-    <input type="hidden" asp-for="Id" />
-    <radios asp-for="WasteForDecember" asp-title="@DecemberWasteResource.Heading">
+    <radios asp-for="WasteForDecember" asp-title="@DecemberWasteResource.PERNHeading">
 
         <div class="govuk-hint">
             @DecemberWasteResource.HintText <b>@Model.BalanceAvailable @DecemberWasteResource.Tonnes</b>
@@ -19,16 +18,16 @@
         </p>
 
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" type="radio" asp-for="WasteForDecember" value=@true aria-describedby="@DecemberWasteResource.YesSelection">
-            <label class="govuk-label govuk-radios__label" for="@DecemberWasteResource.YesSelection">
-                @DecemberWasteResource.YesSelection
+            <input class="govuk-radios__input" type="radio" asp-for="WasteForDecember" value=@true aria-describedby="@MasterResources.Yes">
+            <label class="govuk-label govuk-radios__label" for="@MasterResources.Yes">
+                @MasterResources.Yes
             </label>
         </div>
 
         <div class="govuk-radios__item">
-            <input class="govuk-radios__input" type="radio" asp-for="WasteForDecember" value=@false aria-describedby="@DecemberWasteResource.NoSelection">
-            <label class="govuk-label govuk-radios__label" for="@BaledWithWireResource.NoSelection">
-                @BaledWithWireResource.NoSelection
+            <input class="govuk-radios__input" type="radio" asp-for="WasteForDecember" value=@false aria-describedby="@MasterResources.No">
+            <label class="govuk-label govuk-radios__label" for="@MasterResources.No">
+                @MasterResources.No
             </label>
         </div>
 

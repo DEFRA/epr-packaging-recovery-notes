@@ -157,7 +157,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.Cancelled,
                 Routes.Areas.Controllers.Exporter.PRNS,
-                new { area = Routes.Areas.Exporter, id = cancelViewModel.Id });
+                new 
+                { 
+                    area = Category, 
+                    id = cancelViewModel.Id 
+                });
         }
 
         [HttpGet]
@@ -183,7 +187,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.CancelRequested,
                 Routes.Areas.Controllers.Exporter.PRNS,
-                new { id = requestCancelViewModel.Id, area = Routes.Areas.Exporter });
+                new 
+                {
+                    area = Category,
+                    id = requestCancelViewModel.Id
+                });
         }
 
         [HttpGet]
@@ -210,17 +218,19 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (id == null)
                 return BadRequest();
 
-            var model = await _prnService.GetDecemberWasteModel(id.Value);
-
             if (DateTime.Today.IsCurrentDateWithinDecOrJan())
+            {
+                var model = await _prnService.GetDecemberWasteModel(id.Value);
+
                 return View(model);
+            }
             else
                 return RedirectToAction(
-                    Routes.Areas.Actions.PRNS.Tonnes, 
-                    new 
+                    Routes.Areas.Actions.PRNS.Tonnes,
+                    new
                     {
                         area = Category,
-                        id 
+                        id
                     });
         }
 

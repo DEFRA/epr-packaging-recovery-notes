@@ -51,7 +51,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.SentTo,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new { area = string.Empty });
+                new 
+                { 
+                    area = string.Empty 
+                });
         }
 
         [HttpGet]
@@ -155,7 +158,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.Cancelled, 
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new { area = Category, id = cancelViewModel.Id });
+                new 
+                { 
+                    area = Category, 
+                    id = cancelViewModel.Id 
+                });
         }
 
         [HttpGet]
@@ -181,7 +188,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.CancelRequested,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new { id = requestCancelViewModel.Id, area = Category });
+                new 
+                {
+                    area = Category,
+                    id = requestCancelViewModel.Id
+                });
         }
 
         [HttpGet]
@@ -197,16 +208,18 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (id == null)
                 return BadRequest();
 
-            var model = await _prnService.GetDecemberWasteModel(id.Value);
-
             if (DateTime.Today.IsCurrentDateWithinDecOrJan())
+            {
+                var model = await _prnService.GetDecemberWasteModel(id.Value);
+
                 return View(model);
+            }
             else
                 return RedirectToAction(
-                    Routes.Areas.Actions.PRNS.Tonnes, 
-                    new 
-                    { 
-                        area = Category, 
+                    Routes.Areas.Actions.PRNS.Tonnes,
+                    new
+                    {
+                        area = Category,
                         id
                     });
         }

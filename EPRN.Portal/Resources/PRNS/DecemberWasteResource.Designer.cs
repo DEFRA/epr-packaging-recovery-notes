@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources {
+namespace EPRN.Portal.Resources.PRNS {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.DecemberWasteResource", typeof(DecemberWasteResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.DecemberWasteResource", typeof(DecemberWasteResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -79,15 +79,6 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
-        /// </summary>
-        public static string Heading {
-            get {
-                return ResourceManager.GetString("Heading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Available balance from waste received in December:.
         /// </summary>
         public static string HintText {
@@ -97,20 +88,38 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to Are you creating this PERN from waste received in December?.
         /// </summary>
-        public static string NoSelection {
+        public static string PERNHeading {
             get {
-                return ResourceManager.GetString("NoSelection", resourceCulture);
+                return ResourceManager.GetString("PERNHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you creating this PERN from waste received in December?.
+        /// </summary>
+        public static string PERNPageTitle {
+            get {
+                return ResourceManager.GetString("PERNPageTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
         /// </summary>
-        public static string PageTitle {
+        public static string PRNHeading {
             get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
+                return ResourceManager.GetString("PRNHeading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
+        /// </summary>
+        public static string PRNPageTitle {
+            get {
+                return ResourceManager.GetString("PRNPageTitle", resourceCulture);
             }
         }
         
@@ -129,15 +138,6 @@ namespace EPRN.Portal.Resources {
         public static string Tonnes {
             get {
                 return ResourceManager.GetString("Tonnes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        public static string YesSelection {
-            get {
-                return ResourceManager.GetString("YesSelection", resourceCulture);
             }
         }
     }
