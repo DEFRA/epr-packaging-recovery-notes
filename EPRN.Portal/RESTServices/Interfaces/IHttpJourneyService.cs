@@ -42,7 +42,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task SaveReprocessorExport(int journeyId, int siteId);
 
-        Task<double?> GetWasteTonnage(int journeyId);
+        Task<WasteTonnageDto> GetWasteTonnage(int journeyId);
 
         Task SaveNote(int journeyId, string noteContent);
 

@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using EPRN.Portal.RESTServices;
+using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
-using EPRN.Portal.Helpers;
-using EPRN.Portal.Resources.PRNS;
 
 namespace EPRN.Portal.Services
 {
@@ -172,18 +170,11 @@ namespace EPRN.Portal.Services
                 requestCancelViewModel.CancelReason);
         }
 
-        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int id)
+        public async Task<(DecemberWasteViewModel, bool)> GetDecemberWasteModel(int id)
         {
-            var decemberWasteModel = new DecemberWasteViewModel
-            {
-                Id = id,
-                materialId = 1,
-                WasteForDecember = null,
-                BalanceAvailable = 260,
-                Category = Category.Unknown
-            };
+            var dto = await _httpPrnsService.GetDecemberWaste(id);
 
-            return decemberWasteModel;
+            return (_mapper.Map<DecemberWasteViewModel>(dto), dto.IsWithinMonth);
         }
 
         public async Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel)
@@ -193,11 +184,6 @@ namespace EPRN.Portal.Services
 
             if (decemberWasteModel.WasteForDecember == null)
                 throw new ArgumentNullException(nameof(decemberWasteModel.WasteForDecember));
-
-            if (decemberWasteModel.Id == 0)
-            {
-                decemberWasteModel.Id = await CreatePrnRecord(decemberWasteModel.materialId, Category.Reprocessor);
-            }
 
             await _httpPrnsService.SaveDecemberWaste(
                 decemberWasteModel.Id,
@@ -234,6 +220,15 @@ namespace EPRN.Portal.Services
             var dto = await _httpPrnsService.GetPrnDetails(reference);
 
             return _mapper.Map<ViewPRNViewModel>(dto);
+        }
+
+        public async Task<ActionPrnViewModel> GetActionPrnViewModel(int id)
+        {
+            //TODO: This will need to be populated by the journey so we can return to it.
+            return new ActionPrnViewModel
+            {
+                Id = id
+            };
         }
     }
 }

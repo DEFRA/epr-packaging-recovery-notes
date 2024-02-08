@@ -2,7 +2,10 @@
 {
     public class DecemberWasteDto
     {
-        public int JourneyId { get; set; }
+        public int Id { get; set; }
+
         public bool?  DecemberWaste { get; set; }
+
+        public bool IsWithinMonth { get; set; }
     }
 }

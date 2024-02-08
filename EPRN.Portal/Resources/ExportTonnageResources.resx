@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HowMuchTonnageQuestion" xml:space="preserve">
-    <value>How many tonnes did you send?</value>
+  <data name="HowMuchTonnageExportQuestion" xml:space="preserve">
+    <value>How many tonnes did you export?</value>
+  </data>
+  <data name="HowMuchTonnageReceiveQuestion" xml:space="preserve">
+    <value>How many tonnes did you receive?</value>
   </data>
   <data name="MissingTonnageError" xml:space="preserve">
     <value>Enter the total tonnes of material sent</value>

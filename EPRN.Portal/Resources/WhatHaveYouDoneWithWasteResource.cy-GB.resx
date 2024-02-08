@@ -135,8 +135,8 @@
   <data name="RecordingFor" xml:space="preserve">
     <value>[Welsh]Recording for:</value>
   </data>
-  <data name="ReproceesedIt" xml:space="preserve">
-    <value>[Welsh]Received it and reproceesed it</value>
+  <data name="ReprocessedIt" xml:space="preserve">
+    <value>[Welsh]Received it and reprocessed it</value>
   </data>
   <data name="SentItOn" xml:space="preserve">
     <value>[Welsh]Received it and sent it on</value>

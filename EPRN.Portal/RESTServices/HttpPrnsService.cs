@@ -99,12 +99,12 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
-            return await Get<DecemberWasteDto>($"{id}/DecemberWaste");
+            return await Get<DecemberWasteDto>($"{id}/Category/{_category}/DecemberWaste");
         }
         
         public async Task SaveDecemberWaste(int id, bool decemberWaste)
         {
-            await Post($"{id}/DecemberWaste/{decemberWaste}");
+            await Post($"{id}/Category/{_category}/DecemberWaste/{decemberWaste}");
         }
     }
 }

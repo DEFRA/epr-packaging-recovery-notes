@@ -246,22 +246,17 @@ namespace EPRN.PRNS.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
-        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
-            var decemberWaste = _prnContext.PRN
-                .Where(wj => wj.Id == journeyId)
-                .Select(x => new DecemberWasteDto
+            return await _prnContext.PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new DecemberWasteDto
                 {
-                    JourneyId = journeyId,
-                    DecemberWaste = x.DecemberWaste
+                    Id = id,
+                    DecemberWaste = prn.DecemberWaste,
+                    IsWithinMonth = true
                 })
                 .SingleOrDefaultAsync();
-
-            return new DecemberWasteDto()
-            {
-                DecemberWaste = decemberWaste.Result.DecemberWaste,
-                JourneyId = journeyId
-            };
         }
 
         public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)

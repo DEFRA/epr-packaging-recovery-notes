@@ -117,22 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>Select yes if the material was baled with wire</value>
+  <data name="Continue" xml:space="preserve">
+    <value>[Welsh] Continue</value>
   </data>
   <data name="Heading" xml:space="preserve">
-    <value>Was it baled with wire?</value>
+    <value>[Welsh] What do want to do with this PRN?</value>
   </data>
-  <data name="HintText" xml:space="preserve">
-    <value>We'll apply a &lt;&lt;percentage&gt;&gt;% weight deduction for bailing wire.</value>
+  <data name="SaveItAsDraft" xml:space="preserve">
+    <value>[Welsh] Save it as draft</value>
   </data>
-  <data name="NoSelection" xml:space="preserve">
-    <value>No</value>
+  <data name="SendItTo" xml:space="preserve">
+    <value>[Welsh] Send it to:</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Was it baled with wire?</value>
-  </data>
-  <data name="YesSelection" xml:space="preserve">
-    <value>Yes</value>
+  <data name="Title" xml:space="preserve">
+    <value>[Welsh] What do want to do with this PRN?</value>
   </data>
 </root>

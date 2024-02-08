@@ -117,22 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ErrorMessage" xml:space="preserve">
-    <value>Select yes if the material was baled with wire</value>
+  <data name="Continue" xml:space="preserve">
+    <value>Continue</value>
   </data>
-  <data name="Heading" xml:space="preserve">
-    <value>Was it baled with wire?</value>
+  <data name="ErrorMessage" xml:space="preserve">
+    <value>Select if you are creating this PRN from your December waste balance</value>
   </data>
   <data name="HintText" xml:space="preserve">
-    <value>We'll apply a &lt;&lt;percentage&gt;&gt;% weight deduction for bailing wire.</value>
+    <value>Available balance from waste received in December:</value>
   </data>
-  <data name="NoSelection" xml:space="preserve">
-    <value>No</value>
+  <data name="PERNHeading" xml:space="preserve">
+    <value>Are you creating this PERN from waste received in December?</value>
   </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Was it baled with wire?</value>
+  <data name="PERNPageTitle" xml:space="preserve">
+    <value>Are you creating this PERN from waste received in December?</value>
   </data>
-  <data name="YesSelection" xml:space="preserve">
-    <value>Yes</value>
+  <data name="PRNHeading" xml:space="preserve">
+    <value>Are you creating this PRN from waste received in December?</value>
+  </data>
+  <data name="PRNPageTitle" xml:space="preserve">
+    <value>Are you creating this PRN from waste received in December?</value>
+  </data>
+  <data name="ThereIsAProblem" xml:space="preserve">
+    <value>There is a problem</value>
+  </data>
+  <data name="Tonnes" xml:space="preserve">
+    <value>Tonnes</value>
   </data>
 </root>

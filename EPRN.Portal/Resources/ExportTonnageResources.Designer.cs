@@ -61,11 +61,20 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to How many tonnes did you send?.
+        ///   Looks up a localized string similar to How many tonnes did you export?.
         /// </summary>
-        public static string HowMuchTonnageQuestion {
+        public static string HowMuchTonnageExportQuestion {
             get {
-                return ResourceManager.GetString("HowMuchTonnageQuestion", resourceCulture);
+                return ResourceManager.GetString("HowMuchTonnageExportQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How many tonnes did you receive?.
+        /// </summary>
+        public static string HowMuchTonnageReceiveQuestion {
+            get {
+                return ResourceManager.GetString("HowMuchTonnageReceiveQuestion", resourceCulture);
             }
         }
         

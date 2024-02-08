@@ -135,20 +135,20 @@
   <data name="HomePage_Account_Title" xml:space="preserve">
     <value>[Welsh]Account</value>
   </data>
-  <data name="HomePage_Accredidation_Description" xml:space="preserve">
+  <data name="HomePage_Accreditation_Description" xml:space="preserve">
     <value>[Welsh]Apply for accreditation, check your status and view all applications</value>
   </data>
-  <data name="HomePage_Accredidation_Link_ApplyForAccredidation" xml:space="preserve">
-    <value>[Welsh]Apply for accredidation</value>
+  <data name="HomePage_Accreditation_Link_ApplyForAccreditation" xml:space="preserve">
+    <value>[Welsh]Apply for accreditation</value>
   </data>
-  <data name="HomePage_Accredidation_Link_MyAccredidations" xml:space="preserve">
-    <value>[Welsh]My accredidations</value>
+  <data name="HomePage_Accreditation_Link_MyAccreditations" xml:space="preserve">
+    <value>[Welsh]My accreditations</value>
   </data>
-  <data name="HomePage_Accredidation_Link_ViewApplications" xml:space="preserve">
+  <data name="HomePage_Accreditation_Link_ViewApplications" xml:space="preserve">
     <value>[Welsh]View all applications</value>
   </data>
-  <data name="HomePage_Accredidation_Title" xml:space="preserve">
-    <value>[Welsh]Accredidation</value>
+  <data name="HomePage_Accreditation_Title" xml:space="preserve">
+    <value>[Welsh]Accreditation</value>
   </data>
   <data name="HomePage_ManagePern_Description" xml:space="preserve">
     <value>[Welsh]Create PERNs, edit drafts and view sent PERNs</value>

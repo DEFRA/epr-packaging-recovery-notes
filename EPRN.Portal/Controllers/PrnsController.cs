@@ -2,6 +2,7 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using static EPRN.Common.Constants.Strings;
 using Routes = EPRN.Common.Constants.Strings.Routes;
@@ -55,6 +56,28 @@ namespace EPRN.Portal.Controllers
             var viewSentPrnsViewModel = await _prnService.GetViewSentPrnsViewModel(request);
 
             return View(viewSentPrnsViewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Action(int? id)
+        {
+            if (id == null)
+                return NotFound();
+     
+            var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Action(ActionPrnViewModel actionPrnViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(actionPrnViewModel);
+
+            if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)
+                return RedirectToAction(Routes.Actions.PRNS.PrnSavedAsDraftConfirmation, new { id = actionPrnViewModel.Id });
+            else
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category.Exporter, actionPrnViewModel.Id });
         }
     }
 }

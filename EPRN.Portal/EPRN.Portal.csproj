@@ -50,6 +50,16 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\PRNS\ActionPRNResources.cy-GB.Designer.cs">
+      <DependentUpon>ActionPRNResources.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\PRNS\ActionPRNResources.Designer.cs">
+      <DependentUpon>ActionPRNResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Update="Resources\NoteResources.Designer.cs">
       <DependentUpon>NoteResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -160,7 +170,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WasteTypesResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\DecemberWasteResource.Designer.cs">
+    <Compile Update="Resources\PRNS\DecemberWasteResource.Designer.cs">
       <DependentUpon>DecemberWasteResource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -178,6 +188,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ActionPRNResources.cy-GB.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\AccredidationLimitResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccredidationLimitResources.Designer.cs</LastGenOutput>
@@ -188,6 +203,11 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CYAResources.resx">
       <LastGenOutput>CYAResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ActionPRNResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\NoteResources.resx">
@@ -225,6 +245,10 @@
     <EmbeddedResource Update="Resources\PRNS\CheckYourAnswersResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CheckYourAnswersResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\ViewSentPrnResources.resx">
       <LastGenOutput>ViewSentPrnResources.Designer.cs</LastGenOutput>
@@ -286,7 +310,7 @@
     <EmbeddedResource Update="Resources\WasteTypesResources.cy-GB.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\DecemberWasteResource.resx">
+    <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>DecemberWasteResource.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>

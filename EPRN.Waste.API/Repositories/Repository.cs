@@ -180,12 +180,17 @@ namespace EPRN.Waste.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<double?> GetWasteTonnage(int journeyId)
+        public async Task<WasteTonnageDto> GetWasteTonnage(int journeyId)
         {
             return await _wasteContext
                 .WasteJourney
                 .Where(wj => wj.Id == journeyId)
-                .Select(wj => wj.Tonnes)
+                .Select(wj => new WasteTonnageDto
+                {
+                    ExportTonnes = wj.Tonnes,
+                    Id = journeyId,
+                    Category = _mapper.Map<Common.Enums.Category>(wj.Category)
+                })
                 .SingleOrDefaultAsync();
         }
 

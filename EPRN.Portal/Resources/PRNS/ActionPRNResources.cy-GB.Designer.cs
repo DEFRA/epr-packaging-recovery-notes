@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WhatHaveYouDoneWithWasteResource {
+    public class ActionPRN___Copy {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WhatHaveYouDoneWithWasteResource() {
+        internal ActionPRN___Copy() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.WhatHaveYouDoneWithWasteResource", typeof(WhatHaveYouDoneWithWasteResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.ActionPRN - Copy", typeof(ActionPRN___Copy).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,74 +70,29 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select what you have done with the waste.
+        ///   Looks up a localized string similar to Save it as draft.
         /// </summary>
-        public static string ErrorMessage {
+        public static string SaveItAsDraft {
             get {
-                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+                return ResourceManager.GetString("SaveItAsDraft", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What have you done with the waste.
+        ///   Looks up a localized string similar to Send it to:.
         /// </summary>
-        public static string Heading {
+        public static string SendItTo {
             get {
-                return ResourceManager.GetString("Heading", resourceCulture);
+                return ResourceManager.GetString("SendItTo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hint Text.
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
-        public static string HintText {
+        public static string Title {
             get {
-                return ResourceManager.GetString("HintText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to What have you done with the waste.
-        /// </summary>
-        public static string PageTitle {
-            get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Recording for: .
-        /// </summary>
-        public static string RecordingFor {
-            get {
-                return ResourceManager.GetString("RecordingFor", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Received it and reproceesed it.
-        /// </summary>
-        public static string ReprocessedIt {
-            get {
-                return ResourceManager.GetString("ReprocessedIt", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Received it and sent it on.
-        /// </summary>
-        public static string SentItOn {
-            get {
-                return ResourceManager.GetString("SentItOn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is a problem.
-        /// </summary>
-        public static string ThereIsAProblem {
-            get {
-                return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

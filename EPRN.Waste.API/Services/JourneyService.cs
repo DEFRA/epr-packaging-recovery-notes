@@ -108,7 +108,7 @@ namespace EPRN.Waste.API.Services
             return await _wasteRepository.GetWasteRecordStatus(journeyId);
         }
 
-        public async Task<double?> GetTonnage(int journeyId)
+        public async Task<WasteTonnageDto> GetTonnage(int journeyId)
         {
             return await _wasteRepository.GetWasteTonnage(journeyId);
         }

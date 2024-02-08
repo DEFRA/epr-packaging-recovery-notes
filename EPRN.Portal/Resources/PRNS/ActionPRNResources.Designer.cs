@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources {
+namespace EPRN.Portal.Resources.PRNS {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DecemberWasteResource {
+    public class ActionPRNResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DecemberWasteResource() {
+        internal ActionPRNResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.DecemberWasteResource", typeof(DecemberWasteResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.ActionPRNResources", typeof(ActionPRNResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,16 +70,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select if you are creating this PRN from your December waste balance.
-        /// </summary>
-        public static string ErrorMessage {
-            get {
-                return ResourceManager.GetString("ErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
         public static string Heading {
             get {
@@ -88,56 +79,29 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Available balance from waste received in December:.
+        ///   Looks up a localized string similar to Save it as draft.
         /// </summary>
-        public static string HintText {
+        public static string SaveItAsDraft {
             get {
-                return ResourceManager.GetString("HintText", resourceCulture);
+                return ResourceManager.GetString("SaveItAsDraft", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to Send it to:.
         /// </summary>
-        public static string NoSelection {
+        public static string SendItTo {
             get {
-                return ResourceManager.GetString("NoSelection", resourceCulture);
+                return ResourceManager.GetString("SendItTo", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
-        public static string PageTitle {
+        public static string Title {
             get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is a problem.
-        /// </summary>
-        public static string ThereIsAProblem {
-            get {
-                return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Tonnes.
-        /// </summary>
-        public static string Tonnes {
-            get {
-                return ResourceManager.GetString("Tonnes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        public static string YesSelection {
-            get {
-                return ResourceManager.GetString("YesSelection", resourceCulture);
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

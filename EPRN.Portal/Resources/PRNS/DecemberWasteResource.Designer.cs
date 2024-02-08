@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources {
+namespace EPRN.Portal.Resources.PRNS {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class WhatHaveYouDoneWithWasteResource {
+    public class DecemberWasteResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal WhatHaveYouDoneWithWasteResource() {
+        internal DecemberWasteResource() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.WhatHaveYouDoneWithWasteResource", typeof(WhatHaveYouDoneWithWasteResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.DecemberWasteResource", typeof(DecemberWasteResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,7 +70,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select what you have done with the waste.
+        ///   Looks up a localized string similar to Select if you are creating this PRN from your December waste balance.
         /// </summary>
         public static string ErrorMessage {
             get {
@@ -79,16 +79,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What have you done with the waste.
-        /// </summary>
-        public static string Heading {
-            get {
-                return ResourceManager.GetString("Heading", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Hint Text.
+        ///   Looks up a localized string similar to Available balance from waste received in December:.
         /// </summary>
         public static string HintText {
             get {
@@ -97,38 +88,38 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What have you done with the waste.
+        ///   Looks up a localized string similar to Are you creating this PERN from waste received in December?.
         /// </summary>
-        public static string PageTitle {
+        public static string PERNHeading {
             get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
+                return ResourceManager.GetString("PERNHeading", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recording for: .
+        ///   Looks up a localized string similar to Are you creating this PERN from waste received in December?.
         /// </summary>
-        public static string RecordingFor {
+        public static string PERNPageTitle {
             get {
-                return ResourceManager.GetString("RecordingFor", resourceCulture);
+                return ResourceManager.GetString("PERNPageTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Received it and reproceesed it.
+        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
         /// </summary>
-        public static string ReprocessedIt {
+        public static string PRNHeading {
             get {
-                return ResourceManager.GetString("ReprocessedIt", resourceCulture);
+                return ResourceManager.GetString("PRNHeading", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Received it and sent it on.
+        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
         /// </summary>
-        public static string SentItOn {
+        public static string PRNPageTitle {
             get {
-                return ResourceManager.GetString("SentItOn", resourceCulture);
+                return ResourceManager.GetString("PRNPageTitle", resourceCulture);
             }
         }
         
@@ -138,6 +129,15 @@ namespace EPRN.Portal.Resources {
         public static string ThereIsAProblem {
             get {
                 return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tonnes.
+        /// </summary>
+        public static string Tonnes {
+            get {
+                return ResourceManager.GetString("Tonnes", resourceCulture);
             }
         }
     }
