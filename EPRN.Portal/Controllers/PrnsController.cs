@@ -71,6 +71,9 @@ namespace EPRN.Portal.Controllers
         [HttpPost]
         public async Task<IActionResult> Action(ActionPrnViewModel actionPrnViewModel)
         {
+            if (!ModelState.IsValid)
+                return View(actionPrnViewModel);
+
             if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)
                 return RedirectToAction(Routes.Actions.PRNS.PrnSavedAsDraftConfirmation, new { id = actionPrnViewModel.Id });
             else
