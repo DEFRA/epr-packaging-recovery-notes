@@ -379,8 +379,8 @@ namespace EPRN.UnitTests.Portal.Services
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(expectedViewModel.Id, result.Id);
-            Assert.AreEqual(expectedViewModel.BalanceAvailable, result.BalanceAvailable);
+            Assert.AreEqual(expectedViewModel.Id, result.Item1.Id);
+            Assert.AreEqual(expectedViewModel.BalanceAvailable, result.Item1.BalanceAvailable);
         }
     }
 }
