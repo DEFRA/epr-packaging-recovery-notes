@@ -20,16 +20,21 @@ namespace EPRN.Portal.Controllers
     {
         private readonly IWasteService _wasteService;
         private readonly IUserBasedService _homeService;
+        private readonly WasteCommonViewModel _wasteCommonViewModel;
 
         public WasteController(
             IWasteService wasteService,
-            IHomeServiceFactory homeServiceFactory)
+            IHomeServiceFactory homeServiceFactory, 
+            WasteCommonViewModel wasteCommonViewModel)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
 
             if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
             _homeService = homeServiceFactory.CreateHomeService();
             if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
+
+            _wasteCommonViewModel = wasteCommonViewModel;
+
         }
 
         [HttpGet]
@@ -135,7 +140,8 @@ namespace EPRN.Portal.Controllers
 
             var id = await _wasteService.CreateJourney(
                 materialId.Value,
-                category.Value);
+                category.Value,
+                _wasteCommonViewModel.CompanyReferenceId);
 
             return RedirectToAction(
                 Routes.Actions.Waste.ReProcessorExport, 
@@ -199,11 +205,22 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Tonnes(ExportTonnageViewModel exportTonnageViewModel)
+        public async Task<IActionResult> Tonnes(ExportTonnageViewModel exportTonnageViewModel, bool performLimitCheck = true)
         {
             if (!ModelState.IsValid)
             {
                 return View(exportTonnageViewModel);
+            }
+
+            if (performLimitCheck && exportTonnageViewModel.ExportTonnes.HasValue)
+            {
+                var accredidationLimitViewModel = await _wasteService.GetAccredidationLimit(
+                    exportTonnageViewModel.Id, 
+                    _wasteCommonViewModel.CompanyReferenceId, 
+                    exportTonnageViewModel.ExportTonnes.Value);
+
+                if (accredidationLimitViewModel.ExcessOfLimit < 0)
+                    return View(Routes.Actions.Waste.AccredidationLimit, accredidationLimitViewModel);
             }
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);

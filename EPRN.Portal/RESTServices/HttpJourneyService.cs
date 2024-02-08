@@ -18,9 +18,10 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<int> CreateJourney(
             int materialId,
-            Category category)
+            Category category,
+            string companyReferenceId)
         {
-            return await Post<int>($"Create/Material/{materialId}/Category/{category}");
+            return await Post<int>($"Create/Material/{materialId}/Category/{category}/{companyReferenceId}");
         }
 
         public async Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId)
@@ -122,5 +123,11 @@ namespace EPRN.Portal.RESTServices
         {
             return (Category)await Get<Category?>($"{journeyId}/Category");
         }
+
+        public async Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered)
+        {
+            return await Get<AccredidationLimitDto>($"{journeyId}/UserAccredidationLimit/{userReferenceId}/{newQuantityEntered}");
+        }
+
     }
 }
