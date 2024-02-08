@@ -268,7 +268,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var routeValues = redirectResult.RouteValues.FirstOrDefault(r => r.Key == "area");
 
             Assert.IsNotNull(routeValues);
-            Assert.AreEqual(Routes.Areas.Exporter, routeValues.Value);
+            Assert.AreEqual(Category.Exporter, routeValues.Value);
 
             routeValues = redirectResult.RouteValues.FirstOrDefault(r => r.Key == "id");
             Assert.IsNotNull(routeValues);
@@ -355,7 +355,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             Assert.AreEqual(Routes.Areas.Actions.PRNS.CancelRequested, result.ActionName);
             Assert.AreEqual(Routes.Areas.Controllers.Exporter.PRNS, result.ControllerName);
             CollectionAssert.AreEquivalent(
-                new[] { new KeyValuePair<string, object>("id", validModel.Id), new KeyValuePair<string, object>("area", Routes.Areas.Exporter) },
+                new[] { new KeyValuePair<string, object>("id", validModel.Id), new KeyValuePair<string, object>("area", Category.Exporter) },
                 result.RouteValues.ToList());
 
             // Ensure that the service method was called with the correct arguments

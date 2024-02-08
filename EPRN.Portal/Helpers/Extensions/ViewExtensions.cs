@@ -29,10 +29,5 @@ namespace EPRN.Portal.Helpers.Extensions
 
             return CancelPermission.CancelAllowed;
         }
-
-        public static bool IsCurrentDateWithinDecOrJan(this DateTime date)
-        {
-            return (DateTime.Now.Month == 12 || DateTime.Now.Month == 1);
-        }
     }
 }

@@ -5,5 +5,6 @@
         public const string SectionName = "AppSettings";
 
         // Add properties here
+        public int? CurrentMonthOverride { get; set; }
     }
 }

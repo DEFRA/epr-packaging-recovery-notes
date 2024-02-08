@@ -1,4 +1,4 @@
-﻿using EPRN.Common.Data.Enums;
+﻿using EPRN.Common.Enums;
 using EPRN.Portal.Areas.Reprocessor.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
@@ -269,7 +269,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
             var routeValues = redirectResult.RouteValues.FirstOrDefault(r => r.Key == "area");
 
             Assert.IsNotNull(routeValues);
-            Assert.AreEqual(Routes.Areas.Reprocessor, routeValues.Value);
+            Assert.AreEqual(Category.Reprocessor, routeValues.Value);
 
             routeValues = redirectResult.RouteValues.FirstOrDefault(r => r.Key == "id");
             Assert.IsNotNull(routeValues);
