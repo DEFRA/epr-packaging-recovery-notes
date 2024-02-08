@@ -38,6 +38,7 @@ namespace EPRN.Portal.Helpers.Filters
 
             var wasteCommonViewModel = context.HttpContext.RequestServices.GetService<WasteCommonViewModel>();
             wasteCommonViewModel.WasteName = wasteName;
+            wasteCommonViewModel.CompanyReferenceId = "UserReferenceId";
         }
     }
 }

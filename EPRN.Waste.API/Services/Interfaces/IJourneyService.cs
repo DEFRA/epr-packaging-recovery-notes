@@ -7,7 +7,7 @@ namespace EPRN.Waste.API.Services.Interfaces
 {
     public interface IJourneyService
     {
-        Task<int> CreateJourney(int materialId, Category category);
+        Task<int> CreateJourney(int materialId, Category category, string companyReferenceId);
 
         Task<int?> GetSelectedMonth(int journeyId);
 
@@ -47,5 +47,8 @@ namespace EPRN.Waste.API.Services.Interfaces
         Task<BaledWithWireDto> GetBaledWithWire(int journeyId);
 
         Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
+
+        Task<AccredidationLimitDto> GetAccredidationLimit(string userReferenceId, double newQuantityEntered);
+        
     }
 }

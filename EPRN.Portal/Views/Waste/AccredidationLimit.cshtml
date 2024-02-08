@@ -1,0 +1,53 @@
+﻿@model AccredidationLimitViewModel
+
+@{
+    ViewData["Title"] = @AccredidationLimitResources.Title;
+}
+
+<partial name="_ValidationSummary" />
+<partial name="_WasteTypeName" />
+
+<form method="post" action="Tonnes">
+    <input type="hidden" name="Id" value="@Model.Id" />
+    <input type="hidden" name="ExportTonnes" value="@Model.NewAmountEntered" />
+       <input type="hidden" name="performLimitCheck" value="false" />
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="event-name">
+                            @AccredidationLimitResources.LimitAlertTitle
+                        </label>
+                    </h1>
+
+                    <p class="govuk-hint">
+                        @AccredidationLimitResources.Line1_Part1
+                        <a href="#">
+                            @AccredidationLimitResources.Line1_Part2
+                        </a>     
+                        @AccredidationLimitResources.Line1_Part3
+                    </p>
+
+                    <p class="govuk-hint">@string.Format(AccredidationLimitResources.Line2, Model.NewAmountEntered.ToString(), Model.ExcessOfLimit.ToString())</p>
+                    <p class="govuk-hint">@string.Format(AccredidationLimitResources.Line3, Model.AccredidationLimit.ToString())</p>
+                    <p class="govuk-hint">@string.Format(AccredidationLimitResources.Line4, Model.TotalToDate.ToString())</p>
+
+                </div>
+            </fieldset>
+
+            <div class="govuk-button-group">
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+                @MasterResources.ContinueBtn
+            </button>
+            
+            <a href="@Model.Id" class="govuk-button govuk-button--secondary">Cancel</a>
+            </div>
+
+        </div>
+    </div>
+</form>
+
+
+

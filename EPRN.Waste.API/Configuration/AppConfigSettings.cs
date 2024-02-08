@@ -21,6 +21,8 @@ namespace EPRN.Waste.API.Configuration
         public int? CurrentMonthOverride { get; set; }
 
         public bool? HasSubmittedReturnOverride { get; set; }
+
+        public double? AccredidationLimit { get; set; }
     }
 }
 

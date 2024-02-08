@@ -7,7 +7,8 @@ namespace EPRN.Portal.Services.Interfaces
     {
         Task<int> CreateJourney(
             int materialId,
-            Category category);
+            Category category,
+            string companyReferenceId);
 
         Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel);
 
@@ -44,5 +45,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveNote(NoteViewModel noteViewModel);
 
         Task<string> GetWasteType(int journeyId);
+
+        Task<AccredidationLimitViewModel> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered);
     }
 }
