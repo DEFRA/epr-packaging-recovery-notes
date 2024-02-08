@@ -223,5 +223,14 @@ namespace EPRN.Portal.Services
 
             return _mapper.Map<ViewPRNViewModel>(dto);
         }
+
+        public async Task<ActionPrnViewModel> GetActionPrnViewModel(int id)
+        {
+            //TODO: This will need to be populated by the journey so we can return to it.
+            return new ActionPrnViewModel
+            {
+                Id = id
+            };
+        }
     }
 }
