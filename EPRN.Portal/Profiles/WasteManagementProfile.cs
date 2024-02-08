@@ -11,6 +11,10 @@ namespace EPRN.Portal.Profiles
             CreateMap<WasteRecordStatusViewModel, WasteRecordStatusDto>().ReverseMap();
             CreateMap<WasteSubTypeOptionViewModel, WasteSubTypeDto>().ReverseMap();
             CreateMap<BaledWithWireViewModel, BaledWithWireDto>().ReverseMap();
+            CreateMap<AccredidationLimitDto, AccredidationLimitViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.UserRole, opt => opt.Ignore())
+                .ReverseMap();
 
         }
     }

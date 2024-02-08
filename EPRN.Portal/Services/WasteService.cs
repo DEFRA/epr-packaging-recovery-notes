@@ -11,6 +11,7 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
+using Humanizer;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
@@ -399,17 +400,9 @@ namespace EPRN.Portal.Services
         public async Task<AccredidationLimitViewModel> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered)
         {
             var accredidationLimitDto = await _httpJourneyService.GetAccredidationLimit(journeyId, userReferenceId, newQuantityEntered);
-
-            var vm = new AccredidationLimitViewModel
-            {
-                JourneyId = journeyId,
-                UserRole = UserRole.Exporter,
-                UserReferenceId = accredidationLimitDto.UserReferenceId,
-                AccredidationLimit = accredidationLimitDto.AccredidationLimit,
-                TotalToDate = accredidationLimitDto.TotalToDate,
-                NewAmountEntered = accredidationLimitDto.NewAmountEntered,
-                ExcessOfLimit = accredidationLimitDto.ExcessOfLimit
-            };
+            var vm = _mapper.Map<AccredidationLimitViewModel>(accredidationLimitDto, opt => opt.AfterMap((src, dest) => dest.Id = journeyId));
+            if (vm != null)
+                vm.UserRole = UserRole.Exporter;
 
             return vm;
         }

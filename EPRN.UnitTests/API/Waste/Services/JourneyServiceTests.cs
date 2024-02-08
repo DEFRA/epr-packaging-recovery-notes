@@ -18,6 +18,7 @@ namespace EPRN.UnitTests.API.Waste.Services
         private Mock<IMapper> _mockMapper;
         private Mock<IRepository> _mockRepository;
         private Mock<IOptions<AppConfigSettings>> _mockConfigSettings;
+        private const double AccredidationLimit = 400;
 
         [TestInitialize]
         public void Init()
@@ -28,7 +29,8 @@ namespace EPRN.UnitTests.API.Waste.Services
 
             var config = new AppConfigSettings
             {
-                DeductionAmount = 100
+                DeductionAmount = 100,
+                AccredidationLimit = AccredidationLimit
             };
 
             _mockConfigSettings.Setup(m => m.Value).Returns(config);
@@ -280,7 +282,7 @@ namespace EPRN.UnitTests.API.Waste.Services
                     It.Is<string>(p => p == userReferenceId)),
                 Times.Once());
 
-            Assert.IsTrue(result.ExcessOfLimit == (Common.Constants.Double.AccredidationLimit - newQuantityEntered));
+            Assert.IsTrue(result.ExcessOfLimit == (AccredidationLimit - newQuantityEntered));
         }
 
     }

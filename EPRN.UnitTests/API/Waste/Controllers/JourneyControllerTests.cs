@@ -442,7 +442,7 @@ namespace EPRN.UnitTests.API.Waste.Controllers
 
             var expectedDto = new AccredidationLimitDto();
             expectedDto.JourneyId = validJourneyId;
-            expectedDto.AccredidationLimit = Common.Constants.Double.AccredidationLimit;
+            expectedDto.AccredidationLimit = 400;
             
             _mockJourneyService.Setup(service => service.GetAccredidationLimit(It.IsAny<string>(), It.IsAny<double>()))
                 .ReturnsAsync(expectedDto);

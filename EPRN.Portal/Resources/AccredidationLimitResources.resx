@@ -120,6 +120,9 @@
   <data name="LimitAlertTitle" xml:space="preserve">
     <value>You're about to go over your accredidation limit</value>
   </data>
+  <data name="Line1" xml:space="preserve">
+    <value>You can continue creating this PRN, but must {0} pay an extra accredidation fee {1} within 28 days.</value>
+  </data>
   <data name="Line1_Part1" xml:space="preserve">
     <value>You can continue creating this PRN, but must </value>
   </data>
@@ -130,13 +133,13 @@
     <value>within 28 days.</value>
   </data>
   <data name="Line2" xml:space="preserve">
-    <value>You've entered &lt;&lt;newTonnageEntered&gt;&gt; tonnes. This will exceed your accredidation limit by &lt;&lt;exceedLimitBy&gt;&gt; tonnes.</value>
+    <value>You've entered {0} tonnes. This will exceed your accredidation limit by {1} tonnes.</value>
   </data>
   <data name="Line3" xml:space="preserve">
-    <value>Current accredidation limit: &lt;&lt;currentAccredidationLimit&gt;&gt; tonnes</value>
+    <value>Current accredidation limit: {0} tonnes</value>
   </data>
   <data name="Line4" xml:space="preserve">
-    <value>Total PRNs issued to date: &lt;&lt;totalPrnTonnageToDate&gt;&gt; tonnes</value>
+    <value>Total PRNs issued to date: {0} tonnes</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Accredidation Limit Alert</value>

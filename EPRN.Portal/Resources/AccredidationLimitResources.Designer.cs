@@ -70,6 +70,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can continue creating this PRN, but must {0} pay an extra accredidation fee {1} within 28 days..
+        /// </summary>
+        public static string Line1 {
+            get {
+                return ResourceManager.GetString("Line1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can continue creating this PRN, but must .
         /// </summary>
         public static string Line1_Part1 {
@@ -97,7 +106,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You&apos;ve entered &lt;&lt;newTonnageEntered&gt;&gt; tonnes. This will exceed your accredidation limit by &lt;&lt;exceedLimitBy&gt;&gt; tonnes..
+        ///   Looks up a localized string similar to You&apos;ve entered {0} tonnes. This will exceed your accredidation limit by {1} tonnes..
         /// </summary>
         public static string Line2 {
             get {
@@ -106,7 +115,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current accredidation limit: &lt;&lt;currentAccredidationLimit&gt;&gt; tonnes.
+        ///   Looks up a localized string similar to Current accredidation limit: {0} tonnes.
         /// </summary>
         public static string Line3 {
             get {
@@ -115,7 +124,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Total PRNs issued to date: &lt;&lt;totalPrnTonnageToDate&gt;&gt; tonnes.
+        ///   Looks up a localized string similar to Total PRNs issued to date: {0} tonnes.
         /// </summary>
         public static string Line4 {
             get {

@@ -15,6 +15,7 @@ namespace EPRN.Waste.API.Services
         private readonly double _deductionAmount;
         public readonly IMapper _mapper;
         public readonly IRepository _wasteRepository;
+        private readonly double _accredidationLimit;
 
         public JourneyService(
             IMapper mapper,
@@ -27,10 +28,17 @@ namespace EPRN.Waste.API.Services
             if (configSettings == null)
                 throw new ArgumentNullException(nameof(configSettings));
 
-            if (configSettings.Value == null || configSettings.Value.DeductionAmount == null)
+            if (configSettings.Value == null)
+                throw new ArgumentNullException(nameof(configSettings.Value));
+
+            if (configSettings.Value.DeductionAmount == null)
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount));
 
+            if (configSettings.Value.AccredidationLimit == null)
+                throw new ArgumentNullException(nameof(configSettings.Value.AccredidationLimit));
+
             _deductionAmount = configSettings.Value.DeductionAmount.Value;
+            _accredidationLimit = configSettings.Value.AccredidationLimit.Value;
         }
 
         public async Task<int> CreateJourney(
@@ -175,7 +183,7 @@ namespace EPRN.Waste.API.Services
 
             var dto = new AccredidationLimitDto();
             dto.UserReferenceId = userReferenceId;
-            dto.AccredidationLimit = Common.Constants.Double.AccredidationLimit;
+            dto.AccredidationLimit = _accredidationLimit;
             dto.NewAmountEntered = newQuantityEntered;
             dto.TotalToDate = totalQuantityForUser.Value;
             dto.ExcessOfLimit = dto.AccredidationLimit - dto.TotalToDate - newQuantityEntered;

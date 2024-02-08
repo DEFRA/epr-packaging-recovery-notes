@@ -24,7 +24,8 @@ namespace EPRN.Portal.Controllers
 
         public WasteController(
             IWasteService wasteService,
-            IHomeServiceFactory homeServiceFactory, WasteCommonViewModel wasteCommonViewModel)
+            IHomeServiceFactory homeServiceFactory, 
+            WasteCommonViewModel wasteCommonViewModel)
         {
             _wasteService = wasteService ?? throw new ArgumentNullException(nameof(wasteService));
 
@@ -211,9 +212,6 @@ namespace EPRN.Portal.Controllers
                 return View(exportTonnageViewModel);
             }
 
-            // first check if accredidation limit has been reached
-            //----------------------------------------------------
-
             if (performLimitCheck && exportTonnageViewModel.ExportTonnes.HasValue)
             {
                 var accredidationLimitViewModel = await _wasteService.GetAccredidationLimit(
@@ -222,23 +220,14 @@ namespace EPRN.Portal.Controllers
                     exportTonnageViewModel.ExportTonnes.Value);
 
                 if (accredidationLimitViewModel.ExcessOfLimit < 0)
-                    return View("AccredidationLimit", accredidationLimitViewModel);
+                    return View(Routes.Actions.Waste.AccredidationLimit, accredidationLimitViewModel);
             }
-
-            //----------------------------------------------------
 
             await _wasteService.SaveTonnage(exportTonnageViewModel);
 
             return RedirectToAction(
                 Routes.Actions.Waste.Baled, 
                 new { id = exportTonnageViewModel.Id });
-        }
-
-        [HttpPost]
-        [ActionName(Routes.Actions.Waste.AccredidationLimit)]
-        public IActionResult AccredidationLimitPost(int? id)
-        {
-            return RedirectToAction("Tonnes", "Waste", new { id });
         }
 
         [HttpGet]

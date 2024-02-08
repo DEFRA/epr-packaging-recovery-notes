@@ -8,9 +8,9 @@
 <partial name="_WasteTypeName" />
 
 <form method="post" action="Tonnes">
-    <input type="hidden" name="Id" value="@Model.JourneyId" />
+    <input type="hidden" name="Id" value="@Model.Id" />
     <input type="hidden" name="ExportTonnes" value="@Model.NewAmountEntered" />
-    <input type="hidden" name="performLimitCheck" value="false" />
+       <input type="hidden" name="performLimitCheck" value="false" />
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -29,9 +29,10 @@
                         </a>     
                         @AccredidationLimitResources.Line1_Part3
                     </p>
-                    <p class="govuk-hint">@AccredidationLimitResources.Line2.Replace("<<newTonnageEntered>>", Model.NewAmountEntered.ToString()).Replace("<<exceedLimitBy>>", Model.ExcessOfLimit.ToString())</p>
-                    <p class="govuk-hint">@AccredidationLimitResources.Line3.Replace("<<currentAccredidationLimit>>", Model.AccredidationLimit.ToString())</p>
-                    <p class="govuk-hint">@AccredidationLimitResources.Line4.Replace("<<totalPrnTonnageToDate>>", Model.TotalToDate.ToString())</p>
+
+                    <p class="govuk-hint">@string.Format(AccredidationLimitResources.Line2, Model.NewAmountEntered.ToString(), Model.ExcessOfLimit.ToString())</p>
+                    <p class="govuk-hint">@string.Format(AccredidationLimitResources.Line3, Model.AccredidationLimit.ToString())</p>
+                    <p class="govuk-hint">@string.Format(AccredidationLimitResources.Line4, Model.TotalToDate.ToString())</p>
 
                 </div>
             </fieldset>
@@ -41,7 +42,7 @@
                 @MasterResources.ContinueBtn
             </button>
             
-            <a href="@Model.JourneyId" class="govuk-button govuk-button--secondary">Cancel</a>
+            <a href="@Model.Id" class="govuk-button govuk-button--secondary">Cancel</a>
             </div>
 
         </div>
