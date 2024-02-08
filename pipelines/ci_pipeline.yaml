@@ -17,7 +17,7 @@ pool: DEFRA-COMMON-ubuntu2004-SSV3
 variables:
   - template: vars/Team-9_Ops-development.yaml
   - name: solutionFolder
-    value: ''
+    value: '.'
   - name: projectFolder
     value: EPRN.Portal
   - name: testProjectFolder
