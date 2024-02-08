@@ -1,6 +1,7 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
+using EPRN.Portal.Helpers.Extensions;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -16,14 +17,13 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
         private Category Category => Category.Reprocessor;
 
-        private bool IsCurrentDateWithinDecOrJan()
+        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
         {
-            return (DateTime.Now.Month == 12 ||
-                    DateTime.Now.Month == 1);
-        }
+            if (prnServiceFactory == null)
+                throw new ArgumentNullException(nameof(prnServiceFactory));
 
-        public PRNSController(IPRNService prnService)
-        {
+            var prnService = prnServiceFactory.Invoke(Category);
+
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 
@@ -51,7 +51,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.SentTo,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new { area = string.Empty });
+                new 
+                { 
+                    area = string.Empty 
+                });
         }
 
         [HttpGet]
@@ -66,7 +69,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new { Id = prnId });
+                new 
+                { 
+                    area = Category, 
+                    Id = prnId 
+                });
         }
 
         [HttpGet]
@@ -103,7 +110,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.WhatToDo, 
                 Routes.Areas.Controllers.Reprocessor.PRNS, 
-                new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
+                new 
+                { 
+                    area = Category, 
+                    id = checkYourAnswersViewModel.Id 
+                });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -147,7 +158,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.Cancelled, 
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new { area = Routes.Areas.Reprocessor, id = cancelViewModel.Id });
+                new 
+                { 
+                    area = Category, 
+                    id = cancelViewModel.Id 
+                });
         }
 
         [HttpGet]
@@ -173,7 +188,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.CancelRequested,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new { id = requestCancelViewModel.Id, area = Routes.Areas.Reprocessor });
+                new 
+                {
+                    area = Category,
+                    id = requestCancelViewModel.Id
+                });
         }
 
         [HttpGet]
@@ -189,12 +208,20 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (id == null)
                 return BadRequest();
 
-            var model = await _prnService.GetDecemberWasteModel(id.Value);
+            if (DateTime.Today.IsCurrentDateWithinDecOrJan())
+            {
+                var model = await _prnService.GetDecemberWasteModel(id.Value);
 
-            if (this.IsCurrentDateWithinDecOrJan())
                 return View(model);
+            }
             else
-                return RedirectToAction("Tonnes", new { id = model.Id });
+                return RedirectToAction(
+                    Routes.Areas.Actions.PRNS.Tonnes,
+                    new
+                    {
+                        area = Category,
+                        id
+                    });
         }
 
         [HttpPost]
@@ -205,7 +232,13 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveDecemberWaste(decemberWaste);
 
-            return RedirectToAction("Tonnes", new { id = decemberWaste.Id });
+            return RedirectToAction(
+                Routes.Areas.Actions.PRNS.Tonnes, 
+                new 
+                { 
+                    area = Category, 
+                    id = decemberWaste.Id 
+                });
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

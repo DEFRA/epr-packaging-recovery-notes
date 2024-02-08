@@ -18,7 +18,8 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
-            _prnController = new PRNSController(_mockPrnService.Object);
+            var factory = new Func<EPRN.Common.Enums.Category, IPRNService>((category) => _mockPrnService.Object);
+            _prnController = new PRNSController(factory);
         }
 
         [TestMethod]

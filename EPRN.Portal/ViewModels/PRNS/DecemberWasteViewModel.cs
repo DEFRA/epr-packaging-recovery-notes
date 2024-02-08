@@ -1,5 +1,5 @@
 using EPRN.Common.Enums;
-using EPRN.Portal.Resources;
+using EPRN.Portal.Resources.PRNS;
 using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Portal.ViewModels.PRNS
@@ -8,9 +8,9 @@ namespace EPRN.Portal.ViewModels.PRNS
     {
         public int Id { get; set; }
 
-        public int materialId { get; set; }
+        //public int MaterialId { get; set; }
 
-        public Category Category { get; set; }
+        //public Category Category { get; set; }
         
         public double BalanceAvailable { get; set; }
 

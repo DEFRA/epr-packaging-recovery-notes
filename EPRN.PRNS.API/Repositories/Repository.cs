@@ -54,11 +54,12 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task<bool> PrnExists(
-            int id)
+            int id, 
+            EPRN.Common.Enums.Category category)
         {
             return await _prnContext
                 .PRN
-                .AnyAsync(p => p.Id == id);
+                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -158,8 +159,9 @@ namespace EPRN.PRNS.API.Repositories
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
                 .Include(repo => repo.WasteType)
-                .Include(repo => repo.PrnHistory.Where(history => history.Status >= PrnStatus.Accepted))
-                .AsQueryable();
+                .Include(repo => repo.PrnHistory)//.Where(history => history.Status >= PrnStatus.Accepted))
+                //.AsQueryable();
+                .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
 
             if (!string.IsNullOrWhiteSpace(request.FilterBy))
             {
@@ -244,22 +246,16 @@ namespace EPRN.PRNS.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
-        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
-            var decemberWaste = _prnContext.PRN
-                .Where(wj => wj.Id == journeyId)
-                .Select(x => new DecemberWasteDto
+            return await _prnContext.PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new DecemberWasteDto
                 {
-                    JourneyId = journeyId,
-                    DecemberWaste = x.DecemberWaste
+                    Id = id,
+                    DecemberWaste = prn.DecemberWaste
                 })
                 .SingleOrDefaultAsync();
-
-            return new DecemberWasteDto()
-            {
-                DecemberWaste = decemberWaste.Result.DecemberWaste,
-                JourneyId = journeyId
-            };
         }
 
         public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)

@@ -117,45 +117,45 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Apply for accreditation, check your status and view all applications.
         /// </summary>
-        public static string HomePage_Accredidation_Description {
+        public static string HomePage_Accreditation_Description {
             get {
-                return ResourceManager.GetString("HomePage_Accredidation_Description", resourceCulture);
+                return ResourceManager.GetString("HomePage_Accreditation_Description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Apply for accredidation.
+        ///   Looks up a localized string similar to Apply for accreditation.
         /// </summary>
-        public static string HomePage_Accredidation_Link_ApplyForAccredidation {
+        public static string HomePage_Accreditation_Link_ApplyForAccreditation {
             get {
-                return ResourceManager.GetString("HomePage_Accredidation_Link_ApplyForAccredidation", resourceCulture);
+                return ResourceManager.GetString("HomePage_Accreditation_Link_ApplyForAccreditation", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to My accredidations.
+        ///   Looks up a localized string similar to My accreditations.
         /// </summary>
-        public static string HomePage_Accredidation_Link_MyAccredidations {
+        public static string HomePage_Accreditation_Link_MyAccreditations {
             get {
-                return ResourceManager.GetString("HomePage_Accredidation_Link_MyAccredidations", resourceCulture);
+                return ResourceManager.GetString("HomePage_Accreditation_Link_MyAccreditations", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to View all applications.
         /// </summary>
-        public static string HomePage_Accredidation_Link_ViewApplications {
+        public static string HomePage_Accreditation_Link_ViewApplications {
             get {
-                return ResourceManager.GetString("HomePage_Accredidation_Link_ViewApplications", resourceCulture);
+                return ResourceManager.GetString("HomePage_Accreditation_Link_ViewApplications", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Accredidation.
+        ///   Looks up a localized string similar to Accreditation.
         /// </summary>
-        public static string HomePage_Accredidation_Title {
+        public static string HomePage_Accreditation_Title {
             get {
-                return ResourceManager.GetString("HomePage_Accredidation_Title", resourceCulture);
+                return ResourceManager.GetString("HomePage_Accreditation_Title", resourceCulture);
             }
         }
         

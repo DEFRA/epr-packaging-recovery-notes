@@ -17,12 +17,12 @@ namespace EPRN.Portal.Services.HomeServices
 {
     public class UserBasedExporterService : UserBasedBaseService, IUserBasedService
     {
-        public UserBasedExporterService(IOptions<AppConfigSettings> configSettings, 
+        public UserBasedExporterService(IOptions<AppConfigSettings> configSettings,
             IHttpJourneyService httpJourneyService,
             IUrlHelperFactory urlHelperFactory,
             IActionContextAccessor actionContextAccessor)
             : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
-        {       
+        {
         }
 
         protected override List<CardViewModel> GetCardViewModels()
@@ -53,9 +53,9 @@ namespace EPRN.Portal.Services.HomeServices
 
             var accreditationCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_Accredidation_Link_ApplyForAccredidation, "#" },
-                { HomePageResources.HomePage_Accredidation_Link_MyAccredidations, "#" },
-                { HomePageResources.HomePage_Accredidation_Link_ViewApplications, "#" }
+                { HomePageResources.HomePage_Accreditation_Link_ApplyForAccreditation, "#" },
+                { HomePageResources.HomePage_Accreditation_Link_MyAccreditations, "#" },
+                { HomePageResources.HomePage_Accreditation_Link_ViewApplications, "#" }
             };
 
             var accountCardLinks = new Dictionary<string, string>()
@@ -75,7 +75,7 @@ namespace EPRN.Portal.Services.HomeServices
             var returnsCardViewModel = GetCardViewModel(HomePageResources.HomePage_Returns_Title, HomePageResources.HomePage_Returns_Description);
             returnsCardViewModel.Links = returnsCardLinks;
 
-            var accreditationCardViewModel = GetCardViewModel(HomePageResources.HomePage_Accredidation_Title, HomePageResources.HomePage_Accredidation_Description);
+            var accreditationCardViewModel = GetCardViewModel(HomePageResources.HomePage_Accreditation_Title, HomePageResources.HomePage_Accreditation_Description);
             accreditationCardViewModel.Links = accreditationCardLinks;
 
             var accountCardViewModel = GetCardViewModel(HomePageResources.HomePage_Account_Title, HomePageResources.HomePage_Account_Description);
@@ -135,7 +135,7 @@ namespace EPRN.Portal.Services.HomeServices
             vm.BaledWithWire = journey.BaledWithWire.HasValue ? (journey.BaledWithWire.Value == true ? "Yes" : "No") : string.Empty;
             vm.TonnageOfWaste = journey.Tonnes.ToString();
             vm.TonnageAdjusted = journey.Adjustment.ToString();
-            vm.MonthReceived = journey.Month.HasValue ? (CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value)) : string.Empty;
+            vm.MonthReceived = journey.Month.HasValue ? CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value) : string.Empty;
             vm.Note = journey.Note;
         }
 

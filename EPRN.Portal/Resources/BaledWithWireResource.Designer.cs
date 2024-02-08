@@ -79,7 +79,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to We&apos;ll apply a 0.15% weight deduction for bailing wire..
+        ///   Looks up a localized string similar to We&apos;ll apply a &lt;&lt;percentage&gt;&gt;% weight deduction for bailing wire..
         /// </summary>
         public static string HintText {
             get {
@@ -97,7 +97,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bailed with wire.
+        ///   Looks up a localized string similar to Was it baled with wire?.
         /// </summary>
         public static string PageTitle {
             get {

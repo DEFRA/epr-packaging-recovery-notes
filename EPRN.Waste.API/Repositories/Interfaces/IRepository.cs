@@ -51,7 +51,7 @@ namespace EPRN.Waste.API.Repositories.Interfaces
 
         Task<JourneyAnswersDto> GetWasteJourneyAnswersById(int journeyId);
 
-        Task<double?> GetWasteTonnage(int journeyId);
+        Task<WasteTonnageDto> GetWasteTonnage(int journeyId);
 
         Task<bool> Exists(int journeyId);
 

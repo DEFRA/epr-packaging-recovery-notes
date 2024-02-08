@@ -21,7 +21,7 @@ namespace EPRN.Portal.Services.HomeServices
             IOptions<AppConfigSettings> configSettings,
             IHttpJourneyService httpJourneyService,
             IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor) 
+            IActionContextAccessor actionContextAccessor)
             : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
         {
         }
@@ -54,9 +54,9 @@ namespace EPRN.Portal.Services.HomeServices
 
             var accreditationCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_Accredidation_Link_ApplyForAccredidation, "#" },
-                { HomePageResources.HomePage_Accredidation_Link_MyAccredidations, "#" },
-                { HomePageResources.HomePage_Accredidation_Link_ViewApplications, "#" }
+                { HomePageResources.HomePage_Accreditation_Link_ApplyForAccreditation, "#" },
+                { HomePageResources.HomePage_Accreditation_Link_MyAccreditations, "#" },
+                { HomePageResources.HomePage_Accreditation_Link_ViewApplications, "#" }
             };
 
             var accountCardLinks = new Dictionary<string, string>()
@@ -76,7 +76,7 @@ namespace EPRN.Portal.Services.HomeServices
             var returnsCardViewModel = GetCardViewModel(HomePageResources.HomePage_Returns_Title, HomePageResources.HomePage_Returns_Description);
             returnsCardViewModel.Links = returnsCardLinks;
 
-            var accreditationCardViewModel = GetCardViewModel(HomePageResources.HomePage_Accredidation_Title, HomePageResources.HomePage_Accredidation_Description);
+            var accreditationCardViewModel = GetCardViewModel(HomePageResources.HomePage_Accreditation_Title, HomePageResources.HomePage_Accreditation_Description);
             accreditationCardViewModel.Links = accreditationCardLinks;
 
             var accountCardViewModel = GetCardViewModel(HomePageResources.HomePage_Account_Title, HomePageResources.HomePage_Account_Description);
@@ -109,8 +109,10 @@ namespace EPRN.Portal.Services.HomeServices
             //if (string.IsNullOrWhiteSpace(journeyDto.DoneWaste) || !Enum.TryParse(journeyDto.DoneWaste, out DoneWaste doneWaste))
             //    throw new NullReferenceException("WhatDoneWithWaste");
 
-            var viewModel = new CYAViewModel { JourneyId = journeyId, 
-                Completed = journeyDto.Completed.HasValue ? journeyDto.Completed.Value : false, 
+            var viewModel = new CYAViewModel
+            {
+                JourneyId = journeyId,
+                Completed = journeyDto.Completed.HasValue ? journeyDto.Completed.Value : false,
                 DoneWaste = journeyDto.DoneWaste,
                 UserRole = UserRole.Reprocessor
             };
@@ -145,7 +147,7 @@ namespace EPRN.Portal.Services.HomeServices
             vm.BaledWithWire = journey.BaledWithWire.HasValue ? (journey.BaledWithWire.Value == true ? "Yes" : "No") : string.Empty;
             vm.TonnageOfWaste = journey.Tonnes.ToString();
             vm.TonnageAdjusted = journey.Adjustment.ToString();
-            vm.MonthReceived = journey.Month.HasValue ? (CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value)) : string.Empty;
+            vm.MonthReceived = journey.Month.HasValue ? CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(journey.Month.Value) : string.Empty;
             vm.Note = journey.Note;
         }
 

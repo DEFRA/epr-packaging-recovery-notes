@@ -1,6 +1,7 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
+using EPRN.Portal.Helpers.Extensions;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -16,15 +17,13 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
         private Category Category => Category.Exporter;
 
-        private bool IsCurrentDateWithinDecOrJan()
+        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
         {
-            return (DateTime.Now.Month == 12 ||
-                    DateTime.Now.Month == 1);
-        }
+            if (prnServiceFactory == null)
+                throw new ArgumentNullException(nameof(prnServiceFactory));
 
+            var prnService = prnServiceFactory.Invoke(Category);
 
-        public PRNSController(IPRNService prnService)
-        {
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
         }
 
@@ -53,7 +52,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.SentTo, 
                 Routes.Areas.Controllers.Exporter.PRNS, 
-                new { area = Category, tonnesViewModel.Id });
+                new 
+                { 
+                    area = Category, 
+                    tonnesViewModel.Id 
+                });
         }
 
         [HttpGet]
@@ -68,7 +71,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Exporter.PRNS,
-                new { Id = prnId });
+                new 
+                { 
+                    area = Category, 
+                    Id = prnId 
+                });
         }
 
         [HttpGet]
@@ -99,13 +106,16 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             // No need for a check on ModelState as there are no attributes on it
             // if there is an issoe in the contents of the model, then a BadRequest will
             // handle this through the MVC framework
-
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.WhatToDo,
                 Routes.Areas.Controllers.Exporter.PRNS, 
-                new { area = Category.ToString(), id = checkYourAnswersViewModel.Id });
+                new 
+                { 
+                    area = Category, 
+                    id = checkYourAnswersViewModel.Id 
+                });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -149,7 +159,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.Cancelled,
                 Routes.Areas.Controllers.Exporter.PRNS,
-                new { area = Routes.Areas.Exporter, id = cancelViewModel.Id });
+                new 
+                { 
+                    area = Category, 
+                    id = cancelViewModel.Id 
+                });
         }
 
         [HttpGet]
@@ -175,7 +189,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.CancelRequested,
                 Routes.Areas.Controllers.Exporter.PRNS,
-                new { id = requestCancelViewModel.Id, area = Routes.Areas.Exporter });
+                new 
+                {
+                    area = Category,
+                    id = requestCancelViewModel.Id
+                });
         }
 
         [HttpGet]
@@ -202,12 +220,20 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (id == null)
                 return BadRequest();
 
-            var model = await _prnService.GetDecemberWasteModel(id.Value);
+            if (DateTime.Today.IsCurrentDateWithinDecOrJan())
+            {
+                var model = await _prnService.GetDecemberWasteModel(id.Value);
 
-            if (this.IsCurrentDateWithinDecOrJan())
                 return View(model);
+            }
             else
-                return RedirectToAction("Tonnes", new { id = model.Id });
+                return RedirectToAction(
+                    Routes.Areas.Actions.PRNS.Tonnes,
+                    new
+                    {
+                        area = Category,
+                        id
+                    });
         }
 
         [HttpPost]
@@ -218,7 +244,9 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.SaveDecemberWaste(decemberWaste);
 
-            return RedirectToAction("Tonnes", new { id = decemberWaste.Id });
+            return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes,
+                                    Routes.Areas.Controllers.Exporter.PRNS,
+                                    new { decemberWaste.Id });
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

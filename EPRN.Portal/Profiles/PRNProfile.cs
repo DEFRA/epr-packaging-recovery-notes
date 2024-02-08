@@ -16,6 +16,8 @@ namespace EPRN.Portal.Profiles
             CreateMap<PaginationDto, PaginationViewModel>();
             CreateMap<SentPrnsDto, ViewSentPrnsViewModel>();
             CreateMap<GetSentPrnsViewModel, GetSentPrnsDto>();
+            CreateMap<DecemberWasteDto, DecemberWasteViewModel>()
+                .ForMember(d => d.WasteForDecember, o => o.MapFrom(s => s.DecemberWaste));
 
             CreateMap<PRNDetailsDto, ViewPRNViewModel>()
                 .ForMember(d => d.SiteAddress, o => o.MapFrom(s => s.SiteAddress.Replace(Environment.NewLine, "<br/>")))

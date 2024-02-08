@@ -172,18 +172,11 @@ namespace EPRN.Portal.Services
                 requestCancelViewModel.CancelReason);
         }
 
-        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int Id)
+        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int id)
         {
-            var decemberWasteModel = new DecemberWasteViewModel
-            {
-                Id = 25,
-                materialId = 1,
-                WasteForDecember = null,
-                BalanceAvailable = 260,
-                Category = Category.Unknown
-            };
+            var dto = await _httpPrnsService.GetDecemberWaste(id);
 
-            return decemberWasteModel;
+            return _mapper.Map<DecemberWasteViewModel>(dto);
         }
 
         public async Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel)
@@ -193,11 +186,6 @@ namespace EPRN.Portal.Services
 
             if (decemberWasteModel.WasteForDecember == null)
                 throw new ArgumentNullException(nameof(decemberWasteModel.WasteForDecember));
-
-            if (decemberWasteModel.Id == 0)
-            {
-                decemberWasteModel.Id = await CreatePrnRecord(decemberWasteModel.materialId, Category.Reprocessor);
-            }
 
             await _httpPrnsService.SaveDecemberWaste(
                 decemberWasteModel.Id,
