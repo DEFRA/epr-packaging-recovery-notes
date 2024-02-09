@@ -146,11 +146,16 @@ namespace EPRN.PRNS.API.Services
             await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
         }
 
-        #region Private methods - Keep at bottom of file
-        // Stub this and generate a random PRN reference number
-        // In time a specific generation algorithm will
-        // be specified
-        private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+        public async Task SaveSentTo(int id, PrnStatus status)
+        {
+            await _prnRepository.SaveSentTo(id, status.ToString());
+        }
+
+    #region Private methods - Keep at bottom of file
+    // Stub this and generate a random PRN reference number
+    // In time a specific generation algorithm will
+    // be specified
+    private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
         #endregion
     }
 }

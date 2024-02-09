@@ -111,5 +111,10 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<string>($"{id}/Category/{_category}/Reference");
         }
-    }
+
+        public async Task SaveSentTo(int id, PrnStatus? status)
+        {
+            await Post($"{id}/Category/{_category}/SentTo/{status}");
+        }
+}
 }

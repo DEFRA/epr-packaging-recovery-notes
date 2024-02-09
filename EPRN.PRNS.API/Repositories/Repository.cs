@@ -281,5 +281,14 @@ namespace EPRN.PRNS.API.Repositories
                     sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
                 );
         }
+
+        public async Task SaveSentTo(int id, string status)
+        {
+            await _prnContext.PRN
+                .Where(wj => wj.Id == id)
+                .ExecuteUpdateAsync(sp =>
+                    sp.SetProperty(wj => wj.SentTo, status)
+                );
+        }
     }
 }

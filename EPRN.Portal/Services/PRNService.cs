@@ -232,5 +232,18 @@ namespace EPRN.Portal.Services
 
             return actionPrnViewModel;
         }
+
+        public async Task SaveSentTo(ActionPrnViewModel actionPrnViewModel)
+        {
+            if (actionPrnViewModel == null)
+                throw new ArgumentNullException(nameof(actionPrnViewModel));
+
+            if (actionPrnViewModel.DoWithPRN == null)
+                throw new ArgumentNullException(nameof(actionPrnViewModel.DoWithPRN));
+
+            await _httpPrnsService.SaveSentTo(
+                actionPrnViewModel.Id,
+                actionPrnViewModel.DoWithPRN.Value);
+        }
     }
 }

@@ -256,6 +256,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (!ModelState.IsValid)
                 return View(actionPrnViewModel);
 
+
+            await _prnService.SaveSentTo(actionPrnViewModel);
+
             if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)
                 return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
                             new { area = Category.ToString(), actionPrnViewModel.Id });

@@ -176,6 +176,20 @@ namespace EPRN.PRNS.API.Controllers
             return Ok(prnReference.ReferenceNumber);
         }
 
+        [HttpPost]
+        [Route("SentTo/{status}")]
+        public async Task<ActionResult> SaveSentTo(int? id, PrnStatus? status)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            await _prnService.SaveSentTo(
+                id.Value,
+                status.Value);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db

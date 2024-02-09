@@ -40,5 +40,7 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
 
         Task<PRNDetailsDto> GetPrnDetails(int id);
+
+        Task SaveSentTo(int Id, PrnStatus status);
     }
 }
