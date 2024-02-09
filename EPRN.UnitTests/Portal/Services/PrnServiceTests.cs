@@ -109,20 +109,21 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // arrange
             var id = 123;
-            var status = PrnStatus.Sent;
-            _mockHttpPrnsService.Setup(s => s.GetStatus(id)).ReturnsAsync(status);
+            var dto = new StatusAndProducerDto();
+            _mockHttpPrnsService.Setup(s => s.GetStatusAndProducer(id)).ReturnsAsync(dto);
 
             // act
             var viewModel = await _prnService.GetCancelViewModel(id);
 
             // assert
             _mockHttpPrnsService.Verify(s =>
-                s.GetStatus(
+                s.GetStatusAndProducer(
                     It.Is<int>(p => p == id)),
                 Times.Once);
-            Assert.IsNotNull(viewModel);
-            Assert.AreEqual(status, viewModel.Status);
-            Assert.AreEqual(id, viewModel.Id);
+            _mockMapper.Verify(m =>
+                m.Map<CancelViewModel>(
+                    It.Is<StatusAndProducerDto>(p => p == dto)), 
+                Times.Once);
         }
 
         [TestMethod]

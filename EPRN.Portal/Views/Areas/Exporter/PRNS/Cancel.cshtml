@@ -17,7 +17,11 @@
         LinkUrl = Url.ActionLink(
             Routes.Areas.Actions.PRNS.RequestCancel,
             Routes.Areas.Controllers.Exporter.PRNS,
-            new { Area = Routes.Areas.Exporter, id = Model.Id })
+            new 
+            { 
+                Area = Routes.Areas.Exporter, 
+                id = Model.Id 
+            })
     };
 
     <partial name="_NotificationPanel" model="notification" />

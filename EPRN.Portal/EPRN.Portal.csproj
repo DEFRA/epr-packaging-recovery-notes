@@ -95,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\PRNS\CancelledResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CancelledResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PRNS\CancelResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -234,6 +239,10 @@
     <EmbeddedResource Update="Resources\CreatePrnPern.resx">
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\CancelledResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CancelledResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\CancelResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
