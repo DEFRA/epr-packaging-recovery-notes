@@ -1,0 +1,53 @@
+trigger:
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - 'epr-packaging-recovery-notes/*'
+
+parameters:
+- name: runTests
+  displayName: Run tests
+  type: boolean
+  default: true
+
+pool: DEFRA-COMMON-ubuntu2004-SSV3
+
+variables:
+  - template: vars/Team-9_Ops-development.yaml
+  - name: solutionFolder
+    value: '.'
+  - name: projectFolder
+    value: EPRN.PRNS.API
+  - name: testProjectFolder
+    value:  EPRN.UnitTests
+  - name: sonarQubeProjectKey
+    value: EPRN.PRNS.API
+  - name: sonarQubeProjectName
+    value: EPRN.PRNS.API
+  - name: runNugetTasks
+    value: false
+
+resources:
+  repositories:
+    - repository: CommonTemplates
+      name: RWD-CPR-EPR4P-ADO/epr-webapps-code-deploy-templates
+      type: git
+      ref: main
+
+extends:
+  template: epr-build-pipeline.yaml@CommonTemplates
+  parameters:
+    solutionFolder: ${{ variables.solutionFolder }}
+    projectFolder: ${{ variables.projectFolder }}
+    testProjectFolder: ${{ variables.testProjectFolder }}
+    sonarQubeProjectKey: ${{ variables.sonarQubeProjectKey }}
+    sonarQubeProjectName: ${{ variables.sonarQubeProjectName }}
+    runTests: ${{ parameters.runTests }}
+    azureSubscription: $(azureSubscription)
+    acrAzureContainerRegistryName: $(acr.azureContainerRegistryName)
+    acrRepositoryName: $(acr.repositoryName)
+    branchName: ${{ replace(replace(variables['Build.SourceBranch'], 'refs/heads/', ''), '/', '_') }}
+    runNugetTasks: ${{ variables.runNugetTasks }}
+    serviceName: $(serviceName)
