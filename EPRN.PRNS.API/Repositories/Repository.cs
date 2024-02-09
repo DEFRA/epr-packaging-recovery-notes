@@ -159,8 +159,7 @@ namespace EPRN.PRNS.API.Repositories
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
                 .Include(repo => repo.WasteType)
-                .Include(repo => repo.PrnHistory)//.Where(history => history.Status >= PrnStatus.Accepted))
-                //.AsQueryable();
+                .Include(repo => repo.PrnHistory)
                 .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
 
             if (!string.IsNullOrWhiteSpace(request.FilterBy))
