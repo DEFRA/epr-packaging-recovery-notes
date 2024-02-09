@@ -123,12 +123,8 @@ namespace EPRN.PRNS.API.Services
             {
                 monthToCheckAgainst = _currentMonthOverride.Value;
             }
-        public async Task<PRNDetailsDto> GetPrnDetails(int id)
-        {
-            return await _prnRepository.GetDetails(id);
-        }
 
-            if (monthToCheckAgainst == (int)Months.January ||  monthToCheckAgainst == (int)Months.December) 
+            if (monthToCheckAgainst == (int)Months.January || monthToCheckAgainst == (int)Months.December)
             {
                 return await _prnRepository.GetDecemberWaste(journeyId);
             }
@@ -138,6 +134,11 @@ namespace EPRN.PRNS.API.Services
                 Id = journeyId,
                 IsWithinMonth = false,
             };
+        }
+
+        public async Task<PRNDetailsDto> GetPrnDetails(int id)
+        {
+            return await _prnRepository.GetDetails(id);
         }
 
         public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
