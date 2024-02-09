@@ -165,6 +165,9 @@
   <data name="SkipQuestionLink" xml:space="preserve">
     <value>Skip question</value>
   </data>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>Success</value>
+  </data>
   <data name="SummaryError" xml:space="preserve">
     <value>There is a problem</value>
   </data>

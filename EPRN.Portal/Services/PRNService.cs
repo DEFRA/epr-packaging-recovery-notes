@@ -142,11 +142,9 @@ namespace EPRN.Portal.Services
 
         public async Task<CancelViewModel> GetCancelViewModel(int id)
         {
-            return new CancelViewModel
-            {
-                Id = id,
-                Status = await _httpPrnsService.GetStatus(id)
-            };
+            var dto = await _httpPrnsService.GetStatusAndProducer(id);
+
+            return _mapper.Map<CancelViewModel>(dto);
         }
 
         public async Task<RequestCancelViewModel> GetRequestCancelViewModel(int id)

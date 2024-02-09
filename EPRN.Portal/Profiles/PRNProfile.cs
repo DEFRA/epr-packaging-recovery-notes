@@ -30,6 +30,7 @@ namespace EPRN.Portal.Profiles
                     .First()));
 
             CreateMap<PRNHistoryDto, PRNHistoryViewModel>();
+            CreateMap<StatusAndProducerDto, CancelViewModel>();
         }
     }
 }

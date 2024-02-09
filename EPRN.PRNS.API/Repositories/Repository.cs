@@ -131,7 +131,8 @@ namespace EPRN.PRNS.API.Repositories
                 {
                     Id = h.PackagingRecoveryNote.Id,
                     Status = _mapper.Map<Common.Enums.PrnStatus>(h.Status),
-                    Producer = h.PackagingRecoveryNote.SentTo
+                    Producer = h.PackagingRecoveryNote.SentTo,
+                    Reference = h.PackagingRecoveryNote.Reference
                 })
                 .FirstOrDefaultAsync();
         }

@@ -12,6 +12,10 @@ namespace EPRN.Portal.ViewModels.PRNS
         [MaxLength(200, ErrorMessageResourceType = typeof(CancelResources), ErrorMessageResourceName = "MaxLengthMessage")]
         public string CancelReason { get; set; }
 
+        public string Reference { get; set; }
+
+        public string Producer { get; set; }
+
         public PrnStatus? Status { get; set; }
     }
 }
