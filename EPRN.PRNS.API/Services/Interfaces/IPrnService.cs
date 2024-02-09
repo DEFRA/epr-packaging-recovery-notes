@@ -25,7 +25,7 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task<StatusAndProducerDto> GetStatusWithProducerName(int id);
 
-        Task SaveCheckYourAnswers(int id);
+        Task SaveCheckYourAnswers(int id, string reason);
 
         Task CancelPrn(int id, string reason);
 
@@ -38,5 +38,7 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
 
         Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
+
+        Task<PRNDetailsDto> GetPrnDetails(int id);
     }
 }

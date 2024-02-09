@@ -246,6 +246,20 @@ namespace EPRN.PRNS.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<PRNDetailsDto> GetDetails(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new PRNDetailsDto
+                {
+                    AccreditationNumber = "UNKNOWN",
+                    ReferenceNumber = prn.Reference
+                })
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
             return await _prnContext.PRN

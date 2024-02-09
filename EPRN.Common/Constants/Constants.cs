@@ -69,6 +69,8 @@ public static class Strings
                     public const string Cancelled = "Cancelled";
                     public const string CancelRequested = "CancelRequested";
                     public const string DecemberWaste = "DecemberWaste";
+                    public const string ActionPrn = "ActionPrn";
+                    public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
                 }
             }
         }
@@ -87,7 +89,6 @@ public static class Strings
                 public const string Create = "Create";
                 public const string View = "View";
                 public const string ViewSentPrns = "ViewSentPrns";
-                public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
             }
 
             public static class Waste

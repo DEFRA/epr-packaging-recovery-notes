@@ -109,7 +109,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.WhatToDo,
+                Routes.Areas.Actions.PRNS.ActionPrn,
                 Routes.Areas.Controllers.Exporter.PRNS, 
                 new 
                 { 
@@ -247,6 +247,40 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes,
                                     Routes.Areas.Controllers.Exporter.PRNS,
                                     new { decemberWaste.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ActionPrn(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActionPrn(ActionPrnViewModel actionPrnViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(actionPrnViewModel);
+
+            if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)                
+                return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
+                            new { area = Category.ToString(), actionPrnViewModel.Id });
+            else
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, actionPrnViewModel.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
+
+            return View(viewModel);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

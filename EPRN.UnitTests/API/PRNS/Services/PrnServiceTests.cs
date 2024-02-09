@@ -113,16 +113,17 @@ namespace EPRN.UnitTests.API.PRNS.Services
         {
             // arrange
             var id = 342;
+            var reason = "update";
 
             // act
-            await _prnService.SaveCheckYourAnswers(id);
+            await _prnService.SaveCheckYourAnswers(id, reason);
 
             // assert
             _mockRepository.Verify(s =>
                 s.UpdatePrnStatus(
                     It.Is<int>(p => p == id),
                     It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete),
-                    It.Is<string>(p => p == null)),
+                    It.Is<string>(p => p == reason)),
                 Times.Once);
         }
 

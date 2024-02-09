@@ -66,11 +66,11 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetStatusAndRecipient(id);
         }
 
-        public async Task SaveCheckYourAnswers(int id)
+        public async Task SaveCheckYourAnswers(int id, string reason)
         {
             await _prnRepository.UpdatePrnStatus(
                 id, 
-                PrnStatus.CheckYourAnswersComplete);
+                PrnStatus.CheckYourAnswersComplete, reason);
         }
 
         public async Task CancelPrn(int id, string reason)
@@ -109,10 +109,10 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetDetails(reference);
         }
 
-        // Stub this and generate a random PRN reference number
-        // In time a specific generation algorithm will
-        // be specified
-        private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+        public async Task<PRNDetailsDto> GetPrnDetails(int id)
+        {
+            return await _prnRepository.GetDetails(id);
+        }
 
         public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
         {

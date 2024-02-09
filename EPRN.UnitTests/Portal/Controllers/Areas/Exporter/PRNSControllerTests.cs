@@ -386,5 +386,84 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
                     It.IsAny<RequestCancelViewModel>()), 
                 Times.Never);
         }
+
+        [TestMethod]
+        public async Task PrnSavedAsDraftConfirmation_ReturnsNotFound_WhenJourneyIdIsNull()
+        {
+            // Arrange
+
+            // Act
+            var result = await _prnController.PrnSavedAsDraftConfirmation(null);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            var notFoundResult = result as NotFoundResult;
+
+            Assert.AreEqual(404, notFoundResult.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task PrnSavedAsDraftConfirmation_CallsGetDraftPrnConfirmationModel_WhenJourneyIdIsValid()
+        {
+            // Arrange
+            var journeyId = 1;
+            var expectedViewModel = new PrnSavedAsDraftViewModel();
+            _mockPrnService.Setup(service => service.GetDraftPrnConfirmationModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.PrnSavedAsDraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            _mockPrnService.Verify(service => service.GetDraftPrnConfirmationModel(journeyId), Times.Once());
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel, result.Model);
+        }
+
+        [TestMethod]
+        public async Task PrnSavedAsDraftConfirmation_ReturnsCorrectViewModel_WhenJourneyIdIsValid()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            var expectedViewModel = new PrnSavedAsDraftViewModel
+            {
+                Id = journeyId,
+                PrnNumber = "PRN282472GB"
+            };
+
+            _mockPrnService.Setup(service => service.GetDraftPrnConfirmationModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.PrnSavedAsDraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result.Model, typeof(PrnSavedAsDraftViewModel));
+            Assert.AreEqual(expectedViewModel, result.Model);
+        }
+
+        [TestMethod]
+        public async Task PrnSavedAsDraftConfirmation_ReturnsCorrectViewName_WhenJourneyIdValid()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            var expectedViewModel = new PrnSavedAsDraftViewModel
+            {
+                Id = journeyId,
+                PrnNumber = "PRN282472GB"
+            };
+
+            _mockPrnService.Setup(service => service.GetDraftPrnConfirmationModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.PrnSavedAsDraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNull(result.ViewName);
+        }
     }
 }

@@ -95,6 +95,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         {
             // arrange
             var id = 423;
+            string reason = "Update";
 
             // act
             var result = await _prnController.SaveCheckYourAnswersState(id);
@@ -102,7 +103,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             // assert
             _mockPrnService.Verify(s =>
                 s.SaveCheckYourAnswers(
-                    It.IsAny<int>()),
+                    It.IsAny<int>(), reason),
                 Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkResult));

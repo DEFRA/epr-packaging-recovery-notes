@@ -6,6 +6,7 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Cryptography.Xml;
 
 using EPRN.Portal.Helpers;
 using EPRN.Portal.Resources.PRNS;
@@ -226,11 +227,12 @@ namespace EPRN.Portal.Services
 
         public async Task<ActionPrnViewModel> GetActionPrnViewModel(int id)
         {
-            //TODO: This will need to be populated by the journey so we can return to it.
-            return new ActionPrnViewModel
-            {
-                Id = id
-            };
+            var reference = await _httpPrnsService.GetPrnReference(id);
+            var dto = await _httpPrnsService.GetPrnDetails(reference);
+
+            var actionPrnViewModel = new ActionPrnViewModel { Id = id };
+
+            return actionPrnViewModel;
         }
     }
 }

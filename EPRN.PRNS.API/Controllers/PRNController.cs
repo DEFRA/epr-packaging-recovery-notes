@@ -76,7 +76,7 @@ namespace EPRN.PRNS.API.Controllers
         public async Task<IActionResult> SaveCheckYourAnswersState(
             int id)
         {
-            await _prnService.SaveCheckYourAnswers(id);
+            await _prnService.SaveCheckYourAnswers(id, "Update");
 
             return Ok();
         }
@@ -162,6 +162,18 @@ namespace EPRN.PRNS.API.Controllers
                 decemberWaste);
 
             return Ok();
+        }
+
+        [HttpGet]
+        [Route("Reference")]
+        public async Task<IActionResult> GetPrnReference(int id)
+        {
+            var prnReference = await _prnService.GetPrnDetails(id);
+            
+            if (prnReference == null)
+                return NotFound();
+
+            return Ok(prnReference.ReferenceNumber);
         }
 
         /// <summary>

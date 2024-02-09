@@ -35,6 +35,7 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
 
         Task<PRNDetailsDto> GetDetails(string reference);
 
+        Task<PRNDetailsDto> GetDetails(int id);
 
         Task<DecemberWasteDto> GetDecemberWaste(int id);
 

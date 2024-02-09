@@ -106,5 +106,10 @@ namespace EPRN.Portal.RESTServices
         {
             await Post($"{id}/Category/{_category}/DecemberWaste/{decemberWaste}");
         }
+
+        public async Task<string> GetPrnReference(int id)
+        {
+            return await Get<string>($"{id}/Category/{_category}/Reference");
+        }
     }
 }

@@ -7,6 +7,7 @@ using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static EPRN.Common.Constants.Strings;
+using static EPRN.Common.Constants.Strings.Routes;
 
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
@@ -108,13 +109,13 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.WhatToDo, 
-                Routes.Areas.Controllers.Reprocessor.PRNS, 
-                new 
-                { 
-                    area = Category, 
-                    id = checkYourAnswersViewModel.Id 
-                });
+                            Routes.Areas.Actions.PRNS.ActionPrn,
+                            Routes.Areas.Controllers.Reprocessor.PRNS,
+                            new
+                            {
+                                area = Category,
+                                id = checkYourAnswersViewModel.Id
+                            });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -239,6 +240,40 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
                     area = Category, 
                     id = decemberWaste.Id 
                 });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ActionPrn(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ActionPrn(ActionPrnViewModel actionPrnViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(actionPrnViewModel);
+
+            if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)
+                return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
+                            new { area = Category.ToString(), actionPrnViewModel.Id });
+            else
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, actionPrnViewModel.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
+
+            return View(viewModel);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
