@@ -235,7 +235,7 @@
     <value>Must be a number between 1 and 100 (inclusive)</value>
   </data>
   <data name="MaterialSubTypeOptionsTitle" xml:space="preserve">
-    <value>What is the material sub type?</value>
+    <value>What type of waste was it?</value>
   </data>
   <data name="MissingWasteSubTypeSelectionMessage" xml:space="preserve">
     <value>A material sub type requires to be selected</value>

@@ -235,7 +235,7 @@
     <value>[Welsh]Must be a number between 1 and 100 (inclusive)</value>
   </data>
   <data name="MaterialSubTypeOptionsTitle" xml:space="preserve">
-    <value>[Welsh]What is the material sub type?</value>
+    <value>[Welsh]What type of waste was it?</value>
   </data>
   <data name="MissingWasteSubTypeSelectionMessage" xml:space="preserve">
     <value>[Welsh]A material sub type requires to be selected</value>

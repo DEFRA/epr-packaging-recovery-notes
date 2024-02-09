@@ -412,7 +412,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What is the material sub type?.
+        ///   Looks up a localized string similar to What type of waste was it?.
         /// </summary>
         public static string MaterialSubTypeOptionsTitle {
             get {
