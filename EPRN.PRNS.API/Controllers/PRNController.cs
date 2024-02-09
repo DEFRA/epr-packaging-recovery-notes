@@ -145,7 +145,7 @@ namespace EPRN.PRNS.API.Controllers
             if (id == null)
                 return BadRequest("Missing ID");
             
-            DecemberWasteDto result = await _prnService.GetDecemberWaste(id.Value);
+            var result = await _prnService.GetDecemberWaste(id.Value);
 
             return Ok(result);
         }

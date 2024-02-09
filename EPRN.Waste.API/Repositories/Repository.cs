@@ -273,5 +273,15 @@ namespace EPRN.Waste.API.Repositories
                 .Select(wj => wj.Category)
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<double?> GetTotalQuantityForAllUserJourneys(string userReferenceId)
+        {
+            var totalQuantity = _wasteContext
+                .WasteJourney
+                .Where(x => x.UserReference == userReferenceId)
+                .Sum(x => x.Tonnes);
+
+            return totalQuantity;
+        }
     }
 }

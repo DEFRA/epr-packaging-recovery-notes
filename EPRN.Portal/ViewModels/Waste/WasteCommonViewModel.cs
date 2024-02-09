@@ -4,6 +4,8 @@
     {
         public string CompanyName { get; set; }
 
+        public string CompanyReferenceId { get; set; }
+
         public string WasteName { get; set; }
     }
 }

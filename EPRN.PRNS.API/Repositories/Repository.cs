@@ -267,7 +267,8 @@ namespace EPRN.PRNS.API.Repositories
                 .Select(prn => new DecemberWasteDto
                 {
                     Id = id,
-                    DecemberWaste = prn.DecemberWaste
+                    DecemberWaste = prn.DecemberWaste,
+                    IsWithinMonth = true
                 })
                 .SingleOrDefaultAsync();
         }

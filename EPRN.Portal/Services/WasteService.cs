@@ -11,6 +11,7 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
+using Humanizer;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
@@ -35,9 +36,10 @@ namespace EPRN.Portal.Services
 
         public async Task<int> CreateJourney(
             int materialId,
-            Category category)
+            Category category,
+            string companyReferenceId)
         {
-            return await _httpJourneyService.CreateJourney(materialId, category);
+            return await _httpJourneyService.CreateJourney(materialId, category, companyReferenceId);
         }
 
         public async Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel)
@@ -391,6 +393,16 @@ namespace EPRN.Portal.Services
         public async Task<string> GetWasteType(int journeyId)
         {
             return await _httpJourneyService.GetWasteType(journeyId);
+        }
+
+        public async Task<AccredidationLimitViewModel> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered)
+        {
+            var accredidationLimitDto = await _httpJourneyService.GetAccredidationLimit(journeyId, userReferenceId, newQuantityEntered);
+            var vm = _mapper.Map<AccredidationLimitViewModel>(accredidationLimitDto, opt => opt.AfterMap((src, dest) => dest.Id = journeyId));
+            if (vm != null)
+                vm.UserRole = UserRole.Exporter;
+
+            return vm;
         }
     }
 }

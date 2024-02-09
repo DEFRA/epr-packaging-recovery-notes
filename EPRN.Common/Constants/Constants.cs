@@ -104,6 +104,7 @@ public static class Strings
                 public const string ReProcessorExport = "ReProcessorExport";
                 public const string Note = "Note";
                 public const string DecemberWaste = "DecemberWaste";
+                public const string AccredidationLimit = "AccredidationLimit";
             }
         }
     }

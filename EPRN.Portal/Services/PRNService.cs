@@ -1,15 +1,13 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using EPRN.Portal.RESTServices;
+using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Cryptography.Xml;
-
-using EPRN.Portal.Helpers;
-using EPRN.Portal.Resources.PRNS;
 
 namespace EPRN.Portal.Services
 {
@@ -173,11 +171,11 @@ namespace EPRN.Portal.Services
                 requestCancelViewModel.CancelReason);
         }
 
-        public async Task<DecemberWasteViewModel> GetDecemberWasteModel(int id)
+        public async Task<(DecemberWasteViewModel, bool)> GetDecemberWasteModel(int id)
         {
             var dto = await _httpPrnsService.GetDecemberWaste(id);
 
-            return _mapper.Map<DecemberWasteViewModel>(dto);
+            return (_mapper.Map<DecemberWasteViewModel>(dto), dto.IsWithinMonth);
         }
 
         public async Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel)

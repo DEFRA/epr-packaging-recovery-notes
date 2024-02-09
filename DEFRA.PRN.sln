@@ -25,6 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.PRNS.API", "EPRN.PRNS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EPRN.Common.Data", "EPRN.Common.Data\EPRN.Common.Data.csproj", "{1CF7477E-E72A-4E0F-9696-A465E249081C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{84FB799F-A821-4FE2-A204-FC54F27AE6A8}"
+	ProjectSection(SolutionItems) = preProject
+		insert_test_prn_data.sql = insert_test_prn_data.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

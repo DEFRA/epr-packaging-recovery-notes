@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
 using Moq;
 
 namespace EPRN.UnitTests.API.PRNS.Services
@@ -19,8 +22,10 @@ namespace EPRN.UnitTests.API.PRNS.Services
         {
             _mockMapper = new Mock<IMapper>();
             _mockRepository = new Mock<IRepository>();
+            var config = new Mock<IOptions<AppConfigSettings>>();
 
             _prnService = new PrnService(
+                config.Object,
                 _mockMapper.Object,
                 _mockRepository.Object);
         }
@@ -29,14 +34,20 @@ namespace EPRN.UnitTests.API.PRNS.Services
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructService_ThrowsException_WhenMapperNotSupplied()
         {
-            new PrnService(null, _mockRepository.Object);
+            new PrnService(
+                null, 
+                null, 
+                _mockRepository.Object);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void ConstructService_ThrowsException_WhenRepositoryNotSupplied()
         {
-            new PrnService(_mockMapper.Object, null);
+            new PrnService(
+                null, 
+                _mockMapper.Object, 
+                null);
         }
 
         [TestMethod]
@@ -277,6 +288,118 @@ namespace EPRN.UnitTests.API.PRNS.Services
 
             // Assert
             Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public async Task GetDecemberWaste_CurrentMonthIsJanuary_ReturnsDecemberWasteDto()
+        {
+            // Arrange
+            var config = new Mock<IOptions<AppConfigSettings>>();
+            config.SetupGet(x => x.Value).Returns(new AppConfigSettings
+            {
+                CurrentMonthOverride = 1 // Set current month override to January
+            });
+            _prnService = new PrnService(
+                config.Object,
+                _mockMapper.Object,
+                _mockRepository.Object);
+
+            var journeyId = 123;
+            var decemberWasteDto = new DecemberWasteDto { Id = journeyId, IsWithinMonth = true };
+            _mockRepository.Setup(repo => repo.GetDecemberWaste(journeyId)).ReturnsAsync(decemberWasteDto);
+
+            // Act
+            var result = await _prnService.GetDecemberWaste(journeyId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            _mockRepository.Verify(r =>
+                r.GetDecemberWaste(
+                    It.Is<int>(p => p == journeyId)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetDecemberWaste_CurrentMonthIsDecember_ReturnsDecemberWasteDto()
+        {
+            // Arrange
+            var config = new Mock<IOptions<AppConfigSettings>>();
+            config.SetupGet(x => x.Value).Returns(new AppConfigSettings
+            {
+                CurrentMonthOverride = 12 // Set current month override to December
+            });
+            _prnService = new PrnService(
+                config.Object,
+                _mockMapper.Object,
+                _mockRepository.Object);
+
+            var journeyId = 123;
+            var decemberWasteDto = new DecemberWasteDto { Id = journeyId, IsWithinMonth = true };
+            _mockRepository.Setup(repo => repo.GetDecemberWaste(journeyId)).ReturnsAsync(decemberWasteDto);
+            
+            // Act
+            var result = await _prnService.GetDecemberWaste(journeyId);
+
+            // Assert
+            Assert.IsNotNull(result);
+            _mockRepository.Verify(r => 
+                r.GetDecemberWaste(
+                    It.Is<int>(p => p == journeyId)), 
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetDecemberWaste_CurrentMonthIsNotDecember_ReturnsDecemberWasteDtoWithFalseIsWithinMonth()
+        {
+            // Arrange
+            var journeyId = 123;
+            var config = new Mock<IOptions<AppConfigSettings>>();
+            config.SetupGet(x => x.Value).Returns(new AppConfigSettings
+            {
+                CurrentMonthOverride = 5 // Set current month override to May
+            });
+            _prnService = new PrnService(
+                config.Object,
+                _mockMapper.Object,
+                _mockRepository.Object);
+
+            // Act
+            var result = await _prnService.GetDecemberWaste(journeyId);
+
+            // Assert
+            Assert.IsFalse(result.IsWithinMonth);
+            Assert.AreEqual(journeyId, result.Id);
+            _mockRepository.Verify(r =>
+                r.GetDecemberWaste(
+                    It.IsAny<int>()),
+                Times.Never);
+        }
+
+        [TestMethod]
+        public async Task GetDecemberWaste_ConfigNotDefined_ReturnsDecemberWasteDtoWithFalseIsWithinMonth()
+        {
+            // Arrange
+            var journeyId = 123;
+            var config = new Mock<IOptions<AppConfigSettings>>();
+            config.SetupGet(x => x.Value).Returns(new AppConfigSettings
+            {
+                CurrentMonthOverride = null // current override month not set
+            });
+            _prnService = new PrnService(
+                config.Object,
+                _mockMapper.Object,
+                _mockRepository.Object);
+
+            // Act
+            var result = await _prnService.GetDecemberWaste(journeyId);
+
+            // Assert
+            Assert.IsFalse(result.IsWithinMonth);
+            Assert.AreEqual(journeyId, result.Id);
+            _mockRepository.Verify(r =>
+                r.GetDecemberWaste(
+                    It.IsAny<int>()),
+                Times.Never);
         }
     }
 }

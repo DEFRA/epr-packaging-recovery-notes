@@ -209,12 +209,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (id == null)
                 return BadRequest();
 
-            if (DateTime.Today.IsCurrentDateWithinDecOrJan())
-            {
-                var model = await _prnService.GetDecemberWasteModel(id.Value);
+            var result = await _prnService.GetDecemberWasteModel(id.Value);
 
-                return View(model);
-            }
+            if (result.Item2)
+                return View(result.Item1);
             else
                 return RedirectToAction(
                     Routes.Areas.Actions.PRNS.Tonnes,

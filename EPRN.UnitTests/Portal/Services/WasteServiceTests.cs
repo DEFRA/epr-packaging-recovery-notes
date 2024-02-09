@@ -7,6 +7,7 @@ using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
 using EPRN.Portal.ViewModels.Waste;
+using Humanizer;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -26,6 +27,7 @@ namespace EPRN.UnitTests.Portal.Services
         public void Init()
         {
             _mockMapper = new Mock<IMapper>();
+            _mockMapper.Setup(x => x.Map<AccredidationLimitViewModel>(It.IsAny<object>())).Returns(new AccredidationLimitViewModel());
             _mockHttpWasteService = new Mock<IHttpWasteService>();
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
             _mockLocalizationHelper = new Mock<ILocalizationHelper<WhichQuarterResources>>();
@@ -562,5 +564,27 @@ namespace EPRN.UnitTests.Portal.Services
 
         #endregion
 
+        [TestMethod]
+        public async Task GetAccredidationLimit_WithValidValues()
+        {
+            // Arrange
+            int journeyId = 3;
+            string userReferenceId = "someuser";
+            double newQuantityEntered = 20;
+
+            var expectedDto = new AccredidationLimitDto { 
+                JourneyId = journeyId,
+                UserReferenceId = userReferenceId
+            };
+
+            _mockHttpJourneyService.Setup(c => c.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>()))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var viewModel = await _wasteService.GetAccredidationLimit(journeyId, userReferenceId, newQuantityEntered);
+
+            // Assert
+            _mockHttpJourneyService.Verify(service => service.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>()), Times.Once());
+        }
     }
 }
