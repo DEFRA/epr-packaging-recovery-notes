@@ -240,6 +240,10 @@
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\CancelledResources.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\CancelledResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CancelledResources.Designer.cs</LastGenOutput>
