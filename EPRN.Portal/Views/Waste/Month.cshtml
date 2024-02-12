@@ -67,7 +67,6 @@
                     <div class="govuk-hint">
                         @hintText
                     </div>
-
                     <p class="govuk-error-message">
                         <span asp-validation-for="SelectedMonth"></span>
                     </p>
@@ -75,9 +74,13 @@
                     {
                         <partial name="_RadioOptionReprocessedIt" model="Model" />
                     }
-                    else
+                    else if (Model.WhatHaveYouDone == DoneWaste.SentItOn)
                     {
                         <partial name="_RadioOptionSentItOn" model="Model" />
+                    }
+                    else if (Model.WhatHaveYouDone == DoneWaste.ExportedIt)
+                    {
+                        <partial name="_RadioOptionExported" model="Model" />
                     }
                 </radios>
             }
