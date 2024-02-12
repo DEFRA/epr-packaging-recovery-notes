@@ -35,7 +35,7 @@ namespace EPRN.Portal.Services
 
             ConfigSettings = configSettings;
 
-            //UrlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
+            UrlHelper = urlHelperFactory.GetUrlHelper(actionContextAccessor.ActionContext);
 
             _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(_httpJourneyService));
 
