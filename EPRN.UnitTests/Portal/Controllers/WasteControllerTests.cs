@@ -356,6 +356,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var baledWithWireModel = new BaledWithWireViewModel();
             _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>(), It.IsAny<double>())).ReturnsAsync(new BaledWithWireViewModel());
 
+
             // Act
             var result = await _wasteController.BaledWithWire(0);
 
@@ -384,7 +385,7 @@ namespace EPRN.UnitTests.Portal.Controllers
                 BaledWithWire = true
             };
 
-            _mockWasteService.Setup(s => s.GetBaledWithWireModel(1,100)).ReturnsAsync(baledWithWireModel);
+            _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>(), It.IsAny<double>())).ReturnsAsync(baledWithWireModel);
 
             // Act
             var result = await _wasteController.BaledWithWire(1);

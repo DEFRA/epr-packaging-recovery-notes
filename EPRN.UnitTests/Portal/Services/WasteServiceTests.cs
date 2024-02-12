@@ -451,21 +451,33 @@ namespace EPRN.UnitTests.Portal.Services
 
         #region Baled with wire
 
+
         [TestMethod]
         public async Task GetBaledWithWireModel_Succeeds_WithValidModel()
         {
             // Arrange
             var Id = 1;
+            var expectedDto = new BaledWithWireDto { JourneyId = Id, BaledWithWire = true, BaledWithWireDeductionPercentage = 100 };
+            var expectedViewModel = new BaledWithWireViewModel { Id = Id, BaledWithWire = true, BaledWithWireDeductionPercentage = 100 };
+
+            _mockHttpJourneyService.Setup(c => c.GetBaledWithWire(It.Is<int>(p => p == Id))).ReturnsAsync(expectedDto);
+            _mockMapper.Setup(m => m.Map<BaledWithWireViewModel>(expectedDto)).Returns(expectedViewModel);
 
             // Act
             await _wasteService.GetBaledWithWireModel(Id, 100);
 
             // Assert
+            _mockMapper.Verify(m => m.Map<BaledWithWireViewModel>(It.Is<BaledWithWireDto>(p => p == expectedDto)), Times.Exactly(1));
             _mockHttpJourneyService.Verify(s => s.GetBaledWithWire(
                 It.Is<int>(p => p == 1)),
-                Times.Once);
-        }
+            Times.Once);
 
+
+            // assert
+            _mockHttpJourneyService.Verify(s =>
+                s.GetBaledWithWire(Id), Times.Once);
+            Assert.IsNotNull(expectedDto);
+        }
 
         [TestMethod]
         public async Task SaveBaledWithWireModel_Succeeds_WithValidModel()
