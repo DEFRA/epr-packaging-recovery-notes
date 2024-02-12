@@ -94,11 +94,6 @@ namespace EPRN.Portal.Services.HomeServices
             return cardViewModels;
         }
 
-        public override double? GetBaledWithWireDeductionPercentage()
-        {
-            return ConfigSettings.Value.DeductionAmount_Reprocessor;
-        }
-
         public override async Task<CYAViewModel> GetCheckAnswers(int journeyId)
         {
             var journeyDto = await _httpJourneyService.GetJourneyAnswers(journeyId);

@@ -6,6 +6,7 @@ using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
+using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.Waste;
 using Humanizer;
 using Microsoft.Extensions.Options;
@@ -20,6 +21,7 @@ namespace EPRN.UnitTests.Portal.Services
         private Mock<IMapper> _mockMapper = null;
         private Mock<IHttpWasteService> _mockHttpWasteService = null;
         private Mock<IHttpJourneyService> _mockHttpJourneyService = null;
+        private Mock<IUserRoleService> _mockUserRoleService = null;
         private Mock<ILocalizationHelper<WhichQuarterResources>> _mockLocalizationHelper = null;
 
         private Mock<IOptions<AppConfigSettings>> _mockConfigSettings = null;
@@ -32,12 +34,14 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
             _mockLocalizationHelper = new Mock<ILocalizationHelper<WhichQuarterResources>>();
             _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
+            _mockUserRoleService = new Mock<IUserRoleService>();
             _wasteService = new WasteService(
                 _mockMapper.Object,
                 _mockHttpWasteService.Object,
                 _mockHttpJourneyService.Object,
                 _mockLocalizationHelper.Object,
-                _mockConfigSettings.Object);
+                _mockConfigSettings.Object,
+                _mockUserRoleService.Object);
         }
 
         [TestMethod]
@@ -464,7 +468,7 @@ namespace EPRN.UnitTests.Portal.Services
             _mockMapper.Setup(m => m.Map<BaledWithWireViewModel>(expectedDto)).Returns(expectedViewModel);
 
             // Act
-            await _wasteService.GetBaledWithWireModel(Id, 100);
+            await _wasteService.GetBaledWithWireModel(Id);
 
             // Assert
             _mockMapper.Verify(m => m.Map<BaledWithWireViewModel>(It.Is<BaledWithWireDto>(p => p == expectedDto)), Times.Exactly(1));
@@ -597,6 +601,32 @@ namespace EPRN.UnitTests.Portal.Services
 
             // Assert
             _mockHttpJourneyService.Verify(service => service.GetAccredidationLimit(It.IsAny<int>(), It.IsAny<string>(), It.IsAny<double>()), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task GetBaledWithWireModel_DeductionAmount_BasedOnUserRole()
+        {
+            var Id = 1;
+            var expectedDto = new BaledWithWireDto { JourneyId = Id, BaledWithWire = true, BaledWithWireDeductionPercentage = null };
+            var expectedViewModel = new BaledWithWireViewModel { Id = Id, BaledWithWire = true, BaledWithWireDeductionPercentage = 0 };
+
+            _mockUserRoleService.Setup(c => c.SetRole(UserRole.Reprocessor));
+            _mockHttpJourneyService.Setup(c => c.GetBaledWithWire(It.Is<int>(p => p == Id))).ReturnsAsync(expectedDto);
+            _mockMapper.Setup(m => m.Map<BaledWithWireViewModel>(expectedDto)).Returns(expectedViewModel);
+
+            // Act
+            await _wasteService.GetBaledWithWireModel(Id);
+
+            // Assert
+            _mockMapper.Verify(m => m.Map<BaledWithWireViewModel>(It.Is<BaledWithWireDto>(p => p == expectedDto)), Times.Exactly(1));
+            _mockHttpJourneyService.Verify(s => s.GetBaledWithWire(
+                It.Is<int>(p => p == 1)),
+            Times.Once);
+
+            // assert
+            _mockHttpJourneyService.Verify(s =>
+                s.GetBaledWithWire(Id), Times.Once);
+            Assert.IsNotNull(expectedDto);
         }
     }
 }
