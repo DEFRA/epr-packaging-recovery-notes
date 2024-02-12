@@ -237,7 +237,6 @@ namespace EPRN.Portal.Controllers
             if (id == null)
                 return NotFound();
 
-            var deductionAmount = _homeService.GetBaledWithWireDeductionPercentage();
             var model = await _wasteService.GetBaledWithWireModel(id.Value);
 
             return View(model);
