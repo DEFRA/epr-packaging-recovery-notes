@@ -354,7 +354,7 @@ namespace EPRN.UnitTests.Portal.Controllers
         public async Task BaledWithWire_ReturnCurrentView_WhenModelIsInvalid()
         {
             var baledWithWireModel = new BaledWithWireViewModel();
-            _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>(), It.IsAny<double>())).ReturnsAsync(new BaledWithWireViewModel());
+            _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>())).ReturnsAsync(new BaledWithWireViewModel());
 
             // Act
             var result = await _wasteController.BaledWithWire(0);
@@ -383,7 +383,7 @@ namespace EPRN.UnitTests.Portal.Controllers
                 BaledWithWire = true
             };
 
-            _mockWasteService.Setup(s => s.GetBaledWithWireModel(1,0)).ReturnsAsync(baledWithWireModel);
+            _mockWasteService.Setup(s => s.GetBaledWithWireModel(1)).ReturnsAsync(baledWithWireModel);
 
             // Act
             var result = await _wasteController.BaledWithWire(1);

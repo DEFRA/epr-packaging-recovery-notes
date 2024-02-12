@@ -2,10 +2,14 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Configuration;
+using EPRN.Portal.Helpers;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
+using EPRN.Portal.RESTServices;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
+using EPRN.Portal.Services.Interfaces;
+using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
 using Humanizer;
 using Microsoft.Extensions.Options;
@@ -21,6 +25,7 @@ namespace EPRN.UnitTests.Portal.Services
         private Mock<IHttpWasteService> _mockHttpWasteService = null;
         private Mock<IHttpJourneyService> _mockHttpJourneyService = null;
         private Mock<ILocalizationHelper<WhichQuarterResources>> _mockLocalizationHelper = null;
+        private Mock<IHomeServiceFactory> _homeServiceFactory;
 
         private Mock<IOptions<AppConfigSettings>> _mockConfigSettings = null;
         [TestInitialize]
@@ -32,12 +37,19 @@ namespace EPRN.UnitTests.Portal.Services
             _mockHttpJourneyService = new Mock<IHttpJourneyService>();
             _mockLocalizationHelper = new Mock<ILocalizationHelper<WhichQuarterResources>>();
             _mockConfigSettings = new Mock<IOptions<AppConfigSettings>>();
+            _homeServiceFactory = new Mock<IHomeServiceFactory>();
+
+            var exporterHomeService = new Mock<IUserBasedService>();
+            exporterHomeService.Setup(service => service.GetCheckAnswers(It.IsAny<int>())).ReturnsAsync(new CYAViewModel() { UserRole = UserRole.Reprocessor });
+            _homeServiceFactory.Setup(x => x.CreateHomeService()).Returns(exporterHomeService.Object);
+
             _wasteService = new WasteService(
                 _mockMapper.Object,
                 _mockHttpWasteService.Object,
                 _mockHttpJourneyService.Object,
                 _mockLocalizationHelper.Object,
-                _mockConfigSettings.Object);
+                _mockConfigSettings.Object,
+                _homeServiceFactory.Object);
         }
 
         [TestMethod]
@@ -456,14 +468,27 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             var Id = 1;
+            var expectedDto = new BaledWithWireDto { JourneyId = Id, BaledWithWire = true, BaledWithWireDeductionPercentage = 100 };
+            var expectedViewModel = new BaledWithWireViewModel { Id = Id, BaledWithWire = true, BaledWithWireDeductionPercentage = 100 };
+
+            _mockHttpJourneyService.Setup(c => c.GetBaledWithWire(It.Is<int>(p => p == Id))).ReturnsAsync(expectedDto);
+            _mockMapper.Setup(m => m.Map<BaledWithWireViewModel>(expectedDto)).Returns(expectedViewModel);
 
             // Act
-            await _wasteService.GetBaledWithWireModel(Id, 0);
+            await _wasteService.GetBaledWithWireModel(Id);
 
             // Assert
+            _mockMapper.Verify(m => m.Map<BaledWithWireViewModel>(It.Is<BaledWithWireDto>(p => p == expectedDto)), Times.Exactly(1));
             _mockHttpJourneyService.Verify(s => s.GetBaledWithWire(
                 It.Is<int>(p => p == 1)),
-                Times.Once);
+            Times.Once);
+
+
+            // assert
+            _mockHttpJourneyService.Verify(s =>
+                s.GetBaledWithWire(Id), Times.Once);
+            Assert.IsNotNull(expectedDto);
+
         }
 
 

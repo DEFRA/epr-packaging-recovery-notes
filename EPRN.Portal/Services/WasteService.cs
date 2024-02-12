@@ -21,17 +21,23 @@ namespace EPRN.Portal.Services
         private readonly IMapper _mapper;
         private readonly IHttpWasteService _httpWasteService;
         private readonly IHttpJourneyService _httpJourneyService;
+        private readonly IUserBasedService _homeService;
 
         public WasteService(
             IMapper mapper,
             IHttpWasteService httpWasteService,
             IHttpJourneyService httpJourneyService,
             ILocalizationHelper<WhichQuarterResources> localizationHelper,
-            IOptions<AppConfigSettings> configSettings)
+            IOptions<AppConfigSettings> configSettings,
+            IHomeServiceFactory homeServiceFactory)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
             _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(httpJourneyService));
+
+            if (homeServiceFactory == null) throw new ArgumentNullException(nameof(homeServiceFactory));
+            _homeService = homeServiceFactory.CreateHomeService();
+            if (_homeService == null) throw new ArgumentNullException(nameof(_homeService));
         }
 
         public async Task<int> CreateJourney(
@@ -317,13 +323,13 @@ namespace EPRN.Portal.Services
                 exportTonnageViewModel.ExportTonnes.Value);
         }
 
-        public async Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId, double deductionAmount)
+        public async Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId)
         {
             var dto = await _httpJourneyService.GetBaledWithWire(journeyId);
             var vm = _mapper.Map<BaledWithWireViewModel>(dto);
 
             if (vm.BaledWithWireDeductionPercentage == null || vm.BaledWithWireDeductionPercentage == 0)
-                vm.BaledWithWireDeductionPercentage = deductionAmount;
+                vm.BaledWithWireDeductionPercentage = _homeService.GetBaledWithWireDeductionPercentage();
 
             return vm;
         }
