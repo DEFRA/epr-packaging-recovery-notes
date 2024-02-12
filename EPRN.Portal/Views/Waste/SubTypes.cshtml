@@ -28,7 +28,7 @@
             {
                 <div class="govuk-form-group" id="custom-percentage-div">
                     <p class="govuk-error-message">
-                        <span asp-validation-for="CustomPercentage"></span>
+                        <span asp-validation-for="CustomPercentage">@WasteSubTypesResources.OtherOptionHint</span>
                     </p>
                     <div class="govuk-input__wrapper custom-percentage-input">
                         <input class="govuk-input govuk-input--width-5" type="text" asp-for="CustomPercentage" />

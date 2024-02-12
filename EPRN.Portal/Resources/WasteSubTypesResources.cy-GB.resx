@@ -229,15 +229,18 @@
     <value>[Welsh]Other</value>
   </data>
   <data name="AdjustmentPercentageRequiredMessage" xml:space="preserve">
-    <value>[Welsh]Adjustment percentage is required</value>
+    <value>[Welsh]Enter the percentage received</value>
   </data>
   <data name="InvalidPercentageMessage" xml:space="preserve">
     <value>[Welsh]Must be a number between 1 and 100 (inclusive)</value>
   </data>
   <data name="MaterialSubTypeOptionsTitle" xml:space="preserve">
-    <value>[Welsh]What is the material sub type?</value>
+    <value>[Welsh]What type of waste was it?</value>
   </data>
   <data name="MissingWasteSubTypeSelectionMessage" xml:space="preserve">
     <value>[Welsh]A material sub type requires to be selected</value>
+  </data>
+  <data name="OtherOptionHint" xml:space="preserve">
+    <value>Enter the percentage of packaging content agreed with your local agency.</value>
   </data>
 </root>

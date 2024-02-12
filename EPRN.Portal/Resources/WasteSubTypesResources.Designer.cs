@@ -394,7 +394,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjustment percentage is required.
+        ///   Looks up a localized string similar to Enter the percentage received.
         /// </summary>
         public static string AdjustmentPercentageRequiredMessage {
             get {
@@ -412,7 +412,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What is the material sub type?.
+        ///   Looks up a localized string similar to What type of waste was it?.
         /// </summary>
         public static string MaterialSubTypeOptionsTitle {
             get {
@@ -426,6 +426,15 @@ namespace EPRN.Portal.Resources {
         public static string MissingWasteSubTypeSelectionMessage {
             get {
                 return ResourceManager.GetString("MissingWasteSubTypeSelectionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the percentage of packaging content agreed with your local agency..
+        /// </summary>
+        public static string OtherOptionHint {
+            get {
+                return ResourceManager.GetString("OtherOptionHint", resourceCulture);
             }
         }
     }
