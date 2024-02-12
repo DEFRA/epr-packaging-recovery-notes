@@ -317,11 +317,12 @@ namespace EPRN.Portal.Services
                 exportTonnageViewModel.ExportTonnes.Value);
         }
 
-        public async Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId)
+        public async Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId, double? deductionPercentage)
         {
             var dto = await _httpJourneyService.GetBaledWithWire(journeyId);
             var vm = _mapper.Map<BaledWithWireViewModel>(dto);
-
+            if (vm.BaledWithWireDeductionPercentage == null || vm.BaledWithWireDeductionPercentage == 0)
+                vm.BaledWithWireDeductionPercentage = deductionPercentage;
             return vm;
         }
         public async Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel)

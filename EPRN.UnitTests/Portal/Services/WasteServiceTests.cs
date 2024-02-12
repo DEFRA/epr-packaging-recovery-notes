@@ -458,7 +458,7 @@ namespace EPRN.UnitTests.Portal.Services
             var Id = 1;
 
             // Act
-            await _wasteService.GetBaledWithWireModel(Id);
+            await _wasteService.GetBaledWithWireModel(Id, 100);
 
             // Assert
             _mockHttpJourneyService.Verify(s => s.GetBaledWithWire(
