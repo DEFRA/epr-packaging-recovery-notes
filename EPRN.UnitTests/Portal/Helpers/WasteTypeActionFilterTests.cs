@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 
 namespace EPRN.UnitTests.Portal.Helpers
@@ -97,6 +98,7 @@ namespace EPRN.UnitTests.Portal.Helpers
             var mockHttpRequest = new Mock<HttpRequest>();
             var routes = new RouteValueDictionary();
 
+            serviceProvider.Setup(sp => sp.GetService(typeof(WasteCommonViewModel))).Returns(wasteCommonViewModel);
             mockHttpContext.Setup(c => c.Request).Returns(mockHttpRequest.Object);
             mockHttpContext.Setup(c => c.RequestServices).Returns(serviceProvider.Object);
             mockHttpRequest.Setup(r => r.RouteValues).Returns(routes);
