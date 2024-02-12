@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources.PRNS {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CancelResources {
+    public class CancelledResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CancelResources() {
+        internal CancelledResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources.PRNS {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.CancelResources", typeof(CancelResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.CancelledResources", typeof(CancelledResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,101 +61,83 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PERN has already been cancelled.
+        ///   Looks up a localized string similar to {0} cancelled.
         /// </summary>
-        public static string AlreadyCancelledPERN {
+        public static string Cancelled {
             get {
-                return ResourceManager.GetString("AlreadyCancelledPERN", resourceCulture);
+                return ResourceManager.GetString("Cancelled", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PRN has already been cancelled.
+        ///   Looks up a localized string similar to We&apos;ve emailed {0} to let them know you&apos;ve cancelled this PERN.
         /// </summary>
-        public static string AlreadyCancelledPRN {
+        public static string PERNEmailedProducerMessage {
             get {
-                return ResourceManager.GetString("AlreadyCancelledPRN", resourceCulture);
+                return ResourceManager.GetString("PERNEmailedProducerMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Why do you want to cancel this PERN?.
+        ///   Looks up a localized string similar to This PERN has not been cancelled.
         /// </summary>
-        public static string CancelQuestionPERN {
+        public static string PERNNotCancelled {
             get {
-                return ResourceManager.GetString("CancelQuestionPERN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Why do you want to cancel this PRN?.
-        /// </summary>
-        public static string CancelQuestionPRN {
-            get {
-                return ResourceManager.GetString("CancelQuestionPRN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You can enter uo to 200 characters.
-        /// </summary>
-        public static string HintInfo {
-            get {
-                return ResourceManager.GetString("HintInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The maximum length of the cancellation reason is 200 characters.
-        /// </summary>
-        public static string MaxLengthMessage {
-            get {
-                return ResourceManager.GetString("MaxLengthMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel PERN.
-        /// </summary>
-        public static string PageTitlePERN {
-            get {
-                return ResourceManager.GetString("PageTitlePERN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel PRN.
-        /// </summary>
-        public static string PageTitlePRN {
-            get {
-                return ResourceManager.GetString("PageTitlePRN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please add a reason for cancellation.
-        /// </summary>
-        public static string ReasonRequired {
-            get {
-                return ResourceManager.GetString("ReasonRequired", resourceCulture);
+                return ResourceManager.GetString("PERNNotCancelled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Request to cancel this PERN.
         /// </summary>
-        public static string RequestToCancelPERN {
+        public static string PERNRequestToCancel {
             get {
-                return ResourceManager.GetString("RequestToCancelPERN", resourceCulture);
+                return ResourceManager.GetString("PERNRequestToCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to We&apos;ve emailed {0} to let them know you&apos;ve cancelled this PRN.
+        /// </summary>
+        public static string PRNEmailedProducerMessage {
+            get {
+                return ResourceManager.GetString("PRNEmailedProducerMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This PRN has not been cancelled.
+        /// </summary>
+        public static string PRNNotCancelled {
+            get {
+                return ResourceManager.GetString("PRNNotCancelled", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Request to cancel this PRN.
         /// </summary>
-        public static string RequestToCancelPRN {
+        public static string PRNRequestToCancel {
             get {
-                return ResourceManager.GetString("RequestToCancelPRN", resourceCulture);
+                return ResourceManager.GetString("PRNRequestToCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View sent PRNs.
+        /// </summary>
+        public static string ViewSentPRNs {
+            get {
+                return ResourceManager.GetString("ViewSentPRNs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What happens next.
+        /// </summary>
+        public static string WhatHappensNextMessage {
+            get {
+                return ResourceManager.GetString("WhatHappensNextMessage", resourceCulture);
             }
         }
     }
