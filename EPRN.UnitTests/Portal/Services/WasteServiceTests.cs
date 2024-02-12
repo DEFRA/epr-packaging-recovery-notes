@@ -512,7 +512,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int Id = 3;
-            int currentMonth = 5;
             
             DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
             {
@@ -540,7 +539,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int Id = 3;
-            int currentMonth = 5;
 
             DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
             {

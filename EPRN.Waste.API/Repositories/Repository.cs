@@ -248,7 +248,7 @@ namespace EPRN.Waste.API.Repositories
                 .Where(wj => wj.Id == journeyId)
                 .Select(x => new NoteDto
                 {
-                    JourneyId = journeyId,
+                    Id = journeyId,
                     Note = x.Note,
                     WasteCategory = Enum.Parse<Common.Enums.Category>(x.Category.ToString())
                 })

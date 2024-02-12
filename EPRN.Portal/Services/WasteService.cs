@@ -368,13 +368,9 @@ namespace EPRN.Portal.Services
 
         public async Task<NoteViewModel> GetNoteViewModel(int journeyId)
         {
-            var noteViewModel = new NoteViewModel
-            {
-                Id = journeyId,
-                NoteContent =   _httpJourneyService.GetNote(journeyId).Result.Note
-            };
+            var noteDto = await _httpJourneyService.GetNote(journeyId);
 
-            return noteViewModel;
+            return _mapper.Map<NoteViewModel>(noteDto);
         }
 
         public async Task SaveNote(NoteViewModel noteViewModel)

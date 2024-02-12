@@ -97,6 +97,15 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CANCELLATION REQUESTED.
+        /// </summary>
+        public static string CancellationRequested {
+            get {
+                return ResourceManager.GetString("CancellationRequested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CANCELLED.
         /// </summary>
         public static string Cancelled {

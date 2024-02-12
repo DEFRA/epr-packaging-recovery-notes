@@ -411,7 +411,7 @@ namespace EPRN.UnitTests.API.Waste.Controllers
             Category wasteCategory = Category.Unknown;
 
             var expectedDto = new NoteDto();
-            expectedDto.JourneyId = validJourneyId;
+            expectedDto.Id = validJourneyId;
             expectedDto.Note = validNote;
             expectedDto.WasteCategory = wasteCategory;
 

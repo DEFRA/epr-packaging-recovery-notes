@@ -5,7 +5,6 @@
 @model ViewSentPrnsViewModel;
 
 @inject IUserRoleService userRoleService;
-@inject ILocalizationHelper<MasterResources> localizationHelper
 
 @{
     if (userRoleService.HasRole(UserRole.Reprocessor))
@@ -115,7 +114,7 @@
                                 <td class="govuk-table__cell">@row.Tonnes</td>
                                 <td class="govuk-table__cell">
                                     <strong class="govuk-tag govuk-tag--@row.GetCssClassForStatus()">
-                                        @localizationHelper.GetString(row.Status.ToString())
+                                        @MasterResources.ResourceManager.GetString(row.Status.ToString())
                                     </strong>
                                 </td>
                             </tr>

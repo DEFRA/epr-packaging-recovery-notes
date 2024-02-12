@@ -1,0 +1,20 @@
+﻿@model RequestCancelViewModel
+
+<div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+    <div class="govuk-notification-banner__header">
+        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+            @MasterResources.SuccessMessage
+        </h2>
+    </div>
+    <div class="govuk-notification-banner__content">
+        <h3 class="govuk-notification-banner__heading">
+            We've sent your @Model.Reference cancellation request to @Model.Producer
+        </h3>
+    </div>
+</div>
+<h3 class="govuk-notification-banner__heading">
+    What happens next
+</h3>
+<p class="govuk-body">
+    If @Model.Producer accepts your request we'll forward it to @Model.Regulator for approval. This process can take five working days. We'll inform you about the decision via email
+</p>

@@ -441,7 +441,6 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             // Arrange
             var Id = 38;
-            var wasteType = "testWasteType";
 
             NoteViewModel noteViewModel = new NoteViewModel
             {

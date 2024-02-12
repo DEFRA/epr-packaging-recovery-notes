@@ -8,7 +8,7 @@
 
         public string SearchTerm { get; set; } = null;
 
-        public string FilterBy { get; set; } = null;
+        public Enums.PrnStatus? FilterBy { get; set; }
 
         public string SortBy { get; set; } = null;
     }
