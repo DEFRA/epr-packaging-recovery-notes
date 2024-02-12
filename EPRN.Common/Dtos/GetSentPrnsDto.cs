@@ -1,4 +1,6 @@
-﻿namespace EPRN.Common.Dtos
+﻿using EPRN.Common.Enums;
+
+namespace EPRN.Common.Dtos
 {
     public class GetSentPrnsDto
     {
@@ -8,7 +10,7 @@
 
         public string SearchTerm { get; set; } = null;
 
-        public Enums.PrnStatus? FilterBy { get; set; }
+        public PrnStatus? FilterBy { get; set; }
 
         public string SortBy { get; set; } = null;
     }
