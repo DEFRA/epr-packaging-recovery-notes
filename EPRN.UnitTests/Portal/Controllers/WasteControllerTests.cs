@@ -356,6 +356,7 @@ namespace EPRN.UnitTests.Portal.Controllers
             var baledWithWireModel = new BaledWithWireViewModel();
             _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>(), It.IsAny<int>())).ReturnsAsync(new BaledWithWireViewModel());
 
+
             // Act
             var result = await _wasteController.BaledWithWire(0);
 
@@ -380,10 +381,11 @@ namespace EPRN.UnitTests.Portal.Controllers
             var baledWithWireModel = new BaledWithWireViewModel
             {
                 Id = 1,
+                BaledWithWireDeductionPercentage = 100,
                 BaledWithWire = true
             };
 
-            _mockWasteService.Setup(s => s.GetBaledWithWireModel(1,0)).ReturnsAsync(baledWithWireModel);
+            _mockWasteService.Setup(s => s.GetBaledWithWireModel(It.IsAny<int>())).ReturnsAsync(baledWithWireModel);
 
             // Act
             var result = await _wasteController.BaledWithWire(1);
@@ -441,7 +443,6 @@ namespace EPRN.UnitTests.Portal.Controllers
         {
             // Arrange
             var Id = 38;
-            var wasteType = "testWasteType";
 
             NoteViewModel noteViewModel = new NoteViewModel
             {

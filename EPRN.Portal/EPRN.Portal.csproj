@@ -95,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\PRNS\CancelledResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CancelledResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PRNS\CancelResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -104,6 +109,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CheckYourAnswersResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\PRNS\RequestCancelConfirmedResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RequestCancelConfirmedResources.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\PRNS\ViewSentPrnResources.Designer.cs">
       <DependentUpon>ViewSentPrnResources.resx</DependentUpon>
@@ -235,6 +245,14 @@
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\CancelledResources.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\CancelledResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CancelledResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\CancelResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CancelResources.Designer.cs</LastGenOutput>
@@ -249,6 +267,10 @@
     <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.cy-GB.resx">
       <SubType>Designer</SubType>
       <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\RequestCancelConfirmedResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RequestCancelConfirmedResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\ViewSentPrnResources.resx">
       <LastGenOutput>ViewSentPrnResources.Designer.cs</LastGenOutput>

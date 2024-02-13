@@ -117,70 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accepted" xml:space="preserve">
-    <value>[Welsh]ACCEPTED</value>
+  <data name="CancellationRequestSent" xml:space="preserve">
+    <value>We've sent your {0} cancellation request to {1}</value>
   </data>
-  <data name="AwaitingAcceptance" xml:space="preserve">
-    <value>[Welsh]AWAITING ACCEPTANCE</value>
+  <data name="PageTitle" xml:space="preserve">
+    <value>Request to cancel confirmed</value>
   </data>
-  <data name="AwaitingCancellation" xml:space="preserve">
-    <value>[Welsh]AWAITING CANCELLATION</value>
+  <data name="WhatHappensNextHeading" xml:space="preserve">
+    <value>What happens next</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>[Welsh]Back</value>
-  </data>
-  <data name="CancellationRequested" xml:space="preserve">
-    <value>[Welsh]CANCELLATION REQUESTED</value>
-  </data>
-  <data name="Cancelled" xml:space="preserve">
-    <value>[Welsh]CANCELLED</value>
-  </data>
-  <data name="ContinueBtn" xml:space="preserve">
-    <value>[Welsh]Continue</value>
-  </data>
-  <data name="Create" xml:space="preserve">
-    <value>[Welsh]Create a &lt;PRNTYPE&gt; for:</value>
-  </data>
-  <data name="CreateWithReplace" xml:space="preserve">
-    <value>[Welsh]Create a &lt;PRNTYPE&gt; for:</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>[Welsh]Home</value>
-  </data>
-  <data name="MustBeANumber" xml:space="preserve">
-    <value>[Welsh]Please enter a valid numerical value</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>[Welsh]No</value>
-  </data>
-  <data name="OppositeLanguage" xml:space="preserve">
-    <value>English</value>
-  </data>
-  <data name="PERN" xml:space="preserve">
-    <value>[Welsh]PERN</value>
-  </data>
-  <data name="PRN" xml:space="preserve">
-    <value>[Welsh]PRN</value>
-  </data>
-  <data name="RecordingFor" xml:space="preserve">
-    <value>[Welsh]Recording for:</value>
-  </data>
-  <data name="Rejected" xml:space="preserve">
-    <value>[Welsh]REJECTED</value>
-  </data>
-  <data name="SkipQuestionLink" xml:space="preserve">
-    <value>[Welsh]Skip question</value>
-  </data>
-  <data name="String" xml:space="preserve">
-    <value>[Welsh]There is a problem</value>
-  </data>
-  <data name="SuccessMessage" xml:space="preserve">
-    <value>[Welsh]Success</value>
-  </data>
-  <data name="UnknownWasteType" xml:space="preserve">
-    <value>[Welsh]&lt;UNKNOWN WASTE TYPE&gt;</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>[Welsh]Yes</value>
+  <data name="WhatHappensNextMessage" xml:space="preserve">
+    <value>If {0} accepts your request we'll forward it to {1} for approval. This process can take five working days. We'll inform you about the decision via email</value>
   </data>
 </root>

@@ -2,6 +2,7 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
@@ -143,11 +144,9 @@ namespace EPRN.Portal.Services
 
         public async Task<CancelViewModel> GetCancelViewModel(int id)
         {
-            return new CancelViewModel
-            {
-                Id = id,
-                Status = await _httpPrnsService.GetStatus(id)
-            };
+            var dto = await _httpPrnsService.GetStatusAndProducer(id);
+
+            return _mapper.Map<CancelViewModel>(dto);
         }
 
         public async Task<RequestCancelViewModel> GetRequestCancelViewModel(int id)
@@ -199,7 +198,7 @@ namespace EPRN.Portal.Services
             var viewModel = _mapper.Map<ViewSentPrnsViewModel>(sentPrnsDto);
 
             viewModel.FilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
-                @ViewSentPrnResources.FilterBy, 
+                ViewSentPrnResources.FilterBy,
                 PrnStatus.Accepted, 
                 PrnStatus.AwaitingAcceptance, 
                 PrnStatus.Rejected,

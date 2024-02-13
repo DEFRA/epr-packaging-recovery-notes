@@ -16,6 +16,4 @@
         Rejected,
         AwaitingCancellation
     }
-    
-    
 }

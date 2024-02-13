@@ -129,6 +129,9 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="CancellationRequested" xml:space="preserve">
+    <value>CANCELLATION REQUESTED</value>
+  </data>
   <data name="Cancelled" xml:space="preserve">
     <value>CANCELLED</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="SkipQuestionLink" xml:space="preserve">
     <value>Skip question</value>
+  </data>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>Success</value>
   </data>
   <data name="SummaryError" xml:space="preserve">
     <value>There is a problem</value>

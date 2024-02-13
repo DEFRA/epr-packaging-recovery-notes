@@ -169,7 +169,7 @@ namespace EPRN.UnitTests.API.Waste.Services
         {
             // arrange
             var journeyId = 8;
-            var noteDto = new NoteDto() { JourneyId = journeyId, Note = "abc", WasteCategory = Common.Enums.Category.Unknown };
+            var noteDto = new NoteDto() { Id = journeyId, Note = "abc", WasteCategory = Common.Enums.Category.Unknown };
             _mockRepository.Setup(x => x.GetWasteNote(It.IsAny<int>())).ReturnsAsync(noteDto);
 
             // act

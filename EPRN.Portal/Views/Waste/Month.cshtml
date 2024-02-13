@@ -1,5 +1,7 @@
 ﻿@using EPRN.Common.Enums;
-
+@using EPRN.Common.Extensions
+@using EPRN.Portal.Helpers.TagHelpers
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @model DuringWhichMonthRequestViewModel
 
 @{
@@ -28,29 +30,71 @@
     }
 }
 
-<partial name="_ValidationSummary" />
-<partial name="_WasteTypeName" />
 <form method="post">
+
     <input type="hidden" asp-for="WhatHaveYouDone" />
-    <radios asp-for="SelectedMonth" asp-title="@heading">
-        <div class="govuk-hint">
-            @hintText
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            @{
+                if (!string.IsNullOrWhiteSpace(Model.Notification))
+                {
+                    var notificationVm = new NotificationViewModel
+                {
+                    Title = WhichQuarterResources.Important
+                };
+
+                    if (Model.Notification == Strings.Notifications.QuarterlyReturnDue)
+                    {
+                        notificationVm.PrimaryMessage = $"{WhichQuarterResources.QuarterlyReturnDue} {Model.NotificationDeadlineDate}";
+                        notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnDueAction;
+                    }
+                    else if (Model.Notification == Strings.Notifications.QuarterlyReturnLate)
+                    {
+                        notificationVm.PrimaryMessage = WhichQuarterResources.QuarterlyReturnLate;
+                        notificationVm.SecondaryMessage = WhichQuarterResources.QuarterlyReturnLateAction;
+                    }
+
+                    <partial name="_NotificationPanel" model="@notificationVm" />
+                }
+            }
+            <partial name="_ValidationSummary" />
+            <partial name="_WasteTypeName" />
+
+            @if (!Model.SubmissionDate.IsFeb29())
+            {
+                <radios asp-for="SelectedMonth" asp-title="@heading">
+                    <div class="govuk-hint">
+                        @hintText
+                    </div>
+                    <p class="govuk-error-message">
+                        <span asp-validation-for="SelectedMonth"></span>
+                    </p>
+                    @if (Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
+                    {
+                        <partial name="_RadioOptionReprocessedIt" model="Model" />
+                    }
+                    else if (Model.WhatHaveYouDone == DoneWaste.SentItOn)
+                    {
+                        <partial name="_RadioOptionSentItOn" model="Model" />
+                    }
+                    else if (Model.WhatHaveYouDone == DoneWaste.ExportedIt)
+                    {
+                        <partial name="_RadioOptionExported" model="Model" />
+                    }
+                </radios>
+            }
+            else
+            {
+                <h1 class="govuk-heading-l">@WhichQuarterResources.RecordFebruaryWaste</h1>
+                <div class="govuk-hint">
+                    @WhichQuarterResources.HintTextFebruary
+                </div>
+            }
+            <button class="govuk-button" data-module="govuk-button" type="submit">
+                @MasterResources.ContinueBtn
+            </button>
         </div>
+    </div>
 
-        <p class="govuk-error-message">
-            <span asp-validation-for="SelectedMonth"></span>
-        </p>
-        @if(Model.WhatHaveYouDone == DoneWaste.ReprocessedIt)
-        {
-            <partial name="_RadioOptionReprocessedIt" model="Model"/>
-        }
-        else
-        {
-            <partial name="_RadioOptionSentItOn" model="Model" />
-        }
-    </radios>
-
-    <button class="govuk-button" data-module="govuk-button" type="submit">
-        @MasterResources.ContinueBtn
-    </button>
 </form>

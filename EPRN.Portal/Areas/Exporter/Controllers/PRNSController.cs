@@ -144,7 +144,13 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
                 return NotFound();
 
             var viewModel = await _prnService.GetCancelViewModel(id.Value);
-            return View(viewModel);
+
+            // if the status is not cancelled, return the cancel view
+            if (viewModel.Status != PrnStatus.Cancelled)
+                return View(viewModel);
+            // otherwise display that the PERN has been canclled
+            else
+                return View(Routes.Areas.Actions.PRNS.Cancelled, viewModel);
         }
 
         [HttpPost]
@@ -152,18 +158,12 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         public async Task<IActionResult> PRNCancellation(CancelViewModel cancelViewModel)
         {
             if (!ModelState.IsValid)
-                return View(await _prnService.GetCancelViewModel(cancelViewModel.Id));
+                return View(cancelViewModel);
 
             await _prnService.CancelPRN(cancelViewModel);
 
-            return RedirectToAction(
-                Routes.Areas.Actions.PRNS.Cancelled,
-                Routes.Areas.Controllers.Exporter.PRNS,
-                new 
-                { 
-                    area = Category, 
-                    id = cancelViewModel.Id 
-                });
+            // return view to show that the PERN has been cancelled
+            return View(Routes.Areas.Actions.PRNS.Cancelled, cancelViewModel);
         }
 
         [HttpGet]
@@ -174,7 +174,16 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
                 return NotFound();
 
             var viewModel = await _prnService.GetRequestCancelViewModel(id.Value);
-            return View(viewModel);
+
+            // if cancellation requested has not been made
+            if (viewModel.Status != PrnStatus.CancellationRequested)
+                return View(viewModel);
+
+            // otherwise return a view informing user that the cancellation has
+            // now been requested
+            return View(
+                Routes.Areas.Actions.PRNS.RequestCancelConfirmed,
+                viewModel);
         }
 
         [HttpPost]
@@ -186,32 +195,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             await _prnService.RequestToCancelPRN(requestCancelViewModel);
 
-            return RedirectToAction(
-                Routes.Areas.Actions.PRNS.CancelRequested,
-                Routes.Areas.Controllers.Exporter.PRNS,
-                new 
-                {
-                    area = Category,
-                    id = requestCancelViewModel.Id
-                });
-        }
-
-        [HttpGet]
-        public IActionResult Cancelled(int? id)
-        {
-            // *** Stubbed method ***
-            return View();
-        }
-
-        /// <summary>
-        /// This action comes from a succesful request to cancel an
-        /// accepted PRN (CancelAcceptedPERN)
-        /// </summary>
-        [HttpGet]
-        public IActionResult CancelRequested(int? id)
-        {
-            // *** Stubbed method ***
-            return View();
+            return View(Routes.Areas.Actions.PRNS.RequestCancelConfirmed, requestCancelViewModel);
         }
 
         [HttpGet]

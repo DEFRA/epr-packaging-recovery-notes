@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AlreadyCancelledPERN" xml:space="preserve">
-    <value>This PERN has already been accepted</value>
+    <value>This PERN has already been cancelled</value>
   </data>
   <data name="AlreadyCancelledPRN" xml:space="preserve">
-    <value>This PRN has already been accepted</value>
+    <value>This PRN has already been cancelled</value>
   </data>
   <data name="CancelQuestionPERN" xml:space="preserve">
     <value>Why do you want to cancel this PERN?</value>
