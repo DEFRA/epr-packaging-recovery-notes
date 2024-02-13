@@ -129,10 +129,19 @@
   <data name="CompanyNameLabel" xml:space="preserve">
     <value>Company label</value>
   </data>
+  <data name="ExportingLabel" xml:space="preserve">
+    <value>Exporting</value>
+  </data>
   <data name="MaterialHeading" xml:space="preserve">
     <value>Material</value>
   </data>
   <data name="RecordWasteLabel" xml:space="preserve">
     <value>Record waste</value>
+  </data>
+  <data name="ReprocessingLabel" xml:space="preserve">
+    <value>Reprocessing</value>
+  </data>
+  <data name="UnknownLabel" xml:space="preserve">
+    <value>Unknown</value>
   </data>
 </root>
