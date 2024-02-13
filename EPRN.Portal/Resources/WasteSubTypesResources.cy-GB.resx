@@ -132,7 +132,7 @@
   <data name="1-sorted-mixed-paper/board" xml:space="preserve">
     <value>[Welsh]Sorted mixed paper/board</value>
   </data>
-  <data name="1-unsorted-mixed paper/board" xml:space="preserve">
+  <data name="1-unsorted-mixed-paper/board" xml:space="preserve">
     <value>[Welsh]Unsorted mixed paper/board</value>
   </data>
   <data name="2-grade-1.04.01" xml:space="preserve">
@@ -151,7 +151,7 @@
     <value>[Welsh]Sorted mixed paper/board</value>
   </data>
   <data name="2-unsorted-mixed-paper.board" xml:space="preserve">
-    <value>[Welsh]Unsorted mixed paper.board</value>
+    <value>[Welsh]Unsorted mixed paper/board</value>
   </data>
   <data name="3-100%-packaging" xml:space="preserve">
     <value>[Welsh]100% packaging</value>
@@ -213,7 +213,7 @@
   <data name="7-pet" xml:space="preserve">
     <value>[Welsh]PET</value>
   </data>
-  <data name="7-Pots-tubs-trays" xml:space="preserve">
+  <data name="7-pots-tubs-trays" xml:space="preserve">
     <value>[Welsh]Pots, tubs, trays</value>
   </data>
   <data name="8-100%-packaging" xml:space="preserve">
@@ -238,7 +238,7 @@
     <value>[Welsh]What type of waste was it?</value>
   </data>
   <data name="MissingWasteSubTypeSelectionMessage" xml:space="preserve">
-    <value>[Welsh]A material sub type requires to be selected</value>
+    <value>[Welsh]Select the material sub type</value>
   </data>
   <data name="OtherOptionHint" xml:space="preserve">
     <value>Enter the percentage of packaging content agreed with your local agency.</value>
