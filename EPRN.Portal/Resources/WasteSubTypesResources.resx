@@ -243,4 +243,7 @@
   <data name="OtherOptionHint" xml:space="preserve">
     <value>Enter the percentage of packaging content agreed with your local agency.</value>
   </data>
+  <data name="PageSubHint" xml:space="preserve">
+    <value>Select ‘other’ if you’re accredited for a waste type not listed here.</value>
+  </data>
 </root>

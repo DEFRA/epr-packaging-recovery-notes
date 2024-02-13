@@ -17,6 +17,11 @@
         <p class="govuk-error-message">
             <span asp-validation-for="SelectedWasteSubTypeId"></span>
         </p>
+
+        <div class="govuk-hint">
+            @WasteSubTypesResources.PageSubHint
+        </div>
+
         @foreach(var wasteSubType in Model.WasteSubTypeOptions)
         {
             <div class="govuk-radios__item">
