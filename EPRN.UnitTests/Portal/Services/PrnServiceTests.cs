@@ -2,6 +2,7 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
@@ -263,7 +264,7 @@ namespace EPRN.UnitTests.Portal.Services
             var expectedViewModel = new ViewSentPrnsViewModel();
 
             var expectedFilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
-                @ViewSentPrnResources.FilterBy,
+                ViewSentPrnResources.FilterBy,
                 PrnStatus.Accepted,
                 PrnStatus.AwaitingAcceptance,
                 PrnStatus.Rejected,

@@ -173,7 +173,16 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
                 return NotFound();
 
             var viewModel = await _prnService.GetRequestCancelViewModel(id.Value);
-            return View(viewModel);
+
+            // if cancellation requested has not been made
+            if (viewModel.Status != PrnStatus.CancellationRequested)
+                return View(viewModel);
+
+            // otherwise return a view informing user that the cancellation has
+            // now been requested
+            return View(
+                Routes.Areas.Actions.PRNS.RequestCancelConfirmed,
+                viewModel);
         }
 
         [HttpPost]
@@ -185,14 +194,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.RequestToCancelPRN(requestCancelViewModel);
 
-            return RedirectToAction(
-                Routes.Areas.Actions.PRNS.CancelRequested,
-                Routes.Areas.Controllers.Reprocessor.PRNS,
-                new 
-                {
-                    area = Category,
-                    id = requestCancelViewModel.Id
-                });
+            return View(
+                Routes.Areas.Actions.PRNS.RequestCancelConfirmed, 
+                requestCancelViewModel);
         }
 
         [HttpGet]

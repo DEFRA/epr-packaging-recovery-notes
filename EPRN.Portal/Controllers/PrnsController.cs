@@ -69,7 +69,7 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Action(ActionPrnViewModel actionPrnViewModel)
+        public IActionResult Action(ActionPrnViewModel actionPrnViewModel)
         {
             if (!ModelState.IsValid)
                 return View(actionPrnViewModel);

@@ -405,16 +405,15 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int Id = 3;
-            _mockHttpJourneyService.Setup(s => s.GetNote(Id)).ReturnsAsync(new NoteDto());
+            var dto = new NoteDto();
+            _mockHttpJourneyService.Setup(s => s.GetNote(Id)).ReturnsAsync(dto);
 
             // Act
             var viewModel = await _wasteService.GetNoteViewModel(Id);
 
             // Assert
-            Assert.IsNotNull(viewModel);
-            Assert.AreEqual(Id, viewModel.Id);
-
             _mockHttpJourneyService.Verify(service => service.GetNote(It.Is<int>(id => id == Id)), Times.Once());
+            _mockMapper.Verify(s => s.Map<NoteViewModel>(It.Is<NoteDto>(p => p == dto)), Times.Once);
         }
 
         [TestMethod]
@@ -512,7 +511,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int Id = 3;
-            int currentMonth = 5;
             
             DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
             {
@@ -540,7 +538,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             int Id = 3;
-            int currentMonth = 5;
 
             DuringWhichMonthReceivedRequestViewModel expectedViewModel = new DuringWhichMonthReceivedRequestViewModel
             {
