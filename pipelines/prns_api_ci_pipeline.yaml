@@ -15,7 +15,7 @@ parameters:
 pool: DEFRA-COMMON-ubuntu2004-SSV3
 
 variables:
-  - template: vars/Team-9_Ops-development.yaml
+  - template: vars/Team-10_Ops-development.yaml
   - name: solutionFolder
     value: '.'
   - name: projectFolder
@@ -23,9 +23,9 @@ variables:
   - name: testProjectFolder
     value:  EPRN.UnitTests
   - name: sonarQubeProjectKey
-    value: EPRN.PRNS.API
+    value: epr-packaging-recovery-notes
   - name: sonarQubeProjectName
-    value: EPRN.PRNS.API
+    value: epr-packaging-recovery-notes
   - name: runNugetTasks
     value: false
 

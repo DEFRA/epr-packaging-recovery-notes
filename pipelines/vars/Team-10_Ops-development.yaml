@@ -1,6 +1,6 @@
 variables:
-  azureSubscription: 'AZD-RWD-DEV10'
-  docker.imageName: 'protectivemonitoringapi'
+  azureSubscription: 'AZD-RWD-DEV9'
+  docker.imageName: 'packagingrecoveryapi'
   acr.azureContainerRegistryName: 'devrwdinfac1401'
-  acr.repositoryName: 'protectivemonitoringapirepository'
+  acr.repositoryName: 'packagingrecoveryrepository'
   serviceName: 'devrwdwebwa9403'

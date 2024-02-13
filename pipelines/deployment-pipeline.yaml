@@ -5,7 +5,7 @@ pool: DEFRA-COMMON-ubuntu2004-SSV3
 parameters:
 - name: teamName
   displayName: 'Select Team Name:    (works only with "development" as target env)'
-  default: 'Team-9_Ops'
+  default: 'Team-10_Ops'
   type: string
   values:
     - Team-1_Pi
