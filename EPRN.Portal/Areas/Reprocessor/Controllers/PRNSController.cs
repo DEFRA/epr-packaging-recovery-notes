@@ -238,7 +238,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ActionPrn(int? id)
+        public async Task<IActionResult> DestinationPrn(int? id)
         {
             if (id == null)
                 return NotFound();
@@ -248,11 +248,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActionPrn(DestinationPrnViewModel actionPrnViewModel)
+        public async Task<IActionResult> DestinationPrn(DestinationPrnViewModel actionPrnViewModel)
         {
             if (!ModelState.IsValid)
                 return View(actionPrnViewModel);
-
 
             await _prnService.SaveSentTo(actionPrnViewModel);
 
