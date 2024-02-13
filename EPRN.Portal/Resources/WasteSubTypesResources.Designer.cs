@@ -437,5 +437,14 @@ namespace EPRN.Portal.Resources {
                 return ResourceManager.GetString("OtherOptionHint", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select ‘other’ if you’re accredited for a waste type not listed here..
+        /// </summary>
+        public static string PageSubHint {
+            get {
+                return ResourceManager.GetString("PageSubHint", resourceCulture);
+            }
+        }
     }
 }

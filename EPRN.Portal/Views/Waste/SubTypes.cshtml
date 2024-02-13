@@ -16,6 +16,11 @@
         <p class="govuk-error-message">
             <span asp-validation-for="SelectedWasteSubTypeId"></span>
         </p>
+
+        <div class="govuk-hint">
+            @WasteSubTypesResources.PageSubHint
+        </div>
+
         @foreach(var wasteSubType in Model.WasteSubTypeOptions)
         {
             <div class="govuk-radios__item">
@@ -26,8 +31,8 @@
             </div>
             if (wasteSubType.AdjustmentPercentageRequired)
             {
-                <div class="govuk-form-group" id="custom-percentage-div">
-                    <p class="govuk-error-message">
+                <div class="govuk-radios__conditional" id="custom-percentage-div">
+                    <p class="govuk-hint">
                         <span asp-validation-for="CustomPercentage">@WasteSubTypesResources.OtherOptionHint</span>
                     </p>
                     <div class="govuk-input__wrapper custom-percentage-input">
