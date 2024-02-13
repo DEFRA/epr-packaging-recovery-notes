@@ -17,5 +17,7 @@ namespace EPRN.Portal.ViewModels.PRNS
         public string CancelReason { get; set; }
 
         public PrnStatus? Status { get; set; }
+
+        public string Reference { get; set; }
     }
 }

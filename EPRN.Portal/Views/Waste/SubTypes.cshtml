@@ -1,5 +1,6 @@
 ﻿@using Microsoft.Extensions.Localization;
 @using EPRN.Portal.Helpers.Interfaces;
+@using EPRN.Portal.Helpers.Extensions;
 
 @model WasteSubTypesViewModel
 @inject ILocalizationHelper<WasteSubTypesResources> localizationHelper
@@ -26,7 +27,10 @@
             <div class="govuk-radios__item">
                 <input class="govuk-radios__input" type="radio" asp-for="SelectedWasteSubTypeId" value="@wasteSubType.Id" data-custompercentage="@wasteSubType.AdjustmentPercentageRequired.ToString().ToLower()">
                 <label class="govuk-label govuk-radios__label" for="@wasteSubType.Id">
-                    @localizationHelper.GetString(wasteSubType.Name)
+                    @{
+                        var key = wasteSubType.Name.GetSubTypeResourceKey(Model.WasteTypeId);
+                    }
+                    @WasteSubTypesResources.ResourceManager.GetString(key)
                 </label>
             </div>
             if (wasteSubType.AdjustmentPercentageRequired)
@@ -34,7 +38,7 @@
                 <div class="govuk-radios__conditional" id="custom-percentage-div">
                     <p class="govuk-hint">
                         <span asp-validation-for="CustomPercentage">@WasteSubTypesResources.OtherOptionHint</span>
-                    </p>
+                    </div>
                     <div class="govuk-input__wrapper custom-percentage-input">
                         <input class="govuk-input govuk-input--width-5" type="text" asp-for="CustomPercentage" />
                         <div class="govuk-input__suffix" aria-hidden="true">%</div>

@@ -2,6 +2,7 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
@@ -196,13 +197,14 @@ namespace EPRN.Portal.Services
             var viewModel = _mapper.Map<ViewSentPrnsViewModel>(sentPrnsDto);
 
             viewModel.FilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
-                @ViewSentPrnResources.FilterBy, 
-                PrnStatus.Accepted, 
-                PrnStatus.AwaitingAcceptance, 
+                ViewSentPrnResources.FilterBy,
+                MasterResources.ResourceManager,
+                PrnStatus.Accepted,
+                PrnStatus.AwaitingAcceptance,
                 PrnStatus.Rejected,
-                PrnStatus.AwaitingCancellation, 
+                PrnStatus.AwaitingCancellation,
                 PrnStatus.Cancelled);
-            
+
             viewModel.SortItems = new List<SelectListItem>
             {
                 new() { Value = "", Text = @ViewSentPrnResources.SortBy }, 

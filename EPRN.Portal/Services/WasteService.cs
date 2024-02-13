@@ -8,6 +8,7 @@ using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
@@ -20,18 +21,24 @@ namespace EPRN.Portal.Services
     {
         private readonly IMapper _mapper;
         private readonly IHttpWasteService _httpWasteService;
+        private readonly IUserRoleService _userRoleService;
         private readonly IHttpJourneyService _httpJourneyService;
+        protected IOptions<AppConfigSettings> ConfigSettings;
+        
 
         public WasteService(
             IMapper mapper,
             IHttpWasteService httpWasteService,
             IHttpJourneyService httpJourneyService,
             ILocalizationHelper<WhichQuarterResources> localizationHelper,
-            IOptions<AppConfigSettings> configSettings)
+            IOptions<AppConfigSettings> configSettings,
+            IUserRoleService userRoleService)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
             _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(httpJourneyService));
+            ConfigSettings = configSettings ?? throw new ArgumentNullException(nameof(configSettings));
+            _userRoleService = userRoleService ?? throw new ArgumentNullException(nameof(userRoleService));
         }
 
         public async Task<int> CreateJourney(
@@ -173,6 +180,12 @@ namespace EPRN.Portal.Services
                                 { 4, materialTypes[4] },
                                 { 9, materialTypes[9] }
                             }
+                        },
+                        // add in a site with ALL materials so that testers can use each type
+                        new()
+                        {
+                            SiteName = "Unit 1s Halifax Road, Bonneville",
+                            SiteMaterials = materialTypes
                         }
                     }
                 },
@@ -226,6 +239,7 @@ namespace EPRN.Portal.Services
             return new WasteSubTypesViewModel
             {
                 Id = journeyId,
+                WasteTypeId = wasteTypeId.Value,
                 WasteSubTypeOptions = wasteSubTypeOptions,
                 SelectedWasteSubTypeId = selectedWasteSubTypeTask.Result.WasteSubTypeId,
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
@@ -322,6 +336,8 @@ namespace EPRN.Portal.Services
             var dto = await _httpJourneyService.GetBaledWithWire(journeyId);
             var vm = _mapper.Map<BaledWithWireViewModel>(dto);
 
+            if (vm.BaledWithWireDeductionPercentage == null || vm.BaledWithWireDeductionPercentage == 0)
+                vm.BaledWithWireDeductionPercentage = GetDeductionPercentageAmount();
             return vm;
         }
         public async Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel)
@@ -368,13 +384,9 @@ namespace EPRN.Portal.Services
 
         public async Task<NoteViewModel> GetNoteViewModel(int journeyId)
         {
-            var noteViewModel = new NoteViewModel
-            {
-                Id = journeyId,
-                NoteContent =   _httpJourneyService.GetNote(journeyId).Result.Note
-            };
+            var noteDto = await _httpJourneyService.GetNote(journeyId);
 
-            return noteViewModel;
+            return _mapper.Map<NoteViewModel>(noteDto);
         }
 
         public async Task SaveNote(NoteViewModel noteViewModel)
@@ -403,6 +415,30 @@ namespace EPRN.Portal.Services
                 vm.UserRole = UserRole.Exporter;
 
             return vm;
+        }
+
+        public double? GetBaledWithWireDeductionPercentage(UserRole userRole)
+        {
+            if (userRole == UserRole.Exporter)
+                return ConfigSettings.Value.DeductionAmount_Exporter;
+            else if (userRole == UserRole.Reprocessor)
+                return ConfigSettings.Value.DeductionAmount_Reprocessor;
+            else if (userRole == UserRole.None)
+                return 0;
+            else
+                return null;
+        }
+
+        private double GetDeductionPercentageAmount()
+        {
+            double deductionAmount = 0;
+            if (_userRoleService.HasRole(UserRole.Exporter) && _userRoleService.HasRole(UserRole.Reprocessor))
+                deductionAmount = (double)ConfigSettings.Value.DeductionAmount_ExporterAndReprocessor;
+            if (_userRoleService.HasRole(UserRole.Exporter))
+                deductionAmount = (double)ConfigSettings.Value.DeductionAmount_Exporter;
+            if (_userRoleService.HasRole(UserRole.Reprocessor))
+                deductionAmount = (double)ConfigSettings.Value.DeductionAmount_Reprocessor;
+            return deductionAmount;
         }
     }
 }

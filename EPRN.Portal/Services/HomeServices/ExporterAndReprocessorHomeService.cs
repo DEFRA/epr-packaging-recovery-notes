@@ -90,11 +90,6 @@ namespace EPRN.Portal.Services
             return cardViewModels;
         }
 
-        public override double? GetBaledWithWireDeductionPercentage()
-        {
-            return ConfigSettings.Value.DeductionAmount_ExporterAndReprocessor;
-        }
-
         public override Task<CYAViewModel> GetCheckAnswers(int journeyId)
         {
             throw new NotImplementedException();
