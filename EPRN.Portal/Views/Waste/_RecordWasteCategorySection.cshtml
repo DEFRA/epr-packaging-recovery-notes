@@ -3,8 +3,23 @@
     ViewData["Category"] = Model.Category;
 }
 <div>
-    <h2>@Model.Category.ToString()</h2>
-    <label>@RecordWasteResources.ChooseAccreditationLabel</label>
+    @switch (Model.Category)
+    {
+        case EPRN.Common.Enums.Category.Reprocessor:
+            <h2>@RecordWasteResources.ReprocessingLabel</h2>;
+            break;
+
+        case EPRN.Common.Enums.Category.Exporter:
+            <h2>@RecordWasteResources.ExportingLabel</h2>;
+            break;
+
+        default:
+            <h2>@RecordWasteResources.UnknownLabel</h2>;
+            break;
+    }
+
+
+    <h2 class="govuk-body-m">@RecordWasteResources.ChooseAccreditationLabel</h2>
     @foreach (var siteViewModel in Model.Sites)
     {
         <partial name="_RecordWasteSiteSection" model="siteViewModel" view-data="ViewData" />
