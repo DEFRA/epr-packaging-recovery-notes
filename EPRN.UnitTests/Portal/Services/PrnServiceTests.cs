@@ -265,6 +265,7 @@ namespace EPRN.UnitTests.Portal.Services
 
             var expectedFilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
                 ViewSentPrnResources.FilterBy,
+                MasterResources.ResourceManager,
                 PrnStatus.Accepted,
                 PrnStatus.AwaitingAcceptance,
                 PrnStatus.Rejected,
@@ -319,9 +320,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             var request = (GetSentPrnsViewModel)null;
-            var getSentPrnsDto = new GetSentPrnsDto();
-            var sentPrnsDto = new SentPrnsDto();
-            var expectedViewModel = new ViewSentPrnsViewModel();
 
             _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns((GetSentPrnsDto)null);
 
