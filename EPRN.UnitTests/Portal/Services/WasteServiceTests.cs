@@ -467,7 +467,7 @@ namespace EPRN.UnitTests.Portal.Services
             _mockMapper.Setup(m => m.Map<BaledWithWireViewModel>(expectedDto)).Returns(expectedViewModel);
 
             // Act
-            await _wasteService.GetBaledWithWireModel(Id, 0);
+            await _wasteService.GetBaledWithWireModel(Id);
 
             // Assert
             _mockMapper.Verify(m => m.Map<BaledWithWireViewModel>(It.Is<BaledWithWireDto>(p => p == expectedDto)), Times.Exactly(1));

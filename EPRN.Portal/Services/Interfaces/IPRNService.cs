@@ -38,8 +38,8 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel);
 
-        Task<ActionPrnViewModel> GetActionPrnViewModel(int id);
+        Task<DestinationPrnViewModel> GetActionPrnViewModel(int id);
 
-        Task SaveSentTo(ActionPrnViewModel actionPrnViewModel);
+        Task SaveSentTo(DestinationPrnViewModel actionPrnViewModel);
     }
 }

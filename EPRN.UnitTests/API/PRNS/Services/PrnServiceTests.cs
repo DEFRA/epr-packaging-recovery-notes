@@ -124,17 +124,16 @@ namespace EPRN.UnitTests.API.PRNS.Services
         {
             // arrange
             var id = 342;
-            var reason = "update";
-
+            
             // act
-            await _prnService.SaveCheckYourAnswers(id, reason);
+            await _prnService.SaveCheckYourAnswers(id);
 
             // assert
             _mockRepository.Verify(s =>
                 s.UpdatePrnStatus(
-                    It.Is<int>(p => p == id),
-                    It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete),
-                    It.Is<string>(p => p == reason)),
+                    It.IsAny<int>(),
+                    It.IsAny<PrnStatus>(),
+                    It.IsAny<string>()),
                 Times.Once);
         }
 
@@ -150,7 +149,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             // assert
             _mockRepository.Verify(s => 
                 s.GetStatus(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 

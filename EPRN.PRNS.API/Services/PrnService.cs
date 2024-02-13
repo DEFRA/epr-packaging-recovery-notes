@@ -72,8 +72,9 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetStatusAndRecipient(id);
         }
 
-        public async Task SaveCheckYourAnswers(int id, string reason)
+        public async Task SaveCheckYourAnswers(int id)
         {
+            string reason = "Update";
             await _prnRepository.UpdatePrnStatus(
                 id, 
                 PrnStatus.CheckYourAnswersComplete, reason);
@@ -146,16 +147,16 @@ namespace EPRN.PRNS.API.Services
             await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
         }
 
-        public async Task SaveSentTo(int id, PrnStatus status)
+        public async Task SaveSentTo(int id, string sentTo)
         {
-            await _prnRepository.SaveSentTo(id, status.ToString());
+            await _prnRepository.SaveSentTo(id, sentTo);
         }
 
-    #region Private methods - Keep at bottom of file
-    // Stub this and generate a random PRN reference number
-    // In time a specific generation algorithm will
-    // be specified
-    private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
-        #endregion
-    }
+        #region Private methods - Keep at bottom of file
+        // Stub this and generate a random PRN reference number
+        // In time a specific generation algorithm will
+        // be specified
+        private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+            #endregion
+        }
 }

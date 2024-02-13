@@ -76,7 +76,7 @@ namespace EPRN.PRNS.API.Controllers
         public async Task<IActionResult> SaveCheckYourAnswersState(
             int id)
         {
-            await _prnService.SaveCheckYourAnswers(id, "Update");
+            await _prnService.SaveCheckYourAnswers(id);
 
             return Ok();
         }
@@ -168,24 +168,24 @@ namespace EPRN.PRNS.API.Controllers
         [Route("Reference")]
         public async Task<IActionResult> GetPrnReference(int id)
         {
-            var prnReference = await _prnService.GetPrnDetails(id);
+            var prnDetailsDto = await _prnService.GetPrnDetails(id);
             
-            if (prnReference == null)
+            if (prnDetailsDto == null)
                 return NotFound();
 
-            return Ok(prnReference.ReferenceNumber);
+            return Ok(prnDetailsDto);
         }
 
         [HttpPost]
-        [Route("SentTo/{status}")]
-        public async Task<ActionResult> SaveSentTo(int? id, PrnStatus? status)
+        [Route("SentTo/{sentTo}")]
+        public async Task<ActionResult> SaveSentTo(int? id, string sentTo)
         {
             if (id == null)
                 return BadRequest("Missing ID");
 
             await _prnService.SaveSentTo(
                 id.Value,
-                status.Value);
+                sentTo);
 
             return Ok();
         }

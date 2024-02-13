@@ -222,17 +222,17 @@ namespace EPRN.Portal.Services
             return _mapper.Map<ViewPRNViewModel>(dto);
         }
 
-        public async Task<ActionPrnViewModel> GetActionPrnViewModel(int id)
+        public async Task<DestinationPrnViewModel> GetActionPrnViewModel(int id)
         {
-            var reference = await _httpPrnsService.GetPrnReference(id);
-            var dto = await _httpPrnsService.GetPrnDetails(reference);
-
-            var actionPrnViewModel = new ActionPrnViewModel { Id = id };
-
+            var dto = await _httpPrnsService.GetPrnReference(id);
+            var actionPrnViewModel = new DestinationPrnViewModel 
+            { 
+                Id = id
+            };
             return actionPrnViewModel;
         }
 
-        public async Task SaveSentTo(ActionPrnViewModel actionPrnViewModel)
+        public async Task SaveSentTo(DestinationPrnViewModel actionPrnViewModel)
         {
             if (actionPrnViewModel == null)
                 throw new ArgumentNullException(nameof(actionPrnViewModel));

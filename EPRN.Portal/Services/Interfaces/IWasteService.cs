@@ -32,7 +32,7 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel);
 
-        Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId, double? percentageDeduction);
+        Task<BaledWithWireViewModel> GetBaledWithWireModel(int journeyId);
 
         Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel);
 

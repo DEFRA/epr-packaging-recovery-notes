@@ -107,9 +107,9 @@ namespace EPRN.Portal.RESTServices
             await Post($"{id}/Category/{_category}/DecemberWaste/{decemberWaste}");
         }
 
-        public async Task<string> GetPrnReference(int id)
+        public async Task<PRNDetailsDto> GetPrnReference(int id)
         {
-            return await Get<string>($"{id}/Category/{_category}/Reference");
+            return await Get<PRNDetailsDto>($"{id}/Category/{_category}/Reference");
         }
 
         public async Task SaveSentTo(int id, PrnStatus? status)

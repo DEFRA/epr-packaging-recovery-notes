@@ -25,7 +25,7 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task<StatusAndProducerDto> GetStatusWithProducerName(int id);
 
-        Task SaveCheckYourAnswers(int id, string reason);
+        Task SaveCheckYourAnswers(int id);
 
         Task CancelPrn(int id, string reason);
 
@@ -41,6 +41,6 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task<PRNDetailsDto> GetPrnDetails(int id);
 
-        Task SaveSentTo(int Id, PrnStatus status);
+        Task SaveSentTo(int Id, string status);
     }
 }

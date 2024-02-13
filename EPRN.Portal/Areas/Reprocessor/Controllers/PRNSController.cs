@@ -109,7 +109,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
-                            Routes.Areas.Actions.PRNS.ActionPrn,
+                            Routes.Areas.Actions.PRNS.DestinationPrn,
                             Routes.Areas.Controllers.Reprocessor.PRNS,
                             new
                             {
@@ -248,7 +248,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActionPrn(ActionPrnViewModel actionPrnViewModel)
+        public async Task<IActionResult> ActionPrn(DestinationPrnViewModel actionPrnViewModel)
         {
             if (!ModelState.IsValid)
                 return View(actionPrnViewModel);

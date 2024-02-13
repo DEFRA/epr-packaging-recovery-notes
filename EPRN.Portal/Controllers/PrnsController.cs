@@ -58,13 +58,13 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        public IActionResult Action(ActionPrnViewModel actionPrnViewModel)
+        public IActionResult Action(DestinationPrnViewModel actionPrnViewModel)
         {
             if (!ModelState.IsValid)
                 return View(actionPrnViewModel);
 
             if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)
-                return RedirectToAction(Routes.Actions.PRNS.PrnSavedAsDraftConfirmation, new { id = actionPrnViewModel.Id });
+                return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, new { id = actionPrnViewModel.Id });
             else
                 return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category.Exporter, actionPrnViewModel.Id });
         }

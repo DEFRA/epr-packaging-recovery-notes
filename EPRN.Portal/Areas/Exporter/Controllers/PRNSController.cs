@@ -109,13 +109,8 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.ActionPrn,
-                Routes.Areas.Controllers.Exporter.PRNS, 
-                new 
-                { 
-                    area = Category, 
-                    id = checkYourAnswersViewModel.Id 
-                });
+                Routes.Areas.Actions.PRNS.DestinationPrn,
+                Routes.Areas.Controllers.Exporter.PRNS, new { area = Category, id = checkYourAnswersViewModel.Id });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -232,7 +227,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ActionPrn(int? id)
+        public async Task<IActionResult> DestinationPrn(int? id)
         {
             if (id == null)
                 return NotFound();
@@ -242,7 +237,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ActionPrn(ActionPrnViewModel actionPrnViewModel)
+        public async Task<IActionResult> DestinationPrn(DestinationPrnViewModel actionPrnViewModel)
         {
             if (!ModelState.IsValid)
                 return View(actionPrnViewModel);
