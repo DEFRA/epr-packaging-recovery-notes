@@ -110,7 +110,7 @@ namespace EPRN.Portal.Resources {
         /// </summary>
         public static string _1_unsorted_mixed_paper_board {
             get {
-                return ResourceManager.GetString("1-unsorted-mixed paper/board", resourceCulture);
+                return ResourceManager.GetString("1-unsorted-mixed-paper/board", resourceCulture);
             }
         }
         
@@ -160,7 +160,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unsorted mixed paper.board.
+        ///   Looks up a localized string similar to Unsorted mixed paper/board.
         /// </summary>
         public static string _2_unsorted_mixed_paper_board {
             get {
@@ -351,9 +351,9 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Pots, tubs, trays.
         /// </summary>
-        public static string _7_Pots_tubs_trays {
+        public static string _7_pots_tubs_trays {
             get {
-                return ResourceManager.GetString("7-Pots-tubs-trays", resourceCulture);
+                return ResourceManager.GetString("7-pots-tubs-trays", resourceCulture);
             }
         }
         
@@ -421,7 +421,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A material sub type requires to be selected.
+        ///   Looks up a localized string similar to Select the material sub type.
         /// </summary>
         public static string MissingWasteSubTypeSelectionMessage {
             get {

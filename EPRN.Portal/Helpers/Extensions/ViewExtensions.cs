@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Enums;
+using System.Text.RegularExpressions;
 
 namespace EPRN.Portal.Helpers.Extensions
 {
@@ -28,6 +29,17 @@ namespace EPRN.Portal.Helpers.Extensions
             // if a PRN has not yet been accepted 
 
             return CancelPermission.CancelAllowed;
+        }
+
+        public static string GetSubTypeResourceKey(this string subTypeName, int wasteTypeId)
+        {
+            // remove any occurrences of "& " and ","
+            var key = Regex.Replace(subTypeName, @"&\s|,", string.Empty);
+
+            // replace any remaining space with - and precede the entire text with the waste type id and a -
+            key = $"{wasteTypeId}-{Regex.Replace(key, @"[\s,]", "-").ToLower()}";
+
+            return key;
         }
     }
 }

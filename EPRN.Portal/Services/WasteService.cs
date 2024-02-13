@@ -180,6 +180,12 @@ namespace EPRN.Portal.Services
                                 { 4, materialTypes[4] },
                                 { 9, materialTypes[9] }
                             }
+                        },
+                        // add in a site with ALL materials so that testers can use each type
+                        new()
+                        {
+                            SiteName = "Unit 1s Halifax Road, Bonneville",
+                            SiteMaterials = materialTypes
                         }
                     }
                 },
@@ -233,6 +239,7 @@ namespace EPRN.Portal.Services
             return new WasteSubTypesViewModel
             {
                 Id = journeyId,
+                WasteTypeId = wasteTypeId.Value,
                 WasteSubTypeOptions = wasteSubTypeOptions,
                 SelectedWasteSubTypeId = selectedWasteSubTypeTask.Result.WasteSubTypeId,
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
