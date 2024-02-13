@@ -611,6 +611,5 @@ namespace EPRN.UnitTests.Portal.Controllers
             Assert.AreEqual("Index", redirectResult.ActionName);
             Assert.AreEqual("Home", redirectResult.ControllerName);
         }
-
     }
 }

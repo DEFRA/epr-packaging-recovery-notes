@@ -447,5 +447,28 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             Assert.IsInstanceOfType(result, typeof(ViewResult));
             Assert.IsNull(result.ViewName);
         }
+
+        [TestMethod]
+        public async Task DestinationPrn_ReturnsCorrectViewName_WhenJourneyIdValid()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            var expectedViewModel = new DestinationPrnViewModel
+            {
+                Id = journeyId,
+                DoWithPRN = null
+            };
+
+            _mockPrnService.Setup(service => service.GetActionPrnViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.DestinationPrn(journeyId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNull(result.ViewName);
+        }
     }
 }

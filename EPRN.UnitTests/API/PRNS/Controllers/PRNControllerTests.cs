@@ -262,5 +262,41 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkResult));
         }
+
+        [TestMethod]
+        public async Task GetPrnDetailsUsingId_WhenDtoIsNotNull_ShouldReturnOkResult()
+        {
+            // Arrange
+            var reference = 1;
+            var expectedDto = new PRNDetailsDto();
+
+            _mockPrnService.Setup(service => service.GetPrnDetails(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnController.GetPrnReference(reference);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+            var okResult = (OkObjectResult)result;
+            Assert.AreEqual(expectedDto, okResult.Value);
+        }
+
+        [TestMethod]
+        public async Task GetPrnDetailsUsingId_WhenDtoIsNull_ShouldReturnNotFoundResult()
+        {
+            // Arrange
+            var reference = 0;
+
+            _mockPrnService.Setup(service => service.GetPrnDetails(reference))
+                .ReturnsAsync((PRNDetailsDto)null);
+
+            // Act
+            var result = await _prnController.GetPrnReference(reference);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
     }
 }

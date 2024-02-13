@@ -400,5 +400,59 @@ namespace EPRN.UnitTests.API.PRNS.Services
                     It.IsAny<int>()),
                 Times.Never);
         }
+
+        [TestMethod]
+        public async Task GetPrnDetailsUsingId_WhenRepositoryReturnsDto_ShouldReturnDto()
+        {
+            // Arrange
+            var reference = 1;
+            var expectedDto = new PRNDetailsDto();
+
+            _mockRepository.Setup(repository => repository.GetDetails(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnService.GetPrnDetails(reference);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedDto, result);
+        }
+
+        [TestMethod]
+        public async Task SaveSaveSentTo_CallsServiceMethod()
+        {
+            // Arrange
+            var id = 4;
+            string sentTo = "Draft";
+
+            // Act
+            await _prnService.SaveSentTo(id, sentTo);
+
+            // Assert
+            _mockRepository.Verify(s =>
+                s.SaveSentTo(
+                    It.Is<int>(p => p == id),
+                    It.Is<string>(p => p == sentTo)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveDecemberWaste_CallsServiceMethod()
+        {
+            // Arrange
+            var id = 4;
+            var waste = true;
+
+            // Act
+            await _prnService.SaveDecemberWaste(id, waste);
+
+            // Assert
+            _mockRepository.Verify(s =>
+                s.SaveDecemberWaste(
+                    It.Is<int>(p => p == id),
+                    It.Is<bool>(p => p == waste)),
+                Times.Once);
+        }
     }
 }
