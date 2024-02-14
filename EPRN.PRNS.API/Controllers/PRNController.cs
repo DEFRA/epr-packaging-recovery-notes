@@ -170,9 +170,6 @@ namespace EPRN.PRNS.API.Controllers
         {
             var prnDetailsDto = await _prnService.GetPrnDetails(id);
             
-            if (prnDetailsDto == null)
-                return NotFound();
-
             return Ok(prnDetailsDto);
         }
 
