@@ -1,7 +1,6 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
-using EPRN.Portal.Helpers.Extensions;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -51,9 +50,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.SentTo,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new 
-                { 
-                    area = string.Empty 
+                new
+                {
+                    area = string.Empty
                 });
         }
 
@@ -69,10 +68,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new 
-                { 
-                    area = Category, 
-                    Id = prnId 
+                new
+                {
+                    area = Category,
+                    Id = prnId
                 });
         }
 
@@ -108,12 +107,12 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.WhatToDo, 
-                Routes.Areas.Controllers.Reprocessor.PRNS, 
-                new 
-                { 
-                    area = Category, 
-                    id = checkYourAnswersViewModel.Id 
+                Routes.Areas.Actions.PRNS.WhatToDo,
+                Routes.Areas.Controllers.Reprocessor.PRNS,
+                new
+                {
+                    area = Category,
+                    id = checkYourAnswersViewModel.Id
                 });
         }
 
@@ -195,7 +194,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             await _prnService.RequestToCancelPRN(requestCancelViewModel);
 
             return View(
-                Routes.Areas.Actions.PRNS.RequestCancelConfirmed, 
+                Routes.Areas.Actions.PRNS.RequestCancelConfirmed,
                 requestCancelViewModel);
         }
 
@@ -228,12 +227,20 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             await _prnService.SaveDecemberWaste(decemberWaste);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.Tonnes, 
-                new 
-                { 
-                    area = Category, 
-                    id = decemberWaste.Id 
+                Routes.Areas.Actions.PRNS.Tonnes,
+                new
+                {
+                    area = Category,
+                    id = decemberWaste.Id
                 });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(int id)
+        {
+            var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);
+            return View(viewModel);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
