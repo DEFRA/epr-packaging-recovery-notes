@@ -88,6 +88,7 @@ public static class Strings
                 public const string View = "View";
                 public const string ViewSentPrns = "ViewSentPrns";
                 public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
+                public const string ViewDraftPrns = "ViewDraftPrns";
             }
 
             public static class Waste

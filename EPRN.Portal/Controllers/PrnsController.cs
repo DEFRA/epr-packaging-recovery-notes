@@ -79,5 +79,18 @@ namespace EPRN.Portal.Controllers
             else
                 return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category.Exporter, actionPrnViewModel.Id });
         }
+
+        [HttpGet]
+        [ActionName(Routes.Actions.PRNS.ViewDraftPrns)]
+        public async Task<IActionResult> ViewDraftPRNS()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ViewDraftPRNS(string prnId)
+        {
+            return RedirectToAction(Routes.Actions.PRNS.ViewDraftPrns);
+        }
     }
 }
