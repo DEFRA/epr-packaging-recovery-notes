@@ -132,7 +132,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             _mockRepository.Verify(s =>
                 s.UpdatePrnStatus(
                     It.Is<int>(p => p == id),
-                    It.Is<PrnStatus>(p => p == PrnStatus.CheckYourAnswersComplete),
+                    It.Is<PrnStatus>(p => p == PrnStatus.Draft),
                     It.Is<string>(p => p == null)),
                 Times.Once);
         }
@@ -467,9 +467,9 @@ namespace EPRN.UnitTests.API.PRNS.Services
             // Assert
             _mockRepository.Verify(s =>
                 s.UpdatePrnStatus(
-                    It.IsAny<int>(),
-                    It.IsAny<PrnStatus>(),
-                    It.IsAny<string>()),
+                    It.Is<int>(p => p == id),
+                    It.Is<PrnStatus>(p => p == PrnStatus.Draft),
+                    It.Is<string>(p => p == null)),
                 Times.Once);
         }
     }
