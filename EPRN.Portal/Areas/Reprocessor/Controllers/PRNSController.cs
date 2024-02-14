@@ -108,14 +108,12 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction(
-                            Routes.Areas.Actions.PRNS.DestinationPrn,
-                            Routes.Areas.Controllers.Reprocessor.PRNS,
-                            new
-                            {
-                                area = Category,
-                                id = checkYourAnswersViewModel.Id
-                            });
+            return RedirectToAction(Routes.Areas.Actions.PRNS.DestinationPrn, Routes.Areas.Controllers.Reprocessor.PRNS,
+                new
+                {
+                    area = Category,
+                    id = checkYourAnswersViewModel.Id
+                });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
