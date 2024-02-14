@@ -2,11 +2,13 @@
     ViewData["Title"] = DeleteDraftPrnResources.PageTitle;
 }
 
+@model DeleteDraftPrnViewModel
+
 <form method="post">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l">@DeleteDraftPrnResources.PageHeading</h1>
-            <h2 class="govuk-body-m">@DeleteDraftPrnResources.YouAreAboutToDelete @DeleteDraftPrnResources.ActionCannotBeUndone</h2>
+            <h2 class="govuk-body-m">@DeleteDraftPrnResources.YouAreAboutToDelete @Model.PrnReference. @DeleteDraftPrnResources.ActionCannotBeUndone</h2>
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     @DeleteDraftPrnResources.ConfirmAndContinue

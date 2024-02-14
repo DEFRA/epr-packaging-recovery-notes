@@ -61,7 +61,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to . This action cannot be undone..
+        ///   Looks up a localized string similar to This action cannot be undone..
         /// </summary>
         public static string ActionCannotBeUndone {
             get {

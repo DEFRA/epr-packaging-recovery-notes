@@ -235,7 +235,12 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         public async Task<IActionResult> DeleteDraftPrn(int id)
         {
             //var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);
-            return View();
+            var viewModel = new DeleteDraftPrnViewModel
+            {
+                PrnReference = "PRN-298321"
+            };
+
+            return View(viewModel);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
