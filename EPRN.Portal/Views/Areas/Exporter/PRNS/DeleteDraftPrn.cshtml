@@ -1,17 +1,17 @@
 ﻿@{
-    ViewData["Title"] = "Do you want to delete this draft PRN?";
+    ViewData["Title"] = DeleteDraftPrnResources.PageTitle;
 }
 
 <form method="post">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
-            <h1 class="govuk-heading-l">Do you want to delete this draft PRN?</h1>
-            <h2 class="govuk-body-m">You are about to delete draft . This action cannot be undone.</h2>
+            <h1 class="govuk-heading-l">@DeleteDraftPrnResources.PageHeading</h1>
+            <h2 class="govuk-body-m">@DeleteDraftPrnResources.YouAreAboutToDelete @DeleteDraftPrnResources.ActionCannotBeUndone</h2>
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Confirm and continue
+                    @DeleteDraftPrnResources.ConfirmAndContinue
                 </button>
-                <a class="govuk-link" href="/">Cancel</a>
+                <a class="govuk-link" href="/">@DeleteDraftPrnResources.Cancel</a>
             </div>
         </div>
     </div>
