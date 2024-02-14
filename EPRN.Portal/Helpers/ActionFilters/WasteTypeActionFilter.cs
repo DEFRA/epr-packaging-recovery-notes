@@ -27,6 +27,10 @@ namespace EPRN.Portal.Helpers.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
+            // we need to assign the user reference id here, as this value is needed to create an actual journey
+            var wasteCommonViewModel = context.HttpContext.RequestServices.GetService<WasteCommonViewModel>();
+            wasteCommonViewModel.CompanyReferenceId = "UserReferenceId";
+
             // need to get the journey id from the route data
             var idValue = context.HttpContext.Request.RouteValues["id"];
 
@@ -35,8 +39,6 @@ namespace EPRN.Portal.Helpers.Filters
                 return;
 
             var wasteName = Task.Run(async () => await _wasteService.GetWasteType(id)).Result;
-
-            var wasteCommonViewModel = context.HttpContext.RequestServices.GetService<WasteCommonViewModel>();
             wasteCommonViewModel.WasteName = wasteName;
         }
     }

@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using EPRN.Common.Data.DataModels;
-using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
-using EPRN.Common.Enums;
 using EPRN.Waste.API.Configuration;
 using EPRN.Waste.API.Repositories.Interfaces;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
-using System.Globalization;
 using DoneWaste = EPRN.Common.Enums.DoneWaste;
 using Category = EPRN.Common.Enums.Category;
 
@@ -18,6 +15,7 @@ namespace EPRN.Waste.API.Services
         private readonly double _deductionAmount;
         public readonly IMapper _mapper;
         public readonly IRepository _wasteRepository;
+        private readonly double _accredidationLimit;
 
         public JourneyService(
             IMapper mapper,
@@ -30,22 +28,31 @@ namespace EPRN.Waste.API.Services
             if (configSettings == null)
                 throw new ArgumentNullException(nameof(configSettings));
 
-            if (configSettings.Value == null || configSettings.Value.DeductionAmount == null)
+            if (configSettings.Value == null)
+                throw new ArgumentNullException(nameof(configSettings.Value));
+
+            if (configSettings.Value.DeductionAmount == null)
                 throw new ArgumentNullException(nameof(configSettings.Value.DeductionAmount));
 
+            if (configSettings.Value.AccredidationLimit == null)
+                throw new ArgumentNullException(nameof(configSettings.Value.AccredidationLimit));
+
             _deductionAmount = configSettings.Value.DeductionAmount.Value;
+            _accredidationLimit = configSettings.Value.AccredidationLimit.Value;
         }
 
         public async Task<int> CreateJourney(
             int materialId,
-            Category category)
+            Category category,
+            string companyReferenceId)
         {
             var journeyRecord = new WasteJourney
             {
                 WasteTypeId = materialId,
                 Category = _mapper.Map<Common.Data.Enums.Category>(category),
                 CreatedDate = DateTime.Now,
-                CreatedBy = "DEVELOPER"
+                CreatedBy = "DEVELOPER",
+                UserReference = companyReferenceId
             };
 
             await _wasteRepository.AddJourney(journeyRecord);
@@ -101,7 +108,7 @@ namespace EPRN.Waste.API.Services
             return await _wasteRepository.GetWasteRecordStatus(journeyId);
         }
 
-        public async Task<double?> GetTonnage(int journeyId)
+        public async Task<WasteTonnageDto> GetTonnage(int journeyId)
         {
             return await _wasteRepository.GetWasteTonnage(journeyId);
         }
@@ -165,6 +172,24 @@ namespace EPRN.Waste.API.Services
             var category = await _wasteRepository.GetCategory(journeyId);
 
             return _mapper.Map<Category>(category);
+        }
+
+        public async Task<AccredidationLimitDto> GetAccredidationLimit(string userReferenceId, double newQuantityEntered)
+        {
+            double? totalQuantityForUser = await _wasteRepository.GetTotalQuantityForAllUserJourneys(userReferenceId);
+
+            if (!totalQuantityForUser.HasValue)
+                totalQuantityForUser = 0;
+
+            var dto = new AccredidationLimitDto();
+            dto.UserReferenceId = userReferenceId;
+            dto.AccredidationLimit = _accredidationLimit;
+            dto.NewAmountEntered = newQuantityEntered;
+            dto.TotalToDate = totalQuantityForUser.Value;
+            dto.ExcessOfLimit = dto.AccredidationLimit - dto.TotalToDate - newQuantityEntered;
+
+            return dto;
+
         }
     }
 }

@@ -67,7 +67,7 @@ public static class Strings
                     public const string Cancel = "Cancel";
                     public const string RequestCancel = "RequestCancel";
                     public const string Cancelled = "Cancelled";
-                    public const string CancelRequested = "CancelRequested";
+                    public const string RequestCancelConfirmed = "RequestCancelConfirmed";
                     public const string DecemberWaste = "DecemberWaste";
                 }
             }
@@ -87,6 +87,7 @@ public static class Strings
                 public const string Create = "Create";
                 public const string View = "View";
                 public const string ViewSentPrns = "ViewSentPrns";
+                public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
             }
 
             public static class Waste
@@ -102,6 +103,7 @@ public static class Strings
                 public const string ReProcessorExport = "ReProcessorExport";
                 public const string Note = "Note";
                 public const string DecemberWaste = "DecemberWaste";
+                public const string AccredidationLimit = "AccredidationLimit";
             }
         }
     }

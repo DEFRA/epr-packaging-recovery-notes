@@ -61,7 +61,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PERN has already been accepted.
+        ///   Looks up a localized string similar to This PERN has already been cancelled.
         /// </summary>
         public static string AlreadyCancelledPERN {
             get {
@@ -70,7 +70,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PRN has already been accepted.
+        ///   Looks up a localized string similar to This PRN has already been cancelled.
         /// </summary>
         public static string AlreadyCancelledPRN {
             get {

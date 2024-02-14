@@ -4,13 +4,16 @@ using System.Resources;
 using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Common.Extensions;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
 using EPRN.Portal.RESTServices.Interfaces;
+using EPRN.Portal.Services.HomeServices;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
+using Humanizer;
 using Microsoft.Extensions.Options;
 
 namespace EPRN.Portal.Services
@@ -19,25 +22,32 @@ namespace EPRN.Portal.Services
     {
         private readonly IMapper _mapper;
         private readonly IHttpWasteService _httpWasteService;
+        private readonly IUserRoleService _userRoleService;
         private readonly IHttpJourneyService _httpJourneyService;
+        protected IOptions<AppConfigSettings> ConfigSettings;
+        
 
         public WasteService(
             IMapper mapper,
             IHttpWasteService httpWasteService,
             IHttpJourneyService httpJourneyService,
             ILocalizationHelper<WhichQuarterResources> localizationHelper,
-            IOptions<AppConfigSettings> configSettings)
+            IOptions<AppConfigSettings> configSettings,
+            IUserRoleService userRoleService)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _httpWasteService = httpWasteService ?? throw new ArgumentNullException(nameof(httpWasteService));
             _httpJourneyService = httpJourneyService ?? throw new ArgumentNullException(nameof(httpJourneyService));
+            ConfigSettings = configSettings ?? throw new ArgumentNullException(nameof(configSettings));
+            _userRoleService = userRoleService ?? throw new ArgumentNullException(nameof(userRoleService));
         }
 
         public async Task<int> CreateJourney(
             int materialId,
-            Category category)
+            Category category,
+            string companyReferenceId)
         {
-            return await _httpJourneyService.CreateJourney(materialId, category);
+            return await _httpJourneyService.CreateJourney(materialId, category, companyReferenceId);
         }
 
         public async Task SaveSelectedWasteType(WasteTypeViewModel wasteTypesViewModel)
@@ -72,7 +82,7 @@ namespace EPRN.Portal.Services
             viewModel.Category = category;
             viewModel.Notification = quarterDates.Notification;
             viewModel.SubmissionDate = quarterDates.SubmissionDate;
-            viewModel.SelectedMonth = selectedMonth;
+            viewModel.SelectedMonth = !quarterDates.SubmissionDate.IsFeb29() ? selectedMonth : (int?)Months.February;
             viewModel.NotificationDeadlineDate = quarterDates.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
 
             PopulateViewModelQuarter(viewModel, quarterDates);
@@ -171,6 +181,12 @@ namespace EPRN.Portal.Services
                                 { 4, materialTypes[4] },
                                 { 9, materialTypes[9] }
                             }
+                        },
+                        // add in a site with ALL materials so that testers can use each type
+                        new()
+                        {
+                            SiteName = "Unit 1s Halifax Road, Bonneville",
+                            SiteMaterials = materialTypes
                         }
                     }
                 },
@@ -224,6 +240,7 @@ namespace EPRN.Portal.Services
             return new WasteSubTypesViewModel
             {
                 Id = journeyId,
+                WasteTypeId = wasteTypeId.Value,
                 WasteSubTypeOptions = wasteSubTypeOptions,
                 SelectedWasteSubTypeId = selectedWasteSubTypeTask.Result.WasteSubTypeId,
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment
@@ -297,11 +314,9 @@ namespace EPRN.Portal.Services
 
         public async Task<ExportTonnageViewModel> GetExportTonnageViewModel(int journeyId)
         {
-            return new ExportTonnageViewModel
-            {
-                Id = journeyId,
-                ExportTonnes = await _httpJourneyService.GetWasteTonnage(journeyId)
-            };
+            var dto = await _httpJourneyService.GetWasteTonnage(journeyId);
+
+            return _mapper.Map<ExportTonnageViewModel>(dto);
         }
 
         public async Task SaveTonnage(ExportTonnageViewModel exportTonnageViewModel)
@@ -322,6 +337,8 @@ namespace EPRN.Portal.Services
             var dto = await _httpJourneyService.GetBaledWithWire(journeyId);
             var vm = _mapper.Map<BaledWithWireViewModel>(dto);
 
+            if (vm.BaledWithWireDeductionPercentage == null || vm.BaledWithWireDeductionPercentage == 0)
+                vm.BaledWithWireDeductionPercentage = GetDeductionPercentageAmount();
             return vm;
         }
         public async Task SaveBaledWithWire(BaledWithWireViewModel baledWireModel)
@@ -368,13 +385,9 @@ namespace EPRN.Portal.Services
 
         public async Task<NoteViewModel> GetNoteViewModel(int journeyId)
         {
-            var noteViewModel = new NoteViewModel
-            {
-                Id = journeyId,
-                NoteContent =   _httpJourneyService.GetNote(journeyId).Result.Note
-            };
+            var noteDto = await _httpJourneyService.GetNote(journeyId);
 
-            return noteViewModel;
+            return _mapper.Map<NoteViewModel>(noteDto);
         }
 
         public async Task SaveNote(NoteViewModel noteViewModel)
@@ -393,6 +406,40 @@ namespace EPRN.Portal.Services
         public async Task<string> GetWasteType(int journeyId)
         {
             return await _httpJourneyService.GetWasteType(journeyId);
+        }
+
+        public async Task<AccredidationLimitViewModel> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered)
+        {
+            var accredidationLimitDto = await _httpJourneyService.GetAccredidationLimit(journeyId, userReferenceId, newQuantityEntered);
+            var vm = _mapper.Map<AccredidationLimitViewModel>(accredidationLimitDto, opt => opt.AfterMap((src, dest) => dest.Id = journeyId));
+            if (vm != null)
+                vm.UserRole = UserRole.Exporter;
+
+            return vm;
+        }
+
+        public double? GetBaledWithWireDeductionPercentage(UserRole userRole)
+        {
+            if (userRole == UserRole.Exporter)
+                return ConfigSettings.Value.DeductionAmount_Exporter;
+            else if (userRole == UserRole.Reprocessor)
+                return ConfigSettings.Value.DeductionAmount_Reprocessor;
+            else if (userRole == UserRole.None)
+                return 0;
+            else
+                return null;
+        }
+
+        private double GetDeductionPercentageAmount()
+        {
+            double deductionAmount = 0;
+            if (_userRoleService.HasRole(UserRole.Exporter) && _userRoleService.HasRole(UserRole.Reprocessor))
+                deductionAmount = (double)ConfigSettings.Value.DeductionAmount_ExporterAndReprocessor;
+            if (_userRoleService.HasRole(UserRole.Exporter))
+                deductionAmount = (double)ConfigSettings.Value.DeductionAmount_Exporter;
+            if (_userRoleService.HasRole(UserRole.Reprocessor))
+                deductionAmount = (double)ConfigSettings.Value.DeductionAmount_Reprocessor;
+            return deductionAmount;
         }
     }
 }

@@ -110,7 +110,7 @@ namespace EPRN.Portal.Resources {
         /// </summary>
         public static string _1_unsorted_mixed_paper_board {
             get {
-                return ResourceManager.GetString("1-unsorted-mixed paper/board", resourceCulture);
+                return ResourceManager.GetString("1-unsorted-mixed-paper/board", resourceCulture);
             }
         }
         
@@ -160,7 +160,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unsorted mixed paper.board.
+        ///   Looks up a localized string similar to Unsorted mixed paper/board.
         /// </summary>
         public static string _2_unsorted_mixed_paper_board {
             get {
@@ -351,9 +351,9 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Pots, tubs, trays.
         /// </summary>
-        public static string _7_Pots_tubs_trays {
+        public static string _7_pots_tubs_trays {
             get {
-                return ResourceManager.GetString("7-Pots-tubs-trays", resourceCulture);
+                return ResourceManager.GetString("7-pots-tubs-trays", resourceCulture);
             }
         }
         
@@ -394,7 +394,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjustment percentage is required.
+        ///   Looks up a localized string similar to Enter the percentage received.
         /// </summary>
         public static string AdjustmentPercentageRequiredMessage {
             get {
@@ -412,7 +412,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What is the material sub type?.
+        ///   Looks up a localized string similar to What type of waste was it?.
         /// </summary>
         public static string MaterialSubTypeOptionsTitle {
             get {
@@ -421,11 +421,29 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A material sub type requires to be selected.
+        ///   Looks up a localized string similar to Select the material sub type.
         /// </summary>
         public static string MissingWasteSubTypeSelectionMessage {
             get {
                 return ResourceManager.GetString("MissingWasteSubTypeSelectionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the percentage of packaging content agreed with your local agency..
+        /// </summary>
+        public static string OtherOptionHint {
+            get {
+                return ResourceManager.GetString("OtherOptionHint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select ‘other’ if you’re accredited for a waste type not listed here..
+        /// </summary>
+        public static string PageSubHint {
+            get {
+                return ResourceManager.GetString("PageSubHint", resourceCulture);
             }
         }
     }

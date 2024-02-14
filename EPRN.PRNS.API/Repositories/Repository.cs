@@ -54,11 +54,12 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task<bool> PrnExists(
-            int id)
+            int id, 
+            EPRN.Common.Enums.Category category)
         {
             return await _prnContext
                 .PRN
-                .AnyAsync(p => p.Id == id);
+                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -130,7 +131,8 @@ namespace EPRN.PRNS.API.Repositories
                 {
                     Id = h.PackagingRecoveryNote.Id,
                     Status = _mapper.Map<Common.Enums.PrnStatus>(h.Status),
-                    Producer = h.PackagingRecoveryNote.SentTo
+                    Producer = h.PackagingRecoveryNote.SentTo,
+                    Reference = h.PackagingRecoveryNote.Reference
                 })
                 .FirstOrDefaultAsync();
         }
@@ -158,13 +160,17 @@ namespace EPRN.PRNS.API.Repositories
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
                 .Include(repo => repo.WasteType)
-                .Include(repo => repo.PrnHistory.Where(history => history.Status >= PrnStatus.Accepted))
-                .AsQueryable();
+                .Include(repo => repo.PrnHistory)
+                .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
 
-            if (!string.IsNullOrWhiteSpace(request.FilterBy))
+            if (request.FilterBy.HasValue)
             {
-                var filterByStatus = (Common.Enums.PrnStatus)Enum.Parse(typeof(Common.Enums.PrnStatus), request.FilterBy);
-                prns = prns.Where(e => e.PrnHistory != null && e.PrnHistory.Any() && (Common.Enums.PrnStatus)e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
+                // map the filterby value to the Data version of the enum
+                var filterByStatus = _mapper.Map<PrnStatus>(request.FilterBy);
+                prns = prns.Where(e => 
+                    e.PrnHistory != null && 
+                    e.PrnHistory.Any() && 
+                    e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
             }
             
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
@@ -195,7 +201,7 @@ namespace EPRN.PRNS.API.Repositories
                     Material = prn.WasteTypeId.HasValue ? prn.WasteType.Name : string.Empty,
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToShortDateString(),
-                    Tonnes = prn.Tonnes.Value,
+                    Tonnes = prn.Tonnes,
                     Status = prn.PrnHistory != null && prn.PrnHistory.Any()
                         ? (Common.Enums.PrnStatus)prn.PrnHistory.OrderByDescending(h => h.Created).First().Status
                         : default
@@ -244,22 +250,17 @@ namespace EPRN.PRNS.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
-        public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
+        public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
-            var decemberWaste = _prnContext.PRN
-                .Where(wj => wj.Id == journeyId)
-                .Select(x => new DecemberWasteDto
+            return await _prnContext.PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new DecemberWasteDto
                 {
-                    JourneyId = journeyId,
-                    DecemberWaste = x.DecemberWaste
+                    Id = id,
+                    DecemberWaste = prn.DecemberWaste,
+                    IsWithinMonth = true
                 })
                 .SingleOrDefaultAsync();
-
-            return new DecemberWasteDto()
-            {
-                DecemberWaste = decemberWaste.Result.DecemberWaste,
-                JourneyId = journeyId
-            };
         }
 
         public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)

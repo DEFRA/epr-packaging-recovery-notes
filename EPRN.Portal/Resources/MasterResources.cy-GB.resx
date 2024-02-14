@@ -129,6 +129,9 @@
   <data name="Back" xml:space="preserve">
     <value>[Welsh]Back</value>
   </data>
+  <data name="CancellationRequested" xml:space="preserve">
+    <value>[Welsh]CANCELLATION REQUESTED</value>
+  </data>
   <data name="Cancelled" xml:space="preserve">
     <value>[Welsh]CANCELLED</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="String" xml:space="preserve">
     <value>[Welsh]There is a problem</value>
+  </data>
+  <data name="SuccessMessage" xml:space="preserve">
+    <value>[Welsh]Success</value>
   </data>
   <data name="UnknownWasteType" xml:space="preserve">
     <value>[Welsh]&lt;UNKNOWN WASTE TYPE&gt;</value>

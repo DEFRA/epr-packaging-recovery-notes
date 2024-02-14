@@ -117,9 +117,9 @@ namespace EPRN.Portal.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Received it and reproceesed it.
         /// </summary>
-        public static string ReproceesedIt {
+        public static string ReprocessedIt {
             get {
-                return ResourceManager.GetString("ReproceesedIt", resourceCulture);
+                return ResourceManager.GetString("ReprocessedIt", resourceCulture);
             }
         }
         

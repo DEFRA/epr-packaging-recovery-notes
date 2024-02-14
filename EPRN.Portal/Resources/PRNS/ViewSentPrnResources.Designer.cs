@@ -259,7 +259,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search for a PRN by entering its number or the name of the company or compliance scheme you sent it to.
+        ///   Looks up a localized string similar to Search for a PRN by entering its number or the name of the company or compliance scheme you sent it to..
         /// </summary>
         public static string SearchText {
             get {

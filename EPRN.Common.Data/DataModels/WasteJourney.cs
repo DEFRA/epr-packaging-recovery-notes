@@ -4,6 +4,8 @@ namespace EPRN.Common.Data.DataModels
 {
     public class WasteJourney : BaseEntity
     {
+        public string UserReference { get; set; }
+
         public double? Quantity { get; set; }
 
         // some waste sub types have a manual entry for the adjustment, therefore

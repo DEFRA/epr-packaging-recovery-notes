@@ -2,6 +2,7 @@
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
 using EPRN.Portal.Helpers;
+using EPRN.Portal.Resources;
 using EPRN.Portal.Resources.PRNS;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
@@ -109,20 +110,21 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // arrange
             var id = 123;
-            var status = PrnStatus.Sent;
-            _mockHttpPrnsService.Setup(s => s.GetStatus(id)).ReturnsAsync(status);
+            var dto = new StatusAndProducerDto();
+            _mockHttpPrnsService.Setup(s => s.GetStatusAndProducer(id)).ReturnsAsync(dto);
 
             // act
             var viewModel = await _prnService.GetCancelViewModel(id);
 
             // assert
             _mockHttpPrnsService.Verify(s =>
-                s.GetStatus(
+                s.GetStatusAndProducer(
                     It.Is<int>(p => p == id)),
                 Times.Once);
-            Assert.IsNotNull(viewModel);
-            Assert.AreEqual(status, viewModel.Status);
-            Assert.AreEqual(id, viewModel.Id);
+            _mockMapper.Verify(m =>
+                m.Map<CancelViewModel>(
+                    It.Is<StatusAndProducerDto>(p => p == dto)), 
+                Times.Once);
         }
 
         [TestMethod]
@@ -262,7 +264,8 @@ namespace EPRN.UnitTests.Portal.Services
             var expectedViewModel = new ViewSentPrnsViewModel();
 
             var expectedFilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
-                @ViewSentPrnResources.FilterBy,
+                ViewSentPrnResources.FilterBy,
+                MasterResources.ResourceManager,
                 PrnStatus.Accepted,
                 PrnStatus.AwaitingAcceptance,
                 PrnStatus.Rejected,
@@ -317,9 +320,6 @@ namespace EPRN.UnitTests.Portal.Services
         {
             // Arrange
             var request = (GetSentPrnsViewModel)null;
-            var getSentPrnsDto = new GetSentPrnsDto();
-            var sentPrnsDto = new SentPrnsDto();
-            var expectedViewModel = new ViewSentPrnsViewModel();
 
             _mockMapper.Setup(m => m.Map<GetSentPrnsDto>(request)).Returns((GetSentPrnsDto)null);
 
@@ -353,6 +353,34 @@ namespace EPRN.UnitTests.Portal.Services
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(expectedViewModel, result);
+        }
+
+        [TestMethod]
+        public async Task GetDecemberWasteViewModel_ShouldReturnMappedViewModel()
+        {
+            // Arrange
+            int reference = 25;
+            var expectedDto = new DecemberWasteDto();
+            var expectedViewModel = new DecemberWasteViewModel();
+
+            expectedViewModel.BalanceAvailable = 260;
+            expectedViewModel.Id = reference;
+
+            // Mocking the IHttpPrnsService
+            _mockHttpPrnsService.Setup(service => service.GetDecemberWaste(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Mocking the IMapper
+            _mockMapper.Setup(m => m.Map<DecemberWasteViewModel>(expectedDto))
+                .Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetDecemberWasteModel(reference);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel.Id, result.Item1.Id);
+            Assert.AreEqual(expectedViewModel.BalanceAvailable, result.Item1.BalanceAvailable);
         }
     }
 }

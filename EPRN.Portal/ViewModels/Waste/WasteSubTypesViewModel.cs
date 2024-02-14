@@ -7,6 +7,8 @@ namespace EPRN.Portal.ViewModels.Waste
     {
         public int Id { get; set; }
 
+        public int WasteTypeId { get; set; }
+
         public List<WasteSubTypeOptionViewModel> WasteSubTypeOptions { get; set; }
 
         [Required(ErrorMessageResourceName = "MissingWasteSubTypeSelectionMessage", ErrorMessageResourceType = typeof(WasteSubTypesResources))]

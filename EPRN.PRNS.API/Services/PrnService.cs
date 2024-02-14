@@ -1,22 +1,28 @@
 ﻿using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services.Interfaces;
+using Microsoft.Extensions.Options;
 
 namespace EPRN.PRNS.API.Services
 {
     public class PrnService : IPrnService
     {
-        public readonly IMapper _mapper;
-        public readonly IRepository _prnRepository;
+        private readonly IMapper _mapper;
+        private readonly IRepository _prnRepository;
+        private readonly int? _currentMonthOverride; // overrides the current month. Required for testing purposes
 
         public PrnService(
+            IOptions<AppConfigSettings> configSettings,
             IMapper mapper,
             IRepository prnRepository)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _prnRepository = prnRepository ?? throw new ArgumentNullException(nameof(prnRepository));
+
+            _currentMonthOverride = configSettings?.Value?.CurrentMonthOverride;
         }
 
         public async Task<int> CreatePrnRecord(
@@ -35,9 +41,10 @@ namespace EPRN.PRNS.API.Services
         }
 
         public async Task<bool> PrnRecordExists(
-            int id)
+            int id,
+            Category category)
         {
-            return await _prnRepository.PrnExists(id);
+            return await _prnRepository.PrnExists(id, category);
         }
 
         public async Task SaveTonnage(int id, double tonnage)
@@ -108,21 +115,37 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetDetails(reference);
         }
 
-        // Stub this and generate a random PRN reference number
-        // In time a specific generation algorithm will
-        // be specified
-        private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
-
         public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
         {
-            var decemberWaste = await _prnRepository.GetDecemberWaste(journeyId);
+            var monthToCheckAgainst = DateTime.Today.Month;
 
-            return _mapper.Map<DecemberWasteDto>(decemberWaste);
+            if (_currentMonthOverride != null)
+            {
+                monthToCheckAgainst = _currentMonthOverride.Value;
+            }
+
+            if (monthToCheckAgainst == (int)Months.January ||  monthToCheckAgainst == (int)Months.December) 
+            {
+                return await _prnRepository.GetDecemberWaste(journeyId);
+            }
+
+            return new DecemberWasteDto
+            {
+                Id = journeyId,
+                IsWithinMonth = false,
+            };
         }
 
         public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
         {
             await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
         }
+
+        #region Private methods - Keep at bottom of file
+        // Stub this and generate a random PRN reference number
+        // In time a specific generation algorithm will
+        // be specified
+        private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+        #endregion
     }
 }

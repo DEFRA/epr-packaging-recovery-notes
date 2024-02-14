@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DecemberWasteResource {
+    public class AccredidationLimitResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DecemberWasteResource() {
+        internal AccredidationLimitResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.DecemberWasteResource", typeof(DecemberWasteResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.AccredidationLimitResources", typeof(AccredidationLimitResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,83 +61,83 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to You&apos;re about to go over your accredidation limit.
         /// </summary>
-        public static string Continue {
+        public static string LimitAlertTitle {
             get {
-                return ResourceManager.GetString("Continue", resourceCulture);
+                return ResourceManager.GetString("LimitAlertTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select if you are creating this PRN from your December waste balance.
+        ///   Looks up a localized string similar to You can continue creating this PRN, but must {0} pay an extra accredidation fee {1} within 28 days..
         /// </summary>
-        public static string ErrorMessage {
+        public static string Line1 {
             get {
-                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+                return ResourceManager.GetString("Line1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
+        ///   Looks up a localized string similar to You can continue creating this PRN, but must .
         /// </summary>
-        public static string Heading {
+        public static string Line1_Part1 {
             get {
-                return ResourceManager.GetString("Heading", resourceCulture);
+                return ResourceManager.GetString("Line1_Part1", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Available balance from waste received in December:.
+        ///   Looks up a localized string similar to pay an extra accredidation fee .
         /// </summary>
-        public static string HintText {
+        public static string Line1_Part2 {
             get {
-                return ResourceManager.GetString("HintText", resourceCulture);
+                return ResourceManager.GetString("Line1_Part2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to within 28 days..
         /// </summary>
-        public static string NoSelection {
+        public static string Line1_Part3 {
             get {
-                return ResourceManager.GetString("NoSelection", resourceCulture);
+                return ResourceManager.GetString("Line1_Part3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you creating this PRN from waste received in December?.
+        ///   Looks up a localized string similar to You&apos;ve entered {0} tonnes. This will exceed your accredidation limit by {1} tonnes..
         /// </summary>
-        public static string PageTitle {
+        public static string Line2 {
             get {
-                return ResourceManager.GetString("PageTitle", resourceCulture);
+                return ResourceManager.GetString("Line2", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is a problem.
+        ///   Looks up a localized string similar to Current accredidation limit: {0} tonnes.
         /// </summary>
-        public static string ThereIsAProblem {
+        public static string Line3 {
             get {
-                return ResourceManager.GetString("ThereIsAProblem", resourceCulture);
+                return ResourceManager.GetString("Line3", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tonnes.
+        ///   Looks up a localized string similar to Total PRNs issued to date: {0} tonnes.
         /// </summary>
-        public static string Tonnes {
+        public static string Line4 {
             get {
-                return ResourceManager.GetString("Tonnes", resourceCulture);
+                return ResourceManager.GetString("Line4", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes.
+        ///   Looks up a localized string similar to Accredidation Limit Alert.
         /// </summary>
-        public static string YesSelection {
+        public static string Title {
             get {
-                return ResourceManager.GetString("YesSelection", resourceCulture);
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

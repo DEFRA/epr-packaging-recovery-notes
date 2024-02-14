@@ -14,10 +14,10 @@ namespace EPRN.Portal.Services
 {
     public class ExporterAndReprocessorHomeService : UserBasedBaseService, IUserBasedService
     {
-        public ExporterAndReprocessorHomeService(IOptions<AppConfigSettings> configSettings, 
+        public ExporterAndReprocessorHomeService(IOptions<AppConfigSettings> configSettings,
             IHttpJourneyService httpJourneyService,
             IUrlHelperFactory urlHelperFactory,
-            IActionContextAccessor actionContextAccessor) 
+            IActionContextAccessor actionContextAccessor)
             : base(configSettings, httpJourneyService, urlHelperFactory, actionContextAccessor)
         {
         }
@@ -28,7 +28,7 @@ namespace EPRN.Portal.Services
             {
                 { HomePageResources.HomePage_Waste_Link_RecordWaste, UrlHelper.Action(
                     Routes.Actions.Waste.RecordWaste,
-                    Routes.Controllers.Waste) },          
+                    Routes.Controllers.Waste) },
                 { HomePageResources.HomePage_Waste_Link_ViewEditDownloadDelete, "#" }
             };
 
@@ -50,9 +50,9 @@ namespace EPRN.Portal.Services
 
             var accreditationCardLinks = new Dictionary<string, string>()
             {
-                { HomePageResources.HomePage_Accredidation_Link_ApplyForAccredidation, "#" },
-                { HomePageResources.HomePage_Accredidation_Link_MyAccredidations, "#" },
-                { HomePageResources.HomePage_Accredidation_Link_ViewApplications, "#" }
+                { HomePageResources.HomePage_Accreditation_Link_ApplyForAccreditation, "#" },
+                { HomePageResources.HomePage_Accreditation_Link_MyAccreditations, "#" },
+                { HomePageResources.HomePage_Accreditation_Link_ViewApplications, "#" }
             };
 
             var accountCardLinks = new Dictionary<string, string>()
@@ -72,7 +72,7 @@ namespace EPRN.Portal.Services
             var returnsCardViewModel = GetCardViewModel(HomePageResources.HomePage_Returns_Title, HomePageResources.HomePage_Returns_Description);
             returnsCardViewModel.Links = returnsCardLinks;
 
-            var accreditationCardViewModel = GetCardViewModel(HomePageResources.HomePage_Accredidation_Title, HomePageResources.HomePage_Accredidation_Description);
+            var accreditationCardViewModel = GetCardViewModel(HomePageResources.HomePage_Accreditation_Title, HomePageResources.HomePage_Accreditation_Description);
             accreditationCardViewModel.Links = accreditationCardLinks;
 
             var accountCardViewModel = GetCardViewModel(HomePageResources.HomePage_Account_Title, HomePageResources.HomePage_Account_Description);
@@ -88,11 +88,6 @@ namespace EPRN.Portal.Services
             };
 
             return cardViewModels;
-        }
-
-        public override double? GetBaledWithWireDeductionPercentage()
-        {
-            return ConfigSettings.Value.DeductionAmount_ExporterAndReprocessor;
         }
 
         public override Task<CYAViewModel> GetCheckAnswers(int journeyId)

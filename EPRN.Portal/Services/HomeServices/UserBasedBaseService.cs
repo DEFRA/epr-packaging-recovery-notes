@@ -69,8 +69,6 @@ namespace EPRN.Portal.Services
             return cardViewModel;
         }
 
-        public abstract double? GetBaledWithWireDeductionPercentage();
-
         public abstract Task<CYAViewModel> GetCheckAnswers(int journeyId);
     }
 }

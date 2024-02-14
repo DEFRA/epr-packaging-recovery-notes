@@ -25,6 +25,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\AccredidationLimitResources.cy-GB.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\AccredidationLimitResources.cy-GB.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.25" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.4" />
@@ -32,8 +40,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\AccredidationLimitResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AccredidationLimitResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\CYAResources.Designer.cs">
       <DependentUpon>CYAResources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\PRNS\ActionPRNResources.cy-GB.Designer.cs">
+      <DependentUpon>ActionPRNResources.cy-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\PRNS\ActionPRNResources.Designer.cs">
+      <DependentUpon>ActionPRNResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -72,6 +95,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\PRNS\CancelledResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>CancelledResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PRNS\CancelResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -81,6 +109,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>CheckYourAnswersResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\PRNS\RequestCancelConfirmedResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RequestCancelConfirmedResources.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\PRNS\ViewSentPrnResources.Designer.cs">
       <DependentUpon>ViewSentPrnResources.resx</DependentUpon>
@@ -147,7 +180,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>WasteTypesResources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\DecemberWasteResource.Designer.cs">
+    <Compile Update="Resources\PRNS\DecemberWasteResource.Designer.cs">
       <DependentUpon>DecemberWasteResource.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -165,12 +198,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ActionPRNResources.cy-GB.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\AccredidationLimitResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccredidationLimitResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\BaledWithWireResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>BaledWithWireResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CYAResources.resx">
       <LastGenOutput>CYAResources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>ActionPRNResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\NoteResources.resx">
@@ -198,6 +245,14 @@
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\CancelledResources.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\CancelledResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>CancelledResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\CancelResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CancelResources.Designer.cs</LastGenOutput>
@@ -208,6 +263,14 @@
     <EmbeddedResource Update="Resources\PRNS\CheckYourAnswersResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>CheckYourAnswersResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.cy-GB.resx">
+      <SubType>Designer</SubType>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\RequestCancelConfirmedResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>RequestCancelConfirmedResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\ViewSentPrnResources.resx">
       <LastGenOutput>ViewSentPrnResources.Designer.cs</LastGenOutput>
@@ -269,7 +332,7 @@
     <EmbeddedResource Update="Resources\WasteTypesResources.cy-GB.resx">
       <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\DecemberWasteResource.resx">
+    <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.resx">
       <SubType>Designer</SubType>
       <LastGenOutput>DecemberWasteResource.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>

@@ -1,4 +1,5 @@
-﻿using EPRN.Portal.Areas.Reprocessor.Controllers;
+﻿using EPRN.Common.Enums;
+using EPRN.Portal.Areas.Reprocessor.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,9 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
-            _prnController = new PRNSController(_mockPrnService.Object);
+            var factory = new Func<EPRN.Common.Enums.Category, IPRNService>((category) => _mockPrnService.Object);
+            
+            _prnController = new PRNSController(factory);
         }
 
         [TestMethod]
@@ -210,127 +213,159 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
         }
 
         [TestMethod]
-        public async Task PRNCancellation_CallsService_WhenValidParametersSupplied()
+        public async Task PRNCancellation_Get_ReturnsNotFound_When_IdIsNull()
         {
-            // arrange
-            var id = 45;
+            // Arrange
+            int? id = null;
 
-            // act
-            await _prnController.PRNCancellation(id);
+            // Act
+            var result = await _prnController.PRNCancellation(id);
 
-            // assert
-            _mockPrnService.Verify(s => s.GetCancelViewModel(It.Is<int>(p => p == id)), Times.Once);
-        }
-
-        [TestMethod]
-        public async Task PRNCancellation_ReturnsNotFound_WhenNoIdSupplied()
-        {
-            // arrange
-
-            // act
-            var result = await _prnController.PRNCancellation((int?)null);
-
-            // assert
+            // Assert
             _mockPrnService.Verify(s => s.GetCancelViewModel(It.IsAny<int>()), Times.Never);
-            Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));
         }
 
         [TestMethod]
-        public async Task PRNCancellation_CallServiceAndRedirects_WhenValidModelSupplied()
-        {
-            // arrange
-            var id = 34;
-            var reason = "whatever";
-            var viewModel = new CancelViewModel
-            {
-                Id = id,
-                CancelReason = reason
-            };
-
-            // act
-            var result = await _prnController.PRNCancellation(viewModel);
-
-            // assert
-            _mockPrnService.Verify(s => s.CancelPRN(It.Is<CancelViewModel>(p =>
-                p.Id == id && p.CancelReason == reason)),
-                Times.Once
-            );
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
-
-            var redirectResult = result as RedirectToActionResult;
-            Assert.IsNotNull(redirectResult);
-            Assert.AreEqual(Routes.Areas.Actions.PRNS.Cancelled, redirectResult.ActionName);
-            Assert.AreEqual(Routes.Areas.Controllers.Reprocessor.PRNS, redirectResult.ControllerName);
-            var routeValues = redirectResult.RouteValues.FirstOrDefault(r => r.Key == "area");
-
-            Assert.IsNotNull(routeValues);
-            Assert.AreEqual(Routes.Areas.Reprocessor, routeValues.Value);
-
-            routeValues = redirectResult.RouteValues.FirstOrDefault(r => r.Key == "id");
-            Assert.IsNotNull(routeValues);
-            Assert.AreEqual(id.ToString(), routeValues.Value.ToString());
-        }
-
-        [TestMethod]
-        public async Task PRNCancellation_ReturnsView_WhenModelStateInvalid()
-        {
-            // arrange
-            _prnController.ModelState.AddModelError("Err", "Err");
-            var id = 34;
-            var reason = "whatever";
-            var viewModel = new CancelViewModel
-            {
-                Id = id,
-                CancelReason = reason
-            };
-
-            // act
-            var result = await _prnController.PRNCancellation(viewModel);
-
-            // assert
-            _mockPrnService.Verify(s => s.CancelPRN(It.IsAny<CancelViewModel>()), Times.Never);
-            _mockPrnService.Verify(s => s.GetCancelViewModel(It.Is<int>(p => p == id)), Times.Once);
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
-        }
-
-        [TestMethod]
-        public async Task CancelAcceptedPERN_WithValidId_ShouldReturnViewResult()
+        public async Task PRNCancellation_Get_ReturnsView_When_StatusIsNotCancelled()
         {
             // Arrange
-            int validId = 1;
-            var expectedViewModel = new RequestCancelViewModel();
+            int id = 123;
+            var viewModel = new CancelViewModel();
+            viewModel.Status = PrnStatus.Draft;
 
-            _mockPrnService
-                .Setup(x => x.GetRequestCancelViewModel(It.IsAny<int>()))
-                .ReturnsAsync(expectedViewModel);
+            _mockPrnService.Setup(service => service.GetCancelViewModel(id)).ReturnsAsync(viewModel);
 
             // Act
-            var result = await _prnController.CancelAcceptedPRN(validId) as ViewResult;
+            var result = await _prnController.PRNCancellation(id);
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            _mockPrnService.Verify(s => s.GetCancelViewModel(It.Is<int>(p => p == id)), Times.Once);
+        }
 
+        [TestMethod]
+        public async Task PRNCancellation_Get_ReturnsViewForCancelled_When_StatusIsCancelled()
+        {
+            // Arrange
+            int id = 123;
+            var viewModel = new CancelViewModel();
+            viewModel.Status = PrnStatus.Cancelled;
+
+            _mockPrnService.Setup(service =>
+                service.GetCancelViewModel(id))
+            .ReturnsAsync(viewModel);
+
+            // Act
+            var result = await _prnController.PRNCancellation(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
             _mockPrnService.Verify(s =>
-                s.GetRequestCancelViewModel(
-                    It.Is<int>(p => p == validId)),
+                s.GetCancelViewModel(
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
         [TestMethod]
-        public async Task CancelAcceptedPERN_WithNullId_ShouldReturnNotFoundResult()
+        public async Task PRNCancellation_Post_ReturnsView_When_ModelStateIsNotValid()
         {
             // Arrange
-            int? nullId = null;
+            var cancelViewModel = new CancelViewModel();
+
+            _prnController.ModelState.AddModelError("PropertyName", "Error Message");
 
             // Act
-            var result = await _prnController.CancelAcceptedPRN(nullId) as NotFoundResult;
+            var result = await _prnController.PRNCancellation(cancelViewModel);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.AreSame(cancelViewModel, ((ViewResult)result).Model);
+        }
+
+        [TestMethod]
+        public async Task PRNCancellation_Post_CallsServiceAndReturnsViewForCancelled_When_ModelStateIsValid()
+        {
+            // Arrange
+            var cancelViewModel = new CancelViewModel();
+            _mockPrnService.Setup(service => service.CancelPRN(cancelViewModel));
+
+            // Act
+            var result = await _prnController.PRNCancellation(cancelViewModel);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            _mockPrnService.Verify(s =>
+                s.CancelPRN(
+                    It.Is<CancelViewModel>(p => p == cancelViewModel)),
+            Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_Get_ValidId_ReturnsView()
+        {
+            // Arrange
+            int id = 1;
+            var viewModel = new RequestCancelViewModel { Status = PrnStatus.CancellationRequested };
+            _mockPrnService.Setup(x => x.GetRequestCancelViewModel(id)).ReturnsAsync(viewModel);
+
+            // Act
+            var result = await _prnController.CancelAcceptedPRN(id) as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            Assert.AreEqual(viewModel, result.Model);
+            Assert.AreEqual(
+                Routes.Areas.Actions.PRNS.RequestCancelConfirmed,
+                result.ViewName);
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_Get_InvalidId_ReturnsNotFound()
+        {
+            // Arrange
+            int? id = null;
+
+            // Act
+            var result = await _prnController.CancelAcceptedPRN(id) as NotFoundResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_Post_ValidModel_ReturnsView()
+        {
+            // Arrange
+            var viewModel = new RequestCancelViewModel();
+            _mockPrnService.Setup(x => x.RequestToCancelPRN(viewModel));
+
+            // Act
+            var result = await _prnController.CancelAcceptedPRN(viewModel) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(Routes.Areas.Actions.PRNS.RequestCancelConfirmed, result.ViewName);
+            Assert.AreEqual(viewModel, result.Model);
+            _mockPrnService.Verify(s =>
+                s.RequestToCancelPRN(
+                    It.Is<RequestCancelViewModel>(p => p == viewModel)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task CancelAcceptedPERN_Post_InvalidModel_ReturnsViewWithModel()
+        {
+            // Arrange
+            var viewModel = new RequestCancelViewModel();
+            _prnController.ModelState.AddModelError("PropertyName", "Error Message");
+
+            // Act
+            var result = await _prnController.CancelAcceptedPRN(viewModel) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewModel, result.Model);
         }
     }
 }

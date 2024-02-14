@@ -161,6 +161,9 @@ namespace EPRN.Common.Data.Migrations
                     b.Property<double?>("Total")
                         .HasColumnType("float");
 
+                    b.Property<string>("UserReference")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("WasteSubTypeId")
                         .HasColumnType("int");
 

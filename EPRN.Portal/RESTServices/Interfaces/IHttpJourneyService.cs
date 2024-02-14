@@ -7,7 +7,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
     {
         Task<int> CreateJourney(
             int materialId,
-            Category category);
+            Category category,
+            string companyReferenceId);
 
         Task<JourneyAnswersDto> GetJourneyAnswers(int journeyId);
 
@@ -41,12 +42,14 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task SaveReprocessorExport(int journeyId, int siteId);
 
-        Task<double?> GetWasteTonnage(int journeyId);
+        Task<WasteTonnageDto> GetWasteTonnage(int journeyId);
 
         Task SaveNote(int journeyId, string noteContent);
 
         Task<NoteDto> GetNote(int journeyId);
 
         Task<Category> GetCategory(int journeyId);
+
+        Task<AccredidationLimitDto> GetAccredidationLimit(int journeyId, string userReferenceId, double newQuantityEntered);
     }
 }

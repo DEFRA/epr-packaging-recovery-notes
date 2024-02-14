@@ -7,6 +7,7 @@ using EPRN.Waste.API.Services;
 using EPRN.Waste.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using Moq;
+using System.Reflection.Metadata;
 
 namespace EPRN.UnitTests.API.Waste.Services
 {
@@ -17,6 +18,7 @@ namespace EPRN.UnitTests.API.Waste.Services
         private Mock<IMapper> _mockMapper;
         private Mock<IRepository> _mockRepository;
         private Mock<IOptions<AppConfigSettings>> _mockConfigSettings;
+        private const double AccredidationLimit = 400;
 
         [TestInitialize]
         public void Init()
@@ -27,7 +29,8 @@ namespace EPRN.UnitTests.API.Waste.Services
 
             var config = new AppConfigSettings
             {
-                DeductionAmount = 100
+                DeductionAmount = 100,
+                AccredidationLimit = AccredidationLimit
             };
 
             _mockConfigSettings.Setup(m => m.Value).Returns(config);
@@ -166,7 +169,7 @@ namespace EPRN.UnitTests.API.Waste.Services
         {
             // arrange
             var journeyId = 8;
-            var noteDto = new NoteDto() { JourneyId = journeyId, Note = "abc", WasteCategory = Common.Enums.Category.Unknown };
+            var noteDto = new NoteDto() { Id = journeyId, Note = "abc", WasteCategory = Common.Enums.Category.Unknown };
             _mockRepository.Setup(x => x.GetWasteNote(It.IsAny<int>())).ReturnsAsync(noteDto);
 
             // act
@@ -236,5 +239,51 @@ namespace EPRN.UnitTests.API.Waste.Services
             // Assert
             Assert.IsNull(result);
         }
+
+
+        [TestMethod]
+        public async Task GetAccredidationLimit_Returns_With_Valid_UserReference()
+        {
+            // arrange
+            var userReferenceId = "someuser";
+            var newQuantityEntered = 10;
+            var existingTotalQuantity = 200;
+
+            _mockRepository.Setup(x => x.GetTotalQuantityForAllUserJourneys(userReferenceId)).ReturnsAsync(existingTotalQuantity);
+
+            // act
+            var result = await _journeyService.GetAccredidationLimit(userReferenceId, newQuantityEntered);
+
+            // assert
+            _mockRepository.Verify(r =>
+                r.GetTotalQuantityForAllUserJourneys(
+                    It.Is<string>(p => p == userReferenceId)),
+                Times.Once());
+
+            Assert.IsTrue(result.ExcessOfLimit == 190);
+        }
+
+        [TestMethod]
+        public async Task GetAccredidationLimit_Returns_With_InValid_UserReference()
+        {
+            // arrange
+            var userReferenceId = "no user";
+            var newQuantityEntered = 10;
+            double? returnedValue = null;
+
+            _mockRepository.Setup(x => x.GetTotalQuantityForAllUserJourneys(userReferenceId)).ReturnsAsync(returnedValue);
+
+            // act
+            var result = await _journeyService.GetAccredidationLimit(userReferenceId, newQuantityEntered);
+
+            // assert
+            _mockRepository.Verify(r =>
+                r.GetTotalQuantityForAllUserJourneys(
+                    It.Is<string>(p => p == userReferenceId)),
+                Times.Once());
+
+            Assert.IsTrue(result.ExcessOfLimit == (AccredidationLimit - newQuantityEntered));
+        }
+
     }
 }
