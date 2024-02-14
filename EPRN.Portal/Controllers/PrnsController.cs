@@ -84,7 +84,9 @@ namespace EPRN.Portal.Controllers
         [ActionName(Routes.Actions.PRNS.ViewDraftPrns)]
         public async Task<IActionResult> ViewDraftPRNS()
         {
-            return View();
+            var vm = new ViewDraftPrnViewModel { DateCreated = DateTime.Now, Material="Paper/Stone", PrnNumber = "PRN001", SentTo = "Tesco", Tonnage = 170 };
+            var vms = new List<ViewDraftPrnViewModel> { vm };
+            return View(vms);
         }
 
         [HttpPost]

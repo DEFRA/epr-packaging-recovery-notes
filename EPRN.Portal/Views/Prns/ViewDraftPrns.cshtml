@@ -1,4 +1,6 @@
-﻿<div class="govuk-grid-row">
+﻿@model List<EPRN.Portal.ViewModels.PRNS.ViewDraftPrnViewModel>
+
+<div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
         <h2 class="govuk-heading-l">View draft PRNs</h2>
@@ -20,23 +22,23 @@
                 </thead>
 
                 <tbody class="govuk-table__body">               
-                    @for(var index = 0; index <= 5; index++)
+                    @foreach(var draftPrn in Model)
                     {
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">
                                 <div class="govuk-radios" data-module="govuk-radios">
                                     <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" id="organisation" name="prnId" type="radio" value="PRN1">
+                                        <input class="govuk-radios__input" id="organisation" name="prnId" type="radio" value="@draftPrn.PrnNumber">
                                         <label class="govuk-label govuk-radios__label" for="organisation">
-                                            <a href="draft-prn">  PRN1xx</a>
+                                            <a href="draft-prn">@draftPrn.PrnNumber</a>
                                         </label>
                                     </div>
                                 </div>
                             </td>
-                            <td class="govuk-table__cell">Paper/board</td>
-                            <td class="govuk-table__cell">Tesco</td>
-                            <td class="govuk-table__cell">02/12/2023</td>
-                            <td class="govuk-table__cell">176 </td>
+                            <td class="govuk-table__cell">@draftPrn.Material</td>
+                            <td class="govuk-table__cell">@draftPrn.SentTo</td>
+                            <td class="govuk-table__cell">@draftPrn.DateCreated</td>
+                            <td class="govuk-table__cell">@draftPrn.Tonnage</td>
                         </tr>
                     }
                 </tbody>
