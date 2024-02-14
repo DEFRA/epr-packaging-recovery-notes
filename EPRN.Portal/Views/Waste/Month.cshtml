@@ -33,6 +33,7 @@
 <form method="post">
 
     <input type="hidden" asp-for="WhatHaveYouDone" />
+    <input type="hidden" asp-for="SubmissionDate" />
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -86,6 +87,7 @@
             }
             else
             {
+                <input type="hidden" asp-for="SelectedMonth" />
                 <h1 class="govuk-heading-l">@WhichQuarterResources.RecordFebruaryWaste</h1>
                 <div class="govuk-hint">
                     @WhichQuarterResources.HintTextFebruary

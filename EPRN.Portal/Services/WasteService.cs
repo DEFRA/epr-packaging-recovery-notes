@@ -4,6 +4,7 @@ using System.Resources;
 using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Common.Extensions;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
@@ -81,7 +82,7 @@ namespace EPRN.Portal.Services
             viewModel.Category = category;
             viewModel.Notification = quarterDates.Notification;
             viewModel.SubmissionDate = quarterDates.SubmissionDate;
-            viewModel.SelectedMonth = selectedMonth;
+            viewModel.SelectedMonth = !quarterDates.SubmissionDate.IsFeb29() ? selectedMonth : (int?)Months.February;
             viewModel.NotificationDeadlineDate = quarterDates.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
 
             PopulateViewModelQuarter(viewModel, quarterDates);
