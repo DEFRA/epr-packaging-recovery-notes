@@ -74,10 +74,9 @@ namespace EPRN.PRNS.API.Services
 
         public async Task SaveCheckYourAnswers(int id)
         {
-            string reason = "Update";
             await _prnRepository.UpdatePrnStatus(
                 id, 
-                PrnStatus.CheckYourAnswersComplete, reason);
+                PrnStatus.CheckYourAnswersComplete);
         }
 
         public async Task CancelPrn(int id, string reason)
