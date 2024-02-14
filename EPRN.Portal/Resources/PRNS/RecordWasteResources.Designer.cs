@@ -97,6 +97,15 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exporting.
+        /// </summary>
+        public static string ExportingLabel {
+            get {
+                return ResourceManager.GetString("ExportingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Material.
         /// </summary>
         public static string MaterialHeading {
@@ -111,6 +120,24 @@ namespace EPRN.Portal.Resources.PRNS {
         public static string RecordWasteLabel {
             get {
                 return ResourceManager.GetString("RecordWasteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reprocessing.
+        /// </summary>
+        public static string ReprocessingLabel {
+            get {
+                return ResourceManager.GetString("ReprocessingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown.
+        /// </summary>
+        public static string UnknownLabel {
+            get {
+                return ResourceManager.GetString("UnknownLabel", resourceCulture);
             }
         }
     }

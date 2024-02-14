@@ -42,9 +42,10 @@
             @NoteResources.HintTextInfo
         </div>
     </div>
-
-    <button class="govuk-button" data-module="govuk-button" type="submit">
-        @MasterResources.ContinueBtn
-    </button>
-    <a asp-action="Note">@MasterResources.SkipQuestionLink</a>
+    <div class="govuk-button-group">
+        <button class="govuk-button" data-module="govuk-button" type="submit">
+            @MasterResources.ContinueBtn
+        </button>
+        <a class="govuk-link" asp-action="CheckYourAnswers" asp-route-id="@Model.Id">@MasterResources.SkipQuestionLink</a>
+    </div>
 </form>

@@ -4,6 +4,7 @@ using System.Resources;
 using AutoMapper;
 using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
+using EPRN.Common.Extensions;
 using EPRN.Portal.Configuration;
 using EPRN.Portal.Helpers.Interfaces;
 using EPRN.Portal.Resources;
@@ -81,7 +82,7 @@ namespace EPRN.Portal.Services
             viewModel.Category = category;
             viewModel.Notification = quarterDates.Notification;
             viewModel.SubmissionDate = quarterDates.SubmissionDate;
-            viewModel.SelectedMonth = selectedMonth;
+            viewModel.SelectedMonth = !quarterDates.SubmissionDate.IsFeb29() ? selectedMonth : (int?)Months.February;
             viewModel.NotificationDeadlineDate = quarterDates.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
 
             PopulateViewModelQuarter(viewModel, quarterDates);
@@ -180,6 +181,12 @@ namespace EPRN.Portal.Services
                                 { 4, materialTypes[4] },
                                 { 9, materialTypes[9] }
                             }
+                        },
+                        // add in a site with ALL materials so that testers can use each type
+                        new()
+                        {
+                            SiteName = "Unit 1s Halifax Road, Bonneville",
+                            SiteMaterials = materialTypes
                         }
                     }
                 },
@@ -233,6 +240,7 @@ namespace EPRN.Portal.Services
             return new WasteSubTypesViewModel
             {
                 Id = journeyId,
+                WasteTypeId = wasteTypeId.Value,
                 WasteSubTypeOptions = wasteSubTypeOptions,
                 SelectedWasteSubTypeId = selectedWasteSubTypeTask.Result.WasteSubTypeId,
                 CustomPercentage = selectedWasteSubTypeTask.Result.Adjustment

@@ -189,12 +189,13 @@ namespace EPRN.Portal.Services
 
             viewModel.FilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
                 ViewSentPrnResources.FilterBy,
-                PrnStatus.Accepted, 
-                PrnStatus.AwaitingAcceptance, 
+                MasterResources.ResourceManager,
+                PrnStatus.Accepted,
+                PrnStatus.AwaitingAcceptance,
                 PrnStatus.Rejected,
-                PrnStatus.AwaitingCancellation, 
+                PrnStatus.AwaitingCancellation,
                 PrnStatus.Cancelled);
-            
+
             viewModel.SortItems = new List<SelectListItem>
             {
                 new() { Value = "", Text = @ViewSentPrnResources.SortBy }, 
