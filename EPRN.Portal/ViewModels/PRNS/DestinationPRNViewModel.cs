@@ -10,5 +10,7 @@ namespace EPRN.Portal.ViewModels.PRNS
 
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(DestinationPRNResources))]
         public PrnStatus? DoWithPRN { get; set; }
+
+        public string Reason { get; set; }
     }
 }

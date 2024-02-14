@@ -454,5 +454,24 @@ namespace EPRN.UnitTests.API.PRNS.Services
                     It.Is<bool>(p => p == waste)),
                 Times.Once);
         }
+
+        [TestMethod]
+        public async Task SaveDraftPrn_CallsServiceMethod()
+        {
+            // Arrange
+            var id = 4;
+            var reason = "update";
+
+            // Act
+            await _prnService.SaveDraftPrn(id, reason);
+
+            // Assert
+            _mockRepository.Verify(s =>
+                s.UpdatePrnStatus(
+                    It.IsAny<int>(),
+                    It.IsAny<PrnStatus>(),
+                    It.IsAny<string>()),
+                Times.Once);
+        }
     }
 }

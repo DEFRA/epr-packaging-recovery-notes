@@ -232,17 +232,18 @@ namespace EPRN.Portal.Services
             return actionPrnViewModel;
         }
 
-        public async Task SaveSentTo(DestinationPrnViewModel actionPrnViewModel)
+        public async Task SaveDraftPrn(DestinationPrnViewModel destinationPrnViewModel)
         {
-            if (actionPrnViewModel == null)
-                throw new ArgumentNullException(nameof(actionPrnViewModel));
+            if (destinationPrnViewModel == null)
+                throw new ArgumentNullException(nameof(destinationPrnViewModel));
 
-            if (actionPrnViewModel.DoWithPRN == null)
-                throw new ArgumentNullException(nameof(actionPrnViewModel.DoWithPRN));
+            if (destinationPrnViewModel.DoWithPRN == null)
+                throw new ArgumentNullException(nameof(destinationPrnViewModel.DoWithPRN));
 
-            await _httpPrnsService.SaveSentTo(
-                actionPrnViewModel.Id,
-                actionPrnViewModel.DoWithPRN.Value);
+            destinationPrnViewModel.Reason = "Update";
+            await _httpPrnsService.SaveDraftPrn(
+                destinationPrnViewModel.Id,
+                destinationPrnViewModel.Reason);
         }
     }
 }

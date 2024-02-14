@@ -112,9 +112,13 @@ namespace EPRN.Portal.RESTServices
             return await Get<PRNDetailsDto>($"{id}/Category/{_category}/Reference");
         }
 
-        public async Task SaveSentTo(int id, PrnStatus? status)
+        public async Task SaveSentTo(int id, string sentTo)
         {
-            await Post($"{id}/Category/{_category}/SentTo/{status}");
+            await Post($"{id}/Category/{_category}/SentTo/{sentTo}");
         }
-}
+        public async Task SaveDraftPrn(int id, string reason)
+        {
+            await Post($"{id}/Category/{_category}/SaveDraftPrn", reason);
+        }
+    }
 }

@@ -97,7 +97,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heading.
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
         public static string HeadingPERN {
             get {
@@ -115,7 +115,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SaveItAsDraft.
+        ///   Looks up a localized string similar to Save it as draft.
         /// </summary>
         public static string SaveItAsDraftPERN {
             get {
@@ -133,7 +133,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SendItTo.
+        ///   Looks up a localized string similar to Send it to:.
         /// </summary>
         public static string SendItToPERN {
             get {
@@ -151,7 +151,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Title.
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
         public static string TitlePERN {
             get {

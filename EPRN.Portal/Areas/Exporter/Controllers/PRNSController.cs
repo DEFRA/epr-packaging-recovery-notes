@@ -237,18 +237,19 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DestinationPrn(DestinationPrnViewModel actionPrnViewModel)
+        public async Task<IActionResult> DestinationPrn(DestinationPrnViewModel destinationPrnViewModel)
         {
             if (!ModelState.IsValid)
-                return View(actionPrnViewModel);
+                return View(destinationPrnViewModel);
 
-            await _prnService.SaveSentTo(actionPrnViewModel);
-
-            if (actionPrnViewModel.DoWithPRN == Common.Enums.PrnStatus.Draft)                
+            if (destinationPrnViewModel.DoWithPRN == PrnStatus.Draft)
+            {
+                await _prnService.SaveDraftPrn(destinationPrnViewModel);
                 return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
-                            new { area = Category.ToString(), actionPrnViewModel.Id });
+                                new { area = Category.ToString(), destinationPrnViewModel.Id });
+            }
             else
-                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, actionPrnViewModel.Id });
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, destinationPrnViewModel.Id });
         }
 
         [HttpGet]

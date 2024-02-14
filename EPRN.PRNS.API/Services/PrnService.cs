@@ -152,6 +152,14 @@ namespace EPRN.PRNS.API.Services
             await _prnRepository.SaveSentTo(id, sentTo);
         }
 
+        public async Task SaveDraftPrn(int id, string reason)
+        {
+            await _prnRepository.UpdatePrnStatus(
+                id,
+                PrnStatus.Draft, 
+                reason);
+        }
+
         #region Private methods - Keep at bottom of file
         // Stub this and generate a random PRN reference number
         // In time a specific generation algorithm will

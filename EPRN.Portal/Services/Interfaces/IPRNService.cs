@@ -40,6 +40,6 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task<DestinationPrnViewModel> GetActionPrnViewModel(int id);
 
-        Task SaveSentTo(DestinationPrnViewModel actionPrnViewModel);
+        Task SaveDraftPrn(DestinationPrnViewModel destinationPrnViewModel);
     }
 }

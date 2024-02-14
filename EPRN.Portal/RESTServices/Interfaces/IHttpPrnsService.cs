@@ -47,6 +47,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<PRNDetailsDto> GetPrnReference(int id);
 
-        Task SaveSentTo(int id, PrnStatus? status);
+        Task SaveSentTo(int id, string sentTo);
+
+        Task SaveDraftPrn(int id, string reason);
     }
 }
