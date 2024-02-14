@@ -101,10 +101,15 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<DecemberWasteDto>($"{id}/Category/{_category}/DecemberWaste");
         }
-        
+
         public async Task SaveDecemberWaste(int id, bool decemberWaste)
         {
             await Post($"{id}/Category/{_category}/DecemberWaste/{decemberWaste}");
+        }
+
+        public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
+        {
+            return await Get<DeleteDraftPrnDto>($"{id}/Category/{_category}/PrnReference");
         }
     }
 }

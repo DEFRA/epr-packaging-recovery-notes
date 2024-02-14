@@ -233,10 +233,9 @@ namespace EPRN.Portal.Services
 
         public async Task<DeleteDraftPrnViewModel> GetDeleteDraftPrnViewModel(int id)
         {
-            return new DeleteDraftPrnViewModel
-            {
-                PrnReference = "PRN-298321"
-            };
+            var dto = await _httpPrnsService.GetPrnReference(id);
+
+            return _mapper.Map<DeleteDraftPrnViewModel>(dto);
         }
     }
 }
