@@ -165,8 +165,8 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpGet]
-        [Route("Reference")]
-        public async Task<IActionResult> GetPrnReference(int id)
+        [Route("Details")]
+        public async Task<IActionResult> GetPrnDetails(int id)
         {
             var prnDetailsDto = await _prnService.GetPrnDetails(id);
             

@@ -256,22 +256,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (draftConfirmationViewModel.DoWithPRN == PrnStatus.Draft)
             {
                 await _prnService.SaveDraftPrn(draftConfirmationViewModel);
-                return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
-                                new { area = Category.ToString(), draftConfirmationViewModel.Id });
+                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, draftConfirmationViewModel);
             }
             else
                 return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationViewModel.Id });
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
-
-            return View(viewModel);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

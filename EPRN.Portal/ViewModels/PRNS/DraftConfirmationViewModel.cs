@@ -8,6 +8,8 @@ namespace EPRN.Portal.ViewModels.PRNS
     {
         public int Id { get; set; }
 
+        public string Reference { get; set; }
+
         [Required(ErrorMessageResourceName = "ErrorMessage", ErrorMessageResourceType = typeof(DraftConfirmationResources))]
         public PrnStatus? DoWithPRN { get; set; }
     }

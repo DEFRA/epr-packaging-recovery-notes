@@ -274,7 +274,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
                 .ReturnsAsync(expectedDto);
 
             // Act
-            var result = await _prnController.GetPrnReference(reference);
+            var result = await _prnController.GetPrnDetails(reference);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -293,7 +293,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
                 .ReturnsAsync((PRNDetailsDto)null);
 
             // Act
-            var result = await _prnController.GetPrnReference(reference);
+            var result = await _prnController.GetPrnDetails(reference);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));

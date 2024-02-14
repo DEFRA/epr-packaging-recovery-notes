@@ -31,6 +31,13 @@ namespace EPRN.Portal.Profiles
 
             CreateMap<PRNHistoryDto, PRNHistoryViewModel>();
             CreateMap<StatusAndProducerDto, CancelViewModel>();
+            CreateMap<PRNDetailsDto, DraftConfirmationViewModel>()
+                .ForMember(d => d.Reference, o => o.MapFrom(s => s.ReferenceNumber))
+                .ForMember(d => d.DoWithPRN, o => o.MapFrom(s =>
+                    s.History
+                    .OrderByDescending(h => h.Created)
+                    .Select(h => h.Status)
+                    .First()));
         }
     }
 }

@@ -132,16 +132,6 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id)
-        {
-            //TODO: The PrnNumber property needs to be system generated in the future
-            return new PrnSavedAsDraftViewModel
-            {
-                Id = id,
-                PrnNumber = "PRN222019EFGF",
-            };
-        }
-
         public async Task<CancelViewModel> GetCancelViewModel(int id)
         {
             var dto = await _httpPrnsService.GetStatusAndProducer(id);
@@ -218,18 +208,13 @@ namespace EPRN.Portal.Services
         public async Task<ViewPRNViewModel> GetViewPrnViewModel(string reference)
         {
             var dto = await _httpPrnsService.GetPrnDetails(reference);
-
             return _mapper.Map<ViewPRNViewModel>(dto);
         }
 
         public async Task<DraftConfirmationViewModel> GetDraftConfirmationViewModel(int id)
         {
-            var dto = await _httpPrnsService.GetPrnReference(id);
-            var actionPrnViewModel = new DraftConfirmationViewModel
-            { 
-                Id = id
-            };
-            return actionPrnViewModel;
+            var dto = await _httpPrnsService.GetPrnDetails(id);
+            return _mapper.Map<DraftConfirmationViewModel>(dto);
         }
 
         public async Task SaveDraftPrn(DraftConfirmationViewModel draftConfirmationViewModel)

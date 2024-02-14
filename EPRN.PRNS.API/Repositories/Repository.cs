@@ -39,10 +39,9 @@ namespace EPRN.PRNS.API.Repositories
                 {
                     new PrnHistory
                     {
-                        Status = PrnStatus.Draft,
+                        Status = PrnStatus.Created,
                         Created = DateTime.UtcNow,
-                        CreatedBy = username,
-                        Reason = "Created"
+                        CreatedBy = username
                     }
                 }
             };

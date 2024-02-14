@@ -45,7 +45,7 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task SaveDecemberWaste(int journeyId, bool decemberWaste);
 
-        Task<PRNDetailsDto> GetPrnReference(int id);
+        Task<PRNDetailsDto> GetPrnDetails(int id);
 
         Task SaveSentTo(int id, string sentTo);
 

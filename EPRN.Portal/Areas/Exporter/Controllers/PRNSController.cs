@@ -6,6 +6,7 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System.Security.Cryptography.Xml;
 using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Areas.Exporter.Controllers
@@ -111,8 +112,9 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DraftConfirmation,
                 Routes.Areas.Controllers.Exporter.PRNS, new 
-                { 
-                    area = Category, id = checkYourAnswersViewModel.Id 
+                {
+                    area = Category, 
+                    id = checkYourAnswersViewModel.Id
                 });
         }
 
@@ -252,22 +254,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (draftConfirmationPrnViewModel.DoWithPRN == PrnStatus.Draft)
             {
                 await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
-                return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
-                                new { area = Category.ToString(), draftConfirmationPrnViewModel.Id });
+                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, draftConfirmationPrnViewModel);
             }
             else
                 return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationPrnViewModel.Id });
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> PrnSavedAsDraftConfirmation(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var viewModel = await _prnService.GetDraftPrnConfirmationModel(id.Value);
-
-            return View(viewModel);
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)
