@@ -231,7 +231,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
-        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraftPrn)]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
         public async Task<IActionResult> DeleteDraftPrn(int id)
         {
             var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);

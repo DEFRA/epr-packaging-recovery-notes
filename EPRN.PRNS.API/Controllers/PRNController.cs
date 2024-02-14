@@ -1,6 +1,5 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -144,7 +143,7 @@ namespace EPRN.PRNS.API.Controllers
         {
             if (id == null)
                 return BadRequest("Missing ID");
-            
+
             var result = await _prnService.GetDecemberWaste(id.Value);
 
             return Ok(result);
@@ -164,6 +163,15 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("PrnReference")]
+        public async Task<IActionResult> GetPrnReference(int id)
+        {
+            var result = await _prnService.GetPrnReference(id);
+
+            return Ok(result);
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db
@@ -176,7 +184,7 @@ namespace EPRN.PRNS.API.Controllers
             if (context.RouteData.Values.ContainsKey(idParameter) &&
                 context.RouteData.Values.ContainsKey(categoryParameter))
             {
-                int  id = Convert.ToInt32(context.RouteData.Values[idParameter]);
+                int id = Convert.ToInt32(context.RouteData.Values[idParameter]);
                 if (Enum.TryParse<EPRN.Common.Enums.Category>(context.RouteData.Values["category"].ToString(), out var category))
                 {
                     if (!await _prnService.PrnRecordExists(id, category))

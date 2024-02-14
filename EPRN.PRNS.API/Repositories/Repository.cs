@@ -54,7 +54,7 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task<bool> PrnExists(
-            int id, 
+            int id,
             EPRN.Common.Enums.Category category)
         {
             return await _prnContext
@@ -167,26 +167,26 @@ namespace EPRN.PRNS.API.Repositories
             {
                 // map the filterby value to the Data version of the enum
                 var filterByStatus = _mapper.Map<PrnStatus>(request.FilterBy);
-                prns = prns.Where(e => 
-                    e.PrnHistory != null && 
-                    e.PrnHistory.Any() && 
+                prns = prns.Where(e =>
+                    e.PrnHistory != null &&
+                    e.PrnHistory.Any() &&
                     e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 prns = prns.Where(repo =>
                     EF.Functions.Like(repo.Reference, $"%{request.SearchTerm}%") ||
                     EF.Functions.Like(repo.SentTo, $"%{request.SearchTerm}%"));
             }
-            
+
             if (request.SortBy == "1")
                 prns = prns.OrderByDescending(e => e.WasteType);
             else if (request.SortBy == "2")
                 prns = prns.OrderBy(e => e.SentTo);
             else
                 prns = prns.OrderByDescending(repo => repo.CreatedDate);
-            
+
             // get the count BEFORE paging
             var totalRecords = await prns.CountAsync();
             prns = prns
@@ -270,6 +270,18 @@ namespace EPRN.PRNS.API.Repositories
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
                 );
+        }
+
+        public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new DeleteDraftPrnDto
+                {
+                    PrnReference = prn.Reference
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }

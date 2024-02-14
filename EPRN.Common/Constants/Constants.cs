@@ -69,7 +69,7 @@ public static class Strings
                     public const string Cancelled = "Cancelled";
                     public const string RequestCancelConfirmed = "RequestCancelConfirmed";
                     public const string DecemberWaste = "DecemberWaste";
-                    public const string DeleteDraftPrn = "DeleteDraftPrn";
+                    public const string DeleteDraft = "DeleteDraft";
                 }
             }
         }

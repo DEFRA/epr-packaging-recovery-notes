@@ -30,7 +30,7 @@ namespace EPRN.PRNS.API.Services
             Category category)
         {
             return await _prnRepository.CreatePrnRecord(
-                materialId, 
+                materialId,
                 category,
                 GenerateReferenceNumber());
         }
@@ -75,7 +75,7 @@ namespace EPRN.PRNS.API.Services
         public async Task SaveCheckYourAnswers(int id)
         {
             await _prnRepository.UpdatePrnStatus(
-                id, 
+                id,
                 PrnStatus.CheckYourAnswersComplete);
         }
 
@@ -124,7 +124,7 @@ namespace EPRN.PRNS.API.Services
                 monthToCheckAgainst = _currentMonthOverride.Value;
             }
 
-            if (monthToCheckAgainst == (int)Months.January ||  monthToCheckAgainst == (int)Months.December) 
+            if (monthToCheckAgainst == (int)Months.January || monthToCheckAgainst == (int)Months.December)
             {
                 return await _prnRepository.GetDecemberWaste(journeyId);
             }
@@ -134,6 +134,11 @@ namespace EPRN.PRNS.API.Services
                 Id = journeyId,
                 IsWithinMonth = false,
             };
+        }
+
+        public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
+        {
+            return await _prnRepository.GetPrnReference(id);
         }
 
         public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
