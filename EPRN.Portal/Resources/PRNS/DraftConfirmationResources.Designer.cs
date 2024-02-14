@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources.PRNS {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class DestinationPRNResources___Copy {
+    public class DraftConfirmationResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DestinationPRNResources___Copy() {
+        internal DraftConfirmationResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources.PRNS {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.DestinationPRNResources - Copy", typeof(DestinationPRNResources___Copy).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.DraftConfirmationResources", typeof(DraftConfirmationResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -97,7 +97,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heading.
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
         public static string HeadingPERN {
             get {
@@ -115,7 +115,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SaveItAsDraft.
+        ///   Looks up a localized string similar to Save it as draft.
         /// </summary>
         public static string SaveItAsDraftPERN {
             get {
@@ -133,7 +133,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SendItTo.
+        ///   Looks up a localized string similar to Send it to:.
         /// </summary>
         public static string SendItToPERN {
             get {
@@ -151,7 +151,7 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Title.
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
         public static string TitlePERN {
             get {

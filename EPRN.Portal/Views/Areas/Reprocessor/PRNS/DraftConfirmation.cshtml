@@ -1,0 +1,38 @@
+﻿@using EPRN.Common.Enums;
+@using EPRN.Portal.Services.Interfaces;
+@using EPRN.Portal.Helpers.Extensions;
+
+@inject IUserRoleService userRoleService;
+
+@model DraftConfirmationViewModel
+@{
+    ViewData["Title"] = DraftConfirmationResources.Title;
+}
+
+<partial name="_ValidationSummary" />
+<form method="post">
+    <radios asp-for="DoWithPRN" asp-title="@DraftConfirmationResources.Heading">
+        <p class="govuk-error-message">
+            <span asp-validation-for="DoWithPRN"></span>
+        </p>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="DoWithPRN" value="@PrnStatus.Complete" aria-describedby="@DraftConfirmationResources.SendItTo">
+            <label class="govuk-label govuk-radios__label" for="@DraftConfirmationResources.SendItTo">
+                @DraftConfirmationResources.SendItTo
+            </label>
+        </div>
+
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" asp-for="DoWithPRN" value="@PrnStatus.Draft" aria-describedby="@DraftConfirmationResources.SaveItAsDraft">
+            <label class="govuk-label govuk-radios__label" for="@DraftConfirmationResources.SaveItAsDraft">
+                @DraftConfirmationResources.SaveItAsDraft
+            </label>
+        </div>
+
+    </radios>
+
+    <button class="govuk-button" data-module="govuk-button" type="submit">
+        @MasterResources.ContinueBtn
+    </button>
+</form>

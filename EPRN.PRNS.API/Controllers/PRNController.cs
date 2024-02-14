@@ -192,12 +192,12 @@ namespace EPRN.PRNS.API.Controllers
 
         [HttpPost]
         [Route("SaveDraftPrn")]
-        public async Task<ActionResult> SaveDraftPrn(int? id, [FromBody] string reason)
+        public async Task<ActionResult> SaveDraftPrn(int? id)
         {
             if (id == null)
                 return BadRequest("Missing ID");
 
-            await _prnService.SaveDraftPrn(id.Value, reason);
+            await _prnService.SaveDraftPrn(id.Value);
 
             return Ok();
         }

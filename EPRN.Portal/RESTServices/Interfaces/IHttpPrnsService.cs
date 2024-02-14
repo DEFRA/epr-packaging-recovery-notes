@@ -49,6 +49,6 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task SaveSentTo(int id, string sentTo);
 
-        Task SaveDraftPrn(int id, string reason);
+        Task SaveDraftPrn(int id);
     }
 }

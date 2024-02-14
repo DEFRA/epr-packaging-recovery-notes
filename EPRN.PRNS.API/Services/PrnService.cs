@@ -152,12 +152,11 @@ namespace EPRN.PRNS.API.Services
             await _prnRepository.SaveSentTo(id, sentTo);
         }
 
-        public async Task SaveDraftPrn(int id, string reason)
+        public async Task SaveDraftPrn(int id)
         {
             await _prnRepository.UpdatePrnStatus(
                 id,
-                PrnStatus.Draft, 
-                reason);
+                PrnStatus.Draft);
         }
 
         #region Private methods - Keep at bottom of file
@@ -165,6 +164,6 @@ namespace EPRN.PRNS.API.Services
         // In time a specific generation algorithm will
         // be specified
         private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
-            #endregion
         }
+        #endregion
 }

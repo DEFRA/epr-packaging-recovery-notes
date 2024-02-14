@@ -222,28 +222,25 @@ namespace EPRN.Portal.Services
             return _mapper.Map<ViewPRNViewModel>(dto);
         }
 
-        public async Task<DestinationPrnViewModel> GetActionPrnViewModel(int id)
+        public async Task<DraftConfirmationViewModel> GetDraftConfirmationViewModel(int id)
         {
             var dto = await _httpPrnsService.GetPrnReference(id);
-            var actionPrnViewModel = new DestinationPrnViewModel 
+            var actionPrnViewModel = new DraftConfirmationViewModel
             { 
                 Id = id
             };
             return actionPrnViewModel;
         }
 
-        public async Task SaveDraftPrn(DestinationPrnViewModel destinationPrnViewModel)
+        public async Task SaveDraftPrn(DraftConfirmationViewModel draftConfirmationViewModel)
         {
-            if (destinationPrnViewModel == null)
-                throw new ArgumentNullException(nameof(destinationPrnViewModel));
+            if (draftConfirmationViewModel == null)
+                throw new ArgumentNullException(nameof(draftConfirmationViewModel));
 
-            if (destinationPrnViewModel.DoWithPRN == null)
-                throw new ArgumentNullException(nameof(destinationPrnViewModel.DoWithPRN));
+            if (draftConfirmationViewModel.DoWithPRN == null)
+                throw new ArgumentNullException(nameof(draftConfirmationViewModel.DoWithPRN));
 
-            destinationPrnViewModel.Reason = "Update";
-            await _httpPrnsService.SaveDraftPrn(
-                destinationPrnViewModel.Id,
-                destinationPrnViewModel.Reason);
+            await _httpPrnsService.SaveDraftPrn(draftConfirmationViewModel.Id);
         }
     }
 }

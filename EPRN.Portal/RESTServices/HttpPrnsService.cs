@@ -116,9 +116,9 @@ namespace EPRN.Portal.RESTServices
         {
             await Post($"{id}/Category/{_category}/SentTo/{sentTo}");
         }
-        public async Task SaveDraftPrn(int id, string reason)
+        public async Task SaveDraftPrn(int id)
         {
-            await Post($"{id}/Category/{_category}/SaveDraftPrn", reason);
+            await Post($"{id}/Category/{_category}/SaveDraftPrn");
         }
     }
 }

@@ -108,7 +108,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction(Routes.Areas.Actions.PRNS.DestinationPrn, Routes.Areas.Controllers.Reprocessor.PRNS,
+            return RedirectToAction(Routes.Areas.Actions.PRNS.DraftConfirmation, Routes.Areas.Controllers.Reprocessor.PRNS,
                 new
                 {
                     area = Category,
@@ -236,29 +236,31 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DestinationPrn(int? id)
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
+            var viewModel = await _prnService.GetDraftConfirmationViewModel(id.Value);
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> DestinationPrn(DestinationPrnViewModel destinationPrnViewModel)
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(DraftConfirmationViewModel draftConfirmationViewModel)
         {
             if (!ModelState.IsValid)
-                return View(destinationPrnViewModel);
+                return View(draftConfirmationViewModel);
 
-            if (destinationPrnViewModel.DoWithPRN == PrnStatus.Draft)
+            if (draftConfirmationViewModel.DoWithPRN == PrnStatus.Draft)
             {
-                await _prnService.SaveDraftPrn(destinationPrnViewModel);
+                await _prnService.SaveDraftPrn(draftConfirmationViewModel);
                 return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
-                                new { area = Category.ToString(), destinationPrnViewModel.Id });
+                                new { area = Category.ToString(), draftConfirmationViewModel.Id });
             }
             else
-                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, destinationPrnViewModel.Id });
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationViewModel.Id });
         }
 
         [HttpGet]

@@ -1,6 +1,7 @@
 ﻿using EPRN.Common.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 
 namespace EPRN.Common.Data.DataModels
 {
@@ -12,8 +13,8 @@ namespace EPRN.Common.Data.DataModels
         public PrnStatus Status { get; set; }
 
         [MaxLength(200)]
-        [Required]
-        public string Reason { get; set; }
+        [AllowNull]
+        public string? Reason { get; set; }
 
         public DateTime Created { get; set; }
 

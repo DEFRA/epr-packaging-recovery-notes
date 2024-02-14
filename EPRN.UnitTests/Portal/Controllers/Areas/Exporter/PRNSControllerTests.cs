@@ -449,21 +449,21 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
         }
 
         [TestMethod]
-        public async Task DestinationPrn_ReturnsCorrectViewName_WhenJourneyIdValid()
+        public async Task DraftConfirmation_ReturnsCorrectViewName_WhenJourneyIdValid()
         {
             // Arrange
             var journeyId = 1;
 
-            var expectedViewModel = new DestinationPrnViewModel
+            var expectedViewModel = new DraftConfirmationViewModel
             {
                 Id = journeyId,
                 DoWithPRN = null
             };
 
-            _mockPrnService.Setup(service => service.GetActionPrnViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
 
             // Act
-            var result = await _prnController.DestinationPrn(journeyId) as ViewResult;
+            var result = await _prnController.DraftConfirmation(journeyId) as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);

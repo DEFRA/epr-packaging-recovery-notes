@@ -109,8 +109,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.DestinationPrn,
-                Routes.Areas.Controllers.Exporter.PRNS, new { area = Category, id = checkYourAnswersViewModel.Id });
+                Routes.Areas.Actions.PRNS.DraftConfirmation,
+                Routes.Areas.Controllers.Exporter.PRNS, new 
+                { 
+                    area = Category, id = checkYourAnswersViewModel.Id 
+                });
         }
 
         // TODO This is for story #280981 Which packaging producer or compliance scheme is this for? 
@@ -194,6 +197,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DecemberWaste)]
         public async Task<IActionResult> DecemberWaste(int? id)
         {
             if (id == null)
@@ -214,6 +218,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DecemberWaste)]
         public async Task<IActionResult> DecemberWaste(DecemberWasteViewModel decemberWaste)
         {
             if (!ModelState.IsValid)
@@ -227,29 +232,31 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> DestinationPrn(int? id)
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(int? id)
         {
             if (id == null)
                 return NotFound();
 
-            var viewModel = await _prnService.GetActionPrnViewModel(id.Value);
+            var viewModel = await _prnService.GetDraftConfirmationViewModel(id.Value);
             return View(viewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> DestinationPrn(DestinationPrnViewModel destinationPrnViewModel)
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(DraftConfirmationViewModel draftConfirmationPrnViewModel)
         {
             if (!ModelState.IsValid)
-                return View(destinationPrnViewModel);
+                return View(draftConfirmationPrnViewModel);
 
-            if (destinationPrnViewModel.DoWithPRN == PrnStatus.Draft)
+            if (draftConfirmationPrnViewModel.DoWithPRN == PrnStatus.Draft)
             {
-                await _prnService.SaveDraftPrn(destinationPrnViewModel);
+                await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
                 return RedirectToAction(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation,
-                                new { area = Category.ToString(), destinationPrnViewModel.Id });
+                                new { area = Category.ToString(), draftConfirmationPrnViewModel.Id });
             }
             else
-                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, destinationPrnViewModel.Id });
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationPrnViewModel.Id });
         }
 
         [HttpGet]

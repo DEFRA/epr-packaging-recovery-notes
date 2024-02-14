@@ -43,6 +43,6 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task SaveSentTo(int Id, string status);
 
-        Task SaveDraftPrn(int id, string reason);
+        Task SaveDraftPrn(int id);
     }
 }
