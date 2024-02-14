@@ -111,5 +111,10 @@ namespace EPRN.Portal.RESTServices
         {
             return await Get<DeleteDraftPrnDto>($"{id}/Category/{_category}/PrnReference");
         }
+
+        public async Task DeleteDraftPrn(int id)
+        {
+            await Post($"{id}/Category/{_category}/DeleteDraftPrn");
+        }
     }
 }

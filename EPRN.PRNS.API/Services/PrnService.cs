@@ -136,14 +136,19 @@ namespace EPRN.PRNS.API.Services
             };
         }
 
+        public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
+        {
+            await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
+        }
+
         public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
         {
             return await _prnRepository.GetPrnReference(id);
         }
 
-        public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
+        public async Task DeleteDraftPrn(int id)
         {
-            await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
+            await _prnRepository.DeleteDraftPrn(id);
         }
 
         #region Private methods - Keep at bottom of file

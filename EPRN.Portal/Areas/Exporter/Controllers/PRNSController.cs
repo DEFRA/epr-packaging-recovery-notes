@@ -235,7 +235,17 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         public async Task<IActionResult> DeleteDraftPrn(int id)
         {
             var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);
+
             return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
+        {
+            await _prnService.DeleteDraftPrn(viewModel);
+
+            return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

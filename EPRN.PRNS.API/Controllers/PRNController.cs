@@ -172,6 +172,15 @@ namespace EPRN.PRNS.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost]
+        [Route("DeleteDraftPrn")]
+        public async Task<IActionResult> DeleteDraftPrn(int id)
+        {
+            await _prnService.DeleteDraftPrn(id);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db

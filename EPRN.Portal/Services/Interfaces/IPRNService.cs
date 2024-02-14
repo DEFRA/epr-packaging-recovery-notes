@@ -41,5 +41,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task<ActionPrnViewModel> GetActionPrnViewModel(int id);
 
         Task<DeleteDraftPrnViewModel> GetDeleteDraftPrnViewModel(int id);
+
+        Task DeleteDraftPrn(DeleteDraftPrnViewModel viewModel);
     }
 }

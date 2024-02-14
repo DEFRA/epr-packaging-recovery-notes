@@ -279,9 +279,20 @@ namespace EPRN.PRNS.API.Repositories
                 .Where(prn => prn.Id == id)
                 .Select(prn => new DeleteDraftPrnDto
                 {
+                    Id = prn.Id,
                     PrnReference = prn.Reference
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task DeleteDraftPrn(int id)
+        {
+            await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .ExecuteUpdateAsync(sp =>
+                    sp.SetProperty(prn => prn.IsDeleted, true)
+                );
         }
     }
 }

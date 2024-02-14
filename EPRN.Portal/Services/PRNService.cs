@@ -237,5 +237,10 @@ namespace EPRN.Portal.Services
 
             return _mapper.Map<DeleteDraftPrnViewModel>(dto);
         }
+
+        public async Task DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
+        {
+            await _httpPrnsService.DeleteDraftPrn(viewModel.Id);
+        }
     }
 }
