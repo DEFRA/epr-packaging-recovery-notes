@@ -247,6 +247,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
         public async Task<IActionResult> DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
         {
+            if (viewModel == null)
+                return BadRequest();
+
             await _prnService.DeleteDraftPrn(viewModel);
 
             return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed

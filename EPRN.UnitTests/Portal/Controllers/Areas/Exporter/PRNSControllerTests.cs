@@ -367,6 +367,8 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             Assert.AreEqual(viewModel, result.Model);
         }
 
+        #region DeleteDraftPrn
+
         [TestMethod]
         public async Task DeleteDraftPrn_ReturnsCorrectViewModelAndView()
         {
@@ -383,5 +385,60 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             //Assert.AreEqual("DeleteDraft", result.ViewName);
             Assert.IsNull(result.ViewName);
         }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_ReturnsRedirectToActionResult()
+        {
+            // Arrange
+            var viewModel = new DeleteDraftPrnViewModel();
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(viewModel);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_CallsDeleteDraftPrn_InPrnService()
+        {
+            // Arrange
+            var viewModel = new DeleteDraftPrnViewModel();
+
+            // Act
+            await _prnController.DeleteDraftPrn(viewModel);
+
+            // Assert
+            _mockPrnService.Verify(m => m.DeleteDraftPrn(viewModel), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_RedirectsToCorrectView_WithCorrectParameters()
+        {
+            // Arrange
+            var viewModel = new DeleteDraftPrnViewModel { Id = 1 };
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(viewModel) as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ViewDraftPRNS", result.ActionName);
+            Assert.AreEqual(1, result.RouteValues["Id"]);
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_ReturnsBadRequest_WhenViewModelIsNull()
+        {
+            // Arrange
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(null);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
+
+        #endregion
     }
 }
