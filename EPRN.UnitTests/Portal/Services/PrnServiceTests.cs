@@ -123,7 +123,7 @@ namespace EPRN.UnitTests.Portal.Services
                 Times.Once);
             _mockMapper.Verify(m =>
                 m.Map<CancelViewModel>(
-                    It.Is<StatusAndProducerDto>(p => p == dto)), 
+                    It.Is<StatusAndProducerDto>(p => p == dto)),
                 Times.Once);
         }
 
@@ -330,7 +330,7 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.IsNull(result);
         }
         #endregion
-        
+
         [TestMethod]
         public async Task GetViewPrnViewModel_ShouldReturnMappedViewModel()
         {
@@ -382,5 +382,94 @@ namespace EPRN.UnitTests.Portal.Services
             Assert.AreEqual(expectedViewModel.Id, result.Item1.Id);
             Assert.AreEqual(expectedViewModel.BalanceAvailable, result.Item1.BalanceAvailable);
         }
+
+        #region GetDeleteDraftPrnViewModel
+
+        [TestMethod]
+        public async Task GetDeleteDraftPrnViewModel_ReturnsCorrectViewModel_WhenIdIsValid()
+        {
+            // Arrange
+            int id = 123;
+            var dto = new DeleteDraftPrnDto();
+            var expectedViewModel = new DeleteDraftPrnViewModel();
+
+            _mockHttpPrnsService.Setup(service => service.GetPrnReference(id)).ReturnsAsync(dto);
+            _mockMapper.Setup(m => m.Map<DeleteDraftPrnViewModel>(dto)).Returns(expectedViewModel);
+
+            // Act
+            var result = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            // Assert
+            Assert.AreEqual(expectedViewModel, result);
+        }
+
+        [TestMethod]
+        public async Task GetDeleteDraftPrnViewModel_ReturnsNullViewModel_WhenDtoIsNull()
+        {
+            // Arrange
+            int id = 123;
+            _mockHttpPrnsService.Setup(service => service.GetPrnReference(id)).ReturnsAsync((DeleteDraftPrnDto)null);
+
+            // Act
+            var result = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public async Task GetDeleteDraftPrnViewModel_ChecksMapperIsCalled_WithCorrectParameters()
+        {
+            // Arrange
+            int id = 123;
+            var dto = new DeleteDraftPrnDto();
+
+            _mockHttpPrnsService.Setup(service => service.GetPrnReference(id)).ReturnsAsync(dto);
+
+            // Act
+            var result = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            // Assert
+            _mockMapper.Verify(m => m.Map<DeleteDraftPrnViewModel>(dto), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task GetDeleteDraftPrnViewModel_ReturnsNullViewModel_WhenMappingFails()
+        {
+            // Arrange
+            int id = 123;
+            var dto = new DeleteDraftPrnDto();
+
+            _mockHttpPrnsService.Setup(service => service.GetPrnReference(id)).ReturnsAsync(dto);
+            _mockMapper.Setup(m => m.Map<DeleteDraftPrnViewModel>(dto)).Returns((DeleteDraftPrnViewModel)null);
+
+            // Act
+            var result = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            // Assert
+            Assert.IsNull(result);
+            _mockMapper.Verify(m => m.Map<DeleteDraftPrnViewModel>(dto), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public async Task GetDeleteDraftPrnViewModel_MapperThrowsException_AndReturnsNullViewModel()
+        {
+            // Arrange
+            int id = 123;
+            var dto = new DeleteDraftPrnDto();
+
+            _mockHttpPrnsService.Setup(service => service.GetPrnReference(id)).ReturnsAsync(dto);
+            _mockMapper.Setup(m => m.Map<DeleteDraftPrnViewModel>(dto)).Throws(new Exception());
+
+            // Act
+            var result = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            // Assert
+            Assert.IsNull(result);
+            _mockMapper.Verify(m => m.Map<DeleteDraftPrnViewModel>(dto), Times.Once);
+        }
+
+        #endregion
     }
 }
