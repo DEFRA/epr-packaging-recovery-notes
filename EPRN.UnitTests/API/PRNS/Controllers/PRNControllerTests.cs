@@ -369,6 +369,24 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             _mockPrnService.Verify(m => m.DeleteDraftPrn(id), Times.Once());
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(SystemException))]
+        public async Task DeleteDraftPrn_ReturnsInternalServerError_WhenServiceThrowsException()
+        {
+            // Arrange
+            int id = 8;
+
+            _mockPrnService.Setup(m => m.DeleteDraftPrn(It.IsAny<int>())).ThrowsAsync(new SystemException());
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(StatusCodeResult));
+            var statusCodeResult = (StatusCodeResult)result;
+            Assert.AreEqual(500, statusCodeResult.StatusCode);
+        }
+
         #endregion
     }
 }
