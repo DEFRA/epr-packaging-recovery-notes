@@ -34,7 +34,6 @@ namespace EPRN.Portal.Profiles
             CreateMap<PRNDetailsDto, DraftConfirmationViewModel>()
                 .ForMember(d => d.DoWithPRN, o => o.MapFrom(s =>
                     s.History
-                    .OrderByDescending(h => h.Created)
                     .Select(h => h.Status)
                     .First()));
         }

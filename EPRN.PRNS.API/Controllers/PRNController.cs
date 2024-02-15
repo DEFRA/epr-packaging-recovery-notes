@@ -169,7 +169,10 @@ namespace EPRN.PRNS.API.Controllers
         public async Task<IActionResult> GetPrnDetails(int id)
         {
             var prnDetailsDto = await _prnService.GetPrnDetails(id);
-            
+
+            if (prnDetailsDto == null)
+                return NotFound();
+
             return Ok(prnDetailsDto);
         }
 
