@@ -5,6 +5,7 @@ using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.PRNS.API.Services
 {
@@ -148,7 +149,7 @@ namespace EPRN.PRNS.API.Services
 
         public async Task DeleteDraftPrn(int id)
         {
-            await _prnRepository.DeleteDraftPrn(id);
+            await _prnRepository.UpdatePrnStatus(id, PrnStatus.Deleted, RepoStrings.DeleteDraft);
         }
 
         #region Private methods - Keep at bottom of file

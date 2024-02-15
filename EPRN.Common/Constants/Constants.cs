@@ -30,6 +30,11 @@ public static class Strings
         public const string ReturnToAnswersYes = "y";
     }
 
+    public static class RepoStrings
+    {
+        public const string DeleteDraft = "Deleted draft";
+    }
+
     /// <summary>
     /// This class should be used to store the values of areas, controllers and action names
     /// So we can use this instead of strings directly in controllers and views

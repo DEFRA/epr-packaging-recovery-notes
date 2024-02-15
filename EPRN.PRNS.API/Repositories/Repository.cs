@@ -3,6 +3,7 @@ using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
 using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
+using EPRN.Common.Extensions;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,7 +60,8 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category) && !p.IsDeleted);
+                .ExcludeDeleted()
+                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -159,9 +161,11 @@ namespace EPRN.PRNS.API.Repositories
         {
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
+                .ExcludeDeleted()
                 .Include(repo => repo.WasteType)
                 .Include(repo => repo.PrnHistory)
-                .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted) && !prn.IsDeleted);
+                .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
+
             if (request.FilterBy.HasValue)
             {
                 // map the filterby value to the Data version of the enum
@@ -225,7 +229,8 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .Where(prn => prn.Reference == reference && !prn.IsDeleted)
+                .ExcludeDeleted()
+                .Where(prn => prn.Reference == reference)
                 .Select(prn => new PRNDetailsDto
                 {
                     AccreditationNumber = "UNKNOWN",
@@ -255,7 +260,8 @@ namespace EPRN.PRNS.API.Repositories
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
             return await _prnContext.PRN
-                .Where(prn => prn.Id == id && !prn.IsDeleted)
+                .ExcludeDeleted()
+                .Where(prn => prn.Id == id)
                 .Select(prn => new DecemberWasteDto
                 {
                     Id = id,
@@ -278,23 +284,15 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .Where(prn => prn.Id == id && !prn.IsDeleted)
+                .Include(repo => repo.PrnHistory)
+                .Where(prn => prn.Id == id)
+                .ExcludeDeleted()
                 .Select(prn => new DeleteDraftPrnDto
                 {
                     Id = prn.Id,
                     PrnReference = prn.Reference
                 })
                 .FirstOrDefaultAsync();
-        }
-
-        public async Task DeleteDraftPrn(int id)
-        {
-            await _prnContext
-                .PRN
-                .Where(prn => prn.Id == id && !prn.IsDeleted)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(prn => prn.IsDeleted, true)
-                );
         }
     }
 }
