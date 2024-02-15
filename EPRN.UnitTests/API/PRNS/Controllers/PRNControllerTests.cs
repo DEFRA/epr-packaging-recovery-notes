@@ -340,5 +340,35 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         }
 
         #endregion
+
+        #region DeleteDraftPrn
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_ReturnsOkResult()
+        {
+            // Arrange
+            int id = 8;
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_CallsDeleteDraftPrn_WithValidId()
+        {
+            // Arrange
+            int id = 8;
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(id);
+
+            // Assert
+            _mockPrnService.Verify(m => m.DeleteDraftPrn(id), Times.Once());
+        }
+
+        #endregion
     }
 }
