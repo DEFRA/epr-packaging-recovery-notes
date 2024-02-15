@@ -59,7 +59,7 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
+                .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category) && !p.IsDeleted);
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -161,7 +161,7 @@ namespace EPRN.PRNS.API.Repositories
             var prns = _prnContext.PRN
                 .Include(repo => repo.WasteType)
                 .Include(repo => repo.PrnHistory)
-                .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
+                .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted) && !prn.IsDeleted);
             if (request.FilterBy.HasValue)
             {
                 // map the filterby value to the Data version of the enum
@@ -225,7 +225,7 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .Where(prn => prn.Reference == reference)
+                .Where(prn => prn.Reference == reference && !prn.IsDeleted)
                 .Select(prn => new PRNDetailsDto
                 {
                     AccreditationNumber = "UNKNOWN",
@@ -255,7 +255,7 @@ namespace EPRN.PRNS.API.Repositories
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
             return await _prnContext.PRN
-                .Where(prn => prn.Id == id)
+                .Where(prn => prn.Id == id && !prn.IsDeleted)
                 .Select(prn => new DecemberWasteDto
                 {
                     Id = id,
@@ -278,7 +278,7 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
-                .Where(prn => prn.Id == id)
+                .Where(prn => prn.Id == id && !prn.IsDeleted)
                 .Select(prn => new DeleteDraftPrnDto
                 {
                     Id = prn.Id,
@@ -291,7 +291,7 @@ namespace EPRN.PRNS.API.Repositories
         {
             await _prnContext
                 .PRN
-                .Where(prn => prn.Id == id)
+                .Where(prn => prn.Id == id && !prn.IsDeleted)
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(prn => prn.IsDeleted, true)
                 );
