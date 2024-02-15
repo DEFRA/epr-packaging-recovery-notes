@@ -161,17 +161,15 @@ namespace EPRN.PRNS.API.Repositories
                 .Include(repo => repo.WasteType)
                 .Include(repo => repo.PrnHistory)
                 .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
-
             if (request.FilterBy.HasValue)
             {
                 // map the filterby value to the Data version of the enum
                 var filterByStatus = _mapper.Map<PrnStatus>(request.FilterBy);
-                prns = prns.Where(e => 
-                    e.PrnHistory != null && 
-                    e.PrnHistory.Any() && 
+                prns = prns.Where(e =>
+                    e.PrnHistory != null &&
+                    e.PrnHistory.Any() &&
                     e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
             }
-            
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 prns = prns.Where(repo =>
@@ -179,15 +177,18 @@ namespace EPRN.PRNS.API.Repositories
                     EF.Functions.Like(repo.SentTo, $"%{request.SearchTerm}%"));
             }
             
+            // get the count BEFORE paging and sorting
+            var totalRecords = await prns.CountAsync();
+            
+            // Apply sorting after all filters
             if (request.SortBy == "1")
-                prns = prns.OrderByDescending(e => e.WasteType);
+                prns = prns.OrderBy(e => e.WasteType.Name);
             else if (request.SortBy == "2")
                 prns = prns.OrderBy(e => e.SentTo);
             else
                 prns = prns.OrderByDescending(repo => repo.CreatedDate);
             
-            // get the count BEFORE paging
-            var totalRecords = await prns.CountAsync();
+            // Apply pagination after sorting
             prns = prns
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
@@ -217,6 +218,7 @@ namespace EPRN.PRNS.API.Repositories
                 SortBy = request.SortBy
             };
         }
+
 
         public async Task<PRNDetailsDto> GetDetails(string reference)
         {
