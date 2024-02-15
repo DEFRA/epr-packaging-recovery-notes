@@ -6,7 +6,7 @@
         public string Material {  get; set; }
         public string SentTo { get; set; }
         public DateTime DateCreated { get; set; }
-        public int Tonnage { get; set; }
+        public int Tonnes { get; set; }
 
     }
 }

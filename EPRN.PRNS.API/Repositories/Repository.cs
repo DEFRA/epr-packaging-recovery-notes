@@ -257,12 +257,13 @@ namespace EPRN.PRNS.API.Repositories
 
             return await _prnContext
                 .PRN
+                .Include(p => p.WasteType)
                 .Where(prn => prn.UserReferenceId == userReferenceId)
                 .Select(prn => new PrnDto
                 {
                     Id = prn.Id,
                     PrnNumber = prn.Reference,
-                    Material = $"Unknown street{Environment.NewLine}Unknown town{Environment.NewLine}Unknown postcode",
+                    Material = prn.WasteType.Name,
                     SentTo = prn.SentTo,
                     DateCreated = prn.CreatedDate.ToString("dd/MM/yyyy"),
                     Tonnes = prn.Tonnes,
