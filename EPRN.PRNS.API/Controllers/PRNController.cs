@@ -21,12 +21,13 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpPost]
-        [Route("/api/[controller]/Create/Category/{category}/Material/{materialId}")]
+        [Route("/api/[controller]/Create/Category/{category}/Material/{materialId}/{userReferenceId}")]
         public async Task<IActionResult> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category,
+            string userReferenceId)
         {
-            var id = await _prnService.CreatePrnRecord(materialId, category);
+            var id = await _prnService.CreatePrnRecord(materialId, category, userReferenceId);
 
             return Ok(id);
         }

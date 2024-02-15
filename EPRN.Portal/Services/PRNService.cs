@@ -107,9 +107,10 @@ namespace EPRN.Portal.Services
 
         public async Task<int> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category,
+            string userReferenceId)
         {
-            return await _httpPrnsService.CreatePrnRecord(materialId, category);
+            return await _httpPrnsService.CreatePrnRecord(materialId, category, userReferenceId);
         }
 
         private TableRowViewModel CreateRow(int materialId, string material, double tonnage, int noOfDrafts)

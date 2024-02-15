@@ -8,7 +8,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task<int> CreatePrnRecord(
             int materialType,
             Category category,
-            string prnReference);
+            string prnReference, 
+            string userReferenceId);
 
         Task<bool> PrnExists(
             int id,

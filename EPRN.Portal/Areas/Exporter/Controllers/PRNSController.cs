@@ -4,6 +4,7 @@ using EPRN.Portal.Controllers;
 using EPRN.Portal.Helpers.Extensions;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static EPRN.Common.Constants.Strings;
@@ -17,14 +18,20 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
         private Category Category => Category.Exporter;
 
-        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
+        private WasteCommonViewModel _wasteCommonViewModel;
+
+        public PRNSController(Func<Category, IPRNService> prnServiceFactory, WasteCommonViewModel wasteCommonViewModel)
         {
             if (prnServiceFactory == null)
                 throw new ArgumentNullException(nameof(prnServiceFactory));
 
+            if (wasteCommonViewModel == null || string.IsNullOrWhiteSpace(wasteCommonViewModel.CompanyReferenceId))
+                throw new ArgumentNullException(nameof(wasteCommonViewModel));
+
             var prnService = prnServiceFactory.Invoke(Category);
 
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
+            _wasteCommonViewModel = wasteCommonViewModel;
         }
 
         [HttpGet]
@@ -66,7 +73,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (materialId == null)
                 return NotFound();
 
-            var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
+            var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category, _wasteCommonViewModel.CompanyReferenceId);
 
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,

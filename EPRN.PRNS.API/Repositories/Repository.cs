@@ -28,13 +28,15 @@ namespace EPRN.PRNS.API.Repositories
         public async Task<int> CreatePrnRecord(
             int materialType,
             Common.Enums.Category category,
-            string prnReference)
+            string prnReference, 
+            string userReferenceId)
         {
             var prn = new PackagingRecoveryNote
             {
                 WasteTypeId = materialType,
                 Category = _mapper.Map<Category>(category),
                 Reference = prnReference,
+                UserReferenceId = userReferenceId,
                 PrnHistory = new List<PrnHistory>
                 {
                     new PrnHistory

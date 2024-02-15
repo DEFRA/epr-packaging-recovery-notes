@@ -11,7 +11,8 @@ namespace EPRN.PRNS.API.Services.Interfaces
 
         Task<int> CreatePrnRecord(
             int materialId,
-            Category category);
+            Category category,
+            string userReferenceId);
 
         Task<double?> GetTonnage(int id);
 

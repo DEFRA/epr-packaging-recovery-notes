@@ -20,7 +20,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<int> CreatePrnRecord(
             int materialId,
-            Category category);
+            Category category, 
+            string userReferenceId);
 
         Task SaveCheckYourAnswers(
             int id);

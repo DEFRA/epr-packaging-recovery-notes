@@ -33,9 +33,10 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<int> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category, 
+            string userReferenceId)
         {
-            return await Post<int>($"Create/Category/{(int)category}/Material/{materialId}");
+            return await Post<int>($"Create/Category/{(int)category}/Material/{materialId}/{userReferenceId}");
         }
 
         public async Task<double?> GetPrnTonnage(

@@ -27,12 +27,14 @@ namespace EPRN.PRNS.API.Services
 
         public async Task<int> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category,
+            string userReferenceId)
         {
             return await _prnRepository.CreatePrnRecord(
                 materialId, 
                 category,
-                GenerateReferenceNumber());
+                GenerateReferenceNumber(), 
+                userReferenceId);
         }
 
         public async Task<double?> GetTonnage(int id)
