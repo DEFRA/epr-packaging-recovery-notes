@@ -8,8 +8,7 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <RazorLangVersion>7.0</RazorLangVersion>
 	<InvariantGlobalization>false</InvariantGlobalization
-	<Nullable>enable</Nullable>	  
-  </PropertyGroup>
+ </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="ClientApp\sass\pages\**" />
