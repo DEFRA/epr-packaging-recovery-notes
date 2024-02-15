@@ -4,9 +4,9 @@ using EPRN.Common.Enums;
 using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using Moq;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.UnitTests.API.PRNS.Services
 {
@@ -35,8 +35,8 @@ namespace EPRN.UnitTests.API.PRNS.Services
         public void ConstructService_ThrowsException_WhenMapperNotSupplied()
         {
             new PrnService(
-                null, 
-                null, 
+                null,
+                null,
                 _mockRepository.Object);
         }
 
@@ -45,8 +45,8 @@ namespace EPRN.UnitTests.API.PRNS.Services
         public void ConstructService_ThrowsException_WhenRepositoryNotSupplied()
         {
             new PrnService(
-                null, 
-                _mockMapper.Object, 
+                null,
+                _mockMapper.Object,
                 null);
         }
 
@@ -61,11 +61,11 @@ namespace EPRN.UnitTests.API.PRNS.Services
             await _prnService.CreatePrnRecord(materialId, category);
 
             // Assert
-            _mockRepository.Verify(s => 
+            _mockRepository.Verify(s =>
                 s.CreatePrnRecord(
-                    It.Is<int>(p => p == materialId), 
+                    It.Is<int>(p => p == materialId),
                     It.Is<Category>(p => p == category),
-                    It.IsAny<string>()), 
+                    It.IsAny<string>()),
                 Times.Once);
         }
 
@@ -79,9 +79,9 @@ namespace EPRN.UnitTests.API.PRNS.Services
             await _prnService.GetTonnage(id);
 
             // Assert
-            _mockRepository.Verify(s => 
+            _mockRepository.Verify(s =>
                 s.GetTonnage(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
@@ -96,10 +96,10 @@ namespace EPRN.UnitTests.API.PRNS.Services
             await _prnService.SaveTonnage(id, tonnage);
 
             // Assert
-            _mockRepository.Verify(s => 
+            _mockRepository.Verify(s =>
                 s.UpdateTonnage(
                     It.Is<int>(p => p == id),
-                    It.Is<double>(p => p == tonnage)), 
+                    It.Is<double>(p => p == tonnage)),
                 Times.Once);
         }
 
@@ -147,9 +147,9 @@ namespace EPRN.UnitTests.API.PRNS.Services
             await _prnService.GetStatus(id);
 
             // assert
-            _mockRepository.Verify(s => 
+            _mockRepository.Verify(s =>
                 s.GetStatus(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
@@ -205,7 +205,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             // assert
             _mockRepository.Verify(s =>
                 s.GetStatusAndRecipient(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
@@ -224,7 +224,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             await _prnService.RequestCancelPrn(id, reason);
 
             // Assert
-            _mockRepository.Verify(x => 
+            _mockRepository.Verify(x =>
                 x.UpdatePrnStatus(
                     It.Is<int>(prnId => prnId == id),
                     It.Is<PrnStatus>(status => status == PrnStatus.CancellationRequested),
@@ -247,7 +247,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
             await _prnService.RequestCancelPrn(id, reason);
 
             // Assert
-            _mockRepository.Verify(x => 
+            _mockRepository.Verify(x =>
                 x.UpdatePrnStatus(
                     It.IsAny<int>(),
                     It.IsAny<PrnStatus>(),
@@ -335,15 +335,15 @@ namespace EPRN.UnitTests.API.PRNS.Services
             var journeyId = 123;
             var decemberWasteDto = new DecemberWasteDto { Id = journeyId, IsWithinMonth = true };
             _mockRepository.Setup(repo => repo.GetDecemberWaste(journeyId)).ReturnsAsync(decemberWasteDto);
-            
+
             // Act
             var result = await _prnService.GetDecemberWaste(journeyId);
 
             // Assert
             Assert.IsNotNull(result);
-            _mockRepository.Verify(r => 
+            _mockRepository.Verify(r =>
                 r.GetDecemberWaste(
-                    It.Is<int>(p => p == journeyId)), 
+                    It.Is<int>(p => p == journeyId)),
                 Times.Once);
         }
 
@@ -400,5 +400,100 @@ namespace EPRN.UnitTests.API.PRNS.Services
                     It.IsAny<int>()),
                 Times.Never);
         }
+
+        #region GetPrnReference
+
+        [TestMethod]
+        public async Task GetPrnReference_ReturnsExpectedDto()
+        {
+            // Arrange
+            int id = 1;
+            var expectedDto = new DeleteDraftPrnDto();
+
+            _mockRepository.Setup(repo => repo.GetPrnReference(id)).ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnService.GetPrnReference(id);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedDto, result);
+        }
+
+        [TestMethod]
+        public async Task GetPrnReference_ReturnsNull_WhenRepositoryReturnsNull()
+        {
+            // Arrange
+            int id = 1;
+
+            _mockRepository.Setup(repo => repo.GetPrnReference(id)).ReturnsAsync((DeleteDraftPrnDto)null);
+
+            // Act
+            var result = await _prnService.GetPrnReference(id);
+
+            // Assert
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public async Task GetPrnReference_ThrowsException_WhenRepositoryThrowsException()
+        {
+            // Arrange
+            int id = 1;
+
+            _mockRepository.Setup(repo => repo.GetPrnReference(id)).ThrowsAsync(new Exception());
+
+            // Act
+            await _prnService.GetPrnReference(id);
+
+            // Assert
+
+        }
+
+        [TestMethod]
+        public async Task GetPrnReference_CallsRepositoryOnce_WhenIdIsValid()
+        {
+            // Arrange
+            int id = 1;
+
+            // Act
+            await _prnService.GetPrnReference(id);
+
+            // Assert
+            _mockRepository.Verify(repo => repo.GetPrnReference(id), Times.Once());
+        }
+
+        #endregion
+
+        #region DeleteDraftPrn
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_CallsUpdatePrnStatus_WithDeletedStatus_WhenIdIsValid()
+        {
+            // Arrange
+            int id = 1;
+
+            // Act
+            await _prnService.DeleteDraftPrn(id);
+
+            // Assert
+            _mockRepository.Verify(repo => repo.UpdatePrnStatus(id, PrnStatus.Deleted, RepoStrings.DeleteDraft), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_CallsUpdatePrnStatus_WithCorrectParams_WhenIdIsValid()
+        {
+            // Arrange
+            int id = 1;
+
+            // Act
+            await _prnService.DeleteDraftPrn(id);
+
+            // Assert
+            _mockRepository.Verify(repo => repo.UpdatePrnStatus(id, PrnStatus.Deleted, It.IsAny<string>()), Times.Once());
+        }
+
+        #endregion
     }
 }
