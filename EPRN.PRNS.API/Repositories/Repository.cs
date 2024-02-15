@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using EPRN.Common.Data;
-using EPRN.Common.Data.DataModels;
-using EPRN.Common.Data.Enums;
-using EPRN.Common.Dtos;
-using EPRN.Common.Extensions;
-using EPRN.PRNS.API.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
-namespace EPRN.PRNS.API.Repositories
+﻿namespace EPRN.PRNS.API.Repositories
 {
     public class Repository : IRepository
     {
@@ -175,6 +166,7 @@ namespace EPRN.PRNS.API.Repositories
                     e.PrnHistory.Any() &&
                     e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
             }
+
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 prns = prns.Where(repo =>
@@ -198,6 +190,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
+
             return new SentPrnsDto()
             {
                 Rows = await prns.Select(prn => new PrnDto

@@ -143,7 +143,9 @@ namespace EPRN.UnitTests.Services
             // Act
             var result = await _service.GetQuarterMonthsToDisplay(9, false);
             // Assert
-            Assert.AreEqual(0, result.QuarterlyMonths.Count);
+            Assert.AreEqual(2, result.QuarterlyMonths.Count);
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(1));
+            Assert.IsTrue(result.QuarterlyMonths.ContainsKey(2));
             Assert.AreEqual(new DateTime(DateTime.Now.Year, 2, 29), result.SubmissionDate);
             Assert.AreEqual(string.Empty, result.Notification);
         }
