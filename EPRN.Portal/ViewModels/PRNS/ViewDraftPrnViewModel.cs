@@ -2,6 +2,7 @@
 {
     public class ViewDraftPrnViewModel
     {
+        public int Id { get; set; }
         public string PrnNumber { get; set; }
         public string Material {  get; set; }
         public string SentTo { get; set; }
