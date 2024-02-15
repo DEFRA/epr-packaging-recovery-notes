@@ -1,9 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+  <Target Name="GenerateSqlScript" AfterTargets="AfterBuild" Condition="$(AzureBuild) != true">
+	<Exec Condition="$(Configuration) == Release" Command="dotnet ef migrations script --configuration Release --verbose --no-build --context EPRN.Common.Data.EPRNContext --idempotent --output Scripts/migrations.sql" />
+  </Target>
 
   <ItemGroup>
     <None Remove="Migrations\LoadSQL\waste-types.sql" />
@@ -15,12 +19,12 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
+  <ItemGroup>	  
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.13" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
