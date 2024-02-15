@@ -8,7 +8,7 @@
 	<Target Name="GenerateSqlScript" AfterTargets="AfterBuild" Condition="$(AzureBuild) != true">
 		<Exec Condition="$(Configuration) == Release" Command="dotnet ef migrations script --configuration Release --verbose --no-build --context EPRN.Common.Data.EPRNContext --idempotent --output Scripts/migrations.sql" />
 	</Target>
-	
+
 	<ItemGroup>
 		<None Remove="Migrations\LoadSQL\waste-types.sql" />
 	</ItemGroup>
