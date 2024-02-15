@@ -4,7 +4,9 @@ using EPRN.Common.Data.DataModels;
 using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Repositories.Interfaces;
+using Humanizer;
 using Microsoft.EntityFrameworkCore;
+using static EPRN.Common.Constants.Strings.Routes.Areas.Actions;
 
 namespace EPRN.PRNS.API.Repositories
 {
@@ -255,9 +257,22 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
         {
-            // TODO: add filter for status = Draft
+            var prns0 = await _prnContext
+                .PRN
+                .Include(i => i.WasteType)
+                .Where(x => x.UserReferenceId == userReferenceId)
+                .Where(x => _prnContext.PRNHistory
+                    .OrderByDescending(y => y.Created)
+                    .Select(y => y.PrnId)
+                    .Contains(x.Id)
+                    )
+                .ToListAsync();
 
-            return await _prnContext
+
+            // TODO: add filter for status = Draft
+            var myPrns = new List<PrnDto>();    
+
+            var prns = await _prnContext
                 .PRN
                 .Include(p => p.WasteType)
                 .Where(prn => prn.UserReferenceId == userReferenceId)
@@ -272,6 +287,15 @@ namespace EPRN.PRNS.API.Repositories
                     Status = Common.Enums.PrnStatus.Draft
                 })
                 .ToListAsync();
+
+            foreach (var prn in prns)
+            {
+                var history = await _prnContext.PRNHistory.Where(x => x.PrnId == prn.Id).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
+                if(history.Status == PrnStatus.Draft)
+                    myPrns.Add(prn);
+            }
+
+            return myPrns;
         }
 
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)

@@ -1,7 +1,7 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
-using EPRN.Portal.Helpers.Extensions;
+using EPRN.Portal.Helpers.Filters;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using EPRN.Portal.ViewModels.Waste;
@@ -12,6 +12,7 @@ using static EPRN.Common.Constants.Strings;
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
     [Area(Routes.Areas.Reprocessor)]
+    [ServiceFilter(typeof(WasteTypeActionFilter))]
     public class PRNSController : BaseController
     {
         private readonly IPRNService _prnService;
@@ -25,9 +26,6 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         {
             if (prnServiceFactory == null)
                 throw new ArgumentNullException(nameof(prnServiceFactory));
-
-            if (wasteCommonViewModel == null || string.IsNullOrWhiteSpace(wasteCommonViewModel.CompanyReferenceId))
-                throw new ArgumentNullException(nameof(wasteCommonViewModel));
 
             var prnService = prnServiceFactory.Invoke(Category);
 
