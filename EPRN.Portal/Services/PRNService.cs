@@ -8,7 +8,6 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Security.Cryptography.Xml;
 
 namespace EPRN.Portal.Services
 {

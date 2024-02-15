@@ -1,12 +1,10 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
-using EPRN.Portal.Helpers.Extensions;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using System.Security.Cryptography.Xml;
 using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.Portal.Areas.Exporter.Controllers

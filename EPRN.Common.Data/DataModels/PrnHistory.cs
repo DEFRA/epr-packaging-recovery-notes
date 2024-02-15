@@ -1,7 +1,6 @@
 ﻿using EPRN.Common.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Diagnostics.CodeAnalysis;
 
 namespace EPRN.Common.Data.DataModels
 {

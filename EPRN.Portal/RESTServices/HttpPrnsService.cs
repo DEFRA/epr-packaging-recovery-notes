@@ -2,7 +2,6 @@
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
-using System.Security.Cryptography.Xml;
 
 namespace EPRN.Portal.RESTServices
 {
