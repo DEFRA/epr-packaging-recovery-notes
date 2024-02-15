@@ -162,6 +162,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Include(repo => repo.WasteType)
                 .Include(repo => repo.PrnHistory)
                 .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
+            
             if (request.FilterBy.HasValue)
             {
                 // map the filterby value to the Data version of the enum
@@ -171,6 +172,7 @@ namespace EPRN.PRNS.API.Repositories
                     e.PrnHistory.Any() &&
                     e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
             }
+            
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 prns = prns.Where(repo =>
@@ -194,6 +196,7 @@ namespace EPRN.PRNS.API.Repositories
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
+            
             return new SentPrnsDto()
             {
                 Rows = await prns.Select(prn => new PrnDto
