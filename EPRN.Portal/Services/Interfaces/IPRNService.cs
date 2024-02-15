@@ -39,5 +39,6 @@ namespace EPRN.Portal.Services.Interfaces
         Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel);
 
         Task<ActionPrnViewModel> GetActionPrnViewModel(int id);
+        Task<List<ViewDraftPrnViewModel>> GetDraftViewPrnViewModel(string userReferenceId);
     }
 }

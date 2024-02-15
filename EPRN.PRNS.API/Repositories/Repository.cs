@@ -250,6 +250,27 @@ namespace EPRN.PRNS.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
+        {
+            // TODO: add filter for status = Draft
+
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.UserReferenceId == userReferenceId)
+                .Select(prn => new PrnDto
+                {
+                    Id = prn.Id,
+                    PrnNumber = prn.Reference,
+                    Material = $"Unknown street{Environment.NewLine}Unknown town{Environment.NewLine}Unknown postcode",
+                    SentTo = prn.SentTo,
+                    DateCreated = prn.CreatedDate.ToString("dd/MM/yyyy"),
+                    Tonnes = prn.Tonnes,
+                    Status = Common.Enums.PrnStatus.Draft
+                })
+                .ToListAsync();
+        }
+
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
             return await _prnContext.PRN
@@ -271,5 +292,6 @@ namespace EPRN.PRNS.API.Repositories
                     sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
                 );
         }
+
     }
 }

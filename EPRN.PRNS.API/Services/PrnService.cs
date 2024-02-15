@@ -115,6 +115,11 @@ namespace EPRN.PRNS.API.Services
             return await _prnRepository.GetDetails(reference);
         }
 
+        public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
+        {
+            return await _prnRepository.GetDraftPrnDetailsForUser(userReferenceId);
+        }
+
         public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)
         {
             var monthToCheckAgainst = DateTime.Today.Month;
@@ -146,6 +151,8 @@ namespace EPRN.PRNS.API.Services
         // In time a specific generation algorithm will
         // be specified
         private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+
+
         #endregion
     }
 }

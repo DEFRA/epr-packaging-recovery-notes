@@ -139,6 +139,15 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpGet]
+        [Route("/api/[controller]/Category/{category}/DraftDetails/{userReferenceId}")]
+        public async Task<IActionResult> GetDraftPrnDetails(string reference)
+        {
+            List<PrnDto> prnDtos = await _prnService.GetDraftPrnDetailsForUser(reference);
+
+            return Ok(prnDtos);
+        }
+
+        [HttpGet]
         [Route("DecemberWaste")]
         public async Task<ActionResult> GetDecemberWaste(int? id)
         {

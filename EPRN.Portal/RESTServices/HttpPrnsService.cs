@@ -2,6 +2,7 @@
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
+using System.Security.Cryptography.Xml;
 
 namespace EPRN.Portal.RESTServices
 {
@@ -105,6 +106,11 @@ namespace EPRN.Portal.RESTServices
         public async Task SaveDecemberWaste(int id, bool decemberWaste)
         {
             await Post($"{id}/Category/{_category}/DecemberWaste/{decemberWaste}");
+        }
+
+        public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
+        {
+            return await Get<List<PrnDto>>($"Category/{_category}/DraftDetails/{userReferenceId}");
         }
     }
 }

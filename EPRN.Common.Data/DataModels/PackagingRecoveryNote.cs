@@ -1,4 +1,5 @@
 ﻿using EPRN.Common.Data.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace EPRN.Common.Data.DataModels
 {
@@ -31,5 +32,8 @@ namespace EPRN.Common.Data.DataModels
 
         
         public bool? DecemberWaste { get; set; }
+
+        [MaxLength(36)]
+        public string UserReferenceId { get; set; }
     }
 }

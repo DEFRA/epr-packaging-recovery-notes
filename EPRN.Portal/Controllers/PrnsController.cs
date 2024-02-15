@@ -4,6 +4,7 @@ using EPRN.Common.Enums;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.Xml;
 using static EPRN.Common.Constants.Strings;
 using Routes = EPRN.Common.Constants.Strings.Routes;
 
@@ -84,9 +85,13 @@ namespace EPRN.Portal.Controllers
         [ActionName(Routes.Actions.PRNS.ViewDraftPrns)]
         public async Task<IActionResult> ViewDraftPRNS()
         {
-            var vm = new ViewDraftPrnViewModel { DateCreated = DateTime.Now, Material="Paper/Stone", PrnNumber = "PRN001", SentTo = "Tesco", Tonnage = 170 };
-            var vms = new List<ViewDraftPrnViewModel> { vm };
-            return View(vms);
+            var userReferenceId = "UserReferenceId";
+            if (string.IsNullOrWhiteSpace(userReferenceId))
+                return NotFound();
+
+            List<ViewDraftPrnViewModel> viewModel = await _prnService.GetDraftViewPrnViewModel(userReferenceId);
+
+            return View(viewModel);
         }
 
         [HttpPost]
