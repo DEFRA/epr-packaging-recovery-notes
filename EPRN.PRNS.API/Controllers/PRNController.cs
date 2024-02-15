@@ -169,6 +169,9 @@ namespace EPRN.PRNS.API.Controllers
         {
             var result = await _prnService.GetPrnReference(id);
 
+            if (result == null)
+                return NotFound();
+
             return Ok(result);
         }
 
