@@ -7,6 +7,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
 	<InvariantGlobalization>false</InvariantGlobalization>
+	<Nullable>enable</Nullable>
  </PropertyGroup>
 
   <ItemGroup>

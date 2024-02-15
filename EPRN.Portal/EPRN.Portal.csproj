@@ -7,7 +7,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <RazorLangVersion>7.0</RazorLangVersion>
-	<InvariantGlobalization>false</InvariantGlobalization
+	<InvariantGlobalization>false</InvariantGlobalization>
+	<Nullable>enable</Nullable>
  </PropertyGroup>
 
   <ItemGroup>
