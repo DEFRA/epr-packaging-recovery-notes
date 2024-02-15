@@ -491,7 +491,7 @@ namespace EPRN.UnitTests.Portal.Services
             DeleteDraftPrnViewModel viewModel = null;
 
             // Act & Assert
-            var result = _prnService.DeleteDraftPrn(viewModel);
+            await _prnService.DeleteDraftPrn(viewModel);
 
             // Assert
             _mockHttpPrnsService.Verify(mock => mock.DeleteDraftPrn(viewModel.Id), Times.Never);
