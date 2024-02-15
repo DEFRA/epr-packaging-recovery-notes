@@ -1,4 +1,13 @@
-﻿namespace EPRN.PRNS.API.Repositories
+﻿using AutoMapper;
+using EPRN.Common.Data;
+using EPRN.Common.Data.DataModels;
+using EPRN.Common.Data.Enums;
+using EPRN.Common.Dtos;
+using EPRN.Common.Extensions;
+using EPRN.PRNS.API.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
+namespace EPRN.PRNS.API.Repositories
 {
     public class Repository : IRepository
     {
