@@ -255,7 +255,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             if (draftConfirmationViewModel.DoWithPRN == PrnStatus.Draft)
             {
-                await _prnService.SaveDraftPrn(draftConfirmationViewModel);
+                var existingData = await _prnService.GetDraftConfirmationViewModel(draftConfirmationViewModel.Id);
+                if (existingData.DoWithPRN != PrnStatus.Draft)
+                {
+                    await _prnService.SaveDraftPrn(draftConfirmationViewModel);
+                }
                 return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, draftConfirmationViewModel);
             }
             else

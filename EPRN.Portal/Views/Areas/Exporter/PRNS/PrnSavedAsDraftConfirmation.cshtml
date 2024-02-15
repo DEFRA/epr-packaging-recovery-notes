@@ -1,7 +1,7 @@
 ﻿@model DraftConfirmationViewModel
 
 @{
-    ViewData["Title"] = PrnSavedAsDraftResources.Title;
+    ViewData["Title"] = PrnSavedAsDraftResources.TitlePERN;
 }
 
 <div class="govuk-panel govuk-panel--confirmation">
@@ -11,7 +11,7 @@
     <div class="govuk-panel__body">
         <label>@PrnSavedAsDraftResources.LabelPERN</label>
         <br />
-        <strong>@Model.Reference</strong>
+        <strong>@Model.ReferenceNumber</strong>
     </div>
 </div>
 <br />

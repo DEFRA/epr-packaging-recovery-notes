@@ -268,7 +268,7 @@ namespace EPRN.PRNS.API.Repositories
                     Note = prn.Note,
                     History =
                         // get the history 
-                        prn
+                        (IEnumerable<PRNHistoryDto>)prn
                         .PrnHistory
                         .OrderByDescending(h => h.Created)
                         .Select(h => new PRNHistoryDto

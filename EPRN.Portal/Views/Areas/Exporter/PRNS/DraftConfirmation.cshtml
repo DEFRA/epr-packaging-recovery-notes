@@ -11,6 +11,7 @@
 
 <partial name="_ValidationSummary" />
 <form method="post">
+    <input type="hidden" asp-for="ReferenceNumber" />
     <radios asp-for="DoWithPRN" asp-title="@DraftConfirmationResources.HeadingPERN">
         <p class="govuk-error-message">
             <span asp-validation-for="DoWithPRN"></span>

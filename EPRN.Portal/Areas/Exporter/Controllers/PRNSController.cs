@@ -111,7 +111,8 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DraftConfirmation,
-                Routes.Areas.Controllers.Exporter.PRNS, new 
+                Routes.Areas.Controllers.Exporter.PRNS, 
+                new 
                 {
                     area = Category, 
                     id = checkYourAnswersViewModel.Id
@@ -253,7 +254,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             if (draftConfirmationPrnViewModel.DoWithPRN == PrnStatus.Draft)
             {
-                await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
+                var existingData = await _prnService.GetDraftConfirmationViewModel(draftConfirmationPrnViewModel.Id);
+                if (existingData.DoWithPRN != PrnStatus.Draft)
+                {
+                    await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
+                }
                 return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, draftConfirmationPrnViewModel);
             }
             else

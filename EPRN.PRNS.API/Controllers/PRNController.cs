@@ -174,8 +174,9 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpPost]
-        [Route("SentTo/{sentTo}")]
-        public async Task<ActionResult> SaveSentTo(int? id, string sentTo)
+        [Route("SentTo")]
+        public async Task<ActionResult> SaveSentTo(int? id, 
+            [FromBody] string sentTo)
         {
             if (id == null)
                 return BadRequest("Missing ID");
