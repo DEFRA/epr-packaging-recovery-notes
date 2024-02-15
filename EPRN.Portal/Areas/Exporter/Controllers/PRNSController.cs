@@ -240,6 +240,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
                 return NotFound();
 
             var viewModel = await _prnService.GetDraftConfirmationViewModel(id.Value);
+
+            if (viewModel.DoWithPRN == PrnStatus.Draft)
+                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, viewModel);
+
             return View(viewModel);
         }
 

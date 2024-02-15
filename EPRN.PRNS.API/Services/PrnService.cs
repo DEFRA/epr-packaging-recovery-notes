@@ -146,11 +146,6 @@ namespace EPRN.PRNS.API.Services
             await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
         }
 
-        public async Task SaveSentTo(int id, string sentTo)
-        {
-            await _prnRepository.SaveSentTo(id, sentTo);
-        }
-
         public async Task SaveDraftPrn(int id)
         {
             await _prnRepository.UpdatePrnStatus(

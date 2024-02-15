@@ -420,24 +420,6 @@ namespace EPRN.UnitTests.API.PRNS.Services
         }
 
         [TestMethod]
-        public async Task SaveSaveSentTo_CallsServiceMethod()
-        {
-            // Arrange
-            var id = 4;
-            string sentTo = "Draft";
-
-            // Act
-            await _prnService.SaveSentTo(id, sentTo);
-
-            // Assert
-            _mockRepository.Verify(s =>
-                s.SaveSentTo(
-                    It.Is<int>(p => p == id),
-                    It.Is<string>(p => p == sentTo)),
-                Times.Once);
-        }
-
-        [TestMethod]
         public async Task SaveDecemberWaste_CallsServiceMethod()
         {
             // Arrange

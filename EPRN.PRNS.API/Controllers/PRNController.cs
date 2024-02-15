@@ -177,21 +177,6 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpPost]
-        [Route("SentTo")]
-        public async Task<ActionResult> SaveSentTo(int? id, 
-            [FromBody] string sentTo)
-        {
-            if (id == null)
-                return BadRequest("Missing ID");
-
-            await _prnService.SaveSentTo(
-                id.Value,
-                sentTo);
-
-            return Ok();
-        }
-
-        [HttpPost]
         [Route("SaveDraftPrn")]
         public async Task<ActionResult> SaveDraftPrn(int? id)
         {
