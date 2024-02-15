@@ -26,3 +26,4 @@ appsettings.Test.json
 /node_modules
 /bin/Debug
 /obj
+/EPRN.UnitTests/Portal/Controllers/PrnsControllerTests.cs
