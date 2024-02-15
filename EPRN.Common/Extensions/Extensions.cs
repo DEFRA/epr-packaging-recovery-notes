@@ -1,7 +1,4 @@
-﻿using EPRN.Common.Data.DataModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using PrnStatus = EPRN.Common.Data.Enums.PrnStatus;
-
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EPRN.Common.Extensions
 {
@@ -36,11 +33,6 @@ namespace EPRN.Common.Extensions
                     Text = e.ToString()
                 }));
             return selectList;
-        }
-
-        public static IQueryable<PackagingRecoveryNote> ExcludeDeleted(this IQueryable<PackagingRecoveryNote> query)
-        {
-            return query.Where(prn => !prn.PrnHistory.Any(h => h.Status == (PrnStatus)Enums.PrnStatus.Deleted));
         }
     }
 }
