@@ -470,6 +470,33 @@ namespace EPRN.UnitTests.Portal.Services
             _mockMapper.Verify(m => m.Map<DeleteDraftPrnViewModel>(dto), Times.Once);
         }
 
+        [TestMethod]
+        public async Task DeleteDraftPrn_CallsDeleteDraftPrn_OnHttpPrnsService_WithValidId()
+        {
+            // Arrange
+            var viewModel = new DeleteDraftPrnViewModel { Id = 123 };
+
+            // Act
+            await _prnService.DeleteDraftPrn(viewModel);
+
+            // Assert
+            _mockHttpPrnsService.Verify(mock => mock.DeleteDraftPrn(viewModel.Id), Times.Once);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public async Task DeleteDraftPrn_ThrowsNullReferenceException_WhenViewModelIsNull()
+        {
+            // Arrange
+            DeleteDraftPrnViewModel viewModel = null;
+
+            // Act & Assert
+            var result = _prnService.DeleteDraftPrn(viewModel);
+
+            // Assert
+            _mockHttpPrnsService.Verify(mock => mock.DeleteDraftPrn(viewModel.Id), Times.Never);
+        }
+
         #endregion
     }
 }
