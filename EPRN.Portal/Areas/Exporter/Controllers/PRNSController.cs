@@ -253,7 +253,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             if (draftConfirmationPrnViewModel.DoWithPRN == PrnStatus.Draft)
             {
                 var existingData = await _prnService.GetDraftConfirmationViewModel(draftConfirmationPrnViewModel.Id);
-                if (existingData.DoWithPRN != PrnStatus.Draft)
+                if (existingData != null && existingData.DoWithPRN != PrnStatus.Draft)
                 {
                     await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
                 }
