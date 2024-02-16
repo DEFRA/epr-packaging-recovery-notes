@@ -61,20 +61,20 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PERN has already been cancelled.
+        ///   Looks up a localized string similar to This PERN has already been accepted.
         /// </summary>
-        public static string AlreadyCancelledPERN {
+        public static string AlreadyAcceptedPERN {
             get {
-                return ResourceManager.GetString("AlreadyCancelledPERN", resourceCulture);
+                return ResourceManager.GetString("AlreadyAcceptedPERN", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PRN has already been cancelled.
+        ///   Looks up a localized string similar to This PRN has already been accepted.
         /// </summary>
-        public static string AlreadyCancelledPRN {
+        public static string AlreadyAcceptedPRN {
             get {
-                return ResourceManager.GetString("AlreadyCancelledPRN", resourceCulture);
+                return ResourceManager.GetString("AlreadyAcceptedPRN", resourceCulture);
             }
         }
         
