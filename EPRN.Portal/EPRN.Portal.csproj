@@ -50,8 +50,13 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\PRNS\DraftConfirmationResources.cy-GB.Designer.cs">
-      <DependentUpon>DraftConfirmationResources.cy-GB.resx</DependentUpon>
+    <Compile Update="Resources\GovFrontEndTextOverrideResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GovFrontEndTextOverrideResources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\PRNS\ActionPRNResources.cy-GB.Designer.cs">
+      <DependentUpon>ActionPRNResources.cy-GB.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -203,6 +208,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\GovFrontEndTextOverrideResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>GovFrontEndTextOverrideResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\AccredidationLimitResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccredidationLimitResources.Designer.cs</LastGenOutput>

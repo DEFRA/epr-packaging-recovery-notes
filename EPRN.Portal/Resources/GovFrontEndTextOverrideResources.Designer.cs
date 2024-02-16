@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EPRN.Portal.Resources.PRNS {
+namespace EPRN.Portal.Resources {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources.PRNS {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class CancelResources {
+    public class GovFrontEndTextOverrideResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CancelResources() {
+        internal GovFrontEndTextOverrideResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources.PRNS {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.CancelResources", typeof(CancelResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.GovFrontEndTextOverrideResources", typeof(GovFrontEndTextOverrideResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,101 +61,65 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PERN has already been accepted.
+        ///   Looks up a localized string similar to You have 0 characters remaining.
         /// </summary>
-        public static string AlreadyAcceptedPERN {
+        public static string charactersAtLimit {
             get {
-                return ResourceManager.GetString("AlreadyAcceptedPERN", resourceCulture);
+                return ResourceManager.GetString("charactersAtLimit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This PRN has already been accepted.
+        ///   Looks up a localized string similar to You have %{count} character too many.
         /// </summary>
-        public static string AlreadyAcceptedPRN {
+        public static string charactersOverLimitOne {
             get {
-                return ResourceManager.GetString("AlreadyAcceptedPRN", resourceCulture);
+                return ResourceManager.GetString("charactersOverLimitOne", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Why do you want to cancel this PERN?.
+        ///   Looks up a localized string similar to You have %{count} characters too many.
         /// </summary>
-        public static string CancelQuestionPERN {
+        public static string charactersOverLimitOther {
             get {
-                return ResourceManager.GetString("CancelQuestionPERN", resourceCulture);
+                return ResourceManager.GetString("charactersOverLimitOther", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Why do you want to cancel this PRN?.
+        ///   Looks up a localized string similar to You have %{count} character remaining.
         /// </summary>
-        public static string CancelQuestionPRN {
+        public static string charactersUnderLimitOne {
             get {
-                return ResourceManager.GetString("CancelQuestionPRN", resourceCulture);
+                return ResourceManager.GetString("charactersUnderLimitOne", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can enter uo to 200 characters.
+        ///   Looks up a localized string similar to You have %{count} characters remaining.
         /// </summary>
-        public static string HintInfo {
+        public static string charactersUnderLimitOther {
             get {
-                return ResourceManager.GetString("HintInfo", resourceCulture);
+                return ResourceManager.GetString("charactersUnderLimitOther", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The maximum length of the cancellation reason is 200 characters.
+        ///   Looks up a localized string similar to Hide.
         /// </summary>
-        public static string MaxLengthMessage {
+        public static string hideSection {
             get {
-                return ResourceManager.GetString("MaxLengthMessage", resourceCulture);
+                return ResourceManager.GetString("hideSection", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel PERN.
+        ///   Looks up a localized string similar to Show.
         /// </summary>
-        public static string PageTitlePERN {
+        public static string showSection {
             get {
-                return ResourceManager.GetString("PageTitlePERN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel PRN.
-        /// </summary>
-        public static string PageTitlePRN {
-            get {
-                return ResourceManager.GetString("PageTitlePRN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Please add a reason for cancellation.
-        /// </summary>
-        public static string ReasonRequired {
-            get {
-                return ResourceManager.GetString("ReasonRequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Request to cancel this PERN.
-        /// </summary>
-        public static string RequestToCancelPERN {
-            get {
-                return ResourceManager.GetString("RequestToCancelPERN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Request to cancel this PRN.
-        /// </summary>
-        public static string RequestToCancelPRN {
-            get {
-                return ResourceManager.GetString("RequestToCancelPRN", resourceCulture);
+                return ResourceManager.GetString("showSection", resourceCulture);
             }
         }
     }

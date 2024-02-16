@@ -1,0 +1,27 @@
+﻿<script type="text/javascript">
+    // set a variable that contains all the text that we need based on text from our resources, and therefore
+    // has translations. This then gets pulled in, inside the index.js file during the initAll for the gov frontend
+    // needs to be done like this, so that the resource files can be used.
+    var resources = {
+        characterCount: {
+            charactersAtLimit: '@GovFrontEndTextOverrideResources.charactersAtLimit',
+            charactersOverLimit: {
+                one: '@GovFrontEndTextOverrideResources.charactersOverLimitOne',
+                other: '@GovFrontEndTextOverrideResources.charactersOverLimitOther'
+            },
+            charactersUnderLimit: {
+                one: '@GovFrontEndTextOverrideResources.charactersUnderLimitOne',
+                other: '@GovFrontEndTextOverrideResources.charactersUnderLimitOther'
+
+            }
+        },
+        accordian: {
+            hideAllSections: "Hide all sections",
+            hideSection: '@GovFrontEndTextOverrideResources.hideSection',
+            hideSectionAriaLabel: "Hide this section",
+            showAllSections: "Show all sections",
+            showSection: '@GovFrontEndTextOverrideResources.showSection',
+            showSectionAriaLabel: "Show this section"
+        }
+    }
+</script>
