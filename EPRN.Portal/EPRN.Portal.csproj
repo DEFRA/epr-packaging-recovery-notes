@@ -226,8 +226,7 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\DraftConfirmationResources.cy-GB.resx">
       <SubType>Designer</SubType>
-      <LastGenOutput>DraftConfirmationResources.cy-GB.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator></Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\DraftConfirmationResources.resx">
       <SubType>Designer</SubType>
