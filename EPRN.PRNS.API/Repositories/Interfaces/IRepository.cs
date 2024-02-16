@@ -27,8 +27,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task<StatusAndProducerDto> GetStatusAndRecipient(int id);
 
         Task UpdatePrnStatus(
-            int id, 
-            PrnStatus status, 
+            int id,
+            PrnStatus status,
             string reason = null);
 
         Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request);
@@ -39,5 +39,7 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task<DecemberWasteDto> GetDecemberWaste(int id);
 
         Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
+
+        Task<DeleteDraftPrnDto> GetPrnReference(int id);
     }
 }

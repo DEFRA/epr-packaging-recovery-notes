@@ -45,10 +45,6 @@ namespace EPRN.Waste.API.Services
             if (_configSettings.Value.HasSubmittedReturnOverride.HasValue)
                 hasSubmittedPreviousQuarterReturn = _configSettings.Value.HasSubmittedReturnOverride.Value;
 
-            // Quick check for leap year            
-            if (HandleFebruary29(hasSubmittedPreviousQuarterReturn,quarterToReturn))
-                return quarterToReturn;
-
             var currentQuarter = GetCurrentQuarter(currentDate);
             var currentMonthInQuarter = GetCurrentMonthInQuarter(currentDate);
             var isWithinCurrentQuarter = IsWithinCurrentQuarter(currentDate, currentQuarter, currentMonthInQuarter);
@@ -163,24 +159,13 @@ namespace EPRN.Waste.API.Services
 
         private static void HandleLateReturn(ICollection<int> monthsToDisplay, int currentQuarter, bool hasSubmittedPreviousQuarterReturn, int currentMonth, QuarterlyDatesDto quarterToReturn)
         {
-            var startMonthOfCurrentQuarter = ((currentQuarter - 1) * 3) + 1;
+            var startMonthOfCurrentQuarter = (currentQuarter - 1) * 3 + 1;
 
             for (var month = startMonthOfCurrentQuarter; month <= currentMonth; month++)
                 monthsToDisplay.Add(month);
-            
-            if (currentMonth == startMonthOfCurrentQuarter && !hasSubmittedPreviousQuarterReturn) 
-                quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnLate;
-        }
 
-        private static bool HandleFebruary29(bool hasSubmittedPreviousQuarterReturn, QuarterlyDatesDto quarterToReturn)
-        {
-            if (!quarterToReturn.SubmissionDate.IsFeb29()) 
-                return false;
-            
-            if (!hasSubmittedPreviousQuarterReturn)
-                quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnLate;                 
-                
-            return true;
+            if ((currentMonth == startMonthOfCurrentQuarter && !hasSubmittedPreviousQuarterReturn) || (currentMonth == 2 && startMonthOfCurrentQuarter == 1)) 
+                quarterToReturn.Notification = Strings.Notifications.QuarterlyReturnLate;
         }
     }
 }
