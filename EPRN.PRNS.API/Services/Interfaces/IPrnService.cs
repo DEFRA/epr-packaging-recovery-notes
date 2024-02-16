@@ -38,5 +38,13 @@ namespace EPRN.PRNS.API.Services.Interfaces
         Task<DecemberWasteDto> GetDecemberWaste(int journeyId);
 
         Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
+
+        Task<DeleteDraftPrnDto> GetPrnReference(int id);
+
+        Task DeleteDraftPrn(int id);
+
+        Task<DraftDetailsPrnDto> GetDraftDetails(int id);
+
+        Task SaveDraftPrn(int id);
     }
 }

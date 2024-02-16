@@ -62,8 +62,7 @@
             <partial name="_ValidationSummary" />
             <partial name="_WasteTypeName" />
 
-            @if (!Model.SubmissionDate.IsFeb29())
-            {
+  
                 <radios asp-for="SelectedMonth" asp-title="@heading">
                     <div class="govuk-hint">
                         @hintText
@@ -84,15 +83,7 @@
                         <partial name="_RadioOptionExported" model="Model" />
                     }
                 </radios>
-            }
-            else
-            {
-                <input type="hidden" asp-for="SelectedMonth" />
-                <h1 class="govuk-heading-l">@WhichQuarterResources.RecordFebruaryWaste</h1>
-                <div class="govuk-hint">
-                    @WhichQuarterResources.HintTextFebruary
-                </div>
-            }
+
             <button class="govuk-button" data-module="govuk-button" type="submit">
                 @MasterResources.ContinueBtn
             </button>

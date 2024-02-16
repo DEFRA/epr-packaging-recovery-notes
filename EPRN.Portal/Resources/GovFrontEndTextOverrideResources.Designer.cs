@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ActionPRN___Copy {
+    public class GovFrontEndTextOverrideResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActionPRN___Copy() {
+        internal GovFrontEndTextOverrideResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.ActionPRN - Copy", typeof(ActionPRN___Copy).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.GovFrontEndTextOverrideResources", typeof(GovFrontEndTextOverrideResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,38 +61,65 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue.
+        ///   Looks up a localized string similar to You have 0 characters remaining.
         /// </summary>
-        public static string Continue {
+        public static string charactersAtLimit {
             get {
-                return ResourceManager.GetString("Continue", resourceCulture);
+                return ResourceManager.GetString("charactersAtLimit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save it as draft.
+        ///   Looks up a localized string similar to You have %{count} character too many.
         /// </summary>
-        public static string SaveItAsDraft {
+        public static string charactersOverLimitOne {
             get {
-                return ResourceManager.GetString("SaveItAsDraft", resourceCulture);
+                return ResourceManager.GetString("charactersOverLimitOne", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Send it to:.
+        ///   Looks up a localized string similar to You have %{count} characters too many.
         /// </summary>
-        public static string SendItTo {
+        public static string charactersOverLimitOther {
             get {
-                return ResourceManager.GetString("SendItTo", resourceCulture);
+                return ResourceManager.GetString("charactersOverLimitOther", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What do want to do with this PRN?.
+        ///   Looks up a localized string similar to You have %{count} character remaining.
         /// </summary>
-        public static string Title {
+        public static string charactersUnderLimitOne {
             get {
-                return ResourceManager.GetString("Title", resourceCulture);
+                return ResourceManager.GetString("charactersUnderLimitOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have %{count} characters remaining.
+        /// </summary>
+        public static string charactersUnderLimitOther {
+            get {
+                return ResourceManager.GetString("charactersUnderLimitOther", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        public static string hideSection {
+            get {
+                return ResourceManager.GetString("hideSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show.
+        /// </summary>
+        public static string showSection {
+            get {
+                return ResourceManager.GetString("showSection", resourceCulture);
             }
         }
     }

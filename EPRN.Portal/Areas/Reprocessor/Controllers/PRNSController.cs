@@ -1,12 +1,12 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
-using EPRN.Portal.Helpers.Extensions;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static EPRN.Common.Constants.Strings;
+using static EPRN.Common.Constants.Strings.Routes;
 
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
@@ -51,9 +51,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.SentTo,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new 
-                { 
-                    area = string.Empty 
+                new
+                {
+                    area = string.Empty
                 });
         }
 
@@ -69,10 +69,10 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Reprocessor.PRNS,
-                new 
-                { 
-                    area = Category, 
-                    Id = prnId 
+                new
+                {
+                    area = Category,
+                    Id = prnId
                 });
         }
 
@@ -107,13 +107,11 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction(
-                Routes.Areas.Actions.PRNS.WhatToDo, 
-                Routes.Areas.Controllers.Reprocessor.PRNS, 
-                new 
-                { 
-                    area = Category, 
-                    id = checkYourAnswersViewModel.Id 
+            return RedirectToAction(Routes.Areas.Actions.PRNS.DraftConfirmation, Routes.Areas.Controllers.Reprocessor.PRNS,
+                new
+                {
+                    area = Category,
+                    id = checkYourAnswersViewModel.Id
                 });
         }
 
@@ -195,7 +193,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             await _prnService.RequestToCancelPRN(requestCancelViewModel);
 
             return View(
-                Routes.Areas.Actions.PRNS.RequestCancelConfirmed, 
+                Routes.Areas.Actions.PRNS.RequestCancelConfirmed,
                 requestCancelViewModel);
         }
 
@@ -228,12 +226,67 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             await _prnService.SaveDecemberWaste(decemberWaste);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.Tonnes, 
-                new 
-                { 
-                    area = Category, 
-                    id = decemberWaste.Id 
+                Routes.Areas.Actions.PRNS.Tonnes,
+                new
+                {
+                    area = Category,
+                    id = decemberWaste.Id
                 });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetDraftConfirmationViewModel(id.Value);
+            if (viewModel.DoWithPRN == PrnStatus.Draft)
+                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, viewModel);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(DraftConfirmationViewModel draftConfirmationViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(draftConfirmationViewModel);
+
+            if (draftConfirmationViewModel.DoWithPRN == PrnStatus.Draft)
+            {
+                var existingData = await _prnService.GetDraftConfirmationViewModel(draftConfirmationViewModel.Id);
+                if (existingData.DoWithPRN != PrnStatus.Draft)
+                {
+                    await _prnService.SaveDraftPrn(draftConfirmationViewModel);
+                }
+                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, draftConfirmationViewModel);
+            }
+            else
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationViewModel.Id });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(int id)
+        {
+            var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
+        {
+            if (viewModel == null)
+                return BadRequest();
+
+            await _prnService.DeleteDraftPrn(viewModel);
+
+            return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

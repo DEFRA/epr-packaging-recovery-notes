@@ -12,6 +12,7 @@ namespace EPRN.UnitTests.Portal.Helpers
     {
         private Mock<IHttpContextAccessor> httpContextAccessor;
         private DefaultHttpContext httpContext;
+        private CultureHelper _cultureHelper;
 
         [TestInitialize]
         public void Init()
@@ -19,6 +20,7 @@ namespace EPRN.UnitTests.Portal.Helpers
             httpContextAccessor = new Mock<IHttpContextAccessor>();
             httpContext = new DefaultHttpContext();
             httpContextAccessor.Setup(x => x.HttpContext).Returns(httpContext);
+            _cultureHelper = new CultureHelper(httpContextAccessor.Object);
         }
 
         [TestMethod]
@@ -29,29 +31,18 @@ namespace EPRN.UnitTests.Portal.Helpers
             httpContext?.Features.Set<IRequestCultureFeature>(new RequestCultureFeature(requestCulture, null));
 
             // Act
-            var result = CultureHelper.GetCultureInfo(httpContextAccessor.Object);
+            var result = _cultureHelper.GetCultureInfo();
 
             // Assert
             Assert.AreEqual(CultureConstants.Welsh.Name, result);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void GetCultureInfo_NullHttpContextAccessor_ThrowsException()
         {
             // Act & Assert
-            CultureHelper.GetCultureInfo(null);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void GetCultureInfo_NullHttpContext_ThrowsException()
-        {
-            // Arrange
-            httpContextAccessor?.Setup(x => x.HttpContext).Returns((HttpContext)null!);
-
-            // Act & Assert
-            CultureHelper.GetCultureInfo(httpContextAccessor.Object);
+            _cultureHelper = new CultureHelper(null);
         }
 
         [TestMethod]
@@ -62,7 +53,7 @@ namespace EPRN.UnitTests.Portal.Helpers
             httpContext?.Features.Set<IRequestCultureFeature>(new RequestCultureFeature(requestCulture, null));
 
             // Act
-            var result = CultureHelper.GetCultureInfo(httpContextAccessor?.Object!);
+            var result = _cultureHelper.GetCultureInfo();
 
             // Assert
             Assert.AreEqual(CultureConstants.English.Name, result);

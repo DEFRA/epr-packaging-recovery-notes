@@ -82,7 +82,7 @@ namespace EPRN.Portal.Services
             viewModel.Category = category;
             viewModel.Notification = quarterDates.Notification;
             viewModel.SubmissionDate = quarterDates.SubmissionDate;
-            viewModel.SelectedMonth = !quarterDates.SubmissionDate.IsFeb29() ? selectedMonth : (int?)Months.February;
+            viewModel.SelectedMonth = selectedMonth;
             viewModel.NotificationDeadlineDate = quarterDates.NotificationDeadlineDate.ToString("d MMMM", CultureInfo.InvariantCulture);
 
             PopulateViewModelQuarter(viewModel, quarterDates);
@@ -106,6 +106,7 @@ namespace EPRN.Portal.Services
         {
             var rm = new ResourceManager("EPRN.Portal.Resources.WhichQuarterResources",
                 Assembly.GetExecutingAssembly());
+            
             foreach (var itemMonth in quarterDates.QuarterlyMonths)
             {
                 var (value, suffix) = ProcessValue(itemMonth.Value);

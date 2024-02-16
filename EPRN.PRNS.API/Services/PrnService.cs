@@ -5,6 +5,7 @@ using EPRN.PRNS.API.Configuration;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.Extensions.Options;
+using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.PRNS.API.Services
 {
@@ -30,7 +31,7 @@ namespace EPRN.PRNS.API.Services
             Category category)
         {
             return await _prnRepository.CreatePrnRecord(
-                materialId, 
+                materialId,
                 category,
                 GenerateReferenceNumber());
         }
@@ -75,7 +76,7 @@ namespace EPRN.PRNS.API.Services
         public async Task SaveCheckYourAnswers(int id)
         {
             await _prnRepository.UpdatePrnStatus(
-                id, 
+                id,
                 PrnStatus.CheckYourAnswersComplete);
         }
 
@@ -124,7 +125,7 @@ namespace EPRN.PRNS.API.Services
                 monthToCheckAgainst = _currentMonthOverride.Value;
             }
 
-            if (monthToCheckAgainst == (int)Months.January ||  monthToCheckAgainst == (int)Months.December) 
+            if (monthToCheckAgainst == (int)Months.January || monthToCheckAgainst == (int)Months.December)
             {
                 return await _prnRepository.GetDecemberWaste(journeyId);
             }
@@ -136,9 +137,31 @@ namespace EPRN.PRNS.API.Services
             };
         }
 
+        public async Task<DraftDetailsPrnDto> GetDraftDetails(int id)
+        {
+            return await _prnRepository.GetDraftDetails(id);
+        }
+
         public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
         {
             await _prnRepository.SaveDecemberWaste(jouneyId, decemberWaste);
+        }
+
+        public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
+        {
+            return await _prnRepository.GetPrnReference(id);
+        }
+
+        public async Task DeleteDraftPrn(int id)
+        {
+            await _prnRepository.UpdatePrnStatus(id, PrnStatus.Deleted, RepoStrings.DeleteDraft);
+        }
+
+        public async Task SaveDraftPrn(int id)
+        {
+            await _prnRepository.UpdatePrnStatus(
+                id,
+                PrnStatus.Draft);
         }
 
         #region Private methods - Keep at bottom of file
@@ -146,6 +169,6 @@ namespace EPRN.PRNS.API.Services
         // In time a specific generation algorithm will
         // be specified
         private string GenerateReferenceNumber() => $"PRN{Guid.NewGuid().ToString().Replace("-", string.Empty).Substring(0, 10)}";
+        }
         #endregion
-    }
 }

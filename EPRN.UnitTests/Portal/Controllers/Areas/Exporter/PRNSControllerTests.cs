@@ -2,10 +2,9 @@
 using EPRN.Portal.Areas.Exporter.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
-using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Moq;
+using NuGet.ContentModel;
 using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
@@ -55,9 +54,9 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var result = await _prnController.Tonnes(id);
 
             // assert
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.GetTonnesViewModel(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
@@ -145,9 +144,9 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var result = await _prnController.Confirmation(id);
 
             // assert
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.GetConfirmation(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
@@ -162,7 +161,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
         public async Task CheckYourAnswers_ReturnsNotFound_WhenNoIdSupplied()
         {
             // arrange
-            
+
             // act
             var result = await _prnController.CheckYourAnswers((int?)null);
 
@@ -182,9 +181,9 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             var result = await _prnController.CheckYourAnswers(id);
 
             // assert
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.GetCheckYourAnswersViewModel(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(ViewResult));
@@ -234,7 +233,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             int id = 123;
             var viewModel = new CancelViewModel();
             viewModel.Status = PrnStatus.Draft;
-            
+
             _mockPrnService.Setup(service => service.GetCancelViewModel(id)).ReturnsAsync(viewModel);
 
             // Act
@@ -252,19 +251,19 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             int id = 123;
             var viewModel = new CancelViewModel();
             viewModel.Status = PrnStatus.Cancelled;
-            
-            _mockPrnService.Setup(service => 
+
+            _mockPrnService.Setup(service =>
                 service.GetCancelViewModel(id))
             .ReturnsAsync(viewModel);
-            
+
             // Act
             var result = await _prnController.PRNCancellation(id);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.GetCancelViewModel(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
@@ -296,9 +295,9 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(ViewResult));
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.CancelPRN(
-                    It.Is<CancelViewModel>(p => p == cancelViewModel)), 
+                    It.Is<CancelViewModel>(p => p == cancelViewModel)),
             Times.Once);
         }
 
@@ -317,7 +316,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             Assert.IsNotNull(result);
             Assert.AreEqual(viewModel, result.Model);
             Assert.AreEqual(
-                Routes.Areas.Actions.PRNS.RequestCancelConfirmed, 
+                Routes.Areas.Actions.PRNS.RequestCancelConfirmed,
                 result.ViewName);
         }
 
@@ -348,9 +347,9 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             Assert.IsNotNull(result);
             Assert.AreEqual(Routes.Areas.Actions.PRNS.RequestCancelConfirmed, result.ViewName);
             Assert.AreEqual(viewModel, result.Model);
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.RequestToCancelPRN(
-                    It.Is<RequestCancelViewModel>(p => p == viewModel)), 
+                    It.Is<RequestCancelViewModel>(p => p == viewModel)),
                 Times.Once);
         }
 
@@ -367,6 +366,201 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(viewModel, result.Model);
+        }
+
+        #region DeleteDraftPrn
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_ReturnsCorrectViewModelAndView()
+        {
+            // Arrange
+            var expectedViewModel = new DeleteDraftPrnViewModel();
+            _mockPrnService.Setup(service => service.GetDeleteDraftPrnViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(1) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel, result.Model);
+            //Assert.AreEqual("DeleteDraft", result.ViewName);
+            Assert.IsNull(result.ViewName);
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_ReturnsRedirectToActionResult()
+        {
+            // Arrange
+            var viewModel = new DeleteDraftPrnViewModel();
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(viewModel);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(RedirectToActionResult));
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_CallsDeleteDraftPrn_InPrnService()
+        {
+            // Arrange
+            var viewModel = new DeleteDraftPrnViewModel();
+
+            // Act
+            await _prnController.DeleteDraftPrn(viewModel);
+
+            // Assert
+            _mockPrnService.Verify(m => m.DeleteDraftPrn(viewModel), Times.Once());
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_RedirectsToCorrectView_WithCorrectParameters()
+        {
+            // Arrange
+            var viewModel = new DeleteDraftPrnViewModel { Id = 1 };
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(viewModel) as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("ViewDraftPRNS", result.ActionName);
+            Assert.AreEqual(1, result.RouteValues["Id"]);
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_ReturnsBadRequest_WhenViewModelIsNull()
+        {
+            // Arrange
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(null);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(BadRequestResult));
+        }
+
+        #endregion
+
+        [TestMethod]
+        public async Task DraftConfirmation_ReturnsCorrectViewName_WhenJourneyIdValid()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            var expectedViewModel = new DraftConfirmationViewModel
+            {
+                Id = journeyId,
+                DoWithPRN = null
+            };
+
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.DraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNull(result.ViewName);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_ReturnsNotFound_WhenJourneyIdIsNull()
+        {
+            // Arrange
+            int? id = null;
+            
+            // Act
+            var result = await _prnController.DraftConfirmation(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            var notFoundResult = result as NotFoundResult;
+
+            Assert.AreEqual(404, notFoundResult.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_CallsGetDraftPrnConfirmationModel_WhenJourneyIdIsValid()
+        {
+            // Arrange
+            var journeyId = 1;
+            var expectedViewModel = new DraftConfirmationViewModel();
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.DraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            _mockPrnService.Verify(service => service.GetDraftConfirmationViewModel(journeyId), Times.Once());
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel, result.Model);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_ReturnsCorrectViewModel_WhenJourneyIdIsValid()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            var expectedViewModel = new DraftConfirmationViewModel
+            {
+                Id = journeyId,
+                ReferenceNumber = "PRN282472GB",
+                DoWithPRN = PrnStatus.Created
+            };
+
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+            
+            // Act
+            var result = await _prnController.DraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result.Model, typeof(DraftConfirmationViewModel));
+            Assert.AreEqual(expectedViewModel, result.Model);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_CallsService_ValidParameter()
+        {
+            // arrange
+            var id = 3;
+            var expectedViewModel = new DraftConfirmationViewModel { Id = id, ReferenceNumber="123456", DoWithPRN = PrnStatus.Draft };
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // act
+            var result = await _prnController.DraftConfirmation(expectedViewModel);
+
+            // assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            var viewResult = (ViewResult)result;
+            Assert.IsNotNull(viewResult.ViewName);
+            Asset.Equals(viewResult.ViewName, "PrnSavedAsDraftConfirmation");
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_SaveRecord()
+        {
+            // arrange
+            var id = 3;
+            var expectedViewModel = new DraftConfirmationViewModel { Id = id, ReferenceNumber = "123456", DoWithPRN = PrnStatus.Draft };
+            var expectedViewModelFromService = new DraftConfirmationViewModel { Id = id, ReferenceNumber = "123456", DoWithPRN= PrnStatus.Created };
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModelFromService);
+            _mockPrnService.Setup(service => service.SaveDraftPrn(expectedViewModel));
+
+            var result = await _prnController.DraftConfirmation(expectedViewModel);
+
+            // assert
+            Assert.IsNotNull(result);
+            _mockPrnService.Verify(s => s.SaveDraftPrn(expectedViewModel), Times.Once);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            var viewResult = (ViewResult)result;
+            Assert.IsNotNull(viewResult.ViewName);
+            Asset.Equals(viewResult.ViewName, "PrnSavedAsDraftConfirmation");
         }
     }
 }

@@ -285,5 +285,39 @@ namespace EPRN.UnitTests.API.Waste.Services
             Assert.IsTrue(result.ExcessOfLimit == (AccredidationLimit - newQuantityEntered));
         }
 
+        [TestMethod]
+        public async Task GetBaledWithWire_WhenJourneyIsNull_ReturnsANullObject()
+        {
+            // Arrange
+            int journeyId = 0;
+            _mockRepository.Setup(repo => repo.GetBaledWithWire(journeyId)).ReturnsAsync((BaledWithWireDto)null);
+
+            // Act & Assert
+            var result = await _journeyService.GetBaledWithWire(journeyId);
+
+            // Assert
+            Assert.IsNull(result.BaledWithWire);
+        }
+
+        [TestMethod]
+        public async Task SaveBaledWithWire_WithValidParameters_Succeeds()
+        {
+            // arrange
+            var journeyId = 5;
+            var baledWithWire = true;
+            var deductionAmount = 0.15;
+
+            // act
+            await _journeyService.SaveBaledWithWire(journeyId, baledWithWire, deductionAmount);
+
+            // assert
+            _mockRepository.Verify(r =>
+                r.UpdateJourneyBaledWithWire(
+                    It.Is<int>(p => p == journeyId),
+                    It.Is<bool>(p => p == baledWithWire),
+                    It.Is<double>(p => p == deductionAmount)), 
+                    Times.Once);
+        }
+
     }
 }

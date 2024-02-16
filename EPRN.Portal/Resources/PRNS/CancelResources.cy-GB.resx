@@ -117,10 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlreadyCancelledPERN" xml:space="preserve">
+  <data name="AlreadyAcceptedPERN" xml:space="preserve">
     <value>[Welsh]This PERN has already been accepted</value>
   </data>
-  <data name="AlreadyCancelledPRN" xml:space="preserve">
+  <data name="AlreadyAcceptedPRN" xml:space="preserve">
     <value>[Welsh]This PRN has already been accepted</value>
   </data>
   <data name="CancelQuestionPERN" xml:space="preserve">

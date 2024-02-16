@@ -41,6 +41,9 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("getdate()");
 
+                    b.Property<bool?>("DecemberWaste")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
@@ -88,7 +91,6 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

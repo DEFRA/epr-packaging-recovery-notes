@@ -3,6 +3,7 @@ using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
 using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
+using EPRN.Common.Extensions;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,10 +40,9 @@ namespace EPRN.PRNS.API.Repositories
                 {
                     new PrnHistory
                     {
-                        Status = PrnStatus.Draft,
+                        Status = PrnStatus.Created,
                         Created = DateTime.UtcNow,
-                        CreatedBy = username,
-                        Reason = "Created"
+                        CreatedBy = username
                     }
                 }
             };
@@ -54,11 +54,12 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task<bool> PrnExists(
-            int id, 
+            int id,
             EPRN.Common.Enums.Category category)
         {
             return await _prnContext
                 .PRN
+                .ExcludeDeleted()
                 .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
         }
 
@@ -142,23 +143,28 @@ namespace EPRN.PRNS.API.Repositories
             Common.Enums.PrnStatus status,
             string reason = null)
         {
-            var historyRecord = new PrnHistory
+            // don't add the same status as we already have
+            if (await GetStatus(id) != status)
             {
-                PrnId = id,
-                CreatedBy = username,
-                Created = DateTime.UtcNow,
-                Status = _mapper.Map<PrnStatus>(status),
-                Reason = reason
-            };
+                var historyRecord = new PrnHistory
+                {
+                    PrnId = id,
+                    CreatedBy = username,
+                    Created = DateTime.UtcNow,
+                    Status = _mapper.Map<PrnStatus>(status),
+                    Reason = reason
+                };
 
-            await _prnContext.AddAsync(historyRecord);
-            await _prnContext.SaveChangesAsync();
+                await _prnContext.AddAsync(historyRecord);
+                await _prnContext.SaveChangesAsync();
+            }
         }
 
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
         {
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
+                .ExcludeDeleted()
                 .Include(repo => repo.WasteType)
                 .Include(repo => repo.PrnHistory)
                 .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
@@ -167,32 +173,36 @@ namespace EPRN.PRNS.API.Repositories
             {
                 // map the filterby value to the Data version of the enum
                 var filterByStatus = _mapper.Map<PrnStatus>(request.FilterBy);
-                prns = prns.Where(e => 
-                    e.PrnHistory != null && 
-                    e.PrnHistory.Any() && 
+                prns = prns.Where(e =>
+                    e.PrnHistory != null &&
+                    e.PrnHistory.Any() &&
                     e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 prns = prns.Where(repo =>
                     EF.Functions.Like(repo.Reference, $"%{request.SearchTerm}%") ||
                     EF.Functions.Like(repo.SentTo, $"%{request.SearchTerm}%"));
             }
-            
+
+            // get the count BEFORE paging and sorting
+            var totalRecords = await prns.CountAsync();
+
+            // Apply sorting after all filters
             if (request.SortBy == "1")
-                prns = prns.OrderByDescending(e => e.WasteType);
+                prns = prns.OrderBy(e => e.WasteType.Name);
             else if (request.SortBy == "2")
                 prns = prns.OrderBy(e => e.SentTo);
             else
                 prns = prns.OrderByDescending(repo => repo.CreatedDate);
-            
-            // get the count BEFORE paging
-            var totalRecords = await prns.CountAsync();
+
+            // Apply pagination after sorting
             prns = prns
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
+
             return new SentPrnsDto()
             {
                 Rows = await prns.Select(prn => new PrnDto
@@ -219,10 +229,12 @@ namespace EPRN.PRNS.API.Repositories
             };
         }
 
+
         public async Task<PRNDetailsDto> GetDetails(string reference)
         {
             return await _prnContext
                 .PRN
+                .ExcludeDeleted()
                 .Where(prn => prn.Reference == reference)
                 .Select(prn => new PRNDetailsDto
                 {
@@ -250,9 +262,26 @@ namespace EPRN.PRNS.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<DraftDetailsPrnDto> GetDraftDetails(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new DraftDetailsPrnDto
+                {
+                    ReferenceNumber = prn.Reference,
+                    Status = prn.PrnHistory != null && prn.PrnHistory.Any()
+                        ? (Common.Enums.PrnStatus)prn.PrnHistory.OrderByDescending(h => h.Created).First().Status
+                        : default
+                })
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
             return await _prnContext.PRN
+                .ExcludeDeleted()
                 .Where(prn => prn.Id == id)
                 .Select(prn => new DecemberWasteDto
                 {
@@ -270,6 +299,21 @@ namespace EPRN.PRNS.API.Repositories
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
                 );
+        }
+
+        public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Include(repo => repo.PrnHistory)
+                .Where(prn => prn.Id == id)
+                .ExcludeDeleted()
+                .Select(prn => new DeleteDraftPrnDto
+                {
+                    Id = prn.Id,
+                    PrnReference = prn.Reference
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }
