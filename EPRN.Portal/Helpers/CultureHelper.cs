@@ -14,11 +14,6 @@ namespace EPRN.Portal.Helpers
         }
         public string GetCultureInfo()
         {
-            if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null)
-            {
-                throw new InvalidOperationException("HttpContext is null. The operation requires a valid HttpContext.");
-            }
-
             var requestCultureInfo = _httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture?.Culture;
             var isEnglish = CultureConstants.English.Name == requestCultureInfo?.Name;
             var oppositeCultureValue = isEnglish ? CultureConstants.Welsh.Name : CultureConstants.English.Name;
