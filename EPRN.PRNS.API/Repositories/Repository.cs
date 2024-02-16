@@ -3,6 +3,7 @@ using EPRN.Common.Data;
 using EPRN.Common.Data.DataModels;
 using EPRN.Common.Data.Enums;
 using EPRN.Common.Dtos;
+using EPRN.Common.Extensions;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,11 +55,12 @@ namespace EPRN.PRNS.API.Repositories
         }
 
         public async Task<bool> PrnExists(
-            int id, 
+            int id,
             EPRN.Common.Enums.Category category)
         {
             return await _prnContext
                 .PRN
+                .ExcludeDeleted()
                 .AnyAsync(p => p.Id == id && p.Category == _mapper.Map<Category>(category));
         }
 
@@ -159,10 +161,11 @@ namespace EPRN.PRNS.API.Repositories
         {
             var recordsPerPage = request.PageSize;
             var prns = _prnContext.PRN
+                .ExcludeDeleted()
                 .Include(repo => repo.WasteType)
                 .Include(repo => repo.PrnHistory)
                 .Where(prn => prn.PrnHistory.Any(h => h.Status >= PrnStatus.Accepted));
-            
+
             if (request.FilterBy.HasValue)
             {
                 // map the filterby value to the Data version of the enum
@@ -172,17 +175,17 @@ namespace EPRN.PRNS.API.Repositories
                     e.PrnHistory.Any() &&
                     e.PrnHistory.OrderByDescending(h => h.Created).First().Status == filterByStatus);
             }
-            
+
             if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
                 prns = prns.Where(repo =>
                     EF.Functions.Like(repo.Reference, $"%{request.SearchTerm}%") ||
                     EF.Functions.Like(repo.SentTo, $"%{request.SearchTerm}%"));
             }
-            
+
             // get the count BEFORE paging and sorting
             var totalRecords = await prns.CountAsync();
-            
+
             // Apply sorting after all filters
             if (request.SortBy == "1")
                 prns = prns.OrderBy(e => e.WasteType.Name);
@@ -190,13 +193,13 @@ namespace EPRN.PRNS.API.Repositories
                 prns = prns.OrderBy(e => e.SentTo);
             else
                 prns = prns.OrderByDescending(repo => repo.CreatedDate);
-            
+
             // Apply pagination after sorting
             prns = prns
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
             var totalPages = (totalRecords + recordsPerPage - 1) / recordsPerPage;
-            
+
             return new SentPrnsDto()
             {
                 Rows = await prns.Select(prn => new PrnDto
@@ -228,6 +231,7 @@ namespace EPRN.PRNS.API.Repositories
         {
             return await _prnContext
                 .PRN
+                .ExcludeDeleted()
                 .Where(prn => prn.Reference == reference)
                 .Select(prn => new PRNDetailsDto
                 {
@@ -258,6 +262,7 @@ namespace EPRN.PRNS.API.Repositories
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
             return await _prnContext.PRN
+                .ExcludeDeleted()
                 .Where(prn => prn.Id == id)
                 .Select(prn => new DecemberWasteDto
                 {
@@ -275,6 +280,21 @@ namespace EPRN.PRNS.API.Repositories
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
                 );
+        }
+
+        public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Include(repo => repo.PrnHistory)
+                .Where(prn => prn.Id == id)
+                .ExcludeDeleted()
+                .Select(prn => new DeleteDraftPrnDto
+                {
+                    Id = prn.Id,
+                    PrnReference = prn.Reference
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }

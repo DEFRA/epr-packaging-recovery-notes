@@ -4,16 +4,19 @@ using EPRN.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EPRN.Common.Data.Migrations
+namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20240214152815_Added-IsDeletedFlag-ToPrnTable")]
+    partial class AddedIsDeletedFlagToPrnTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,6 +45,9 @@ namespace EPRN.Common.Data.Migrations
                         .HasDefaultValueSql("getdate()");
 
                     b.Property<bool?>("DecemberWaste")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Note")

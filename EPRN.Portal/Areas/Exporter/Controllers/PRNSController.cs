@@ -1,7 +1,6 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
-using EPRN.Portal.Helpers.Extensions;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
@@ -50,12 +49,12 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             await _prnService.SaveTonnes(tonnesViewModel);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.SentTo, 
-                Routes.Areas.Controllers.Exporter.PRNS, 
-                new 
-                { 
-                    area = Category, 
-                    tonnesViewModel.Id 
+                Routes.Areas.Actions.PRNS.SentTo,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new
+                {
+                    area = Category,
+                    tonnesViewModel.Id
                 });
         }
 
@@ -71,10 +70,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Exporter.PRNS,
-                new 
-                { 
-                    area = Category, 
-                    Id = prnId 
+                new
+                {
+                    area = Category,
+                    Id = prnId
                 });
         }
 
@@ -110,11 +109,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.WhatToDo,
-                Routes.Areas.Controllers.Exporter.PRNS, 
-                new 
-                { 
-                    area = Category, 
-                    id = checkYourAnswersViewModel.Id 
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new
+                {
+                    area = Category,
+                    id = checkYourAnswersViewModel.Id
                 });
         }
 
@@ -229,6 +228,27 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes,
                                     Routes.Areas.Controllers.Exporter.PRNS,
                                     new { decemberWaste.Id });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(int id)
+        {
+            var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
+        {
+            if (viewModel == null)
+                return BadRequest();
+
+            await _prnService.DeleteDraftPrn(viewModel);
+
+            return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

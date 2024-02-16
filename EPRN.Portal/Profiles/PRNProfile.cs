@@ -31,6 +31,7 @@ namespace EPRN.Portal.Profiles
 
             CreateMap<PRNHistoryDto, PRNHistoryViewModel>();
             CreateMap<StatusAndProducerDto, CancelViewModel>();
+            CreateMap<DeleteDraftPrnDto, DeleteDraftPrnViewModel>();
         }
     }
 }
