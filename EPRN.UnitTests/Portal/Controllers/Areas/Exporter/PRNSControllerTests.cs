@@ -4,6 +4,7 @@ using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using NuGet.ContentModel;
 using static EPRN.Common.Constants.Strings;
 
 namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
@@ -440,5 +441,126 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
         }
 
         #endregion
+
+        [TestMethod]
+        public async Task DraftConfirmation_ReturnsCorrectViewName_WhenJourneyIdValid()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            var expectedViewModel = new DraftConfirmationViewModel
+            {
+                Id = journeyId,
+                DoWithPRN = null
+            };
+
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.DraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsNull(result.ViewName);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_ReturnsNotFound_WhenJourneyIdIsNull()
+        {
+            // Arrange
+            int? id = null;
+            
+            // Act
+            var result = await _prnController.DraftConfirmation(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+            var notFoundResult = result as NotFoundResult;
+
+            Assert.AreEqual(404, notFoundResult.StatusCode);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_CallsGetDraftPrnConfirmationModel_WhenJourneyIdIsValid()
+        {
+            // Arrange
+            var journeyId = 1;
+            var expectedViewModel = new DraftConfirmationViewModel();
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // Act
+            var result = await _prnController.DraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            _mockPrnService.Verify(service => service.GetDraftConfirmationViewModel(journeyId), Times.Once());
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedViewModel, result.Model);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_ReturnsCorrectViewModel_WhenJourneyIdIsValid()
+        {
+            // Arrange
+            var journeyId = 1;
+
+            var expectedViewModel = new DraftConfirmationViewModel
+            {
+                Id = journeyId,
+                ReferenceNumber = "PRN282472GB",
+                DoWithPRN = PrnStatus.Created
+            };
+
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+            
+            // Act
+            var result = await _prnController.DraftConfirmation(journeyId) as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result.Model, typeof(DraftConfirmationViewModel));
+            Assert.AreEqual(expectedViewModel, result.Model);
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_CallsService_ValidParameter()
+        {
+            // arrange
+            var id = 3;
+            var expectedViewModel = new DraftConfirmationViewModel { Id = id, ReferenceNumber="123456", DoWithPRN = PrnStatus.Draft };
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModel);
+
+            // act
+            var result = await _prnController.DraftConfirmation(expectedViewModel);
+
+            // assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            var viewResult = (ViewResult)result;
+            Assert.IsNotNull(viewResult.ViewName);
+            Asset.Equals(viewResult.ViewName, "PrnSavedAsDraftConfirmation");
+        }
+
+        [TestMethod]
+        public async Task DraftConfirmation_SaveRecord()
+        {
+            // arrange
+            var id = 3;
+            var expectedViewModel = new DraftConfirmationViewModel { Id = id, ReferenceNumber = "123456", DoWithPRN = PrnStatus.Draft };
+            var expectedViewModelFromService = new DraftConfirmationViewModel { Id = id, ReferenceNumber = "123456", DoWithPRN= PrnStatus.Created };
+            _mockPrnService.Setup(service => service.GetDraftConfirmationViewModel(It.IsAny<int>())).ReturnsAsync(expectedViewModelFromService);
+            _mockPrnService.Setup(service => service.SaveDraftPrn(expectedViewModel));
+
+            var result = await _prnController.DraftConfirmation(expectedViewModel);
+
+            // assert
+            Assert.IsNotNull(result);
+            _mockPrnService.Verify(s => s.SaveDraftPrn(expectedViewModel), Times.Once);
+            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            var viewResult = (ViewResult)result;
+            Assert.IsNotNull(viewResult.ViewName);
+            Asset.Equals(viewResult.ViewName, "PrnSavedAsDraftConfirmation");
+        }
     }
 }

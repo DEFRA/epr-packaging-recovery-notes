@@ -3,6 +3,7 @@
     public enum PrnStatus
     {
         // DO NOT change the order of the current enum items, new items can be added to the end
+        Created,
         Draft,
         CheckYourAnswersComplete,
         // sent to a producer/compliance scheme

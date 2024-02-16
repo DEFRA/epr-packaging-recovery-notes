@@ -124,7 +124,7 @@ namespace EPRN.UnitTests.API.PRNS.Services
         {
             // arrange
             var id = 342;
-
+            
             // act
             await _prnService.SaveCheckYourAnswers(id);
 
@@ -495,5 +495,59 @@ namespace EPRN.UnitTests.API.PRNS.Services
         }
 
         #endregion
+
+        [TestMethod]
+        public async Task GetDraftDetailsUsingId_WhenRepositoryReturnsDto_ShouldReturnDto()
+        {
+            // Arrange
+            var reference = 1;
+            var expectedDto = new DraftDetailsPrnDto();
+
+            _mockRepository.Setup(repository => repository.GetDraftDetails(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnService.GetDraftDetails(reference);
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expectedDto, result);
+        }
+
+        [TestMethod]
+        public async Task SaveDecemberWaste_CallsServiceMethod()
+        {
+            // Arrange
+            var id = 4;
+            var waste = true;
+
+            // Act
+            await _prnService.SaveDecemberWaste(id, waste);
+
+            // Assert
+            _mockRepository.Verify(s =>
+                s.SaveDecemberWaste(
+                    It.Is<int>(p => p == id),
+                    It.Is<bool>(p => p == waste)),
+                Times.Once);
+        }
+
+        [TestMethod]
+        public async Task SaveDraftPrn_CallsServiceMethod()
+        {
+            // Arrange
+            var id = 4;
+
+            // Act
+            await _prnService.SaveDraftPrn(id);
+
+            // Assert
+            _mockRepository.Verify(s =>
+                s.UpdatePrnStatus(
+                    It.Is<int>(p => p == id),
+                    It.Is<PrnStatus>(p => p == PrnStatus.Draft),
+                    It.Is<string>(p => p == null)),
+                Times.Once);
+        }
     }
 }

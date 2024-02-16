@@ -95,7 +95,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         {
             // arrange
             var id = 423;
-
+            
             // act
             var result = await _prnController.SaveCheckYourAnswersState(id);
 
@@ -388,5 +388,41 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         }
 
         #endregion
+
+        [TestMethod]
+        public async Task GetDraftDetailsUsingId_WhenDtoIsNotNull_ShouldReturnOkResult()
+        {
+            // Arrange
+            var reference = 1;
+            var expectedDto = new DraftDetailsPrnDto();
+
+            _mockPrnService.Setup(service => service.GetDraftDetails(reference))
+                .ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnController.GetDraftDetails(reference);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+
+            var okResult = (OkObjectResult)result;
+            Assert.AreEqual(expectedDto, okResult.Value);
+        }
+
+        [TestMethod]
+        public async Task GetDraftDetailsUsingId_WhenDtoIsNull_ShouldReturnNotFoundResult()
+        {
+            // Arrange
+            var reference = 0;
+
+            _mockPrnService.Setup(service => service.GetDraftDetails(reference))
+                .ReturnsAsync((DraftDetailsPrnDto)null);
+
+            // Act
+            var result = await _prnController.GetDraftDetails(reference);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
     }
 }

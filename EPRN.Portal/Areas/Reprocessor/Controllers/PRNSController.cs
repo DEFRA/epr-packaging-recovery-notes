@@ -6,6 +6,7 @@ using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static EPRN.Common.Constants.Strings;
+using static EPRN.Common.Constants.Strings.Routes;
 
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
@@ -106,9 +107,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
-            return RedirectToAction(
-                Routes.Areas.Actions.PRNS.WhatToDo,
-                Routes.Areas.Controllers.Reprocessor.PRNS,
+            return RedirectToAction(Routes.Areas.Actions.PRNS.DraftConfirmation, Routes.Areas.Controllers.Reprocessor.PRNS,
                 new
                 {
                     area = Category,
@@ -236,10 +235,45 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
         }
 
         [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetDraftConfirmationViewModel(id.Value);
+            if (viewModel.DoWithPRN == PrnStatus.Draft)
+                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, viewModel);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(DraftConfirmationViewModel draftConfirmationViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(draftConfirmationViewModel);
+
+            if (draftConfirmationViewModel.DoWithPRN == PrnStatus.Draft)
+            {
+                var existingData = await _prnService.GetDraftConfirmationViewModel(draftConfirmationViewModel.Id);
+                if (existingData.DoWithPRN != PrnStatus.Draft)
+                {
+                    await _prnService.SaveDraftPrn(draftConfirmationViewModel);
+                }
+                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, draftConfirmationViewModel);
+            }
+            else
+                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationViewModel.Id });
+        }
+
+        [HttpGet]
         [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
         public async Task<IActionResult> DeleteDraftPrn(int id)
         {
             var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);
+
             return View(viewModel);
         }
 
