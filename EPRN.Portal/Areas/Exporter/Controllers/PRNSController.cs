@@ -49,12 +49,12 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             await _prnService.SaveTonnes(tonnesViewModel);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.SentTo, 
-                Routes.Areas.Controllers.Exporter.PRNS, 
-                new 
-                { 
-                    area = Category, 
-                    tonnesViewModel.Id 
+                Routes.Areas.Actions.PRNS.SentTo,
+                Routes.Areas.Controllers.Exporter.PRNS,
+                new
+                {
+                    area = Category,
+                    tonnesViewModel.Id
                 });
         }
 
@@ -70,10 +70,10 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,
                 Routes.Areas.Controllers.Exporter.PRNS,
-                new 
-                { 
-                    area = Category, 
-                    Id = prnId 
+                new
+                {
+                    area = Category,
+                    Id = prnId
                 });
         }
 

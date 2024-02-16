@@ -7,14 +7,15 @@
         Draft,
         CheckYourAnswersComplete,
         // sent to a producer/compliance scheme
-        Sent, 
+        Sent,
         // accepted by the producer/compliance scheme - this is the last step of the process therefore no need for Completed
-        Accepted ,
-        CancellationRequested ,
-        Cancelled ,
+        Accepted,
+        CancellationRequested,
+        Cancelled,
         Complete,
         AwaitingAcceptance,
         Rejected,
-        AwaitingCancellation
+        AwaitingCancellation,
+        Deleted
     }
 }

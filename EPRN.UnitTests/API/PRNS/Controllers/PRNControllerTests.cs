@@ -69,9 +69,9 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             await _prnController.GetConfirmation(id);
 
             // assert
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.GetConfirmation(
-                    It.Is<int>(p => p == id)), 
+                    It.Is<int>(p => p == id)),
                 Times.Once);
         }
 
@@ -121,7 +121,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
 
             // assert
             Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof (OkObjectResult));
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             var okObjectResult = (OkObjectResult)result;
 
             Assert.AreEqual(status, okObjectResult.Value);
@@ -138,7 +138,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             await _prnController.CancelPrn(id, reason);
 
             // assert
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.CancelPrn(
                     It.Is<int>(p => p == id),
                     It.Is<string>(p => p == reason)),
@@ -161,7 +161,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             var result = await _prnController.GetStatusAndProducer(id);
 
             // assert
-            _mockPrnService.Verify(s => 
+            _mockPrnService.Verify(s =>
                 s.GetStatusWithProducerName(
                     It.Is<int>(p => p == id)),
                 Times.Once);
@@ -187,7 +187,7 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             Assert.IsInstanceOfType(result, typeof(OkResult));
 
             // Ensure that the service method was called with the correct arguments
-            _mockPrnService.Verify(x => 
+            _mockPrnService.Verify(x =>
                 x.RequestCancelPrn(
                     It.Is<int>(prnId => prnId == id),
                     It.Is<string>(cancelReason => cancelReason == reason)),
@@ -262,6 +262,132 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(OkResult));
         }
+
+        #region GetPrnReference
+
+        [TestMethod]
+        public async Task GetPrnReference_ReturnsOk_WhenServiceReturnsValidResult()
+        {
+            // Arrange
+            int id = 3;
+            var expectedResult = new DeleteDraftPrnDto();
+
+            _mockPrnService.Setup(mock => mock.GetPrnReference(id)).ReturnsAsync(expectedResult);
+
+            // Act
+            var result = await _prnController.GetPrnReference(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
+        }
+
+        [TestMethod]
+        public async Task GetPrnReference_ReturnsNotFound_WhenServiceReturnsNull()
+        {
+            // Arrange
+            int id = 3;
+            DeleteDraftPrnDto expectedResult = null;
+
+            _mockPrnService.Setup(mock => mock.GetPrnReference(id)).ReturnsAsync(expectedResult);
+
+            // Act
+            var result = await _prnController.GetPrnReference(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
+        public async Task GetPrnReference_ReturnsCorrectPrnReference_WhenServiceReturnsValidResult()
+        {
+            // Arrange
+            int id = 3;
+
+            var expectedDto = new DeleteDraftPrnDto
+            {
+                Id = id,
+                PrnReference = "PRN-298321"
+            };
+
+            _mockPrnService.Setup(mock => mock.GetPrnReference(id)).ReturnsAsync(expectedDto);
+
+            // Act
+            var result = await _prnController.GetPrnReference(id) as OkObjectResult;
+            var prnReference = result?.Value as DeleteDraftPrnDto;
+
+            // Assert
+            Assert.IsNotNull(prnReference);
+            Assert.AreEqual(expectedDto.Id, prnReference.Id);
+            Assert.AreEqual(expectedDto.PrnReference, prnReference.PrnReference);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SystemException))]
+        public async Task GetPrnReference_ReturnsInternalServerError_WhenServiceThrowsException()
+        {
+            // Arrange
+            int id = 3;
+
+            _mockPrnService.Setup(mock => mock.GetPrnReference(id)).ThrowsAsync(new SystemException());
+
+            // Act
+            var result = await _prnController.GetPrnReference(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(StatusCodeResult));
+            var statusCodeResult = (StatusCodeResult)result;
+            Assert.AreEqual(500, statusCodeResult.StatusCode);
+        }
+
+        #endregion
+
+        #region DeleteDraftPrn
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_ReturnsOkResult()
+        {
+            // Arrange
+            int id = 8;
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(OkResult));
+        }
+
+        [TestMethod]
+        public async Task DeleteDraftPrn_CallsDeleteDraftPrn_WithValidId()
+        {
+            // Arrange
+            int id = 8;
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(id);
+
+            // Assert
+            _mockPrnService.Verify(m => m.DeleteDraftPrn(id), Times.Once());
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(SystemException))]
+        public async Task DeleteDraftPrn_ReturnsInternalServerError_WhenServiceThrowsException()
+        {
+            // Arrange
+            int id = 8;
+
+            _mockPrnService.Setup(m => m.DeleteDraftPrn(It.IsAny<int>())).ThrowsAsync(new SystemException());
+
+            // Act
+            var result = await _prnController.DeleteDraftPrn(id);
+
+            // Assert
+            Assert.IsInstanceOfType(result, typeof(StatusCodeResult));
+            var statusCodeResult = (StatusCodeResult)result;
+            Assert.AreEqual(500, statusCodeResult.StatusCode);
+        }
+
+        #endregion
 
         [TestMethod]
         public async Task GetDraftDetailsUsingId_WhenDtoIsNotNull_ShouldReturnOkResult()

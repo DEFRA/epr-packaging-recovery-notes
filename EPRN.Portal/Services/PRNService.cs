@@ -183,7 +183,7 @@ namespace EPRN.Portal.Services
         {
             var getSentPrnsDto = _mapper.Map<GetSentPrnsDto>(request);
             var sentPrnsDto = await _httpPrnsService.GetSentPrns(getSentPrnsDto);
-           
+
             var viewModel = _mapper.Map<ViewSentPrnsViewModel>(sentPrnsDto);
 
             viewModel.FilterItems = EnumHelpers.ToSelectList(typeof(PrnStatus),
@@ -197,7 +197,7 @@ namespace EPRN.Portal.Services
 
             viewModel.SortItems = new List<SelectListItem>
             {
-                new() { Value = "", Text = @ViewSentPrnResources.SortBy }, 
+                new() { Value = "", Text = @ViewSentPrnResources.SortBy },
                 new() { Value = "1", Text = "Material" },
                 new() { Value = "2", Text = "Sent to" }
             };
@@ -226,6 +226,18 @@ namespace EPRN.Portal.Services
                 throw new ArgumentNullException(nameof(draftConfirmationViewModel.DoWithPRN));
 
             await _httpPrnsService.SaveDraftPrn(draftConfirmationViewModel.Id);
+        }
+
+        public async Task<DeleteDraftPrnViewModel> GetDeleteDraftPrnViewModel(int id)
+        {
+            var dto = await _httpPrnsService.GetPrnReference(id);
+
+            return _mapper.Map<DeleteDraftPrnViewModel>(dto);
+        }
+
+        public async Task DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
+        {
+            await _httpPrnsService.DeleteDraftPrn(viewModel.Id);
         }
     }
 }

@@ -15,6 +15,7 @@
         Complete,
         AwaitingAcceptance,
         Rejected,
-        AwaitingCancellation
+        AwaitingCancellation,
+        Deleted
     }
 }

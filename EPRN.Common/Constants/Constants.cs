@@ -17,17 +17,22 @@ public static class Strings
         public const string PRN = "PRN";
         public const string Returns = "Returns";
     }
-    
+
     public static class Notifications
     {
         public const string QuarterlyReturnDue = "QuarterlyReturnDue";
         public const string QuarterlyReturnLate = "QuarterlyReturnLate";
     }
-    
+
     public static class QueryStrings
     {
         public const string ReturnToAnswers = "rtap";
         public const string ReturnToAnswersYes = "y";
+    }
+
+    public static class RepoStrings
+    {
+        public const string DeleteDraft = "Deleted draft";
     }
 
     /// <summary>
@@ -51,7 +56,7 @@ public static class Strings
                 public static class Reprocessor
                 {
                     public const string PRNS = "PRNS";
-                }   
+                }
             }
 
             public static class Actions
@@ -69,6 +74,7 @@ public static class Strings
                     public const string Cancelled = "Cancelled";
                     public const string RequestCancelConfirmed = "RequestCancelConfirmed";
                     public const string DecemberWaste = "DecemberWaste";
+                    public const string DeleteDraft = "DeleteDraft";
                     public const string DraftConfirmation = "DraftConfirmation";
                     public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
                 }
@@ -79,7 +85,7 @@ public static class Strings
         {
             public const string Home = "Home";
             public const string PRNS = "Prns";
-            public const string Waste = "Waste";   
+            public const string Waste = "Waste";
         }
 
         public static class Actions

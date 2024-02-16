@@ -1,6 +1,5 @@
 ﻿using EPRN.Common.Dtos;
 using EPRN.Common.Enums;
-using EPRN.Common.Dtos;
 using EPRN.PRNS.API.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -144,7 +143,7 @@ namespace EPRN.PRNS.API.Controllers
         {
             if (id == null)
                 return BadRequest("Missing ID");
-            
+
             var result = await _prnService.GetDecemberWaste(id.Value);
 
             return Ok(result);
@@ -160,6 +159,27 @@ namespace EPRN.PRNS.API.Controllers
             await _prnService.SaveDecemberWaste(
                 id.Value,
                 decemberWaste);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route("PrnReference")]
+        public async Task<IActionResult> GetPrnReference(int id)
+        {
+            var result = await _prnService.GetPrnReference(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("DeleteDraftPrn")]
+        public async Task<IActionResult> DeleteDraftPrn(int id)
+        {
+            await _prnService.DeleteDraftPrn(id);
 
             return Ok();
         }
@@ -200,7 +220,7 @@ namespace EPRN.PRNS.API.Controllers
             if (context.RouteData.Values.ContainsKey(idParameter) &&
                 context.RouteData.Values.ContainsKey(categoryParameter))
             {
-                int  id = Convert.ToInt32(context.RouteData.Values[idParameter]);
+                int id = Convert.ToInt32(context.RouteData.Values[idParameter]);
                 if (Enum.TryParse<EPRN.Common.Enums.Category>(context.RouteData.Values["category"].ToString(), out var category))
                 {
                     if (!await _prnService.PrnRecordExists(id, category))
