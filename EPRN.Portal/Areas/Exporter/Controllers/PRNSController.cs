@@ -267,6 +267,27 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
                 return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationPrnViewModel.Id });
         }
 
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(int id)
+        {
+            var viewModel = await _prnService.GetDeleteDraftPrnViewModel(id);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DeleteDraft)]
+        public async Task<IActionResult> DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
+        {
+            if (viewModel == null)
+                return BadRequest();
+
+            await _prnService.DeleteDraftPrn(viewModel);
+
+            return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed
+        }
+
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             // Handle redirection to CheckYourAnswers if this is where we originally came from
