@@ -242,7 +242,9 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             var viewModel = await _prnService.GetDraftConfirmationViewModel(id.Value);
 
             if (viewModel.DoWithPRN == PrnStatus.Draft)
-                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, viewModel);
+                return View(
+                    Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, 
+                    viewModel);
 
             return View(viewModel);
         }
@@ -256,15 +258,19 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
 
             if (draftConfirmationPrnViewModel.DoWithPRN == PrnStatus.Draft)
             {
-                var existingData = await _prnService.GetDraftConfirmationViewModel(draftConfirmationPrnViewModel.Id);
-                if (existingData != null && existingData.DoWithPRN != PrnStatus.Draft)
-                {
-                    await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
-                }
-                return View(Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, draftConfirmationPrnViewModel);
+                await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
+                return View(
+                    Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, 
+                    draftConfirmationPrnViewModel);
             }
             else
-                return RedirectToAction(Routes.Areas.Actions.PRNS.Confirmation, new { area = Category, draftConfirmationPrnViewModel.Id });
+                return RedirectToAction(
+                    Routes.Areas.Actions.PRNS.Confirmation, 
+                    new 
+                    { 
+                        area = Category, 
+                        draftConfirmationPrnViewModel.Id 
+                    });
         }
 
         [HttpGet]

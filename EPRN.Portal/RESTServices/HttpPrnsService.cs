@@ -119,12 +119,12 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<DraftDetailsPrnDto> GetDraftDetails(int id)
         {
-            return await Get<DraftDetailsPrnDto>($"{id}/Category/{_category}/Details");
+            return await Get<DraftDetailsPrnDto>($"{id}/Category/{_category}/Draft");
         }
 
        public async Task SaveDraftPrn(int id)
         {
-            await Post($"{id}/Category/{_category}/SaveDraftPrn");
+            await Post($"{id}/Category/{_category}/Draft");
         }
     }
 }

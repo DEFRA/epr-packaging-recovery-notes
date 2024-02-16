@@ -185,7 +185,7 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpGet]
-        [Route("Details")]
+        [Route("Draft")]
         public async Task<IActionResult> GetDraftDetails(int id)
         {
             var prnDetailsDto = await _prnService.GetDraftDetails(id);
@@ -197,7 +197,7 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpPost]
-        [Route("SaveDraftPrn")]
+        [Route("Draft")]
         public async Task<ActionResult> SaveDraftPrn(int? id)
         {
             if (id == null)

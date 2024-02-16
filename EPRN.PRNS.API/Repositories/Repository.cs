@@ -143,17 +143,21 @@ namespace EPRN.PRNS.API.Repositories
             Common.Enums.PrnStatus status,
             string reason = null)
         {
-            var historyRecord = new PrnHistory
+            // don't add the same status as we already have
+            if (await GetStatus(id) != status)
             {
-                PrnId = id,
-                CreatedBy = username,
-                Created = DateTime.UtcNow,
-                Status = _mapper.Map<PrnStatus>(status),
-                Reason = reason
-            };
+                var historyRecord = new PrnHistory
+                {
+                    PrnId = id,
+                    CreatedBy = username,
+                    Created = DateTime.UtcNow,
+                    Status = _mapper.Map<PrnStatus>(status),
+                    Reason = reason
+                };
 
-            await _prnContext.AddAsync(historyRecord);
-            await _prnContext.SaveChangesAsync();
+                await _prnContext.AddAsync(historyRecord);
+                await _prnContext.SaveChangesAsync();
+            }
         }
 
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
