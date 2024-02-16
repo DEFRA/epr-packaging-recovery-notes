@@ -151,22 +151,6 @@
             </div>
         </div>
     </footer>
-     @* <script type="text/javascript">
-        var resources = {
-            characterCount: {
-                charactersAtLimit: '@MasterResources.charactersAtLimit',
-                charactersOverLimit: {
-                    one: '@MasterResources.charactersOverLimitOne',
-                    other: '@MasterResources.charactersOverLimitOther'
-                },
-                charactersUnderLimit: {
-                    one: '@MasterResources.charactersUnderLimitOne',
-                    other: '@MasterResources.charactersUnderLimitOther'
-                }
-            }
-        }
-    </script> *@
-    
     @RenderSection("Scripts", false)
     <partial name="_ScriptResources" />
     <script src="~/js/index.js"></script>
