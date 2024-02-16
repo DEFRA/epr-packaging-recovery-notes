@@ -252,34 +252,17 @@ namespace EPRN.PRNS.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<PRNDetailsDto> GetDetails(int id)
+        public async Task<DraftDetailsPrnDto> GetDraftDetails(int id)
         {
             return await _prnContext
                 .PRN
                 .Where(prn => prn.Id == id)
-                .Select(prn => new PRNDetailsDto
+                .Select(prn => new DraftDetailsPrnDto
                 {
-                    AccreditationNumber = "UNKNOWN",
                     ReferenceNumber = prn.Reference,
-                    SiteAddress = $"Unknown street{Environment.NewLine}Unknown town{Environment.NewLine}Unknown postcode",
-                    CreatedBy = prn.PrnHistory.First(h => h.Status == PrnStatus.Draft).CreatedBy,
-                    DecemberWasteBalance = false,
-                    Tonnage = prn.Tonnes,
-                    DateSent = prn.PrnHistory.Where(h => h.Status == PrnStatus.Accepted).Select(h => h.Created).FirstOrDefault(),
-                    SentTo = prn.SentTo,
-                    Note = prn.Note,
-                    History =
-                        // get the history 
-                        (IEnumerable<PRNHistoryDto>)prn
-                        .PrnHistory
-                        .OrderByDescending(h => h.Created)
-                        .Select(h => new PRNHistoryDto
-                        {
-                            Created = h.Created,
-                            Reason = h.Reason,
-                            Status = _mapper.Map<Common.Enums.PrnStatus>(h.Status),
-                            Username = h.CreatedBy
-                        })
+                    Status = prn.PrnHistory != null && prn.PrnHistory.Any()
+                        ? (Common.Enums.PrnStatus)prn.PrnHistory.OrderByDescending(h => h.Created).First().Status
+                        : default
                 })
                 .SingleOrDefaultAsync();
         }

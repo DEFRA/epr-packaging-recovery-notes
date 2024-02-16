@@ -166,9 +166,9 @@ namespace EPRN.PRNS.API.Controllers
 
         [HttpGet]
         [Route("Details")]
-        public async Task<IActionResult> GetPrnDetails(int id)
+        public async Task<IActionResult> GetDraftDetails(int id)
         {
-            var prnDetailsDto = await _prnService.GetPrnDetails(id);
+            var prnDetailsDto = await _prnService.GetDraftDetails(id);
 
             if (prnDetailsDto == null)
                 return NotFound();

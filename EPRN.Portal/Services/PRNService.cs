@@ -213,7 +213,7 @@ namespace EPRN.Portal.Services
 
         public async Task<DraftConfirmationViewModel> GetDraftConfirmationViewModel(int id)
         {
-            var dto = await _httpPrnsService.GetPrnDetails(id);
+            var dto = await _httpPrnsService.GetDraftDetails(id);
             return _mapper.Map<DraftConfirmationViewModel>(dto);
         }
 

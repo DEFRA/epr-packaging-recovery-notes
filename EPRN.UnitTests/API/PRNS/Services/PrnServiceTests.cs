@@ -402,17 +402,17 @@ namespace EPRN.UnitTests.API.PRNS.Services
         }
 
         [TestMethod]
-        public async Task GetPrnDetailsUsingId_WhenRepositoryReturnsDto_ShouldReturnDto()
+        public async Task GetDraftDetailsUsingId_WhenRepositoryReturnsDto_ShouldReturnDto()
         {
             // Arrange
             var reference = 1;
-            var expectedDto = new PRNDetailsDto();
+            var expectedDto = new DraftDetailsPrnDto();
 
-            _mockRepository.Setup(repository => repository.GetDetails(reference))
+            _mockRepository.Setup(repository => repository.GetDraftDetails(reference))
                 .ReturnsAsync(expectedDto);
 
             // Act
-            var result = await _prnService.GetPrnDetails(reference);
+            var result = await _prnService.GetDraftDetails(reference);
 
             // Assert
             Assert.IsNotNull(result);

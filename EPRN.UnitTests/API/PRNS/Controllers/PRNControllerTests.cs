@@ -264,17 +264,17 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         }
 
         [TestMethod]
-        public async Task GetPrnDetailsUsingId_WhenDtoIsNotNull_ShouldReturnOkResult()
+        public async Task GetDraftDetailsUsingId_WhenDtoIsNotNull_ShouldReturnOkResult()
         {
             // Arrange
             var reference = 1;
-            var expectedDto = new PRNDetailsDto();
+            var expectedDto = new DraftDetailsPrnDto();
 
-            _mockPrnService.Setup(service => service.GetPrnDetails(reference))
+            _mockPrnService.Setup(service => service.GetDraftDetails(reference))
                 .ReturnsAsync(expectedDto);
 
             // Act
-            var result = await _prnController.GetPrnDetails(reference);
+            var result = await _prnController.GetDraftDetails(reference);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(OkObjectResult));
@@ -284,16 +284,16 @@ namespace EPRN.UnitTests.API.PRNS.Controllers
         }
 
         [TestMethod]
-        public async Task GetPrnDetailsUsingId_WhenDtoIsNull_ShouldReturnNotFoundResult()
+        public async Task GetDraftDetailsUsingId_WhenDtoIsNull_ShouldReturnNotFoundResult()
         {
             // Arrange
             var reference = 0;
 
-            _mockPrnService.Setup(service => service.GetPrnDetails(reference))
-                .ReturnsAsync((PRNDetailsDto)null);
+            _mockPrnService.Setup(service => service.GetDraftDetails(reference))
+                .ReturnsAsync((DraftDetailsPrnDto)null);
 
             // Act
-            var result = await _prnController.GetPrnDetails(reference);
+            var result = await _prnController.GetDraftDetails(reference);
 
             // Assert
             Assert.IsInstanceOfType(result, typeof(NotFoundResult));

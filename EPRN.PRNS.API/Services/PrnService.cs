@@ -136,9 +136,9 @@ namespace EPRN.PRNS.API.Services
             };
         }
 
-        public async Task<PRNDetailsDto> GetPrnDetails(int id)
+        public async Task<DraftDetailsPrnDto> GetDraftDetails(int id)
         {
-            return await _prnRepository.GetDetails(id);
+            return await _prnRepository.GetDraftDetails(id);
         }
 
         public async Task SaveDecemberWaste(int jouneyId, bool decemberWaste)
