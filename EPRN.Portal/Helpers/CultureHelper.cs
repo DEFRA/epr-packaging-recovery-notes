@@ -1,22 +1,35 @@
-﻿using Microsoft.AspNetCore.Localization;
+﻿using EPRN.Portal.Helpers.Interfaces;
+using Microsoft.AspNetCore.Localization;
 using CultureConstants = EPRN.Common.Constants.CultureConstants;
 
 namespace EPRN.Portal.Helpers
 {
-    public static class CultureHelper
+    public class CultureHelper : ICultureHelper
     {
-        public static string GetCultureInfo(IHttpContextAccessor httpContextAccessor)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public CultureHelper(IHttpContextAccessor httpContextAccessor)
         {
-            if (httpContextAccessor == null || httpContextAccessor.HttpContext == null)
+                _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+        }
+        public string GetCultureInfo()
+        {
+            if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null)
             {
                 throw new InvalidOperationException("HttpContext is null. The operation requires a valid HttpContext.");
             }
 
-            var requestCultureInfo = httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture?.Culture;
+            var requestCultureInfo = _httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture?.Culture;
             var isEnglish = CultureConstants.English.Name == requestCultureInfo?.Name;
             var oppositeCultureValue = isEnglish ? CultureConstants.Welsh.Name : CultureConstants.English.Name;
 
             return oppositeCultureValue;
+        }
+
+        public string ShortCultureCode()
+        {
+            var requestCultureInfo = _httpContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>()?.RequestCulture?.Culture;
+            return requestCultureInfo.TwoLetterISOLanguageName;
         }
     }
 }

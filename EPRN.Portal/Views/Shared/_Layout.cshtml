@@ -1,15 +1,15 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContextAccessor
 @inject IQueryStringHelper queryStringHelper
+@inject ICultureHelper cultureHelper;
 @inject BackButtonViewModel backButtonViewModel;
 
 @{
-    var oppositeCultureValue = CultureHelper.GetCultureInfo(httpContextAccessor);
+    var oppositeCultureValue = cultureHelper.GetCultureInfo();
     var existingQueryStringParameters = queryStringHelper.RemoveCultureQueryString();
 }
 
 <!DOCTYPE html>
-<html lang="en" class="govuk-template ">
-
+<html lang="@cultureHelper.ShortCultureCode()" class="govuk-template ">
 <head>
     <meta charset="utf-8">
     <title>@ViewData["Title"] - GOV.UK</title>
@@ -151,7 +151,24 @@
             </div>
         </div>
     </footer>
+     @* <script type="text/javascript">
+        var resources = {
+            characterCount: {
+                charactersAtLimit: '@MasterResources.charactersAtLimit',
+                charactersOverLimit: {
+                    one: '@MasterResources.charactersOverLimitOne',
+                    other: '@MasterResources.charactersOverLimitOther'
+                },
+                charactersUnderLimit: {
+                    one: '@MasterResources.charactersUnderLimitOne',
+                    other: '@MasterResources.charactersUnderLimitOther'
+                }
+            }
+        }
+    </script> *@
+    
+    @RenderSection("Scripts", false)
+    <partial name="_ScriptResources" />
     <script src="~/js/index.js"></script>
-    @RenderSection("scripts", false)
 </body>
 </html>

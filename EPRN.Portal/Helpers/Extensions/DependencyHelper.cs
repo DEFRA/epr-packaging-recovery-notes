@@ -73,6 +73,7 @@ namespace EPRN.Portal.Helpers.Extensions
                     var factory = x.GetRequiredService<IUrlHelperFactory>();
                     return factory.GetUrlHelper(actionContext);
                 })
+                .AddTransient<ICultureHelper, CultureHelper>()
                 .AddTransient(typeof(ILocalizationHelper<>), typeof(LocalizationHelper<>))
                 .AddSingleton<IQueryStringHelper, QueryStringHelper>()
                 .AddTransient<IWasteService, WasteService>()
