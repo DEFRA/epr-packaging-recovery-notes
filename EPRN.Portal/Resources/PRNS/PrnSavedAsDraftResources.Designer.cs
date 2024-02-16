@@ -70,11 +70,29 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create another PRN.
+        /// </summary>
+        public static string CreateAnotherPrnBtnPERN {
+            get {
+                return ResourceManager.GetString("CreateAnotherPrnBtnPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PRN number.
         /// </summary>
         public static string Label {
             get {
                 return ResourceManager.GetString("Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PRN number.
+        /// </summary>
+        public static string LabelPERN {
+            get {
+                return ResourceManager.GetString("LabelPERN", resourceCulture);
             }
         }
         
@@ -88,11 +106,29 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to PRN saved as a draft.
+        /// </summary>
+        public static string TitlePERN {
+            get {
+                return ResourceManager.GetString("TitlePERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View draft PRNs.
         /// </summary>
         public static string ViewDraftPrnsBtn {
             get {
                 return ResourceManager.GetString("ViewDraftPrnsBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View draft PRNs.
+        /// </summary>
+        public static string ViewDraftPrnsBtnPERN {
+            get {
+                return ResourceManager.GetString("ViewDraftPrnsBtnPERN", resourceCulture);
             }
         }
     }

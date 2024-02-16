@@ -48,5 +48,9 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task<DeleteDraftPrnDto> GetPrnReference(int id);
 
         Task DeleteDraftPrn(int id);
+
+        Task<DraftDetailsPrnDto> GetDraftDetails(int id);
+
+        Task SaveDraftPrn(int id);
     }
 }

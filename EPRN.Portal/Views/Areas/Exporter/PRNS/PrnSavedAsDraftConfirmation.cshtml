@@ -1,25 +1,25 @@
-﻿@model PrnSavedAsDraftViewModel
+﻿@model DraftConfirmationViewModel
 
 @{
-    ViewData["Title"] = PrnSavedAsDraftResources.Title;
+    ViewData["Title"] = PrnSavedAsDraftResources.TitlePERN;
 }
 
 <div class="govuk-panel govuk-panel--confirmation">
     <h1 class="govuk-panel__title">
-        @PrnSavedAsDraftResources.Title
+        @PrnSavedAsDraftResources.TitlePERN
     </h1>
     <div class="govuk-panel__body">
-        <label>@PrnSavedAsDraftResources.Label</label>
+        <label>@PrnSavedAsDraftResources.LabelPERN</label>
         <br />
-        <strong>@Model.PrnNumber</strong>
+        <strong>@Model.ReferenceNumber</strong>
     </div>
 </div>
 <br />
 <div>
     <a class="govuk-button govuk-!-margin-right-4" data-module="govuk-button" href="#">
-        @PrnSavedAsDraftResources.ViewDraftPrnsBtn
+        @PrnSavedAsDraftResources.ViewDraftPrnsBtnPERN
     </a>
     <a class="govuk-button govuk-button--secondary" data-module="govuk-button" href="#">
-        @PrnSavedAsDraftResources.CreateAnotherPrnBtn
+        @PrnSavedAsDraftResources.CreateAnotherPrnBtnPERN
     </a>
 </div>

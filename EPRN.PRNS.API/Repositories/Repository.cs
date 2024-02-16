@@ -40,10 +40,9 @@ namespace EPRN.PRNS.API.Repositories
                 {
                     new PrnHistory
                     {
-                        Status = PrnStatus.Draft,
+                        Status = PrnStatus.Created,
                         Created = DateTime.UtcNow,
-                        CreatedBy = username,
-                        Reason = "Created"
+                        CreatedBy = username
                     }
                 }
             };
@@ -144,17 +143,21 @@ namespace EPRN.PRNS.API.Repositories
             Common.Enums.PrnStatus status,
             string reason = null)
         {
-            var historyRecord = new PrnHistory
+            // don't add the same status as we already have
+            if (await GetStatus(id) != status)
             {
-                PrnId = id,
-                CreatedBy = username,
-                Created = DateTime.UtcNow,
-                Status = _mapper.Map<PrnStatus>(status),
-                Reason = reason
-            };
+                var historyRecord = new PrnHistory
+                {
+                    PrnId = id,
+                    CreatedBy = username,
+                    Created = DateTime.UtcNow,
+                    Status = _mapper.Map<PrnStatus>(status),
+                    Reason = reason
+                };
 
-            await _prnContext.AddAsync(historyRecord);
-            await _prnContext.SaveChangesAsync();
+                await _prnContext.AddAsync(historyRecord);
+                await _prnContext.SaveChangesAsync();
+            }
         }
 
         public async Task<SentPrnsDto> GetSentPrns(GetSentPrnsDto request)
@@ -259,6 +262,22 @@ namespace EPRN.PRNS.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
+
+        public async Task<DraftDetailsPrnDto> GetDraftDetails(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .Select(prn => new DraftDetailsPrnDto
+                {
+                    ReferenceNumber = prn.Reference,
+                    Status = prn.PrnHistory != null && prn.PrnHistory.Any()
+                        ? (Common.Enums.PrnStatus)prn.PrnHistory.OrderByDescending(h => h.Created).First().Status
+                        : default
+                })
+                .SingleOrDefaultAsync();
+        }
+
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
         {
             return await _prnContext.PRN

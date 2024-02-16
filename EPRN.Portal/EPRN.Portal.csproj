@@ -50,13 +50,13 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\PRNS\ActionPRNResources.cy-GB.Designer.cs">
-      <DependentUpon>ActionPRNResources.cy-GB.resx</DependentUpon>
+    <Compile Update="Resources\PRNS\DraftConfirmationResources.cy-GB.Designer.cs">
+      <DependentUpon>DraftConfirmationResources.cy-GB.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\PRNS\ActionPRNResources.Designer.cs">
-      <DependentUpon>ActionPRNResources.resx</DependentUpon>
+    <Compile Update="Resources\PRNS\DraftConfirmationResources.Designer.cs">
+      <DependentUpon>DraftConfirmationResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -203,11 +203,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.cy-GB.resx">
-      <SubType>Designer</SubType>
-      <LastGenOutput>ActionPRNResources.cy-GB.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Update="Resources\AccredidationLimitResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>AccredidationLimitResources.Designer.cs</LastGenOutput>
@@ -220,9 +215,14 @@
       <LastGenOutput>CYAResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.resx">
+    <EmbeddedResource Update="Resources\PRNS\DraftConfirmationResources.cy-GB.resx">
       <SubType>Designer</SubType>
-      <LastGenOutput>ActionPRNResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>DraftConfirmationResources.cy-GB.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DraftConfirmationResources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>DraftConfirmationResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\NoteResources.resx">

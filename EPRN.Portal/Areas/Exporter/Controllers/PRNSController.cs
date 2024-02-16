@@ -108,11 +108,11 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             await _prnService.SaveCheckYourAnswers(checkYourAnswersViewModel.Id);
 
             return RedirectToAction(
-                Routes.Areas.Actions.PRNS.WhatToDo,
-                Routes.Areas.Controllers.Exporter.PRNS,
-                new
+                Routes.Areas.Actions.PRNS.DraftConfirmation,
+                Routes.Areas.Controllers.Exporter.PRNS, 
+                new 
                 {
-                    area = Category,
+                    area = Category, 
                     id = checkYourAnswersViewModel.Id
                 });
         }
@@ -198,6 +198,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DecemberWaste)]
         public async Task<IActionResult> DecemberWaste(int? id)
         {
             if (id == null)
@@ -218,6 +219,7 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
         }
 
         [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DecemberWaste)]
         public async Task<IActionResult> DecemberWaste(DecemberWasteViewModel decemberWaste)
         {
             if (!ModelState.IsValid)
@@ -228,6 +230,47 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction(Routes.Areas.Actions.PRNS.Tonnes,
                                     Routes.Areas.Controllers.Exporter.PRNS,
                                     new { decemberWaste.Id });
+        }
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var viewModel = await _prnService.GetDraftConfirmationViewModel(id.Value);
+
+            if (viewModel.DoWithPRN == PrnStatus.Draft)
+                return View(
+                    Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, 
+                    viewModel);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftConfirmation)]
+        public async Task<IActionResult> DraftConfirmation(DraftConfirmationViewModel draftConfirmationPrnViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(draftConfirmationPrnViewModel);
+
+            if (draftConfirmationPrnViewModel.DoWithPRN == PrnStatus.Draft)
+            {
+                await _prnService.SaveDraftPrn(draftConfirmationPrnViewModel);
+                return View(
+                    Routes.Areas.Actions.PRNS.PrnSavedAsDraftConfirmation, 
+                    draftConfirmationPrnViewModel);
+            }
+            else
+                return RedirectToAction(
+                    Routes.Areas.Actions.PRNS.Confirmation, 
+                    new 
+                    { 
+                        area = Category, 
+                        draftConfirmationPrnViewModel.Id 
+                    });
         }
 
         [HttpGet]

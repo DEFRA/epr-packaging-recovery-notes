@@ -131,16 +131,6 @@ namespace EPRN.Portal.Services
             };
         }
 
-        public async Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id)
-        {
-            //TODO: The PrnNumber property needs to be system generated in the future
-            return new PrnSavedAsDraftViewModel
-            {
-                Id = id,
-                PrnNumber = "PRN222019EFGF",
-            };
-        }
-
         public async Task<CancelViewModel> GetCancelViewModel(int id)
         {
             var dto = await _httpPrnsService.GetStatusAndProducer(id);
@@ -218,17 +208,24 @@ namespace EPRN.Portal.Services
         public async Task<ViewPRNViewModel> GetViewPrnViewModel(string reference)
         {
             var dto = await _httpPrnsService.GetPrnDetails(reference);
-
             return _mapper.Map<ViewPRNViewModel>(dto);
         }
 
-        public async Task<ActionPrnViewModel> GetActionPrnViewModel(int id)
+        public async Task<DraftConfirmationViewModel> GetDraftConfirmationViewModel(int id)
         {
-            //TODO: This will need to be populated by the journey so we can return to it.
-            return new ActionPrnViewModel
-            {
-                Id = id
-            };
+            var dto = await _httpPrnsService.GetDraftDetails(id);
+            return _mapper.Map<DraftConfirmationViewModel>(dto);
+        }
+
+        public async Task SaveDraftPrn(DraftConfirmationViewModel draftConfirmationViewModel)
+        {
+            if (draftConfirmationViewModel == null)
+                throw new ArgumentNullException(nameof(draftConfirmationViewModel));
+
+            if (draftConfirmationViewModel.DoWithPRN == null)
+                throw new ArgumentNullException(nameof(draftConfirmationViewModel.DoWithPRN));
+
+            await _httpPrnsService.SaveDraftPrn(draftConfirmationViewModel.Id);
         }
 
         public async Task<DeleteDraftPrnViewModel> GetDeleteDraftPrnViewModel(int id)

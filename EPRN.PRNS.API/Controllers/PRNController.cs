@@ -184,6 +184,30 @@ namespace EPRN.PRNS.API.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("Draft")]
+        public async Task<IActionResult> GetDraftDetails(int id)
+        {
+            var prnDetailsDto = await _prnService.GetDraftDetails(id);
+
+            if (prnDetailsDto == null)
+                return NotFound();
+
+            return Ok(prnDetailsDto);
+        }
+
+        [HttpPost]
+        [Route("Draft")]
+        public async Task<ActionResult> SaveDraftPrn(int? id)
+        {
+            if (id == null)
+                return BadRequest("Missing ID");
+
+            await _prnService.SaveDraftPrn(id.Value);
+
+            return Ok();
+        }
+
         /// <summary>
         /// Ensures that for every request a check is made that the record exists
         /// in the db

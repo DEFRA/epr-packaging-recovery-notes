@@ -22,14 +22,14 @@ namespace EPRN.Portal.Resources.PRNS {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ActionPRNResources {
+    public class DraftConfirmationResources___Copy {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ActionPRNResources() {
+        internal DraftConfirmationResources___Copy() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace EPRN.Portal.Resources.PRNS {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.ActionPRNResources", typeof(ActionPRNResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("EPRN.Portal.Resources.PRNS.DraftConfirmationResources - Copy", typeof(DraftConfirmationResources___Copy).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -70,11 +70,38 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Continue.
+        /// </summary>
+        public static string ContinuePERN {
+            get {
+                return ResourceManager.GetString("ContinuePERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select if you are creating this PRN.
+        /// </summary>
+        public static string ErrorMessage {
+            get {
+                return ResourceManager.GetString("ErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
         public static string Heading {
             get {
                 return ResourceManager.GetString("Heading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
+        /// </summary>
+        public static string HeadingPERN {
+            get {
+                return ResourceManager.GetString("HeadingPERN", resourceCulture);
             }
         }
         
@@ -88,6 +115,15 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save it as draft.
+        /// </summary>
+        public static string SaveItAsDraftPERN {
+            get {
+                return ResourceManager.GetString("SaveItAsDraftPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Send it to:.
         /// </summary>
         public static string SendItTo {
@@ -97,11 +133,29 @@ namespace EPRN.Portal.Resources.PRNS {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send it to:.
+        /// </summary>
+        public static string SendItToPERN {
+            get {
+                return ResourceManager.GetString("SendItToPERN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What do want to do with this PRN?.
         /// </summary>
         public static string Title {
             get {
                 return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to What do want to do with this PRN?.
+        /// </summary>
+        public static string TitlePERN {
+            get {
+                return ResourceManager.GetString("TitlePERN", resourceCulture);
             }
         }
     }
