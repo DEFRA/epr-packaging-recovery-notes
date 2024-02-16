@@ -99,5 +99,11 @@ namespace EPRN.Portal.Controllers
         {
             return RedirectToAction(Routes.Actions.PRNS.ViewDraftPrns);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int prnId)
+        {
+            return RedirectToAction(Routes.Actions.PRNS.ViewDraftPrns);
+        }
     }
 }
