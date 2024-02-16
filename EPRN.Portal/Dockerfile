@@ -1,6 +1,6 @@
 FROM defradigital/dotnetcore-development:dotnet6.0 AS build-env
 
-ARG PORT=3001
+ARG PORT=3000
 ENV ASPNETCORE_URLS=http://*:${PORT}
 EXPOSE ${PORT}
 
@@ -27,7 +27,7 @@ USER dotnet
 
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=0
 
-ARG PORT=3001
+ARG PORT=3000
 ENV ASPNETCORE_URLS=http://*:${PORT}
 EXPOSE ${PORT}
 
