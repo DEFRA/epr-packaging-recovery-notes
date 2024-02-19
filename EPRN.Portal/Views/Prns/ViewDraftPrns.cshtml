@@ -1,5 +1,10 @@
 ﻿@model List<EPRN.Portal.ViewModels.PRNS.ViewDraftPrnViewModel>
 
+@if (ViewBag.PrnDeletedConfirmation != null)
+{
+    <h1>PRN deleted @ViewBag.PrnDeletedConfirmation</h1>
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 

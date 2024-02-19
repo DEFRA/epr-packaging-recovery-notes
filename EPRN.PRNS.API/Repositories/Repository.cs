@@ -257,19 +257,6 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
         {
-            var prns0 = await _prnContext
-                .PRN
-                .Include(i => i.WasteType)
-                .Where(x => x.UserReferenceId == userReferenceId)
-                .Where(x => _prnContext.PRNHistory
-                    .OrderByDescending(y => y.Created)
-                    .Select(y => y.PrnId)
-                    .Contains(x.Id)
-                    )
-                .ToListAsync();
-
-
-            // TODO: add filter for status = Draft
             var myPrns = new List<PrnDto>();    
 
             var prns = await _prnContext

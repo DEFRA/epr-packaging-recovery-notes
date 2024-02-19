@@ -83,8 +83,11 @@ namespace EPRN.Portal.Controllers
 
         [HttpGet]
         [ActionName(Routes.Actions.PRNS.ViewDraftPrns)]
-        public async Task<IActionResult> ViewDraftPRNS()
+        public async Task<IActionResult> ViewDraftPRNS(int? prnId)
         {
+            if (prnId != null)
+                ViewBag.PrnDeletedConfirmation = prnId.Value;
+
             var userReferenceId = "UserReferenceId";
             if (string.IsNullOrWhiteSpace(userReferenceId))
                 return NotFound();
