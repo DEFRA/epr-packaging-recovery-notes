@@ -10,7 +10,7 @@ RUN dotnet restore "EPRN.PRNS.API/EPRN.PRNS.API.csproj"
 
 COPY --chown=dotnet:dotnet . .
 WORKDIR /home/dotnet/EPRN.PRNS.API
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release /p:AzureBuild=true -o out
 
 FROM defradigital/dotnetcore:dotnet6.0
 COPY --from=build-env --chown=dotnet /home/dotnet/EPRN.PRNS.API/out .

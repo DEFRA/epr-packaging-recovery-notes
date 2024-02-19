@@ -16,7 +16,7 @@ RUN dotnet restore "EPRN.Portal/EPRN.Portal.csproj"
 
 COPY --chown=dotnet:dotnet . .
 WORKDIR /home/dotnet/EPRN.Portal
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release /p:AzureBuild=true -o out
 
 FROM defradigital/dotnetcore:dotnet6.0
 COPY --from=build-env --chown=dotnet /home/dotnet/EPRN.Portal/out .

@@ -10,7 +10,7 @@ RUN dotnet restore "EPRN.Waste.API/EPRN.Waste.API.csproj"
 
 COPY --chown=dotnet:dotnet . .
 WORKDIR /home/dotnet/EPRN.Waste.API
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release /p:AzureBuild=true -o out
 
 FROM defradigital/dotnetcore:dotnet6.0
 COPY --from=build-env --chown=dotnet /home/dotnet/EPRN.Waste.API/out .
