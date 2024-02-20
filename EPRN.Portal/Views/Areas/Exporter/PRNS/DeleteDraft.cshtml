@@ -6,6 +6,7 @@
 @model DeleteDraftPrnViewModel
 
 <form method="post">
+    <input type="hidden" value="@Model.PrnReference" name="PrnReference" />
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l">@DeleteDraftPrnResources.PageHeading</h1>
@@ -14,7 +15,7 @@
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     @DeleteDraftPrnResources.ConfirmAndContinue
                 </button>
-                <a class="govuk-link" asp-action="@Routes.Areas.Actions.PRNS.DraftPrns" asp-route-id="@Model.Id" href="/">@DeleteDraftPrnResources.Cancel</a>
+                <a class="govuk-link" asp-action="@Routes.Areas.Actions.PRNS.DraftPrns">@DeleteDraftPrnResources.Cancel</a>
             </div>
         </div>
     </div>

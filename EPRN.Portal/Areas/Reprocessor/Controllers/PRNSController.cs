@@ -293,17 +293,17 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.DeleteDraftPrn(viewModel);
 
-            return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed
+            return RedirectToAction(Routes.Areas.Actions.PRNS.DraftPrns, new { viewModel.Id });
         }
 
 
 
         [HttpGet]
         [ActionName(Routes.Areas.Actions.PRNS.DraftPrns)]
-        public async Task<IActionResult> DraftPrns(int? prnId)
+        public async Task<IActionResult> DraftPrns(string prnReference)
         {
-            if (prnId != null)
-                ViewBag.PrnDeletedConfirmation = prnId.Value;
+            if (!string.IsNullOrWhiteSpace(prnReference))
+                ViewBag.PrnDeletedConfirmation = prnReference;
 
             var userReferenceId = "UserReferenceId";
             if (string.IsNullOrWhiteSpace(userReferenceId))

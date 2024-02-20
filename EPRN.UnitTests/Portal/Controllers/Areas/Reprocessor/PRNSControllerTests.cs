@@ -2,6 +2,7 @@
 using EPRN.Portal.Areas.Reprocessor.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using static EPRN.Common.Constants.Strings;
@@ -13,14 +14,15 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
     {
         private PRNSController _prnController;
         private Mock<IPRNService> _mockPrnService;
+        private WasteCommonViewModel _mockWasteCommonViewModel;
 
         [TestInitialize]
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
             var factory = new Func<EPRN.Common.Enums.Category, IPRNService>((category) => _mockPrnService.Object);
-
-            _prnController = new PRNSController(factory);
+            _mockWasteCommonViewModel = new WasteCommonViewModel();
+            _prnController = new PRNSController(factory, _mockWasteCommonViewModel);
         }
 
         [TestMethod]
