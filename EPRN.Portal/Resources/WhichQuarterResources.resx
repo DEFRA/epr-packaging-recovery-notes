@@ -205,7 +205,7 @@
     <value>Submit this return</value>
   </data>
   <data name="QuarterlyReturnLate" xml:space="preserve">
-    <value>Your previous quarterly return Is now late</value>
+    <value>Your previous quarterly return is now late</value>
   </data>
   <data name="QuarterlyReturnLateAction" xml:space="preserve">
     <value>You need to submit this return</value>

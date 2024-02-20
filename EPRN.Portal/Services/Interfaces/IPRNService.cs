@@ -20,8 +20,6 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task SaveCheckYourAnswers(int id);
 
-        Task<PrnSavedAsDraftViewModel> GetDraftPrnConfirmationModel(int id);
-
         Task<CancelViewModel> GetCancelViewModel(int id);
 
         Task<RequestCancelViewModel> GetRequestCancelViewModel(int id);
@@ -38,6 +36,12 @@ namespace EPRN.Portal.Services.Interfaces
 
         Task SaveDecemberWaste(DecemberWasteViewModel decemberWasteModel);
 
+        Task<DeleteDraftPrnViewModel> GetDeleteDraftPrnViewModel(int id);
+
+        Task DeleteDraftPrn(DeleteDraftPrnViewModel viewModel);
+        Task<DraftConfirmationViewModel> GetDraftConfirmationViewModel(int id);
+
+        Task SaveDraftPrn(DraftConfirmationViewModel draftConfirmationViewModel);
         Task<ActionPrnViewModel> GetActionPrnViewModel(int id);
         Task<List<ViewDraftPrnViewModel>> GetDraftViewPrnViewModel(string userReferenceId);
     }

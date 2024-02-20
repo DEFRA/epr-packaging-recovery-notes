@@ -23,7 +23,14 @@ import prnCreate from "./pages/Prn-Create"
 import viewSentPrns from "./pages/ViewSentPrns"
 
 $(document).ready(function () {
-    initAll();
+    initAll({
+        characterCount: {
+            i18n: { ...resources.characterCount }
+        },
+        accordion: {
+            i18n: { ...resources.accordian }
+        }
+    });
 
     var inputs = $('input.3dp');
 

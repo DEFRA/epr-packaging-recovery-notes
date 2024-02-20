@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-
 namespace EPRN.Common.Extensions
 {
     public static class Extensions
@@ -9,7 +8,7 @@ namespace EPRN.Common.Extensions
         {
             return $"Month{key}";
         }
-        
+
         public static bool IsFeb29(this DateTime date)
         {
             return DateTime.IsLeapYear(date.Year) && date is { Month: 2, Day: 29 };
@@ -26,14 +25,13 @@ namespace EPRN.Common.Extensions
                 }
             };
             var enumMembers = members is { Length: > 0 } ? members : Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
-            
+
             selectList.AddRange(enumMembers
                 .Select(e => new SelectListItem
                 {
                     Value = ((int)Convert.ChangeType(e, typeof(int))).ToString(),
                     Text = e.ToString()
                 }));
-            
             return selectList;
         }
     }

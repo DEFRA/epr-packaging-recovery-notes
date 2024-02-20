@@ -95,7 +95,6 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

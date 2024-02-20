@@ -50,13 +50,18 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Update="Resources\GovFrontEndTextOverrideResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>GovFrontEndTextOverrideResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PRNS\ActionPRNResources.cy-GB.Designer.cs">
       <DependentUpon>ActionPRNResources.cy-GB.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
-    <Compile Update="Resources\PRNS\ActionPRNResources.Designer.cs">
-      <DependentUpon>ActionPRNResources.resx</DependentUpon>
+    <Compile Update="Resources\PRNS\DraftConfirmationResources.Designer.cs">
+      <DependentUpon>DraftConfirmationResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -92,6 +97,11 @@
     </Compile>
     <Compile Update="Resources\CreatePrnPern.Designer.cs">
       <DependentUpon>CreatePrnPern.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\PRNS\DeleteDraftPrnResources.Designer.cs">
+      <DependentUpon>DeleteDraftPrnResources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
@@ -198,10 +208,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.cy-GB.resx">
-      <SubType>Designer</SubType>
-      <LastGenOutput>ActionPRNResources.cy-GB.Designer.cs</LastGenOutput>
-      <Generator>PublicResXFileCodeGenerator</Generator>
+    <EmbeddedResource Update="Resources\GovFrontEndTextOverrideResources.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>GovFrontEndTextOverrideResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\AccredidationLimitResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -215,9 +224,13 @@
       <LastGenOutput>CYAResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\PRNS\ActionPRNResources.resx">
+    <EmbeddedResource Update="Resources\PRNS\DraftConfirmationResources.cy-GB.resx">
       <SubType>Designer</SubType>
-      <LastGenOutput>ActionPRNResources.Designer.cs</LastGenOutput>
+      <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DraftConfirmationResources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>DraftConfirmationResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\NoteResources.resx">
@@ -243,6 +256,13 @@
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\CreatePrnPern.resx">
       <LastGenOutput>CreatePrnPern.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DeleteDraftPrnResources.cy-GB.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DeleteDraftPrnResources.resx">
+      <LastGenOutput>DeleteDraftPrnResources.Designer.cs</LastGenOutput>
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\CancelledResources.cy-GB.resx">

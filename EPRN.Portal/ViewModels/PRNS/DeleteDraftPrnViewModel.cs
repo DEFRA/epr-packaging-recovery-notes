@@ -1,9 +1,8 @@
 ﻿namespace EPRN.Portal.ViewModels.PRNS
 {
-    public class PrnSavedAsDraftViewModel
+    public class DeleteDraftPrnViewModel
     {
         public int Id { get; set; }
-
-        public string PrnNumber { get; set; }
+        public string PrnReference { get; set; }
     }
 }
