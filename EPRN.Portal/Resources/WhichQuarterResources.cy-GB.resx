@@ -202,7 +202,7 @@
     <value>[Welsh]You need to submit your quarterly return by</value>
   </data>
   <data name="QuarterlyReturnLate" xml:space="preserve">
-    <value>[Welsh]Your previous quarterly return Is now late</value>
+    <value>[Welsh]Your previous quarterly return is now late</value>
   </data>
   <data name="QuarterlyReturnDueAction" xml:space="preserve">
     <value>[Welsh]Submit this return</value>
