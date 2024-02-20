@@ -321,7 +321,9 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
                 return RedirectToAction(Routes.Areas.Actions.PRNS.DeleteDraft, new { id = prnId });
 
             var prnReference = await _prnService.GetDeleteDraftPrnViewModel(prnId);
-            return RedirectToAction(Routes.Actions.PRNS.View, new { reference = prnReference.PrnReference });
+            //return RedirectToAction(Routes.Actions.PRNS.View, new { reference = prnReference.PrnReference });
+            return RedirectToAction(Routes.Areas.Actions.PRNS.CheckYourAnswers, new { id = prnReference.Id });
+
         }
 
 
