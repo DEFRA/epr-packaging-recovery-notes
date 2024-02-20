@@ -288,6 +288,7 @@ namespace EPRN.PRNS.API.Repositories
 
             var prns = await _prnContext
                 .PRN
+                .ExcludeDeleted()
                 .Include(p => p.WasteType)
                 .Where(prn => prn.UserReferenceId == userReferenceId)
                 .Select(prn => new PrnDto

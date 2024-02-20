@@ -131,7 +131,7 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
         {
-            return await Get<List<PrnDto>>($"Category/{_category}/DraftDetails/{userReferenceId}");
+            return await Get<List<PrnDto>>($"Category/{_category}/DraftDetails?userReferenceId={userReferenceId}", false);
         }
     }
 }
