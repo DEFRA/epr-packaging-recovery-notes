@@ -55,7 +55,7 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task<bool> PrnExists(
             int id,
-            EPRN.Common.Enums.Category category)
+            Common.Enums.Category category)
         {
             return await _prnContext
                 .PRN
@@ -74,12 +74,13 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task UpdateTonnage(int id, double tonnes)
         {
-            await _prnContext
-                .PRN
-                .Where(prn => prn.Id == id)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(prn => prn.Tonnes, tonnes)
-                );
+            var prn = await GetPRNRecord(id);
+
+            if (prn != null)
+            {
+                prn.Tonnes = tonnes;
+                await _prnContext.SaveChangesAsync();
+            }
         }
 
         public async Task<ConfirmationDto> GetConfirmation(int id)
@@ -292,13 +293,14 @@ namespace EPRN.PRNS.API.Repositories
                 .SingleOrDefaultAsync();
         }
 
-        public async Task SaveDecemberWaste(int journeyId, bool decemberWaste)
+        public async Task SaveDecemberWaste(int id, bool decemberWaste)
         {
-            await _prnContext.PRN
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.DecemberWaste, decemberWaste)
-                );
+            var prn = await GetPRNRecord(id);
+
+            if (prn != null)
+            {
+                prn.DecemberWaste = decemberWaste;
+            }
         }
 
         public async Task<DeleteDraftPrnDto> GetPrnReference(int id)
@@ -313,6 +315,15 @@ namespace EPRN.PRNS.API.Repositories
                     Id = prn.Id,
                     PrnReference = prn.Reference
                 })
+                .FirstOrDefaultAsync();
+        }
+
+        private async Task<PackagingRecoveryNote> GetPRNRecord(int id)
+        {
+            return await _prnContext
+                .PRN
+                .Where(prn => prn.Id == id)
+                .ExcludeDeleted()
                 .FirstOrDefaultAsync();
         }
     }

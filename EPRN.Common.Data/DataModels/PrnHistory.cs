@@ -12,7 +12,7 @@ namespace EPRN.Common.Data.DataModels
         public PrnStatus Status { get; set; }
 
         [MaxLength(200)]
-        public string? Reason { get; set; }
+        public string Reason { get; set; }
 
         public DateTime Created { get; set; }
 

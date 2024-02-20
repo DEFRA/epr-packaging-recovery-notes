@@ -27,90 +27,97 @@ namespace EPRN.Waste.API.Repositories
             await _wasteContext.SaveChangesAsync();
         }
 
-        public async Task UpdateJourneySiteId(int journeyId, int siteId)
+        public async Task UpdateJourneySiteId(int id, int siteId)
         {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.SiteId, siteId)
-                );
+            var waste = await GetJourney(id);
+
+            if (waste != null)
+            {
+                waste.SiteId = siteId;
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
-        public async Task UpdateJourneyBaledWithWire(int journeyId, bool baledWithWire, double baledWithWireDeductionPercentage)
+        public async Task UpdateJourneyBaledWithWire(
+            int id, 
+            bool baledWithWire, 
+            double baledWithWireDeductionPercentage)
         {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp => sp
-                    .SetProperty(wj => wj.BaledWithWire, baledWithWire)
-                    .SetProperty(p => p.BaledWithWireDeductionPercentage, baledWithWireDeductionPercentage)
-                );
+            var waste = await GetJourney(id);
+
+            if (waste != null)
+            {
+                waste.BaledWithWire = baledWithWire;
+                waste.BaledWithWireDeductionPercentage = baledWithWireDeductionPercentage;
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
-        public async Task UpdateJourneyTonnage(int journeyId, double journeyTonnage)
+        public async Task UpdateJourneyTonnage(int id, double journeyTonnage)
         {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.Tonnes, journeyTonnage)
-                );
+            var waste = await GetJourney(id);
+
+            if (waste != null)
+            {
+                waste.Tonnes = journeyTonnage;
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
-        public async Task UpdateJourneyDoneId(int journeyId, DoneWaste selectedDoneWaste)
+        public async Task UpdateJourneyDoneId(int id, DoneWaste selectedDoneWaste)
         {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.DoneWaste, selectedDoneWaste)
-                );
+            var waste = await GetJourney(id);
+
+            if (waste != null)
+            {
+                waste.DoneWaste = selectedDoneWaste;
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
-        public async Task UpdateJourneyWasteTypeId(int journeyId, int wasteTypeId)
+        public async Task UpdateJourneyWasteTypeId(int id, int wasteTypeId)
         {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.WasteTypeId, wasteTypeId)
-                );
+            var waste = await GetJourney(id);
+
+            if (waste != null)
+            {
+                waste.WasteTypeId = wasteTypeId;
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
-        public async Task UpdateJourneyMonth(int journeyId, int selectedMonth)
+        public async Task UpdateJourneyMonth(int id, int selectedMonth)
         {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.Month, selectedMonth)
-                );
+            var waste = await GetJourney(id);
+
+            if (waste != null)
+            {
+                waste.Month = selectedMonth;
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
         public async Task UpdateJourneySubTypeAndAdjustment(
-            int journeyId,
+            int id,
             int subTypeId,
             double adjustment)
         {
-            var journeyRecord = new WasteJourney
-            {
-                Id = journeyId,
-                Adjustment = adjustment,
-                WasteSubTypeId = subTypeId,
-            };
+            var waste = await GetJourney(id);
 
-            _wasteContext.Attach(journeyRecord);
-            _wasteContext.Entry(journeyRecord).Property("WasteSubTypeId").IsModified = true;
-            _wasteContext.Entry(journeyRecord).Property("Adjustment").IsModified = true;
-            await _wasteContext.SaveChangesAsync();
+            if (waste != null)
+            {
+                waste.Adjustment = adjustment;
+                waste.WasteSubTypeId = subTypeId;
+
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
-        public async Task UpdateJourneyCategory(int journeyId, Category category)
+        public async Task UpdateJourneyCategory(int id, Category category)
         {
             await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .ExecuteUpdateAsync(sp =>
                     sp.SetProperty(wj => wj.Category, category)
                 );
@@ -133,29 +140,29 @@ namespace EPRN.Waste.API.Repositories
                 .ToListAsync();
         }
 
-        public async Task<string> GetWasteTypeName(int journeyId)
+        public async Task<string> GetWasteTypeName(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(wj => wj.WasteType.Name)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<int?> GetWasteTypeId(int journeyId)
+        public async Task<int?> GetWasteTypeId(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(wj => wj.WasteTypeId)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int journeyId)
+        public async Task<WasteSubTypeSelectionDto> GetWasteSubTypeSelection(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(wj => new WasteSubTypeSelectionDto
                 {
                     WasteSubTypeId = wj.WasteSubTypeId.Value,
@@ -163,125 +170,135 @@ namespace EPRN.Waste.API.Repositories
                 })
                 .SingleOrDefaultAsync();
         }
-        public async Task<int?> GetSelectedMonth(int journeyId)
+        public async Task<int?> GetSelectedMonth(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(wj => wj.Month)
                 .SingleOrDefaultAsync();
         }
-        public async Task<DoneWaste?> GetDoneWaste(int journeyId)
+        public async Task<DoneWaste?> GetDoneWaste(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(wj => wj.DoneWaste)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteTonnageDto> GetWasteTonnage(int journeyId)
+        public async Task<WasteTonnageDto> GetWasteTonnage(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(wj => new WasteTonnageDto
                 {
                     ExportTonnes = wj.Tonnes,
-                    Id = journeyId,
+                    Id = id,
                     Category = _mapper.Map<Common.Enums.Category>(wj.Category)
                 })
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int journeyId)
+        public async Task<WasteRecordStatusDto> GetWasteRecordStatus(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(w => w.Id == journeyId)
+                .Where(w => w.Id == id)
                 .Select(w => _mapper.Map<WasteRecordStatusDto>(w))
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<BaledWithWireDto> GetBaledWithWire(int journeyId)
+        public async Task<BaledWithWireDto> GetBaledWithWire(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(w => w.Id == journeyId)
+                .Where(w => w.Id == id)
                 .Select(w => _mapper.Map<BaledWithWireDto>(w))
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<WasteJourney> GetWasteJourneyById_FullModel(int journeyId)
+        public async Task<WasteJourney> GetWasteJourneyById_FullModel(int id)
         {
             return await _wasteContext
                 .WasteJourney
                 .Include(x => x.WasteType)
                 .Include(x => x.WasteSubType)
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<JourneyAnswersDto> GetWasteJourneyAnswersById(int journeyId)
+        public async Task<JourneyAnswersDto> GetWasteJourneyAnswersById(int id)
         {
             return await _wasteContext
                 .WasteJourney
                 .Include(x => x.WasteType)
                 .Include(x => x.WasteSubType)
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(x => _mapper.Map<JourneyAnswersDto>(x))
                 .SingleOrDefaultAsync();
         }
 
-        public async Task<bool> Exists(int journeyId)
+        public async Task<bool> Exists(int id)
         {
             var exists = await _wasteContext
                 .WasteJourney
-                .AnyAsync(wj => wj.Id == journeyId);
+                .AnyAsync(wj => wj.Id == id);
 
             return exists;
         }
 
-        public async Task<NoteDto> GetWasteNote(int journeyId)
+        public async Task<NoteDto> GetWasteNote(int id)
         {
             return await _wasteContext.WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(x => new NoteDto
                 {
-                    Id = journeyId,
+                    Id = id,
                     Note = x.Note,
                     WasteCategory = Enum.Parse<Common.Enums.Category>(x.Category.ToString())
                 })
                 .SingleOrDefaultAsync();
         }
 
-        public async Task UpdateWasteNote(int journeyId, string note)
+        public async Task UpdateWasteNote(int id, string note)
         {
-            await _wasteContext
-                .WasteJourney
-                .Where(wj => wj.Id == journeyId)
-                .ExecuteUpdateAsync(sp =>
-                    sp.SetProperty(wj => wj.Note, note)
-                );
+            var waste = await GetJourney(id);
+
+            if (waste != null)
+            {
+                waste.Note = note;
+                await _wasteContext.SaveChangesAsync();
+            }
         }
 
-        public async Task<Category> GetCategory(int journeyId)
+        public async Task<Category> GetCategory(int id)
         {
             return await _wasteContext
                 .WasteJourney
-                .Where(wj => wj.Id == journeyId)
+                .Where(wj => wj.Id == id)
                 .Select(wj => wj.Category)
                 .SingleOrDefaultAsync();
         }
 
         public async Task<double?> GetTotalQuantityForAllUserJourneys(string userReferenceId)
         {
-            var totalQuantity = _wasteContext
+            var totalQuantity = await _wasteContext
                 .WasteJourney
                 .Where(x => x.UserReference == userReferenceId)
-                .Sum(x => x.Tonnes);
+                .SumAsync(x => x.Tonnes);
 
             return totalQuantity;
+        }
+
+        /// <summary>
+        /// This method exists so we can perform an update on WasteJourney
+        /// and record the auditing of the record using the original values
+        /// </summary>
+        private async Task<WasteJourney> GetJourney(int id)
+        {
+            return await _wasteContext.WasteJourney.FirstOrDefaultAsync(w => w.Id == id);
         }
     }
 }
