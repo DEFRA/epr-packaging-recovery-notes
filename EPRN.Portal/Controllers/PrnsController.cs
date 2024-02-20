@@ -48,6 +48,7 @@ namespace EPRN.Portal.Controllers
             return View(viewSentPrnsViewModel);
         }
 
+
         [HttpGet]
         [ActionName(Routes.Actions.PRNS.ViewDraftPrns)]
         public async Task<IActionResult> ViewDraftPRNS(int? prnId)
@@ -65,15 +66,16 @@ namespace EPRN.Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ViewDraftPRNS(string prnId)
+        public async Task<IActionResult> ViewDraftPRNS(int prnId)
         {
-            return RedirectToAction(Routes.Actions.PRNS.ViewDraftPrns);
+            var prnReference = await _prnService.GetDeleteDraftPrnViewModel(prnId);
+            return RedirectToAction(Routes.Actions.PRNS.View, new { reference = prnReference.PrnReference });
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int prnId)
+        public IActionResult Delete(int prnId)
         {
-            return RedirectToAction(Routes.Actions.PRNS.ViewDraftPrns);
+            return RedirectToAction(Routes.Areas.Actions.PRNS.DeleteDraft, Routes.Areas.Controllers.Exporter.PRNS, new { area = Routes.Areas.Exporter, id = prnId });
         }
     }
 }
