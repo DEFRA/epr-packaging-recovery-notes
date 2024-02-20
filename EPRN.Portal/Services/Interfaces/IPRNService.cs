@@ -42,7 +42,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task<DraftConfirmationViewModel> GetDraftConfirmationViewModel(int id);
 
         Task SaveDraftPrn(DraftConfirmationViewModel draftConfirmationViewModel);
-        Task<ActionPrnViewModel> GetActionPrnViewModel(int id);
+
         Task<List<ViewDraftPrnViewModel>> GetDraftViewPrnViewModel(string userReferenceId);
     }
 }
