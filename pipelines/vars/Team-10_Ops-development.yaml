@@ -1,6 +1,4 @@
 variables:
   azureSubscription: 'AZD-RWD-DEV9'
-  docker.imageName: 'packagingrecoveryapi'
   acr.azureContainerRegistryName: 'devrwdinfac1401'
-  acr.repositoryName: 'packagingrecoveryrepository'
   serviceName: 'devrwdwebwa9403'

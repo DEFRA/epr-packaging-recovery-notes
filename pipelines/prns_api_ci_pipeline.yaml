@@ -28,6 +28,10 @@ variables:
     value: epr-packaging-recovery-notes
   - name: runNugetTasks
     value: false
+  - name: docker.imageName
+    value: prnapi
+  - name: acr.repositoryName
+    value: prnapi
 
 resources:
   repositories:
