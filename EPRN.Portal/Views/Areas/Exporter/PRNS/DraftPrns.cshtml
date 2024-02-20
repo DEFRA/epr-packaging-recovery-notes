@@ -6,24 +6,22 @@
     <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
         <div class="govuk-notification-banner__header">
             <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                Important
+                @DraftPrnsResources.Important
             </h2>
         </div>
         <div class="govuk-notification-banner__content">
             <p class="govuk-notification-banner__heading">
-                Draft @ViewBag.PrnDeletedConfirmation has been deleted
+                @string.Format(@DraftPrnsResources.DeleteConfirmation, ViewBag.PrnDeletedConfirmation)
             </p>
         </div>
     </div>
 }
 
-
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
 
-        <h2 class="govuk-heading-l">View draft PRNs</h2>
-        <p class="govuk-body">View, edit or delete a draft PRN</p>
-
+        <h2 class="govuk-heading-l">@DraftPrnsResources.Heading_Exporter</h2>
+        <p class="govuk-body">@DraftPrnsResources.SubHeading_Exporter</p>
 
         <form class="form" method="POST">
 
@@ -31,11 +29,11 @@
 
                 <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header">PRN number</th>
-                        <th scope="col" class="govuk-table__header">Material</th>
-                        <th scope="col" class="govuk-table__header">Sent to</th>
-                        <th scope="col" class="govuk-table__header">Date created</th>
-                        <th scope="col" class="govuk-table__header">Tonnage</th>
+                        <th scope="col" class="govuk-table__header">@DraftPrnsResources.TableColumnNumber_Exporter</th>
+                        <th scope="col" class="govuk-table__header">@DraftPrnsResources.TableColumnMaterial</th>
+                        <th scope="col" class="govuk-table__header">@DraftPrnsResources.TableColumnSentTo</th>
+                        <th scope="col" class="govuk-table__header">@DraftPrnsResources.TableColumnDateCreated</th>
+                        <th scope="col" class="govuk-table__header">@DraftPrnsResources.TableColumnTonnage</th>
                     </tr>
                 </thead>
 
@@ -63,8 +61,8 @@
 
             </table>
 
-            <input class="govuk-button" type="submit" value="Continue editing" style="margin-right: 20px;" />
-            <input type="submit" asp-action="@Routes.Areas.Actions.PRNS.DraftPrns" asp-route-delete="@true" class="govuk-button govuk-button--secondary" value="Delete PRN" />
+            <input class="govuk-button" type="submit" value="@DraftPrnsResources.BtnContinueEditing" style="margin-right: 20px;" />
+            <input type="submit" asp-action="@Routes.Areas.Actions.PRNS.DraftPrns" asp-route-delete="@true" class="govuk-button govuk-button--secondary" value="@DraftPrnsResources.BtnDelete_Exporter" />
         </form>
 
 
