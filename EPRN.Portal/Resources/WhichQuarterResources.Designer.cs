@@ -377,7 +377,7 @@ namespace EPRN.Portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your previous quarterly return Is now late.
+        ///   Looks up a localized string similar to Your previous quarterly return is now late.
         /// </summary>
         public static string QuarterlyReturnLate {
             get {
