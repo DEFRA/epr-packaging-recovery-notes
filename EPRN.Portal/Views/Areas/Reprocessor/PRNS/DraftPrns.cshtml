@@ -1,0 +1,63 @@
+﻿@using static EPRN.Common.Constants.Strings;
+@model List<EPRN.Portal.ViewModels.PRNS.ViewDraftPrnViewModel>
+
+@if (ViewBag.PrnDeletedConfirmation != null)
+{
+    <h1>PRN deleted @ViewBag.PrnDeletedConfirmation</h1>
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <h2 class="govuk-heading-l">View draft PRNs</h2>
+        <p class="govuk-body">View, edit or delete a draft PRN</p>
+
+
+        <form class="form" method="POST">
+
+            <table class="govuk-table">
+
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">PRN number</th>
+                        <th scope="col" class="govuk-table__header">Material</th>
+                        <th scope="col" class="govuk-table__header">Sent to</th>
+                        <th scope="col" class="govuk-table__header">Date created</th>
+                        <th scope="col" class="govuk-table__header">Tonnage</th>
+                    </tr>
+                </thead>
+
+                <tbody class="govuk-table__body">               
+                    @foreach(var draftPrn in Model)
+                    {
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                <div class="govuk-radios" data-module="govuk-radios">
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" id="organisation" name="prnId" type="radio" value="@draftPrn.Id">
+                                        <label class="govuk-label govuk-radios__label" for="organisation">
+                                            <a href="draft-prn">@draftPrn.PrnNumber</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="govuk-table__cell">@draftPrn.Material</td>
+                            <td class="govuk-table__cell">@draftPrn.SentTo</td>
+                            <td class="govuk-table__cell">@draftPrn.DateCreated</td>
+                            <td class="govuk-table__cell">@draftPrn.Tonnes</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+            <input class="govuk-button" type="submit" value="Continue editing" style="margin-right: 20px;" />
+            <input type="submit" asp-action="@Routes.Areas.Actions.PRNS.DeleteDraft" asp-route-delete="@true" class="govuk-button govuk-button--secondary" value="Delete PERN" />
+        </form>
+
+
+    </div>
+</div>
+
+
+

@@ -300,6 +300,32 @@ namespace EPRN.Portal.Areas.Exporter.Controllers
             return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed
         }
 
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftPrns)]
+        public async Task<IActionResult> DraftPrns(int? prnId)
+        {
+            if (prnId != null)
+                ViewBag.PrnDeletedConfirmation = prnId.Value;
+
+            var userReferenceId = "UserReferenceId";
+            if (string.IsNullOrWhiteSpace(userReferenceId))
+                return NotFound();
+
+            List<ViewDraftPrnViewModel> viewModel = await _prnService.GetDraftViewPrnViewModel(userReferenceId);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DraftPrns(int prnId, bool delete = false)
+        {
+            if(delete)
+                return RedirectToAction(Routes.Areas.Actions.PRNS.DeleteDraft, new { id = prnId });
+
+            var prnReference = await _prnService.GetDeleteDraftPrnViewModel(prnId);
+            return RedirectToAction(Routes.Actions.PRNS.View, new { reference = prnReference.PrnReference });
+        }
+
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             // Handle redirection to CheckYourAnswers if this is where we originally came from

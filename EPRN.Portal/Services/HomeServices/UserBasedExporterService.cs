@@ -41,8 +41,8 @@ namespace EPRN.Portal.Services.HomeServices
                     Routes.Actions.PRNS.Create,
                     Routes.Controllers.PRNS) },
                 { HomePageResources.HomePage_ManagePern_Link_ViewEditDraftPerns, UrlHelper.Action(
-                    Routes.Actions.PRNS.ViewDraftPrns, 
-                    Routes.Controllers.PRNS) },
+                    Routes.Areas.Actions.PRNS.DraftPrns,
+                    Routes.Areas.Controllers.Exporter.PRNS, new { area = Routes.Areas.Exporter }) },
                 { HomePageResources.HomePage_ManagePern_Link_ViewSentPerns, UrlHelper.Action(
                     Routes.Actions.PRNS.ViewSentPrns,
                     Routes.Controllers.PRNS) }

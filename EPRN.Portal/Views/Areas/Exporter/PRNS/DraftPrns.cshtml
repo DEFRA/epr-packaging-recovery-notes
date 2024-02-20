@@ -1,4 +1,5 @@
-﻿@model List<EPRN.Portal.ViewModels.PRNS.ViewDraftPrnViewModel>
+﻿@using static EPRN.Common.Constants.Strings;
+@model List<EPRN.Portal.ViewModels.PRNS.ViewDraftPrnViewModel>
 
 @if (ViewBag.PrnDeletedConfirmation != null)
 {
@@ -51,7 +52,7 @@
             </table>
 
             <input class="govuk-button" type="submit" value="Continue editing" style="margin-right: 20px;" />
-            <input type="submit" asp-action="Delete" asp-controller="Prns" class="govuk-button govuk-button--secondary" value="Delete PRN" />
+            <input type="submit" asp-action="@Routes.Areas.Actions.PRNS.DraftPrns" asp-route-delete="@true" class="govuk-button govuk-button--secondary" value="Delete PRN" />
         </form>
 
 
