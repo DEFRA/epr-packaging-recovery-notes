@@ -29,7 +29,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_ThrowsException_NullParameterProvided()
         {
-            _prnController = new PRNSController(null);
+            _prnController = new PRNSController(null, _mockWasteCommonViewModel);
         }
 
         [TestMethod]
@@ -426,7 +426,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("ViewDraftPRNS", result.ActionName);
+            Assert.AreEqual(Routes.Areas.Actions.PRNS.DraftPrns, result.ActionName);
             Assert.AreEqual(1, result.RouteValues["Id"]);
         }
 
