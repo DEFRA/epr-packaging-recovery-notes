@@ -2,6 +2,7 @@
 using EPRN.Portal.Areas.Reprocessor.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using static EPRN.Common.Constants.Strings;
@@ -13,21 +14,22 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
     {
         private PRNSController _prnController;
         private Mock<IPRNService> _mockPrnService;
+        private WasteCommonViewModel _mockWasteCommonViewModel;
 
         [TestInitialize]
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
             var factory = new Func<EPRN.Common.Enums.Category, IPRNService>((category) => _mockPrnService.Object);
-
-            _prnController = new PRNSController(factory);
+            _mockWasteCommonViewModel = new WasteCommonViewModel();
+            _prnController = new PRNSController(factory, _mockWasteCommonViewModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_ThrowsException_NullParameterProvided()
         {
-            _prnController = new PRNSController(null);
+            _prnController = new PRNSController(null, _mockWasteCommonViewModel);
         }
 
         [TestMethod]
@@ -424,7 +426,7 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Reprocessor
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("ViewDraftPRNS", result.ActionName);
+            Assert.AreEqual(Routes.Areas.Actions.PRNS.DraftPrns, result.ActionName);
             Assert.AreEqual(1, result.RouteValues["Id"]);
         }
 

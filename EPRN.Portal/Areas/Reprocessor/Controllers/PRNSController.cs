@@ -1,8 +1,10 @@
 ﻿using EPRN.Common.Constants;
 using EPRN.Common.Enums;
 using EPRN.Portal.Controllers;
+using EPRN.Portal.Helpers.Filters;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using static EPRN.Common.Constants.Strings;
@@ -11,13 +13,17 @@ using static EPRN.Common.Constants.Strings.Routes;
 namespace EPRN.Portal.Areas.Reprocessor.Controllers
 {
     [Area(Routes.Areas.Reprocessor)]
+    [ServiceFilter(typeof(WasteTypeActionFilter))]
     public class PRNSController : BaseController
     {
         private readonly IPRNService _prnService;
 
         private Category Category => Category.Reprocessor;
 
-        public PRNSController(Func<Category, IPRNService> prnServiceFactory)
+        private WasteCommonViewModel _wasteCommonViewModel;
+
+
+        public PRNSController(Func<Category, IPRNService> prnServiceFactory, WasteCommonViewModel wasteCommonViewModel)
         {
             if (prnServiceFactory == null)
                 throw new ArgumentNullException(nameof(prnServiceFactory));
@@ -25,6 +31,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             var prnService = prnServiceFactory.Invoke(Category);
 
             _prnService = prnService ?? throw new ArgumentNullException(nameof(prnService));
+            _wasteCommonViewModel = wasteCommonViewModel;
         }
 
         [HttpGet]
@@ -64,7 +71,7 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
             if (materialId == null)
                 return NotFound();
 
-            var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category);
+            var prnId = await _prnService.CreatePrnRecord(materialId.Value, Category, _wasteCommonViewModel.CompanyReferenceId);
 
             return RedirectToAction(
                 Routes.Areas.Actions.PRNS.DecemberWaste,
@@ -286,8 +293,40 @@ namespace EPRN.Portal.Areas.Reprocessor.Controllers
 
             await _prnService.DeleteDraftPrn(viewModel);
 
-            return RedirectToAction("ViewDraftPRNS", new { viewModel.Id }); //TODO: This needs to go to the View Draft PRNs page when it's developed
+            return RedirectToAction(Routes.Areas.Actions.PRNS.DraftPrns, new { viewModel.Id });
         }
+
+
+
+        [HttpGet]
+        [ActionName(Routes.Areas.Actions.PRNS.DraftPrns)]
+        public async Task<IActionResult> DraftPrns(string prnReference)
+        {
+            if (!string.IsNullOrWhiteSpace(prnReference))
+                ViewBag.PrnDeletedConfirmation = prnReference;
+
+            var userReferenceId = "UserReferenceId";
+            if (string.IsNullOrWhiteSpace(userReferenceId))
+                return NotFound();
+
+            List<ViewDraftPrnViewModel> viewModel = await _prnService.GetDraftViewPrnViewModel(userReferenceId);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DraftPrns(int prnId, bool delete = false)
+        {
+            if (delete)
+                return RedirectToAction(Routes.Areas.Actions.PRNS.DeleteDraft, new { id = prnId });
+
+            var prnReference = await _prnService.GetDeleteDraftPrnViewModel(prnId);
+            //return RedirectToAction(Routes.Actions.PRNS.View, new { reference = prnReference.PrnReference });
+            return RedirectToAction(Routes.Areas.Actions.PRNS.CheckYourAnswers, new { id = prnReference.Id });
+
+        }
+
+
 
         public override void OnActionExecuted(ActionExecutedContext context)
         {

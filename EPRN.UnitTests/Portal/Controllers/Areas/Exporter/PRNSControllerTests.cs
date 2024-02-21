@@ -2,6 +2,7 @@
 using EPRN.Portal.Areas.Exporter.Controllers;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
+using EPRN.Portal.ViewModels.Waste;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NuGet.ContentModel;
@@ -14,20 +15,22 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
     {
         private PRNSController _prnController;
         private Mock<IPRNService> _mockPrnService;
+        private WasteCommonViewModel _mockWasteCommonViewModel;
 
         [TestInitialize]
         public void Init()
         {
             _mockPrnService = new Mock<IPRNService>();
             var factory = new Func<EPRN.Common.Enums.Category, IPRNService>((category) => _mockPrnService.Object);
-            _prnController = new PRNSController(factory);
+            _mockWasteCommonViewModel = new WasteCommonViewModel();
+            _prnController = new PRNSController(factory, _mockWasteCommonViewModel);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_ThrowsException_NullParameterProvided()
         {
-            _prnController = new PRNSController(null);
+            _prnController = new PRNSController(null, _mockWasteCommonViewModel);
         }
 
         [TestMethod]
@@ -417,15 +420,15 @@ namespace EPRN.UnitTests.Portal.Controllers.Areas.Exporter
         public async Task DeleteDraftPrn_RedirectsToCorrectView_WithCorrectParameters()
         {
             // Arrange
-            var viewModel = new DeleteDraftPrnViewModel { Id = 1 };
+            var viewModel = new DeleteDraftPrnViewModel { Id = 1, PrnReference = "ref1" };
 
             // Act
             var result = await _prnController.DeleteDraftPrn(viewModel) as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual("ViewDraftPRNS", result.ActionName);
-            Assert.AreEqual(1, result.RouteValues["Id"]);
+            Assert.AreEqual(Routes.Areas.Actions.PRNS.DraftPrns, result.ActionName);
+            Assert.AreEqual(viewModel.PrnReference, result.RouteValues["PrnReference"]);
         }
 
         [TestMethod]

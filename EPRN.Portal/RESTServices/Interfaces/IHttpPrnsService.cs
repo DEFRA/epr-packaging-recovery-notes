@@ -20,7 +20,8 @@ namespace EPRN.Portal.RESTServices.Interfaces
 
         Task<int> CreatePrnRecord(
             int materialId,
-            Category category);
+            Category category, 
+            string userReferenceId);
 
         Task SaveCheckYourAnswers(
             int id);
@@ -52,5 +53,6 @@ namespace EPRN.Portal.RESTServices.Interfaces
         Task<DraftDetailsPrnDto> GetDraftDetails(int id);
 
         Task SaveDraftPrn(int id);
+        Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId);
     }
 }

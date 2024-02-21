@@ -56,16 +56,18 @@ namespace EPRN.UnitTests.API.PRNS.Services
             // Arrange
             var materialId = 3;
             var category = Category.Exporter;
+            var userReferenceId = "anyuser";
 
             // Act
-            await _prnService.CreatePrnRecord(materialId, category);
+            await _prnService.CreatePrnRecord(materialId, category, userReferenceId);
 
             // Assert
             _mockRepository.Verify(s =>
                 s.CreatePrnRecord(
                     It.Is<int>(p => p == materialId),
                     It.Is<Category>(p => p == category),
-                    It.IsAny<string>()),
+                    It.IsAny<string>(),
+                    userReferenceId),
                 Times.Once);
         }
 
