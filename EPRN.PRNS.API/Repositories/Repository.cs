@@ -7,6 +7,7 @@ using EPRN.Common.Extensions;
 using EPRN.PRNS.API.Repositories.Interfaces;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
+using System.Drawing;
 using static EPRN.Common.Constants.Strings.Routes.Areas.Actions;
 
 namespace EPRN.PRNS.API.Repositories
@@ -284,33 +285,24 @@ namespace EPRN.PRNS.API.Repositories
 
         public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
         {
-            var myPrns = new List<PrnDto>();    
+            var prnDtos = await _prnContext.PRN
+                            .Include(x => x.WasteType)
+                            .Where(x => x.PrnHistory
+                                .OrderByDescending(x => x.Created)
+                                .FirstOrDefault().Status == PrnStatus.Draft)
+                            .Where(x => x.UserReferenceId == userReferenceId)
+                            .Select(prn => new PrnDto
+                            {
+                                PrnNumber = prn.Reference,
+                                Material = prn.WasteType.Name,
+                                SentTo = prn.SentTo,
+                                DateCreated = prn.CreatedDate.ToString("dd/MM/yyyy"),
+                                Tonnes = prn.Tonnes,
+                                Status = Common.Enums.PrnStatus.Draft
+                            })
+                            .ToListAsync();
 
-            var prns = await _prnContext
-                .PRN
-                .ExcludeDeleted()
-                .Include(p => p.WasteType)
-                .Where(prn => prn.UserReferenceId == userReferenceId)
-                .Select(prn => new PrnDto
-                {
-                    Id = prn.Id,
-                    PrnNumber = prn.Reference,
-                    Material = prn.WasteType.Name,
-                    SentTo = prn.SentTo,
-                    DateCreated = prn.CreatedDate.ToString("dd/MM/yyyy"),
-                    Tonnes = prn.Tonnes,
-                    Status = Common.Enums.PrnStatus.Draft
-                })
-                .ToListAsync();
-
-            foreach (var prn in prns)
-            {
-                var history = await _prnContext.PRNHistory.Where(x => x.PrnId == prn.Id).OrderByDescending(x => x.Created).FirstOrDefaultAsync();
-                if(history.Status == PrnStatus.Draft)
-                    myPrns.Add(prn);
-            }
-
-            return myPrns;
+            return prnDtos;
         }
 
         public async Task<DecemberWasteDto> GetDecemberWaste(int id)
