@@ -37,7 +37,10 @@
             {
                 <div class="govuk-radios__conditional" id="custom-percentage-div">
                     <div class="govuk-hint">
-                        <span asp-validation-for="CustomPercentage">@WasteSubTypesResources.OtherOptionHint</span>
+                        <span>@WasteSubTypesResources.OtherOptionHint</span>
+                    </div>
+                    <div class="govuk-hint">
+                        <span asp-validation-for="CustomPercentage" hidden="hidden">@WasteSubTypesResources.AdjustmentPercentageRequiredMessage</span>
                     </div>
                     <div class="govuk-input__wrapper custom-percentage-input">
                         <input class="govuk-input govuk-input--width-5" type="text" asp-for="CustomPercentage" />
