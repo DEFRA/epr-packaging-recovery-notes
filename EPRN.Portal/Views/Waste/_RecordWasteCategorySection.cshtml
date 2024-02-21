@@ -6,20 +6,18 @@
     @switch (Model.Category)
     {
         case EPRN.Common.Enums.Category.Reprocessor:
-            <h2>@RecordWasteResources.ReprocessingLabel</h2>;
+            <h1 class="govuk-heading-l">@RecordWasteResources.ReprocessingLabel</h1>;
             break;
 
         case EPRN.Common.Enums.Category.Exporter:
-            <h2>@RecordWasteResources.ExportingLabel</h2>;
+            <h1 class="govuk-heading-l">@RecordWasteResources.ExportingLabel</h1>;
             break;
 
         default:
-            <h2>@RecordWasteResources.UnknownLabel</h2>;
+            <h1 class="govuk-heading-l">@RecordWasteResources.UnknownLabel</h1>;
             break;
     }
 
-
-    <h2 class="govuk-body-m">@RecordWasteResources.ChooseAccreditationLabel</h2>
     @foreach (var siteViewModel in Model.Sites)
     {
         <partial name="_RecordWasteSiteSection" model="siteViewModel" view-data="ViewData" />

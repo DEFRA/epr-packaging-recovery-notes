@@ -12,8 +12,8 @@
 }
 
 <span class="govuk-caption-l">@RecordWasteResources.CompanyNameLabel</span>
-<h1 class="govuk-heading-l">@RecordWasteResources.RecordWasteLabel</h1>
-
+<h1 class="govuk-heading-xl">@RecordWasteResources.RecordWasteLabel</h1>
+<h2 class="govuk-body-m">@RecordWasteResources.ChooseAccreditationLabel</h2>
 
 @if ((Model.Id == null && userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor)) ||
     (Model.Id.HasValue && userRoleService.HasRole(EPRN.Common.Enums.UserRole.Reprocessor) && Model.Category == EPRN.Common.Enums.Category.Reprocessor))
