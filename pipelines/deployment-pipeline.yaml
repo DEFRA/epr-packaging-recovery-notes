@@ -8,15 +8,6 @@ parameters:
   default: 'Team-10_Ops'
   type: string
   values:
-    - Team-1_Pi
-    - Team-2_Wastebusters
-    - Team-3_Recyclers
-    - Team-4_QA
-    - Team-5_Phoenix
-    - Team-6_Stig
-    - Team-7_Oscar
-    - Team-8_Pre-TST
-    - Team-9_Ops
     - Team-10_Ops
     - Team-11_Ops
 - name: envToDeploy
