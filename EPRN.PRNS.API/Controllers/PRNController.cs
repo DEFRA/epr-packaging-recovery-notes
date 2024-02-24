@@ -20,12 +20,13 @@ namespace EPRN.PRNS.API.Controllers
         }
 
         [HttpPost]
-        [Route("/api/[controller]/Create/Category/{category}/Material/{materialId}")]
+        [Route("/api/[controller]/Create/Category/{category}/Material/{materialId}/{userReferenceId}")]
         public async Task<IActionResult> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category,
+            string userReferenceId)
         {
-            var id = await _prnService.CreatePrnRecord(materialId, category);
+            var id = await _prnService.CreatePrnRecord(materialId, category, userReferenceId);
 
             return Ok(id);
         }
@@ -135,6 +136,15 @@ namespace EPRN.PRNS.API.Controllers
                 return NotFound();
 
             return Ok(prnDetailsDto);
+        }
+
+        [HttpGet]
+        [Route("/api/[controller]/Category/{category}/DraftDetails")]
+        public async Task<IActionResult> GetDraftPrnDetails(string userReferenceId)
+        {
+            List<PrnDto> prnDtos = await _prnService.GetDraftPrnDetailsForUser(userReferenceId);
+
+            return Ok(prnDtos);
         }
 
         [HttpGet]

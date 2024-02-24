@@ -77,6 +77,7 @@ public static class Strings
                     public const string DeleteDraft = "DeleteDraft";
                     public const string DraftConfirmation = "DraftConfirmation";
                     public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
+                    public const string DraftPrns = "DraftPrns";
                 }
             }
         }
@@ -95,6 +96,7 @@ public static class Strings
                 public const string Create = "Create";
                 public const string View = "View";
                 public const string ViewSentPrns = "ViewSentPrns";
+                public const string PrnSavedAsDraftConfirmation = "PrnSavedAsDraftConfirmation";
             }
 
             public static class Waste

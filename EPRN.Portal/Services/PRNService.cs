@@ -8,6 +8,7 @@ using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services.Interfaces;
 using EPRN.Portal.ViewModels.PRNS;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Cryptography.Xml;
 
 namespace EPRN.Portal.Services
 {
@@ -106,9 +107,10 @@ namespace EPRN.Portal.Services
 
         public async Task<int> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category,
+            string userReferenceId)
         {
-            return await _httpPrnsService.CreatePrnRecord(materialId, category);
+            return await _httpPrnsService.CreatePrnRecord(materialId, category, userReferenceId);
         }
 
         private TableRowViewModel CreateRow(int materialId, string material, double tonnage, int noOfDrafts)
@@ -238,6 +240,12 @@ namespace EPRN.Portal.Services
         public async Task DeleteDraftPrn(DeleteDraftPrnViewModel viewModel)
         {
             await _httpPrnsService.DeleteDraftPrn(viewModel.Id);
+        }
+
+        public async Task<List<ViewDraftPrnViewModel>> GetDraftViewPrnViewModel(string userReferenceId)
+        {
+            List<PrnDto> dtos = await _httpPrnsService.GetDraftPrnDetailsForUser(userReferenceId);
+            return _mapper.Map<List<ViewDraftPrnViewModel>>(dtos);
         }
     }
 }

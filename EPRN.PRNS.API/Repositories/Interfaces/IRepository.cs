@@ -8,7 +8,8 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task<int> CreatePrnRecord(
             int materialType,
             Category category,
-            string prnReference);
+            string prnReference, 
+            string userReferenceId);
 
         Task<bool> PrnExists(
             int id,
@@ -42,5 +43,7 @@ namespace EPRN.PRNS.API.Repositories.Interfaces
         Task SaveDecemberWaste(int jouneyId, bool decemberWaste);
 
         Task<DeleteDraftPrnDto> GetPrnReference(int id);
+
+        Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId);
     }
 }

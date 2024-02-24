@@ -11,5 +11,6 @@ namespace EPRN.Common.Dtos
         public double? Tonnes { get; set; }
         public PrnStatus Status { get; set; }
         public string Link { get; set; }
+        public int Id { get; set; }
     }
 }

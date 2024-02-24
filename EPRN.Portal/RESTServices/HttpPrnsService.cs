@@ -2,6 +2,7 @@
 using EPRN.Common.Enums;
 using EPRN.Portal.RESTServices.Interfaces;
 using EPRN.Portal.Services;
+using System.Security.Cryptography.Xml;
 
 namespace EPRN.Portal.RESTServices
 {
@@ -32,9 +33,10 @@ namespace EPRN.Portal.RESTServices
 
         public async Task<int> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category, 
+            string userReferenceId)
         {
-            return await Post<int>($"Create/Category/{(int)category}/Material/{materialId}");
+            return await Post<int>($"Create/Category/{(int)category}/Material/{materialId}/{userReferenceId}");
         }
 
         public async Task<double?> GetPrnTonnage(
@@ -125,6 +127,11 @@ namespace EPRN.Portal.RESTServices
        public async Task SaveDraftPrn(int id)
         {
             await Post($"{id}/Category/{_category}/Draft");
+        }
+
+        public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
+        {
+            return await Get<List<PrnDto>>($"Category/{_category}/DraftDetails?userReferenceId={userReferenceId}", false);
         }
     }
 }

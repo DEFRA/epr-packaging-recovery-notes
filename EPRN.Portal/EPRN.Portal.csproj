@@ -122,6 +122,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>CheckYourAnswersResources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\PRNS\DraftPrnsResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DraftPrnsResources.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\PRNS\RequestCancelConfirmedResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -289,6 +294,13 @@
     <EmbeddedResource Update="Resources\PRNS\DecemberWasteResource.cy-GB.resx">
       <SubType>Designer</SubType>
       <Generator></Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DraftPrnsResources.cy-GB.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\PRNS\DraftPrnsResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>DraftPrnsResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\PRNS\RequestCancelConfirmedResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

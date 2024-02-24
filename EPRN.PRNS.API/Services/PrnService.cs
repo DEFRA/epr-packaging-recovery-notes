@@ -28,12 +28,14 @@ namespace EPRN.PRNS.API.Services
 
         public async Task<int> CreatePrnRecord(
             int materialId,
-            Category category)
+            Category category,
+            string userReferenceId)
         {
             return await _prnRepository.CreatePrnRecord(
                 materialId,
                 category,
-                GenerateReferenceNumber());
+                GenerateReferenceNumber(), 
+                userReferenceId);
         }
 
         public async Task<double?> GetTonnage(int id)
@@ -114,6 +116,11 @@ namespace EPRN.PRNS.API.Services
         public async Task<PRNDetailsDto> GetPrnDetails(string reference)
         {
             return await _prnRepository.GetDetails(reference);
+        }
+
+        public async Task<List<PrnDto>> GetDraftPrnDetailsForUser(string userReferenceId)
+        {
+            return await _prnRepository.GetDraftPrnDetailsForUser(userReferenceId);
         }
 
         public async Task<DecemberWasteDto> GetDecemberWaste(int journeyId)

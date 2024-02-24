@@ -117,128 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Aluminium" xml:space="preserve">
-    <value>Aluminium</value>
+  <data name="BtnContinueEditing" xml:space="preserve">
+    <value>[Welsh]Continue editing</value>
   </data>
-  <data name="Back" xml:space="preserve">
-    <value>back</value>
+  <data name="BtnDelete_Exporter" xml:space="preserve">
+    <value>[Welsh]Delete PERN</value>
   </data>
-  <data name="ErrorMessageReceived" xml:space="preserve">
-    <value>Select the month the waste was received</value>
+  <data name="BtnDelete_Reprocessor" xml:space="preserve">
+    <value>[Welsh]Delete PRN</value>
   </data>
-  <data name="ErrorMessageSent" xml:space="preserve">
-    <value>Select the month the waste was sent on</value>
+  <data name="DeleteConfirmation" xml:space="preserve">
+    <value>[Welsh]Draft {0} has been deleted</value>
   </data>
-  <data name="Glass" xml:space="preserve">
-    <value>Glass</value>
+  <data name="Heading_Exporter" xml:space="preserve">
+    <value>[Welsh]View draft PERNs</value>
   </data>
-  <data name="HeadingReceived" xml:space="preserve">
-    <value>When did you receive the waste?</value>
-  </data>
-  <data name="HeadingSent" xml:space="preserve">
-    <value>When did you send it?</value>
-  </data>
-  <data name="HintTextReceived" xml:space="preserve">
-    <value>You can only record waste for the current month and for those months within an open quarterly return period.</value>
-  </data>
-  <data name="HintTextSent" xml:space="preserve">
-    <value>You can only record waste for the current month and for those months within an open quarterly return period.</value>
-  </data>
-  <data name="HintTextFebruary" xml:space="preserve">
-    <value>You can only record waste for February. Recording waste for previous months is not possible once you've submitted your previous return.</value>
+  <data name="Heading_Reprocessor" xml:space="preserve">
+    <value>[Welsh]View draft PRNs</value>
   </data>
   <data name="Important" xml:space="preserve">
-    <value>Important</value>
+    <value>[Welsh]Important</value>
   </data>
-  <data name="Month1" xml:space="preserve">
-    <value>January</value>
+  <data name="SubHeading_Exporter" xml:space="preserve">
+    <value>[Welsh]View, edit or delete a draft PERN</value>
   </data>
-  <data name="Month10" xml:space="preserve">
-    <value>October</value>
+  <data name="SubHeading_Reprocessor" xml:space="preserve">
+    <value>[Welsh]View, edit or delete a draft PRN</value>
   </data>
-  <data name="Month11" xml:space="preserve">
-    <value>November</value>
+  <data name="TableColumnDateCreated" xml:space="preserve">
+    <value>[Welsh]Date created</value>
   </data>
-  <data name="Month12" xml:space="preserve">
-    <value>December</value>
+  <data name="TableColumnMaterial" xml:space="preserve">
+    <value>[Welsh]Material</value>
   </data>
-  <data name="Month2" xml:space="preserve">
-    <value>February</value>
+  <data name="TableColumnNumber_Exporter" xml:space="preserve">
+    <value>[Welsh]PERN number</value>
   </data>
-  <data name="Month3" xml:space="preserve">
-    <value>March</value>
+  <data name="TableColumnNumber_Reprocessor" xml:space="preserve">
+    <value>[Welsh]PRN number</value>
   </data>
-  <data name="Month4" xml:space="preserve">
-    <value>April</value>
+  <data name="TableColumnSentTo" xml:space="preserve">
+    <value>[Welsh]Sent to</value>
   </data>
-  <data name="Month5" xml:space="preserve">
-    <value>May</value>
-  </data>
-  <data name="Month6" xml:space="preserve">
-    <value>June</value>
-  </data>
-  <data name="Month7" xml:space="preserve">
-    <value>July</value>
-  </data>
-  <data name="Month8" xml:space="preserve">
-    <value>August</value>
-  </data>
-  <data name="Month9" xml:space="preserve">
-    <value>September</value>
-  </data>
-  <data name="PageTitleReceived" xml:space="preserve">
-    <value>When was it received?</value>
-  </data>
-  <data name="PageTitleSent" xml:space="preserve">
-    <value>When did you send it?</value>
-  </data>
-  <data name="Paper" xml:space="preserve">
-    <value>Paper/board</value>
-  </data>
-  <data name="Plastic" xml:space="preserve">
-    <value>Plastic</value>
-  </data>
-  <data name="QuarterlyReturnDue" xml:space="preserve">
-    <value>You need to submit your quarterly return by </value>
-  </data>
-  <data name="QuarterlyReturnDueAction" xml:space="preserve">
-    <value>Submit this return</value>
-  </data>
-  <data name="QuarterlyReturnLate" xml:space="preserve">
-    <value>Your previous quarterly return is now late</value>
-  </data>
-  <data name="QuarterlyReturnLateAction" xml:space="preserve">
-    <value>You need to submit this return</value>
-  </data>
-  <data name="RecordFebruaryWaste" xml:space="preserve">
-    <value>Recording waste for February</value>
-  </data>
-  <data name="Steel" xml:space="preserve">
-    <value>Steel</value>
-  </data>
-  <data name="ThereIsAProblem" xml:space="preserve">
-    <value>There is a problem</value>
-  </data>
-  <data name="Wood" xml:space="preserve">
-    <value>Wood</value>
-  </data>
-  <data name="HintText" xml:space="preserve">
-    <value>You can only record waste for the current month and for those months within an open quarterly return period.
-</value>
-  </data>
-  <data name="HeadingExported" xml:space="preserve">
-    <value>When was it exported?</value>
-  </data>
-  <data name="HintTextExported" xml:space="preserve">
-    <value>You can only record waste for the current month and for those months within an open quarterly return period.</value>
-  </data>
-  <data name="PageTitleExported" xml:space="preserve">
-    <value>When was it exported?</value>
-  </data>
-  <data name="ErrorMessageExported" xml:space="preserve">
-    <value>Select the month the waste was exported</value>
-  </data>
-  <data name="ErrorMessagExported" xml:space="preserve">
-    <value>Select the month the waste was exported</value>
+  <data name="TableColumnTonnage" xml:space="preserve">
+    <value>[Welsh]Tonnage</value>
   </data>
 </root>

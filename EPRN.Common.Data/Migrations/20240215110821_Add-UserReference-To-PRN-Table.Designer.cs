@@ -4,16 +4,19 @@ using EPRN.Common.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace EPRN.Common.Data.Migrations
+namespace EPRN.Waste.API.Migrations
 {
     [DbContext(typeof(EPRNContext))]
-    partial class WasteContextModelSnapshot : ModelSnapshot
+    [Migration("20240215110821_Add-UserReference-To-PRN-Table")]
+    partial class AddUserReferenceToPRNTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,6 +98,7 @@ namespace EPRN.Common.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reason")
+                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 

@@ -6,7 +6,7 @@ namespace EPRN.Portal.Services.Interfaces
 {
     public interface IPRNService
     {
-        Task<int> CreatePrnRecord(int materialId, Category category);
+        Task<int> CreatePrnRecord(int materialId, Category category, string userReferenceId);
 
         Task<TonnesViewModel> GetTonnesViewModel(int id);
 
@@ -42,5 +42,7 @@ namespace EPRN.Portal.Services.Interfaces
         Task<DraftConfirmationViewModel> GetDraftConfirmationViewModel(int id);
 
         Task SaveDraftPrn(DraftConfirmationViewModel draftConfirmationViewModel);
+
+        Task<List<ViewDraftPrnViewModel>> GetDraftViewPrnViewModel(string userReferenceId);
     }
 }
