@@ -54,4 +54,4 @@ extends:
     acrRepositoryName: $(acr.repositoryName)
     branchName: ${{ replace(replace(variables['Build.SourceBranch'], 'refs/heads/', ''), '/', '_') }}
     runNugetTasks: ${{ variables.runNugetTasks }}
-    serviceName: $(serviceName)
+    serviceName: $(waste_serviceName)

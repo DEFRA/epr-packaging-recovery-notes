@@ -1,4 +1,9 @@
 variables:
-  azureSubscription: 'AZD-RWD-DEV9'
+  azureSubscription: 'AZD-RWD-DEV10'
   acr.azureContainerRegistryName: 'devrwdinfac1401'
-  serviceName: 'devrwdwebwa9403'
+  portal_serviceName: 'DEVRWDWEBWAA417'
+  prnr_serviceName: 'DEVRWDWEBWAA418'
+  waste_serviceName: 'DEVRWDWEBWAA419'
+  kvName: DEVRWDINFKV1401
+  sqlDBserver: 'devrwddbssq1401.database.windows.net'
+  sqlDB: 'dev10_accounts'

@@ -1,6 +1,0 @@
-variables:
-  azureSubscription: AZD-RWD-DEV1
-  docker.imageName: protectivemonitoringapi
-  acr.azureContainerRegistryName: devrwdinfac1401
-  acr.repositoryName: protectivemonitoringapirepository
-  serviceName: devrwdwebwa1403
