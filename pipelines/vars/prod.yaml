@@ -1,6 +1,6 @@
 variables:
-  azureSubscription: AZR-RWD-PRD1
-  docker.imageName: protectivemonitoringapi
-  acr.azureContainerRegistryName: prdrwdinfac1401
-  acr.repositoryName: protectivemonitoringapirepository
-  serviceName: prdrwdwebwa1403
+  azureSubscription: 'AZR-RWD-PRD1'
+  docker.imageName: 'epraccreditationbackend'
+  acr.azureContainerRegistryName: 'prdrwdinfac1401'
+  acr.repositoryName: 'epraccreditationbackendrepository'
+  serviceName: 'PRDRWDWEBWA1418'

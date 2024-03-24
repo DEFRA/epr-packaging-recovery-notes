@@ -1,6 +1,0 @@
-variables:
-  azureSubscription: AZD-RWD-TST1
-  docker.imageName: protectivemonitoringapi
-  acr.azureContainerRegistryName: tstrwdinfac1401
-  acr.repositoryName: protectivemonitoringapirepository
-  serviceName: tstrwdwebwa1403

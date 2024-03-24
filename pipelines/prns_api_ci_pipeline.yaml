@@ -15,7 +15,7 @@ parameters:
 pool: DEFRA-COMMON-ubuntu2004-SSV3
 
 variables:
-  - template: vars/Team-10_Ops-development.yaml
+  - template: vars/Team-10_Willow-development.yaml
   - name: solutionFolder
     value: '.'
   - name: projectFolder
@@ -25,7 +25,7 @@ variables:
   - name: sonarQubeProjectKey
     value: epr-packaging-recovery-notes
   - name: sonarQubeProjectName
-    value: epr-packaging-recovery-notes
+    value: EPRN.PRNS.API
   - name: runNugetTasks
     value: false
   - name: docker.imageName
